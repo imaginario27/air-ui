@@ -1,0 +1,53 @@
+@import "./theme/colors.css";
+
+
+/* NUXT CONTENT */
+.component-code-pre {
+    .shiki {
+        &.github-light,
+        &.github-dark {
+            background-color: transparent!important;
+        }
+    }
+}
+
+pre > code {
+    display: block;
+}
+
+pre {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+/* Line counter*/
+code {
+    counter-reset: step;
+    counter-increment: step 0;
+}
+code .line::before {
+    content: counter(step);
+    counter-increment: step;
+    width: 0.5rem;
+    margin-right: 1.2rem;
+    display: inline-block;
+    text-align: right;
+    color: rgba(115, 138, 148, .4)
+}
+code .line:empty::before {
+    content: none;
+}
+code .line:empty {
+    display: none;
+}
+
+/* OTHER */
+.bg-diagonal-stripes {
+    background-image: repeating-linear-gradient(
+        45deg,
+        rgba(0, 0, 0, 0.06) 0,
+        rgba(0, 0, 0, 0.06) 2px,
+        #f3f4f6 2px,
+        #f3f4f6 8px
+    );
+}

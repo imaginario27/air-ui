@@ -1,0 +1,44 @@
+<template>
+    <Section>
+        <SectionBody>
+            <TabBar v-model="activeIndex" :tabs />
+            <ContentRenderer 
+                v-if="data" :value="data" 
+            />
+            <ContentRenderFallback v-else />
+        </SectionBody>
+    </Section>
+</template>
+<script setup lang="ts">
+definePageMeta({
+    title: 'Subscription plan card',
+    layout: 'docs',
+    overtitle: 'Components',
+    description: 'Presents pricing details, plan features, and a call-to-action for a subscription tier—commonly used in pricing sections to help users compare and select plans.',
+})
+
+// Route
+const route = useRoute()
+const cleanPath = computed(() => route.path.split('?')[0].split('#')[0])
+
+const { data } = await useAsyncData(() => queryCollection('content').path(cleanPath.value).first())
+
+// States
+const activeIndex = ref(1)
+
+// Tabs
+const tabs: TabItem[] = [
+    {
+        text: 'CurrentActiveSubscriptionCard',
+        to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/current-active-subscription-card`,
+    },
+    {
+        text: 'SubscriptionPlanCard',
+        to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/subscription-plan-card`,
+    },
+    {
+        text: 'UniqueSubscriptionPlanCard',
+        to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/unique-subscription-plan-card`,
+    },
+]
+</script>

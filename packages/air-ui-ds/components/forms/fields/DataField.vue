@@ -1,0 +1,99 @@
+<template>
+    <div 
+        :class="[ 
+            'flex flex-col', 
+            'w-full', 
+            'gap-2' 
+        ]"
+    >
+        <!-- Label -->
+        <label 
+            v-if="label"
+            :for="id" 
+            :class="[ 
+                'text-sm', 
+                'font-semibold', 
+                'text-left',
+            ]"
+        >
+            {{ label }}
+        </label>
+
+        <template v-if="!$slots.default">
+            <template v-if="!isEmpty">
+                <div 
+                    v-if="text"
+                    class="flex gap-2 items-center"
+                >
+                    <p 
+                        :class="[
+                            'text-sm',
+                        ]"
+                    >
+                        {{ text }}
+                    </p>
+
+                    <ActionIconButton 
+                        v-if="hasCopyToClipboardButton"
+                        icon="mdiContentCopy"
+                        :size="ButtonSize.XS"
+                        @click="copyToClipboard(text.toString(), copyToClipboardMessage)"
+                    />
+                </div>
+            </template>
+            <template v-else>
+                <p 
+                    :class="[
+                        'text-sm text-text-neutral-subtle',
+                    ]"
+                >
+                    {{ emptyText }}
+                </p>
+            </template>
+        </template>
+
+        <!-- Slot for other type of items -->
+        <slot />
+       
+        <!-- Help Text -->
+        <p 
+            v-if="helpText"
+            :class="[ 
+                'text-xs text-left', 
+                'text-text-neutral-subtle',
+            ]" 
+        >
+            {{ helpText }}
+        </p>
+    </div>
+</template>
+
+<script setup lang="ts">
+// Props
+const props = defineProps({
+    id: { 
+        type: String as PropType<string>, 
+        required: true, 
+    },
+    label: String as PropType<string>,
+    text: [String, Number] as PropType<string | number>,
+    emptyText: {
+        type: String as PropType<string>,
+        default: 'Not defined'
+    },
+    helpText: String as PropType<string>,
+    hasCopyToClipboardButton: {
+        type: Boolean as PropType<boolean>,
+        default: false
+    },
+    copyToClipboardMessage: {
+        type: String as PropType<string>,
+        default: 'Copied to clipboard'
+    },
+})
+
+// Computed
+const isEmpty = computed(() => {
+    return props.text === '' || props.text === null || props.text === undefined || props.text === 0
+})
+</script>

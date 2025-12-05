@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "workspaces": [
+        "docs",
+        "packages/*"
+    ],
+    "scripts": {
+        "docs": "npm run dev --workspace=docs",
+        "ds": "npm run dev --workspace=@imaginario27/air-ui-ds",
+        "utils": "npm run dev --workspace=@imaginario27/air-ui-utils",
+        "test:docs": "npm run test --workspace=docs",
+        "test:ds": "npm run test --workspace=@imaginario27/air-ui-ds",
+        "test:utils": "npm run test --workspace=@imaginario27/air-ui-utils",
+        "publish:ds:patch": "npm version patch --workspace=@imaginario27/air-ui-ds --no-git-tag-version && npm publish --workspace=@imaginario27/air-ui-ds --access public",
+        "publish:ds:minor": "npm version minor --workspace=@imaginario27/air-ui-ds --no-git-tag-version && npm publish --workspace=@imaginario27/air-ui-ds --access public",
+        "publish:ds:major": "npm version major --workspace=@imaginario27/air-ui-ds --no-git-tag-version && npm publish --workspace=@imaginario27/air-ui-ds --access public",
+        "publish:utils:patch": "npm version patch --workspace=@imaginario27/air-ui-utils --no-git-tag-version && npm publish --workspace=@imaginario27/air-ui-utils --access public",
+        "publish:utils:minor": "npm version minor --workspace=@imaginario27/air-ui-utils --no-git-tag-version && npm publish --workspace=@imaginario27/air-ui-utils --access public",
+        "publish:utils:major": "npm version major --workspace=@imaginario27/air-ui-utils --no-git-tag-version && npm publish --workspace=@imaginario27/air-ui-utils --access public"
+    },
+    "dependencies": {
+        "better-sqlite3": "^12.5.0"
+    }
+}

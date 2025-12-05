@@ -1,0 +1,105 @@
+import {
+    readFileSync,
+    writeFileSync,
+    existsSync,
+    mkdirSync,
+    unlinkSync,
+} from "fs"
+import { resolve, dirname } from "path"
+
+export default defineEventHandler(() => {
+    const inputPath = resolve("assets/css/theme/ui-theme.css")
+    const outputPath = resolve("assets/css/main.css")
+
+    ensureOutputDir(outputPath)
+    deleteIfExists(outputPath)
+
+    const content = readFileSync(inputPath, "utf-8")
+    const { colorVars, otherVars } = extractThemeVars(content)
+
+    const finalOutput = generateThemeFile(colorVars, otherVars)
+    writeFileSync(outputPath, finalOutput, "utf-8")
+
+    return {
+        success: true,
+        message: "✅ Tailwind theme file generated in assets/css/",
+    }
+})
+
+const ensureOutputDir = (filePath: string) => {
+    const dir = dirname(filePath)
+    if (!existsSync(dir)) {
+        mkdirSync(dir, { recursive: true })
+    }
+}
+
+const deleteIfExists = (filePath: string) => {
+    if (existsSync(filePath)) {
+        unlinkSync(filePath)
+    }
+}
+
+const extractThemeVars = (content: string) => {
+    const colorVars: string[] = []
+    const otherVars: string[] = []
+
+    const lines = content.split("\n")
+    let inRoot = false
+    let inDark = false
+
+    for (const rawLine of lines) {
+        const line = rawLine.trim()
+
+        if (line.startsWith(":root {")) {
+            inRoot = true
+            continue
+        }
+        if (line.startsWith(".dark {")) {
+            inDark = true
+            continue
+        }
+        if (line.startsWith("}")) {
+            inRoot = false
+            inDark = false
+            continue
+        }
+
+        if (!inRoot || inDark) continue
+
+        const key = extractVarKey(line)
+        if (!key || key.startsWith("--ds-")) continue
+
+        const declaration = `    ${key}: var(${key});`
+        if (key.startsWith("--color-")) {
+            colorVars.push(declaration)
+        } else {
+            otherVars.push(declaration)
+        }
+    }
+
+    return { colorVars, otherVars }
+}
+
+const extractVarKey = (line: string): string | null => {
+    const match = line.match(/^--[\w-]+:\s*[^;]+;/)
+    if (!match) return null
+    const [key] = line.split(":").map(s => s.trim().replace(/;$/, ""))
+    return key || null
+}
+
+const generateThemeFile = (colorVars: string[], otherVars: string[]): string => [
+    `@import "tailwindcss";`,
+    `@import "./theme/primitives.css";`,
+    `@import "./theme/colors.css";`,
+    `@import "./theme/ui-theme.css";`,
+    `@import "./defaults.css";`,
+    ``,
+    `@theme {`,
+    `    /* Disables Tailwind default colors */`,
+    `    --color-*: initial;`,
+    ``,
+    ...colorVars,
+    ``,
+    ...otherVars,
+    `}`
+].join("\n")

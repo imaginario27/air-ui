@@ -1,0 +1,40 @@
+import { mount } from '@vue/test-utils'
+import type { VueWrapper } from '@vue/test-utils'
+import DataDetailsActions from '~/components/forms/DataDetailsActions.vue'
+
+const factory = (options = {}): VueWrapper => {
+    return mount(DataDetailsActions, {
+        slots: {
+            default: '<button>Action</button>'
+        },
+        ...options
+    })
+}
+
+describe('DataDetailsActions.vue', () => {
+    it('renders slot content', () => {
+        const wrapper = factory()
+        expect(wrapper.html()).toContain('Action')
+    })
+
+    it('applies default layout with flex-col-reverse when reverseOnMobile is true', () => {
+        const wrapper = factory()
+        const div = wrapper.find('div')
+
+        expect(div.classes()).toContain('flex-col-reverse')
+        expect(div.classes()).toContain('md:flex-row')
+    })
+
+    it('applies layout with flex-col when reverseOnMobile is false', () => {
+        const wrapper = factory({
+            props: {
+                reverseOnMobile: false
+            }
+        })
+        const div = wrapper.find('div')
+
+        expect(div.classes()).toContain('flex-col')
+        expect(div.classes()).toContain('md:flex-row')
+        expect(div.classes()).not.toContain('flex-col-reverse')
+    })
+})

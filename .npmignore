@@ -1,0 +1,6 @@
+# .npmignore
+tests/
+*.spec.ts
+*.test.ts
+vitest.config.ts
+tests/.coverage
