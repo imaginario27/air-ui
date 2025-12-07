@@ -7,11 +7,6 @@ export enum NavLinkSize {
     XXL = '2xl',
 }
 
-export enum MobileNavigationMenuType {
-    DROPDOWN = 'dropdown',
-    SIDEBAR = 'sidebar',
-}
-
 export enum SidebarNavMenuItemStyleType {
     SPACED = 'spaced',
     COMPACT = 'sidebar',

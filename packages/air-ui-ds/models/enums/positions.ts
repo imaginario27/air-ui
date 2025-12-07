@@ -14,6 +14,12 @@ export enum DropdownPosition {
     BOTTOM_RIGHT = 'bottom-right',
 }
 
+export enum SidebarTogglePosition {
+    RIGHT_SIDE = 'right-side',
+    LOGO_LEFT_SIDE = 'logo-left-side',
+    LOGO_RIGHT_SIDE = 'logo-right-side',
+}
+
 export enum Align {
     LEFT = 'left',
     CENTER = 'center',

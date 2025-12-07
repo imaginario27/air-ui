@@ -1,5 +1,5 @@
 <template>
-    <AppHeader />
+    <AppHeader :showMobileSidebarToggle="false"/>
     <MainContent :tocSidebarWidth="0">
         <slot />
     </MainContent>

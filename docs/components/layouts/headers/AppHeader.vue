@@ -1,29 +1,42 @@
 <template>
     <CompactHeader
         :navMenuItems="mainHeaderMenu"
-        :mobileMenuType="MobileNavigationMenuType.SIDEBAR"
+        :showMobileMenuToggle
+        :showMobileSidebarToggle
+        :sidebarTogglePosition="SidebarTogglePosition.LOGO_LEFT_SIDE"
         hasBorder
         isSticky
         class="backdrop-blur-md"
     >
         <template #header-logo>
             <AppLogo
+                :src="isDark ? logoDark : logoLight"
                 class="max-w-[80px]"
             />
             <Badge 
                 :color="ColorAccent.PRIMARY_BRAND"
                 :shape="BadgeShape.PILL"
-                text="1.0.0"
+                :text="designSystemDetails.version"
                 class="self-end select-none"
             />
         </template>
 
         <template #header-actions>
-            <ActionIconButton 
+            <!-- <ActionIconButton 
                 icon="mdiMagnify"
-            />
+            /> -->
+ 
             <ActionIconButton 
+                v-if="!isMobile"
                 :icon="isDark ? 'mdiMoonWaxingCrescent' : 'mdiWeatherSunny'"
+                @click="toggleDark"
+            />
+            <ActionButton 
+                v-else
+                :text="isDark ? 'Switch to light mode' : 'Switch to dark mode'"
+                :iconPosition="IconPosition.LEFT"
+                :icon="isDark ? 'mdiMoonWaxingCrescent' : 'mdiWeatherSunny'"
+                isFullWidth
                 @click="toggleDark"
             />
         </template>
@@ -36,8 +49,6 @@
                     'md:px-content-side-padding',
                     'flex',
                     'lg:hidden',
-                    'border-b',
-                    'border-border-default',
                 ]"
             >
                 <Collapsible :title="tocTitle">
@@ -63,12 +74,24 @@
     </CompactHeader>
 </template>
 <script setup lang="ts">
+// Imports
+import logoLight from '@/public/images/logo/air-ui-logo-color.svg?raw'
+import logoDark from '@/public/images/logo/air-ui-logo-white.svg?raw'
+
 // Props 
 defineProps({
     useBottomTabsHeader: {
         type: Boolean as PropType<boolean>,
         default: false
-    }
+    },
+    showMobileMenuToggle: {
+        type: Boolean as PropType<boolean>,
+        default: true,
+    },
+    showMobileSidebarToggle: {
+        type: Boolean as PropType<boolean>,
+        default: true,
+    },
 })
 
 // States
@@ -77,6 +100,9 @@ const tocTitle = ref('On this page')
 // Stores
 const darkModeStore = useDarkMode()
 const { toggleDark, isDark } = darkModeStore
+
+// Composables
+const { isMobile } = useIsMobile()
 
 // Route
 const route = useRoute()
