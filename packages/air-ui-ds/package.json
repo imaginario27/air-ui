@@ -3,6 +3,7 @@
     "version": "1.0.0",
     "author": "imaginario27",
     "type": "module",
+    "homepage": "https://air-ui.netlify.app/",
     "repository": {
         "type": "git",
         "url": "git+https://github.com/imaginario27/air-ui.git"
