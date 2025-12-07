@@ -1,19 +1,18 @@
 # @imaginario27/air-ui-ds
 
-A modular Design System and UI component library built for Vue 3 and Nuxt 3. It provides a scalable architecture for building consistent interfaces, theme management, and reusable components powered by Tailwind CSS and TypeScript.
+A modular Design System and UI component library built for Vue and Nuxt. It provides a scalable architecture for building consistent interfaces, theme management, and reusable components powered by Tailwind CSS and TypeScript.
 
 Documentation: [https://air-ui.netlify.app/](https://air-ui.netlify.app/)
 
 ## Features
 
-* Vue 3 and Nuxt 3 compatibility
+* Vue and Nuxt compatibility
 * Design System tokens for colors, spacing, typography, and themes
 * Reusable and typed UI components
 * Light and dark theme system with automatic CSS variable generation
-* Tailwind CSS v4 integration
+* Tailwind CSS latest version integration
 * Auto-import support for components and composables in Nuxt
 * Utilities for i18n, file uploads, images, PDF generation, and QR codes
-* Documentation support using Nuxt Content
 * Full testing setup with Vitest, Vue Test Utils, and Nuxt Test Utils
 
 
@@ -52,6 +51,8 @@ This regenerates the theme files used by Tailwind CSS and the Design System.
 This package includes a complete testing environment using:
 
 * Vitest
+* Vue Test Utils
+* Nuxt Test Utils
 * Happy DOM
 
 Run the tests with:
