@@ -1,8 +1,8 @@
-import { defineVitestConfig } from "@nuxt/test-utils/config"
+import { defineConfig } from 'vitest/config'
 
-export default defineVitestConfig({
+export default defineConfig({
     test: {
-        environment: "nuxt", // If you have other test, doesn't set that here
+        environment: "happy-dom",
         coverage: {
             reportsDirectory: 'tests/.coverage',
             reporter: ['text', 'html'], // More options: 'text', 'lcov', 'html'
