@@ -1,5 +1,8 @@
 <template>
-    <Section :spacing="SectionSpacing.XL">
+    <Section 
+        :spacing="SectionSpacing.XL" 
+        hasContentMaxWidth
+    >
         <SectionBody>
             <div class="flex flex-col md:flex-row gap-10">
                 <div class="w-full flex flex-col gap-8">
@@ -30,14 +33,14 @@
                     <div class="flex flex-col sm:flex-row gap-4">
                         <ActionButton 
                             :styleType="ButtonStyleType.PRIMARY_BRAND_FILLED"
-                            :size="ButtonSize.XL"
+                            :size="ButtonSize.XXL"
                             :actionType="ButtonActionType.LINK"
                             text="Get started"
                             :to="`/${AppSlug.DOCS}/`"
                             isMobileFullWidth
                         />
                         <ActionButton 
-                            :size="ButtonSize.XL"
+                            :size="ButtonSize.XXL"
                             :actionType="ButtonActionType.LINK"
                             text="Explore components"
                             :iconPosition="IconPosition.RIGHT"
@@ -47,7 +50,7 @@
                         />
                     </div>
 
-                    <List class="gap-4">
+                    <List class="gap-4 mt-8">
                         <ListItem>
                             <Feature 
                                 title="Built with Tailwind CSS"
@@ -80,6 +83,7 @@
 
     <Section 
         :spacing="SectionSpacing.LG"
+        hasContentMaxWidth
     >
         <SectionBody>
             <Grid>
@@ -119,7 +123,10 @@
 
     <Divider />
 
-    <Section :spacing="SectionSpacing.XL">
+    <Section 
+        :spacing="SectionSpacing.XL"
+        hasContentMaxWidth
+    >
         <SectionBody>
             <div class="flex flex-col md:flex-row gap-8">
                 <div class="w-full flex flex-col gap-8">
@@ -161,7 +168,10 @@
 
     <Divider />
 
-    <Section :spacing="SectionSpacing.XL">
+    <Section 
+        :spacing="SectionSpacing.XL"
+        hasContentMaxWidth
+    >
         <SectionBody>
             <div class="flex flex-col md:flex-row gap-8">
                 <div class="w-full flex flex-col gap-8">

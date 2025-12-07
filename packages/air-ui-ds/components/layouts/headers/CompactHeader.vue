@@ -1,32 +1,60 @@
 <template>
     <header 
         :class="[
-            isSticky && 'sticky top-0 z-50'
+            isSticky && 'sticky top-0 z-50',
         ]"
     >
         <slot name="top-header" />
+
         <!-- Main header wrapper -->
         <div
             :class="[
+                'w-full', 
                 'flex',
                 'items-center',
                 'justify-between',
                 'gap-3',
+                'mx-auto',
                 'px-content-side-padding-mobile md:px-content-side-padding',
                 'py-4',
                 'bg-background-surface',
-                hasBorder && 'border-b border-border-default',
-                isSticky && 'sticky top-0 z-50',
                 hasGlassEffect && [
                     'backdrop-blur-md',
                     'bg-background-surface/30 dark:bg-background-surface/85',
                 ],
-                containerClass,
+                hasBorder && 'border-b border-border-default',
+                innerContainerClass,
             ]"
         >
             <!-- Logo -->
             <div class="flex gap-4">
+                <template 
+                    v-if="
+                        showMobileSidebarToggle
+                        && sidebarTogglePosition === SidebarTogglePosition.LOGO_LEFT_SIDE
+                    "
+                >
+                    <ActionIconButton 
+                        :icon="isMobileSidebarOpen ? 'mdiMenuOpen' : 'mdiMenuClose'"
+                        class="lg:hidden shadow-sm"
+                        @click="toggleMobileSidebar"
+                    />
+                </template>  
+
                 <slot name="header-logo" />
+
+                <template 
+                    v-if="
+                        showMobileSidebarToggle
+                        && sidebarTogglePosition === SidebarTogglePosition.LOGO_RIGHT_SIDE
+                    "
+                >
+                    <ActionIconButton 
+                        :icon="isMobileSidebarOpen ? 'mdiMenuOpen' : 'mdiMenuClose'"
+                        class="lg:hidden shadow-sm"
+                        @click="toggleMobileSidebar"
+                    />
+                </template> 
             </div>
 
             <!-- Navigation -->
@@ -51,6 +79,7 @@
                 <DropdownMenu 
                     v-if="userMenuItems.length && userFullname"
                     class="min-w-[200px]"
+                    :positionYOffset="8"
                 >
                     <template #activator="{ onClick }">
                         <Avatar 
@@ -78,8 +107,11 @@
                 </DropdownMenu>
 
                 <!-- Mobile menu -->
-                <template v-if="isMobile && mobileMenuType === MobileNavigationMenuType.DROPDOWN">
-                    <DropdownMenu :class="navMobileMenuClass">
+                <template v-if="isMobile && showMobileMenuToggle">
+                    <DropdownMenu 
+                        :class="navMobileMenuClass"
+                        :positionYOffset="8"
+                    >
                         <template #activator="{ onClick }">
                             <ActionIconButton 
                                 icon="mdiMenu"
@@ -101,7 +133,12 @@
                     </DropdownMenu>
                 </template>
 
-                <template v-else-if="mobileMenuType === MobileNavigationMenuType.SIDEBAR">
+                <template 
+                    v-else-if="
+                        showMobileSidebarToggle
+                        && sidebarTogglePosition === SidebarTogglePosition.RIGHT_SIDE
+                    "
+                >
                     <ActionIconButton 
                         :icon="isMobileSidebarOpen ? 'mdiMenuOpen' : 'mdiMenuClose'"
                         class="lg:hidden shadow-sm"
@@ -132,10 +169,18 @@ defineProps({
         type: Array as PropType<DropdownMenuItem[]>,
         default: () => [],
     },
-    mobileMenuType: {
-        type: String as PropType<MobileNavigationMenuType>,
-        default: MobileNavigationMenuType.DROPDOWN,
-        validator: (value: MobileNavigationMenuType) => Object.values(MobileNavigationMenuType).includes(value),
+    showMobileMenuToggle: {
+        type: Boolean as PropType<boolean>,
+        default: true,
+    },
+    showMobileSidebarToggle: {
+        type: Boolean as PropType<boolean>,
+        default: true,
+    },
+    sidebarTogglePosition: {
+        type: String as PropType<SidebarTogglePosition>,
+        default: SidebarTogglePosition.RIGHT_SIDE,
+        validator: (value: SidebarTogglePosition) => Object.values(SidebarTogglePosition).includes(value),
     },
     hasBorder: {
         type: Boolean as PropType<boolean>,
@@ -161,7 +206,7 @@ defineProps({
         type: String as PropType<string>,
         default: 'lg:hidden min-w-[280px]'
     },
-    containerClass: String as PropType<string>,
+    innerContainerClass: String as PropType<string>,
 })
 
 // Composables

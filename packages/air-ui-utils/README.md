@@ -1,13 +1,13 @@
 # @imaginario27/air-ui-utils
 
-Utility package containing helper functions, composables, and reusable logic used across the Air UI ecosystem. Designed for Vue 3 and Nuxt 3 applications with TypeScript support.
+Utility package containing helper functions and reusable logic used across the Air UI ecosystem. Designed for Vue and Nuxt applications with TypeScript support.
 
 Documentation: [https://air-ui.netlify.app/](https://air-ui.netlify.app/)
 Repository: [https://github.com/imaginario27/air-ui](https://github.com/imaginario27/air-ui)
 
 ## Features
 
-* Utility functions and composables for Vue 3 and Nuxt 3
+* Utility functions and composables for Vue and Nuxt
 * TypeScript-first design
 * Modular and reusable logic
 * Compatible with Nuxt auto-imports
