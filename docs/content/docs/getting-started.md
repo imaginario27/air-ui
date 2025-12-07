@@ -1,97 +1,95 @@
-## Headers
+## What is Air UI?
 
-# This is a Heading h1
-## This is a Heading h2
-###### This is a Heading h6
+Air UI is a modern component and utility framework built on **Vue**, **Nuxt**, and **Tailwind CSS**, designed to accelerate development while maintaining full design freedom. It provides:
 
-## Emphasis
+- A consistent and themeable design system
+- Fully typed, reusable components and utilities
+- Auto-imported composables and helpers in Nuxt
+- Optimized setup for performance and scalability
 
-*This text will be italic*  
-_This will also be italic_
+### Built on modular packages
 
-**This text will be bold**  
-__This will also be bold__
+Air UI is composed of two focused, modular packages — each designed to serve a specific purpose in your application architecture:
 
-_You **can** combine them_
+* **[`@imaginario27/air-ui-ds`](https://www.npmjs.com/package/@imaginario27/air-ui-ds)**
+  Provides a fully typed component library, design tokens, themes, and composables tailored for Vue and Nuxt projects. Ideal for building consistent UI across applications.
 
-## Lists
+* **[`@imaginario27/air-ui-utils`](https://www.npmjs.com/package/@imaginario27/air-ui-utils)**
+  A standalone utility package offering reusable, type-safe logic and composables. Designed for Nuxt but suitable for any modern JavaScript or TypeScript project.
 
-### Unordered
+## Core technologies
 
-* Item 1
-* Item 2
-* Item 2a
-* Item 2b
-    * Item 3a
-    * Item 3b
+::grid
 
-### Ordered
-
-1. Item 1
-2. Item 2
-3. Item 3
-    1. Item 3a
-    2. Item 3b
-
-## Images
-
-![Landscape](https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80)
-
-## Links
-
-You may be using [Markdown Live Preview](https://markdownlivepreview.com/).
-
-## Blockquotes
-
-> “Markdown is not about fancy formatting — it’s about focusing on the content itself.”  
-> — John Doe
-
+::feature-card
 ---
+title: 'Vue + Composition API'
+description: 'Built entirely with Vue 3’s Composition API and TypeScript. Designed for modular, reactive architecture with auto-imported support in Nuxt.'
+icon: 'mdiVuejs'
+containedIconStyleType: 'flat'
+---
+::
 
-## Tables
+::feature-card
+---
+title: 'Nuxt integration'
+description: 'Air UI is optimized for Nuxt, supporting auto-import of all components and composables, with zero configuration required.'
+icon: 'mdiNuxt'
+containedIconStyleType: 'flat'
+---
+::
 
-| Left columns  | Right columns |
-| ------------- |:-------------:|
-| left foo      | right foo     |
-| left bar      | right bar     |
-| left baz      | right baz     |
+::feature-card
+---
+title: 'Tailwind CSS'
+description: 'Air UI uses the latest Tailwind CSS, enabling full design flexibility via utility classes, and supporting custom themes via CSS variables.'
+icon: 'mdiTailwind'
+containedIconStyleType: 'flat'
+---
+::
 
-## Example Table
+::
 
-| Feature         | Description                              |
-|-----------------|------------------------------------------|
-| 🧠 AI-powered    | Uses artificial intelligence to generate responses |
-| 🌐 Multi-language | Supports multiple languages               |
-| ⚡ Fast & Lightweight | Loads quickly with minimal resources  |
-| 🎨 Customizable   | Easily styled with Tailwind CSS or custom themes |
+## Key features
+
+### Design System
+
+- Design tokens for color, spacing, typography, and themes
+- Light and dark theme support with semantic variables
+- Built-in script to generate theme tokens and CSS variables
+
+### Component Library
+
+- Ready-to-use Vue components
+- Fully typed with TS support
+- Drop-in integration with Nuxt auto-import
+
+### Utility-first architecture
+
+- Type-safe, reusable helper functions and composables
+- Common utilities for:
+
+  - **Form validation and filters**
+  - **Date and string formatting**
+  - **Navigation and page helpers**
+  - **PDF generation**
+  - **User and password utilities**
+- Fully compatible with Nuxt's auto-import system
+- Modular by design — use only what you need
 
 
-## Blocks of code
+### Developer experience
 
-```js
-function greet(name) {
-    return `Hello, ${name}!`
-}
+- Full TypeScript support with IntelliSense
+- Tested with Vitest, Vue Test Utils, and Nuxt Test Utils
+- Consistent, composable API design
 
-const message = greet('AirUI')
-console.log(message) // Output: Hello, AirUI!
-```
 
-## Inline code
+## TypeScript support
 
-This web site is using `markedjs/marked`.
+Air UI provides a complete type-safe experience across both UI components and utilities:
 
-## Example Paragraphs
-
-Markdown is a lightweight markup language that enables formatting using plain text syntax. It's widely used in documentation, blogging, and content management because of its simplicity and readability.
-
-With Markdown, you can easily create headings, lists, links, and even insert images without relying on complex HTML or rich text editors. This makes it ideal for developers and technical writers.
-
-Another advantage of Markdown is its portability. Since it's just text, Markdown files are small, version-controllable, and work across platforms and tools seamlessly.
-
-Many modern frameworks and platforms like Nuxt, GitHub, and Notion support or extend Markdown, allowing users to write rich content with minimal effort.
-
-You can also enhance Markdown using custom components, plugins, or preprocessors—enabling interactive features or styled blocks for a better user experience.
-
-You can learn more on the [Getting Started](/docs/getting-started) page.
-
+* **Props, slots, and events** are fully typed
+* **Composables** return strongly-typed reactive values
+* **Design tokens** are generated and typed automatically
+* Supports **IntelliSense** in both Nuxt and Vue projects

@@ -4,7 +4,15 @@
             <ContentRenderer 
                 v-if="data" :value="data" 
             />
-            <div v-else>Home not found</div>
+            <ContentRenderFallback v-else />
+
+            <ContentFooterNavigation 
+                :previousPage="{
+                    label: 'Introduction',
+                    link: `/${AppSlug.DOCS}/${AppSlug.GETTING_STARTED}`,
+                    description: 'Get started with AirUI.'
+                }"
+            />
         </SectionBody>
     </Section>
     
