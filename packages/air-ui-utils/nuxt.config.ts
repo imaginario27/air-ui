@@ -5,7 +5,9 @@ export default defineNuxtConfig({
     devtools: { enabled: false },
     ssr: false,
 
-    eslint: {
-        // options here
+    imports: {
+        dirs: [
+            "models/**"
+        ],
     },
 })

@@ -74,36 +74,6 @@
                             {{ acceptedFileTypes }} {{ upToText }} {{ maxFileSize }}MB
                         </p>
                     </template>
-                    <!-- <template v-if="!isImageFile" #preview>
-                        <div class="w-full flex flex-col gap-2">
-                            <div
-                                v-for="(file, index) in selectedFiles"
-                                :key="index"
-                                class="flex flex-row gap-3 p-3 border border-border-default rounded-md bg-background-neutral w-full"
-                            >
-                                <div class="flex items-start justify-center pt-1">
-                                    <MdiIcon 
-                                        icon="mdiFileDocumentOutline" 
-                                        size="24"
-                                        class="text-icon-default min-w-[24px]" 
-                                    />
-                                </div>
-
-                                <div class="flex flex-col flex-1 overflow-hidden">
-                                    <p class="text-sm font-medium break-words whitespace-normal leading-snug mt-1.5 select-none">
-                                        {{ file.name || (file as any)?.file?.name || 'Unnamed file' }}
-                                    </p>
-                                </div>
-
-                                <ActionIconButton
-                                    icon="mdiClose"
-                                    :styleType="ButtonStyleType.DELETE_FILLED"
-                                    :size="ButtonSize.SM"
-                                    @click="removeFile(index)"
-                                />
-                            </div>
-                        </div>
-                    </template> -->
                 </Vue3Dropzone>
 
                 <!-- Help Text -->
@@ -123,7 +93,6 @@
 
 <script setup lang="ts">
 // Imports
-//@ts-ignore
 import Vue3Dropzone from '@jaxtheprime/vue3-dropzone'
 import '@jaxtheprime/vue3-dropzone/dist/style.css'
 
@@ -214,23 +183,6 @@ const { $toast } = useNuxtApp()
 // Computed
 const hasError = computed(() => props.error !== '')
 
-// Used to check if the file is an image or not
-const isImageFile = computed(() => {
-    const accepted = Array.isArray(props.accept) ? props.accept : [props.accept]
-
-    const acceptsImages = accepted.some(type =>
-        typeof type === 'string' && type.startsWith('image/')
-    )
-
-    if (!acceptsImages) return false
-
-    return selectedFiles.value.length > 0 &&
-        selectedFiles.value.every(file => {
-            const realFile = (file as any)?.file || file
-            return realFile?.type?.startsWith('image/')
-        })
-})
-
 // Converts Array of strings into a string
 const normalizedAccept = computed(() => {
     return Array.isArray(props.accept) ? props.accept.join(',') : props.accept
@@ -240,9 +192,10 @@ const normalizedAccept = computed(() => {
 const acceptedFileTypes = computed(() => {
     return (Array.isArray(props.accept) ? props.accept : [props.accept])
         .map(ext => {
-            // Extract file extension from MIME type
             const match = ext.match(/\/([a-zA-Z0-9]+)/)
-            return match ? match[1].toUpperCase() : ext.toUpperCase()
+
+            // If matched, return the extracted file extension, otherwise use full type
+            return match?.[1]?.toUpperCase() || ext.toUpperCase()
         })
         .join(', ')
 })

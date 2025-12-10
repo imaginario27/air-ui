@@ -17,7 +17,7 @@
             >
                 {{ groupKey }}
             </component>
-            <Accordion :items="groupedAccordeons[groupKey]" />
+            <Accordion :items="groupedAccordeons[groupKey] ?? []" />
         </div>
     </div>
     

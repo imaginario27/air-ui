@@ -56,7 +56,7 @@ export function getPaginatedData<T>(
  *   value: user => slugify(user.name),
  * })
  */
-export const convertToSelectOptions = <T = Record<string, any>>(
+export const convertToSelectOptions = <T extends Record<string, any>>(
     originArray: T[],
     keyMap: Partial<Record<keyof SelectOption, keyof T | ((item: T) => any)>>
 ): SelectOption[] => {
@@ -68,14 +68,18 @@ export const convertToSelectOptions = <T = Record<string, any>>(
         .map((item) => {
             const option: Partial<SelectOption> = {}
 
-            for (const [optionKey, source] of Object.entries(keyMap)) {
+            for (const [rawKey, source] of Object.entries(keyMap) as [
+                keyof SelectOption,
+                keyof T | ((item: T) => any)
+            ][]) {
                 const value =
                     typeof source === 'function'
                         ? source(item)
-                        : item[source as keyof T]
+                        : item[source]
 
                 if (value !== undefined) {
-                    option[optionKey as keyof SelectOption] = value
+                    // Prevents error by casting to indexable object
+                    ;(option as Record<keyof SelectOption, unknown>)[rawKey] = value
                 }
             }
 
@@ -92,3 +96,4 @@ export const convertToSelectOptions = <T = Record<string, any>>(
         })
         .filter(Boolean) as SelectOption[]
 }
+

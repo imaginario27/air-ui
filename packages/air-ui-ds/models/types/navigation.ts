@@ -1,6 +1,11 @@
 export interface MenuItem {
-    text: string;
-    to: string;
+    text: string
+    to: string
+}
+
+export interface FooterMenuItem {
+    text: string
+    to: string
 }
 
 export interface SidebarMenuItem {

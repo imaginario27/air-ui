@@ -264,7 +264,15 @@ const svgIconColorClass = computed(() => {
 
 // Computed functions
 const resolvedSvgIconColor = computed(() => {
-    return props.useSVGIconColor ? undefined : svgIconColorClass
+    if (props.useSVGIconColor) return undefined
+
+    const val = svgIconColorClass.value
+
+    if (Array.isArray(val)) {
+        return val.filter(Boolean).join(' ')
+    }
+
+    return val
 })
 
 // Props for the dynamic component

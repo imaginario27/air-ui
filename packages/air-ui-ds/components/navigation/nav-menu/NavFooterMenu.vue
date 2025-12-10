@@ -50,7 +50,7 @@
                 >
                     <MdiIcon
                         v-if="item.icon"
-                        :icon="item.icon"
+                        :icon="item.icon as any"
                         size="20"
                         preserveAspectRatio="xMidYMid meet"
                     />
@@ -62,8 +62,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
-import { NuxtLink } from '#components'
+// Props
 
 type NavItem = {
     path: string

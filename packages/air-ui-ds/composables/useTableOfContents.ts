@@ -28,7 +28,8 @@ export const useTableOfContents = () => {
 
         // First heading is active by default when the page loads
         if (headings.length > 0) {
-            activeId.value = headings[0].id
+            const firstHeading = headings[0] as HTMLElement
+            activeId.value = firstHeading.id ?? null
         }
     }
 

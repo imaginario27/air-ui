@@ -1,5 +1,3 @@
-import { AppNotification } from "../models/constants/notifications"
-
 /**
  * A composable to handle clicks outside a specified element.
  *
@@ -31,25 +29,18 @@ export const useClickOutside = (
 
 
 /**
- * Copies text to the clipboard and shows success or error notifications.
- * @param text - The text to copy to the clipboard.
- * @param successMessage - The success message to display.
- * @param errorMessage - The error message to display.
+ * Copies text to the clipboard.
+ * @param text - The text to copy.
+ * @returns A promise that resolves to true if successful, false otherwise.
  */
-export const copyToClipboard = async (
-    text: string, 
-    successMessage: string = 'Copied to clipboard', 
-    errorMessage: string = 'Failed to copy to clipboard'
-): Promise<void> => {
-    if (!text) return
-
-    const { $toast } = useNuxtApp()
+export const copyToClipboard = async (text: string): Promise<boolean> => {
+    if (!text) return false
 
     try {
         await navigator.clipboard.writeText(text)
-        $toast.success(successMessage, { toastId: 'clipboard-success' })
+        return true
     } catch {
-        $toast.error(errorMessage, { toastId: 'clipboard-error' })
+        return false
     }
 }
 

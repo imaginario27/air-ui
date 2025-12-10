@@ -25,7 +25,7 @@
                 :class="[
                     'min-w-[20px] sm:min-w-[40px]',
                     'border-2',
-                    stepItems[index].status === StepStatus.COMPLETED && '!border-border-primary-brand-active',
+                    item.status === StepStatus.COMPLETED && '!border-border-primary-brand-active',
                     dividerClass
                 ]"
             />
