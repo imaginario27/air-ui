@@ -92,8 +92,6 @@ function generateThemeFile(colorVars: string[], otherVars: string[]): string {
         `@import "./theme/colors.css";`,
         `@import "./theme/ui-theme.css";`,
         `@import "./defaults.css";`,
-        `@import "./defaults.css";`,
-        `@import "./defaults.css";`,
         ``,
         `@theme {`,
         `    /* Disables Tailwind default colors */`,

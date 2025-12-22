@@ -8,22 +8,21 @@
 
             <ContentFooterNavigation 
                 :previousPage="{
-                    label: 'Introduction',
-                    link: `/${AppSlug.DOCS}/${AppSlug.GETTING_STARTED}`,
-                    description: 'Get started with AirUI.'
+                    label: 'Theme customization',
+                    link: `/${AppSlug.DOCS}/${AppSlug.GETTING_STARTED}/${AppSlug.THEME}/theme-customization`,
+                    description: 'Learn how to customize the theme of AirUI.'
                 }"
             />
         </SectionBody>
     </Section>
-    
 </template>
 
 <script setup lang="ts">
 definePageMeta({
-    title: 'Installation',
+    title: 'Design tokens',
     layout: 'docs',
     overtitle: 'Getting Started',
-    description: 'Learn hot to install and configure AirUI in your Nuxt application'
+    description: 'Learn about AirUI’s design tokens and how to customize them to fit your project’s needs.'
 })
 
 // Route
@@ -31,5 +30,4 @@ const route = useRoute()
 const cleanPath = computed(() => route.path.split('?')[0].split('#')[0])
 
 const { data } = await useAsyncData(() => queryCollection('content').path(cleanPath.value).first())
-
 </script>

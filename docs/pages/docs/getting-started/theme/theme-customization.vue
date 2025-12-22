@@ -7,10 +7,15 @@
             <ContentRenderFallback v-else />
 
             <ContentFooterNavigation 
-                :nextPage="{
+                :previousPage="{
                     label: 'Installation',
-                    link: `/${AppSlug.DOCS}/installation`,
+                    link: `/${AppSlug.DOCS}/${AppSlug.GETTING_STARTED}/installation`,
                     description: 'Learn how to install AirUI in your project.'
+                }"
+                :nextPage="{
+                    label: 'Design tokens',
+                    link: `/${AppSlug.DOCS}/${AppSlug.GETTING_STARTED}/${AppSlug.THEME}/design-tokens`,
+                    description: 'Learn how to customize the design tokens of AirUI.'
                 }"
             />
         </SectionBody>
@@ -19,10 +24,10 @@
 
 <script setup lang="ts">
 definePageMeta({
-    title: 'Introduction',
+    title: 'Theme customization',
     layout: 'docs',
     overtitle: 'Getting Started',
-    description: 'AirUI is a flexible design system and UI library for Nuxt applications, offering a scalable foundation of fully styled components, theming tools, and developer-friendly utilities.'
+    description: 'Learn how to customize the theme of AirUI to match your brand and design requirements.'
 })
 
 // Route
