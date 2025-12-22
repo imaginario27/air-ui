@@ -421,7 +421,15 @@ watch(() => props.modelValue, (newValue) => {
 
     } else {
         const newSelected = props.options.find(option => option.value === newValue) as SelectOption
-        selected.value = newSelected || { text: props.placeholder } // Default to placeholder if no match
+        selected.value = newSelected || { 
+            text: props.placeholder, 
+            value: (
+                typeof props.modelValue === 'string' || 
+                typeof props.modelValue === 'number'
+            )
+                ? props.modelValue
+                : ''
+        }
     }
 })
 

@@ -9,25 +9,25 @@
     >
         <SecurePasswordCondition
             v-if="enabledConditions.includes('length')"
-            :label="$t('Password should be at least 12 characters long.')"
+            :label="'Password should be at least 12 characters long.'"
             :isValid="conditions.isLongEnough"
         />
 
         <SecurePasswordCondition
             v-if="enabledConditions.includes('combination')"
-            :label="$t('Use a mix of uppercase and lowercase letters.')"
+            :label="'Use a mix of uppercase and lowercase letters.'"
             :isValid="conditions.hasMixedCase"
         />
 
         <SecurePasswordCondition
             v-if="enabledConditions.includes('specialCharacters')"
-            :label="$t('Include numbers and special characters for extra security.')"
+            :label="'Include numbers and special characters for extra security.'"
             :isValid="conditions.hasNumbersAndSpecialChars"
         />
 
         <SecurePasswordCondition
             v-if="enabledConditions.includes('passwordMatch') && repeatPassword !== undefined"
-            :label="$t('Both passwords must match.')"
+            :label="'Both passwords must match.'"
             :isValid="password === repeatPassword && password !== ''"
         />
     </div>

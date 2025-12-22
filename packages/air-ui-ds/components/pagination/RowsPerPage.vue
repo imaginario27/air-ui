@@ -7,7 +7,7 @@
             :modelValue
             :options="rowsOptions" 
             class="w-full min-w-[80px]"
-            :dropdownPosition="DropdownPosition.TOP"
+            :dropdownPosition="Position.TOP"
             @update:modelValue="(value) => emit('update:modelValue', value)"
         />
     </div>

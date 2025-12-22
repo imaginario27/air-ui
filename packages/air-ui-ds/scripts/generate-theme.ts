@@ -85,13 +85,12 @@ function extractVarKey(line: string): string | null {
 function generateThemeFile(colorVars: string[], otherVars: string[]): string {
     return [
         `@import "tailwindcss";`,
-        `@source "../../../packages/air-ui-ds/components";`,
-        `@source "../../../packages/air-ui-utils";`,
+        `@source "../../node_modules/@imaginario27/air-ui-ds";`,
+        `@source "../../node_modules/@imaginario27/air-ui-utils";`,
         ``,
         `@import "./theme/primitives.css";`,
         `@import "./theme/colors.css";`,
         `@import "./theme/ui-theme.css";`,
-        `@import "./defaults.css";`,
         ``,
         `@theme {`,
         `    /* Disables Tailwind default colors */`,

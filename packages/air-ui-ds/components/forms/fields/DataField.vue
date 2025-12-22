@@ -37,7 +37,7 @@
                         v-if="hasCopyToClipboardButton"
                         icon="mdiContentCopy"
                         :size="ButtonSize.XS"
-                        @click="copyToClipboard(text.toString(), copyToClipboardMessage)"
+                        @click="handleCopyToClipboard"
                     />
                 </div>
             </template>
@@ -90,10 +90,28 @@ const props = defineProps({
         type: String as PropType<string>,
         default: 'Copied to clipboard'
     },
+    copyToClipboardErrorMessage: {
+        type: String as PropType<string>,
+        default: 'Failed to copy to clipboard'
+    },
 })
 
 // Computed
 const isEmpty = computed(() => {
     return props.text === '' || props.text === null || props.text === undefined || props.text === 0
 })
+
+// Toast
+const { $toast } = useNuxtApp()
+
+// Methods
+const handleCopyToClipboard = async () => {
+    const success = await copyToClipboard(props.text?.toString() ?? '')
+
+    if (success) {
+        $toast.success(props.copyToClipboardMessage, { toastId: 'clipboard-success' })
+    } else {
+        $toast.error(props.copyToClipboardErrorMessage, { toastId: 'clipboard-error' })
+    }
+}
 </script>

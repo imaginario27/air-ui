@@ -5,7 +5,7 @@
             'w-full',
             'border-collapse',
             'text-left',
-            'text-sm',
+            'text-base',
         ]"
     >
         <slot />

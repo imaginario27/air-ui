@@ -114,7 +114,7 @@
                                     'whitespace-nowrap',
                                 ]"
                             >
-                                {{ $t('slider.clickToEdit') }}
+                                Click to edit
                             </div>
                         </div>
                     </div>
@@ -283,7 +283,7 @@
                                     'whitespace-nowrap',
                                 ]"
                             >
-                                {{ $t('slider.clickToEdit') || 'Click para editar' }}
+                                Click to edit
                             </div>
                         </div>
                     </div>
@@ -514,21 +514,23 @@ const getThumbPosition = (value: number) => {
 const trackStyle = computed(() => {
     if (props.type === SliderType.RANGE) {
         const [start, end] = thumbValues.value
-        const startPercent = percentage(start)
-        const endPercent = percentage(end)
+
+        const startPercent = percentage(start ?? props.min)
+        const endPercent = percentage(end ?? props.max)
 
         return {
             left: `${startPercent}%`,
             width: `${endPercent - startPercent}%`,
         }
     } else {
-        const percent = percentage(thumbValues.value[0])
+        const percent = percentage(thumbValues.value[0] ?? props.min)
         return {
             left: '0%',
             width: `${percent}%`,
         }
     }
 })
+
 
 const startDrag = (index: number) => {
     if (props.disabled) return
@@ -551,23 +553,20 @@ const onDrag = (event: MouseEvent) => {
         const step = stepSize.value
         const stepsFromMin = Math.round((clamped - props.min) / step)
         clamped = props.min + stepsFromMin * step
-        clamped = Math.round(clamped)
-        emit('update:modelValue', clamped)
-    } else {
-        // MODIFICADO: Validación para rangos durante el drag
-        const range = [...(thumbValues.value as [number, number])]
-        const roundedValue = Math.round(clamped)
-        
-        if (draggingIndex.value === 0) {
-            // Arrastrando el thumb mínimo
-            range[0] = Math.min(roundedValue, range[1] - 1) // Asegurar que sea menor que el máximo
-        } else if (draggingIndex.value === 1) {
-            // Arrastrando el thumb máximo
-            range[1] = Math.max(roundedValue, range[0] + 1) // Asegurar que sea mayor que el mínimo
-        }
-        
-        emit('update:modelValue', range)
+        emit('update:modelValue', Math.round(clamped))
+        return
     }
+
+    const range = [...thumbValues.value] as [number, number]
+    const roundedValue = Math.round(clamped)
+
+    if (draggingIndex.value === 0) {
+        range[0] = Math.min(roundedValue, range[1] - 1)
+    } else {
+        range[1] = Math.max(roundedValue, range[0] + 1)
+    }
+
+    emit('update:modelValue', range)
 }
 
 const stopDrag = () => {
@@ -657,25 +656,34 @@ const stopEditing = () => {
 
     // AÑADIDO: Validación específica para rangos
     if (props.type === SliderType.RANGE) {
-        const currentRange = [...(props.modelValue as [number, number])]
-        
+        const mv = props.modelValue
+
+        if (!Array.isArray(mv)) return
+
+        const currentRange = [...mv] as [number, number]
+
         if (editingIndex.value === 0) {
-            // Editando valor mínimo - debe ser menor que el máximo
             if (adjustedValue >= currentRange[1]) {
                 showEditingError('El valor mínimo debe ser menor que el máximo')
                 return
             }
-        } else if (editingIndex.value === 1) {
-            // Editando valor máximo - debe ser mayor que el mínimo
+        } 
+        else if (editingIndex.value === 1) {
             if (adjustedValue <= currentRange[0]) {
                 showEditingError('El valor máximo debe ser mayor que el mínimo')
                 return
             }
+        } 
+        else {
+            // If editingIndex is null or invalid, stop.
+            return
         }
-        
-        // Si llegamos aquí, el valor es válido
+
+        // Now it's safe:
         currentRange[editingIndex.value] = adjustedValue
         emit('update:modelValue', currentRange)
+
+        return
     } else {
         // Para slider simple, solo actualizar el valor
         emit('update:modelValue', adjustedValue)

@@ -1,6 +1,6 @@
 import jsPDF from "jspdf"
 import autoTable from "jspdf-autotable"
-import type { Headers } from "@/models/types/pdfExportTable"
+import type { Headers } from "../models/types/pdfExportTable"
 
 /**
  * Exports data to a PDF file.

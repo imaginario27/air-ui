@@ -56,7 +56,7 @@
             <!-- Input -->
             <input
                 :id
-                :type
+                :type="props.type === 'password' ? passwordInputType : props.type"
                 :placeholder
                 :value="modelValue"
                 :maxlength="maxLength"
@@ -93,7 +93,7 @@
                 v-if="suffixIcon"
                 type="button"
                 :class="[
-                    'text-icon-neutral-subtler',
+                    'text-icon-default',
                     'hover:text-icon-neutral-subtle',
                     'focus:outline-none',
                     'transition-colors',
@@ -103,6 +103,26 @@
             >
                 <MdiIcon
                     :icon="suffixIcon"
+                    size="20"
+                    preserveAspectRatio="xMidYMid meet"
+                />
+            </button>
+
+            <!-- Show / Hide password -->
+            <button
+                v-if="!suffixIcon && type === 'password' && hasShowPasswordButton"
+                type="button"
+                :class="[
+                    'text-icon-default',
+                    'hover:text-icon-neutral-subtle',
+                    'focus:outline-none',
+                    'transition-colors',
+                    'cursor-pointer',
+                ]"
+                @click="() => showPassword = !showPassword"
+            >
+                <MdiIcon
+                    :icon="showPassword ? 'mdiEyeOffOutline' : 'mdiEyeOutline'"
                     size="20"
                     preserveAspectRatio="xMidYMid meet"
                 />
@@ -154,7 +174,7 @@ const props = defineProps({
     icon: String as PropType<any>,
     suffixIcon: String as PropType<any>,
     linkText: String as PropType<string>,
-    linkUrl: String as PropType<string>,    
+    linkUrl: String as PropType<string>,       
     size: {
         type: String as PropType<InputSize>,
         default: InputSize.MD,
@@ -184,6 +204,10 @@ const props = defineProps({
         type: Boolean as PropType<boolean>,
         default: false,
     },
+    hasShowPasswordButton: {
+        type: Boolean as PropType<boolean>,
+        default: true,
+    }, 
     min: String as PropType<string>,
     max: String as PropType<string>,
     step: String as PropType<string>,
@@ -193,7 +217,7 @@ const props = defineProps({
         default: false,
     },
     autocomplete: {
-        type: String as PropType<'on' | 'off'>,
+        type: String as PropType<string>,
         default: 'off',
     },
     autofocus: {
@@ -215,6 +239,7 @@ const emit = defineEmits(['update:modelValue', 'update:error', 'click:suffix'])
 
 // States
 const isFocused = ref(false)
+const showPassword = ref(false)
 
 // Composables
 const validationMode = useInjectedValidationMode()
@@ -229,6 +254,11 @@ const filled = computed(() => {
         return true
     }
     return false
+})
+
+const passwordInputType = computed(() => {
+    if (props.type !== 'password') return props.type
+    return showPassword.value ? 'text' : 'password'
 })
 
 // Computed classes

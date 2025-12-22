@@ -62,11 +62,13 @@ const isHovered = ref(false)
 
 // Computed classes
 const titleClass = computed(() => {
-    const variant = {
+    const variant: Record<StepStatus, string> = {
         [StepStatus.INACTIVE]: 'text-text-neutral-inactive group-hover:text-text-primary-brand-hover',
         [StepStatus.CURRENT]: 'text-text-primary-brand-active group-hover:text-text-primary-brand-hover',
         [StepStatus.COMPLETED]: 'text-text-default group-hover:text-text-primary-brand-hover',
+        [StepStatus.NONE]: 'text-text-neutral-inactive',
     }
-    return variant[props.status as StepStatus] || 'text-text-neutral-inactive'
+
+    return variant[props.status ?? StepStatus.INACTIVE]
 })
 </script>
