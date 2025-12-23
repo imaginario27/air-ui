@@ -28,7 +28,8 @@ external:
 externalTypes:
   - boolean
   - string
-previewBackground: 'white'
+isPreviewContentBoxed: true
+previewContentMaxWidth: 400
 propsSettingsExcludedProps: ['validator']
 ---
 ::
@@ -46,10 +47,6 @@ props: [
     {
         "name": "label",
         "default": "'Text'",
-        "type": "string",
-    },
-    {
-        "name": "label",
         "type": "string",
     },
     {

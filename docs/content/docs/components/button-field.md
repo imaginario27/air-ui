@@ -73,7 +73,8 @@ items:
         - value: right
           text: RIGHT
 
-previewBackground: 'white'
+isPreviewContentBoxed: true
+previewContentMaxWidth: 400
 ---
 ::
 

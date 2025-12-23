@@ -71,7 +71,7 @@
                             v-model="componentProps[option.name]"
                             :label="option.name"
                             placeholder="Write something"
-                            :type="option.type"
+                            :type="option.inputType"
                             :maxLength="50"
                             permitNegativeNumber
                         />
@@ -104,46 +104,59 @@
                     !showCode ? 'py-20 px-8' : 'p-8',
                     'border-b border-border-default',
                     componentPreviewClass,
+                    'rounded',
                 ]"
             >
-                <component 
-                    :is="component" 
-                    v-bind="{
-                        ...componentProps,
-                        ...componentEvents
-                    }"
+                <!-- Preview inner container -->
+                <div
+                    :class="[
+                        'flex',
+                        'items-center',
+                        'w-full',
+                        'items-center justify-center',
+                        isPreviewContentBoxed && 'p-4 md:p-8 border border-border-default rounded bg-background-container-surface',
+                    ]"
+                    :style="previewContentStyle"
                 >
-                    <template
-                        v-for="slotName in Object.keys(slots || {})"
-                        :key="slotName"
-                        v-slot:[slotName]="slotProps"
+                    <component 
+                        :is="component" 
+                        v-bind="{
+                            ...componentProps,
+                            ...componentEvents
+                        }"
                     >
-                        <template v-if="slotComponentMap[slotName]">
-                            <!-- If multiple slots components -->
-                            <template v-if="Array.isArray(slotComponents?.[slotName]?.props) && slotComponents?.[slotName]?.multiple">
+                        <template
+                            v-for="slotName in Object.keys(slots || {})"
+                            :key="slotName"
+                            v-slot:[slotName]="slotProps"
+                        >
+                            <template v-if="slotComponentMap[slotName]">
+                                <!-- If multiple slots components -->
+                                <template v-if="Array.isArray(slotComponents?.[slotName]?.props) && slotComponents?.[slotName]?.multiple">
+                                    <component
+                                        :is="slotComponentMap[slotName]"
+                                        v-for="(itemProps, idx) in slotComponents?.[slotName]?.props"
+                                        :key="idx"
+                                        v-bind="{
+                                            ...itemProps,
+                                            ...mapSlotBindings(slotComponents?.[slotName]?.slotProps || {}, slotProps),
+                                        }"
+                                    />
+                                </template>
+                                
+                                <!-- If single slot component  -->
                                 <component
                                     :is="slotComponentMap[slotName]"
-                                    v-for="(itemProps, idx) in slotComponents?.[slotName]?.props"
-                                    :key="idx"
+                                    v-else
                                     v-bind="{
-                                        ...itemProps,
+                                        ...slotComponents?.[slotName]?.props,
                                         ...mapSlotBindings(slotComponents?.[slotName]?.slotProps || {}, slotProps),
                                     }"
                                 />
                             </template>
-                            
-                            <!-- If single slot component  -->
-                            <component
-                                :is="slotComponentMap[slotName]"
-                                v-else
-                                v-bind="{
-                                    ...slotComponents?.[slotName]?.props,
-                                    ...mapSlotBindings(slotComponents?.[slotName]?.slotProps || {}, slotProps),
-                                }"
-                            />
                         </template>
-                    </template>
-                </component>
+                    </component>
+                </div>
             </div>
 
             <!-- Code preview -->
@@ -156,6 +169,7 @@
                     'p-4',
                     'overflow-x-auto',
                     'text-sm font-mono',
+                    showPlayground ? 'rounded-b border-b border-border-default' : 'rounded',
                 ]"
                 v-html="code" 
             />
@@ -187,6 +201,11 @@ const props = defineProps({
     previewBackground: {
         type: String as PropType<'white' | 'neutral-subtle'>,
         default: 'neutral-subtle'
+    },
+    previewContentMaxWidth: Number as PropType<number>,
+    isPreviewContentBoxed: {
+        type: Boolean as PropType<boolean>,
+        default: false,
     },
     propsSettingsExcludedProps: {
         type: Array as PropType<string[]>,
@@ -327,33 +346,33 @@ const slotComponentMap = computed(() => {
 
 // Options for props settings 
 const options = computed(() => {
-    if (!props.props) {
-        return []
-    }
+    if (!props.props) return []
 
-    // Transform each prop into a structured option with name, type, and selectable options
     return Object.entries(props.props).map(([name, value]) => {
         const itemOptions = props.items?.[name]
 
-        let type: 'string' | 'array' | 'boolean' | 'number' = 'string'
+        // Default type mapping
+        let optionType: 'string' | 'array' | 'boolean' | 'number' = 'string'
+        let inputType: AllowedInputType = 'text'
 
-        // Infer the type based on the value or presence of itemOptions
         if (typeof value === 'boolean') {
-            type = 'boolean'
+            optionType = 'boolean'
         } else if (typeof value === 'number') {
-            type = 'number'
+            optionType = 'number'
+            inputType = 'number'
         } else if (Array.isArray(itemOptions)) {
-            type = 'array'
+            optionType = 'array'
         }
 
-        // Return the structured option used for rendering UI controls
         return {
             name,
-            type,
+            type: optionType,
+            inputType,
             options: itemOptions || [],
         }
     })
 })
+
 
 // Map slot-provided values to component bindings (slot props or events)
 const mapSlotBindings = (
@@ -639,4 +658,11 @@ const componentPreviewClass = computed(() => {
     return variant[props.previewBackground] || 'bg-gray-50 dark:bg-gray-900'
 })
 
+const previewContentStyle = computed(() => {
+    if (!props.previewContentMaxWidth) return undefined
+
+    return {
+        maxWidth: `${props.previewContentMaxWidth}px`,
+    }
+})
 </script>

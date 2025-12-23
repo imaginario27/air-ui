@@ -104,6 +104,22 @@ export const componentList: ComponentPortfolioItem[] = [
         title: 'CheckboxField',
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/checkbox-field`,
     },
+    {
+        title: 'DataField',
+        to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/data-field`,
+    },
+    {
+        title: 'FileUploadField',
+        to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/file-upload-field`,
+    },
+    {
+        title: 'InputField',
+        to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/input-field`,
+    },
+    {
+        title: 'OptionButtonsGroupField',
+        to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/option-buttons-group-field`,
+    },
 
     // OVERLAY
     {
