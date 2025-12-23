@@ -3,7 +3,7 @@
 Create a new Nuxt project using the Air UI app template:
 
 ```bash
-npm npm create air-ui-app@latest your-project-name
+npm create air-ui-app@latest your-project-name
 ```
 
 Follow the CLI prompts to configure your project, selecting the default options or customizing them as needed. 
