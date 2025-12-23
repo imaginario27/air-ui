@@ -1,6 +1,6 @@
 {
     "name": "@imaginario27/air-ui-ds",
-    "version": "1.0.12",
+    "version": "1.0.13",
     "author": "imaginario27",
     "type": "module",
     "homepage": "https://air-ui.netlify.app/",
@@ -19,6 +19,7 @@
         "postinstall": "nuxt prepare",
         "test": "vitest",
         "generate-theme": "ts-node scripts/generate-theme.ts",
+        "update-theme-colors": "ts-node scripts/update-ui-theme-colors.ts",
         "typecheck": "vue-tsc --noEmit -p tsconfig.typecheck.json"
     },
     "dependencies": {

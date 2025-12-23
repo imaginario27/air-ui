@@ -11,7 +11,8 @@
         "preview": "nuxt preview",
         "postinstall": "nuxt prepare",
         "test": "vitest",
-        "generate-theme": "ts-node scripts/generate-theme.ts"
+        "generate-theme": "ts-node scripts/generate-theme.ts",
+        "update-theme-colors": "ts-node scripts/update-ui-theme-colors.ts"
     },
     "dependencies": {
         "@jaxtheprime/vue3-dropzone": "^3.4.0",
