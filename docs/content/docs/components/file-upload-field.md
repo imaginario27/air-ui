@@ -263,7 +263,7 @@ Defines the error message displayed by the field. This prop is bindable via `v-m
 
 ```vue
 <template>
-    <FileUploadField v-model:error="Error message" />
+    <FileUploadField v-model:error="errorMessage" />
 </template>
 ```
 

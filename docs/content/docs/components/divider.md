@@ -48,6 +48,9 @@ Sets the orientation of the divider. Uses the `Orientation` enum.
 </template>
 ```
 
+- **Type:** `Orientation`
+- **Default:** `Orientation.HORIZONTAL`
+
 #### Options
 ::options-table
 ---

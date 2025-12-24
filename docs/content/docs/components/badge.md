@@ -110,6 +110,9 @@ The `styleType` prop defines the badge appearance. It uses the `BadgeStyle` enum
 </template>
 ```
 
+- **Type:** `BadgeStyle`
+- **Default:** `BadgeStyle.BORDER`
+
 #### Options
 
 ::options-table
@@ -141,6 +144,9 @@ The `shape` prop defines the badge shape. It uses the `BadgeShape` enum.
 </template>
 ```
 
+- **Type:** `BadgeShape`
+- **Default:** `BadgeShape.BADGE`
+
 #### Options
 
 ::options-table
@@ -167,6 +173,9 @@ Applies a color to the badge. It uses the `ColorAccent` enum.
     <Badge :color="ColorAccent.NEUTRAL" />
 </template>
 ```
+
+- **Type:** `ColorAccent`
+- **Default:** `ColorAccent.NEUTRAL`
 
 #### Options
 

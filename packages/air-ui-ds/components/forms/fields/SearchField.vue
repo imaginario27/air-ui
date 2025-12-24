@@ -40,7 +40,7 @@
             <!-- Icon -->
             <span class="text-icon-neutral-subtler">
                 <MdiIcon 
-                    icon="mdiMagnify" 
+                    :icon
                     size="20" 
                     preserveAspectRatio="xMidYMid meet"
                 />
@@ -100,6 +100,10 @@ const props = defineProps({
         default: 'Search', 
     },
     helpText: String as PropType<string>,
+    icon: {
+        type: String as PropType<any>,
+        default: 'mdiMagnify',
+    },
     size: {
         type: String as PropType<InputSize>,
         default: InputSize.MD,

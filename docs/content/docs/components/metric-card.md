@@ -98,6 +98,9 @@ Sets the horizontal alignment of the content. Uses the `Align` enum.
 </template>
 ```
 
+- **Type:** `Align.LEFT | Align.CENTER`
+- **Default:** `Align.LEFT`
+
 #### Options
 
 ::options-table

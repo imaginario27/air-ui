@@ -142,6 +142,10 @@ const props = defineProps({
         type: Boolean as PropType<boolean>,
         default: false,
     },
+    showLoadingState: {
+        type: Boolean as PropType<boolean>,
+        default: true,
+    },
     isLoading: {
         type: Boolean as PropType<boolean>,
         default: true,
@@ -153,10 +157,6 @@ const props = defineProps({
     loadingOptionsPlaceholder: { 
         type: String as PropType<string>,
         default: 'Options are being loaded',
-    },
-    showLoadingState: {
-        type: Boolean as PropType<boolean>,
-        default: true,
     },
 })
 

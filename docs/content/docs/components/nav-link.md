@@ -109,6 +109,9 @@ Sets the size of the link. Uses the `NavLinkSize` enum.
 </template>
 ```
 
+- **Type:** `NavLinkSize`
+- **Default:** `NavLinkSize.SM`
+
 #### Options
 
 ::options-table
@@ -166,6 +169,9 @@ Sets the position of the icon. Uses the `IconPosition` enum.
     />
 </template>
 ```
+
+- **Type:** `IconPosition`
+- **Default:** `IconPosition.NONE`
 
 #### Options
 

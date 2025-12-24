@@ -3,25 +3,34 @@
 
 ::component-code
 ---
-srcDir: 'forms/fields/CheckboxField.vue'
+srcDir: 'forms/fields/SwitchField.vue'
 props: 
     id: "field-id"
-    label: "Checkbox label text"
-    legend: "Sample legend"
-    helptText: ""
+    label: "Switch label text"
+    legend: "Example legend"
+    helptText: "Example help text"
     modelValue: false
-    error: ""
     validator: null
-    disabled: false
+    error: ""
     required: false
+    disabled: false
     size: "md"
-    inverse: false
+    icon: null
+    customIcon: null
+    styleType: "brand"
+    checkboxWrapperClass: ""
+    labelClass: ""
 items:
     size: 
         - value: lg
           text: LG
         - value: md
           text: MD
+    styleType:
+        - value: brand
+          text: BRAND
+        - value: success
+          text: SUCCESS
 external:
   - modelValue
   - error
@@ -59,7 +68,6 @@ props: [
     },
     {
         "name": "modelValue",
-        "default": "false",
         "type": "boolean",
     },
     {
@@ -73,24 +81,40 @@ props: [
         "type": "string",
     },
     {
-        "name": "disabled",
-        "default": "false",
-        "type": "boolean",
-    },
-    {
         "name": "required",
         "default": "false",
         "type": "boolean",
     },
     {
+        "name": "disabled",
+        "default": "false",
+        "type": "boolean",
+    },
+    {
         "name": "size",
-        "default": "ControlFieldSize.MD",
+        "default": "'md'",
         "type": "ControlFieldSize",
     },
     {
-        "name": "inverse",
-        "default": "false",
-        "type": "boolean",
+        "name": "icon",
+        "type": "any",
+    },
+    {
+        "name": "customIcon",
+        "type": "any",
+    },
+    {
+        "name": "styleType",
+        "default": "SwitchStyle.BRAND",
+        "type": "SwitchStyle",
+    },
+    {
+        "name": "checkboxWrapperClass",
+        "type": "string",
+    },
+    {
+        "name": "labelClass",
+        "type": "string",
     },
 ]
 ---
@@ -103,7 +127,7 @@ Sets the id of the field.
 
 ```vue
 <template>
-    <CheckboxField id="field-id" />
+    <SwitchField id="field-id" />
 </template>
 ```
 
@@ -116,20 +140,20 @@ Sets the label of the field.
 
 ```vue
 <template>
-    <CheckboxField label="Checkbox label text" />
+    <SwitchField label="Switch label text" />
 </template>
 ```
 
 - **Type:** `string`
 - **Default:** `'Text'`
 
-### legend 
+### legend
 
-Sets the legend of the field.
+Sets the legend text of the field.
 
 ```vue
 <template>
-    <CheckboxField legend="Sample legend" />
+    <SwitchField legend="Legend text" />
 </template>
 ```
 
@@ -141,7 +165,7 @@ Sets the help text of the field.
 
 ```vue
 <template>
-    <CheckboxField helpText="Help text" />
+    <SwitchField helpText="Help text" />
 </template>
 ```
 
@@ -153,7 +177,7 @@ Sets the value of the field.
 
 ```vue
 <template>
-    <CheckboxField v-model="isEnabled" />
+    <SwitchField v-model="isEnabled" />
 </template>
 <script setup lang="ts">
 const isEnabled = ref(false)
@@ -168,7 +192,7 @@ Since this field expects a boolean value, the `validateBooleanField` utility sho
 
 ```vue
 <template>
-    <CheckboxField :validator="validateBooleanField" />
+    <SwitchField :validator="validateBooleanField" />
 </template>
 ```
 
@@ -181,25 +205,12 @@ Defines the error message displayed by the field. This prop is bindable via `v-m
 
 ```vue
 <template>
-    <CheckboxField v-model:error="Error message" />
+    <SwitchField v-model:error="Error message" />
 </template>
 ```
 
 - **Type:** `string`
 - **Default:** `''`
-
-### disabled
-
-Sets the disabled state of the field.
-
-```vue
-<template>
-    <CheckboxField disabled />
-</template>
-```
-
-- **Type:** `boolean`
-- **Default:** `false`
 
 ### required
 
@@ -207,12 +218,26 @@ Sets the required state of the field.
 
 ```vue
 <template>
-    <CheckboxField required />
+    <SwitchField required />
 </template>
 ```
 
 - **Type:** `boolean`
 - **Default:** `false`
+
+### disabled
+
+Sets the disabled state of the field.
+
+```vue
+<template>
+    <SwitchField disabled />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `false`
+
 
 ### size
 
@@ -220,7 +245,7 @@ Sets the size of the field. It uses the `ControlFieldSize` enum.
 
 ```vue
 <template>
-    <CheckboxField :size="ControlFieldSize.LG" />
+    <SwitchField :size="ControlFieldSize.LG" />
 </template>
 ```
 
@@ -243,15 +268,81 @@ options: [
 ---
 ::
 
-### inverse
+### icon
 
-Sets the checkbox on the right side of the text.
+Sets the icon of the field.
 
 ```vue
 <template>
-    <CheckboxField inverse />
+    <SwitchField icon="mdiCheck" />
 </template>
 ```
 
-- **Type:** `boolean`
-- **Default:** `false`
+- **Type:** `any`
+
+### customIcon
+Sets a custom icon component for the field.
+
+```vue
+<template>
+    <SwitchField :customIcon="exampleIcon" />
+</template>
+<script setup lang="ts">
+import exampleIcon from '@/assets/icons/example-icon.svg?raw'
+</script>
+```
+
+- **Type:** `any`
+
+### styleType
+
+Sets the style type of the field. It uses the `SwitchStyle` enum.
+
+```vue
+<template>
+    <SwitchField :styleType="SwitchStyle.SUCCESS" />
+</template>
+```
+
+- **Type:** `SwitchStyle`
+- **Default:** `SwitchStyle.BRAND`
+
+#### Options
+::options-table
+---
+options: [
+    {
+        value: "BRAND",
+        description: "Uses the primary brand color for the background when the switch is on.",
+    },
+    {
+        value: "SUCCESS",
+        description: "Uses the success color for the background when the switch is on.",
+    },
+]
+---
+::
+
+### checkboxWrapperClass
+
+Sets additional classes for the checkbox wrapper element.
+
+```vue
+<template>
+    <SwitchField checkboxWrapperClass="custom-checkbox-wrapper" />
+</template>
+```
+
+- **Type:** `string`
+
+### labelClass
+
+Sets additional classes for the label element.
+
+```vue
+<template>
+    <SwitchField labelClass="custom-label-class" />
+</template>
+```
+
+- **Type:** `string`

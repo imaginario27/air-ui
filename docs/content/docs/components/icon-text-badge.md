@@ -60,6 +60,9 @@ Applies a color to the badge. It uses the `ColorAccent` enum.
 </template>
 ```
 
+- **Type:** `ColorAccent`
+- **Default:** `ColorAccent.NEUTRAL`
+
 #### Options
 
 ::options-table

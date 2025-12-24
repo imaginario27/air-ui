@@ -142,6 +142,9 @@ Stablishes the shape of the contained icon. Uses the `IconContainerShape` enum.
 </template>
 ```
 
+- **Type:** `IconContainerShape`
+- **Default:** `IconContainerShape.CIRCLE`
+
 #### Options
 
 ::options-table
@@ -170,6 +173,9 @@ Configures the style type of the contained icon. Uses the `IconContainerStyleTyp
 </template>
 ```
 
+- **Type:** `IconContainerStyleType`
+- **Default:** `IconContainerStyleType.FILLED`
+
 #### Options
 
 ::options-table
@@ -197,6 +203,9 @@ Configures the color of the contained icon. Uses the `ColorAccent` enum.
     />
 </template>
 ```
+
+- **Type:** `ColorAccent`
+- **Default:** `ColorAccent.SECONDARY_BRAND`
 
 #### Options
 
@@ -245,6 +254,9 @@ Sets the horizontal alignment of the content. Uses the `Align` enum.
     />
 </template>
 ```
+
+- **Type:** `Align`
+- **Default:** `Align.LEFT`
 
 #### Options
 

@@ -146,6 +146,9 @@ Sets the type of the step indicators. Uses the `StepIndicatorType` enum.
 </template>
 ```
 
+- **Type:** `StepIndicatorType`
+- **Default:** `StepIndicatorType.NUMBER`
+
 #### Options
 ::options-table
 ---

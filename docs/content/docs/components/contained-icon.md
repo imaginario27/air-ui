@@ -93,6 +93,9 @@ The `styleType` prop defines the contained icon appearance. It uses the `IconCon
 </template>
 ```
 
+- **Type:** `IconContainerStyleType`
+- **Default:** `IconContainerStyleType.FLAT`
+
 #### Options
 
 ::options-table
@@ -133,6 +136,9 @@ Defines the contained icon shape. It uses the `IconContainerShape` enum.
 </template>
 ```
 
+- **Type:** `IconContainerShape`
+- **Default:** `IconContainerShape.CIRCLE`
+
 #### Options
 
 ::options-table
@@ -159,6 +165,9 @@ Defines the contained icon color. It uses the `ColorAccent` enum.
     <ContainedIcon :color="ColorAccent.SUCCESS" />
 </template>
 ```
+
+- **Type:** `ColorAccent`
+- **Default:** `ColorAccent.NEUTRAL`
 
 #### Options
 
@@ -206,6 +215,9 @@ Defines the contained icon size. It uses the `IconContainerSize` enum.
     <ContainedIcon :size="IconContainerSize.XL" />
 </template>
 ```
+
+- **Type:** `IconContainerSize`
+- **Default:** `IconContainerSize.XL`
 
 #### Options
 

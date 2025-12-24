@@ -414,6 +414,9 @@ Sets the select button alignment of the plan. Uses the `Align` enum.
 </template>
 ```
 
+- **Type:** `Align`
+- **Default:** `Align.CENTER`
+
 #### Options
 
 ::options-table

@@ -87,6 +87,9 @@ Determines the vertical position of the popover. Uses the `Position` enum.
 </template>
 ```
 
+- **Type:** `Position`
+- **Default:** `Position.TOP`
+
 #### Options
 
 ::options-table
@@ -160,6 +163,9 @@ Configures the trigger for the popover. Uses the `Trigger` enum.
     </Popover>
 </template>
 ```
+
+- **Type:** `Trigger`
+- **Default:** `Trigger.HOVER`
 
 #### Options
 
