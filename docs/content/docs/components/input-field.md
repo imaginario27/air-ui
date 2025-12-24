@@ -6,7 +6,7 @@
 srcDir: 'forms/fields/InputField.vue'
 props: 
     id: "field-id"
-    label: "Input label text"
+    label: "Label"
     type: "text"
     placeholder: "Placeholder"
     helpText: "Help text example"
@@ -90,7 +90,7 @@ props: [
     },
     {
         "name": "size",
-        "default": "'md'",
+        "default": "InputSize.MD",
         "type": "InputSize",
     },
     {
@@ -174,7 +174,7 @@ Sets the id of the field.
 
 ```vue
 <template>
-    <CheckboxField id="field-id" />
+    <InputField id="field-id" />
 </template>
 ```
 
@@ -187,7 +187,7 @@ Sets the label of the field.
 
 ```vue
 <template>
-    <CheckboxField label="Checkbox label text" />
+    <InputField label="Label text" />
 </template>
 ```
 
@@ -261,6 +261,265 @@ Sets the icon of the input field.
 ```
 
 - **Type:** `any`
+
+### suffixIcon
+
+Sets the suffix icon of the input field.
+
+```vue
+<template>
+    <InputField suffixIcon="mdiEye" />
+</template>
+```
+- **Type:** `any`
+
+### linkText
+
+Sets the link text of the input field when the type is `password`.
+
+```vue
+<template>
+    <InputField linkText="Forgot password?" />
+</template>
+```
+
+- **Type:** `string`
+
+### linkUrl
+
+Sets the link URL of the input field when the type is `password`.
+
+```vue
+<template>
+    <InputField linkUrl="/reset-password" />
+</template>
+```
+
+- **Type:** `string`
+
+### size
+
+Sets the size of the input field. It uses the `InputSize` enum.
+
+```vue
+<template>
+    <InputField :size="InputSize.MD" />
+</template>
+```
+
+- **Type:** `InputSize`
+- **Default:** `InputSize.MD`
+
+#### Options
+::options-table
+---
+options: [
+    {
+        value: "MD",
+        description: "md",
+    },
+    {
+        value: "LG",
+        description: "lg",
+    },
+]
+---
+::
+
+### modelValue
+
+Sets the value of the input field.
+
+```vue
+<template>
+    <InputField v-model="inputValue" />
+</template>
+<script setup lang="ts">
+const inputValue = ref<string | number | null>('')
+</script>
+```
+
+- **Type:** `string | number | null`
+- **Default:** `''`
+
+### validator
+
+Sets the validator function for the field, which controls its internal validation state.
+
+It uses the `validateField` utility to perform required field validation.
+
+```vue
+<template>
+    <InputField :validator="validateField" />
+</template>
+```
+
+- **Type:** `function`
+- **Default:** `null`
+
+### error (v-model:error)
+
+Sets the error message of the field. This prop is bindable via `v-model:error`, allowing two-way syncing of the validation state.
+
+```vue
+<template>
+    <InputField v-model:error="errorMessage" />
+</template>
+```
+
+- **Type:** `string`
+- **Default:** `''`
+
+### maxLength
+
+Sets the maximum length of the input field.
+
+```vue
+<template>
+    <InputField :maxLength="10" />
+</template>
+```
+
+- **Type:** `number`
+
+### filterAlphabetic
+
+Sets whether to filter alphabetic characters in the input field.
+
+```vue
+<template>
+    <InputField filterAlphabetic />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `false`
+
+### permitNegativeNumber
+
+Sets whether to permit negative numbers in the input field (only for type `number`).
+
+```vue
+<template>
+    <InputField permitNegativeNumber />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `false`
+
+### hasShowPasswordButton
+
+Sets whether to show the "show password" button (only for type `password`).
+
+```vue
+<template>
+    <InputField hasShowPasswordButton />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `true`
+
+### min
+
+Sets the minimum value of the input field (only for type `number`).
+
+```vue
+<template>
+    <InputField :min="0" />
+</template>
+```
+
+- **Type:** `string`
+
+### max
+
+Sets the maximum value of the input field (only for type `number`).
+
+```vue
+<template>
+    <InputField :max="100" />
+</template>
+```
+
+- **Type:** `string`
+
+### step
+
+Sets the step value of the input field (only for type `number`).
+
+```vue
+<template>
+    <InputField :step="1" />
+</template>
+```
+
+- **Type:** `string`
+
+### pattern
+
+Sets the pattern attribute of the input field.
+
+```vue
+<template>
+    <InputField pattern="[A-Za-z]{3}" />
+</template>
+```
+
+- **Type:** `string`
+
+### readonly
+
+Sets the readonly state of the field.
+
+```vue
+<template>
+    <InputField readonly />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `false`
+
+### autocomplete
+
+Sets the autocomplete attribute of the input field.
+
+```vue
+<template>
+    <InputField autocomplete="on" />
+</template>
+```
+
+- **Type:** `string`
+- **Default:** `'off'`
+
+### autofocus
+
+Sets the autofocus state of the field.
+
+```vue
+<template>
+    <InputField autofocus />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `false`
+
+### disabled
+
+Sets the disabled state of the field.
+
+```vue
+<template>
+    <InputField disabled />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `false`
 
 ### required
 

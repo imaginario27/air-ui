@@ -120,6 +120,18 @@ export const componentList: ComponentPortfolioItem[] = [
         title: 'OptionButtonsGroupField',
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/option-buttons-group-field`,
     },
+    {
+        title: 'SearchField',
+        to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/search-field`,
+    },
+    {
+        title: 'SelectField',
+        to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/select-field`,
+    },
+    {
+        title: 'SwitchField',
+        to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/switch-field`,
+    },
 
     // OVERLAY
     {

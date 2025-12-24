@@ -251,6 +251,9 @@ Sets the type of the select. Uses the `SelectType` enum.
 </template>
 ```
 
+- **Type:** `SelectType`
+- **Default:** `SelectType.TEXT`
+
 #### Options
 ::options-table
 ---
@@ -286,6 +289,9 @@ Sets the size of the select. Uses the `SelectSize` enum.
 </template>
 ```
 
+- **Type:** `SelectSize`
+- **Default:** `SelectSize.MD`
+
 #### Options
 ::options-table
 ---
@@ -312,6 +318,9 @@ Sets the active style of the select. Uses the `SelectActiveStyle` enum.
     />
 </template>
 ```
+
+- **Type:** `SelectActiveStyle`
+- **Default:** `SelectActiveStyle.CHECK`
 
 #### Options
 ::options-table
@@ -357,6 +366,9 @@ Sets the position of the dropdown. It is usefull to avoid dropdown menu overflow
     />
 </template>
 ```
+
+- **Type:** `DropdownPosition`
+- **Default:** `DropdownPosition.BOTTOM`
 
 #### Options
 ::options-table

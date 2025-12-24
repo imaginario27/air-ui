@@ -169,6 +169,9 @@ Sets the type of the step indicator. Uses the `StepIndicatorType` enum.
 </template>
 ```
 
+- **Type:** `StepIndicatorType`
+- **Default:** `StepIndicatorType.NUMBER`
+
 #### Options
 ::options-table
 ---
@@ -198,6 +201,9 @@ Sets the size of the step indicator. Uses the `StepIndicatorSize` enum.
     <VerticalStepper :stepSize="StepIndicatorSize.SM" />
 </template>
 ```
+
+- **Type:** `StepIndicatorSize`
+- **Default:** `StepIndicatorSize.SM`
 
 #### Options
 ::options-table

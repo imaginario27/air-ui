@@ -186,6 +186,9 @@ Uses the `ListLayout` enum.
 </template>
 ```
 
+- **Type:** `ListLayout`
+- **Default:** `ListLayout.LIST`
+
 #### Options
 
 ::options-table
@@ -255,6 +258,9 @@ The size of the list item. Uses the `ListItemSize` enum.
     />
 </template>
 ```
+
+- **Type:** `ListItemSize`
+- **Default:** `ListItemSize.SM`
 
 #### Options
 

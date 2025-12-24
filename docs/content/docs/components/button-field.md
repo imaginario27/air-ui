@@ -211,6 +211,9 @@ The `actionType` prop defines the button’s behavior—whether it performs an a
 </template>
 ```
 
+- **Type:** `ButtonActionType`
+- **Default:** `ButtonActionType.ACTION`
+
 #### Options
 
 ::options-table

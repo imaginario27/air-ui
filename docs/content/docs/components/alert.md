@@ -85,6 +85,9 @@ The `type` prop determines the type of the alert. It accepts values from the `Al
 </template>
 ```
 
+- **Type:** `AlertType`
+- **Default:** `AlertType.WARNING`
+
 #### Options
 ::options-table
 ---

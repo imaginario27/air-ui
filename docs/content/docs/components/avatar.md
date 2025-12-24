@@ -89,6 +89,9 @@ The `shape` prop defines the avatar container shape. It uses the `AvatarShape` e
 </template>
 ```
 
+- **Type:** `AvatarShape`
+- **Default:** `AvatarShape.CIRCLE`
+
 #### Options
 
 ::options-table
@@ -115,6 +118,9 @@ The `size` prop determines the overall dimensions of the avatar. It accepts valu
     <Avatar :size="AvatarShape.LG" />
 </template>
 ```
+
+- **Type:** `AvatarSize | AvatarStackSize`
+- **Default:** `AvatarSize.SM`
 
 #### Options
 

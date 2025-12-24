@@ -86,6 +86,9 @@ Sets the style of the divider. Uses the `DividerStyle` enum.
 </template>
 ```
 
+- **Type:** `DividerStyle`
+- **Default:** `DividerStyle.NEUTRAL`
+
 #### Options
 ::options-table
 ---
@@ -116,6 +119,9 @@ Sets the size of the divider. Uses the `DividerSize` enum.
 </template>
 ```
 
+- **Type:** `DividerSize`
+- **Default:** `DividerSize.XS`
+
 #### Options
 ::options-table
 ---
@@ -141,6 +147,9 @@ Sets the alignment of the divider. Uses the `Align` enum.
     <Divider :align="Align.LEFT" />
 </template>
 ```
+
+- **Type:** `Align`
+- **Default:** `Align.CENTER`
 
 #### Options
 ::options-table

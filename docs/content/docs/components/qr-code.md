@@ -147,6 +147,9 @@ The `renderAs` prop determines how the QR code is rendered. It uses the `QRRende
 </template>
 ```
 
+- **Type:** `QRRenderAs`
+- **Default:** `QRRenderAs.CANVAS`
+
 #### Options
 ::options-table
 ---
@@ -198,6 +201,9 @@ The `level` prop determines the error correction level of the QR code. It uses t
     <QRCode :level="QRLevel.M" />
 </template>
 ```
+
+- **Type:** `QRLevel`
+- **Default:** `QRLevel.M`
 
 #### Options
 ::options-table
@@ -271,6 +277,9 @@ The `gradientType` prop determines the type of gradient to use. It uses the `QRG
     <QRCode :gradientType="QRGradientType.RADIAL" />
 </template>
 ```
+
+- **Type:** `QRGradientType`
+- **Default:** `QRGradientType.LINEAR`
 
 #### Options
 ::options-table

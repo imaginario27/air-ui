@@ -94,6 +94,9 @@ Sets the size of the rating. Uses the `RatingItemSize` enum.
 </template>
 ```
 
+- **Type:** `RatingItemSize`
+- **Default:** `RatingItemSize.SM`
+
 #### Options
 ::options-table
 ---
@@ -131,6 +134,9 @@ Sets the color of the rating. Uses the `RatingItemColor` enum.
     <Rating :color="RatingItemColor.PRIMARY_BRAND" />
 </template>
 ```
+
+- **Type:** `RatingItemColor`
+- **Default:** `RatingItemColor.GOLD`
 
 #### Options
 ::options-table

@@ -289,6 +289,9 @@ props:
 </template>
 ```
 
+- **Type:** `DropdownPosition`
+- **Default:** `DropdownPosition.BOTTOM_RIGHT`
+
 #### Options
 
 ::options-table

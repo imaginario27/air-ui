@@ -326,6 +326,9 @@ The `itemsStyleType` prop allows you to set the style of the menu items. It uses
 </template>
 ```
 
+- **Type:** `SidebarNavMenuItemStyleType`
+- **Default:** `SPACED`
+
 #### Options
 ::options-table
 ---

@@ -159,6 +159,9 @@ The `type` prop determines the type of the content item. It accepts values from 
 </template>
 ```
 
+- **Type:** `ContentItemType`
+- **Default:** `ContentItemType.CARD`
+
 #### Options
 
 ::options-table
@@ -358,6 +361,9 @@ Sets the aspect ratio of the image.
 </template>
 ```
 
+- **Type:** `AspectRatio`
+- **Default:** `AspectRatio.AR_16_9`
+
 #### Options
 
 ::options-table
@@ -406,6 +412,9 @@ Sets the hover effect of the image.
     />
 </template>
 ```
+
+- **Type:** `ImageHoverEffect`
+- **Default:** `ImageHoverEffect.BLUR`
 
 #### Options
 

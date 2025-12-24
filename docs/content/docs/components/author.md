@@ -134,6 +134,9 @@ The `layoutOrientation` prop defines the main layout orientation of the author's
 </template>
 ```
 
+- **Type:** `Orientation`
+- **Default:** `Orientation.HORIZONTAL`
+
 #### Options
 
 ::options-table
@@ -161,6 +164,9 @@ Defines the author details layout orientation. It uses the `Orientation` enum.
 </template>
 ```
 
+- **Type:** `Orientation`
+- **Default:** `Orientation.VERTICAL`
+
 #### Options
 
 ::options-table
@@ -187,6 +193,9 @@ The `shape` prop defines the author's avatar container shape. It uses the `Avata
     <Author :shape="AvatarShape.CIRCLE" />
 </template>
 ```
+
+- **Type:** `AvatarShape`
+- **Default:** `AvatarShape.CIRCLE`
 
 #### Options
 
@@ -216,6 +225,9 @@ The `size` prop determines the overall dimensions of the user's avatar. It uses 
     <Author :size="AvatarSize.SM" />
 </template>
 ```
+
+- **Type:** `AvatarSize`
+- **Default:** `AvatarSize.SM`
 
 #### Options
 

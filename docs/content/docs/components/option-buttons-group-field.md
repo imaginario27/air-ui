@@ -247,7 +247,7 @@ Since it can be a string or an array value, the `validateArrayField` or `validat
 - **Type:** `function`
 - **Default:** `null`
 
-### error
+### error (v-model:error)
 
 Sets the error message of the field.
 
@@ -296,6 +296,9 @@ Sets the style of the option buttons. It uses the `ButtonStyleType.NEUTRAL_OUTLI
 </template>
 ```
 
+- **Type:** `ButtonStyleType.NEUTRAL_OUTLINED | ButtonStyleType.PRIMARY_BRAND_SOFT`
+- **Default:** `ButtonStyleType.NEUTRAL_OUTLINED`
+
 #### Options
 
 ::options-table
@@ -322,6 +325,9 @@ Sets the size of the option buttons. It uses the `ButtonSize` enum.
     <OptionButtonsGroupField :buttonSize="ButtonSize.MD" />
 </template>
 ```
+
+- **Type:** `ButtonSize`
+- **Default:** `ButtonSize.MD`
 
 #### Options
 ::options-table

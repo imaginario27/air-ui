@@ -195,6 +195,9 @@ The `actionType` prop defines the button’s behavior—whether it performs an a
 </template>
 ```
 
+- **Type:** `ButtonActionType`
+- **Default:** `ButtonActionType.ACTION`
+
 #### Options
 
 ::options-table
@@ -221,6 +224,9 @@ Controls the button's visual variant using `ButtonStyleType` enum.
     <ActionButton :styleType="ButtonStyleType.PRIMARY_BRAND_FILLED" />
 </template>
 ```
+
+- **Type:** `ButtonStyleType`
+- **Default:** `ButtonStyleType.NEUTRAL_OUTLINED`
 
 #### Options
 
@@ -289,6 +295,9 @@ HTML button type when actionType is `ACTION`.
 </template>
 ```
 
+- **Type:** `'button' | 'submit' | 'reset'`
+- **Default:** `'button'`
+
 #### Options
 
 ::options-table
@@ -333,6 +342,9 @@ Controls sizing via `ButtonSize` enum.
     <ActionButton :size="ButtonSize.XL" />
 </template>
 ```
+
+- **Type:** `ButtonSize`
+- **Default:** `ButtonSize.LG`
 
 #### Options
 ::options-table
@@ -393,6 +405,9 @@ Where to display the icon in relation to the label. Uses the `IconPosition` enum
     />
 </template>
 ```
+
+- **Type:** `IconPosition`
+- **Default:** `IconPosition.NONE`
 
 #### Options
 ::options-table

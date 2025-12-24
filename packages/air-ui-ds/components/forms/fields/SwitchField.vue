@@ -125,10 +125,7 @@ const props = defineProps({
     label: String as PropType<string>,
     legend: String as PropType<string>,
     helpText: String as PropType<string>,
-    required: {
-        type: Boolean as PropType<boolean>,
-        default: false,
-    },
+    
     modelValue: {
         type: Boolean as PropType<boolean>,
         default: false,
@@ -140,6 +137,10 @@ const props = defineProps({
     error: {
         type: String as PropType<string>,
         default: '',
+    },
+    required: {
+        type: Boolean as PropType<boolean>,
+        default: false,
     },
     disabled: {
         type: Boolean as PropType<boolean>,

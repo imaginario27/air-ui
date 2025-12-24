@@ -137,6 +137,9 @@ Sets the color of the rating stars. Uses the `RatingItemColor` enum.
 </template>
 ```
 
+- **Type:** `RatingItemColor`
+- **Default:** `RatingItemColor.GOLD`
+
 #### Options
 
 ::options-table

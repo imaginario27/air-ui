@@ -196,6 +196,9 @@ The style of the tabs. It uses the `TabStyle` enum.
 </template>
 ```
 
+- **Type:** `TabStyle`
+- **Default:** `TabStyle.UNDERLINE`
+
 ##### Options
 
 ::options-table
@@ -244,6 +247,9 @@ const exampleTabs: TabItem[] = [
 ]
 </script>
 ```
+
+- **Type:** `TabDecoration`
+- **Default:** `TabDecoration.NONE`
 
 ##### Options
 

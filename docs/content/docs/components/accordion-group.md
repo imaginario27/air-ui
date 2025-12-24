@@ -60,7 +60,7 @@ props: [
         "name": "defaultGroupPosition",
         "required": false,
         "default": "OrderPosition.START",
-        "type": "'start' | 'end'"
+        "type": "OrderPosition"
     },
     {
         "name": "titleCustomClass",
@@ -150,6 +150,9 @@ This label will be used to group all ungrouped accordion items.
 
 ### defaultGroupPosition
 Controls the position of the default group in the rendered list of grouped accordions. Uses the `OrderPosition` enum as value.
+
+- **Type:** `OrderPosition`
+- **Default:** `OrderPosition.START`
 
 #### Options
 ::options-table

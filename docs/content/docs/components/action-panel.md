@@ -122,6 +122,9 @@ Sets the layout direction of the panel’s actions content. Uses the `Orientatio
 </template>
 ```
 
+- **Type:** `Orientation`
+- **Default:** `Orientation.VERTICAL`
+
 #### Options
 ::options-table
 ---

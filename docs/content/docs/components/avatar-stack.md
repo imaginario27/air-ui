@@ -133,6 +133,9 @@ The `shape` prop defines the avatar stack's container shape. It uses the `Avatar
 </template>
 ```
 
+- **Type:** `AvatarShape`
+- **Default:** `AvatarShape.CIRCLE`
+
 #### Options
 
 ::options-table
@@ -159,6 +162,9 @@ The `size` prop determines the overall dimensions of the avatar stacks items. It
     <AvatarStack :size="AvatarStackSize.MD" />
 </template>
 ```
+
+- **Type:** `AvatarStackSize`
+- **Default:** `AvatarStackSize.MD`
 
 #### Options
 
@@ -223,6 +229,9 @@ Sets the counter type. It will only appear if the `itemsLimit` prop is set to a 
     <AvatarStack :itemsLimit="3" :counterType="StackCounterType.COUNTER" />
 </template>
 ```
+
+- **Type:** `StackCounterType`
+- **Default:** `StackCounterType.ELLIPSIS`
 
 #### Options
 

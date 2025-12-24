@@ -228,6 +228,9 @@ Sets the layout direction empty state content. Uses the `Orientation` enum.
 </template>
 ```
 
+- **Type:** `Orientation`
+- **Default:** `Orientation.VERTICAL`
+
 #### Options
 ::options-table
 ---
@@ -265,6 +268,9 @@ Sets the position of the button icon. Uses the `IconPosition` enum.
     <EmptyState :buttonIconPosition="IconPosition.LEFT" />
 </template>
 ```
+
+- **Type:** `IconPosition`
+- **Default:** `IconPosition.LEFT`
 
 #### Options
 ::options-table
@@ -313,6 +319,9 @@ Controls the empty state optional button's visual variant using `ButtonStyleType
     />
 </template>
 ```
+
+- **Type:** `ButtonStyleType`
+- **Default:** `ButtonStyleType.PRIMARY_BRAND_FILLED`
 
 #### Options
 
@@ -398,6 +407,9 @@ You need to enable the container first in order to use this option.
     />
 </template>
 ```
+
+- **Type:** `EmptyPlaceholderContainerStyle`
+- **Default:** `EmptyPlaceholderContainerStyle.FILLED_NEUTRAL`
  
 #### Options
 ::options-table
