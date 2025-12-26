@@ -132,6 +132,18 @@ export const componentList: ComponentPortfolioItem[] = [
         title: 'SwitchField',
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/switch-field`,
     },
+    {
+        title: 'TextareaField',
+        to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/textarea-field`,
+    },
+    {
+        title: 'ToggleButtonsGroupField',
+        to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/toggle-buttons-group-field`,
+    },
+    {
+        title: 'RadioGroupField',
+        to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/radio-group-field`,
+    },
 
     // OVERLAY
     {

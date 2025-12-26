@@ -119,19 +119,19 @@ const props = defineProps({
         type: String as PropType<string>,
         required: true,
     },
+    label: String as PropType<string>,
+    helpText: String as PropType<string>,
     value: { // Value of the radio button
         type: [String, Number, Boolean] as PropType<string | number | boolean>,
         required: true,
     },
-    label: String as PropType<string>,
-    helpText: String as PropType<string>,
     icon: {
         type: String as PropType<any>,
         default: 'mdiHelp',
     },
     type: {
         type: String as PropType<
-            ColorAccent.INFO | ColorAccent.SUCCESS | ColorAccent.DANGER | ColorAccent.PRIMARY_BRAND | ColorAccent.SECONDARY_BRAND
+            ColorAccent.INFO | ColorAccent.WARNING| ColorAccent.SUCCESS | ColorAccent.DANGER | ColorAccent.PRIMARY_BRAND | ColorAccent.SECONDARY_BRAND
         >,
         default: ColorAccent.PRIMARY_BRAND,
         validator: (value: ColorAccent) => [

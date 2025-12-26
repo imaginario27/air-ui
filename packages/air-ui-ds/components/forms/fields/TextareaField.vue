@@ -123,7 +123,7 @@ const props = defineProps({
         default: false,
     },
     autocomplete: {
-        type: String as PropType<'on' | 'off'>,
+        type: String as PropType<string>,
         default: 'off',
     },
     autofocus: {

@@ -1,5 +1,4 @@
 export const useTableOfContents = () => {
-    // Tracks the currently active heading
     const activeId = ref<string | null>(null)
     const route = useRoute()
 
@@ -26,21 +25,37 @@ export const useTableOfContents = () => {
         const headings = document.querySelectorAll('h2, h3')
         headings.forEach((heading) => observer!.observe(heading))
 
-        // First heading is active by default when the page loads
         if (headings.length > 0) {
             const firstHeading = headings[0] as HTMLElement
             activeId.value = firstHeading.id ?? null
         }
     }
 
+    const scrollToHash = () => {
+        if (route.hash) {
+            const target = document.getElementById(route.hash.slice(1))
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth' })
+            }
+        }
+    }
+
+    const setupObserver = () => {
+        nextTick(() => {
+            initObserver()
+            scrollToHash()
+        })
+    }
+
+    onMounted(() => {
+        setupObserver()
+    })
+
     watch(
         () => route.path,
         () => {
-            nextTick(() => {
-                initObserver()
-            })
-        },
-        { immediate: true }
+            setupObserver()
+        }
     )
 
     onBeforeUnmount(() => {

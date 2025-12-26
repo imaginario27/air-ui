@@ -49,15 +49,15 @@ defineProps({
     label: String as PropType<string>,
     helpText: String as PropType<string>,
     buttons: Array as PropType<ToggleButton[]>,
-    disabled: {
-        type: Boolean as PropType<boolean>,
-        default: false,
-    },
     modelValue: {
         type: String as PropType<string>,
         required: true,
     },
     groupStyle: String as PropType<ToggleButtonGroupStyle>,
+    disabled: {
+        type: Boolean as PropType<boolean>,
+        default: false,
+    },
 })
 
 // Emits

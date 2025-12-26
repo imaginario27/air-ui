@@ -6,7 +6,7 @@
 srcDir: 'forms/fields/OptionButtonsGroupField.vue'
 props: 
     id: "field-id"
-    label: "Input label text"
+    label: "Label"
     helpText: "Help text example"
     buttons: 
         - text: "Option 1"
