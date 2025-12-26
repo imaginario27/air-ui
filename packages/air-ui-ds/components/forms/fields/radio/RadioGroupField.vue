@@ -72,7 +72,6 @@
 </template>
 
 <script setup lang="ts">
-
 // Props
 const props = defineProps({
     label: String,
@@ -143,7 +142,6 @@ const runValidation = () => {
 
     emit('update:error', result ?? '')
 }
-
 
 // Watchers
 // Watch for changes in local selectedOption and emit upward
