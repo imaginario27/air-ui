@@ -36,7 +36,7 @@
                             :size="ButtonSize.XXL"
                             :actionType="ButtonActionType.LINK"
                             text="Get started"
-                            :to="`/${AppSlug.DOCS}/`"
+                            :to="`/${AppSlug.DOCS}/${AppSlug.GETTING_STARTED}`"
                             isMobileFullWidth
                         />
                         <ActionButton 
