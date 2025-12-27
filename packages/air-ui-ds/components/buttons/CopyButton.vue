@@ -1,19 +1,21 @@
 <template>
     <ActionIconButton 
         v-if="buttonType === ButtonType.ACTION_ICON_BUTTON"
-        :styleType="buttonStyleType"
+        :styleType
         :size
         :icon="currentCopyButtonIcon"
+        :iconClass="currentIconClass"
         :disabled
         @click="handleCopy"
     />
     <ActionButton 
         v-else
-        :styleType="buttonStyleType"
+        :styleType
         :size
         :text="currentCopyButtonText"
         :icon="currentCopyButtonIcon"
         :iconPosition
+        :iconClass="currentIconClass"
         :disabled
         @click="handleCopy"
     />
@@ -33,12 +35,11 @@ const props = defineProps({
         type: String as PropType<string>,
         default: 'Failed to copy to clipboard.',
     },
-    notificationType: {
-        type: String as PropType<NotificationType>,
-        default: NotificationType.INLINE,
-        validator: (value: NotificationType) => Object.values(NotificationType).includes(value),
+    showToast: {
+        type: Boolean as PropType<boolean>,
+        default: true,
     },
-    timeout: {
+    resetAfter: {
         type: Number as PropType<number>,
         default: 1500,
     },
@@ -47,10 +48,12 @@ const props = defineProps({
         default: ButtonType.ACTION_ICON_BUTTON,
         validator: (value: ButtonType) => Object.values(ButtonType).includes(value),
     },
-    buttonStyleType: {
+    styleType: {
     type: String as PropType<
         ButtonStyleType.NEUTRAL_FILLED
         | ButtonStyleType.NEUTRAL_OUTLINED
+        | ButtonStyleType.NEUTRAL_TRANSPARENT
+        | ButtonStyleType.NEUTRAL_TRANSPARENT_SUBTLE
         | ButtonStyleType.PRIMARY_BRAND_FILLED
         | ButtonStyleType.PRIMARY_BRAND_SOFT
         | ButtonStyleType.PRIMARY_BRAND_TRANSPARENT
@@ -62,6 +65,8 @@ const props = defineProps({
             [
                 ButtonStyleType.NEUTRAL_FILLED,
                 ButtonStyleType.NEUTRAL_OUTLINED,
+                ButtonStyleType.NEUTRAL_TRANSPARENT,
+                ButtonStyleType.NEUTRAL_TRANSPARENT_SUBTLE,
                 ButtonStyleType.PRIMARY_BRAND_FILLED,
                 ButtonStyleType.PRIMARY_BRAND_SOFT,
                 ButtonStyleType.PRIMARY_BRAND_TRANSPARENT,
@@ -70,11 +75,11 @@ const props = defineProps({
     },
     text: {
         type: String as PropType<string>,
-        default: 'Button text'
+        default: 'Copy'
     },
     size: {
         type: String as PropType<ButtonSize>,
-        default: ButtonSize.LG,
+        default: ButtonSize.SM,
         validator: (value: ButtonSize) => Object.values(ButtonSize).includes(value),
     },
     icon: {
@@ -83,11 +88,9 @@ const props = defineProps({
     },
     iconPosition: {
         type: String as PropType<IconPosition>,
-        default: IconPosition.NONE,
+        default: IconPosition.RIGHT,
         validator: (value: IconPosition) => Object.values(IconPosition).includes(value),
     },
-    svgIcon: String as PropType<string>,
-    useSVGIconColor: Boolean as PropType<boolean>,
     disabled: {
         type: Boolean as PropType<boolean>,
         default: false,
@@ -97,6 +100,7 @@ const props = defineProps({
 // States
 const currentCopyButtonIcon = ref<any>(props.icon)
 const currentCopyButtonText = ref<string>(props.text)
+const currentIconClass = ref<string | undefined>(undefined)
 
 // Emits
 const emit = defineEmits(['success', 'error'])
@@ -105,42 +109,50 @@ const emit = defineEmits(['success', 'error'])
 const { $toast } = useNuxtApp()
 
 // Methods
-const handleCopy = async () => {
-    const success = await copyToClipboard(props.textToCopy)
+const handleCopy = useThrottleFn(
+    async () => {
+        const success = await copyToClipboard(props.textToCopy)
 
-    if(success) {
-        currentCopyButtonIcon.value = "mdiCheck"
-        currentCopyButtonText.value = props.copySuccessText
+        if (success) {
+            currentCopyButtonIcon.value = 'mdiCheck'
+            currentCopyButtonText.value = props.copySuccessText
 
-        if(props.notificationType === NotificationType.TOAST) {
-            $toast.success(props.copySuccessText, {
-                toastId: 'copy-button-success',
-            })
+            if (
+                props.styleType === ButtonStyleType.NEUTRAL_OUTLINED ||
+                props.styleType === ButtonStyleType.NEUTRAL_TRANSPARENT ||
+                props.styleType === ButtonStyleType.NEUTRAL_TRANSPARENT_SUBTLE
+            ) {
+                currentIconClass.value = 'text-icon-success'
+            }
+
+            if (props.showToast) {
+                $toast.success(props.copySuccessText, {
+                    toastId: 'copy-button-success',
+                })
+            }
+
+            emit('success')
+        } else {
+            currentCopyButtonIcon.value = 'mdiAlertCircleOutline'
+            currentCopyButtonText.value = props.copyErrorText
+
+            if (props.showToast) {
+                $toast.error(props.copyErrorText, {
+                    toastId: 'copy-button-error',
+                })
+            }
+
+            emit('error')
         }
-        
-        emit('success')
 
+        // Reset UI after delay
         setTimeout(() => {
             currentCopyButtonIcon.value = props.icon
             currentCopyButtonText.value = props.text
-        }, props.timeout)
-    }
-    else {
-        currentCopyButtonIcon.value = "mdiAlertCircleOutline"
-        currentCopyButtonText.value = props.copyErrorText
-
-        if(props.notificationType === NotificationType.TOAST) {
-            $toast.error(props.copyErrorText, {
-                toastId: 'copy-button-error',
-            })
-        }
-        
-        emit('error')
-
-        setTimeout(() => {
-            currentCopyButtonIcon.value = props.icon
-            currentCopyButtonText.value = props.text
-        }, props.timeout)
-    }
-}
+            currentIconClass.value = undefined
+        }, props.resetAfter)
+    },
+    props.resetAfter,
+    true, // trailing only
+)
 </script>

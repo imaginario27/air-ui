@@ -51,7 +51,7 @@
 
                         <p 
                             v-if="prop.description" 
-                            class="mt-2 text-text-default"
+                            class="mt-2 text-text-default text-sm"
                             v-html="prop.description"
                         />
                     </ProseTd>

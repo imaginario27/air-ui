@@ -25,7 +25,7 @@
                     <ProseTd>
                         <p 
                             v-if="typeof option.description === 'string'"
-                            class="text-text-default"
+                            class="text-text-default text-sm"
                         >
                             {{ option.description }}
                         </p>

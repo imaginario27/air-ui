@@ -173,12 +173,12 @@
                         showPlayground ? 'rounded-b border-b border-border-default' : 'rounded',
                     ]"
             >
-                <!-- <ActionIconButton 
-                    class="absolute right-0 top-0 m-4"
+                <CopyButton 
+                    :textToCopy="rawCode"
                     :size="ButtonSize.SM"
                     icon="mdiContentCopy"
-                
-                /> -->
+                    class="absolute right-0 top-0 m-4"
+                />
                 <div v-html="code" />
             </div>
         
@@ -244,6 +244,7 @@ const props = defineProps({
 
 // States
 const code = ref('')
+const rawCode = ref('')
 const showCode = ref(false)
 const showPlayground = ref(false)
 
@@ -534,6 +535,7 @@ ${allLines.join('\n')}
         if (slotName === 'default') {
             if (hasSlotComponent) {
                 const slotComp = props.slotComponents[slotName]
+                if (!slotComp) return
                 const compName = slotComp.srcDir.split('/').pop()?.replace('.vue', '')
 
                 // If multiple slot components: render with v-for
@@ -650,6 +652,9 @@ ${allLines.join('\n')}
         useTabs: false,
         semi: false,
     })
+
+    // Set raw code for copying
+    rawCode.value = formattedSource
 
     // Use Shiki to highlight the formatted Vue code as HTML
     code.value = highlighter.codeToHtml(formattedSource, {

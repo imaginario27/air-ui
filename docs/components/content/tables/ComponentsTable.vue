@@ -24,7 +24,7 @@
                     </ProseTd>
                     <ProseTd>
                         <p 
-                            class="text-text-default"
+                            class="text-text-default text-sm"
                         >
                             {{ option.description }}
                         </p>

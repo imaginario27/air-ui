@@ -11,10 +11,10 @@
 </template>
 <script setup lang="ts">
 definePageMeta({
-    title: 'ActionIconButton',
+    title: 'CopyButton',
     layout: 'docs',
     overtitle: 'Components',
-    description: 'An icon button element that can act as a link or trigger an action.'
+    description: 'A button component that copies text to the clipboard when clicked.'
 })
 
 // Route
@@ -24,7 +24,7 @@ const cleanPath = computed(() => route.path.split('?')[0].split('#')[0])
 const { data } = await useAsyncData(() => queryCollection('content').path(cleanPath.value).first())
 
 // States
-const activeIndex = ref(1)
+const activeIndex = ref(2)
 
 // Tabs
 const tabs: TabItem[] = [

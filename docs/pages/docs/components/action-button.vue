@@ -36,5 +36,9 @@ const tabs: TabItem[] = [
         text: 'ActionIconButton',
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/action-icon-button`,
     },
+    {
+        text: 'CopyButton',
+        to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/copy-button`,
+    },
 ]
 </script>
