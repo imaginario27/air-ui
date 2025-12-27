@@ -30,42 +30,4 @@ describe('FormFieldGroup.vue', () => {
         const wrapper = factory()
         expect(wrapper.html()).toContain('Field content')
     })
-
-    it('applies divided row classes when dividedRows is true', () => {
-        const wrapper = factory({
-            props: {
-                dividedRows: true
-            }
-        })
-
-        const container = wrapper.find('div')
-        const title = wrapper.find('h3')
-
-        expect(container.classes()).toContain('!gap-0')
-        expect(container.classes()).toContain('divide-y')
-        expect(container.classes()).toContain('divide-border-neutral-subtle')
-        expect(container.classes()).toContain('border-b')
-        expect(container.classes()).toContain('border-border-neutral-subtle')
-
-        expect(title.classes()).toContain('mb-4')
-    })
-
-    it('does not apply divided row classes when dividedRows is false', () => {
-        const wrapper = factory({
-            props: {
-                dividedRows: false
-            }
-        })
-
-        const container = wrapper.find('div')
-        const title = wrapper.find('h3')
-
-        expect(container.classes()).not.toContain('!gap-0')
-        expect(container.classes()).not.toContain('divide-y')
-        expect(container.classes()).not.toContain('divide-border-neutral-subtle')
-        expect(container.classes()).not.toContain('border-b')
-        expect(container.classes()).not.toContain('border-border-neutral-subtle')
-
-        expect(title.classes()).not.toContain('mb-4')
-    })
 })

@@ -1,3 +1,5 @@
+## Component
+
 ::component-code
 ---
 srcDir: 'content/demos/modals/DangerModalDialogDemo.vue'

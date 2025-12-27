@@ -50,42 +50,10 @@
                         />
                     </div>
 
-                    <!-- <div 
-                        :class="[
-                            'flex',
-                            'items-center',
-                            'gap-2',
-                            'border border-border-default',
-                            'hover:border-border-neutral-hover',
-                            'hover:cursor-copy',
-                            'w-fit',
-                            'py-1 px-3',
-                            'rounded-md'
-                        ]"
-                    >
-                        <MdiIcon 
-                            icon="mdiConsoleLine" 
-                            preserveAspectRatio="xMidYMid meet"
-                            class="w-[20px] h-[20px] text-icon-neutral-subtle" 
-                        />
-
-                        <span class="font-medium">
-                            npm create air-ui-app@latest my-test-app
-                        </span>
-
-
-                        <button 
-                            class="flex items-center justify-center w-[20px] h-[20px]"
-                        >
-                            <MdiIcon 
-                                icon="mdiContentCopy" 
-                                preserveAspectRatio="xMidYMid meet"
-                                class="w-[20px] h-[20px] text-icon-neutral-subtle" 
-                            />
-                        </button>
-                        
-                    </div> -->
-
+                    <!-- <CodeSnippet 
+                        code="npm create air-ui-app@latest <project_name>"
+                    />
+ -->
                     <List class="gap-4 mt-8">
                         <ListItem>
                             <Feature 
@@ -252,24 +220,4 @@
 definePageMeta({
     title: 'Welcome',
 })
-
-// States
-/* const currentCopyButtonIcon = ref("mdiContentCopy")
-const createAppCommand = ref("npm create air-ui-app@latest <project_name>")
-
-
-const handleCopyScript = async () => {
-    try {
-        await navigator.clipboard.writeText(createAppCommand.value)
-    } catch {
-   
-    }
-
-    currentCopyButtonIcon.value = "mdiCheck"
-
-    setTimeout(() => {
-        currentCopyButtonIcon.value = "mdiContentCopy"
-    }, 1500)
-
-} */
 </script>

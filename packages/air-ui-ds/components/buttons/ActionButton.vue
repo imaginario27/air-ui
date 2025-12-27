@@ -47,11 +47,11 @@
                     v-if="icon && !svgIcon"
                     :icon
                     preserveAspectRatio="xMidYMid meet"
-                    :class="iconSizeClass"
+                    :class="[iconSizeClass, iconClass ]"
                 />
                 <span
                     v-else-if="svgIcon"
-                    :class="iconSizeClass"
+                    :class="[iconSizeClass, iconClass ]"
                 >
                     <SVGImage
                         :src="svgIcon"
@@ -70,11 +70,11 @@
                     v-if="icon"
                     :icon="icon"
                     preserveAspectRatio="xMidYMid meet"
-                    :class="iconSizeClass"
+                    :class="[iconSizeClass, iconClass]"
                 />
                 <span
                     v-else-if="svgIcon"
-                    :class="iconSizeClass"
+                    :class="[iconSizeClass, iconClass]"
                 >
                     <SVGImage
                         :src="svgIcon"
@@ -117,6 +117,7 @@ const props = defineProps({
         type: String as PropType<string>,
         default: 'Button text'
     },
+    textClass: String as PropType<string>,
     size: {
         type: String as PropType<ButtonSize>,
         default: ButtonSize.LG,
@@ -136,6 +137,7 @@ const props = defineProps({
         type: Boolean as PropType<boolean>,
         default: false,
     },
+    iconClass: String as PropType<string>,
     disabled: {
         type: Boolean as PropType<boolean>,
         default: false,
@@ -169,7 +171,6 @@ const props = defineProps({
         default: 'Processing...',
     },
     id: String as PropType<string>,
-    textClass: String as PropType<string>,
 })
 
 // Emits

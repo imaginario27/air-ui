@@ -1,24 +1,20 @@
+## Component
+
 ::component-code
 ---
-srcDir: 'buttons/ActionButton.vue'
+srcDir: 'buttons/ActionIconButton.vue'
 props: 
     actionType: "action"
     styleType: "primary-brand-filled"
     type: "button"
-    text: "Button label"
     size: "lg"
     icon: "mdiPlus"
-    iconPosition: "none"
+    iconClass: ""
     isRounded: false
-    isFullWidth: false
-    isMobileFullWidth: false
     disabled: false
     to: "/"
-    isLoading: false
-    loadingText: "Processing..."
     isExternal: false
-    id: "my-action-button"
-    textClass: ""
+    id: "my-action-icon-button"
 items:
     actionType: 
         - value: action
@@ -70,13 +66,6 @@ items:
           text: SM
         - value: xs
           text: XS
-    iconPosition: 
-        - value: none
-          text: NONE
-        - value: left
-          text: LEFT
-        - value: right
-          text: RIGHT
 emits:
     click: "() => console.log('Button clicked')"
 ---
@@ -103,11 +92,6 @@ props: [
         "type": "'button' | 'submit' | 'reset'"
     },
     {
-        "name": "text",
-        "default": "'Button text'",
-        "type": "string"
-    },
-    {
         "name": "size",
         "default": "ButtonSize.LG",
         "type": "ButtonSize"
@@ -118,18 +102,8 @@ props: [
         "type": "string"
     },
     {
-        "name": "iconPosition",
-        "default": "IconPosition.NONE",
-        "type": "IconPosition"
-    },
-    {
-        "name": "svgIcon",
+        "name": "iconClass",
         "type": "string"
-    },
-    {
-        "name": "useSVGIconColor",
-        "default": "false",
-        "type": "boolean"
     },
     {
         "name": "disabled",
@@ -152,34 +126,9 @@ props: [
         "type": "boolean"
     },
     {
-        "name": "isFullWidth",
-        "default": "false",
-        "type": "boolean"
-    },
-    {
-        "name": "isMobileFullWidth",
-        "default": "false",
-        "type": "boolean"
-    },
-    {
-        "name": "isLoading",
-        "default": "false",
-        "type": "boolean"
-    },
-    {
-        "name": "loadingText",
-        "default": "'Processing...'",
-        "type": "string"
-    },
-    {
         "name": "id",
         "type": "string"
-    },
-    {
-        "name": "textClass",
-        "type": "string"
     }
-    
 ]
 ---
 ::
@@ -191,7 +140,7 @@ The `actionType` prop defines the button’s behavior—whether it performs an a
 
 ```vue
 <template>
-    <ActionButton :actionType="ButtonActionType.ACTION" />
+    <ActionIconButton :actionType="ButtonActionType.ACTION" />
 </template>
 ```
 
@@ -221,12 +170,12 @@ Controls the button's visual variant using `ButtonStyleType` enum.
 
 ```vue
 <template>
-    <ActionButton :styleType="ButtonStyleType.PRIMARY_BRAND_FILLED" />
+    <ActionIconButton :styleType="ButtonStyleType.PRIMARY_BRAND_FILLED" />
 </template>
 ```
 
 - **Type:** `ButtonStyleType`
-- **Default:** `ButtonStyleType.NEUTRAL_OUTLINED`
+- **Default:** `ButtonStyleType.PRIMARY_BRAND_FILLED`
 
 #### Options
 
@@ -291,7 +240,7 @@ HTML button type when actionType is `ACTION`.
 
 ```vue
 <template>
-    <ActionButton type="submit" />
+    <ActionIconButton type="submit" />
 </template>
 ```
 
@@ -318,20 +267,6 @@ options: [
 ]
 ---
 ::
-
-### text
-
-Button label content.
-
-```vue
-<template>
-    <ActionButton text="Click Me" />
-</template>
-```
-
-- **Type:** `string`
-- **Default:** `'Button text'`
-
 
 ### size
 
@@ -386,97 +321,28 @@ Usable icons: [pictogrammers.com/library/mdi/](https://pictogrammers.com/library
 
 ```vue
 <template>
-    <ActionButton icon="mdiCheck" />
+    <ActionIconButton icon="mdiCheck" />
 </template>
 ```
 
 - **Type:** `string`
 - **Default:** `'mdiHelp'`
 
-### iconPosition
+### iconClass
 
-Where to display the icon in relation to the label. Uses the `IconPosition` enum.
+Sets a custom class for the icon element.
 
 ```vue
 <template>
-    <ActionButton 
+    <ActionIconButton 
         icon="mdiCheck" 
-        :iconPosition="IconPosition.RIGHT" 
+        iconClass="text-red-500" 
     />
 </template>
-```
-
-- **Type:** `IconPosition`
-- **Default:** `IconPosition.NONE`
-
-#### Options
-::options-table
----
-options: [
-    {
-        value: "LEFT",
-        description: "left",
-    },
-    {
-        value: "RIGHT",
-        description: "right",
-    },
-    {
-        value: "NONE",
-        description: "none (icon does not appear at all)",
-    },
-]
----
-::
-
-### svgIcon
-
-Uses a SVG image instead of the default icon. By default, the source color of the SVG will be overwritten by the button icon color.
-
-::content-alert
----
-props:
-    title: "Important"
-    description: "Use always '?raw' at the end of the source route."
----
-::
-
-```vue
-<template>
-    <ActionButton :svgIcon="iconGoogleColor" />
-</template>
-<script setup lang="ts">
-// Import
-import iconGoogleColor from '@/assets/images/icons/icon-google-color.svg?raw'
-</script>
 ```
 
 - **Type:** `string`
 
-### useSVGIconColor
-
-Uses the original SVG color instead.
-
-::content-alert
----
-props:
-    title: "Important"
-    description: "When setting this option to true, it will use the original color without taking into account the style type of the button."
----
-::
-
-```vue
-<template>
-    <ActionButton 
-        :svgIcon="iconGoogleColor" 
-        useSVGIconColor
-    />
-</template>
-<script setup lang="ts">
-// Import
-import iconGoogleColor from '@/assets/images/icons/icon-google-color.svg?raw'
-</script>
-```
 
 ### disabled
 
@@ -484,20 +350,17 @@ Disables the button.
 ```vue
 
 <template>
-    <ActionButton disabled />
+    <ActionIconButton :disabled="true" />
 </template>
 ```
 
-- **Type:** `boolean`
-- **Default:** `false`
-
 ### to
 
-Route to navigate to when `actionType` is set to `LINK`.
+Route to navigate to when `actionType` is set to `LINK`. Uses the `ButtonActionType` enum.
 
 ```vue
 <template>
-    <ActionButton 
+    <ActionIconButton 
         :actionType="ButtonActionType.LINK"
         to="/about"
     />
@@ -513,7 +376,7 @@ Opens the link in a new tab when `true`.
 
 ```vue
 <template>
-    <ActionButton 
+    <ActionIconButton 
         :actionType="ButtonActionType.LINK"
         to="https://example.com"
         :isExternal="true"
@@ -530,64 +393,12 @@ Makes the button fully rounded.
 
 ```vue
 <template>
-    <ActionButton :isRounded="true" />
+    <ActionIconButton :isRounded="true" />
 </template>
 ```
 
 - **Type:** `boolean`
 - **Default:** `false`
-
-
-### isFullWidth and isMobileFullWidth
-
-Use these props to control the width behavior of the button:
-
-- `**isFullWidth**`: Makes the button span the full width of its container at **all screen sizes**.
-- `**isMobileFullWidth**`: Makes the button full width **only on mobile**, and revert to auto width on larger screens. The default breakpoint is `md` but you can overwrite it using `class`.
-
-```vue
-<template>
-    <ActionButton :isFullWidth="true" />
-</template>
-```
-
-```vue
-<template>
-    <ActionButton :isMobileFullWidth="true" />
-</template>
-```
-
-- **Type:** `boolean`
-- **Default:** `false`
-
-### isLoading
-
-Displays a loading spinner and disables interaction.
-
-```vue
-<template>
-    <ActionButton :isLoading="true" />
-</template>
-```
-
-- **Type:** `boolean`
-- **Default:** `false`
-
-### loadingText
-
-Text shown when button is in a loading state.
-
-```vue
-<template>
-    <ActionButton 
-        :isLoading="true"
-        loadingText="Please wait..."
-    />
-</template>
-```
-
-- **Type:** `string`
-- **Default:** `'Processing...'`
 
 ### id
 
@@ -595,19 +406,7 @@ Provides an HTML ID to the button element.
 
 ```vue
 <template>
-    <ActionButton id="my-action-button" />
-</template>
-```
-
-- **Type:** `string`
-
-### textClass
-
-Sets a custom class for the button label.
-
-```vue
-<template>
-    <ActionButton textClass="font-bold" />
+    <ActionIconButton id="my-action-button" />
 </template>
 ```
 
@@ -641,5 +440,7 @@ options: [
 const handleClick = () => {
     console.log("Button clicked")
 }
+</script>
+```
 </script>
 ```

@@ -1,4 +1,6 @@
 
+## Demo
+
 ::component-code
 ---
 srcDir: 'content/demos/tabs/TabsDemo.vue'

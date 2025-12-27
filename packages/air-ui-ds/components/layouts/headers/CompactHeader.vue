@@ -23,7 +23,7 @@
                     'bg-background-surface/30 dark:bg-background-surface/85',
                 ],
                 hasBorder && 'border-b border-border-default',
-                innerContainerClass,
+                headerClass,
             ]"
         >
             <!-- Logo -->
@@ -154,10 +154,10 @@
 
 <script setup lang="ts">
 // Props
-defineProps({
-    pageTitleType: {
-        type: String as PropType<PageTitleType>,
-        default: PageTitleType.SIMPLE,
+const props = defineProps({
+    pageTitleFormat: {
+        type: String as PropType<PageTitleFormat>,
+        default: PageTitleFormat.SIMPLE,
     },
     navMenuItems: {
         type: Array as PropType<MenuItem[]>,
@@ -206,7 +206,7 @@ defineProps({
         type: String as PropType<string>,
         default: 'lg:hidden min-w-[280px]'
     },
-    innerContainerClass: String as PropType<string>,
+    headerClass: String as PropType<string>,
 })
 
 // Composables
@@ -221,6 +221,6 @@ const currentPageTitle = computed<string>(() =>
 
 // Dynamically set the page title
 useHead(() => ({
-    title: pageTitle(currentPageTitle.value, App.NAME),
+    title: pageTitle(currentPageTitle.value, App.NAME, props.pageTitleFormat),
 }))
 </script>

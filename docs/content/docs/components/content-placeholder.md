@@ -1,3 +1,5 @@
+## Component
+
 ::component-code
 ---
 srcDir: 'placeholders/ContentPlaceholder.vue'

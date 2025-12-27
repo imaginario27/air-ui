@@ -1,3 +1,5 @@
+## Component
+
 ::component-code
 ---
 srcDir: 'spinners/Spinner.vue'

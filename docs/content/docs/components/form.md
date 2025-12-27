@@ -1,3 +1,5 @@
+## Component
+
 ::component-code
 ---
 srcDir: 'content/demos/forms/BasicForm.vue'
@@ -7,15 +9,18 @@ componentSource: 'docs'
 ---
 ::
 
-
 ## Architecture
 The `Form` component provides a clean and consistent layout structure for building forms.
 
-It’s designed to work with the `FormRow` and `FormActions` components to help organize fields and actions intuitively.
+It’s designed to work with the `FormRow`, `FormFieldGroup`, and `FormActions` components to help organize fields and actions intuitively.
 
 ```vue
 <template>
-    <Form @submit="handleSubmit" class="max-w-[600px]">
+    <Form 
+        class="max-w-[600px]"
+        @submit="handleSubmit" 
+        @reset="resetForm"
+    >
         <FormRow>
             <InputField 
                 id="full-name"
@@ -33,16 +38,37 @@ It’s designed to work with the `FormRow` and `FormActions` components to help 
                 v-model="formData.email"
                 v-model:error="formErrors.email"
                 label="Email"
+                placeholder="Enter email"
                 :validator="validateEmail"
                 type="email"
                 required
             />
         </FormRow>
+        <FormFieldGroup title="Additional Information">
+            <FormRow>
+                <InputField
+                    id="phone"
+                    v-model="formData.phone"
+                    label="Phone"
+                    placeholder="Enter phone number"
+                />
+                <InputField
+                    id="address"
+                    v-model="formData.address"
+                    label="Address"
+                    placeholder="Enter address"
+                />
+            </FormRow>
+        </FormFieldGroup>
         <FormActions>
             <ActionButton 
                 type="submit" 
                 text="Submit"
                 :styleType="ButtonStyleType.PRIMARY_BRAND_FILLED"
+            />
+            <ActionButton 
+                type="reset" 
+                text="Reset"
             />
         </FormActions>
     </Form>
@@ -55,6 +81,8 @@ const { $toast } = useNuxtApp()
 const formData = reactive({
     fullName: '',
     email: '',
+    phone: '',
+    address: '',
 })
 
 // Validation
@@ -103,6 +131,10 @@ components: [
         description: "Wraps form field components, ensuring proper spacing and alignment.On smaller screens, fields are automatically stacked vertically for better readability.",
     },
     {
+        name: "<FormFieldGroup>",
+        description: "Groups related form fields under a common title.",
+    },
+    {
         name: "<FormActions>",
         description: "Groups form action buttons, such as Submit or Cancel. On mobile devices, buttons stack vertically and their order can be customized via props.",
     },
@@ -135,6 +167,18 @@ The `FormRow` component is used to wrap form field components, ensuring proper s
 </template>
 ```
 
+::props-table
+---
+props: [
+    {
+        "name": "spaced",
+        "default": "false",
+        "type": "boolean"
+    },
+]
+---
+::
+
 #### spaced
 Adds some extra vertifcal padding to the row.
 
@@ -149,9 +193,72 @@ Adds some extra vertifcal padding to the row.
 - **Type:** `boolean`
 - **Default:** `false`
 
+### FormFieldGroup
+The `FormFieldGroup` component groups related form fields under a common title.
+
+```vue
+<template>
+    <FormFieldGroup title="Personal Information">
+        <FormRow>
+            <InputField 
+                id="first-name"
+                v-model="formData.firstName"
+                label="First name"
+            />
+            <InputField 
+                id="last-name"
+                v-model="formData.lastName"
+                label="Last name"
+            />
+        </FormRow>
+    </FormFieldGroup>
+</template>
+```
+
+::props-table
+---
+props: [
+    {
+        "name": "title",
+        "default": "'Group title'",
+        "type": "string"
+    },
+]
+---
+::
+
+#### title
+Sets the title of the form field group.
+
+```vue
+<template>
+    <FormFieldGroup title="Personal Information">
+        ...
+    </FormFieldGroup>
+</template>
+```
+
+- **Type:** `string`
+- **Default:** `'Group title'`
 
 ### FormActions
 The `FormActions` component groups form action buttons, such as Submit or Cancel. On mobile devices, buttons stack vertically and their order can be customized via props.
+
+```vue
+<template>
+    <FormActions>
+        <ActionButton 
+            type="submit" 
+            text="Submit"
+            :styleType="ButtonStyleType.PRIMARY_BRAND_FILLED"
+        />
+        <ActionButton 
+            type="reset" 
+            text="Reset"
+        />
+    </FormActions>
+</template>
+```
 
 ::props-table
 ---
@@ -165,7 +272,7 @@ props: [
 ---
 ::
 
-##### reverseOnMobile
+#### reverseOnMobile
 Reverses the order of the buttons on mobile devices. 
 
 ```vue

@@ -11,10 +11,10 @@
 </template>
 <script setup lang="ts">
 definePageMeta({
-    title: 'Button',
+    title: 'CompactHeader',
     layout: 'docs',
     overtitle: 'Components',
-    description: 'A button element that can act as a link or trigger an action.'
+    description: 'A component which provides a compact and functional page header layout, supporting navigation menus, user profiles, and responsive design.',
 })
 
 // Route
@@ -29,12 +29,12 @@ const activeIndex = ref(0)
 // Tabs
 const tabs: TabItem[] = [
     {
-        text: 'Button',
-        to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/button`,
+        text: 'CompactHeader',
+        to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/compact-header`,
     },
     {
-        text: 'Icon Button',
-        to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/icon-button`,
+        text: 'ContentPageHeader',
+        to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/content-page-header`,
     },
 ]
 </script>

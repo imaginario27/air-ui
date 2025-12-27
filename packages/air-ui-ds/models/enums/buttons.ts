@@ -36,3 +36,8 @@ export enum ButtonPaginationStyle {
     BUTTON = 'button',
     OVERLINE = 'overline',
 }
+
+export enum ButtonType {
+    ACTION_BUTTON = 'action-button',
+    ACTION_ICON_BUTTON = 'action-icon-button',
+}

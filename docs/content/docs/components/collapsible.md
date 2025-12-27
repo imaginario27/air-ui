@@ -1,3 +1,5 @@
+## Component
+
 ::component-code
 ---
 srcDir: 'collapsibles/Collapsible.vue'

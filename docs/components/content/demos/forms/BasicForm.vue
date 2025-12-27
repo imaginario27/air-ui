@@ -27,6 +27,22 @@
                 required
             />
         </FormRow>
+        <FormFieldGroup title="Additional Information">
+            <FormRow>
+                <InputField
+                    id="phone"
+                    v-model="formData.phone"
+                    label="Phone"
+                    placeholder="Enter phone number"
+                />
+                <InputField
+                    id="address"
+                    v-model="formData.address"
+                    label="Address"
+                    placeholder="Enter address"
+                />
+            </FormRow>
+        </FormFieldGroup>
         <FormActions>
             <ActionButton 
                 type="submit" 
@@ -48,6 +64,8 @@ const { $toast } = useNuxtApp()
 const formData = reactive({
     fullName: '',
     email: '',
+    phone: '',
+    address: '',
 })
 
 // Validation

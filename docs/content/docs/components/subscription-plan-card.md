@@ -1,3 +1,5 @@
+## Component
+
 ::component-code
 ---
 srcDir: "cards/specific/subscription/SubscriptionPlanCard.vue"

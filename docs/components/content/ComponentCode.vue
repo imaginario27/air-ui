@@ -163,16 +163,24 @@
             <div 
                 v-if="showCode"
                 :class="[
-                    'dark', // Forces dark mode
-                    'component-code-pre',
-                    'bg-background-neutral-subtlest',
-                    'p-4',
-                    'overflow-x-auto',
-                    'text-sm font-mono',
-                    showPlayground ? 'rounded-b border-b border-border-default' : 'rounded',
-                ]"
-                v-html="code" 
-            />
+                        'relative',
+                        'dark', // Forces dark mode
+                        'component-code-pre',
+                        'bg-background-neutral-subtlest',
+                        'p-4',
+                        'overflow-x-auto',
+                        'text-sm font-mono',
+                        showPlayground ? 'rounded-b border-b border-border-default' : 'rounded',
+                    ]"
+            >
+                <!-- <ActionIconButton 
+                    class="absolute right-0 top-0 m-4"
+                    :size="ButtonSize.SM"
+                    icon="mdiContentCopy"
+                
+                /> -->
+                <div v-html="code" />
+            </div>
         
         </div>
     </div>
@@ -193,6 +201,7 @@ const props = defineProps({
             props?: Record<string, any>,
             slotProps?: Record<string, string>,
             multiple?: boolean, // Loop slot components
+            componentSource?: 'docs' | 'design-system',
         }>>,
         default: () => ({}),
     },
@@ -320,11 +329,15 @@ const slotComponentMap = computed(() => {
     const map: Record<string, Component | null> = {}
 
     for (const [slotName, slotData] of Object.entries(props.slotComponents || {})) {
-        const matchedPath = Object.keys(componentsMap.value).find(key =>
+        const sourceMap = (slotData.componentSource === 'docs')
+            ? docsComponents
+            : designSystemComponents
+
+        const matchedPath = Object.keys(sourceMap).find(key =>
             key.endsWith(slotData.srcDir)
         )
 
-        const loader = matchedPath ? componentsMap.value[matchedPath] : null
+        const loader = matchedPath ? sourceMap[matchedPath] : null
 
         if (loader) {
             map[slotName] = defineAsyncComponent(() => loader().then(m => m.default || m))

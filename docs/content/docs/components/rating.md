@@ -1,3 +1,5 @@
+## Component
+
 ::component-code
 ---
 srcDir: 'rating/Rating.vue'
@@ -25,7 +27,6 @@ items:
           text: GOLD
         - value: primary-brand
           text: PRIMARY_BRAND
-
 previewBackground: 'white'
 ---
 ::
