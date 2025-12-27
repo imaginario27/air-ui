@@ -1,3 +1,5 @@
+## Component
+
 ::component-code
 ---
 srcDir: 'pagination/SimplePagination.vue'

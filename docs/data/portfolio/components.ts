@@ -1,4 +1,22 @@
 export const componentList: ComponentPortfolioItem[] = [
+    // LAYOUT
+    {
+        isSectionTitle: true,
+        title: 'Layout',
+    },
+    {
+        title: 'Grid',
+        to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/grid`,
+    },
+    {
+        title: 'Section',
+        to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/section`,
+    },
+    {
+        title: 'Headers',
+        to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/compact-header`,
+    },
+
     // ELEMENT
     {
         isSectionTitle: true,
@@ -22,7 +40,7 @@ export const componentList: ComponentPortfolioItem[] = [
     },
     {
         title: 'Button',
-        to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/button`,
+        to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/action-button`,
     },
     {
         title: 'Collapsible',
@@ -193,6 +211,10 @@ export const componentList: ComponentPortfolioItem[] = [
     {
         title: 'Content item',
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/content-item`,
+    },
+    {
+        title: 'DataDetails',
+        to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/data-details`,
     },
     {
         title: 'Table',

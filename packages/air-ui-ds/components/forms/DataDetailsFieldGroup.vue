@@ -4,7 +4,7 @@
             'flex',
             'flex-col',
             'gap-4',
-            dividedRows && '!gap-0 divide-y divide-border-neutral-subtle border-b border-border-neutral-subtle'
+            'mt-2',
         ]"
     >
     <h3
@@ -12,7 +12,6 @@
             'form-field-group-title',
             'font-semibold',
             'text-text-neutral-subtle',
-            dividedRows && 'mb-4'
         ]"
     >
             {{ title }}
@@ -26,10 +25,6 @@ defineProps({
     title: {
         type: String as PropType<string>,
         default: 'Group title',
-    },
-    dividedRows: {
-        type: Boolean as PropType<boolean>,
-        default: false,
     },
 })
 </script>

@@ -13,7 +13,7 @@
             <MainContent 
                 :tocSidebarWidth="Number(!hasTableOfContent ? 0 : 240)"
             >
-                <PageHeader 
+                <ContentPageHeader 
                     v-if="isComponentPage"
                     :type="hasOvertitle ? PageTitleType.WITH_OVERTITLE: PageTitleType.SIMPLE" 
                     hasGoBackLink
@@ -21,7 +21,7 @@
                     :goBackLink="`/${AppSlug.DOCS}/${AppSlug.COMPONENTS}`"
                 />
 
-                <PageHeader 
+                <ContentPageHeader 
                     v-else
                     :type="hasOvertitle ? PageTitleType.WITH_OVERTITLE: PageTitleType.SIMPLE" 
                 />

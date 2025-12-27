@@ -1,3 +1,5 @@
+## Component
+
 ::component-code
 ---
 srcDir: 'dropdowns/DropdownSelect.vue'

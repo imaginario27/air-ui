@@ -1,7 +1,7 @@
 export enum PageTitleType {
     SIMPLE = 'simple',
-    WITH_OVERTITLE = 'withOvertitle',
-    WITH_BREADCRUMBS = 'withBreadcrumbs',
+    WITH_OVERTITLE = 'with-overtitle',
+    WITH_BREADCRUMBS = 'with-breadcrumbs',
 }
 
 export enum PageTitleFormat {

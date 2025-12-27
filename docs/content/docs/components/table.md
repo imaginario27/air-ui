@@ -1,3 +1,5 @@
+## Demo
+
 ::component-code
 ---
 srcDir: 'content/demos/tables/TableDemo.vue'

@@ -8,7 +8,7 @@
             hasSidePadding && 'px-content-side-padding-mobile md:px-content-side-padding',
             'pt-12',
             'pb-8',
-            'border-b border-border-default'
+            hasSeparator && 'border-b border-border-default'
         ]"
     >
         <NavLink 
@@ -43,7 +43,7 @@
         </h1>
 
         <p 
-            v-if="pageDescription || description"
+            v-if="showDescription && (pageDescription || description)"
             class="text-text-neutral-subtle text-lg max-w-[800px]"
         >
             {{ description ? description : pageDescription }}
@@ -60,13 +60,14 @@ defineProps({
     },
     title: String as PropType<string>,
     overtitle: String as PropType<string>,
-    overtitleClass: String as PropType<string>,
-    description: String as PropType<string>,
     isOverTitleUppercase: Boolean as PropType<boolean>,
-    hasSidePadding: {
+    overtitleClass: String as PropType<string>,
+    showDescription: {
         type: Boolean as PropType<boolean>,
         default: true,
     },
+    description: String as PropType<string>,
+    
     hasGoBackLink: {
         type: Boolean as PropType<boolean>,
         default: false,
@@ -78,6 +79,14 @@ defineProps({
     goBackLink: {
         type: String as PropType<string>,
         default: '',
+    },
+    hasSeparator: {
+        type: Boolean as PropType<boolean>,
+        default: true,
+    },
+    hasSidePadding: {
+        type: Boolean as PropType<boolean>,
+        default: true,
     },
 })
 

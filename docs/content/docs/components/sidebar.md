@@ -1,3 +1,5 @@
+## Component
+
 ::component-code
 ---
 srcDir: 'navigation/nav-sidebar/NavSidebar.vue'
