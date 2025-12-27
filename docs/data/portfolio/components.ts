@@ -13,7 +13,7 @@ export const componentList: ComponentPortfolioItem[] = [
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/section`,
     },
     {
-        title: 'Headers',
+        title: 'Header',
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/compact-header`,
     },
 
