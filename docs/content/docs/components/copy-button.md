@@ -407,3 +407,39 @@ The `disabled` prop disables the copy button when set to `true`.
 
 - **Type:** `boolean`
 - **Default:** `false`
+
+
+## Emits
+::options-table
+---
+options: [
+    {
+        value: "@success",
+        description: "Emitted when the text is successfully copied to the clipboard.",
+    },
+    {
+        value: "@error",
+        description: "Emitted when there is an error copying the text to the clipboard.",
+    }
+]
+---
+::
+
+#### Example
+
+```vue
+<template>
+    <CopyButton 
+        @success="handleSuccess"
+        @error="handleError"
+    />
+</template>
+<script setup lang="ts">
+const handleSuccess = () => {
+    console.log("Text copied successfully")
+}
+const handleError = () => {
+    console.log("Error copying text")
+}
+</script>
+```

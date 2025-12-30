@@ -3,26 +3,32 @@
         :class="[
             'w-full flex flex-col',
             alignmentClasses,
-            titleClass,
         ]"
     >
         <!-- Overtitle -->
-        <p
+        <span
             v-if="overtitle"
             :class="[
                 'font-semibold',
                 overtitleSizeClass,
                 'text-text-secondary-brand-default',
                 spaceOvertitleClass,
+                isOverTitleUppercase && 'uppercase',
+                overtitleClass,
             ]"
         >
             {{ overtitle }}
-        </p>
+        </span>
 
         <!-- Dynamic title -->
         <component
             :is="headingTag"
-            :class="[titleSizeClass, 'font-semibold', 'text-text-default']"
+            :class="[
+                titleSizeClass, 
+                'font-semibold', 
+                'text-text-default',
+                titleClass,
+            ]"
         >
             {{ title }}
         </component>
@@ -30,7 +36,12 @@
         <!-- Description -->
         <p
             v-if="description"
-            :class="[descriptionSizeClass, 'text-text-neutral-subtle', spaceDescriptionClass]"
+            :class="[
+                descriptionSizeClass, 
+                'text-text-neutral-subtle', 
+                spaceDescriptionClass,
+                descriptionClass,
+            ]"
         >
             {{ description }}
         </p>
@@ -41,6 +52,10 @@
 // Props
 const props = defineProps({
     overtitle: String as PropType<string>,
+    isOverTitleUppercase: {
+        type: Boolean as PropType<boolean>,
+        default: false,
+    },
     title: { 
         type: String as PropType<string>, 
         default: 'Heading title' 
@@ -64,15 +79,17 @@ const props = defineProps({
             Object.values(HeadingSpacing).includes(value as HeadingSpacing),
     },
     headingTag: {
-        type: [String, Number] as PropType<'h1' | 'h2' | 'h3'>,
+        type: [String, Number] as PropType<'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'>,
         default: 'h1',
-        validator: (value: string | number) => ['h1', 'h2', 'h3'].includes(value as string)
+        validator: (value: string | number) => ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'].includes(value as string)
     },
     isMobileCentered: {
         type: Boolean as PropType<boolean>,
         default: false,
     },
+    overtitleClass: String as PropType<string>,
     titleClass: String as PropType<string>,
+    descriptionClass: String as PropType<string>,
 })
 
 // Computed classes
@@ -100,6 +117,8 @@ const alignmentClasses = computed(() => {
 
 const titleSizeClass = computed(() => {
     const map = {
+        [HeadingSize.XXS]: 'text-lg',
+        [HeadingSize.XS]: 'text-xl',
         [HeadingSize.SM]: 'text-2xl',
         [HeadingSize.MD]: 'text-3xl md:text-4xl',
         [HeadingSize.LG]: 'text-4xl md:text-5xl',
@@ -110,6 +129,8 @@ const titleSizeClass = computed(() => {
 
 const overtitleSizeClass = computed(() => {
     const map = {
+        [HeadingSize.XXS]: 'text-xs',
+        [HeadingSize.XS]: 'text-sm',
         [HeadingSize.SM]: 'text-sm',
         [HeadingSize.MD]: 'text-base',
         [HeadingSize.LG]: 'text-base',
@@ -120,6 +141,8 @@ const overtitleSizeClass = computed(() => {
 
 const descriptionSizeClass = computed(() => {
     const map = {
+        [HeadingSize.XXS]: 'text-sm',
+        [HeadingSize.XS]: 'text-sm',
         [HeadingSize.SM]: 'text-sm',
         [HeadingSize.MD]: 'text-lg',
         [HeadingSize.LG]: 'text-lg',
@@ -130,6 +153,8 @@ const descriptionSizeClass = computed(() => {
 
 const spaceOvertitleClass = computed(() => {
     const map = {
+        [HeadingSize.XXS]: 'mb-1',
+        [HeadingSize.XS]: 'mb-1',
         [HeadingSize.SM]: 'mb-1',
         [HeadingSize.MD]: 'mb-3',
         [HeadingSize.LG]: 'mb-3',
@@ -140,12 +165,16 @@ const spaceOvertitleClass = computed(() => {
 
 const spaceDescriptionClass = computed(() => {
     const normal = {
+        [HeadingSize.XXS]: 'mt-3',
+        [HeadingSize.XS]: 'mt-3',
         [HeadingSize.SM]: 'mt-3',
         [HeadingSize.MD]: 'mt-4',
         [HeadingSize.LG]: 'mt-6',
         [HeadingSize.XL]: 'mt-4',
     }
     const spaced = {
+        [HeadingSize.XXS]: 'mt-4',
+        [HeadingSize.XS]: 'mt-4',
         [HeadingSize.SM]: 'mt-4',
         [HeadingSize.MD]: 'mt-5',
         [HeadingSize.LG]: 'mt-9',

@@ -67,7 +67,6 @@ defineProps({
         default: true,
     },
     description: String as PropType<string>,
-    
     hasGoBackLink: {
         type: Boolean as PropType<boolean>,
         default: false,

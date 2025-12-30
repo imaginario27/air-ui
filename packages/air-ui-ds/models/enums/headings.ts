@@ -1,4 +1,6 @@
 export enum HeadingSize {
+    XXS = 'xxs',
+    XS = 'xs',
     SM = 'sm',
     MD = 'md',
     LG = 'lg',

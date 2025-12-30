@@ -3,9 +3,10 @@ export interface MenuItem {
     to: string
 }
 
-export interface FooterMenuItem {
-    text: string
-    to: string
+export interface SocialNetwork {
+    name: string
+    link: string
+    icon: any
 }
 
 export interface SidebarMenuItem {

@@ -16,6 +16,10 @@ export const componentList: ComponentPortfolioItem[] = [
         title: 'Header',
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/compact-header`,
     },
+    {
+        title: 'Footer',
+        to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/footer`,
+    },
 
     // ELEMENT
     {
@@ -55,12 +59,20 @@ export const componentList: ComponentPortfolioItem[] = [
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/empty-state`,
     },
     {
+        title: 'Heading',
+        to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/heading`,
+    },
+    {
         title: 'Icon',
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/icon`,
     },
     {
         title: 'List',
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/list`,
+    },
+    {
+        title: 'Overtitle',
+        to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/overtitle`,
     },
     {
         title: 'Placeholder',
