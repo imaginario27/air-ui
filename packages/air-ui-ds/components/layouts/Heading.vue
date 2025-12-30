@@ -95,9 +95,9 @@ const props = defineProps({
 // Computed classes
 const alignmentClasses = computed(() => {
     const alignMap = {
-        [Align.LEFT]: 'lg:items-start lg:text-left',
-        [Align.CENTER]: 'lg:items-center lg:text-center',
-        [Align.RIGHT]: 'lg:items-end lg:text-right',
+        [Align.LEFT]: 'md:items-start md:text-left',
+        [Align.CENTER]: 'md:items-center md:text-center',
+        [Align.RIGHT]: 'md:items-end md:text-right',
     }
 
     if (props.isMobileCentered) {
