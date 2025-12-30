@@ -25,7 +25,6 @@ items:
         - value: with-breadcrumbs
           text: WITH_BREADCRUMBS
 previewBackground: 'white'
-propsSettingsExcludedProps: ['navMenuItems', 'userMenuItems', 'class']
 ---
 ::
 
@@ -125,3 +124,155 @@ options: [
 ]
 ---
 ::
+
+### overtitle
+
+The `overtitle` prop allows you to set an overtitle text that appears above the main title in the header component.
+
+```vue
+<template>
+    <ContentPageHeader
+        overtitle="Section"
+    />
+</template>
+```
+
+- **Type:** `string`
+
+### isOverTitleUppercase
+
+The `isOverTitleUppercase` prop allows you to control whether the overtitle text is displayed in uppercase letters.
+
+```vue
+<template>
+    <ContentPageHeader
+        overtitle="Section"
+        :isOverTitleUppercase="true"
+    />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `false`
+
+### overtitleClass
+
+The `overtitleClass` prop allows you to add custom CSS classes to the overtitle element for additional styling.
+
+```vue
+<template>
+    <ContentPageHeader
+        overtitle="Section"
+        overtitleClass="custom-overtitle-class"
+    />
+</template>
+```
+
+- **Type:** `string`
+
+### showDescription
+
+The `showDescription` prop allows you to toggle the visibility of the description text in the header component.
+
+```vue
+<template>
+    <ContentPageHeader
+        :showDescription="false"
+    />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `true`
+
+### description
+
+The `description` prop allows you to set a description text that appears below the main title in the header component.
+
+```vue
+<template>
+    <ContentPageHeader
+        description="This is a description for the content page header."
+    />
+</template>
+```
+
+- **Type:** `string`
+
+### hasGoBackLink
+
+The `hasGoBackLink` prop allows you to enable or disable the "Go back" link in the header component.
+
+```vue
+<template>
+    <ContentPageHeader
+        :hasGoBackLink="true"
+    />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `false`
+
+### goBackText
+
+The `goBackText` prop allows you to customize the text displayed for the "Go back" link in the header component.
+
+```vue
+
+<template>
+    <ContentPageHeader
+        :hasGoBackLink="true"
+        goBackText="Return to previous page"
+    />
+</template>
+```
+
+- **Type:** `string`
+- **Default:** `'Go back'`
+
+### goBackLink
+
+The `goBackLink` prop allows you to set the URL for the "Go back" link in the header component.
+
+```vue
+<template>
+    <ContentPageHeader
+        :hasGoBackLink="true"
+        goBackLink="/previous-page"
+    />
+</template>
+```
+
+- **Type:** `string`
+
+### hasSeparator
+
+The `hasSeparator` prop allows you to toggle the visibility of a separator line below the header component.
+
+```vue 
+<template>
+    <ContentPageHeader
+        :hasSeparator="false"
+    />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `true`
+
+### hasSidePadding
+
+The `hasSidePadding` prop allows you to enable or disable side padding for the header component.
+
+```vue
+<template>
+    <ContentPageHeader
+        :hasSidePadding="false"
+    />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `true`
+

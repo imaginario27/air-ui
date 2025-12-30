@@ -296,13 +296,27 @@ interface MenuItem {
 }
 ```
 
-### userFullname and userAvatarUrl
-The `userFullname` and `userAvatarUrl` props allow you to display the user's name and avatar in the compact header. Additionally, the `userFullname` can be used to generate initials for the avatar if no image URL is provided.
+### userFullname
+
+The `userFullname` prop allows you to set the full name of the user to be displayed in the compact header.
 
 ```vue
 <template>
     <CompactHeader
         userFullname="John Doe"
+    />
+</template>
+```
+
+- **Type:** `string`
+
+### userAvatarUrl
+
+The `userAvatarUrl` prop allows you to set the URL of the user's avatar image to be displayed in the compact header.
+
+```vue
+<template>
+    <CompactHeader
         userAvatarUrl="https://randomuser.me/api/portraits/men/45.jpg"
     />
 </template>

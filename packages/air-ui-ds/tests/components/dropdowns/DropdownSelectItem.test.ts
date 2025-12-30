@@ -1,7 +1,6 @@
 import { mount } from '@vue/test-utils'
 import DropdownSelectItem from '@/components/dropdowns/DropdownSelectItem.vue'
 import { SelectType, SelectActiveStyle } from '@/models/enums/selects'
-import missingImagePlaceholder from '@/assets/images/placeholders/missing-image-placeholder.png'
 
 vi.mock('@/assets/images/placeholders/missing-image-placeholder.png', () => ({
     default: '/mocked/missing-image.png'

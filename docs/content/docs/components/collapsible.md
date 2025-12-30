@@ -51,7 +51,6 @@ slots: [
 </template>
 ```
 
-
 ## Usage
 ### title
 Collapsible item title.
