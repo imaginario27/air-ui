@@ -48,7 +48,7 @@ describe('Heading.vue', () => {
             align: Align.RIGHT
         })
         const root = wrapper.find('div')
-        expect(root.classes().join(' ')).toMatch(/items-end.*text-right.*lg:items-end.*lg:text-right/)
+        expect(root.classes().join(' ')).toMatch(/items-end.*text-right.*md:items-end.*md:text-right/)
     })
 
     it('centers content on mobile when isMobileCentered is true', () => {
@@ -59,7 +59,7 @@ describe('Heading.vue', () => {
         const root = wrapper.find('div')
         expect(root.classes()).toContain('items-center')
         expect(root.classes()).toContain('text-center')
-        expect(root.classes().join(' ')).toMatch(/lg:items-start.*lg:text-left/)
+        expect(root.classes().join(' ')).toMatch(/md:items-start.*md:text-left/)
     })
 
     it('applies size classes based on size prop', () => {
