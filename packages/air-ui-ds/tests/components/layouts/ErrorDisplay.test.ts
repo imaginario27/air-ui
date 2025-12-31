@@ -115,4 +115,20 @@ describe('ErrorDisplay.vue', () => {
 
         expect(document.title).toContain('Page not found')
     })
+
+    it('does not set document title when setPageTitle is false', async () => {
+        const originalTitle = 'Original Title'
+        document.title = originalTitle
+
+        factory({
+            props: {
+                statusCode: 403,
+                setPageTitle: false
+            }
+        })
+
+        await nextTick()
+
+        expect(document.title).toBe(originalTitle)
+    })
 })

@@ -6,6 +6,7 @@ srcDir: 'layouts/ErrorDisplay.vue'
 props: 
     statusCode: 404
     errorMappings: []
+    setPageTitle: false
     showIcon: true
     showErrorCode: true
     icon: 'mdiAlertCircleOutline'
@@ -43,6 +44,11 @@ props: [
         "name": "statusCode",
         "default": "required",
         "type": "number",
+    },
+    {
+        "name": "setPageTitle",
+        "default": "true",
+        "type": "boolean",
     },
     {
         "name": "errorMappings",
@@ -242,6 +248,19 @@ Determines whether to display the error icon in the error display component.
 ```vue
 <template>
     <ErrorDisplay :showIcon="false" />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `true`
+
+### setPageTitle
+
+When set to `true`, the component will update the page title to reflect the error status code and title.
+
+```vue 
+<template>
+    <ErrorDisplay setPageTitle />
 </template>
 ```
 

@@ -109,6 +109,10 @@ const props = defineProps({
         type: Array as PropType<ErrorMapping[]>,
         default: () => [],
     },
+    setPageTitle: {
+        type: Boolean as PropType<boolean>,
+        default: true,
+    },
     showIcon: {
         type: Boolean as PropType<boolean>,
         default: true,
@@ -244,10 +248,13 @@ const resolvedErrorMapping = computed(() => {
         combined.find(mapping => mapping.statusCode === -1)!
     )
 })
+
 const pageTitleText = computed(() => resolvedErrorMapping.value.title)
 
 watchEffect(() => {
-    document.title = pageTitle(pageTitleText.value, App.NAME)
+    if (props.setPageTitle) {
+        document.title = pageTitle(pageTitleText.value, App.NAME)
+    }
 })
 
 // Alignment classes
