@@ -5,6 +5,10 @@ export const componentList: ComponentPortfolioItem[] = [
         title: 'Layout',
     },
     {
+        title: 'Error display',
+        to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/error-display`,
+    },
+    {
         title: 'Grid',
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/grid`,
     },
