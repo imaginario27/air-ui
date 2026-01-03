@@ -1,5 +1,6 @@
 <template>
     <div 
+        v-if="!isCollapsed"
         :class="[
         'flex',
         'items-center',
@@ -17,8 +18,12 @@
             preserveAspectRatio="xMidYMid meet"
             :class="['text-icon-neutral-subtle', iconSizeClass]"
         />
-        {{ text }}
+
+        <span>
+            {{ text }}
+        </span>
     </div>
+    <Divider v-if="isCollapsed && showCollapseDivider" />
 </template>
 <script setup lang="ts">
 // Props
@@ -32,6 +37,14 @@ const props = defineProps({
         type: String as PropType<SidebarNavMenuItemStyleType>,
         default: SidebarNavMenuItemStyleType.COMPACT, 
         validator: (value: SidebarNavMenuItemStyleType) => Object.values(SidebarNavMenuItemStyleType).includes(value),
+    },
+    isCollapsed: {
+        type: Boolean as PropType<boolean>,
+        default: false,
+    },
+    showCollapseDivider: {
+        type: Boolean as PropType<boolean>,
+        default: true,
     },
 })
 
