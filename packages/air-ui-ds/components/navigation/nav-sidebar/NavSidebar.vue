@@ -2,10 +2,12 @@
     <!-- Nav Sidebar -->
     <aside 
         ref="sidebarRef"
-        :style="stickOnScroll && { top: isSticky ? '0px' : `${stickyScrollHeight}px` }"
+        :style="{
+            top: stickOnScroll ? (isSticky ? '0px' : `${stickyScrollHeight}px`) : undefined,
+            width: `${isCollapsed ? collapsedWidth : expandedWidth}px`,
+        }"
         :class="[
             isFixed && 'fixed',
-            'w-[240px]',
             'h-screen',
             'bg-background-surface',
             'flex flex-col items-center gap-6',
@@ -13,51 +15,154 @@
             'border-r border-border-default',
             'transition-transform duration-300',
             isMobileSidebarOpen ? 'translate-x-0' : '-translate-x-full',
-            'lg:translate-x-0' // Always visible on large screens
+            'lg:translate-x-0', // Always visible on large screens
         ]"
     >
-        <!-- Only for small screen width -->
-        <ActionIconButton 
-            v-if="hasCloseButton"
-            icon="mdiClose"
-            class="absolute top-3 right-3 sm:hidden"
-            :size="ButtonSize.SM"
-            @click="toggleMobileSidebar()"
-        />
-
+        <!-- Collapse & Close Buttons -->
+        <div 
+            v-if="showMobileSidebarClose || (showCollapseToggle && collapseTogglePosition === Position.TOP)"
+            :class="[
+                'absolute',
+                'top-3',
+                'right-3',
+            ]"
+        >
+            <div class="flex gap-2">
+                <!-- Mobile sidebar toggler -->
+                <ActionIconButton 
+                    v-if="showMobileSidebarClose && isMobile && !isCollapsed"
+                    :icon="mobileSidebarCloseIcon"
+                    class="flex sm:hidden"
+                    :size="ButtonSize.SM"
+                    @click="toggleMobileSidebar()"
+                />
+    
+                <!-- Collapse toggle button -->
+                <ActionIconButton 
+                    v-if="showCollapseToggle && collapseTogglePosition === Position.TOP && !isCollapsed"
+                    :icon="expandedStateIcon"
+                    :size="ButtonSize.SM"
+                    @click="toggleSidebarState(sidebarId)"
+                />
+            </div>
+        </div>
+        
         <!-- Header -->
         <slot name="sidebar-header" />
         
         <!-- Menu -->
-         
         <NavSidebarMenu 
-            :class="[!$slots['sidebar-footer'] && '80% lg:90%']"
+            :isCollapsed
+            :class="[
+                !$slots['sidebar-footer'] && '80% lg:90%',
+                isCollapsed && '!px-0 items-center',
+            ]"
             :style="{
                 height: computedMenuHeight
             }"
         >
+             <!-- Collapse toggle item shown only in collapsed state -->
+            <ActionIconButton 
+                v-if="showCollapseToggle && collapseTogglePosition === Position.TOP && isCollapsed"
+                :icon="collapsedStateIcon"
+                :size="ButtonSize.SM"
+                class="mb-2"
+                @click="toggleSidebarState(sidebarId)"
+            />
+
             <slot name="sidebar-menu-prefix-content" />
-            <template 
-                v-for="(item, index) in menuItems" 
-                :key="index"
-            >
+
+            <template v-for="(item, index) in menuItems" :key="index">
+                <!-- Section Title -->
                 <NavSidebarMenuSectionTitle 
-                    v-if="item.isSectionTitle" 
-                    :text="item.text" 
-                    :icon="item.icon"
-                    :styleType="itemsStyleType"
-                />
-                <NavSidebarMenuItem 
-                    v-else
+                    v-if="item.isSectionTitle"
                     :text="item.text"
                     :icon="item.icon"
-                    :to="item.to"
                     :styleType="itemsStyleType"
-                    :class="itemsCustomClass"
+                    :isCollapsed
+                    :showCollapseDivider
                 />
+
+                <!-- Collapsed Dropdown using NavSidebarMenuItem as activator -->
+                <template v-else-if="isCollapsed && item.children">
+                    <DropdownMenu
+                        :key="item.text"
+                        :position="index < props.collapsedFlipLimit ? DropdownPosition.RIGHT_TOP : DropdownPosition.RIGHT_BOTTOM"
+                        :positionXOffset="collapsedSubmenuOffset"
+                        :style="{ minWidth: `${collapsedSubmenuWidth}px` }"
+                    >
+                        <!-- Use NavSidebarMenuItem as activator -->
+                        <template #activator="{ onClick }">
+                            <NavSidebarMenuItem 
+                                :text="item.text"
+                                :icon="item.icon"
+                                :styleType="itemsStyleType"
+                                isCollapsed
+                                :showDropdownArrow="false"
+                                :class="itemsCustomClass"
+                                @click="onClick"
+                            />
+                        </template>
+
+                        <template #items>
+                            <DropdownMenuItem
+                                v-for="(child, childIndex) in item.children"
+                                :key="`${item.text}-${childIndex}`"
+                                :text="child.text"
+                                :type="child.icon ? DropdownItemType.ICON : DropdownItemType.TEXT"
+                                :icon="child.icon"
+                                :to="child.to"
+                            />
+                        </template>
+                    </DropdownMenu>
+                </template>
+
+                <!-- Regular item if not collapsed or no children -->
+                <template v-else>
+                    <NavSidebarMenuItem 
+                        :text="item.text"
+                        :icon="item.icon"
+                        :to="item.to"
+                        :styleType="itemsStyleType"
+                        :showDropdownArrow="!!item.children"
+                        :isOpen="openItems[index]"
+                        :isCollapsed
+                        :class="itemsCustomClass"
+                        @click="item.children ? toggleItem(index) : undefined"
+                    />
+
+                    <!-- Render nested children only when expanded -->
+                    <template v-if="item.children && openItems[index] && !isCollapsed">
+                        <NavSidebarMenuItem
+                            v-for="(child, childIndex) in item.children"
+                            :key="`${index}-${childIndex}`"
+                            :text="child.text"
+                            :icon="child.icon"
+                            :to="child.to"
+                            :styleType="itemsStyleType"
+                            :class="[
+                                itemsCustomClass,
+                                'ml-4',
+                                '!font-medium',
+                            ]"
+                        />
+                    </template>
+                </template>
             </template>
+
             <slot name="sidebar-menu-suffix-content" />
         </NavSidebarMenu>
+
+        <!-- Collapse toggle button at bottom -->
+        <ActionIconButton 
+            v-if="showCollapseToggle && collapseTogglePosition === Position.BOTTOM"
+            :icon="isCollapsed ? collapsedStateIcon : expandedStateIcon"
+            :size="ButtonSize.SM"
+            :class="[
+                isCollapsed ? '' : 'absolute right-3 bottom-3'
+            ]"
+            @click="toggleSidebarState(sidebarId)"
+        />
 
         <!-- Footer -->
         <div 
@@ -76,6 +181,10 @@
 <script setup lang="ts">
 // Props
 const props = defineProps({
+    sidebarId: {
+        type: String as PropType<string>,
+        required: true,
+    },
     menuItems: {
         type: Array as PropType<SidebarMenuItem[]>,
         default: () => [
@@ -97,14 +206,77 @@ const props = defineProps({
             {
                 text: 'Item 3',
                 icon: 'mdiHelp',
-                to: '/',
+                children: [
+                    {
+                        text: 'Subitem 1',
+                        icon: 'mdiHelp',
+                        to: '/',
+                    },
+                    {
+                        text: 'Subitem 2',
+                        icon: 'mdiHelp',
+                        to: '/',
+                    },
+                ],
             },
         ],
-
     },
-    hasCloseButton: {
+    expandedWidth: {
+        type: Number as PropType<number>,
+        default: 240
+    },
+    collapsedWidth: {
+        type: Number as PropType<number>,
+        default: 60
+    },
+    multipleSubmenusOpen: {
         type: Boolean as PropType<boolean>,
         default: false,
+    },
+    isCollapsed: {
+        type: Boolean as PropType<boolean>,
+        default: false,
+    },
+    showCollapseDivider: {
+        type: Boolean as PropType<boolean>,
+        default: false,
+    },
+    collapsedSubmenuOffset: {
+        type: Number as PropType<number>,
+        default: 20,
+    },
+    collapsedSubmenuWidth: {
+        type: Number as PropType<number>,
+        default: 200,
+    },
+    collapsedFlipLimit: {
+        type: Number as PropType<number>,
+        default: 8,
+    },
+    showCollapseToggle: {
+        type: Boolean as PropType<boolean>,
+        default: false,
+    },
+    collapseTogglePosition: {
+        type: String as PropType<Position>,
+        default: Position.BOTTOM,
+        validator: (value: Position) => Object.values(Position).includes(value),
+    },
+    collapsedStateIcon: {
+        type: String as PropType<string>,
+        default: 'mdiMenuClose',
+    },
+    expandedStateIcon: {
+        type: String as PropType<string>,
+        default: 'mdiMenuOpen',
+    },
+    showMobileSidebarClose: {
+        type: Boolean as PropType<boolean>,
+        default: false,
+    },
+    mobileSidebarCloseIcon: {
+        type: String as PropType<string>,
+        default: 'mdiClose',
     },
     isFixed: {
         type: Boolean as PropType<boolean>,
@@ -127,19 +299,32 @@ const props = defineProps({
         type: Number as PropType<number>,
         default: 180,
     },
-    itemsStyleType: String as PropType<SidebarNavMenuItemStyleType>,    
+    itemsStyleType: {
+        type: String as PropType<SidebarNavMenuItemStyleType>,
+        default: SidebarNavMenuItemStyleType.COMPACT, 
+        validator: (value: SidebarNavMenuItemStyleType) => Object.values(SidebarNavMenuItemStyleType).includes(value),
+    },    
     itemsCustomClass: String as PropType<string>
 })
 
 // States 
-const sidebarRef = ref<HTMLElement | null>(null)
 const isSticky = ref(false)
+const openItems = ref<Record<number, boolean>>({})
+
+// Emits
+const emit = defineEmits<(e: 'update:isCollapsed', value: boolean) => void>()
 
 // Slots
 const slots = defineSlots()
 
 // Composables
 const { isMobileSidebarOpen, toggleMobileSidebar } = useMobileSidebar()
+const {
+    isSidebarCollapsed,
+    setSidebarCollapsed,
+    toggleSidebarState,
+} = useSidebar()
+const { isMobile } = useIsMobile()
 
 // Methods
 const handleScroll = () => {
@@ -148,7 +333,23 @@ const handleScroll = () => {
     }
 }
 
-// Dynamic height computation
+const toggleItem = (index: number) => {
+    if (props.multipleSubmenusOpen) {
+        openItems.value[index] = !openItems.value[index]
+    } else {
+        const wasOpen = openItems.value[index]
+
+        // Close all
+        openItems.value = {}
+
+        // Reopen the one that was toggled if it wasn't already open
+        if (!wasOpen) {
+            openItems.value[index] = true
+        }
+    }
+}
+
+// Computed
 const computedMenuHeight = computed(() => {
     if (slots['sidebar-footer']) {
         return `calc(100% - ${props.footerSafeAreaHeight + props.headerHeight}px)`
@@ -156,6 +357,9 @@ const computedMenuHeight = computed(() => {
         return `calc(100% - ${props.headerHeight}px)`
     }
 })
+
+// Constants
+const isCollapsed = isSidebarCollapsed(props.sidebarId)
 
 onMounted(() => {
     if(props.stickOnScroll) {
@@ -169,4 +373,21 @@ onUnmounted(() => {
         window.removeEventListener('scroll', handleScroll)
     }
 })
+
+// Sync collapsed props with global sidebar state
+watch(
+    () => props.isCollapsed,
+    (newVal) => {
+        setSidebarCollapsed(props.sidebarId, newVal)
+    },
+    { immediate: true }
+)
+
+// Update parent when local isCollapsed changes
+watch(
+    isCollapsed,
+    (newVal) => {
+        emit('update:isCollapsed', newVal)
+    }
+)
 </script>

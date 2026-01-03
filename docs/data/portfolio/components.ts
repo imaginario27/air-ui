@@ -109,8 +109,8 @@ export const componentList: ComponentPortfolioItem[] = [
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/button-pagination`,
     },
     {
-        title: 'Sidebar (incomplete)',
-        to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/sidebar`,
+        title: 'Sidebar',
+        to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/nav-sidebar`,
     },
     {
         title: 'Stepper',

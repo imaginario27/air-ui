@@ -9,5 +9,5 @@ export enum NavLinkSize {
 
 export enum SidebarNavMenuItemStyleType {
     SPACED = 'spaced',
-    COMPACT = 'sidebar',
+    COMPACT = 'compact',
 }

@@ -14,4 +14,5 @@ export interface SidebarMenuItem {
     icon?: string
     to?: string
     isSectionTitle?: boolean
+    children?: SidebarMenuItem[]
 }

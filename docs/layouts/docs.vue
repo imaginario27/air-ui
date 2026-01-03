@@ -3,6 +3,7 @@
         <AppHeader useBottomTabsHeader />
         
         <NavSidebar 
+            sidebarId="nav-sidebar"
             :menuItems="sidebarMenu"
             :itemsStyleType="SidebarNavMenuItemStyleType.COMPACT"
             itemsCustomClass="!font-medium"
