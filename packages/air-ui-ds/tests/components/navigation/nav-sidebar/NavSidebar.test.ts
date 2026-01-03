@@ -1,10 +1,16 @@
 import { mount } from '@vue/test-utils'
-import { nextTick } from 'vue'
+import { nextTick, ref } from 'vue'
 import NavSidebar from '@/components/navigation/nav-sidebar/NavSidebar.vue'
 import NavSidebarMenu from '@/components/navigation/nav-sidebar/NavSidebarMenu.vue'
 import NavSidebarMenuItem from '@/components/navigation/nav-sidebar/NavSidebarMenuItem.vue'
 import NavSidebarMenuSectionTitle from '@/components/navigation/nav-sidebar/NavSidebarMenuSectionTitle.vue'
+import DropdownMenu from '~/components/dropdowns/DropdownMenu.vue'
+import DropdownMenuItem from '~/components/dropdowns/DropdownMenuItem.vue'
+import ActionIconButton from '@/components/buttons/ActionIconButton.vue'
+import { Position } from '@/models/enums/positions'
 
+// Shared reactive ref for collapsed state
+const isSidebarCollapsedRef = ref(false)
 const toggleMobileSidebarMock = vi.fn()
 
 vi.mock('@/composables/useMobileSidebar', () => ({
@@ -14,77 +20,114 @@ vi.mock('@/composables/useMobileSidebar', () => ({
     })
 }))
 
+vi.mock('@/composables/useSidebar', () => ({
+    useSidebar: () => ({
+        isSidebarCollapsed: () => isSidebarCollapsedRef,
+        toggleSidebarState: vi.fn(),
+        setSidebarCollapsed: vi.fn()
+    })
+}))
+
+vi.mock('@/composables/useIsMobile', () => ({
+    useIsMobile: () => ({
+        isMobile: false
+    })
+}))
+
+const defaultMenuItems = [
+    { isSectionTitle: true, text: 'Section 1', icon: 'mdiTitle' },
+    { text: 'Item 1', icon: 'mdiHelp', to: '/' },
+    { text: 'Item 2', icon: 'mdiHelp', to: '/' },
+    {
+        text: 'Item 3',
+        icon: 'mdiHelp',
+        children: [
+            { text: 'Subitem 1', icon: 'mdiHelp', to: '/sub1' },
+            { text: 'Subitem 2', icon: 'mdiHelp', to: '/sub2' }
+        ]
+    }
+]
+
 const factory = (options: {
     props?: Record<string, unknown>
     slots?: Record<string, string>
 } = {}) => {
     return mount(NavSidebar, {
         props: {
+            sidebarId: 'main-sidebar',
+            menuItems: defaultMenuItems,
             ...options.props
         },
         slots: {
             ...options.slots
         },
         global: {
-            stubs: {
-                ActionIconButton: {
-                    template: '<button data-testid="close-button" @click="$emit(\'click\')">X</button>'
-                }
+            components: {
+                DropdownMenu,
+                DropdownMenuItem,
+                ActionIconButton
             }
         }
     })
 }
 
+beforeEach(() => {
+    isSidebarCollapsedRef.value = false
+    vi.clearAllMocks()
+})
+
 describe('NavSidebar.vue', () => {
-    const defaultMenuItems = [
-        { isSectionTitle: true, text: 'Section 1', icon: 'mdiTitle' },
-        { text: 'Item 1', icon: 'mdiHelp', to: '/' },
-        { text: 'Item 2', icon: 'mdiHelp', to: '/' }
-    ]
-
     it('renders menu items and section titles', () => {
-        const wrapper = factory({
-            props: { menuItems: defaultMenuItems }
-        })
-
+        const wrapper = factory()
         expect(wrapper.findComponent(NavSidebarMenu).exists()).toBe(true)
-        expect(wrapper.findAllComponents(NavSidebarMenuItem)).toHaveLength(2)
+        expect(wrapper.findAllComponents(NavSidebarMenuItem)).toHaveLength(3)
         expect(wrapper.findAllComponents(NavSidebarMenuSectionTitle)).toHaveLength(1)
     })
 
-    it('shows close button when hasCloseButton is true', async () => {
+    it('renders collapse toggle button when showCollapseToggle is true and position is TOP (expanded)', () => {
         const wrapper = factory({
-            props: { hasCloseButton: true }
+            props: {
+                showCollapseToggle: true,
+                collapseTogglePosition: Position.TOP
+            }
         })
-
-        const closeBtn = wrapper.find('[data-testid="close-button"]')
-        expect(closeBtn.exists()).toBe(true)
-
-        await closeBtn.trigger('click')
-        expect(toggleMobileSidebarMock).toHaveBeenCalled()
+        expect(wrapper.findAllComponents(ActionIconButton)).toHaveLength(1)
     })
 
-    it('does not render close button when hasCloseButton is false', () => {
+    it('renders collapse toggle item in menu when showCollapseToggle is true and isCollapsed is true', async () => {
+        isSidebarCollapsedRef.value = true
+
         const wrapper = factory({
-            props: { hasCloseButton: false }
+            props: {
+                showCollapseToggle: true,
+                collapseTogglePosition: Position.TOP
+            }
         })
 
-        expect(wrapper.find('[data-testid="close-button"]').exists()).toBe(false)
+        await nextTick()
+
+        const menu = wrapper.findComponent(NavSidebarMenu)
+        expect(menu.findComponent(ActionIconButton).exists()).toBe(true)
+    })
+
+    it('renders collapse button at bottom when showCollapseToggle is true and position is BOTTOM', () => {
+        const wrapper = factory({
+            props: {
+                showCollapseToggle: true,
+                collapseTogglePosition: Position.BOTTOM
+            }
+        })
+
+        expect(wrapper.findAllComponents(ActionIconButton).length).toBe(1)
     })
 
     it('applies fixed class when isFixed is true', () => {
-        const wrapper = factory({
-            props: { isFixed: true }
-        })
-
+        const wrapper = factory({ props: { isFixed: true } })
         expect(wrapper.find('aside').classes()).toContain('fixed')
     })
 
     it('does not apply fixed class when isFixed is false', () => {
-        const wrapper = factory({
-            props: { isFixed: false }
-        })
-
+        const wrapper = factory({ props: { isFixed: false } })
         expect(wrapper.find('aside').classes()).not.toContain('fixed')
     })
 
@@ -136,11 +179,36 @@ describe('NavSidebar.vue', () => {
         expect(wrapper.find('.footer-slot').exists()).toBe(true)
     })
 
-    it('applies responsive classes for visibility', () => {
+    it('applies responsive translate-x classes based on screen size', () => {
         const wrapper = factory()
         const aside = wrapper.find('aside')
 
         expect(aside.classes()).toContain('translate-x-0')
         expect(aside.classes()).toContain('lg:translate-x-0')
     })
+
+    it('renders DropdownMenu when collapsed and item has children', async () => {
+        isSidebarCollapsedRef.value = true
+
+        const wrapper = factory()
+
+        await nextTick()
+
+        const dropdowns = wrapper.findAllComponents(DropdownMenu)
+        expect(dropdowns.length).toBeGreaterThan(0)
+    })
+
+    it('renders nested children when not collapsed and item is open', async () => {
+        const wrapper = factory()
+
+        const items = wrapper.findAllComponents(NavSidebarMenuItem)
+        expect(items.length).toBeGreaterThan(2) // Ensure the 3rd item exists
+
+        await items[2]!.trigger('click') // Use non-null assertion since we just checked
+        await nextTick()
+
+        const allItems = wrapper.findAllComponents(NavSidebarMenuItem)
+        expect(allItems.length).toBeGreaterThan(3)
+    })
+
 })
