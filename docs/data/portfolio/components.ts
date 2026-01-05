@@ -83,6 +83,10 @@ export const componentList: ComponentPortfolioItem[] = [
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/content-placeholder`,
     },
     {
+        title: 'Progress',
+        to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/progress-bar`,
+    },
+    {
         title: 'Rating',
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/rating`,
     },
