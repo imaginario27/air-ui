@@ -68,15 +68,7 @@ In the event of using the iconify collections by using the type `IconType.COLLEC
 
 ### Iconify collection usage
 
-First and foremost, add the module to your `nuxt.config.ts` file:
-
-```ts
-export default defineNuxtConfig({
-    modules: ['@nuxt/icon'],
-})
-```
-
-Secondly, decide whether you want to use local setup or server-served icons.
+Decide whether you want to use local setup or server-served icons.
 
 ### Local setup
 
@@ -88,11 +80,10 @@ npm install @iconify-json/collection-name
 
 ### Server-served icons
 
-Add the Nuxt Icon module to your `nuxt.config.ts` file and configure the server bundle to include the desired icon collections:
+Configure the server bundle to include the desired icon collections:
 
 ```ts
 export default defineNuxtConfig({
-    modules: ['@nuxt/icon'],
     icon: {
         serverBundle: {
             collections: ['mdi'] 
