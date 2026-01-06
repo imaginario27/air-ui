@@ -10,7 +10,7 @@ export default defineNuxtConfig({
         '../air-ui-utils',
     ],
 
-    modules: ["@nuxt/image", "nuxt-mdi", "@nuxt/eslint", '@vueuse/nuxt'],
+    modules: ["@nuxt/image", "nuxt-mdi", "@nuxt/eslint", '@vueuse/nuxt', "@nuxt/icon"],
 
     plugins: ["@/plugins/vue3-toastify"],
 
@@ -27,6 +27,13 @@ export default defineNuxtConfig({
             pathPrefix: false,
         },
     ],
+
+    icon: {
+        componentName: 'NuxtIcon',
+        serverBundle: {
+            collections: ['mdi']
+        }
+    },
 
     eslint: {
         // options here

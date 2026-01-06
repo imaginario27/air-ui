@@ -14,7 +14,7 @@ definePageMeta({
     title: 'Icon',
     layout: 'docs',
     overtitle: 'Components',
-    description: 'The Icon component uses the Nuxt Mdi module to render Material Design icons with full styling support.',
+    description: 'An Icon component to display various types of icons from Nuxt Mdi or Nuxt Icon module.',
 })
 
 // Route

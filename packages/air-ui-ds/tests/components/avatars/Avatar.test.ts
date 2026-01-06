@@ -1,5 +1,6 @@
 import { mount } from '@vue/test-utils'
 import Avatar from '@/components/avatars/Avatar.vue'
+import { AvatarSize } from '@/models/enums/avatars'
 
 const factory = (props?: Record<string, any>) => {
     return mount(Avatar, {
@@ -60,7 +61,7 @@ describe('Avatar.vue', () => {
     })
 
     it('applies hover and interactive classes when isInteractive is true', () => {
-        const wrapper = factory({ isInteractive: true, size: 'xxl' })
+        const wrapper = factory({ isInteractive: true, size: AvatarSize.XXL })
         expect(wrapper.classes()).toContain('hover:border-2')
         expect(wrapper.classes()).toContain('cursor-pointer')
     })
