@@ -11,25 +11,35 @@
             iconContainerSizeClass,
         ]"
     >
-        <MdiIcon 
-            :icon="icon" 
-            :size="iconSizeClass"
-            preserveAspectRatio="xMidYMid meet"
-            :class="iconColorClass"
+        <Icon
+            :icon
+            :type
+            :mode
+            :iconClass
         />
     </div>
 </template>
 <script setup lang="ts">
 // Props
 const props = defineProps({
+    icon: {
+        type: String as PropType<any>,
+        default: 'mdiHelp',
+    },
     styleType: {
         type: String as PropType<IconContainerStyleType>,
         default: IconContainerStyleType.FLAT,
         validator: (value: IconContainerStyleType) => Object.values(IconContainerStyleType).includes(value),
     },
-    icon: {
-        type: String as PropType<any>,
-        default: 'mdiHelp',
+    type: {
+        type: String as PropType<IconType>,
+        default: IconType.NATIVE, 
+        validator: (value: IconType) => Object.values(IconType).includes(value),
+    },
+    mode: {
+        type: String as PropType<IconMode>,
+        default: IconMode.CSS,
+        validator: (value: IconMode) => Object.values(IconMode).includes(value),
     },
     shape: {
         type: String as PropType<IconContainerShape>,
@@ -118,13 +128,16 @@ const iconContainerSizeClass = computed(() => {
 
 const iconSizeClass = computed(() => {
     const sizeVariants = {
-        [IconContainerSize.LG]: '24',
-        [IconContainerSize.XL]: '24',
-        [IconContainerSize.XXL]: '40',
-        [IconContainerSize.XXXL]: '48',
+        [IconContainerSize.LG]: 'w-[24px] h-[24px] min-w-[24px] min-h-[24px]',
+        [IconContainerSize.XL]: 'w-[24px] h-[24px] min-w-[24px] min-h-[24px]',
+        [IconContainerSize.XXL]: 'w-[40px] h-[40px] min-w-[40px] min-h-[40px]',
+        [IconContainerSize.XXXL]: 'w-[48px] h-[48px] min-w-[48px] min-h-[48px]',
     }
 
-    return sizeVariants[props.size as IconContainerSize] || '24'
+    return sizeVariants[props.size as IconContainerSize] || 'w-[24px] h-[24px] min-w-[24px] min-h-[24px]'
 })
-    
+
+const iconClass = computed(() => {
+    return [iconSizeClass.value, iconColorClass.value].join(' ')
+})
 </script>

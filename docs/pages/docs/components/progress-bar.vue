@@ -1,7 +1,6 @@
 <template>
     <Section>
         <SectionBody>
-            <TabBar v-model="activeIndex" :tabs />
             <ContentRenderer 
                 v-if="data" :value="data" 
             />
@@ -11,10 +10,10 @@
 </template>
 <script setup lang="ts">
 definePageMeta({
-    title: 'Icon',
+    title: 'ProgressBar',
     layout: 'docs',
     overtitle: 'Components',
-    description: 'An Icon component to display various types of icons from Nuxt Mdi or Nuxt Icon module.',
+    description: 'A visual indicator that represents the completion status of a task or process, typically displayed as a horizontal bar that fills up as progress is made.',
 })
 
 // Route
@@ -22,19 +21,4 @@ const route = useRoute()
 const cleanPath = computed(() => route.path.split('?')[0].split('#')[0])
 
 const { data } = await useAsyncData(() => queryCollection('content').path(cleanPath.value).first())
-
-// States
-const activeIndex = ref(0)
-
-// Tabs
-const tabs: TabItem[] = [
-    {
-        text: 'Icon',
-        to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/icon`,
-    },
-    {
-        text: 'ContainedIcon',
-        to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/contained-icon`,
-    },
-]
 </script>
