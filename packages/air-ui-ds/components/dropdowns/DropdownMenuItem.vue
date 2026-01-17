@@ -19,16 +19,12 @@
         ]"
     >
         <div class="flex items-center gap-3 w-full">
-            <MdiIcon
+            <Icon 
                 v-if="icon && (type === DropdownItemType.ICON || type === DropdownItemType.DANGER_ICON)"
-                :icon="icon"
-                size="20"
-                preserveAspectRatio="xMidYMid meet"
-                :class="[
-                    'min-w-[20px]',
-                    iconColorClass
-                ]"
+                :name="icon"
+                :iconClass="iconColorClass"
             />
+
             <template v-if="type === DropdownItemType.IMAGE">
                 <img
                     v-if="imgUrl && isImageLoaded"
@@ -45,9 +41,11 @@
                     class="w-[24px] h-[24px] rounded"
                 >
             </template>
+
             <span v-if="type !== DropdownItemType.USER" class="text-sm">
                 {{ text }}
             </span>
+
             <User
                 v-if="userDisplayName && type === DropdownItemType.USER"
                 :displayName="userDisplayName"
@@ -88,8 +86,8 @@ const props = defineProps({
         default: "Menu item text",
     },
     icon: {
-        type: String as PropType<any>,
-        default: "mdiHelp",
+        type: String as PropType<string>,
+        default: "mdi:help",
     },
     size: {
         type: String as PropType<DropdownItemSize>,
@@ -178,6 +176,7 @@ const sizeClass = computed(() => {
 const typeClass = computed(() => {
     const typeVariant = {
         [DropdownItemType.DANGER_ICON]: "text-text-delete",
+        [DropdownItemType.DANGER_TEXT]: "text-text-delete",
         [DropdownItemType.TEXT]: "text-text-default",
         [DropdownItemType.ICON]: "text-text-default",
         [DropdownItemType.IMAGE]: "text-text-default",
@@ -189,6 +188,7 @@ const typeClass = computed(() => {
 const iconColorClass = computed(() => {
     const colorVariant = {
         [DropdownItemType.DANGER_ICON]: "text-icon-delete",
+        [DropdownItemType.DANGER_TEXT]: "text-icon-delete",
         [DropdownItemType.TEXT]: "text-icon-neutral-subtle",
         [DropdownItemType.ICON]: "text-icon-neutral-subtle",
         [DropdownItemType.IMAGE]: undefined,

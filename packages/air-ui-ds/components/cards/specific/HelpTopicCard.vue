@@ -35,8 +35,8 @@
 // Props
 defineProps({
     icon: {
-        type: String as PropType<any>,
-        default: 'mdiHelp'
+        type: String as PropType<string>,
+        default: 'mdi:help'
     },
     title: {
         type: String as PropType<string>,
@@ -55,8 +55,8 @@ defineProps({
         default: 'Learn more' 
     },
     buttonIcon: {
-        type: String as PropType<any>,
-        default: 'mdiArrowRight'
+        type: String as PropType<string>,
+        default: 'mdi:arrow-right'
     },
 })
 </script>

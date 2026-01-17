@@ -62,11 +62,12 @@ describe('TextareaField', () => {
         })
 
         const errorText = wrapper.find('p.text-text-error')
-        const icon = wrapper.findComponent({ name: 'MdiIcon' })
+        const icon = wrapper.findComponent({ name: 'Icon' })
 
         expect(errorText.exists()).toBe(true)
         expect(errorText.text()).toBe('Field is required')
         expect(icon.exists()).toBe(true)
+        expect(icon.props('name')).toBe('mdi:alert-circle')
     })
 
     it('renders help text when no error is present', () => {
@@ -190,7 +191,9 @@ describe('TextareaField', () => {
             }
         })
 
-        const container = wrapper.find('div.p-4')
-        expect(container.classes()).toContain('min-h-[200px]')
+        const containers = wrapper.findAll('div')
+        const hasMinHeight = containers.some(div => div.classes().includes('min-h-[200px]'))
+
+        expect(hasMinHeight).toBe(true)
     })
 })

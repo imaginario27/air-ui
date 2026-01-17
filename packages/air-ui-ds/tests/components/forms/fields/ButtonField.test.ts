@@ -60,15 +60,13 @@ describe('ButtonField.vue', () => {
             label: 'Test',
             text: 'Submit',
             size: 'lg',
-            icon: 'mdiHelp',
+            icon: 'mdi:help',
             iconPosition: 'none',
             disabled: false,
             isLoading: true,
             loadingText: 'Please wait...',
             styleType: 'neutral-outlined',
             actionType: 'action',
-            svgIcon: 'icon.svg',
-            useSVGIconColor: true,
             isRounded: true,
             isFullWidth: true,
             isMobileFullWidth: true,
@@ -82,15 +80,13 @@ describe('ButtonField.vue', () => {
         expect(button.props()).toMatchObject({
             text: 'Submit',
             size: 'lg',
-            icon: 'mdiHelp',
+            icon: 'mdi:help',
             iconPosition: 'none',
             disabled: false,
             isLoading: true,
             loadingText: 'Please wait...',
             styleType: 'neutral-outlined',
             actionType: 'action',
-            svgIcon: 'icon.svg',
-            useSVGIconColor: true,
             isRounded: true,
             isFullWidth: true,
             isMobileFullWidth: true,
@@ -98,4 +94,5 @@ describe('ButtonField.vue', () => {
             isExternal: true
         })
     })
+
 })

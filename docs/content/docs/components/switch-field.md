@@ -16,7 +16,6 @@ props:
     disabled: false
     size: "md"
     icon: null
-    customIcon: null
     styleType: "brand"
     checkboxWrapperClass: ""
     labelClass: ""
@@ -97,11 +96,7 @@ props: [
     },
     {
         "name": "icon",
-        "type": "any",
-    },
-    {
-        "name": "customIcon",
-        "type": "any",
+        "type": "string",
     },
     {
         "name": "styleType",
@@ -274,25 +269,11 @@ Sets the icon of the field.
 
 ```vue
 <template>
-    <SwitchField icon="mdiCheck" />
+    <SwitchField icon="mdi:check" />
 </template>
 ```
 
-- **Type:** `any`
-
-### customIcon
-Sets a custom icon component for the field.
-
-```vue
-<template>
-    <SwitchField :customIcon="exampleIcon" />
-</template>
-<script setup lang="ts">
-import exampleIcon from '@/assets/icons/example-icon.svg?raw'
-</script>
-```
-
-- **Type:** `any`
+- **Type:** `string`
 
 ### styleType
 

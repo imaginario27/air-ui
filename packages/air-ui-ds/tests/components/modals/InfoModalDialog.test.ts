@@ -130,11 +130,11 @@ describe('InfoModalDialog.vue', () => {
     })
 
     it('passes props to ContainedIcon correctly', async () => {
-        const wrapper = factory({ icon: 'mdiInfo' })
+        const wrapper = factory({ icon: 'mdi:information' })
         await nextTick()
 
         const icon = wrapper.findComponent(ContainedIcon)
-        expect(icon.props('icon')).toBe('mdiInfo')
+        expect(icon.props('icon')).toBe('mdi:information')
         expect(icon.props('color')).toBe('info')
     })
 
@@ -142,7 +142,7 @@ describe('InfoModalDialog.vue', () => {
         const wrapper = factory({
             buttonCloseText: 'Dismiss',
             buttonActionText: 'Continue',
-            buttonActionIcon: 'mdiArrowRight',
+            buttonActionIcon: 'mdi:arrow-right',
             isLoading: true,
             loadingText: 'Processing...'
         })
@@ -151,7 +151,7 @@ describe('InfoModalDialog.vue', () => {
         const buttons = wrapper.findAllComponents(ActionButton)
         expect(buttons[0]?.props('text')).toBe('Dismiss')
         expect(buttons[1]?.props('text')).toBe('Continue')
-        expect(buttons[1]?.props('icon')).toBe('mdiArrowRight')
+        expect(buttons[1]?.props('icon')).toBe('mdi:arrow-right')
         expect(buttons[1]?.props('isLoading')).toBe(true)
         expect(buttons[1]?.props('loadingText')).toBe('Processing...')
     })

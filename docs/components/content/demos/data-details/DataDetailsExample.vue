@@ -74,7 +74,7 @@
             <ActionButton 
                 text="Edit"
                 :iconPosition="IconPosition.LEFT"
-                icon="mdiPencilOutline"
+                icon="mdi:pencil-outline"
                 :styleType="ButtonStyleType.PRIMARY_BRAND_FILLED"
             />
             <ActionButton 

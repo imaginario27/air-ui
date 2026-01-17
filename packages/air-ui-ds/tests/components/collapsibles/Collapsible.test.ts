@@ -44,9 +44,9 @@ describe('Collapsible', () => {
         const wrapper = factory()
         const iconButton = wrapper.findComponent(ActionIconButton)
 
-        expect(iconButton.props('icon')).toBe('mdiUnfoldMoreHorizontal')
+        expect(iconButton.props('icon')).toBe('mdi:unfold-more-horizontal')
 
         await wrapper.find('.collapsible-header').trigger('click')
-        expect(iconButton.props('icon')).toBe('mdiUnfoldLessHorizontal')
+        expect(iconButton.props('icon')).toBe('mdi:unfold-less-horizontal')
     })
 })

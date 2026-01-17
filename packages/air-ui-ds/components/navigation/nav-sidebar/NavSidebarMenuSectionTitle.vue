@@ -12,11 +12,10 @@
         spacingClass,
     ]"
     >
-        <MdiIcon 
+        <Icon
             v-if="icon"
-            :icon
-            preserveAspectRatio="xMidYMid meet"
-            :class="['text-icon-neutral-subtle', iconSizeClass]"
+            :name="icon"
+            :iconClass="['!text-icon-neutral-subtle', iconSizeClass]"
         />
 
         <span>
@@ -32,7 +31,7 @@ const props = defineProps({
         type: String as PropType<string>,
         default: 'Item text'
     },
-    icon: String as PropType<any>,
+    icon: String as PropType<string>,
     styleType: {
         type: String as PropType<SidebarNavMenuItemStyleType>,
         default: SidebarNavMenuItemStyleType.COMPACT, 

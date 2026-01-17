@@ -17,29 +17,36 @@
         />
 
         <!-- Icon -->
-        <MdiIcon
+        <Icon 
             v-if="showIcon"
-            :icon="icon"
-            size="12px"
-            preserveAspectRatio="xMidYMid meet"
-            :class="iconColorClass"
+            :name="icon"
+            :size="IconSize.XS"
+            :iconClass="iconColorClass" 
         />
 
         <!-- Text -->
         <span :class="textClass">{{ text }}</span>
 
         <!-- Close button -->
-        <button
+        <div 
             v-if="closeable"
-            :class="[textClass, 'ml-1 hover:opacity-75 focus:outline-none']"
-            @click="emitClose"
+            class="ml-1 h-[24px] flex items-center"
         >
-            <MdiIcon 
-                icon="mdiClose" 
-                size="16px"
-                preserveAspectRatio="xMidYMid meet"
-            />
-        </button>
+            <button
+                class="flex items-center justify-center h-full w-[20px]"
+                :class="[
+                    textClass,
+                    'hover:opacity-75 focus:outline-none',
+                ]"
+                @click="emitClose"
+            >
+                <Icon 
+                    name="mdi:close"
+                    :size="IconSize.SM"
+                    :iconClass="iconColorClass"
+                />
+            </button>
+        </div>
     </div>
 </template>
 
@@ -82,8 +89,8 @@ const props = defineProps({
         default: 'Badge',
     },
     icon: {
-        type: String as PropType<any>,
-        default: 'mdiHelp',
+        type: String as PropType<string>,
+        default: 'mdi:help',
     },
 })
 
@@ -172,19 +179,19 @@ const textClass = computed(() => {
 })
 
 const iconColorClass = computed(() => {
-    if (props.styleType === BadgeStyle.FILLED) return "text-text-neutral-on-filled"
+    if (props.styleType === BadgeStyle.FILLED) return "!text-text-neutral-on-filled"
 
     const iconVariant: Record<ColorAccent, string> = {
-        [ColorAccent.NEUTRAL]: "text-icon-neutral-subtle",
-        [ColorAccent.SUCCESS]: "text-icon-success",
-        [ColorAccent.WARNING]: props.isTransparent ? "text-icon-warning" : "text-icon-warning-on-bg",
-        [ColorAccent.DANGER]: "text-icon-danger",
-        [ColorAccent.INFO]: "text-icon-info",
-        [ColorAccent.PRIMARY_BRAND]: "text-icon-primary-brand-default",
-        [ColorAccent.SECONDARY_BRAND]: "text-icon-secondary-brand-default",
+        [ColorAccent.NEUTRAL]: "!text-icon-neutral-subtle",
+        [ColorAccent.SUCCESS]: "!text-icon-success",
+        [ColorAccent.WARNING]: props.isTransparent ? "!text-icon-warning" : "!text-icon-warning-on-bg",
+        [ColorAccent.DANGER]: "!text-icon-danger",
+        [ColorAccent.INFO]: "!text-icon-info",
+        [ColorAccent.PRIMARY_BRAND]: "!text-icon-primary-brand-default",
+        [ColorAccent.SECONDARY_BRAND]: "!text-icon-secondary-brand-default",
     }
 
-    return iconVariant[props.color as ColorAccent] || "text-icon-secondary"
+    return iconVariant[props.color as ColorAccent] || "!text-icon-secondary"
 })
 
 const dotColorClass = computed(() => {

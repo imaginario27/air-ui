@@ -8,13 +8,12 @@
             'gap-2',
         ]"
     >
-        <MdiIcon 
-            :icon="isValid ? 'mdiCheck' : 'mdiClose'" 
-            preserveAspectRatio="xMidYMid meet"
-            :class="[
-                isValid ? 'text-icon-success-subtle' : 'text-text-neutral-subtle',
-                'w-[16px] h-[16px] min-w-[16px] min-h-[16px]',
+        <Icon 
+            :name="isValid ? 'mdi:check' : 'mdi:close'" 
+            :iconClass="[
+                isValid ? '!text-icon-success-subtle' : '!text-text-neutral-subtle',
             ]" 
+            :size="IconSize.SM"
         />
         <span 
             :class="[

@@ -62,11 +62,9 @@
                     :disabled="modelValue === 1" 
                     @click="goToPreviousPage"
                 >
-                    <MdiIcon 
-                        icon="mdiChevronLeft"
-                        size="20px"
-                        preserveAspectRatio="xMidYMid meet"
-                        class="text-icon-neutral-subtle"
+                    <Icon
+                        name="mdi:chevron-left"
+                        iconClass="text-icon-neutral-subtle"
                     />
                 </PaginationButton>
 
@@ -122,11 +120,9 @@
                     :disabled="modelValue === totalPages"
                     @click="goToNextPage"
                 >
-                    <MdiIcon 
-                        icon="mdiChevronRight"
-                        size="20px"
-                        preserveAspectRatio="xMidYMid meet"
-                        class="text-icon-neutral-subtle"
+                    <Icon 
+                        name="mdi:chevron-right"
+                        iconClass="text-icon-neutral-subtle"
                     />
                 </PaginationButton>
             </nav>

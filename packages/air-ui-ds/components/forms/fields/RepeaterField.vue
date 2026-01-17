@@ -19,7 +19,7 @@
                 <ActionIconButton
                     v-if="index === items.length - 1"
                     :styleType="ButtonStyleType.NEUTRAL_OUTLINED"
-                    icon="mdiPlusCircleOutline"
+                    icon="mdi:plus-circle-outline"
                     :size="ButtonSize.SM"
                     @click="addItem"
                 />
@@ -28,7 +28,7 @@
                 <ActionIconButton
                     v-if="items.length > 1"
                     :styleType="ButtonStyleType.DELETE_SOFT"
-                    icon="mdiMinusCircleOutline"
+                    icon="mdi:minus-circle-outline"
                     :size="ButtonSize.SM"
                     @click="removeItem(index)"
                 />

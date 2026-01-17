@@ -14,21 +14,21 @@
             gapClass,
         ]">
             <!-- Left icon -->
-            <MdiIcon
+            <Icon
                 v-if="iconPosition === IconPosition.LEFT"
-                :icon="icon"
-                :size="iconSizeClass"
-                preserveAspectRatio="xMidYMid meet"
+                :name="icon"
+                :iconClass="iconSizeClass"
             />
+
             <span :class="[ textSizeClass, textClass ]">
                 {{ text }}
             </span>
+
             <!-- Right icon -->
-            <MdiIcon
+            <Icon
                 v-if="iconPosition === IconPosition.RIGHT"
-                :icon="icon"
-                :size="iconSizeClass"
-                preserveAspectRatio="xMidYMid meet"
+                :name="icon"
+                :iconClass="iconSizeClass"
             />
         </div>
     </NuxtLink>
@@ -47,8 +47,8 @@ const props = defineProps({
         validator: (value: NavLinkSize) => Object.values(NavLinkSize).includes(value),
     },
     icon: {
-        type: String as PropType<any>,
-        default: "mdiArrowRightThin"
+        type: String as PropType<string>,
+        default: "mdi:arrow-right-thin"
     },
     iconPosition: {
         type: String as PropType<IconPosition>,

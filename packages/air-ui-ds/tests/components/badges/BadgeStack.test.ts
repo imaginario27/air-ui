@@ -3,7 +3,7 @@ import BadgeStack from '@/components/badges/BadgeStack.vue'
 import Badge from '@/components/badges/Badge.vue'
 
 const sampleData = [
-    { text: 'Badge 1', icon: 'mdiCheck' },
+    { text: 'Badge 1', icon: 'mdi:check' },
     { text: 'Badge 2' },
     { text: 'Badge 3' }
 ]

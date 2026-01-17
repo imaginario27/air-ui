@@ -125,8 +125,8 @@ const props = defineProps({
         default: StepIndicatorSize.SM,
         validator: (value: StepIndicatorSize) => Object.values(StepIndicatorSize).includes(value),    
     },
-    stepIcon: String as PropType<any>,
-    stepCompletedIcon: String as PropType<any>,
+    stepIcon: String as PropType<string>,
+    stepCompletedIcon: String as PropType<string>,
     isLast: {
         type: Boolean as PropType<boolean>,
         default: false,

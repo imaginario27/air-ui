@@ -7,7 +7,7 @@
             
             <!-- This button does not have click event because the toggle is being controlled by the accordeon header div-->
             <ActionIconButton 
-                :icon="isOpen ? 'mdiUnfoldLessHorizontal' : 'mdiUnfoldMoreHorizontal'"
+                :icon="isOpen ? 'mdi:unfold-less-horizontal' : 'mdi:unfold-more-horizontal'"
                 :styleType="ButtonStyleType.NEUTRAL_OUTLINED"
                 :size="ButtonSize.MD" 
             />

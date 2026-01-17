@@ -7,9 +7,9 @@ props:
     modelValue: 5
     size: "md"
     color: "gold"
-    emptyIndicatorIcon: "mdiStarOutline"
-    halfIndicatorIcon: "mdiStarHalfFull"
-    fullIndicatorIcon: "mdiStar"
+    emptyIndicatorIcon: "mdi:star-outline"
+    halfIndicatorIcon: "mdi:star-half-full"
+    fullIndicatorIcon: "mdi:star"
     hoverPreview: true
 items:
     size: 
@@ -56,17 +56,17 @@ props: [
     },
     {
         "name": "emptyIndicatorIcon",
-        "default": "'mdiStarOutline'",
+        "default": "'mdi:star-outline'",
         "type": "string",
     },
     {
         "name": "halfIndicatorIcon",
-        "default": "'mdiStarHalfFull'",
+        "default": "'mdi:star-half-full'",
         "type": "string",
     },
     {
         "name": "fullIndicatorIcon",
-        "default": "'mdiStar'",
+        "default": "'mdi:star'",
         "type": "string",
     },
     {
@@ -164,42 +164,42 @@ options: [
 
 ### emptyIndicatorIcon
 
-Sets the icon of the empty rating indicator. Uses the `mdi` icon library.
+Sets the icon of the empty rating indicator.
 
 ```vue
 <template>
-    <InteractiveRating emptyIndicatorIcon="mdiStarOutline" />
+    <InteractiveRating emptyIndicatorIcon="mdi:star-outline" />
 </template>
 ```
 
 - **Type:** `string`
-- **Default:** `'mdiStarOutline'`
+- **Default:** `'mdi:star-outline'`
 
 ### halfIndicatorIcon
 
-Sets the icon of the half rating indicator. Uses the `mdi` icon library.
+Sets the icon of the half rating indicator. 
 
 ```vue
 <template>
-    <InteractiveRating halfIndicatorIcon="mdiStarHalfFull" />
+    <InteractiveRating halfIndicatorIcon="mdi:star-half-full" />
 </template>
 ```
 
 - **Type:** `string`
-- **Default:** `'mdiStarHalfFull'`
+- **Default:** `'mdi:star-half-full'`
 
 ### fullIndicatorIcon
 
-Sets the icon of the full rating indicator. Uses the `mdi` icon library.
+Sets the icon of the full rating indicator.
 
 ```vue
 <template>
-    <InteractiveRating fullIndicatorIcon="mdiStar" />
+    <InteractiveRating fullIndicatorIcon="mdi:star" />
 </template>
 ```
 
 - **Type:** `string`
-- **Default:** `'mdiStar'`
+- **Default:** `'mdi:star'`
 
 ### hoverPreview
 

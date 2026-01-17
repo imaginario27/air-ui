@@ -6,14 +6,14 @@ srcDir: 'empty-states/EmptyState.vue'
 props: 
     title: "Ups! No data found"
     description: "No data found"
-    icon: "mdiDatabaseAlertOutline"
+    icon: "mdi:database-alert-outline"
     iconClass: "text-icon-neutral-sublest"
     titleClass: "text-base"
     descriptionClass: "text-sm text-text-neutral-subtle"
     orientation: "vertical"
     buttonText: "Add new data"
     buttonIconPosition: "left"
-    buttonIcon: "mdiPlus"
+    buttonIcon: "mdi:plus"
     buttonStyleType: "primary-brand-filled"
     hasContainer: false
     containerStyle: "filled-neutral"
@@ -86,7 +86,7 @@ props: [
     },
     {
         "name": "icon",
-        "default": "'mdiDatabaseAlertOutline'",
+        "default": "'mdi:database-alert-outline'",
         "type": "string",
     },
     {
@@ -118,6 +118,7 @@ props: [
     },
     {
         "name": "buttonIcon",
+        "default": "'mdi:plus'",
         "type": "string",
     },
     {
@@ -175,12 +176,12 @@ Sets the icon to be displayed.
 
 ```vue
 <template>
-    <EmptyState icon="mdiDatabaseAlertOutline" />
+    <EmptyState icon="mdi:database-alert-outline" />
 </template>
 ```
 
 - **Type:** `string`
-- **Default:** `'mdiDatabaseAlertOutline'`
+- **Default:** `'mdi:database-alert-outline'`
 
 ### iconClass
 
@@ -302,7 +303,7 @@ Sets the icon of the button.
 <template>
     <EmptyState 
         :buttonIconPosition="IconPosition.LEFT" 
-        buttonIcon="mdiPlus" 
+        buttonIcon="mdi:plus" 
     />
 </template>
 ```

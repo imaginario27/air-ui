@@ -54,11 +54,13 @@
             />
 
             <!-- Error Icon -->
-            <span v-if="hasError" class="text-icon-error absolute top-4 right-4">
-                <MdiIcon 
-                    icon="mdiAlertCircle" 
-                    size="20" 
-                    preserveAspectRatio="xMidYMid meet"
+            <span 
+                v-if="hasError" 
+                class="absolute top-4 right-4"
+            >
+                <Icon
+                    name="mdi:alert-circle"
+                    iconClass="text-icon-error"
                 />
             </span>
         </div>

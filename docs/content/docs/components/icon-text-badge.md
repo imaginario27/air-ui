@@ -6,7 +6,7 @@ srcDir: 'badges/IconTextBadge.vue'
 props: 
     color: "success"
     text: "Badge"
-    icon: "mdiHelp"
+    icon: "mdi:help"
 items:
     color: 
         - value: neutral
@@ -44,7 +44,7 @@ props: [
     },
     {
         "name": "icon",
-        "default": "mdiHelp",
+        "default": "mdi:help",
         "type": "string",
     }
 ]
@@ -122,9 +122,9 @@ The icon displayed on the badge.
 
 ```vue
 <template>
-    <Badge :showIcon="true" icon="mdiHelp" />
+    <Badge :showIcon="true" icon="mdi:help" />
 </template>
 ```
 
 - **Type:** `string`
-- **Default:** `'mdiHelp'`
+- **Default:** `'mdi:help'`

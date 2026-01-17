@@ -39,7 +39,7 @@ defineProps({
     items: Array as PropType<VerticalStepperItem[]>,
     stepType: String as PropType<StepIndicatorType>,
     stepSize: String as PropType<StepIndicatorSize>,
-    stepCompletedIcon: String as PropType<any>,
+    stepCompletedIcon: String as PropType<string>,
     hasStepper: {
         type: Boolean as PropType<boolean>,
         default: true,

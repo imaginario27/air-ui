@@ -2,7 +2,7 @@ import { mount } from '@vue/test-utils'
 import SubscriptionPlanCard from '@/components/cards/specific/subscription/SubscriptionPlanCard.vue'
 import { Align } from '~/models/enums/positions'
 import { ButtonStyleType } from '@/models/enums/buttons'
-import { MdiIcon } from '#components'
+import Icon from '@/components/icons/Icon.vue'
 import ListItem from '~/components/lists/ListItem.vue'
 import List from '~/components/lists/List.vue'
 import ActionButton from '~/components/buttons/ActionButton.vue'
@@ -50,14 +50,14 @@ describe('SubscriptionPlanCard.vue', () => {
         expect(badge.exists()).toBe(false)
     })
 
-    it('shows MdiIcon check when isActive is true and not isFeatured', () => {
+    it('shows Icon check when isActive is true and not isFeatured', () => {
         const wrapper = factory({ isActive: true, isFeatured: false })
-        const icon = wrapper.findComponent(MdiIcon)
+        const icon = wrapper.findComponent(Icon)
         expect(icon.exists()).toBe(true)
-        expect(icon.props('icon')).toBe('mdiCheckCircle')
+        expect(icon.props('name')).toBe('mdi:check-circle')
     })
 
-    it('does not show MdiIcon check when isActive is false', () => {
+    it('does not show Icon check when isActive is false', () => {
         const wrapper = factory({ isActive: false })
         expect(wrapper.find('.active-icon').exists()).toBe(false)
     })

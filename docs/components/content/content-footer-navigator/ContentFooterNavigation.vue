@@ -15,7 +15,7 @@
             :label="previousPage.label"
             :description="previousPage.description"
             :to="previousPage.link"
-            icon="mdiArrowLeftThin"
+            icon="mdi:arrow-left-thin"
             :iconPosition="IconPosition.LEFT"
         />
 
@@ -24,7 +24,7 @@
             :label="nextPage.label"
             :description="nextPage.description"
             :to="nextPage.link"
-            icon="mdiArrowRightThin"
+            icon="mdi:arrow-right-thin"
             :iconPosition="IconPosition.RIGHT"
         />
     </div>

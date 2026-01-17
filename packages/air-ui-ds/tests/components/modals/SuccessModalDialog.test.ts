@@ -91,12 +91,12 @@ describe('SuccessModalDialog.vue', () => {
     })
 
     it('passes icon prop to ContainedIcon', async () => {
-        const wrapper = factory({ icon: 'mdiRocketLaunch' })
+        const wrapper = factory({ icon: 'mdi:rocket-launch' })
         await nextTick()
 
         const icon = wrapper.findComponent(ContainedIcon)
         expect(icon.exists()).toBe(true)
-        expect(icon.props('icon')).toBe('mdiRocketLaunch')
+        expect(icon.props('icon')).toBe('mdi:rocket-launch')
     })
 
     it('renders ContainedIcon with default icon when icon prop is not passed', async () => {
@@ -105,7 +105,7 @@ describe('SuccessModalDialog.vue', () => {
 
         const icon = wrapper.findComponent(ContainedIcon)
         expect(icon.exists()).toBe(true)
-        expect(icon.props('icon')).toBe('mdiCheckBold') // default value
+        expect(icon.props('icon')).toBe('mdi:check-bold') // default value
     })
 
     it('passes modal-related props to ModalDialog', async () => {

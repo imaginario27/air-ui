@@ -191,30 +191,30 @@ const props = defineProps({
             {
                 isSectionTitle: true,
                 text: 'Section title',
-                icon: 'mdiBullseye',
+                icon: 'mdi:bullseye',
             },
             {
                 text: 'Item 1',
-                icon: 'mdiHelp',
+                icon: 'mdi:help',
                 to: '/',
             },
             {
                 text: 'Item 2',
-                icon: 'mdiHelp',
+                icon: 'mdi:help',
                 to: '/',
             },
             {
                 text: 'Item 3',
-                icon: 'mdiHelp',
+                icon: 'mdi:help',
                 children: [
                     {
                         text: 'Subitem 1',
-                        icon: 'mdiHelp',
+                        icon: 'mdi:help',
                         to: '/',
                     },
                     {
                         text: 'Subitem 2',
-                        icon: 'mdiHelp',
+                        icon: 'mdi:help',
                         to: '/',
                     },
                 ],
@@ -264,11 +264,11 @@ const props = defineProps({
     },
     collapsedStateIcon: {
         type: String as PropType<string>,
-        default: 'mdiMenuClose',
+        default: 'mdi:menu-close',
     },
     expandedStateIcon: {
         type: String as PropType<string>,
-        default: 'mdiMenuOpen',
+        default: 'mdi:menu-open',
     },
     showMobileSidebarClose: {
         type: Boolean as PropType<boolean>,
@@ -276,7 +276,7 @@ const props = defineProps({
     },
     mobileSidebarCloseIcon: {
         type: String as PropType<string>,
-        default: 'mdiClose',
+        default: 'mdi:close-circle',
     },
     isFixed: {
         type: Boolean as PropType<boolean>,

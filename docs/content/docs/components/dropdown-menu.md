@@ -416,7 +416,7 @@ srcDir: 'dropdowns/DropdownMenuItem.vue'
 props: 
     actionType: "link"
     text: "Menu item text"
-    icon: "mdiHelp"
+    icon: "mdi:help"
     size: "md"
     type: "text"
     userDisplayName: "Test user"
@@ -437,6 +437,8 @@ items:
     type:
         - value: text
           text: TEXT
+        - value: danger-text
+          text: DANGER_TEXT
         - value: icon
           text: ICON
         - value: danger-icon
@@ -473,8 +475,8 @@ props: [
     },
     {
         "name": "icon",
-        "default": "mdiHelp",
-        "type": "any",
+        "default": "mdi:help",
+        "type": "string",
     },
     {
         "name": "size",
@@ -585,15 +587,15 @@ Sets the icon to be displayed in the menu item.
 ```vue
 <template>
     <DropdownMenuItem
-        icon="mdiHelp"
+        icon="mdi:help"
     >
         ....
     </DropdownMenuItem>
 </template>
 ```
 
-- **Type:** `any`
-- **Default:** `'mdiHelp'`
+- **Type:** `string`
+- **Default:** `'mdi:help'`
 
 ### size
 Sets the size of the menu item. Uses the `DropdownItemSize` enum.

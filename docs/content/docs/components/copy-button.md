@@ -13,7 +13,7 @@ props:
     styleType: "neutral-outlined"
     text: "Copy"
     size: "sm"
-    icon: "mdiContentCopy"
+    icon: "mdi:content-copy"
     iconPosition: "right"
     disabled: false
 items:
@@ -116,7 +116,7 @@ props: [
     }, 
     {
         "name": "icon",
-        "default": "mdiContentCopy",
+        "default": "mdi:content-copy",
         "type": "string",
     }, 
     {
@@ -352,12 +352,12 @@ The `icon` prop specifies the Material Design Icon to be displayed on the button
 
 ```vue
 <template>
-    <CopyButton icon="mdiContentCopy" />
+    <CopyButton icon="mdi:content-copy" />
 </template>
 ```
 
 - **Type:** `string`
-- **Default:** `'mdiContentCopy'`
+- **Default:** `'mdi:content-copy'`
 
 ### iconPosition
 
@@ -366,7 +366,7 @@ The `iconPosition` prop determines the position of the icon relative to the butt
 ```vue
 <template>
     <CopyButton 
-        icon="mdiContentCopy" 
+        icon="mdi:content-copy" 
         :iconPosition="IconPosition.RIGHT" 
     />
 </template>

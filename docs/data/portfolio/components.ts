@@ -63,6 +63,10 @@ export const componentList: ComponentPortfolioItem[] = [
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/empty-state`,
     },
     {
+        title: 'Feature',
+        to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/feature`,
+    },
+    {
         title: 'Heading',
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/heading`,
     },

@@ -7,9 +7,9 @@ props:
     value: 5
     size: "md"
     color: "gold"
-    emptyIndicatorIcon: "mdiStarOutline"
-    halfIndicatorIcon: "mdiStarHalfFull"
-    fullIndicatorIcon: "mdiStar"
+    emptyIndicatorIcon: "mdi:star-outline"
+    halfIndicatorIcon: "mdi:star-half-full"
+    fullIndicatorIcon: "mdi:star"
 items:
     size: 
         - value: sm
@@ -54,17 +54,17 @@ props: [
     },
     {
         "name": "emptyIndicatorIcon",
-        "default": "'mdiStarOutline'",
+        "default": "'mdi:star-outline'",
         "type": "string",
     },
     {
         "name": "halfIndicatorIcon",
-        "default": "'mdiStarHalfFull'",
+        "default": "'mdi:star-half-full'",
         "type": "string",
     },
     {
         "name": "fullIndicatorIcon",
-        "default": "'mdiStar'",
+        "default": "'mdi:star'",
         "type": "string",
     },
 ]
@@ -157,42 +157,42 @@ options: [
 
 ### emptyIndicatorIcon
 
-Sets the icon of the empty rating indicator. Uses the `mdi` icon library.
+Sets the icon of the empty rating indicator.
 
 ```vue
 <template>
-    <Rating emptyIndicatorIcon="mdiStarOutline" />
+    <Rating emptyIndicatorIcon="mdi:star-outline" />
 </template>
 ```
 
 - **Type:** `string`
-- **Default:** `'mdiStarOutline'`
+- **Default:** `'mdi:star-outline'`
 
 ### halfIndicatorIcon
 
-Sets the icon of the half rating indicator. Uses the `mdi` icon library.
+Sets the icon of the half rating indicator. 
 
 ```vue
 <template>
-    <Rating halfIndicatorIcon="mdiStarHalfFull" />
+    <Rating halfIndicatorIcon="mdi:star-half-full" />
 </template>
 ```
 
 - **Type:** `string`
-- **Default:** `'mdiStarHalfFull'`
+- **Default:** `'mdi:star-half-full'`
 
 ### fullIndicatorIcon
 
-Sets the icon of the full rating indicator. Uses the `mdi` icon library.
+Sets the icon of the full rating indicator.
 
 ```vue
 <template>
-    <Rating fullIndicatorIcon="mdiStar" />
+    <Rating fullIndicatorIcon="mdi:star" />
 </template>
 ```
 
 - **Type:** `string`
-- **Default:** `'mdiStar'`
+- **Default:** `'mdi:star'`
 
 ## RatingItem
 The `<RatingItem />` component is used to render a single rating indicator. It used by the `<Rating />` and `<InteractiveRating />` component.
@@ -201,7 +201,7 @@ The `<RatingItem />` component is used to render a single rating indicator. It u
 ---
 srcDir: 'rating/RatingItem.vue'
 props: 
-    icon: "mdiStarOutline"
+    icon: "mdi:star-outline"
     size: "md"
     color: "gold"
     isInteractive: false
@@ -234,7 +234,7 @@ previewBackground: 'white'
 props: [
     {
         "name": "icon",
-        "default": "'mdiStarOutline'",
+        "default": "'mdi:star-outline'",
         "type": "string",
     },
     {
@@ -258,16 +258,16 @@ props: [
 
 ### icon
 
-Sets the icon of the rating indicator. Uses the `mdi` icon library.
+Sets the icon of the rating indicator. 
 
 ```vue
 <template>
-    <RatingItem icon="mdiStarOutline" />
+    <RatingItem icon="mdi:star-outline" />
 </template>
 ```
 
 - **Type:** `string`
-- **Default:** `'mdiStarOutline'`
+- **Default:** `'mdi:star-outline'`
 
 ### size and color
 

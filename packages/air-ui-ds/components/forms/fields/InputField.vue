@@ -42,16 +42,11 @@
             ]"
         >
             <!-- Icon -->
-            <span
+            <Icon
                 v-if="icon"
-                class="text-icon-neutral-subtler"
-            >
-                <MdiIcon
-                    :icon="icon"
-                    size="20"
-                    preserveAspectRatio="xMidYMid meet"
-                />
-            </span>
+                :name="icon"
+                iconClass="text-icon-neutral-subtler"
+            />
 
             <!-- Input -->
             <input
@@ -98,13 +93,13 @@
                     'focus:outline-none',
                     'transition-colors',
                     'cursor-pointer',
+                    'h-[20px]'
                 ]"
                 @click="handleSuffixClick"
             >
-                <MdiIcon
-                    :icon="suffixIcon"
-                    size="20"
-                    preserveAspectRatio="xMidYMid meet"
+                <Icon
+                    v-if="suffixIcon"
+                    :name="suffixIcon"  
                 />
             </button>
 
@@ -118,27 +113,21 @@
                     'focus:outline-none',
                     'transition-colors',
                     'cursor-pointer',
+                    'h-[20px]'
                 ]"
                 @click="() => showPassword = !showPassword"
             >
-                <MdiIcon
-                    :icon="showPassword ? 'mdiEyeOffOutline' : 'mdiEyeOutline'"
-                    size="20"
-                    preserveAspectRatio="xMidYMid meet"
+                <Icon
+                    :name="showPassword ? 'mdi:eye-off-outline' : 'mdi:eye-outline'"
                 />
             </button>
 
             <!-- Error Icon -->
-            <span
+            <Icon
                 v-if="hasError && !suffixIcon"
-                class="text-icon-error"
-            >
-                <MdiIcon
-                    icon="mdiAlertCircle"
-                    size="20"
-                    preserveAspectRatio="xMidYMid meet"
-                />
-            </span>
+                name="mdi:alert-circle-outline"
+                iconClass="text-icon-error"
+            />
         </div>
 
         <!-- Help Text -->
@@ -171,8 +160,8 @@ const props = defineProps({
         default: 'Placeholder',
     },
     helpText: String as PropType<string>,
-    icon: String as PropType<any>,
-    suffixIcon: String as PropType<any>,
+    icon: String as PropType<string>,
+    suffixIcon: String as PropType<string>,
     linkText: String as PropType<string>,
     linkUrl: String as PropType<string>,       
     size: {

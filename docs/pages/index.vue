@@ -44,7 +44,7 @@
                             :actionType="ButtonActionType.LINK"
                             text="Explore components"
                             :iconPosition="IconPosition.RIGHT"
-                            icon="mdiArrowRightThin"
+                            icon="mdi:arrow-right-thin"
                             :to="`/${AppSlug.DOCS}/${AppSlug.COMPONENTS}`"
                             isMobileFullWidth
                         />
@@ -59,21 +59,21 @@
                             <Feature 
                                 title="Built with Tailwind CSS"
                                 description="Utility-first styling with full design freedom."
-                                icon="mdiTailwind"
+                                icon="mdi:tailwind"
                             />
                         </ListItem>
                         <ListItem>
                             <Feature 
                                 title="Optimized for Nuxt"
                                 description="Auto-imported components, composables, and stores — zero config needed."
-                                icon="mdiLightningBoltOutline"
+                                icon="mdi:lightning-bolt-outline"
                             />
                         </ListItem>
                         <ListItem>
                             <Feature 
                                 title="Type-safe with TypeScript"
                                 description="Fully typed API surface for a smoother developer experience."
-                                icon="mdiLanguageTypescript"
+                                icon="mdi:language-typescript"
                             />
                         </ListItem>
                     </List>
@@ -94,32 +94,32 @@
                 <Feature 
                     title="Modern web standards"
                     description="Built using the latest Vue and Nuxt features."
-                    icon="mdiWeb"
+                    icon="mdi:web"
                 />
                 <Feature 
                     title="Icon support"
                     description="Easy integration with thousands of icons out of the box."
-                    icon="mdiImageSearchOutline"
+                    icon="mdi:image-search-outline"
                 />
                 <Feature 
                     title="Custom fonts"
                     description="Add or override fonts effortlessly via CSS variables."
-                    icon="mdiFormatFont"
+                    icon="mdi:format-font"
                 />
                 <Feature 
                     title="Light & dark themes"
                     description="Automatic and manual theme switching with semantic colors."
-                    icon="mdiThemeLightDark"
+                    icon="mdi:theme-light-dark"
                 />
                 <Feature 
                     title="Internationalization (i18n) ready"
                     description="Built with internationalization in mind."
-                    icon="mdiTranslate"
+                    icon="mdi:translate"
                 />
                 <Feature 
                     title="Production-ready"
                     description="Fast, lightweight, and scalable by default."
-                    icon="mdiRocketLaunchOutline"
+                    icon="mdi:rocket-launch-outline"
                 />
             </Grid>
         </SectionBody>
@@ -145,21 +145,21 @@
                             <Feature 
                                 title="CSS variables & theming"
                                 description="Customize spacing, typography, and color tokens with ease."
-                                icon="mdiPaletteOutline"
+                                icon="mdi:palette-outline"
                             />
                         </ListItem>
                         <ListItem>
                             <Feature 
                                 title="Semantic color system"
                                 description="Design with clarity using meaningful color names."
-                                icon="mdiFormatColorFill"
+                                icon="mdi:format-color-fill"
                             />
                         </ListItem>
                         <ListItem>
                             <Feature 
                                 title="Fast theme sync from Figma"
                                 description="Import Figma's project theme tokens and quickly update your app's styles via script — no rebuild required."
-                                icon="mdiSync"
+                                icon="mdi:sync"
                             />
                         </ListItem>
                     </List>
@@ -190,21 +190,21 @@
                             <Feature 
                                 title="Complete component library"
                                 description="Forms, tables, modals, alerts, menus, tabs, and more — ready to drop into your project."
-                                icon="mdiCheckAll"
+                                icon="mdi:check-all"
                             />
                         </ListItem>
                         <ListItem>
                             <Feature 
                                 title="Tailwind-first customization"
                                 description="Override styles using utility classes or extend with your own Tailwind config — no friction."
-                                icon="mdiTune"
+                                icon="mdi:tailwind"
                             />
                         </ListItem>
                         <ListItem>
                             <Feature 
                                 title="Flexible by design"
                                 description="Every component is built to be composable, prop-driven, and adaptable to your specific UI needs."
-                                icon="mdiShapeOutline"
+                                icon="mdi:shape-outline"
                             />
                         </ListItem>
                     </List>

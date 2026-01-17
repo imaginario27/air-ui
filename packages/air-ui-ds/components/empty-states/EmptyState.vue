@@ -11,16 +11,15 @@
             ]"
         >
             <!-- Icon -->
-            <MdiIcon
+            <Icon 
                 v-if="icon"
-                :icon="icon"
-                :size="iconSize"
-                preserveAspectRatio="xMidYMid meet"
-                :class="[
+                :name="icon"
+                :iconClass="[
                     hasContainer ? isContainedIconClass : iconClass,
                     iconSizeClass,
                 ]"
             />
+  
             <div 
                 :class="[
                     'flex gap-2 flex-col',
@@ -68,8 +67,8 @@ const props = defineProps({
     },
     description: String as PropType<string>,
     icon: {
-        type: String as PropType<any>,
-        default: 'mdiDatabaseAlertOutline',
+        type: String as PropType<string>,
+        default: 'mdi:database-alert-outline',
     },
     iconClass: {
         type: String as PropType<string>,
@@ -87,7 +86,10 @@ const props = defineProps({
     },
     buttonText: String as PropType<string>,
     buttonIconPosition: String as PropType<IconPosition>,
-    buttonIcon: String as PropType<any>,
+    buttonIcon: {
+        type: String as PropType<string>,
+        default: 'mdi:plus',
+    },
     buttonStyleType: {
         type: String as PropType<ButtonStyleType>,
         default: ButtonStyleType.PRIMARY_BRAND_FILLED
@@ -119,20 +121,12 @@ const orientationClass = computed(() => {
     return orientationVariant[props.orientation as Orientation] || 'flex-col gap-3 sm:flex-row sm:gap-3'
 })
 
-const iconSize = computed(() => {
-    const iconSize = {
-        [Orientation.VERTICAL]: '40px',
-        [Orientation.HORIZONTAL]: '32px',
-    }
-    return iconSize[props.orientation as Orientation] || '32px'
-})
-
 const iconSizeClass = computed(() => {
     const iconSize = {
-        [Orientation.VERTICAL]: 'min-w-[40px] max-w-[40px]',
-        [Orientation.HORIZONTAL]: 'min-w-[32px] max-w-[32px]',
+        [Orientation.VERTICAL]: '!min-w-[40px] !max-w-[40px]',
+        [Orientation.HORIZONTAL]: '!min-w-[32px] !max-w-[32px]',
     }
-    return iconSize[props.orientation as Orientation] || 'min-w-[32px] max-w-[32px]'
+    return iconSize[props.orientation as Orientation] || '!min-w-[32px] max-w-[32px]'
 })
 
 const containerClasses = computed(() => {
@@ -149,22 +143,22 @@ const containerClasses = computed(() => {
 
 const customContainerClass = computed(() => {
     const variant = {
-        [EmptyPlaceholderContainerStyle.DASHED]: 'border-2 border-dashed border-border-default',
-        [EmptyPlaceholderContainerStyle.FILLED_NEUTRAL]: 'bg-background-neutral-subtlest',
-        [EmptyPlaceholderContainerStyle.FILLED_PRIMARY_BRAND]: 'bg-background-primary-brand-soft',
+        [EmptyPlaceholderContainerStyle.DASHED]: '!border-2 border-dashed border-border-default',
+        [EmptyPlaceholderContainerStyle.FILLED_NEUTRAL]: '!bg-background-neutral-subtlest',
+        [EmptyPlaceholderContainerStyle.FILLED_PRIMARY_BRAND]: '!bg-background-primary-brand-soft',
 
     }
-    return variant[props.containerStyle as EmptyPlaceholderContainerStyle] || 'bg-background-neutral-subtlest'
+    return variant[props.containerStyle as EmptyPlaceholderContainerStyle] || '!bg-background-neutral-subtlest'
 })
 
 const isContainedIconClass = computed(() => {
     const variant = {
-        [EmptyPlaceholderContainerStyle.DASHED]: 'text-icon-neutral-subtlest',
-        [EmptyPlaceholderContainerStyle.FILLED_NEUTRAL]: 'text-icon-neutral-on-subtlest-bg',
-        [EmptyPlaceholderContainerStyle.FILLED_PRIMARY_BRAND]: 'text-icon-neutral-on-primary-brand-soft-bg',
+        [EmptyPlaceholderContainerStyle.DASHED]: '!text-icon-neutral-subtlest',
+        [EmptyPlaceholderContainerStyle.FILLED_NEUTRAL]: '!text-icon-neutral-on-subtlest-bg',
+        [EmptyPlaceholderContainerStyle.FILLED_PRIMARY_BRAND]: '!text-icon-neutral-on-primary-brand-soft-bg',
 
     }
-    return variant[props.containerStyle as EmptyPlaceholderContainerStyle] || 'text-icon-neutral-on-subtlest-bg'
+    return variant[props.containerStyle as EmptyPlaceholderContainerStyle] || '!text-icon-neutral-on-subtlest-bg'
 })
 
 </script>

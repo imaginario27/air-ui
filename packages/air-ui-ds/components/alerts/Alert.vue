@@ -10,12 +10,11 @@
         ]"
     >
         <template v-if="description">
-            <MdiIcon 
-                :icon="iconType"
-                size="20"
-                preserveAspectRatio="xMidYMid meet"
-                :class="['min-w-[20px]', iconColorClass]"
+            <Icon 
+                :name="iconType" 
+                :iconClass="iconColorClass" 
             />
+            
             <div 
                 :class="[
                     'w-full flex flex-col gap-2',
@@ -50,11 +49,9 @@
         <template v-else>
             <div class="w-full flex gap-3">
                 <div class="w-full flex gap-3 pt-1.5">
-                    <MdiIcon 
-                        :icon="iconType"
-                        size="20"
-                        preserveAspectRatio="xMidYMid meet"
-                        :class="['min-w-[20px]', iconColorClass]"
+                    <Icon 
+                        :name="iconType" 
+                        :iconClass="iconColorClass" 
                     />
                     <span :class="['text-sm font-semibold', textColorClass]">
                         {{ title  }}
@@ -83,7 +80,7 @@
                     <AlertIconButton 
                         v-if="hasCloseButton"
                         :type
-                        icon="mdiClose"
+                        icon="mdi:close"
                         @click="$emit('close')"
                     />
                 </div>
@@ -99,7 +96,7 @@ const props = defineProps({
         default: AlertType.WARNING,
         validator: (value: AlertType) => Object.values(AlertType).includes(value),
     },
-    icon: String as PropType<any>,
+    icon: String as PropType<string>,
     title: {
         type: String as PropType<string>,
         default: 'Title',
@@ -129,7 +126,7 @@ const containerClass = computed(() => {
 const textColorClass = computed(() => {
     const variant = {
         [AlertType.WARNING]: 'text-text-warning-on-bg',
-        [AlertType.DANGER]: 'text-text-danger',
+        [AlertType.DANGER]: 'text-icon-danger',
         [AlertType.SUCCESS]: 'text-text-success',
         [AlertType.INFO]: 'text-text-info',
     }
@@ -138,22 +135,22 @@ const textColorClass = computed(() => {
 
 const iconColorClass = computed(() => {
     const variant = {
-        [AlertType.WARNING]: 'text-icon-warning-on-bg',
-        [AlertType.DANGER]: 'text-icon-danger',
-        [AlertType.SUCCESS]: 'text-icon-success',
+        [AlertType.WARNING]: '!text-icon-warning-on-bg',
+        [AlertType.DANGER]: '!text-icon-danger',
+        [AlertType.SUCCESS]: '!text-icon-success',
         [AlertType.INFO]: 'text-icon-info',
     }
-    return variant[props.type as AlertType] || 'text-icon-warning-on-bg'
+    return variant[props.type as AlertType] || '!text-icon-warning-on-bg'
 })
 
 const iconType = computed(() => {
     const variant = {
-        [AlertType.WARNING]: 'mdiAlertOutline',
-        [AlertType.DANGER]: 'mdiCloseOctagonOutline',
-        [AlertType.SUCCESS]: 'mdiCheckCircleOutline',
-        [AlertType.INFO]: 'mdiInformationOutline',
+        [AlertType.WARNING]: 'mdi:alert-outline',
+        [AlertType.DANGER]: 'mdi:close-octagon-outline',
+        [AlertType.SUCCESS]: 'mdi:check-circle-outline',
+        [AlertType.INFO]: 'mdi:information-outline',
     }
-    return variant[props.type as AlertType] as any || 'mdiAlertOutline'
+    return variant[props.type as AlertType] as string || 'mdi:alert-outline'
 })
 
 </script>

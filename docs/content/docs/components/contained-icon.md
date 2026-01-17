@@ -6,7 +6,6 @@ srcDir: 'icons/ContainedIcon.vue'
 props: 
     icon: "mdi:help"
     styleType: "flat"
-    type: "collection"
     mode: "css"
     shape: "circle"
     color: "neutral"
@@ -17,11 +16,6 @@ items:
           text: FLAT
         - value: filled
           text: FILLED
-    type:
-        - value: native
-          text: NATIVE
-        - value: collection
-          text: COLLECTION
     mode:
         - value: css
           text: CSS
@@ -62,13 +56,11 @@ previewBackground: 'white'
 
 ## Setup
 
-By default, the `Icon` component uses the **Nuxt Mdi module** to render icons. Additionally, it supports iconify collections provided by the **Nuxt Icon module**.
+The `Icon` component uses the ***Nuxt Icon module** to render icons. 
 
-In the event of using the iconify collections by using the type `IconType.COLLECTION`, ensure that you have the Nuxt Icon module installed and configured in your Nuxt project.
+Please, make sure you have the Nuxt Icon module installed and configured in your Nuxt project.
 
-### Iconify collection usage
-
-Decide whether you want to use local setup or server-served icons.
+In order to use icon collections, decide whether you want to use local setup or server-served icons.
 
 ### Local setup
 
@@ -99,18 +91,13 @@ export default defineNuxtConfig({
 props: [
     {
         "name": "icon",
-        "default": "mdiHelp",
-        "type": "any",
+        "default": "mdi:help",
+        "type": "string",
     },
     {
         "name": "styleType",
         "default": "IconContainerStyleType.FLAT",
         "type": "IconContainerStyleType",
-    },
-    {
-        "name": "type",
-        "default": "IconType.NATIVE",
-        "type": "IconType",
     },
     {
         "name": "mode",
@@ -141,17 +128,14 @@ props: [
 
 Sets the icon to be displayed. 
 
-- For **native icons** (e.g., Material Design Icons), use the PascalCase format — for example: `mdiAccount`.
-- For **collection-based icons**, use the standard format: `collectionName:iconName` — for example: `mdi:account`.
-
 ```vue
 <template>
-    <ContainedIcon icon="mdiAccount" />
+    <ContainedIcon icon="mdi:account" />
 </template>
 ``` 
 
 - **Type:** `string`
-- **Default:** `'mdiHelp'`
+- **Default:** `'mdi:help'`
 
 <br />
 
@@ -165,7 +149,7 @@ props:
 
 #### Custom icon collections
 
-By using the `IconType.COLLECTION` type, you can leverage custom icon collections.
+To use custom icon collections, you need to configure them in your `nuxt.config.ts` file. Here's an example of how to add a custom icon collection:
 
 ```ts
 export default defineNuxtConfig({
@@ -227,38 +211,6 @@ options: [
 ---
 ::
 
-### type
-
-Sets the type of icon to be used. It uses the `IconType` enum.
-
-```vue
-<template>
-    <ContainedIcon 
-        :type="IconType.NATIVE" 
-        icon="mdiAccount" 
-    />
-</template>
-```
-
-- **Type:** `IconType`
-- **Default:** `IconType.NATIVE`
-
-#### Options
-::options-table
----
-options: [
-    {
-        value: "NATIVE",
-        description: "Native Icon",
-    },
-    {
-        value: "COLLECTION",
-        description: "Collection-based Icon",
-    },
-]
----
-::
-
 ### mode
 
 Sets the rendering mode of the icon. It uses the `IconMode` enum.
@@ -269,7 +221,7 @@ Only works when using `IconType.COLLECTION`.
 <template>
     <ContainedIcon 
         :mode="IconMode.CSS" 
-        icon="mdiAccount" 
+        icon="mdi:account" 
     />
 </template>
 ```
@@ -410,3 +362,7 @@ options: [
 ]
 ---
 ::
+
+## Documentation pages
+- [Docs](https://nuxt.com/modules/icon){:target="_blank"}
+- [Icon library](https://icones.js.org/){:target="_blank"}

@@ -4,12 +4,12 @@
 ---
 srcDir: 'content/demos/modals/DangerModalDialogDemo.vue'
 props:
-    icon: "mdiAlertOutline"
+    icon: "mdi:alert-outline"
     title: "Modal title"
     description: "Modal description"
     buttonCloseText: "Cancel"
     buttonActionText: "Delete"
-    buttonActionIcon: "mdiDeleteForeverOutline"
+    buttonActionIcon: "mdi:delete-forever-outline"
     isLoading: false
     loadingText: "Processing..."
     orientation: "horizontal"
@@ -32,12 +32,12 @@ componentSource: 'docs'
 <template>
     <DangerModalDialog 
         v-model="showModal"
-        icon="mdiCheckBold
+        icon="mdi:check-bold"
         title="Modal title"
         description="Modal description"
         buttonCloseText="Cancel"
         buttonActionText="Delete"
-        buttonActionIcon="mdiDelete"
+        buttonActionIcon="mdi:delete"
         :isLoading="false"
         loadingText="Processing..."
         :orientation="Orientation.VERTICAL"
@@ -68,7 +68,7 @@ props: [
     },
     {
         "name": "icon",
-        "default": "mdiAlertOutline",
+        "default": "mdi:alert-outline",
         "type": "string",
     },
     {
@@ -93,7 +93,7 @@ props: [
     },
     {
         "name": "buttonActionIcon",
-        "default": "'mdiDeleteForeverOutline'",
+        "default": "'mdi:delete-forever-outline'",
         "type": "string",
     },
     {
@@ -151,12 +151,12 @@ Sets the icon for the modal.
 
 ```vue
 <template>
-    <DangerModalDialog icon="mdiCheckBold" />
+    <DangerModalDialog icon="mdi:check-bold" />
 </template>
 ```
 
 - **Type:** `string`
-- **Default:** `'mdiAlertOutline'`
+- **Default:** `'mdi:alert-outline'`
 
 ### title
 Sets the title for the modal.
@@ -211,12 +211,12 @@ Sets the icon for the action button.
 
 ```vue
 <template>
-    <DangerModalDialog buttonActionIcon="mdiDeleteForeverOutline" />
+    <DangerModalDialog buttonActionIcon="mdi:delete-forever-outline" />
 </template>
 ```
 
 - **Type:** `string`
-- **Default:** `'mdiDeleteForeverOutline'`
+- **Default:** `'mdi:delete-forever-outline'`
 
 ### isLoading
 Sets the loading state of the action button.

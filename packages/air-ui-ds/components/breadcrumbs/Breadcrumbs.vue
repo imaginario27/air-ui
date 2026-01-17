@@ -1,54 +1,119 @@
 <template>
     <nav aria-label="breadcrumb">
-        <ul class="flex items-center space-x-2 text-gray-500">
+        <ul
+            :class="[
+                'flex items-center space-x-2 text-icon-neutral-subtler',
+            ]"
+        >
             <!-- Home Link -->
-            <li>
+            <li v-if="showHome">
                 <NuxtLink to="/" class="flex items-center space-x-1">
-                    <MdiIcon 
-                        icon="mdiHomeOutline" 
-                        size="20" 
-                        preserveAspectRatio="xMidYMid meet"
-                        class="text-icon-neutral-subtler hover:text-icon-neutral-on-monochrome-hover-bg"
+                    <Icon 
+                        :name="homeIcon"
+                        :iconClass="[
+                            'text-icon-neutral-subtler hover:text-icon-neutral-on-monochrome-hover-bg',
+                            homeIconClass,
+                        ]"
                     />
                 </NuxtLink>
             </li>
 
-            <!-- Dynamic Breadcrumbs (Stop at Previous Level) -->
-            <li v-for="(crumb, index) in breadcrumbs" :key="index" class="flex items-center space-x-2">
+            <!-- Dynamic Breadcrumbs -->
+            <li
+                v-for="(crumb, index) in displayedBreadcrumbs"
+                :key="index"
+                class="flex items-center space-x-2"
+            >
                 <!-- Chevron Separator -->
-                <MdiIcon 
-                    icon="mdiChevronRight" 
-                    size="20" 
-                    preserveAspectRatio="xMidYMid meet"
-                    class="text-icon-neutral-subtler"
+                <Icon
+                    v-if="index > 0 || showHome"
+                    :name="separatorIcon"
+                    :iconClass="[
+                        'text-icon-neutral-subtler',
+                        separatorClass,
+                    ]"
                 />
 
-                <!-- Breadcrumb Link -->
-                <NuxtLink 
-                    :to="crumb.to" 
-                    class="text-sm text-text-neutral-subtler hover:text-text-neutral-on-monochrome-hover-bg"
+                <!-- Breadcrumb (active or not) -->
+                <component
+                    :is="crumb.isCurrent ? 'span' : NuxtLink"
+                    :to="!crumb.isCurrent ? crumb.to : undefined"
+                    :class="[
+                        'text-sm',
+                        crumb.isCurrent
+                            ? currentCrumbClass || 'text-text-default'
+                            : 'text-text-neutral-subtler hover:text-text-neutral-on-monochrome-hover-bg',
+                        crumbClass,
+                    ]"
                 >
                     {{ crumb.label }}
-                </NuxtLink>
+                </component>
             </li>
         </ul>
     </nav>
 </template>
+
 <script setup lang="ts">
+// Imports
+import { NuxtLink } from '#components'
+
+// Props
+const props = defineProps({
+    showHome: {
+        type: Boolean as PropType<boolean>,
+        default: true,
+    },
+    homeIcon: {
+        type: String as PropType<string>,
+        default: 'mdi:home-outline',
+    },
+    separatorIcon: {
+        type: String as PropType<string>,
+        default: 'mdi:chevron-right',
+    },
+    includeCurrent: {
+        type: Boolean as PropType<boolean>,
+        default: false,
+    },
+    homeIconClass: {
+        type: String as PropType<string>,
+        default: '',
+    },
+    separatorClass: {
+        type: String as PropType<string>,
+        default: '',
+    },
+    crumbClass: {
+        type: String as PropType<string>,
+        default: '',
+    },
+    currentCrumbClass: {
+        type: String as PropType<string>,
+        default: '',
+    },
+})
+
 // Route
 const route = useRoute()
 
-// Generate breadcrumbs from route path, stopping at the previous level
-const breadcrumbs = computed(() => {
-    const pathSegments = route.path.split('/').filter(Boolean) // Remove empty values
+// Generate all breadcrumbs from route segments
+const allCrumbs = computed(() => {
+    const pathSegments = route.path.split('/').filter(Boolean)
 
-    if (pathSegments.length <= 1) return [] // Stop at Home if only 1 segment
-
-    return pathSegments.slice(0, -1).map((segment, index) => { // Exclude last segment
+    return pathSegments.map((segment, index) => {
         return {
-            label: segment.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()), // Format text
-            to: '/' + pathSegments.slice(0, index + 1).join('/') // Build breadcrumb path
+            label: segment
+                .replace(/-/g, ' ')
+                .replace(/\b\w/g, (c) => c.toUpperCase()),
+            to: '/' + pathSegments.slice(0, index + 1).join('/'),
+            isCurrent: index === pathSegments.length - 1,
         }
     })
+})
+
+// Filter crumbs based on `includeCurrent`
+const displayedBreadcrumbs = computed(() => {
+    if (props.includeCurrent) return allCrumbs.value
+    return allCrumbs.value.slice(0, -1)
 })
 </script>

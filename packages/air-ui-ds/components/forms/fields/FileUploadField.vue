@@ -48,10 +48,10 @@
                     @error="handleError"
                 >
                     <template #placeholder-img>
-                        <MdiIcon
-                            :icon="icon"
-                            preserveAspectRatio="xMidYMid meet"
-                            class="min-w-[40px] min-h-[40px] aspect-square text-icon-default"
+                        <Icon 
+                            name="mdi:cloud-upload-outline"
+                            :size="IconSize.XXL"
+                            :color="ColorAccent.NEUTRAL"
                         />
                     </template>
                     <template #title>
@@ -109,8 +109,8 @@ const props = defineProps({
     },
     helpText: String as PropType<string>,
     icon: {
-        type: String as PropType<any>,
-        default: 'mdiUploadOutline',
+        type: String as PropType<string>,
+        default: 'mdi:cloud-upload-outline',
     },
     buttonText: String as PropType<string>,
     upToText: {

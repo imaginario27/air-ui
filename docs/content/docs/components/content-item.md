@@ -19,7 +19,8 @@ props:
     imgAlt: "Item image"
     imgAspectRatio: "16:9"
     imgHoverEffect: "blur"
-    imgHoverIcon: "info"
+    imgHoverIcon: "mdi:eye-outline"
+    imgFallbackIcon: "mdi:image-off-outline"
     imgContainerClass: ""
     containerClass: ""
     hasCardShadow: true
@@ -448,7 +449,7 @@ Sets the icon to be displayed on hover.
 ```vue
 <template>
     <ContentItem 
-        imgHoverIcon="mdiEyeOutline"  
+        imgHoverIcon="mdi:eye-outline"  
     />
 </template>
 ```
@@ -462,7 +463,7 @@ Sets the fallback icon when no image is found.
 ```vue
 <template>
     <ContentItem 
-        imgFallbackIcon="mdiImageOffOutline"  
+        imgFallbackIcon="mdi:image-off-outline"  
     />
 </template>
 ```

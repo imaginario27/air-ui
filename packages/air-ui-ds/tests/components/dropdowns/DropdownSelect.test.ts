@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils'
 import DropdownSelect from '@/components/dropdowns/DropdownSelect.vue'
-import { MdiIcon } from '#components'
+import Icon from '@/components/icons/Icon.vue'
 import User from '@/components/users/User.vue'
 import ActionIconButton from '@/components/buttons/ActionIconButton.vue'
 import { SelectType } from '@/models/enums/selects'
@@ -27,9 +27,19 @@ const factory = (props: Record<string, any> = {}) => {
                 DropdownSelectItem: {
                     template: '<div class="stubbed-item" @click="$emit(`click`)">{{ text }}</div>',
                     props: [
-                        'text', 'icon', 'customIcon', 'userDisplayName', 'userProfileImg',
-                        'imgUrl', 'alt', 'helpText', 'isSelected', 'activeStyle',
-                        'to', 'isExternal', 'type'
+                        'text',
+                        'icon',
+                        'customIcon',
+                        'userDisplayName',
+                        'userProfileImg',
+                        'imgUrl',
+                        'alt',
+                        'helpText',
+                        'isSelected',
+                        'activeStyle',
+                        'to',
+                        'isExternal',
+                        'type'
                     ]
                 },
                 DropdownMenu: {
@@ -42,7 +52,8 @@ const factory = (props: Record<string, any> = {}) => {
                 },
                 User: {
                     template: '<div class="stubbed-user" />'
-                }
+                },
+                Icon
             }
         }
     })
@@ -79,6 +90,7 @@ describe('DropdownSelect.vue', () => {
             multiple: true,
             modelValue: ['1']
         })
+
         await wrapper.find('.select-box').trigger('click')
         const option = wrapper.findAll('.stubbed-item')[0]
         await option.trigger('click')
@@ -91,6 +103,7 @@ describe('DropdownSelect.vue', () => {
             multiple: true,
             modelValue: []
         })
+
         await wrapper.find('.select-box').trigger('click')
         const option = wrapper.findAll('.stubbed-item')[1]
         await option.trigger('click')
@@ -101,12 +114,14 @@ describe('DropdownSelect.vue', () => {
     it('does not allow interaction when disabled', async () => {
         const wrapper = factory({ disabled: true })
         await wrapper.find('.select-box').trigger('click')
+
         expect(wrapper.emitted('update:modelValue')).toBeFalsy()
     })
 
     it('filters options when search is enabled', async () => {
         const wrapper = factory({ filterable: true })
         await wrapper.find('.select-box').trigger('click')
+
         const searchInput = wrapper.find('input[type="text"]')
         await searchInput.setValue('Option 2')
 
@@ -120,19 +135,34 @@ describe('DropdownSelect.vue', () => {
         expect(wrapper.text()).toContain('Loading options...')
     })
 
-    it('renders custom icons when type is ICON', () => {
+    it('renders icon when type is ICON', async () => {
         const iconOptions = [
-            { text: 'With Icon', value: 'icon-1', icon: 'mdiStar' }
+            { text: 'With Icon', value: 'icon-1', icon: 'mdi:star' }
         ]
-        const wrapper = factory({ options: iconOptions, modelValue: 'icon-1', type: SelectType.ICON })
-        expect(wrapper.findComponent(MdiIcon).exists()).toBe(true)
+
+        const wrapper = factory({
+            options: iconOptions,
+            modelValue: 'icon-1',
+            type: SelectType.ICON
+        })
+
+        await nextTick()
+
+        const icon = wrapper.findComponent(Icon)
+        expect(icon.exists()).toBe(true)
+        expect(icon.props('name')).toBe('mdi:star')
     })
 
     it('renders custom image when type is IMAGE', async () => {
         const imgOptions = [
             { text: 'With Img', value: 'img-1', imgUrl: 'path/to/img.png', alt: 'Alt text' }
         ]
-        const wrapper = factory({ options: imgOptions, modelValue: 'img-1', type: SelectType.IMAGE })
+
+        const wrapper = factory({
+            options: imgOptions,
+            modelValue: 'img-1',
+            type: SelectType.IMAGE
+        })
 
         await nextTick()
 
@@ -146,7 +176,12 @@ describe('DropdownSelect.vue', () => {
         const imgOptions = [
             { text: 'With Img', value: 'img-1', imgUrl: 'broken.png', alt: 'fallback alt' }
         ]
-        const wrapper = factory({ options: imgOptions, modelValue: 'img-1', type: SelectType.IMAGE })
+
+        const wrapper = factory({
+            options: imgOptions,
+            modelValue: 'img-1',
+            type: SelectType.IMAGE
+        })
 
         await nextTick()
 
@@ -162,7 +197,12 @@ describe('DropdownSelect.vue', () => {
         const userOptions = [
             { userDisplayName: 'testuser', userProfileImg: 'avatar.png', value: 'user-1' }
         ]
-        const wrapper = factory({ options: userOptions, modelValue: 'user-1', type: SelectType.USER })
+
+        const wrapper = factory({
+            options: userOptions,
+            modelValue: 'user-1',
+            type: SelectType.USER
+        })
 
         await nextTick()
         expect(wrapper.findComponent(User).exists()).toBe(true)
@@ -175,6 +215,7 @@ describe('DropdownSelect.vue', () => {
         })
 
         await wrapper.find('.select-box').trigger('click')
+
         const clearBtn = wrapper.findComponent(ActionIconButton)
         expect(clearBtn.exists()).toBe(true)
 

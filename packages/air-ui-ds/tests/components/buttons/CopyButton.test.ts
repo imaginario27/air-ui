@@ -25,7 +25,7 @@ vi.mock('#app', () => ({
 const DEFAULT_PROPS = {
     textToCopy: 'Copied content',
     text: 'Copy',
-    icon: 'mdiContentCopy',
+    icon: 'mdi:content-copy',
     buttonType: ButtonType.ACTION_ICON_BUTTON,
     styleType: ButtonStyleType.NEUTRAL_OUTLINED,
     size: ButtonSize.SM,

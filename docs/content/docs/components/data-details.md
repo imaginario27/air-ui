@@ -92,7 +92,7 @@ It’s designed to work with the `DataDetailsRow`, `DataDetailsFieldGroup`, and 
             <ActionButton 
                 text="Edit"
                 :iconPosition="IconPosition.LEFT"
-                icon="mdiPencilOutline"
+                icon="mdi:pencil-outline"
                 :styleType="ButtonStyleType.PRIMARY_BRAND_FILLED"
             />
             <ActionButton 
@@ -234,7 +234,7 @@ The `DataDetailsActions` component groups data details action buttons, such as E
         <ActionButton 
             text="Edit"
             :iconPosition="IconPosition.LEFT"
-            icon="mdiPencilOutline"
+            icon="mdi:pencil-outline"
             :styleType="ButtonStyleType.PRIMARY_BRAND_FILLED"
         />
         <ActionButton 

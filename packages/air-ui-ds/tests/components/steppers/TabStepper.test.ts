@@ -96,14 +96,14 @@ describe('TabStepper.vue', () => {
         const wrapper = factory({
             type: StepIndicatorType.ICON,
             size: StepIndicatorSize.LG,
-            completedIcon: 'mdiCheck',
+            completedIcon: 'mdi:check',
             isInteractive: true,
         })
 
         const step = wrapper.findComponent(Step)
         expect(step.props('type')).toBe(StepIndicatorType.ICON)
         expect(step.props('size')).toBe(StepIndicatorSize.LG)
-        expect(step.props('completedIcon')).toBe('mdiCheck')
+        expect(step.props('completedIcon')).toBe('mdi:check')
         expect(step.props('isInteractive')).toBe(true)
     })
 })

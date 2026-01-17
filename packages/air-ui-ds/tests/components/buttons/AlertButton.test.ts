@@ -1,7 +1,7 @@
 import { mount } from '@vue/test-utils'
 import type { VueWrapper } from '@vue/test-utils'
 import AlertButton from '@/components/buttons/AlertButton.vue'
-import { MdiIcon } from '#components'
+import Icon from '@/components/icons/Icon.vue'
 import { AlertType } from '@/models/enums/alerts'
 import { ButtonActionType } from '@/models/enums/buttons'
 import { IconPosition } from '@/models/enums/icons'
@@ -15,6 +15,7 @@ const factory = (
     return mount(AlertButton, {
         props,
         global: {
+            components: { Icon },
             stubs: {
                 NuxtLink: {
                     props: ['to', 'target', 'rel', 'external'],
@@ -68,32 +69,33 @@ describe('AlertButton.vue', () => {
     it('renders left icon when iconPosition is LEFT', () => {
         const wrapper = factory({
             iconPosition: IconPosition.LEFT,
-            icon: 'mdiCheck'
+            icon: 'mdi:check'
         })
 
-        const icons = wrapper.findAllComponents(MdiIcon)
+        const icons = wrapper.findAllComponents(Icon)
         expect(icons.length).toBe(1)
-        expect(icons[0].props('icon')).toBe('mdiCheck')
+        expect(icons[0].props('name')).toBe('mdi:check')
     })
 
     it('renders right icon when iconPosition is RIGHT', () => {
         const wrapper = factory({
             iconPosition: IconPosition.RIGHT,
-            icon: 'mdiArrowRight'
+            icon: 'mdi:arrow-right'
         })
 
-        const icons = wrapper.findAllComponents(MdiIcon)
+        const icons = wrapper.findAllComponents(Icon)
         expect(icons.length).toBe(1)
-        expect(icons[0].props('icon')).toBe('mdiArrowRight')
+        expect(icons[0].props('name')).toBe('mdi:arrow-right')
     })
 
     it('does not render icon when iconPosition is NONE', () => {
         const wrapper = factory({
             iconPosition: IconPosition.NONE,
-            icon: 'mdiClose'
+            icon: 'mdi:close'
         })
 
-        expect(wrapper.findComponent(MdiIcon).exists()).toBe(false)
+        const icon = wrapper.findComponent(Icon)
+        expect(icon.exists()).toBe(false)
     })
 
     it('emits click when clicked and actionType is ACTION', async () => {

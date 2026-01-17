@@ -7,9 +7,9 @@
  */
 export const getRatingIndicator = (
     value: number,
-    emptyIndicator: string = 'mdiStarOutline',
-    halfIndicator: string = 'mdiStarHalfFull',
-    fullIndicator: string = 'mdiStar'
+    emptyIndicator: string = 'mdi:star-outline',
+    halfIndicator: string = 'mdi:star-half-full',
+    fullIndicator: string = 'mdi:star'
 ): string[] => {
     const clamped = Math.min(5, Math.max(0, Math.round(value * 2) / 2))
     const icons: string[] = []

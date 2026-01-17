@@ -27,8 +27,8 @@ const showModal = ref(false)
 // Props
 defineProps({
     icon: {
-        type: String as PropType<any>,
-        default: 'mdiInformationOutline',
+        type: String as PropType<string>,
+        default: 'mdi:information-outline',
     },
     title: {
         type: String as PropType<string>,
@@ -44,8 +44,8 @@ defineProps({
     },
     buttonActionText: String as PropType<string>,
     buttonActionIcon: {
-        type: String as PropType<any>,
-        default: 'mdiDeleteForeverOutline',
+        type: String as PropType<string>,
+        default: 'mdi:delete-forever-outline',
     },
     isLoading: { 
         type: Boolean as PropType<boolean>,

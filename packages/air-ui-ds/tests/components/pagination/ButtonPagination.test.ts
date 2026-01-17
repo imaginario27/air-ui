@@ -2,7 +2,6 @@ import { mount } from '@vue/test-utils'
 import { ref } from 'vue'
 import ButtonPagination from '@/components/pagination/ButtonPagination.vue'
 
-// Default desktop mock
 vi.mock('@/composables/useIsMobile', () => ({
     useIsMobile: () => ({ isMobile: ref(false) })
 }))
@@ -137,7 +136,7 @@ describe('ButtonPagination', () => {
     it('emits itemsPerPage update and resets modelValue to 1 on change', async () => {
         const wrapper = factory()
 
-        const rowsComponent = wrapper.findComponent({ name: 'RowsPerPage' })
+        const rowsComponent = wrapper.findAllComponents({ name: 'RowsPerPage' })[0]
         await rowsComponent.vm.$emit('update:modelValue', 25)
 
         expect(wrapper.emitted('update:modelValue')).toContainEqual([1])

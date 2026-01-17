@@ -5,11 +5,11 @@
             colorClass 
         ]" 
     >
-        <MdiIcon 
-            v-if="icon" 
-            :icon
-            size="16px" 
-            :class="iconColorClass" 
+        <Icon 
+            v-if="icon"
+            :name="icon"
+            :size="IconSize.SM"
+            :iconClass="iconColorClass"
         />
     </div>
 </template>
@@ -23,8 +23,8 @@ const props = defineProps({
         validator: (value: ColorAccent) => Object.values(ColorAccent).includes(value),
     },
     icon: {
-        type: String as PropType<any>,
-        default: 'mdiHelp', 
+        type: String as PropType<string>,
+        default: 'mdi:help', 
     },
 })
 

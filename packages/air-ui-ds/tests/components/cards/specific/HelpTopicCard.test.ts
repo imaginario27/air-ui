@@ -33,24 +33,24 @@ describe('HelpTopicCard.vue', () => {
         const defaultWrapper = factory()
         expect(
             defaultWrapper.findComponent({ name: 'ContainedIcon' }).props('icon')
-        ).toBe('mdiHelp')
+        ).toBe('mdi:help')
 
-        const customWrapper = factory({ icon: 'mdiBook' })
+        const customWrapper = factory({ icon: 'mdi:book' })
         expect(
             customWrapper.findComponent({ name: 'ContainedIcon' }).props('icon')
-        ).toBe('mdiBook')
+        ).toBe('mdi:book')
     })
 
     it('renders ActionButton with correct props', () => {
         const wrapper = factory({
             to: '/support/article',
             buttonText: 'Read more',
-            buttonIcon: 'mdiChevronRight'
+            buttonIcon: 'mdi:chevron-right'
         })
         const button = wrapper.findComponent({ name: 'ActionButton' })
 
         expect(button.props('text')).toBe('Read more')
-        expect(button.props('icon')).toBe('mdiChevronRight')
+        expect(button.props('icon')).toBe('mdi:chevron-right')
         expect(button.props('to')).toBe('/support/article')
         expect(button.props('styleType')).toBe('neutral-transparent')
         expect(button.props('actionType')).toBe('link')
@@ -61,7 +61,7 @@ describe('HelpTopicCard.vue', () => {
         const wrapper = factory()
         const button = wrapper.findComponent({ name: 'ActionButton' })
         expect(button.props('text')).toBe('Learn more')
-        expect(button.props('icon')).toBe('mdiArrowRight')
+        expect(button.props('icon')).toBe('mdi:arrow-right')
         expect(button.props('to')).toBe('/')
     })
 })

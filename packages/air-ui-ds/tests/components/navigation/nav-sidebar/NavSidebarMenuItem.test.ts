@@ -1,9 +1,11 @@
 import { mount } from '@vue/test-utils'
+import { reactive } from 'vue'
 import NavSidebarMenuItem from '@/components/navigation/nav-sidebar/NavSidebarMenuItem.vue'
-import { MdiIcon } from '#components'
+import Icon from '@/components/icons/Icon.vue'
+import { SidebarNavMenuItemStyleType } from '#imports'
 
 vi.mock('#app', () => ({
-    useRoute: () => ({
+    useRoute: () => reactive({
         path: '/settings'
     })
 }))
@@ -21,13 +23,16 @@ describe('NavSidebarMenuItem.vue', () => {
             props,
             global: {
                 stubs: globalStubs,
-                components: { MdiIcon }
+                components: {
+                    Icon
+                }
             }
         })
 
     it('renders NuxtLink with correct href', () => {
         const wrapper = factory({ to: '/settings' })
         const link = wrapper.find('a')
+
         expect(link.exists()).toBe(true)
         expect(link.attributes('href')).toBe('/settings')
     })
@@ -35,13 +40,15 @@ describe('NavSidebarMenuItem.vue', () => {
     it('renders NuxtLink even if `to` is null', () => {
         const wrapper = factory()
         const link = wrapper.find('a')
+
         expect(link.exists()).toBe(true)
         expect(link.attributes('href')).toBeUndefined()
     })
 
-    it('renders text in span', () => {
+    it('renders text in span when not collapsed', () => {
         const wrapper = factory({ text: 'Settings' })
         const span = wrapper.find('span')
+
         expect(span.exists()).toBe(true)
         expect(span.text()).toBe('Settings')
     })
@@ -51,46 +58,57 @@ describe('NavSidebarMenuItem.vue', () => {
         expect(wrapper.find('span').exists()).toBe(false)
     })
 
-    it('renders MdiIcon when icon prop is provided', () => {
-        const wrapper = factory({ icon: 'mdiHome' })
-        const icon = wrapper.findComponent(MdiIcon)
+    it('renders Icon when icon prop is provided', () => {
+        const wrapper = factory({ icon: 'mdi:home' })
+        const icon = wrapper.findComponent(Icon)
+
         expect(icon.exists()).toBe(true)
-        expect(icon.props('icon')).toBe('mdiHome')
+        expect(icon.props('name')).toBe('mdi:home')
     })
 
-    it('does not render MdiIcon when icon prop is not provided', () => {
+    it('does not render Icon when icon prop is not provided', () => {
         const wrapper = factory()
-        const icon = wrapper.findComponent(MdiIcon)
+        const icon = wrapper.findComponent(Icon)
+
         expect(icon.exists()).toBe(false)
     })
 
     it('does not apply active classes when detectActive is false', () => {
-        const wrapper = factory({ to: '/settings', detectActive: false })
+        const wrapper = factory({
+            to: '/settings',
+            detectActive: false
+        })
+
         const link = wrapper.find('a')
-        expect(link.classes()).not.toContain('text-text-primary-brand-on-neutral-hover-bg')
+        const classList = link.classes()
+
+        expect(classList).not.toContain('text-text-primary-brand-on-neutral-hover-bg')
+        expect(classList).not.toContain('bg-background-neutral-hover')
     })
 
-    it('renders dropdown arrow icon when showDropdownArrow is true and isCollapsed is false', () => {
+    it('renders dropdown arrow icon when showDropdownArrow is true and not collapsed', () => {
         const wrapper = factory({
             showDropdownArrow: true,
             isCollapsed: false,
             isOpen: false
         })
 
-        const icons = wrapper.findAllComponents(MdiIcon)
-        const dropdownIcon = icons.find(i => i.props('icon') === 'mdiChevronDown')
+        const icons = wrapper.findAllComponents(Icon)
+        const dropdownIcon = icons.find(icon => icon.props('name') === 'mdi:chevron-down')
+
         expect(dropdownIcon).toBeTruthy()
     })
 
-    it('renders mdiChevronUp when showDropdownArrow is true and isOpen is true', () => {
+    it('renders chevron up icon when showDropdownArrow is true and isOpen is true', () => {
         const wrapper = factory({
             showDropdownArrow: true,
             isCollapsed: false,
             isOpen: true
         })
 
-        const icons = wrapper.findAllComponents(MdiIcon)
-        const dropdownIcon = icons.find(i => i.props('icon') === 'mdiChevronUp')
+        const icons = wrapper.findAllComponents(Icon)
+        const dropdownIcon = icons.find(icon => icon.props('name') === 'mdi:chevron-up')
+
         expect(dropdownIcon).toBeTruthy()
     })
 
@@ -100,16 +118,31 @@ describe('NavSidebarMenuItem.vue', () => {
             isCollapsed: true
         })
 
-        const chevron = wrapper.findAllComponents(MdiIcon).find(i =>
-            ['mdiChevronUp', 'mdiChevronDown'].includes(i.props('icon'))
+        const icons = wrapper.findAllComponents(Icon)
+        const chevronIcon = icons.find(icon =>
+            ['mdi:chevron-up', 'mdi:chevron-down'].includes(icon.props('name') ?? '')
         )
 
-        expect(chevron).toBeFalsy()
+        expect(chevronIcon).toBeUndefined()
+    })
+
+    it('applies correct spacing and gap classes for SPACED style', () => {
+        const wrapper = factory({
+            styleType: SidebarNavMenuItemStyleType.SPACED
+        })
+
+        const link = wrapper.find('a')
+        const content = link.find('div')
+
+        expect(link.classes()).toContain('min-h-[40px]')
+        expect(content.classes()).toContain('gap-3')
     })
 
     it('emits click when NuxtLink is clicked', async () => {
         const wrapper = factory()
+
         await wrapper.find('a').trigger('click')
+
         expect(wrapper.emitted('click')).toBeTruthy()
     })
 })

@@ -339,17 +339,17 @@ const items: SelectOption[] = [
     {
         value: 'home',
         text: 'Home',
-        icon: 'mdiHomeOutline',
+        icon: 'mdi:home-outline',
     },
     {
         value: 'settings',
         text: 'Settings',
-        icon: 'mdiCogOutline',
+        icon: 'mdi:cog-outline',
     },
     {
         value: 'profile',
         text: 'Profile',
-        icon: 'mdiAccountOutline',
+        icon: 'mdi:account-outline',
     },
 ]
 </script>

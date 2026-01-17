@@ -25,7 +25,7 @@ Air UI is composed of two focused, modular packages — each designed to serve a
 ---
 title: 'Vue + Composition API'
 description: 'Built entirely with Vue 3’s Composition API and TypeScript. Designed for modular, reactive architecture with auto-imported support in Nuxt.'
-icon: 'mdiVuejs'
+icon: 'mdi:vuejs'
 containedIconStyleType: 'flat'
 ---
 ::
@@ -34,7 +34,7 @@ containedIconStyleType: 'flat'
 ---
 title: 'Nuxt integration'
 description: 'Air UI is optimized for Nuxt, supporting auto-import of all components and composables, with zero configuration required.'
-icon: 'mdiNuxt'
+icon: 'mdi:nuxt'
 containedIconStyleType: 'flat'
 ---
 ::
@@ -43,7 +43,7 @@ containedIconStyleType: 'flat'
 ---
 title: 'Tailwind CSS'
 description: 'Air UI uses the latest Tailwind CSS, enabling full design flexibility via utility classes, and supporting custom themes via CSS variables.'
-icon: 'mdiTailwind'
+icon: 'mdi:tailwind'
 containedIconStyleType: 'flat'
 ---
 ::

@@ -7,7 +7,7 @@
             
             <!-- This button does not have click event because the toggle is being controlled by the accordeon header div-->
             <ActionIconButton 
-                :icon="isOpen ? 'mdiMinus' : 'mdiPlus'"
+                :icon="isOpen ? 'mdi:minus' : 'mdi:plus'"
                 :styleType="ButtonStyleType.NEUTRAL_TRANSPARENT"
                 :size="ButtonSize.MD" 
             />

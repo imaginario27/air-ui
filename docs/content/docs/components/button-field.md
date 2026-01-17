@@ -11,7 +11,7 @@ props:
     styleType: "neutral-filled"
     text: "Button text"
     size: "lg"
-    icon: "mdiHelp"
+    icon: "mdi:help"
     iconPosition: "none"
     isRounded: false
     isFullWidth: false
@@ -114,22 +114,13 @@ props: [
     },
     {
         "name": "icon",
-        "default": "'mdiHelp'",
+        "default": "'mdi:help'",
         "type": "string"
     },
     {
         "name": "iconPosition",
         "default": "IconPosition.NONE",
         "type": "IconPosition"
-    },
-    {
-        "name": "svgIcon",
-        "type": "string"
-    },
-    {
-        "name": "useSVGIconColor",
-        "default": "false",
-        "type": "boolean"
     },
     {
         "name": "to",
@@ -356,18 +347,16 @@ options: [
 
 ### icon
 
-Name of icon to show using Material Design Icons.
-
-Usable icons: [pictogrammers.com/library/mdi/](https://pictogrammers.com/library/mdi/){ target="_blank" rel="noopener noreferrer" }
+Sets the icon displayed within the button.
 
 ```vue
 <template>
-    <ButtonField icon="mdiCheck" />
+    <ButtonField icon="mdi:check" />
 </template>
 ```
 
 - **Type:** `string`
-- **Default:** `'mdiHelp'`
+- **Default:** `'mdi:help'`
 
 ### iconPosition
 
@@ -376,7 +365,7 @@ Where to display the icon in relation to the label. Uses the `IconPosition` enum
 ```vue
 <template>
     <ButtonField 
-        icon="mdiCheck" 
+        icon="mdi:check" 
         :iconPosition="IconPosition.RIGHT" 
     />
 </template>
@@ -401,55 +390,6 @@ options: [
 ]
 ---
 ::
-
-### svgIcon
-
-Uses a SVG image instead of the default icon. By default, the source color of the SVG will be overwritten by the button icon color.
-
-::content-alert
----
-props:
-    title: "Important"
-    description: "Use always '?raw' at the end of the source route."
----
-::
-
-```vue
-<template>
-    <ButtonField :svgIcon="iconGoogleColor" />
-</template>
-<script setup lang="ts">
-// Import
-import iconGoogleColor from '@/assets/images/icons/icon-google-color.svg?raw'
-</script>
-```
-
-- **Type:** `string`
-
-### useSVGIconColor
-
-Uses the original SVG color instead.
-
-::content-alert
----
-props:
-    title: "Important"
-    description: "When setting this option to true, it will use the original color without taking into account the style type of the button."
----
-::
-
-```vue
-<template>
-    <ButtonField 
-        :svgIcon="iconGoogleColor" 
-        useSVGIconColor
-    />
-</template>
-<script setup lang="ts">
-// Import
-import iconGoogleColor from '@/assets/images/icons/icon-google-color.svg?raw'
-</script>
-```
 
 ### to
 

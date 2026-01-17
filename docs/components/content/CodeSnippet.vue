@@ -13,10 +13,9 @@
         ]"
         @click="handleCopyScript"
     >
-        <MdiIcon 
-            icon="mdiConsoleLine" 
-            preserveAspectRatio="xMidYMid meet"
-            class="w-[20px] h-[20px] text-icon-neutral-subtle" 
+        <Icon 
+            name="mdi:console-line" 
+            iconClass="text-icon-neutral-subtle" 
         />
 
         <span class="font-medium select-none">
@@ -27,14 +26,12 @@
             type="button"
             class="flex items-center justify-center w-[20px] h-[20px]"
         >
-            <MdiIcon 
-                :icon="currentCopyButtonIcon" 
-                preserveAspectRatio="xMidYMid meet"
-                :class="[  
-                    'w-[20px] h-[20px]',
-                    currentCopyButtonIcon === 'mdiCheck' ? 'text-icon-success' : 'text-icon-neutral-subtle'
-                ]"         
-                />
+            <Icon 
+                :name="currentCopyButtonIcon" 
+                :iconClass="[  
+                    currentCopyButtonIcon === 'mdi:check' ? 'text-icon-success' : 'text-icon-neutral-subtle'
+                ]" 
+            />
         </button>
         
     </div>
@@ -50,17 +47,17 @@ const props = defineProps({
 })
 
 // States
-const currentCopyButtonIcon = ref<any>("mdiContentCopy")
+const currentCopyButtonIcon = ref<any>("mdi:content-copy")
 
 // Methods
 const handleCopyScript = async () => {
     const success = await copyToClipboard(props.code)
 
     if(success) {
-        currentCopyButtonIcon.value = "mdiCheck"
+        currentCopyButtonIcon.value = "mdi:check"
 
         setTimeout(() => {
-            currentCopyButtonIcon.value = "mdiContentCopy"
+            currentCopyButtonIcon.value = "mdi:content-copy"
         }, 1500)
     }
 }

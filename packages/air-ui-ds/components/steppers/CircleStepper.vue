@@ -47,19 +47,19 @@ const props = defineProps({
         type: [Array, Number] as PropType<number | CircleStep[]>,
         default: () => [
             {
-                icon: 'mdiHomeOutline',
+                icon: 'mdi:home-outline',
             },
             {
-                icon: 'mdiAccountOutline',
+                icon: 'mdi:account-outline',
             },
             {
-                icon: 'mdiMapMarkerStarOutline',
+                icon: 'mdi:map-marker-star-outline',
             },
         ],
     },
     type: String as PropType<StepIndicatorType>,
     size: String as PropType<StepIndicatorSize>,
-    completedIcon: String as PropType<any>,
+    completedIcon: String as PropType<string>,
     isInteractive: {
         type: Boolean as PropType<boolean>,
         default: false,
@@ -78,25 +78,23 @@ const hoveredIndex = ref<number | null>(null)
 const stepItems = computed(() => {
     const activeIndex = props.modelValue > 0 ? props.modelValue - 1 : 0
 
-    const stepsArray = Array.isArray(props.steps)
-        ? props.steps
+    const stepsArray: CircleStep[] = Array.isArray(props.steps)
+        ? props.steps as CircleStep[]
         : Array.from({ length: props.steps }, () => ({}))
 
     return stepsArray.map((step, index) => {
-        let status: StepStatus
+        let status: StepStatus;
 
         if (index < activeIndex) {
-            status = StepStatus.COMPLETED
+            status = StepStatus.COMPLETED;
         } else if (index === activeIndex) {
-            status = StepStatus.CURRENT
+            status = StepStatus.CURRENT;
         } else {
-            status = StepStatus.INACTIVE
+            status = StepStatus.INACTIVE;
         }
 
-        const icon = typeof step === 'object' && 'icon' in step ? step.icon : undefined
-
         return {
-            icon,
+            icon: step.icon,
             status,
         }
     })

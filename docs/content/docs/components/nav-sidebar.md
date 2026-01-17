@@ -10,22 +10,22 @@ props:
     menuItems:
         - isSectionTitle: true
           text: 'Section title'
-          icon: 'mdiBullseye'
+          icon: 'mdi:bullseye'
         - text: 'Item 1'
-          icon: 'mdiHelp'
+          icon: 'mdi:help'
           to: null
         - text: 'Item 2'
-          icon: 'mdiHelp'
+          icon: 'mdi:help'
           to: null
         - text: 'Item 3'
-          icon: 'mdiHelp'
+          icon: 'mdi:help'
           to: null
           children:
               - text: 'Subitem 1'
-                icon: 'mdiHelpCircleOutline'
+                icon: 'mdi:help-circle-outline'
                 to: null
               - text: 'Subitem 2'
-                icon: 'mdiHelpCircleOutline'
+                icon: 'mdi:help-circle-outline'
                 to: null
     expandedWidth: 240
     collapsedWidth: 60
@@ -37,10 +37,10 @@ props:
     collapsedFlipLimit: 8
     showCollapseToggle: false
     collapseTogglePosition: "bottom"
-    collapsedStateIcon: "mdiMenuClose"
-    expandedStateIcon: "mdiMenuOpen"
+    collapsedStateIcon: "mdi:menu-close"
+    expandedStateIcon: "mdi:menu-open"
     showMobileSidebarClose: false
-    mobileSidebarCloseIcon: "mdiClose"
+    mobileSidebarCloseIcon: "mdi:close"
     isFixed: true
     stickOnScroll: false
     stickyScrollHeight: 0
@@ -144,12 +144,12 @@ props: [
     },
     {
         "name": "collapsedStateIcon",
-        "default": "mdiMenuClose",
+        "default": "mdi:menu-close",
         "type": "string",
     },
     {
         "name": "expandedStateIcon",
-        "default": "mdiMenuOpen",
+        "default": "mdi:menu-open",
         "type": "string",
     },
     {
@@ -159,7 +159,7 @@ props: [
     },
     {
         "name": "mobileSidebarCloseIcon",
-        "default": "mdiClose",
+        "default": "mdi:close",
         "type": "string",
     },
     {
@@ -289,30 +289,30 @@ const routeItems: SidebarMenuItem[] = [
     {
         isSectionTitle: true,
         text: 'Section title',
-        icon: 'mdiBullseye',
+        icon: 'mdi:bullseye',
     },
     {
         text: 'Item 1',
-        icon: 'mdiHelp',
+        icon: 'mdi:help',
         to: '/',
     },
     {
         text: 'Item 2',
-        icon: 'mdiHelp',
+        icon: 'mdi:help',
         to: '/',
     },
     {
         text: 'Item 3',
-        icon: 'mdiHelp',
+        icon: 'mdi:help',
         children: [
             {
                 text: 'Subitem 1',
-                icon: 'mdiHelp',
+                icon: 'mdi:help',
                 to: '/',
             },
             {
                 text: 'Subitem 2',
-                icon: 'mdiHelp',
+                icon: 'mdi:help',
                 to: '/',
             },
         ],
@@ -554,13 +554,13 @@ The `collapsedStateIcon` prop allows you to set a custom icon for the collapse t
 <template>
     <NavSidebar
         showCollapseToggle
-        collapsedStateIcon="mdiArrowRightBoldCircle"
+        collapsedStateIcon="mdi:arrow-right-bold-circle"
     />
 </template>
 ```
 
 - **Type:** `string`
-- **Default:** `mdiMenuClose`
+- **Default:** `mdi:menu-close`
 
 ### expandedStateIcon
 
@@ -570,13 +570,13 @@ The `expandedStateIcon` prop allows you to set a custom icon for the collapse to
 <template>
     <NavSidebar
         showCollapseToggle
-        expandedStateIcon="mdiArrowLeftBoldCircle"
+        expandedStateIcon="mdi:arrow-left-bold-circle"
     />
 </template>
 ```
 
 - **Type:** `string`
-- **Default:** `mdiMenuOpen`
+- **Default:** `mdi:menu-open`
 
 
 ### showMobileSidebarClose
@@ -604,13 +604,13 @@ The `mobileSidebarCloseIcon` prop allows you to set a custom icon for the close 
 <template>
     <NavSidebar
         showMobileSidebarClose
-        mobileSidebarCloseIcon="mdiCloseCircle"
+        mobileSidebarCloseIcon="mdi:close-circle"
     />
 </template>
 ``` 
 
 - **Type:** `string`
-- **Default:** `mdiClose`
+- **Default:** `mdi:close-circle`
 
 ### isFixed
 

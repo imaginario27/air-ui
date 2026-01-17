@@ -2,13 +2,14 @@ import { mount } from '@vue/test-utils'
 import ContentItemImage from '@/components/content/ContentItemImage.vue'
 import { AspectRatio } from '#imports'
 import { ImageHoverEffect } from '@/models/enums/effects'
+import Icon from '@/components/icons/Icon.vue'
 
 const defaultProps: Partial<InstanceType<typeof ContentItemImage>['$props']> = {
     src: 'https://example.com/image.jpg',
     alt: 'Sample image',
     aspectRatio: AspectRatio.AR_16_9,
     hoverEffect: ImageHoverEffect.ZOOM_IN,
-    hoverIcon: 'mdiEyeCircleOutline'
+    hoverIcon: 'mdi:eye-circle-outline'
 }
 
 const factory = (props = {}) => {
@@ -19,11 +20,7 @@ const factory = (props = {}) => {
         },
         global: {
             stubs: {
-                MdiIcon: {
-                    name: 'MdiIcon',
-                    template: '<div class="mdi-icon-stub" />',
-                    props: ['icon']
-                }
+                Icon
             }
         }
     })
@@ -42,9 +39,10 @@ describe('ContentItemImage.vue', () => {
 
         it('renders hover icon', () => {
             const wrapper = factory()
-            const hoverIcon = wrapper.find('.group-hover\\:opacity-100')
+            const icons = wrapper.findAllComponents(Icon)
 
-            expect(hoverIcon.exists()).toBe(true)
+            const hoverIcon = icons.find(icon => icon.props('name') === defaultProps.hoverIcon)
+            expect(hoverIcon).toBeTruthy()
         })
 
         it('renders overlay when hoverEffect is "overlay"', () => {
@@ -57,14 +55,21 @@ describe('ContentItemImage.vue', () => {
 
     describe('when src is not provided', () => {
         it('renders fallback icon with correct props', () => {
-            const fallbackIcon = 'mdiImageOffOutline'
-            const wrapper = factory({ src: undefined, fallbackIcon })
-            const iconStub = wrapper.findComponent({ name: 'MdiIcon' })
+            const fallbackIcon = 'mdi:image-off-outline'
+            const wrapper = factory({ fallbackIcon, src: undefined }) // omit src
+            const icon = wrapper.findComponent(Icon)
 
             expect(wrapper.find('img').exists()).toBe(false)
-            expect(iconStub.exists()).toBe(true)
-            expect(iconStub.classes()).toContain('mdi-icon-stub')
-            expect(iconStub.props('icon')).toBe(fallbackIcon)
+            expect(icon.exists()).toBe(true)
+            expect(icon.props('name')).toBe(fallbackIcon)
+        })
+
+        it('renders fallback icon when src is an empty string', () => {
+            const wrapper = factory({ src: '' })
+            const icon = wrapper.findComponent(Icon)
+
+            expect(wrapper.find('img').exists()).toBe(false)
+            expect(icon.exists()).toBe(true)
         })
 
         it('does not render hover overlay or hover icon', () => {

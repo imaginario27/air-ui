@@ -176,7 +176,7 @@
                 <CopyButton 
                     :textToCopy="rawCode"
                     :size="ButtonSize.SM"
-                    icon="mdiContentCopy"
+                    icon="mdi:content-copy"
                     class="absolute right-0 top-0 m-4"
                 />
                 <div v-html="code" />

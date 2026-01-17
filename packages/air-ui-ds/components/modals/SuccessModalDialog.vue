@@ -42,8 +42,8 @@ defineProps({
         default: false,
     },
     icon: {
-        type: String as PropType<any>,
-        default: 'mdiCheckBold',
+        type: String as PropType<string>,
+        default: 'mdi:check-bold',
     },
     title: {
         type: String as PropType<string>,

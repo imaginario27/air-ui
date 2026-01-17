@@ -79,7 +79,7 @@ describe('DataField.vue', () => {
 
         const copyBtn = wrapper.findComponent({ name: 'ActionIconButton' })
         expect(copyBtn.exists()).toBe(true)
-        expect(copyBtn.props('icon')).toBe('mdiContentCopy')
+        expect(copyBtn.props('icon')).toBe('mdi:content-copy')
         expect(copyBtn.props('size')).toBe('xs')
     })
 

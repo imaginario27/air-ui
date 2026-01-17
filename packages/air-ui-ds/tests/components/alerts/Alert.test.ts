@@ -2,7 +2,7 @@ import { mount } from '@vue/test-utils'
 import Alert from '@/components/alerts/Alert.vue'
 import AlertButton from '@/components/buttons/AlertButton.vue'
 import AlertIconButton from '@/components/buttons/AlertIconButton.vue'
-import { MdiIcon } from '#components'
+import Icon from '@/components/icons/Icon.vue'
 import { AlertType } from '@/models/enums/alerts' 
 import { ButtonActionType } from '@/models/enums/buttons'
 import { IconPosition } from '@/models/enums/icons'
@@ -15,7 +15,7 @@ const defaultProps = {
         {
             text: 'OK',
             actionType: ButtonActionType.ACTION,
-            icon: 'mdiCheck',
+            icon: 'mdi:check',
             iconPosition: IconPosition.LEFT,
             disabled: false,
             to: '',
@@ -32,7 +32,7 @@ describe('Alert.vue', () => {
 
         expect(wrapper.text()).toContain(defaultProps.title)
         expect(wrapper.text()).toContain(defaultProps.description)
-        expect(wrapper.findComponent(MdiIcon).exists()).toBe(true)
+        expect(wrapper.findComponent(Icon).exists()).toBe(true)
         expect(wrapper.findComponent(AlertButton).exists()).toBe(true)
     })
 
@@ -47,7 +47,7 @@ describe('Alert.vue', () => {
 
         expect(wrapper.text()).toContain('No Description')
         expect(wrapper.find('p').exists()).toBe(false)
-        expect(wrapper.findComponent(MdiIcon).exists()).toBe(true)
+        expect(wrapper.findComponent(Icon).exists()).toBe(true)
     })
 
     it('does not render buttons if buttons prop is empty', () => {
@@ -103,10 +103,10 @@ describe('Alert.vue', () => {
     })
 
     it.each([
-        [AlertType.WARNING, 'mdiAlertOutline'],
-        [AlertType.DANGER, 'mdiCloseOctagonOutline'],
-        [AlertType.SUCCESS, 'mdiCheckCircleOutline'],
-        [AlertType.INFO, 'mdiInformationOutline']
+        [AlertType.WARNING, 'mdi:alert-outline'],
+        [AlertType.DANGER, 'mdi:close-octagon-outline'],
+        [AlertType.SUCCESS, 'mdi:check-circle-outline'],
+        [AlertType.INFO, 'mdi:information-outline']
     ])('renders correct icon for alert type %s', (type, expectedIcon) => {
         const wrapper = mount(Alert, {
             props: {
@@ -116,7 +116,7 @@ describe('Alert.vue', () => {
             }
         })
 
-        const icon = wrapper.findComponent(MdiIcon)
-        expect(icon.props('icon')).toBe(expectedIcon)
+        const icon = wrapper.findComponent(Icon)
+        expect(icon.props('name')).toBe(expectedIcon)
     })
 })

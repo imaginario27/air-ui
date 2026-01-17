@@ -74,11 +74,11 @@ props: [
     },
     {
         "name": "icon",
-        "type": "any",
+        "type": "string",
     },
     {
         "name": "suffixIcon",
-        "type": "any",
+        "type": "string",
     },
     {
         "name": "linkText",
@@ -256,11 +256,11 @@ Sets the icon of the input field.
 
 ```vue
 <template>
-    <InputField icon="mdiAccount" />
+    <InputField icon="mdi:account" />
 </template>
 ```
 
-- **Type:** `any`
+- **Type:** `string`
 
 ### suffixIcon
 
@@ -268,10 +268,11 @@ Sets the suffix icon of the input field.
 
 ```vue
 <template>
-    <InputField suffixIcon="mdiEye" />
+    <InputField suffixIcon="mdi:eye" />
 </template>
 ```
-- **Type:** `any`
+
+- **Type:** `string`
 
 ### linkText
 

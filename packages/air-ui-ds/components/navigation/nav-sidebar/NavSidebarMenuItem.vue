@@ -22,11 +22,10 @@
                 gapClass,
             ]"
         >
-            <MdiIcon 
+            <Icon
                 v-if="icon"
-                :icon
-                preserveAspectRatio="xMidYMid meet"
-                :class="['text-icon-neutral-subtler', iconSizeClass]"
+                :name="icon"
+                :iconClass="['!text-icon-neutral-subtler', iconSizeClass]"
             />
 
             <span 
@@ -37,11 +36,10 @@
             </span>
         </div>
 
-        <MdiIcon 
+        <Icon
             v-if="showDropdownArrow && !isCollapsed"
-            :icon="isOpen ? 'mdiChevronUp' : 'mdiChevronDown'"
-            preserveAspectRatio="xMidYMid meet"
-            :class="['text-icon-default', iconSizeClass]"
+            :name="isOpen ? 'mdi:chevron-up' : 'mdi:chevron-down'"
+            :class="iconSizeClass"
         />
     </NuxtLink>
 </template>
@@ -52,7 +50,7 @@ const props = defineProps({
         type: String as PropType<string>,
         default: 'Item text'
     },
-    icon: String as PropType<any>,
+    icon: String as PropType<string>,
     to: {
         type: String as PropType<string>,
         default: null

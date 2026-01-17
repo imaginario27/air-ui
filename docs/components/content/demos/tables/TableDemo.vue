@@ -15,7 +15,7 @@
                     <TableCellActions>
                         <ActionIconButton 
                             :size="ButtonSize.MD"
-                            icon="mdiEyeOutline"
+                            icon="mdi:eye-outline"
                         />
                     </TableCellActions>
                 </TableRow>

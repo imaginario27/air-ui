@@ -10,14 +10,9 @@
             styleClass
         ]"
     >
-        <MdiIcon 
+        <Icon
             v-if="decoration === TabDecoration.ICON"
-            size="20"
-            preserveAspectRatio="xMidYMid meet"
-            :class="[
-                'min-w-[20px]'
-            ]"
-            :icon
+            :name="icon"
         />
 
         <template v-if="decoration === TabDecoration.IMAGE">
@@ -79,8 +74,8 @@ const props = defineProps({
         validator: (value: TabDecoration) => Object.values(TabDecoration).includes(value),
     },
     icon: {
-        type: String as PropType<any>,
-        default: 'mdiHelp',
+        type: String as PropType<string>,
+        default: 'mdi:help',
     },
     imgUrl: String as PropType<string>,
     active: {

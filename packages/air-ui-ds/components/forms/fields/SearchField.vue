@@ -38,13 +38,10 @@
             ]"
         >
             <!-- Icon -->
-            <span class="text-icon-neutral-subtler">
-                <MdiIcon 
-                    :icon
-                    size="20" 
-                    preserveAspectRatio="xMidYMid meet"
-                />
-            </span>
+            <Icon
+                :name="icon"
+                iconClass="text-icon-neutral-subtler"
+            />
 
             <!-- Input -->
             <input 
@@ -73,7 +70,7 @@
                 v-if="filled"
                 :size="ButtonSize.SM"
                 :styleType="ButtonStyleType.NEUTRAL_TRANSPARENT_SUBTLE"
-                icon="mdiCloseCircle"
+                icon="mdi:close-circle"
                 @click="clearField"
             />
         </div>
@@ -101,8 +98,8 @@ const props = defineProps({
     },
     helpText: String as PropType<string>,
     icon: {
-        type: String as PropType<any>,
-        default: 'mdiMagnify',
+        type: String as PropType<string>,
+        default: 'mdi:magnify',
     },
     size: {
         type: String as PropType<InputSize>,

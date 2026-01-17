@@ -9,7 +9,7 @@ props:
     label: "Sample label"
     title: "Field title"
     helpText: "Example help text"
-    icon: "mdiFileDocumentOutline"
+    icon: "mdi:file-document-outline"
     buttonText: "Upload file"
     upToText: "up to"
     modelValue: []
@@ -57,8 +57,8 @@ props: [
     },
     {
         "name": "icon",
-        "type": "any",
-        "default": "'mdiUploadOutline'",
+        "type": "string",
+        "default": "'mdi:upload-outline'",
     },
     {
         "name": "buttonText",
@@ -193,12 +193,12 @@ Sets the icon of the drag and drop area.
 
 ```vue
 <template>
-    <FileUploadField icon="mdiFileUpload" />
+    <FileUploadField icon="mdi:upload" />
 </template>
 ```
 
-- **Type:** `any`
-- **Default:** `'mdiUploadOutline'`
+- **Type:** `string`
+- **Default:** `'mdi:upload-outline'`
 
 ### buttonText
 

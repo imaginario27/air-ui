@@ -64,9 +64,10 @@ describe('Rating.vue', () => {
     it('uses default icons when none are provided', () => {
         const wrapper = factory({ value: 2.5 })
         const icons = getItems(wrapper).map(item => item.props('icon'))
-        expect(icons).toContain('mdiStar')
-        expect(icons).toContain('mdiStarHalfFull')
-        expect(icons).toContain('mdiStarOutline')
+
+        expect(icons).toContain('mdi:star')
+        expect(icons).toContain('mdi:star-half-full')
+        expect(icons).toContain('mdi:star-outline')
     })
 
     it('respects custom icons for indicators', () => {

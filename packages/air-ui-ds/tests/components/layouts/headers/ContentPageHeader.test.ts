@@ -54,7 +54,7 @@ describe('ContentPageHeader.vue', () => {
         expect(navLink.exists()).toBe(true)
         expect(navLink.props('text')).toBe('Return')
         expect(navLink.props('to')).toBe('/back')
-        expect(navLink.props('icon')).toBe('mdiKeyboardBackspace')
+        expect(navLink.props('icon')).toBe('mdi:keyboard-backspace')
         expect(navLink.props('iconPosition')).toBe(IconPosition.LEFT)
     })
 

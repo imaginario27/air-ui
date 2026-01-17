@@ -17,7 +17,7 @@ export interface OptionButton extends ActionButton {
 export interface AlertButton {
     text: string
     actionType?: ButtonActionType
-    icon?: any
+    icon?: string
     iconPosition?: IconPosition
     disabled?: boolean
     to?: string

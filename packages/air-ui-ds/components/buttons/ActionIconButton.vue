@@ -18,21 +18,14 @@
         :disabled="disabled"
         
     >
-        <MdiIcon
-            v-if="icon && !svgIcon"
-            :icon
-            preserveAspectRatio="xMidYMid meet"
-            :class="[iconSizeClass, iconClass]"
+        <Icon 
+            :name="icon"
+            :iconClass="[
+                iconSizeClass, 
+                iconColorClass, 
+                iconClass ? iconClass : ''
+            ]"
         />
-        <span
-            v-else-if="svgIcon"
-            :class="[iconSizeClass, iconClass]"
-        >
-            <SVGImage
-                :src="svgIcon"
-                :color="resolvedSvgIconColor"
-            />
-        </span>
     </component>
 </template>
 
@@ -69,13 +62,8 @@ const props = defineProps({
         validator: (value: ButtonSize) => Object.values(ButtonSize).includes(value),
     },
     icon: {
-        type: String as PropType<any>,
-        default: "mdiHelp"
-    },
-    svgIcon: String as PropType<string>,
-    useSVGIconColor: {
-        type: Boolean as PropType<boolean>,
-        default: false
+        type: String as PropType<string>,
+        default: "mdi:help"
     },
     iconClass: String as PropType<string>,
     disabled: {
@@ -242,14 +230,11 @@ const iconSizeClass = computed(() => {
     return variant[props.size as ButtonSize] || 'w-[20px] h-[20px] min-w-[20px] min-h-[20px]'
 })
 
-const svgIconColorClass = computed(() => {
+const iconColorClass = computed(() => {
     const variant = {
         [ButtonStyleType.PRIMARY_BRAND_FILLED]: 'text-text-neutral-on-filled',
         [ButtonStyleType.PRIMARY_BRAND_SOFT]: 'text-icon-primary-brand-on-soft-bg',
-        [ButtonStyleType.PRIMARY_BRAND_TRANSPARENT]: [
-            'text-text-primary-brand-default',
-            !props.disabled && 'hover:text-text-primary-brand-hover',
-        ],
+        [ButtonStyleType.PRIMARY_BRAND_TRANSPARENT]: 'text-text-primary-brand-default',
         [ButtonStyleType.SECONDARY_BRAND_FILLED]: 'text-text-neutral-on-filled',
         [ButtonStyleType.NEUTRAL_FILLED]: 'text-text-neutral-on-neutral-filled-bg',
         [ButtonStyleType.NEUTRAL_OUTLINED]: 'text-text-default',
@@ -261,19 +246,6 @@ const svgIconColorClass = computed(() => {
         [ButtonStyleType.DELETE_TRANSPARENT]: 'text-text-delete',
     }
     return variant[props.styleType as ButtonStyleType] || 'text-text-default'
-})
-
-// Computed functions
-const resolvedSvgIconColor = computed(() => {
-    if (props.useSVGIconColor) return undefined
-
-    const val = svgIconColorClass.value
-
-    if (Array.isArray(val)) {
-        return val.filter(Boolean).join(' ')
-    }
-
-    return val
 })
 
 // Props for the dynamic component

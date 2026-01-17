@@ -308,11 +308,11 @@ Applies a transparent background to the badge.
 ### showIcon
 
 Displays an icon on the badge on the left side. In case of using `showDot`, the icon will appear on the right side of the dot. 
-It can be combined with the `icon` to display a MDI icon.
+It can be combined with the `icon` to display an icon.
 
 ```vue
 <template>
-    <Badge :showIcon="true" icon="mdiHelp" />
+    <Badge :showIcon="true" icon="mdi:help" />
 </template>
 ```
 

@@ -10,14 +10,14 @@ describe('VerticalStepper.vue', () => {
             title: 'Step 1',
             metaTitle: 'Meta 1',
             description: 'Desc 1',
-            stepIcon: 'mdiAlphaA',
+            stepIcon: 'mdi:alpha-a',
             stepStatus: StepStatus.COMPLETED,
         },
         {
             title: 'Step 2',
             metaTitle: 'Meta 2',
             description: 'Desc 2',
-            stepIcon: 'mdiAlphaB',
+            stepIcon: 'mdi:alpha-b',
             stepStatus: StepStatus.CURRENT,
         },
     ]
@@ -28,7 +28,7 @@ describe('VerticalStepper.vue', () => {
                 items,
                 stepType: StepIndicatorType.NUMBER,
                 stepSize: StepIndicatorSize.SM,
-                stepCompletedIcon: 'mdiCheck',
+                stepCompletedIcon: 'mdi:check',
                 ...props,
             },
             global: {
@@ -54,7 +54,7 @@ describe('VerticalStepper.vue', () => {
             expect(step.props('step')).toBe(index + 1)
             expect(step.props('stepIcon')).toBe(item.stepIcon)
             expect(step.props('stepType')).toBe(StepIndicatorType.NUMBER)
-            expect(step.props('stepCompletedIcon')).toBe('mdiCheck')
+            expect(step.props('stepCompletedIcon')).toBe('mdi:check')
             expect(step.props('stepSize')).toBe(StepIndicatorSize.SM)
             expect(step.props('stepStatus')).toBe(item.stepStatus)
             expect(step.props('isLast')).toBe(index === items.length - 1)

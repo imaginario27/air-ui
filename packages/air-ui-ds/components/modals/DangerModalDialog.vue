@@ -78,8 +78,8 @@ defineProps({
         default: false,
     },
     icon: {
-        type: String as PropType<any>,
-        default: 'mdiAlertOutline',
+        type: String as PropType<string>,
+        default: 'mdi:alert-outline',
     },
     title: {
         type: String as PropType<string>,
@@ -95,8 +95,8 @@ defineProps({
         default: 'Delete',
     },
     buttonActionIcon: {
-        type: String as PropType<any>,
-        default: 'mdiDeleteForeverOutline',
+        type: String as PropType<string>,
+        default: 'mdi:delete-forever-outline',
     },
     isLoading: { 
         type: Boolean as PropType<boolean>,
