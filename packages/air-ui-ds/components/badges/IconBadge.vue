@@ -44,14 +44,14 @@ const colorClass = computed(() => {
 
 const iconColorClass = computed(() => {
     const iconVariants = {
-        [ColorAccent.NEUTRAL]: 'text-icon-neutral-subtle-on-subtler-bg',
-        [ColorAccent.SUCCESS]: 'text-icon-success',
-        [ColorAccent.WARNING]: 'text-icon-warning-on-bg',
-        [ColorAccent.DANGER]: 'text-icon-danger',
-        [ColorAccent.INFO]: 'text-icon-info',
-        [ColorAccent.PRIMARY_BRAND]: 'text-icon-primary-brand-default',
-        [ColorAccent.SECONDARY_BRAND]: 'text-icon-secondary-brand-default',
+        [ColorAccent.NEUTRAL]: '!text-icon-neutral-subtle-on-subtler-bg',
+        [ColorAccent.SUCCESS]: '!text-icon-success',
+        [ColorAccent.WARNING]: '!text-icon-warning-on-bg',
+        [ColorAccent.DANGER]: '!text-icon-danger',
+        [ColorAccent.INFO]: '!text-icon-info',
+        [ColorAccent.PRIMARY_BRAND]: '!text-icon-primary-brand-default',
+        [ColorAccent.SECONDARY_BRAND]: '!text-icon-secondary-brand-default',
     }
-    return iconVariants[props.color as ColorAccent] || 'text-icon-neutral-subtle-on-subtler-bg'
+    return iconVariants[props.color as ColorAccent] || '!text-icon-neutral-subtle-on-subtler-bg'
 })
 </script>

@@ -29,11 +29,11 @@
             <div class="animate-spin">
                 <Icon 
                     name="mdi:loading"
-                    :iconClass="iconSizeClass"
+                    :iconClass="[iconSizeClass, iconColorClass]"
                 />
             </div>
             
-            <span :class="[ 'font-semibold', textSizeClass, textClass ]">
+            <span :class="['font-semibold', textSizeClass, textClass]">
                 {{ loadingText }}
             </span>
         </template>
@@ -53,7 +53,7 @@
                 />
             </template>
 
-            <span :class="[ 'font-semibold', textSizeClass, textClass ]">
+            <span :class="['font-semibold', textSizeClass, textClass]">
                 {{ text }}
             </span>
 
@@ -314,20 +314,20 @@ const textSizeClass = computed(() => {
 
 const iconColorClass = computed(() => {
     const variant = {
-        [ButtonStyleType.PRIMARY_BRAND_FILLED]: 'text-text-neutral-on-filled',
-        [ButtonStyleType.PRIMARY_BRAND_SOFT]: 'text-icon-primary-brand-on-soft-bg',
-        [ButtonStyleType.PRIMARY_BRAND_TRANSPARENT]: 'text-text-primary-brand-default',
-        [ButtonStyleType.SECONDARY_BRAND_FILLED]: 'text-text-neutral-on-filled',
-        [ButtonStyleType.NEUTRAL_FILLED]: 'text-text-neutral-on-neutral-filled-bg',
-        [ButtonStyleType.NEUTRAL_OUTLINED]: 'text-text-default',
-        [ButtonStyleType.NEUTRAL_TRANSPARENT]: 'text-text-default',
-        [ButtonStyleType.NEUTRAL_TRANSPARENT_SUBTLE]: 'text-text-neutral-subtler',
-        [ButtonStyleType.DELETE_FILLED]: 'text-text-neutral-on-filled',
-        [ButtonStyleType.DELETE_SOFT]: 'text-text-delete',
-        [ButtonStyleType.DELETE_OUTLINED]: 'text-text-delete',
-        [ButtonStyleType.DELETE_TRANSPARENT]: 'text-text-delete',
+        [ButtonStyleType.PRIMARY_BRAND_FILLED]: '!text-text-neutral-on-filled',
+        [ButtonStyleType.PRIMARY_BRAND_SOFT]: '!text-icon-primary-brand-on-soft-bg',
+        [ButtonStyleType.PRIMARY_BRAND_TRANSPARENT]: '!text-text-primary-brand-default',
+        [ButtonStyleType.SECONDARY_BRAND_FILLED]: '!text-text-neutral-on-filled',
+        [ButtonStyleType.NEUTRAL_FILLED]: '!text-text-neutral-on-neutral-filled-bg',
+        [ButtonStyleType.NEUTRAL_OUTLINED]: '!text-text-default',
+        [ButtonStyleType.NEUTRAL_TRANSPARENT]: '!text-text-default',
+        [ButtonStyleType.NEUTRAL_TRANSPARENT_SUBTLE]: '!text-text-neutral-subtler',
+        [ButtonStyleType.DELETE_FILLED]: '!text-text-neutral-on-filled',
+        [ButtonStyleType.DELETE_SOFT]: '!text-text-delete',
+        [ButtonStyleType.DELETE_OUTLINED]: '!text-text-delete',
+        [ButtonStyleType.DELETE_TRANSPARENT]: '!text-text-delete',
     }
-    return variant[props.styleType as ButtonStyleType] || 'text-text-default'
+    return variant[props.styleType as ButtonStyleType] || '!text-text-default'
 })
 
 const horizontalPaddingClass = computed(() => {
