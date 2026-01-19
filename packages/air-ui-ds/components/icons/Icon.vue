@@ -27,11 +27,7 @@ const props = defineProps({
         default: IconSize.MD, 
         validator: (value: IconSize) => Object.values(IconSize).includes(value),
     },
-    color: {
-        type: String as PropType<ColorAccent>,
-        default: ColorAccent.NEUTRAL, 
-        validator: (value: ColorAccent) => Object.values(ColorAccent).includes(value),
-    },
+    color: String as PropType<ColorAccent>,
     svgCustomize: Function as PropType<CollectionCustomizeCallback>,  
     iconClass: [String, Array] as PropType<string | string[]>,    
 })
@@ -58,6 +54,8 @@ const iconSizeClass = computed(() => {
 })
 
 const iconColorClass = computed(() => {
+    if (!props.color) return 'text-inherit'
+
     const variants = {
         [ColorAccent.NEUTRAL]: 'text-icon-default',
         [ColorAccent.SUCCESS]: 'text-icon-success',
@@ -68,6 +66,6 @@ const iconColorClass = computed(() => {
         [ColorAccent.SECONDARY_BRAND]: 'text-icon-secondary-brand-default',
     }
 
-    return variants[props.color as ColorAccent] || 'text-icon-default'
+    return variants[props.color] || 'text-inherit'
 })
 </script>
