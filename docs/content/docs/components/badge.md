@@ -12,7 +12,7 @@ props:
     isTransparent: false
     showIcon: false
     text: "Badge"
-    icon: "mdiHelp"
+    icon: "mdi:help"
 items:
     styleType:
         - value: border
@@ -94,7 +94,7 @@ props: [
     },
     {
         "name": "icon",
-        "default": "mdiHelp",
+        "default": "mdi:help",
         "type": "string",
     }
 ]
@@ -264,11 +264,11 @@ Applies a transparent background to the badge.
 ### showIcon
 
 Displays an icon on the badge on the left side. In case of using `showDot`, the icon will appear on the right side of the dot. 
-It can be combined with the `icon` to display a MDI icon.
+It can be combined with the `icon` to display an icon.
 
 ```vue
 <template>
-    <Badge :showIcon="true" icon="mdiHelp" />
+    <Badge :showIcon="true" icon="mdi:help" />
 </template>
 ```
 
@@ -295,12 +295,12 @@ The icon displayed on the badge. It requires the `showIcon` to be true.
 
 ```vue
 <template>
-    <Badge :showIcon="true" icon="mdiHelp" />
+    <Badge :showIcon="true" icon="mdi:help" />
 </template>
 ```
 
 - **Type:** `string`
-- **Default:** `'mdiHelp'`
+- **Default:** `'mdi:help'`
 
 ## Emits
 ::options-table

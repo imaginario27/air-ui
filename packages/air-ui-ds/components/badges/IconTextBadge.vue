@@ -29,8 +29,8 @@ const props = defineProps({
         default: 'Badge text'
     },
     icon: {
-        type: String as PropType<any>,
-        default: 'mdiHelp', 
+        type: String as PropType<string>,
+        default: 'mdi:help', 
     },
 })
 

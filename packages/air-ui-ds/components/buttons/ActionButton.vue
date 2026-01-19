@@ -27,10 +27,9 @@
         <!-- Loading State -->
         <template v-if="isLoading">
             <div class="animate-spin">
-                <MdiIcon 
-                    icon="mdiLoading" 
-                    preserveAspectRatio="xMidYMid meet"
-                    :class="iconSizeClass" 
+                <Icon 
+                    name="mdi:loading"
+                    :iconClass="iconSizeClass"
                 />
             </div>
             
@@ -43,21 +42,15 @@
         <template v-else>
             <!-- Left icon -->
             <template v-if="iconPosition === IconPosition.LEFT">
-                <MdiIcon
-                    v-if="icon && !svgIcon"
-                    :icon
-                    preserveAspectRatio="xMidYMid meet"
-                    :class="[iconSizeClass, iconClass ]"
+                <Icon 
+                    v-if="icon"
+                    :name="icon"
+                    :iconClass="[
+                        iconSizeClass, 
+                        iconColorClass, 
+                        iconClass ? iconClass : ''
+                    ]"
                 />
-                <span
-                    v-else-if="svgIcon"
-                    :class="[iconSizeClass, iconClass ]"
-                >
-                    <SVGImage
-                        :src="svgIcon"
-                        :color="resolvedSvgIconColor"
-                    />
-                </span>
             </template>
 
             <span :class="[ 'font-semibold', textSizeClass, textClass ]">
@@ -66,21 +59,15 @@
 
             <!-- Right icon -->
             <template v-if="iconPosition === IconPosition.RIGHT">
-                <MdiIcon
+                <Icon 
                     v-if="icon"
-                    :icon="icon"
-                    preserveAspectRatio="xMidYMid meet"
-                    :class="[iconSizeClass, iconClass]"
+                    :name="icon"
+                    :iconClass="[
+                        iconSizeClass, 
+                        iconColorClass, 
+                        iconClass ? iconClass : ''
+                    ]"
                 />
-                <span
-                    v-else-if="svgIcon"
-                    :class="[iconSizeClass, iconClass]"
-                >
-                    <SVGImage
-                        :src="svgIcon"
-                        :color="resolvedSvgIconColor"
-                    />
-                </span>
             </template>
         </template>
     </component>
@@ -124,18 +111,13 @@ const props = defineProps({
         validator: (value: ButtonSize) => Object.values(ButtonSize).includes(value),
     },
     icon: {
-        type: String as PropType<any>,
-        default: "mdiHelp"
+        type: String as PropType<string>,
+        default: "mdi:help"
     },
     iconPosition: {
         type: String as PropType<IconPosition>,
         default: IconPosition.NONE,
         validator: (value: IconPosition) => Object.values(IconPosition).includes(value),
-    },
-    svgIcon: String as PropType<string>,
-    useSVGIconColor: {
-        type: Boolean as PropType<boolean>,
-        default: false,
     },
     iconClass: String as PropType<string>,
     disabled: {
@@ -318,14 +300,23 @@ const iconSizeClass = computed(() => {
     return variant[props.size as ButtonSize] || 'w-[20px] h-[20px] min-w-[20px] min-h-[20px]'
 })
 
-const svgIconColorClass = computed(() => {
+const textSizeClass = computed(() => {
+    const variant = {
+        [ButtonSize.XS]: 'text-xs',
+        [ButtonSize.SM]: 'text-sm',
+        [ButtonSize.MD]: 'text-sm',
+        [ButtonSize.LG]: 'text-sm',
+        [ButtonSize.XL]: 'text-sm',
+        [ButtonSize.XXL]: 'text-base',
+    }
+    return variant[props.size as ButtonSize] || 'text-sm'
+})
+
+const iconColorClass = computed(() => {
     const variant = {
         [ButtonStyleType.PRIMARY_BRAND_FILLED]: 'text-text-neutral-on-filled',
         [ButtonStyleType.PRIMARY_BRAND_SOFT]: 'text-icon-primary-brand-on-soft-bg',
-        [ButtonStyleType.PRIMARY_BRAND_TRANSPARENT]: [
-            'text-text-primary-brand-default',
-            !props.disabled && 'hover:text-text-primary-brand-hover',
-        ],
+        [ButtonStyleType.PRIMARY_BRAND_TRANSPARENT]: 'text-text-primary-brand-default',
         [ButtonStyleType.SECONDARY_BRAND_FILLED]: 'text-text-neutral-on-filled',
         [ButtonStyleType.NEUTRAL_FILLED]: 'text-text-neutral-on-neutral-filled-bg',
         [ButtonStyleType.NEUTRAL_OUTLINED]: 'text-text-default',
@@ -337,18 +328,6 @@ const svgIconColorClass = computed(() => {
         [ButtonStyleType.DELETE_TRANSPARENT]: 'text-text-delete',
     }
     return variant[props.styleType as ButtonStyleType] || 'text-text-default'
-})
-
-const textSizeClass = computed(() => {
-    const variant = {
-        [ButtonSize.XS]: 'text-xs',
-        [ButtonSize.SM]: 'text-sm',
-        [ButtonSize.MD]: 'text-sm',
-        [ButtonSize.LG]: 'text-sm',
-        [ButtonSize.XL]: 'text-sm',
-        [ButtonSize.XXL]: 'text-base',
-    }
-    return variant[props.size as ButtonSize] || 'text-sm'
 })
 
 const horizontalPaddingClass = computed(() => {
@@ -373,19 +352,6 @@ const gapClass = computed(() => {
         [ButtonSize.XXL]: 'gap-2',
     }
     return variant[props.size as ButtonSize] || 'gap-2'
-})
-
-// Computed functions
-const resolvedSvgIconColor = computed(() => {
-    if (props.useSVGIconColor) return undefined
-
-    const val = svgIconColorClass.value
-
-    if (Array.isArray(val)) {
-        return val.filter(Boolean).join(' ')
-    }
-
-    return val
 })
 
 // Props for the dynamic component

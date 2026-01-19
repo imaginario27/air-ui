@@ -54,12 +54,13 @@
                 ]"
                 @click="toggleCheckbox"
             >
-                <MdiIcon 
+                <Icon
                     v-if="modelValue" 
-                    icon="mdiCheckBold" 
-                    :size="checkboxIconSizeClass" 
-                    preserveAspectRatio="xMidYMid meet"
-                    :class="disabled ? 'text-icon-neutral-disabled' : 'text-icon-neutral-on-filled-bg'"
+                    name="mdi:check-bold" 
+                    :iconClass="[
+                        checkboxIconSizeClass,
+                        disabled ? '!text-icon-neutral-disabled' : '!text-icon-neutral-on-filled-bg'
+                    ]"
                 />
             </div>
             
@@ -153,10 +154,10 @@ const controlFieldSizeClass = computed(() => {
 
 const checkboxIconSizeClass = computed(() => {
     const sizeVariant = {
-        [ControlFieldSize.MD]: '16',
-        [ControlFieldSize.LG]: '20',
+        [ControlFieldSize.MD]: '!w-[16px] !h-[16px] !min-w-[16px] !min-h-[16px]',
+        [ControlFieldSize.LG]: '!w-[20px] !h-[20px] !min-w-[20px] !min-h-[20px]',
     }
-    return sizeVariant[props.size as ControlFieldSize] || '16'
+    return sizeVariant[props.size as ControlFieldSize] || '!w-[16px] !h-[16px] !min-w-[16px] !min-h-[16px]'
 })
 
 const labelSizeClass = computed(() => {

@@ -122,8 +122,8 @@ const props = defineProps({
         default: true,
     },
     icon: {
-        type: String as PropType<any>,
-        default: 'mdiAlertCircleOutline',
+        type: String as PropType<string>,
+        default: 'mdi:alert-circle-outline',
     },
     backToHomeText: {
         type: String as PropType<string>,
@@ -131,7 +131,7 @@ const props = defineProps({
     },
     backToHomeIcon: {
         type: String as PropType<string>,
-        default: 'mdiHomeOutline',
+        default: 'mdi:home-outline',
     },
     homeRoute: {
         type: String as PropType<string>,

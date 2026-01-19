@@ -35,7 +35,7 @@
         <ContainedIcon 
             v-if="!$slots['graphic']"
             :color="ColorAccent.DANGER"
-            icon="mdiAlertCircleOutline"
+            icon="mdi:alert-circle-outline"
             :size="iconContainerSize"
         />
 
@@ -95,7 +95,7 @@
                         :text="retryButtonText"
                         :size="buttonSize"
                         :iconPosition="IconPosition.LEFT"
-                        icon="mdiRefresh"
+                        icon="mdi:refresh"
                         class="self-center"
                         :disabled="isRetryButtonDisabled"
                         isMobileFullWidth
@@ -151,7 +151,7 @@ const props = defineProps({
     },
     goBackIcon: {
         type: String as PropType<string>,
-        default: "mdiKeyboardBackspace",
+        default: "mdi:keyboard-backspace",
     },
     hasRetryButton: {
         type: Boolean as PropType<boolean>,

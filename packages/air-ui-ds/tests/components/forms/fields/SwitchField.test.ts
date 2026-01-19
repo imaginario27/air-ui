@@ -128,7 +128,6 @@ describe('SwitchField', () => {
 
         expect(validator).toHaveBeenCalledWith(false)
 
-        // Allow for either one or two emissions
         const emits = wrapper.emitted('update:error') ?? []
         expect(emits.length).toBeGreaterThanOrEqual(1)
         expect(emits[0]).toEqual(['Validation failed'])
@@ -174,24 +173,12 @@ describe('SwitchField', () => {
         const wrapper = mount(SwitchField, {
             props: {
                 ...defaultProps,
-                icon: 'mdiTest'
+                icon: 'mdi:mdi-test'
             }
         })
 
-        const icon = wrapper.findComponent({ name: 'MdiIcon' })
+        const icon = wrapper.findComponent({ name: 'Icon' })
         expect(icon.exists()).toBe(true)
-        expect(icon.props('icon')).toBe('mdiTest')
-    })
-
-    it('renders custom icon when `customIcon` is provided', () => {
-        const wrapper = mount(SwitchField, {
-            props: {
-                ...defaultProps,
-                customIcon: '<svg></svg>'
-            }
-        })
-
-        const customIcon = wrapper.find('div[role="img"], div:has(svg)')
-        expect(customIcon.exists()).toBe(true)
+        expect(icon.props('name')).toBe('mdi:mdi-test')
     })
 })

@@ -17,7 +17,7 @@
                 <List :layout="ListLayout.GRID" :cols="2">
                     <ListItem 
                         v-for="item in features" :key="item"
-                        icon="mdiCheck"
+                        icon="mdi:check"
                     >
                         {{ item }}
                     </ListItem>

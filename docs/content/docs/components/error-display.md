@@ -9,9 +9,9 @@ props:
     setPageTitle: false
     showIcon: true
     showErrorCode: true
-    icon: 'mdiAlertCircleOutline'
+    icon: 'mdi:alert-circle-outline'
     backToHomeText: 'Back to home page'
-    backToHomeIcon: 'mdiHomeOutline'
+    backToHomeIcon: 'mdi:home-outline'
     homeRoute: '/'
     isFullScreen: false
     orientation: 'vertical'
@@ -67,8 +67,8 @@ props: [
     },
     {
         "name": "icon",
-        "default": "'mdiAlertCircleOutline'",
-        "type": "any",
+        "default": "'mdi:alert-circle-outline'",
+        "type": "string",
     },
     {
         "name": "backToHomeText",
@@ -77,8 +77,8 @@ props: [
     },
     {
         "name": "backToHomeIcon",
-        "default": "'mdiHomeOutline'",
-        "type": "any",
+        "default": "'mdi:home-outline'",
+        "type": "string",
     },
     {
         "name": "homeRoute",
@@ -219,13 +219,13 @@ const customErrorMappings: ErrorMapping[] = [
         statusCode: 404,
         title: 'Page Not Found',
         description: 'The page you are looking for does not exist.',
-        icon: 'mdiAlertCircleOutline',
+        icon: 'mdi:alert-circle-outline',
     },
     {
         statusCode: 500,
         title: 'Internal Server Error',
         description: 'Something went wrong on our end. Please try again later.',
-        icon: 'mdiServer',
+        icon: 'mdi:server',
     },
 ]
 </script>
@@ -286,12 +286,12 @@ Specifies the icon to be displayed in the error display component. It will be re
 
 ```vue
 <template>
-    <ErrorDisplay icon="mdiAlertOctagonOutline" />
+    <ErrorDisplay icon="mdi:alert-octagon-outline" />
 </template>
 ```
 
-- **Type:** `any`
-- **Default:** `'mdiAlertCircleOutline'`
+- **Type:** `string`
+- **Default:** `'mdi:alert-circle-outline'`
 
 ### backToHomeText
 
@@ -310,13 +310,14 @@ The `backToHomeText` prop allows you to customize the text displayed on the butt
 
 The `backToHomeIcon` prop allows you to set a custom icon for the button that navigates back to the home page.
 
-```vue<template>
-    <ErrorDisplay backToHomeIcon="mdiArrowLeftCircleOutline" />
+```vue
+<template>
+    <ErrorDisplay backToHomeIcon="mdi:arrow-left-circle-outline" />
 </template>
 ```
 
-- **Type:** `any`
-- **Default:** `'mdiHomeOutline'`
+- **Type:** `string`
+- **Default:** `'mdi:home-outline'`
 
 ### homeRoute
 

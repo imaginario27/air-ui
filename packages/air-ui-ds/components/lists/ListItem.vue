@@ -5,14 +5,11 @@
             spaced && 'py-4'
         ]"
     >
-        <span v-if="icon">
-            <MdiIcon 
-                :class="iconClass"
-                :icon="icon"
-                preserveAspectRatio="xMidYMid meet"
-                :size="iconSize"
-            />
-        </span>
+        <Icon
+            v-if="icon"
+            :name="icon"
+            :class="[iconClass, iconSizeClass]"
+        />
         <span :class="[contentSizeClass, 'w-full']">
             <slot />
         </span>
@@ -21,7 +18,7 @@
 <script setup lang="ts">
 // Props
 const props = defineProps({
-    icon: String as PropType<any>,
+    icon: String as PropType<string>,
     iconClass: {
         type: String as PropType<string>,
         default: 'text-icon-secondary-brand-default'
@@ -38,13 +35,13 @@ const props = defineProps({
 })
 
 // Computed
-const iconSize = computed(() => {
+const iconSizeClass = computed(() => {
     const sizeVariant = {
-        [ListItemSize.XS]: '16',
-        [ListItemSize.SM]: '20',
-        [ListItemSize.MD]: '24',
+        [ListItemSize.XS]: 'w-[16px] h-[16px] min-w-[16px] min-h-[16px]',
+        [ListItemSize.SM]: 'w-[20px] h-[20px] min-w-[20px] min-h-[20px]',
+        [ListItemSize.MD]: 'w-[24px] h-[24px] min-w-[24px] min-h-[24px]',
     }
-    return sizeVariant[props.size as ListItemSize] || '20'
+    return sizeVariant[props.size as ListItemSize] || 'w-[20px] h-[20px] min-w-[20px] min-h-[20px]'
 })
 
 const contentSizeClass = computed(() => {

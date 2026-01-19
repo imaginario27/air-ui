@@ -8,7 +8,7 @@ props:
     styleType: "primary-brand-filled"
     type: "button"
     size: "lg"
-    icon: "mdiPlus"
+    icon: "mdi:plus"
     iconClass: ""
     isRounded: false
     disabled: false
@@ -98,7 +98,7 @@ props: [
     },
     {
         "name": "icon",
-        "default": "'mdiHelp'",
+        "default": "'mdi:help'",
         "type": "string"
     },
     {
@@ -315,18 +315,17 @@ options: [
 
 ### icon
 
-Name of icon to show using Material Design Icons.
+Sets the icon displayed on the button.
 
-Usable icons: [pictogrammers.com/library/mdi/](https://pictogrammers.com/library/mdi/){ target="_blank" rel="noopener noreferrer" }
 
 ```vue
 <template>
-    <ActionIconButton icon="mdiCheck" />
+    <ActionIconButton icon="mdi:check" />
 </template>
 ```
 
 - **Type:** `string`
-- **Default:** `'mdiHelp'`
+- **Default:** `'mdi:help'`
 
 ### iconClass
 
@@ -335,7 +334,7 @@ Sets a custom class for the icon element.
 ```vue
 <template>
     <ActionIconButton 
-        icon="mdiCheck" 
+        icon="mdi:check" 
         iconClass="text-red-500" 
     />
 </template>

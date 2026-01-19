@@ -35,9 +35,9 @@ describe('FeatureCard.vue', () => {
     })
 
     it('renders with a custom icon', () => {
-        const wrapper = factory({ icon: 'mdiHome' })
+        const wrapper = factory({ icon: 'mdi:home' })
         const iconProp = wrapper.findComponent({ name: 'ContainedIcon' }).props('icon')
-        expect(iconProp).toBe('mdiHome')
+        expect(iconProp).toBe('mdi:home')
     })
 
     it('renders with the correct containedIconShape, styleType, and color', () => {

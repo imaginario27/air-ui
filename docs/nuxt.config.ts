@@ -15,7 +15,7 @@ export default defineNuxtConfig({
         },
     }, */
 
-    modules: ["@pinia/nuxt", "@nuxt/image", "nuxt-mdi", "@nuxt/eslint", '@vueuse/nuxt', '@nuxt/content', '@nuxt/icon'],
+    modules: ["@pinia/nuxt", "@nuxt/image", "@nuxt/eslint", "@vueuse/nuxt", "@nuxt/content", "@nuxt/icon"],
 
     plugins: ["@/plugins/vue3-toastify", "@/plugins/prettier"],
 

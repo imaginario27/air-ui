@@ -32,8 +32,8 @@ defineProps({
         default: 'Feature description'
     },
     icon: {
-        type: String as PropType<any>,
-        default: 'mdiHelp'
+        type: String as PropType<string>,
+        default: 'mdi:help'
     },
     containedIconShape: {
         type: String as PropType<IconContainerShape>,

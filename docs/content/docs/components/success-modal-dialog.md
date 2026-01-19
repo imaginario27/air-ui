@@ -4,7 +4,7 @@
 ---
 srcDir: 'content/demos/modals/SuccessModalDialogDemo.vue'
 props:
-    icon: "mdiCheckBold"
+    icon: "mdi:check-bold"
     title: "Modal title"
     description: "Modal description"
     buttonText: "Close"
@@ -21,7 +21,7 @@ componentSource: 'docs'
 <template>
     <SuccessModalDialog 
         v-model="showModal"
-        icon="mdiCheckBold
+        icon="mdi:check-bold"
         title="Modal title"
         description="Modal description"
         buttonText="Close"
@@ -52,7 +52,7 @@ props: [
     },
     {
         "name": "icon",
-        "default": "'mdiCheckBold'",
+        "default": "'mdi:check-bold'",
         "type": "string",
     },
     {
@@ -110,12 +110,12 @@ Sets the icon for the modal.
 
 ```vue
 <template>
-    <SuccessModalDialog icon="mdiCheckBold" />
+    <SuccessModalDialog icon="mdi:check-bold" />
 </template>
 ```
 
 - **Type:** `string`
-- **Default:** `'mdiCheckBold'`
+- **Default:** `'mdi:check-bold'`
 
 ### title
 Sets the title for the modal.

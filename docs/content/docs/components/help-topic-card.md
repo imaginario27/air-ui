@@ -4,12 +4,12 @@
 ---
 srcDir: 'cards/specific/HelpTopicCard.vue'
 props: 
-    icon: "mdiHelp"
+    icon: "mdi:help"
     title: "Topic title"
     description: "Topic description"
     to: "/"
     buttonText: "Learn more"
-    buttonIcon: "mdiArrowRight"
+    buttonIcon: "mdi:arrow-right"
 ---
 ::
 
@@ -20,7 +20,7 @@ props:
 props: [
     {
         "name": "icon",
-        "default": "mdiHelp",
+        "default": "mdi:help",
         "type": "string",
     },
     {
@@ -45,7 +45,7 @@ props: [
     },
     {
         "name": "buttonIcon",
-        "default": "mdiArrowRight",
+        "default": "mdi:arrow-right",
         "type": "string",
     },   
 ]
@@ -60,7 +60,7 @@ Sets the icon of the help topic.
 ```vue
 <template>
     <HelpTopicCard 
-        icon="mdiHelp"
+        icon="mdi:help"
     />
 </template>
 ```
@@ -127,11 +127,11 @@ Sets the icon of the button.
 ```vue
 <template>
     <HelpTopicCard 
-        buttonIcon="mdiArrowRight"
+        buttonIcon="mdi:arrow-right"
     />
 </template>
 ```
 
 - **Type:** `string`
-- **Default:** `'mdiArrowRight'`
+- **Default:** `'mdi:arrow-right'`
 

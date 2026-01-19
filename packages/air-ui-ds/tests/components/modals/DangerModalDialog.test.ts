@@ -130,11 +130,11 @@ describe('DangerModalDialog.vue', () => {
     })
 
     it('passes props to ContainedIcon correctly', async () => {
-        const wrapper = factory({ icon: 'mdiBug' })
+        const wrapper = factory({ icon: 'mdi:bug' })
         await nextTick()
 
         const icon = wrapper.findComponent(ContainedIcon)
-        expect(icon.props('icon')).toBe('mdiBug')
+        expect(icon.props('icon')).toBe('mdi:bug')
         expect(icon.props('color')).toBe('danger')
     })
 
@@ -143,14 +143,14 @@ describe('DangerModalDialog.vue', () => {
         await nextTick()
 
         const icon = wrapper.findComponent(ContainedIcon)
-        expect(icon.props('icon')).toBe('mdiAlertOutline')
+        expect(icon.props('icon')).toBe('mdi:alert-outline')
     })
 
     it('passes props to action buttons correctly', async () => {
         const wrapper = factory({
             buttonCloseText: 'Abort',
             buttonActionText: 'Remove',
-            buttonActionIcon: 'mdiTrashCan',
+            buttonActionIcon: 'mdi:trash-can',
             isLoading: true,
             loadingText: 'Deleting...'
         })
@@ -159,7 +159,7 @@ describe('DangerModalDialog.vue', () => {
         const buttons = wrapper.findAllComponents(ActionButton)
         expect(buttons[0]?.props('text')).toBe('Abort')
         expect(buttons[1]?.props('text')).toBe('Remove')
-        expect(buttons[1]?.props('icon')).toBe('mdiTrashCan')
+        expect(buttons[1]?.props('icon')).toBe('mdi:trash-can')
         expect(buttons[1]?.props('isLoading')).toBe(true)
         expect(buttons[1]?.props('loadingText')).toBe('Deleting...')
     })

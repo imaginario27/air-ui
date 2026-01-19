@@ -1,8 +1,7 @@
 import { mount } from '@vue/test-utils'
 import type { VueWrapper } from '@vue/test-utils'
 import AlertIconButton from '@/components/buttons/AlertIconButton.vue'
-import { MdiIcon } from '#components'
-import { AlertType } from '@/models/enums/alerts'
+import Icon from '@/components/icons/Icon.vue'
 import { ButtonActionType } from '@/models/enums/buttons'
 
 type MountOptions = Parameters<typeof mount<InstanceType<typeof AlertIconButton>>>[1]
@@ -14,6 +13,7 @@ const factory = (
     return mount(AlertIconButton, {
         props,
         global: {
+            components: { Icon },
             stubs: {
                 NuxtLink: {
                     props: ['to', 'target', 'rel', 'external'],
@@ -31,19 +31,24 @@ const factory = (
 }
 
 describe('AlertIconButton.vue', () => {
-    it('renders icon inside button', () => {
+    it('renders icon with default props', () => {
         const wrapper = factory()
-        const icon = wrapper.findComponent(MdiIcon)
+        const icon = wrapper.findComponent(Icon)
 
         expect(icon.exists()).toBe(true)
-        expect(icon.props('icon')).toBe('mdiHelp') // default
+        expect(icon.props('name')).toBe('mdi:help')
+    })
+
+    it('renders icon with custom name', () => {
+        const wrapper = factory({ icon: 'mdi:check' })
+        const icon = wrapper.findComponent(Icon)
+
+        expect(icon.exists()).toBe(true)
+        expect(icon.props('name')).toBe('mdi:check')
     })
 
     it('renders as <button> when actionType is ACTION', () => {
-        const wrapper = factory({
-            actionType: ButtonActionType.ACTION
-        })
-
+        const wrapper = factory({ actionType: ButtonActionType.ACTION })
         expect(wrapper.element.tagName.toLowerCase()).toBe('button')
     })
 
@@ -71,9 +76,7 @@ describe('AlertIconButton.vue', () => {
     })
 
     it('emits click when clicked and actionType is ACTION', async () => {
-        const wrapper = factory({
-            actionType: ButtonActionType.ACTION
-        })
+        const wrapper = factory({ actionType: ButtonActionType.ACTION })
 
         await wrapper.trigger('click')
         expect(wrapper.emitted('click')).toBeTruthy()
@@ -89,13 +92,21 @@ describe('AlertIconButton.vue', () => {
         expect(wrapper.emitted('click')).toBeFalsy()
     })
 
-    it.each([
-        [AlertType.WARNING, 'text-icon-warning-on-bg'],
-        [AlertType.DANGER, 'text-icon-danger'],
-        [AlertType.SUCCESS, 'text-icon-success'],
-        [AlertType.INFO, 'text-icon-info']
-    ])('applies correct class for alert type %s', (type, expectedClass) => {
-        const wrapper = factory({ type })
-        expect(wrapper.classes()).toContain(expectedClass)
+    it('renders a button with a type attribute when actionType is ACTION', () => {
+        const wrapper = factory({
+            actionType: ButtonActionType.ACTION
+        })
+
+        const type = wrapper.find('button').attributes('type')
+        expect(type).toBeDefined()
+    })
+
+    it('does not render type attribute when actionType is LINK', () => {
+        const wrapper = factory({
+            actionType: ButtonActionType.LINK,
+            to: '/about'
+        })
+
+        expect(wrapper.find('a').attributes('type')).toBeUndefined()
     })
 })

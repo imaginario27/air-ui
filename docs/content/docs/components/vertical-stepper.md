@@ -10,23 +10,23 @@ props:
           metaTitle: "Step 1: Setup"
           description: "Initialize your project using Nuxt 3 to build a performant and scalable Vue application."
           stepStatus: "none"
-          stepIcon: "mdiRocketLaunch"
+          stepIcon: "mdi:rocket-launch"
 
         - title: "Style with Tailwind"
           metaTitle: "Step 2: Styling"
           description: "Integrate Tailwind CSS to style your application using utility-first classes and responsive design."
           stepStatus: "none"
-          stepIcon: "mdiBrush"
+          stepIcon: "mdi:brush"
 
         - title: "Combine the Power"
           metaTitle: "Step 3: Integration"
           description: "Use Nuxt and Tailwind together to rapidly build modern, fully styled full-stack applications."
           stepStatus: "none"
-          stepIcon: "mdiPowerPlug"
+          stepIcon: "mdi:power-plug"
     
     stepType: "number"
     stepSize: "sm"
-    stepCompletedIcon: "mdiCheck"
+    stepCompletedIcon: "mdi:check"
     hasStepper: true
     hasStepperGap: true
     showLine: true
@@ -80,7 +80,7 @@ props: [
     },
     {
         "name": "stepCompletedIcon",
-        "default": "mdiCheck",
+        "default": "mdi:check",
         "type": "string",
     },
     {
@@ -124,14 +124,14 @@ const items: VerticalStepperItem[] = [
         metaTitle: "Step 1: Setup",
         description: "Initialize your project using Nuxt 3 to build a performant and scalable Vue application.",
         stepStatus: "none",
-        stepIcon: "mdiRocketLaunch",
+        stepIcon: "mdi:rocket-launch",
     },
     {
         title: "Style with Tailwind",
         metaTitle: "Step 2: Styling",
         description: "Integrate Tailwind CSS to style your application using utility-first classes and responsive design.",
         stepStatus: "none",
-        stepIcon: "mdiBrush",
+        stepIcon: "mdi:brush",
     },
     {
         title: "Combine the Power",
@@ -139,7 +139,7 @@ const items: VerticalStepperItem[] = [
         description: "Use Nuxt and Tailwind together to
         rapidly build modern, fully styled full-stack applications.",
         stepStatus: "none",
-        stepIcon: "mdiPowerPlug",
+        stepIcon: "mdi:power-plug",
     },
 ]
 </script>
@@ -239,7 +239,7 @@ Sets the icon to be displayed when the step is completed.
 
 ```vue
 <template>
-    <VerticalStepper stepCompletedIcon="mdiCheck" />
+    <VerticalStepper stepCompletedIcon="mdi:check" />
 </template>
 ```
 
@@ -341,8 +341,8 @@ props:
     step: 1
     stepType: "number"
     stepSize: "sm"
-    stepIcon: "mdiHelp"
-    stepCompletedIcon: "mdiCheck"
+    stepIcon: "mdi:help"
+    stepCompletedIcon: "mdi:check"
     hasStepper: true
     hasStepperGap: true
     showLine: true

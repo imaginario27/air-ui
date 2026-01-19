@@ -10,7 +10,7 @@ props:
     type: "text"
     placeholder: "Placeholder"
     helpText: "Help text example"
-    icon: "mdiMagnify"
+    icon: "mdi:magnify"
     size: "md"
     modelValue: ""
     maxLength: 200
@@ -58,8 +58,8 @@ props: [
     },
     {
         "name": "icon",
-        "default": "'mdiMagnify'",
-        "type": "any",
+        "default": "'mdi:magnify'",
+        "type": "string",
     },
     {
         "name": "size",
@@ -170,12 +170,12 @@ Sets the icon of the search field.
 
 ```vue
 <template>
-    <SearchField icon="mdiMagnify" />
+    <SearchField icon="mdi:magnify" />
 </template>
 ```
 
-- **Type:** `any`
-- **Default:** `'mdiMagnify'`
+- **Type:** `string`
+- **Default:** `'mdi:magnify'`
 
 ### size
 

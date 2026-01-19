@@ -9,15 +9,15 @@ props:
         - id: "item-1"
           text: "Item 1"
           value: "item-1"
-          icon: "mdiSpaOutline"
+          icon: "mdi:spa-outline"
         - id: "item-2"
           text: "Item 2"
           value: "item-2"
-          icon: "mdiChatOutline"
+          icon: "mdi:chat-outline"
         - id: "item-3"
           text: "Item 3"
           value: "item-3"
-          icon: "mdiGiftOutline"
+          icon: "mdi:gift-outline"
     placeholder: "Select an option"
     type: "text"
     size: "md"
@@ -216,8 +216,7 @@ interface SelectOption {
     id?: string | number
     value: string | number
     text?: string
-    icon?: any
-    customIcon?: string
+    icon?: string
     userDisplayName?: string
     userProfileImg?: string
     imgUrl?: string
@@ -266,7 +265,7 @@ options: [
     },
     {
         value: "ICON",
-        description: "Uses the following keys from the options array: text, value, icon | customIcon",
+        description: "Uses the following keys from the options array: text, value, icon",
     },
     {
         value: "USER",

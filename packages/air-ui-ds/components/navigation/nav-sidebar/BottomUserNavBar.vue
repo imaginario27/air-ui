@@ -63,16 +63,16 @@ defineProps({
         default: () => [
             {
                 text: 'Account settings',
-                icon: 'mdiAccountCogOutline',
+                icon: 'mdi:account-cog-outline',
             },
             {
                 text: 'Support',
-                icon: 'mdiLifebuoy',
+                icon: 'mdi:lifebuoy',
                 to: '/',
             },
             {
                 text: 'Logout',
-                icon: 'mdiLogout',
+                icon: 'mdi:logout',
                 actionType: DropdownActionType.ACTION,
                 type: DropdownItemType.DANGER_ICON,
                 callback: () => {},

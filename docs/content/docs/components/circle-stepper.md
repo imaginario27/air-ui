@@ -7,11 +7,11 @@ srcDir: 'steppers/CircleStepper.vue'
 props: 
     modelValue: 1
     steps:
-        - icon: "mdiHomeOutline"
-        - icon: "mdiAccountOutline"
-        - icon: "mdiMapMarkerStarOutline"
+        - icon: "mdi:home-outline"
+        - icon: "mdi:account-outline"
+        - icon: "mdi:map-marker-star-outline"
     type: "number"
-    completedIcon: "mdiCheck"
+    completedIcon: "mdi:check"
     isInteractive: false
     isFullWidth: false
     dividerClass: ""
@@ -68,7 +68,7 @@ props: [
     },
     {
         "name": "completedIcon",
-        "default": "mdiCheck",
+        "default": "mdi:check",
         "type": "string"
     },
     {
@@ -114,13 +114,13 @@ Sets the steps. You can set the steps by using a number or pass an array of obje
 <script setup lang="ts">
 const steps: CircleStep[] = [
     {
-        icon: 'mdiHomeOutline',
+        icon: 'mdi:home-outline',
     },
     {
-        icon: 'mdiAccountOutline',
+        icon: 'mdi:account-outline',
     },
     {
-        icon: 'mdiMapMarkerStarOutline',
+        icon: 'mdi:map-marker-star-outline',
     },
 ]
 </script>
@@ -175,12 +175,12 @@ Sets the icon to be displayed when the step is completed.
 
 ```vue
 <template>
-    <CircleStepper completedIcon="mdiCheck" />
+    <CircleStepper completedIcon="mdi:check" />
 </template>
 ```
 
 - **Type:** `string`
-- **Default:** `mdiCheck`
+- **Default:** `mdi:check`
 
 ### isInteractive
 

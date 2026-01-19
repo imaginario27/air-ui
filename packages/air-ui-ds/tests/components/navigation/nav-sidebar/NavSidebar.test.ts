@@ -35,15 +35,15 @@ vi.mock('@/composables/useIsMobile', () => ({
 }))
 
 const defaultMenuItems = [
-    { isSectionTitle: true, text: 'Section 1', icon: 'mdiTitle' },
-    { text: 'Item 1', icon: 'mdiHelp', to: '/' },
-    { text: 'Item 2', icon: 'mdiHelp', to: '/' },
+    { isSectionTitle: true, text: 'Section 1', icon: 'mdi:bullseye' },
+    { text: 'Item 1', icon: 'mdi:help', to: '/' },
+    { text: 'Item 2', icon: 'mdi:help', to: '/' },
     {
         text: 'Item 3',
-        icon: 'mdiHelp',
+        icon: 'mdi:help',
         children: [
-            { text: 'Subitem 1', icon: 'mdiHelp', to: '/sub1' },
-            { text: 'Subitem 2', icon: 'mdiHelp', to: '/sub2' }
+            { text: 'Subitem 1', icon: 'mdi:help', to: '/sub1' },
+            { text: 'Subitem 2', icon: 'mdi:help', to: '/sub2' }
         ]
     }
 ]

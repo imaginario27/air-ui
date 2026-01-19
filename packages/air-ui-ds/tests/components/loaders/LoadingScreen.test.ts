@@ -64,7 +64,7 @@ describe('LoadingScreen.vue', () => {
             helpText: 'Please try again or report the error to us. Thank you!',
             goBackText: 'Go back',
             goBackLink: '/',
-            goBackIcon: 'mdiKeyboardBackspace',
+            goBackIcon: 'mdi:keyboard-backspace',
             isFullScreen: true,
             containerClass: 'py-20',
         })
@@ -98,13 +98,13 @@ describe('LoadingScreen.vue', () => {
             error: 'Something went wrong',
             goBackText: 'Return Home',
             goBackLink: '/home',
-            goBackIcon: 'mdiHomeOutline',
+            goBackIcon: 'mdi:home-outline',
         })
 
         const button = wrapper.findComponent(ActionButton)
         expect(button.props('text')).toBe('Return Home')
         expect(button.props('to')).toBe('/home')
-        expect(button.props('icon')).toBe('mdiHomeOutline')
+        expect(button.props('icon')).toBe('mdi:home-outline')
     })
 
     it('emits retry event on retry button click', async () => {

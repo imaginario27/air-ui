@@ -2,7 +2,7 @@ export const sidebarGettingStartedMenu: SidebarMenuItem[] = [
     {
         isSectionTitle: true,
         text: 'Getting started',
-        icon: 'mdiPlayBoxOutline',
+        icon: 'mdi:play-box-outline',
     },
     {
         text: 'Introduction',
@@ -15,7 +15,7 @@ export const sidebarGettingStartedMenu: SidebarMenuItem[] = [
     {
         isSectionTitle: true,
         text: 'Theme',
-        icon: 'mdiPaletteOutline',
+        icon: 'mdi:palette-outline',
     },
     {
         text: 'Customization',

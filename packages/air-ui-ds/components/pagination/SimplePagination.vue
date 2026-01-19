@@ -1,7 +1,7 @@
 <template>
     <nav class="flex items-center justify-center gap-2">
         <ActionIconButton 
-            icon="mdiChevronLeft"
+            icon="mdi:chevron-left"
             :styleType="ButtonStyleType.NEUTRAL_TRANSPARENT"
             :disabled="modelValue === 1"
             :class="[
@@ -14,7 +14,7 @@
             {{ computedResultsText }}
         </p>
         <ActionIconButton 
-            icon="mdiChevronRight"
+            icon="mdi:chevron-right"
             :styleType="ButtonStyleType.NEUTRAL_TRANSPARENT"
             :disabled="modelValue === totalPages"
             :class="[

@@ -76,7 +76,7 @@ const props = defineProps({
     },
     type: String as PropType<StepIndicatorType>,
     size: String as PropType<StepIndicatorSize>,
-    completedIcon: String as PropType<any>,
+    completedIcon: String as PropType<string>,
     isInteractive: {
         type: Boolean as PropType<boolean>,
         default: false,

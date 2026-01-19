@@ -2,8 +2,7 @@ export interface SelectOption {
     id?: string | number
     value: string | number
     text?: string
-    icon?: any
-    customIcon?: string
+    icon?: string
     userDisplayName?: string
     userProfileImg?: string
     imgUrl?: string

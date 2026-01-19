@@ -29,11 +29,10 @@
                 v-else
                 class="w-full h-full flex items-center justify-center bg-background-neutral-subtlest"
             >
-                <MdiIcon
-                    :icon="fallbackIcon"
-                    size="32"
-                    preserveAspectRatio="xMidYMid meet"
-                    class="text-icon-primary-brand-default"
+                <Icon
+                    :name="fallbackIcon"
+                    :size="IconSize.XL"
+                    iconClass="text-icon-primary-brand-default"
                 />
             </div>
 
@@ -53,11 +52,10 @@
                         'transition-opacity duration-300',
                     ]"
                 >
-                    <MdiIcon
-                        :icon="hoverIcon"
-                        size="32"
-                        preserveAspectRatio="xMidYMid meet"
-                        class="text-icon-neutral-on-filled-bg"
+                    <Icon 
+                        :name="hoverIcon"
+                        :size="IconSize.XL"
+                        iconClass="text-icon-neutral-on-filled-bg"
                     />
                 </div>
             </template>
@@ -82,12 +80,12 @@ const props = defineProps({
         default: ImageHoverEffect.BLUR,
     },
     hoverIcon: {
-        type: String as PropType<any>,
-        default: 'mdiEyeOutline',
+        type: String as PropType<string>,
+        default: 'mdi:eye-outline',
     },
     fallbackIcon: {
-        type: String as PropType<any>,
-        default: 'mdiImageOffOutline',
+        type: String as PropType<string>,
+        default: 'mdi:image-off-outline',
     },
     containerClass: String as PropType<string>,
 })

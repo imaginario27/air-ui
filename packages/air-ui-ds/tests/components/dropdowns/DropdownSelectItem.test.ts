@@ -1,14 +1,20 @@
 import { mount } from '@vue/test-utils'
 import DropdownSelectItem from '@/components/dropdowns/DropdownSelectItem.vue'
+import Icon from '@/components/icons/Icon.vue'
 import { SelectType, SelectActiveStyle } from '@/models/enums/selects'
 
 vi.mock('@/assets/images/placeholders/missing-image-placeholder.png', () => ({
     default: '/mocked/missing-image.png'
 }))
 
-const factory = (props?: Record<string, any>) => {
+const factory = (props: Record<string, any> = {}) => {
     return mount(DropdownSelectItem, {
-        props
+        props,
+        global: {
+            stubs: {
+                Icon
+            }
+        }
     })
 }
 
@@ -26,9 +32,12 @@ describe('DropdownSelectItem.vue', () => {
     it('renders an icon when type is ICON', () => {
         const wrapper = factory({
             type: SelectType.ICON,
-            icon: 'mdiCheck'
+            icon: 'mdi:check'
         })
-        expect(wrapper.findComponent({ name: 'MdiIcon' }).exists()).toBe(true)
+
+        const icon = wrapper.findComponent(Icon)
+        expect(icon.exists()).toBe(true)
+        expect(icon.props('name')).toBe('mdi:check')
     })
 
     it('renders a user component when type is USER', () => {
@@ -36,10 +45,11 @@ describe('DropdownSelectItem.vue', () => {
             type: SelectType.USER,
             userDisplayName: 'John Doe'
         })
+
         expect(wrapper.text()).toContain('John Doe')
     })
 
-    it('renders the image when imgUrl is provided and image loads', async () => {
+    it('renders the image when imgUrl is provided and image loads', () => {
         const wrapper = factory({
             type: SelectType.IMAGE,
             imgUrl: 'https://example.com/image.png',
@@ -80,29 +90,31 @@ describe('DropdownSelectItem.vue', () => {
         expect(img.attributes('src')).toBe('/mocked/missing-image.png')
     })
 
-    it('applies "selected" styling when isSelected is true', () => {
+    it('applies selected styling when isSelected is true and activeStyle is FILL', () => {
         const wrapper = factory({
             isSelected: true,
             activeStyle: SelectActiveStyle.FILL
         })
+
         expect(wrapper.classes()).toContain('bg-background-primary-brand-active')
     })
 
-    it('renders checkmark icon when isSelected and activeStyle is CHECK', () => {
+    it('renders check icon when isSelected and activeStyle is CHECK', () => {
         const wrapper = factory({
             isSelected: true,
             activeStyle: SelectActiveStyle.CHECK
         })
 
-        const checkIcon = wrapper.findComponent({ name: 'MdiIcon' })
-        expect(checkIcon.exists()).toBe(true)
-        expect(checkIcon.props('icon')).toBe('mdiCheck')
+        const icon = wrapper.findComponent(Icon)
+        expect(icon.exists()).toBe(true)
+        expect(icon.props('name')).toBe('mdi:check')
     })
 
     it('renders as an anchor tag when "to" prop is provided', () => {
         const wrapper = factory({
             to: '/home'
         })
+
         expect(wrapper.element.tagName).toBe('A')
         expect(wrapper.attributes('href')).toBe('/home')
     })
@@ -110,6 +122,7 @@ describe('DropdownSelectItem.vue', () => {
     it('emits a click event when clicked', async () => {
         const wrapper = factory()
         await wrapper.trigger('click')
+
         expect(wrapper.emitted('click')).toBeTruthy()
     })
 })

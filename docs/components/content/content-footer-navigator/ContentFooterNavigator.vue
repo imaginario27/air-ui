@@ -42,8 +42,8 @@ const props = defineProps({
         default: 'Link label',
     },
     icon: {
-        type: String as PropType<any>,
-        default: "mdiHelp"
+        type: String as PropType<string>,
+        default: "mdi:help"
     },
     description: String as PropType<string>,
     to: String as PropType<string>,

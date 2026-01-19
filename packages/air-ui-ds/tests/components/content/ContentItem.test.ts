@@ -1,6 +1,7 @@
 import { mount } from '@vue/test-utils'
 import ContentItem from '@/components/content/ContentItem.vue'
 import Card from '@/components/cards/Card.vue'
+import Icon from '@/components/icons/Icon.vue'
 import { ImageHoverEffect } from '@/models/enums/effects'
 import { AspectRatio, ContentItemType } from '#imports'
 
@@ -13,6 +14,7 @@ const defaultProps: Partial<InstanceType<typeof ContentItem>['$props']> = {
     to: '/portfolio/item-1',
     imgHoverEffect: ImageHoverEffect.ZOOM_IN,
     imgAspectRatio: AspectRatio.AR_16_9,
+    imgHoverIcon: 'mdi:eye-outline',
     type: ContentItemType.CARD
 }
 
@@ -33,9 +35,7 @@ const factory = (props = {}, slots = {}) => {
                     template: '<img :src="src" :alt="alt" :class="imgClass" />',
                     props: ['src', 'alt']
                 },
-                MdiIcon: {
-                    template: '<div class="mdi-icon-stub" />'
-                }
+                Icon
             },
             components: {
                 Card
@@ -171,18 +171,21 @@ describe('ContentItem.vue', () => {
             imgFallbackIcon: 'mdi-image-off'
         })
 
-        expect(wrapper.find('.mdi-icon-stub').exists()).toBe(true)
+        const icon = wrapper.findComponent(Icon)
+        expect(icon.exists()).toBe(true)
+        expect(icon.props('name')).toBe('mdi-image-off')
     })
 
     it('renders hover icon container when image is present', () => {
         const wrapper = factory()
-        const hoverIcon = wrapper.find('.group-hover\\:opacity-100')
+        const hoverIcon = wrapper.findComponent(Icon)
         expect(hoverIcon.exists()).toBe(true)
+        expect(hoverIcon.props('name')).toBe(defaultProps.imgHoverIcon)
     })
 
-    it('does not render hover icon container when imgUrl is empty', () => {
+    it('does not render hover icon when imgUrl is empty', () => {
         const wrapper = factory({ imgUrl: '' })
-        const hoverIcon = wrapper.find('.group-hover\\:opacity-100')
-        expect(hoverIcon.exists()).toBe(false)
+        const icon = wrapper.findAllComponents(Icon).find(i => i.props('name') === defaultProps.imgHoverIcon)
+        expect(icon).toBeUndefined()
     })
 })

@@ -69,7 +69,7 @@
                                 'transition-all duration-200',
                                 disabled 
                                     ? 'opacity-50 cursor-not-allowed' 
-                                    : 'hover:bg-background-neutral-sublter hover:border-border-primary-brand-default hover:text-text-primary-brand-default cursor-pointer',
+                                    : 'hover:bg-background-neutral-subtler hover:border-border-primary-brand-default hover:text-text-primary-brand-default cursor-pointer',
                                 'focus:outline-none focus:ring-2 focus:ring-primary-brand-200'
                             ]"
                             @click="startEditing(0)"
@@ -79,11 +79,10 @@
                             <span>
                                 {{ `${currentValuePrefix || ''}${(modelValue as [number, number])[0]}${currentValueSuffix || ''}` }}
                             </span>
-                            <MdiIcon 
-                                icon="mdiPencil" 
-                                size="14px" 
-                                preserveAspectRatio="xMidYMid meet"
-                                class="ml-1 opacity-60"
+                            <Icon
+                                name="mdi:pencil"
+                                :size="IconSize.SM"
+                                iconClass="ml-1 opacity-60"
                             />
                         </button>
                         
@@ -167,7 +166,7 @@
                                 'transition-all duration-200',
                                 disabled 
                                     ? 'opacity-50 cursor-not-allowed' 
-                                    : 'hover:bg-background-neutral-sublter hover:border-border-primary-brand-default hover:text-text-primary-brand-default cursor-pointer',
+                                    : 'hover:bg-background-neutral-subtler hover:border-border-primary-brand-default hover:text-text-primary-brand-default cursor-pointer',
                                 'focus:outline-none focus:ring-2 focus:ring-primary-brand-200'
                             ]"
                             @click="startEditing(1)"
@@ -175,11 +174,10 @@
                             @keydown.space.prevent="startEditing(1)"
                         >
                             <span>{{ `${currentValuePrefix || ''}${(modelValue as [number, number])[1]}${currentValueSuffix || ''}` }}</span>
-                            <MdiIcon 
-                                icon="mdiPencil" 
-                                size="14px" 
-                                preserveAspectRatio="xMidYMid meet"
-                                class="ml-1 opacity-60"
+                            <Icon
+                                name="mdi:pencil"
+                                :size="IconSize.SM"
+                                iconClass="ml-1 opacity-60"
                             />
                         </button>
                     </div>
@@ -231,7 +229,7 @@
                                 'transition-all duration-200',
                                 disabled 
                                     ? 'opacity-50 cursor-not-allowed' 
-                                    : 'hover:bg-background-neutral-sublter hover:border-border-primary-brand-default hover:text-text-primary-brand-default cursor-pointer hover:shadow-sm',
+                                    : 'hover:bg-background-neutral-subtler hover:border-border-primary-brand-default hover:text-text-primary-brand-default cursor-pointer hover:shadow-sm',
                                 'focus:outline-none focus:ring-2 focus:ring-primary-brand-200'
                             ]"
                             @click="startEditing(0)"
@@ -241,11 +239,10 @@
                             <span>
                                 {{ `${currentValuePrefix || ''}${modelValue}${currentValueSuffix || ''}` }}
                             </span>
-                            <MdiIcon 
-                                icon="mdiPencil" 
-                                size="14px" 
-                                preserveAspectRatio="xMidYMid meet"
-                                :class="[
+                            <Icon
+                                name="mdi:pencil"
+                                :size="IconSize.SM"
+                                :iconClass="[
                                     'ml-1',
                                     'opacity-60',
                                     'group-hover:opacity-100',
@@ -309,7 +306,7 @@
                     'left-0',
                     'w-full',
                     'h-[4px]',
-                    'bg-background-neutral-sublter',
+                    'bg-background-neutral-subtler',
                     'rounded-full',
                     '-translate-y-1/2',
                 ]"

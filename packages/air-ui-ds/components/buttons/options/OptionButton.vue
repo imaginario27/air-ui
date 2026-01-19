@@ -29,8 +29,8 @@ const props = defineProps({
         default: ButtonStyleType.NEUTRAL_OUTLINED,
     },
     icon: {
-        type: String as PropType<any>,
-        default: 'mdiHelp',
+        type: String as PropType<string>,
+        default: 'mdi:help',
     },
     iconPosition: {
         type: String as PropType<IconPosition>,

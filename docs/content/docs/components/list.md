@@ -13,7 +13,7 @@ props:
     cols: 2
     tabletCols: 2
     mobileCols: 1
-    listItemIcon: "mdiCheck"
+    listItemIcon: "mdi:check"
     listItemIconClass: "text-icon-secondary-brand-default"
     listItemSize: "sm"
     spaced: false
@@ -73,7 +73,7 @@ props: [
     },
     {
         "name": "listItemIcon",
-        "default": "mdiCheck",
+        "default": "mdi:check",
         "type": "string",
     },
     {
@@ -228,7 +228,7 @@ The icon displayed as the marker on the list item. If it is not provided, the li
 ```vue
 <template>
     <List
-        :listItemIcon="mdiCheck"
+        listItemIcon="mdi:check"
     />
 </template>
 ```
@@ -241,8 +241,8 @@ The class applied to the icon displayed as the marker on the list item.
 ```vue
 <template>
     <List
-        :listItemIcon="mdiCheck"
-        :listItemIconClass="'text-icon-secondary-brand-default'"
+        listItemIcon="mdi:check"
+        listItemIconClass="text-icon-secondary-brand-default"
     />
 </template>
 ```

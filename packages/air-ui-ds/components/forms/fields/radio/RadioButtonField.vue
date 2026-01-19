@@ -37,11 +37,10 @@
                     modelValue === value ? selectedIconBackgroundColorClass : 'bg-background-neutral-sublter'
                 ]"
             >
-                <MdiIcon 
-                    :icon="icon"
-                    size="24"
-                    preserveAspectRatio="xMidYMid meet"
-                    :class="modelValue === value ? selectedIconColorClass : 'text-icon-neutral-subtle'"
+                <Icon
+                    :name="icon"
+                    :size="IconSize.LG"
+                    :iconClass="modelValue === value ? selectedIconColorClass : 'text-icon-neutral-subtle'"
                 />
             </div>
             <!-- Label with help text -->
@@ -126,8 +125,8 @@ const props = defineProps({
         required: true,
     },
     icon: {
-        type: String as PropType<any>,
-        default: 'mdiHelp',
+        type: String as PropType<string>,
+        default: 'mdi:help',
     },
     type: {
         type: String as PropType<

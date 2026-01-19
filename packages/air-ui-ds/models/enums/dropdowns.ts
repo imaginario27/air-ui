@@ -1,5 +1,6 @@
 export enum DropdownItemType {
     TEXT = 'text',
+    DANGER_TEXT = 'danger-text',
     ICON = 'icon',
     DANGER_ICON = 'danger-icon',
     USER = 'user',

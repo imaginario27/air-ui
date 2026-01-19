@@ -16,7 +16,7 @@
             :text="goBackText"
             :iconPosition="IconPosition.LEFT"
             :to="goBackLink"
-            icon="mdiKeyboardBackspace"
+            icon="mdi:keyboard-backspace"
             class="mb-2"
         />
 

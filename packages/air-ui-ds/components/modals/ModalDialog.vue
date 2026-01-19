@@ -22,7 +22,7 @@
                         v-if="hasCornerCloseButton"
                         :styleType="ButtonStyleType.NEUTRAL_TRANSPARENT"
                         :size="ButtonSize.MD"
-                        icon="mdiClose"
+                        icon="mdi:close"
                         class="absolute top-4 right-4 z-10"
                         @click="closeModal"
                     />

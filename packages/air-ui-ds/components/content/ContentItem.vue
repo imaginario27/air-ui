@@ -100,8 +100,8 @@ const props = defineProps({
         default: ImageHoverEffect.BLUR,
         validator: (value: ImageHoverEffect) => Object.values(ImageHoverEffect).includes(value),
     },
-    imgHoverIcon: String as PropType<any>,
-    imgFallbackIcon: String as PropType<any>,
+    imgHoverIcon: String as PropType<string>,
+    imgFallbackIcon: String as PropType<string>,
     imgContainerClass: String as PropType<string>,
     containerClass: String as PropType<string>,
     hasCardShadow: {

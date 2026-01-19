@@ -11,7 +11,7 @@
 </template>
 <script setup lang="ts">
 definePageMeta({
-    title: 'ActtionButton',
+    title: 'ActionButton',
     layout: 'docs',
     overtitle: 'Components',
     description: 'A button element that can act as a link or trigger an action.'

@@ -22,7 +22,7 @@
         <div 
             :class="[ 
                 'flex items-center gap-3',
-                label || icon || customIcon ? 'justify-between' : 'justify-end',
+                label || icon ? 'justify-between' : 'justify-end',
                 'text-sm w-full',
                 hasError ? 'text-text-error' : 'text-text-default',
                 checkboxWrapperClass && checkboxWrapperClass
@@ -30,27 +30,15 @@
         >
             <!-- Label + Icon block (only if present) -->
             <div 
-                v-if="label || icon || customIcon"
+                v-if="label || icon"
                 class="flex gap-2.5 w-full"
             >
                 <!-- Icon -->
-                <template v-if="icon || customIcon">
-                    <MdiIcon 
-                        v-if="icon && !customIcon" 
-                        :icon="icon" 
-                        :size="iconSize" 
-                        preserveAspectRatio="xMidYMid meet"
-                        class="text-icon-default" 
-                    />
-                    <div
-                        v-else
-                        :class="[
-                            customIconSizeClass,
-                            'text-icon-default'
-                        ]"
-                        v-html="customIcon" 
-                    />
-                </template>
+                <Icon
+                    v-if="icon"
+                    :name="icon"
+                    :iconClass="iconSizeClass" 
+                />
 
                 <!-- Label -->
                 <label 
@@ -59,7 +47,6 @@
                     :class="[
                         disabled && 'text-text-neutral-disabled',
                         labelSizeClass,
-                        customIcon && 'mt-1',
                         labelClass && labelClass
                     ]" 
                     v-html="label"
@@ -151,8 +138,7 @@ const props = defineProps({
         default: ControlFieldSize.MD,
         validator: (value: ControlFieldSize) => Object.values(ControlFieldSize).includes(value),
     },
-    icon: String as PropType<any>,
-    customIcon: String as PropType<any>,
+    icon: String as PropType<string>,
     styleType: {
         type: String as PropType<SwitchStyle>,
         default: SwitchStyle.BRAND,
@@ -196,20 +182,12 @@ const labelSizeClass = computed(() => {
     return sizeVariant[props.size as ControlFieldSize] || 'text-sm'
 })
 
-const iconSize = computed(() => {
+const iconSizeClass = computed(() => {
     const sizeVariant = {
-        [ControlFieldSize.MD]: '20',
-        [ControlFieldSize.LG]: '24',
+        [ControlFieldSize.MD]: 'w-[20px] h-[20px] min-w-[20px] min-h-[20px]',
+        [ControlFieldSize.LG]: 'w-[24px] h-[24px] min-w-[24px] min-h-[24px]',
     }
-    return sizeVariant[props.size as ControlFieldSize] || '20'
-})
-
-const customIconSizeClass = computed(() => {
-    const sizeVariant = {
-        [ControlFieldSize.MD]: 'w-[20px] h-[20px]',
-        [ControlFieldSize.LG]: 'w-[24px] h-[24px]',
-    }
-    return sizeVariant[props.size as ControlFieldSize] || 'w-[20px] h-[20px]'
+    return sizeVariant[props.size as ControlFieldSize] || 'w-[20px] h-[20px] min-w-[20px] min-h-[20px]'
 })
 
 const checkedBackgroundClass = computed(() => {

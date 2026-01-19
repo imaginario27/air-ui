@@ -17,23 +17,14 @@
     >
         <div class="flex justify-between items-center gap-3 w-full">
             <div class="flex items-center gap-3">
-                <MdiIcon 
-                    v-if="(type === SelectType.ICON) && !customIcon" 
-                    :icon="icon" 
-                    size="20"
-                    preserveAspectRatio="xMidYMid meet"
-                    :class="[
-                        'min-w-[20px]',
-                        isSelected && activeStyle === SelectActiveStyle.FILL ? 'text-icon-on-filled' : 'text-icon-neutral-subtle'
+                <Icon 
+                    v-if="type === SelectType.ICON"
+                    :name="icon"
+                    :iconClass="[
+                        isSelected && activeStyle === SelectActiveStyle.FILL ? '!text-icon-on-filled' : '!text-icon-neutral-subtle'
                     ]"
                 />
-                <!-- Custom icon (replaces the MdiIcon if it is used)-->
-                <div
-                    v-if="(type === SelectType.ICON) && customIcon"
-                    class="w-[20px] h-[20px]"
-                    :class="isSelected && activeStyle === SelectActiveStyle.FILL ? 'text-icon-on-filled' : 'text-icon-neutral-subtle'"
-                    v-html="customIcon" 
-                />
+        
                 <template v-if="type === SelectType.IMAGE">
                     <img
                         v-if="imgUrl && isImageLoaded"
@@ -50,6 +41,7 @@
                         class="w-[24px] h-[24px] rounded"
                     >
                 </template>
+
                 <span 
                     v-if="type !== SelectType.USER" 
                     :class="[
@@ -61,6 +53,7 @@
                 >
                     {{ text }}
                 </span>
+
                 <User 
                     v-if="type === SelectType.USER"
                     :displayName="userDisplayName"
@@ -69,12 +62,10 @@
                     :class="isSelected && activeStyle === SelectActiveStyle.FILL ? '!text-text-neutral-on-filled' : ''"
                 />
             </div>
-            <MdiIcon
+            <Icon 
                 v-if="isSelected && activeStyle === SelectActiveStyle.CHECK"
-                icon="mdiCheck"
-                size="20px"
-                preserveAspectRatio="xMidYMid meet"
-                class="text-icon-primary-brand-active"
+                name="mdi:check"
+                iconClass="text-icon-primary-brand-active"
             />
         </div>
         <p 
@@ -97,10 +88,9 @@ const props = defineProps({
         default: 'Select menu item',
     },
     icon: {
-        type: String as PropType<any>,
-        default: 'mdiHelp',
+        type: String as PropType<string>,
+        default: 'mdi:help',
     },
-    customIcon: String as PropType<string>,
     size: {
         type: String as PropType<SelectSize>,
         default: SelectSize.MD,

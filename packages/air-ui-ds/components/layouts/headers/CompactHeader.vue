@@ -35,7 +35,7 @@
                     "
                 >
                     <ActionIconButton 
-                        :icon="isMobileSidebarOpen ? 'mdiMenuOpen' : 'mdiMenuClose'"
+                        :icon="isMobileSidebarOpen ? 'mdi:menu-open' : 'mdi:menu-close'"
                         class="lg:hidden shadow-sm"
                         @click="toggleMobileSidebar"
                     />
@@ -50,7 +50,7 @@
                     "
                 >
                     <ActionIconButton 
-                        :icon="isMobileSidebarOpen ? 'mdiMenuOpen' : 'mdiMenuClose'"
+                        :icon="isMobileSidebarOpen ? 'mdi:menu-open' : 'mdi:menu-close'"
                         class="lg:hidden shadow-sm"
                         @click="toggleMobileSidebar"
                     />
@@ -114,7 +114,7 @@
                     >
                         <template #activator="{ onClick }">
                             <ActionIconButton 
-                                icon="mdiMenu"
+                                icon="mdi:menu"
                                 class="lg:hidden shadow-sm"
                                 @click="onClick"
                             />
@@ -140,7 +140,7 @@
                     "
                 >
                     <ActionIconButton 
-                        :icon="isMobileSidebarOpen ? 'mdiMenuOpen' : 'mdiMenuClose'"
+                        :icon="isMobileSidebarOpen ? 'mdi:menu-open' : 'mdi:menu-close'"
                         class="lg:hidden shadow-sm"
                         @click="toggleMobileSidebar"
                     />

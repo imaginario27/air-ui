@@ -16,82 +16,124 @@ const factory = (props: Record<string, any> = {}) => {
 }
 
 describe('CheckboxField.vue', () => {
-    it('renders label and checkbox', () => {
-        const wrapper = factory({ label: 'Agree to terms' })
+    it('renders label and checkbox input', () => {
+        const wrapper = factory({ label: 'Accept terms' })
+
         const label = wrapper.find('label')
         expect(label.exists()).toBe(true)
-        expect(label.text()).toContain('Agree to terms')
+        expect(label.html()).toContain('Accept terms')
 
-        const checkbox = wrapper.find('input[type="checkbox"]')
-        expect(checkbox.exists()).toBe(true)
+        const input = wrapper.find('input[type="checkbox"]')
+        expect(input.exists()).toBe(true)
     })
 
-    it('renders legend if provided', () => {
-        const wrapper = factory({ legend: 'Permissions' })
+    it('renders legend when provided', () => {
+        const wrapper = factory({ legend: 'Form Section' })
+
         const legend = wrapper.find('legend')
         expect(legend.exists()).toBe(true)
-        expect(legend.text()).toBe('Permissions')
+        expect(legend.text()).toBe('Form Section')
     })
 
-    it('renders help text', () => {
-        const wrapper = factory({ helpText: 'This is optional' })
-        const help = wrapper.find('p.text-xs')
-        expect(help.exists()).toBe(true)
-        expect(help.text()).toBe('This is optional')
+    it('renders help text when no error is present', () => {
+        const wrapper = factory({ helpText: 'Optional field' })
+
+        const helpText = wrapper.find('p.text-xs')
+        expect(helpText.exists()).toBe(true)
+        expect(helpText.text()).toBe('Optional field')
     })
 
-    it('renders error when error prop is set', () => {
-        const wrapper = factory({ error: 'Required field' })
+    it('renders error text when error prop is set', () => {
+        const wrapper = factory({ error: 'Field is required' })
+
         const error = wrapper.find('p.text-text-error')
         expect(error.exists()).toBe(true)
-        expect(error.text()).toBe('Required field')
+        expect(error.text()).toBe('Field is required')
     })
 
-    it('toggles checkbox and emits update:modelValue', async () => {
+    it('emits update:modelValue when checkbox is toggled', async () => {
         const wrapper = factory({ modelValue: false })
-        const box = wrapper.find('[role="checkbox"], div.cursor-pointer')
+
+        const box = wrapper.find('div.cursor-pointer')
+        expect(box.exists()).toBe(true)
 
         await box.trigger('click')
-        const emits = wrapper.emitted('update:modelValue') as [any[], ...any[]]
-        expect(emits.length).toBe(1)
-        expect(emits[0][0]).toBe(true)
+
+        const emitted = wrapper.emitted('update:modelValue')
+        expect(emitted).toBeTruthy()
+        expect(emitted?.[0]?.[0]).toBe(true)
     })
 
-    it('does not toggle when disabled', async () => {
+    it('does not emit when disabled is true', async () => {
         const wrapper = factory({ modelValue: false, disabled: true })
 
-        const layout = wrapper.find('div.flex.items-center')
-        const box = layout.findAll('div').at(0)
+        const box = wrapper.find('div.cursor-not-allowed')
+        expect(box.exists()).toBe(true)
 
-        expect(box).toBeDefined()
-        await box!.trigger('click')
+        await box.trigger('click')
 
         expect(wrapper.emitted('update:modelValue')).toBeUndefined()
     })
 
     it('emits update:error when validator fails on toggle', async () => {
-        const validator = vi.fn().mockReturnValue('Validation failed')
+        const validator = vi.fn().mockReturnValue('Invalid selection')
+
         const wrapper = factory({
             modelValue: false,
             required: true,
             validator
         })
 
-        const box = wrapper.find('[role="checkbox"], div.cursor-pointer')
+        const box = wrapper.find('div.cursor-pointer')
+        expect(box.exists()).toBe(true)
+
         await box.trigger('click')
 
-        const emits = wrapper.emitted('update:error') as [any[], ...any[]]
-        expect(emits[0][0]).toBe('Validation failed')
-        expect(validator).toHaveBeenCalled()
+        const emitted = wrapper.emitted('update:error')
+        expect(emitted).toBeTruthy()
+        expect(emitted?.[0]?.[0]).toBe('Invalid selection')
+        expect(validator).toHaveBeenCalledWith(false)
     })
 
-    it('renders checkbox on right when inverse is true', () => {
-        const wrapper = factory({ inverse: true, label: 'On the left' })
+    it('renders label before checkbox when inverse is true', () => {
+        const wrapper = factory({ inverse: true, label: 'Label First' })
 
-        const label = wrapper.findAll('label')[0]
-        expect(label.text()).toContain('On the left')
+        const labels = wrapper.findAll('label')
+        expect(labels.length).toBeGreaterThan(0)
+        expect(labels[0].html()).toContain('Label First')
 
-        const checkbox = wrapper.find('input[type="checkbox"]')
-        expect(checkbox.exists()).toBe(true)
+        const input = wrapper.find('input[type="checkbox"]')
+        expect(input.exists()).toBe(true)
+    })
+
+
+    it('applies correct size classes for control and icon', () => {
+        const wrapper = factory({ size: 'lg', modelValue: true })
+
+        const box = wrapper.find('div.cursor-pointer')
+        expect(box.classes()).toContain('w-[32px]')
+        expect(box.classes()).toContain('h-[32px]')
+
+        const icon = wrapper.findComponent({ name: 'Icon' })
+        expect(icon.exists()).toBe(true)
+        expect(icon.attributes('class')).toMatch(/!w-\[20px\]/)
+    })
+
+    it('emits update:error from watcher when modelValue changes', async () => {
+        const validator = vi.fn().mockReturnValue('Error from watcher')
+
+        const wrapper = factory({
+            modelValue: false,
+            required: true,
+            validator
+        })
+
+        await wrapper.setProps({ modelValue: true })
+
+        expect(validator).toHaveBeenCalledWith(true)
+
+        const emitted = wrapper.emitted('update:error')
+        expect(emitted).toBeTruthy()
+        expect(emitted?.[0]?.[0]).toBe('Error from watcher')
     })
 })

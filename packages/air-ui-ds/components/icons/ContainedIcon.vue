@@ -1,5 +1,5 @@
 <template>
- <div 
+    <div 
         :class="[ 
             'flex',
             'items-center',
@@ -12,10 +12,9 @@
         ]"
     >
         <Icon
-            :icon
-            :type
+            :name="icon"
             :mode
-            :iconClass
+            :iconClass="[iconSizeClass, iconColorClass]"
         />
     </div>
 </template>
@@ -23,18 +22,13 @@
 // Props
 const props = defineProps({
     icon: {
-        type: String as PropType<any>,
-        default: 'mdiHelp',
+        type: String as PropType<string>,
+        default: 'mdi:help',
     },
     styleType: {
         type: String as PropType<IconContainerStyleType>,
         default: IconContainerStyleType.FLAT,
         validator: (value: IconContainerStyleType) => Object.values(IconContainerStyleType).includes(value),
-    },
-    type: {
-        type: String as PropType<IconType>,
-        default: IconType.NATIVE, 
-        validator: (value: IconType) => Object.values(IconType).includes(value),
     },
     mode: {
         type: String as PropType<IconMode>,
@@ -135,9 +129,5 @@ const iconSizeClass = computed(() => {
     }
 
     return sizeVariants[props.size as IconContainerSize] || 'w-[24px] h-[24px] min-w-[24px] min-h-[24px]'
-})
-
-const iconClass = computed(() => {
-    return [iconSizeClass.value, iconColorClass.value].join(' ')
 })
 </script>

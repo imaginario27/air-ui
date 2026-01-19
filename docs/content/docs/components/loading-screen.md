@@ -12,7 +12,7 @@ props:
     hasGoBackButton: true
     goBackText: 'Go back'
     goBackLink: '/'
-    goBackIcon: 'mdiKeyboardBackspace'
+    goBackIcon: 'mdi:keyboard-backspace'
     hasRetryButton: false
     retryText: 'Try again'
     retryLimitReachedText: 'Retry limit reached. Please refresh the page or contact support.'
@@ -118,7 +118,7 @@ props: [
     },
     {
         "name": "goBackIcon",
-        "default": "'mdiKeyboardBackspace'",
+        "default": "'mdi:keyboard-backspace'",
         "type": "string",
     },
     {
@@ -333,13 +333,13 @@ Sets the icon for the go back button in the error state.
     <LoadingScreen 
         :isLoading="false"
         error="Reported error message"
-        goBackIcon="mdiKeyboardBackspace" 
+        goBackIcon="mdi:keyboard-backspace" 
     />
 </template>
 ```
 
 - **Type:** `string`
-- **Default:** `'mdiKeyboardBackspace'`
+- **Default:** `'mdi:keyboard-backspace'`
 
 ### hasRetryButton
 Shows or hides the retry button in the error state. 

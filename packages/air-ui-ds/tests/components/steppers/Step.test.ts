@@ -72,8 +72,8 @@ describe('Step.vue', () => {
 
     it('passes correct props to StepIndicator', () => {
         const wrapper = factory({
-            stepIcon: 'mdiIcon',
-            completedIcon: 'mdiCheck',
+            stepIcon: 'mdi:icon',
+            completedIcon: 'mdi:check',
         })
 
         const indicator = wrapper.findComponent(StepIndicator)
@@ -84,8 +84,8 @@ describe('Step.vue', () => {
             status: StepStatus.INACTIVE,
             size: StepIndicatorSize.XL,
             step: 1,
-            stepIcon: 'mdiIcon',
-            completedIcon: 'mdiCheck',
+            stepIcon: 'mdi:icon',
+            completedIcon: 'mdi:check',
             isHovered: false,
         })
     })

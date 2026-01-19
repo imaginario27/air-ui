@@ -1,14 +1,13 @@
 import { mount } from '@vue/test-utils'
 import NavSidebarMenuSectionTitle from '@/components/navigation/nav-sidebar/NavSidebarMenuSectionTitle.vue'
-import { MdiIcon } from '#components'
+import Icon from '@/components/icons/Icon.vue'
 import Divider from '~/components/dividers/Divider.vue'
-import { SidebarNavMenuItemStyleType } from '#imports'
 
 const factory = (props = {}) =>
     mount(NavSidebarMenuSectionTitle, {
         props,
         global: {
-            components: { MdiIcon, Divider }
+            components: { Icon, Divider }
         }
     })
 
@@ -23,18 +22,18 @@ describe('NavSidebarMenuSectionTitle.vue', () => {
         expect(wrapper.text()).toContain('Section Title')
     })
 
-    it('does not render MdiIcon if icon is not provided', () => {
+    it('does not render Icon if icon is not provided', () => {
         const wrapper = factory()
-        expect(wrapper.findComponent(MdiIcon).exists()).toBe(false)
+        expect(wrapper.findComponent(Icon).exists()).toBe(false)
     })
 
-    it('renders MdiIcon with correct icon prop and class', () => {
-        const wrapper = factory({ icon: 'mdiFolder' })
+    it('renders Icon with correct name prop and class', () => {
+        const wrapper = factory({ icon: 'mdi:folder' })
 
-        const icon = wrapper.findComponent(MdiIcon)
+        const icon = wrapper.findComponent(Icon)
         expect(icon.exists()).toBe(true)
-        expect(icon.props('icon')).toBe('mdiFolder')
-        expect(icon.classes()).toContain('text-icon-neutral-subtle')
+        expect(icon.props('name')).toBe('mdi:folder')
+        expect(icon.classes().some(cls => cls.includes('text-icon-neutral-subtle'))).toBe(true)
     })
 
     it('renders Divider when isCollapsed is true and showCollapseDivider is true', () => {

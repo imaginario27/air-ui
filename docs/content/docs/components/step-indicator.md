@@ -9,8 +9,8 @@ props:
     status: "none"
     size: "xl"
     step: 1
-    stepIcon: 'mdiHomeOutline'
-    completedIcon: 'mdiCheck'
+    stepIcon: 'mdi:home-outline'
+    completedIcon: 'mdi:check'
     isHovered: false
 items:
     type: 
@@ -75,7 +75,7 @@ props: [
     },
     {
         "name": "completedIcon",
-        "default": "'mdiCheck'",
+        "default": "'mdi:check'",
         "type": "string"
     },
     {
@@ -213,12 +213,12 @@ Sets the icon to be displayed when the step is not completed.
 
 ```vue
 <template>
-    <CircleStepper stepIcon="mdiHomeOutline" />
+    <CircleStepper stepIcon="mdi:home-outline" />
 </template>
 ```
 
 - **Type:** `string`
-- **Default:** `mdiHomeOutline`
+- **Default:** `mdi:home-outline`
 
 ### completedIcon
 
@@ -226,12 +226,12 @@ Sets the icon to be displayed when the step is completed.
 
 ```vue
 <template>
-    <CircleStepper completedIcon="mdiCheck" />
+    <CircleStepper completedIcon="mdi:check" />
 </template>
 ```
 
 - **Type:** `string`
-- **Default:** `mdiCheck`
+- **Default:** `mdi:check`
 
 ### isHovered
 

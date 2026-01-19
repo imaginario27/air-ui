@@ -27,7 +27,7 @@ componentSource: 'docs'
                     <TableCellActions>
                         <ActionIconButton 
                             :size="ButtonSize.MD"
-                            icon="mdiEyeOutline"
+                            icon="mdi:eye-outline"
                         />
                     </TableCellActions>
                 </TableRow>
@@ -82,7 +82,7 @@ To build a flexible and reusable table layout, you can structure your component 
                     <TableCellActions>
                         <ActionIconButton 
                             :size="ButtonSize.MD"
-                            icon="mdiEyeOutline"
+                            icon="mdi:eye-outline"
                         />
                     </TableCellActions>
                 </TableRow>

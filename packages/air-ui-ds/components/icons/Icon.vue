@@ -1,37 +1,21 @@
 <template>
-    <MdiIcon
-        v-if="type === IconType.NATIVE"
-        :icon
-        preserveAspectRatio="xMidYMid meet"
-        :class="[
-            iconSizeClass,
-            iconColorClass,
-            iconClass,
-        ]"
-    />
     <NuxtIcon 
-        v-else-if="type === IconType.COLLECTION"
-        :name="icon"
+        :name
         :mode
         :customize="svgCustomize"
         :class="[
             iconSizeClass,
             iconColorClass,
-            iconClass,
+            ...normalizedIconClass,
         ]"
     />
 </template>
 <script setup lang="ts">
 // Props
 const props = defineProps({
-    icon: {
-        type: String as PropType<any>,
-        default: 'mdiHelp',
-    },
-    type: {
-        type: String as PropType<IconType>,
-        default: IconType.NATIVE, 
-        validator: (value: IconType) => Object.values(IconType).includes(value),
+    name: {
+        type: String as PropType<string>,
+        default: 'mdi:help',
     },
     mode: {
         type: String as PropType<IconMode>,
@@ -49,7 +33,14 @@ const props = defineProps({
         validator: (value: ColorAccent) => Object.values(ColorAccent).includes(value),
     },
     svgCustomize: Function as PropType<CollectionCustomizeCallback>,  
-    iconClass: String as PropType<string>,    
+    iconClass: [String, Array] as PropType<string | string[]>,    
+})
+
+// Computed function
+const normalizedIconClass = computed(() => {
+    return Array.isArray(props.iconClass)
+        ? props.iconClass
+        : props.iconClass?.split(' ').filter(Boolean) || []
 })
 
 // Computed classes

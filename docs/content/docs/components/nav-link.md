@@ -6,7 +6,7 @@ srcDir: 'navigation/links/NavLink.vue'
 props: 
     text: "Link text"
     size: "sm"
-    icon: "mdiArrowRightThin"
+    icon: "mdi:arrow-right-thin"
     iconPosition: "none"
     disabled: false
     to: "/"
@@ -53,8 +53,8 @@ props: [
     },
     {
         "name": "icon",
-        "default": "mdiArrowRightThin",
-        "type": "any",
+        "default": "mdi:arrow-right-thin",
+        "type": "string",
     },
     {
         "name": "iconPosition",
@@ -153,13 +153,13 @@ Sets the icon of the link.
 ```vue
 <template>
     <NavLink 
-        :icon="mdiArrowRightThin"
+        icon="mdi:arrow-right-thin"
     />
 </template>
 ```
 
 - **Type:** `string`
-- **Default:** `'mdiArrowRightThin'`
+- **Default:** `'mdi:arrow-right-thin'`
 
 ### iconPosition
 Sets the position of the icon. Uses the `IconPosition` enum.

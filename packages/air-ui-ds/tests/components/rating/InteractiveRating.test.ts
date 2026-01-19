@@ -7,7 +7,6 @@ import { RatingItemSize, RatingItemColor } from '@/models/enums/rating'
 // Mock getRatingIndicator to ensure predictable icons based on value
 vi.mock('@/utils/rating', () => ({
     getRatingIndicator: (value: number, empty: string, half: string, full: string) => {
-        // Return [full, full, half, empty, empty] for 2.5
         if (value === 2.5) return [full, full, half, empty, empty]
         if (value === 5) return Array(5).fill(full)
         return Array(5).fill(empty)
@@ -58,7 +57,7 @@ describe('InteractiveRating.vue', () => {
         await items[4].trigger('mouseenter') // index 4 = value 5
         const icons = items.map(i => i.props('icon'))
 
-        expect(icons).toEqual(['mdiStar', 'mdiStar', 'mdiStar', 'mdiStar', 'mdiStar'])
+        expect(icons).toEqual(['mdi:star', 'mdi:star', 'mdi:star', 'mdi:star', 'mdi:star'])
     })
 
     it('ignores hover when hoverPreview is disabled', async () => {
@@ -68,7 +67,7 @@ describe('InteractiveRating.vue', () => {
         await items[4].trigger('mouseenter')
         const icons = items.map(i => i.props('icon'))
 
-        expect(icons).toEqual(['mdiStar', 'mdiStar', 'mdiStarHalfFull', 'mdiStarOutline', 'mdiStarOutline'])
+        expect(icons).toEqual(['mdi:star', 'mdi:star', 'mdi:star-half-full', 'mdi:star-outline', 'mdi:star-outline'])
     })
 
     it('clears hover on container mouseleave', async () => {
@@ -77,11 +76,11 @@ describe('InteractiveRating.vue', () => {
 
         await getStars(wrapper)[4].trigger('mouseenter')
         let icons = getStars(wrapper).map(i => i.props('icon'))
-        expect(icons).toEqual(['mdiStar', 'mdiStar', 'mdiStar', 'mdiStar', 'mdiStar'])
+        expect(icons).toEqual(['mdi:star', 'mdi:star', 'mdi:star', 'mdi:star', 'mdi:star'])
 
         await container.trigger('mouseleave')
         icons = getStars(wrapper).map(i => i.props('icon'))
-        expect(icons).toEqual(['mdiStar', 'mdiStar', 'mdiStarHalfFull', 'mdiStarOutline', 'mdiStarOutline'])
+        expect(icons).toEqual(['mdi:star', 'mdi:star', 'mdi:star-half-full', 'mdi:star-outline', 'mdi:star-outline'])
     })
 
     it('passes props correctly to each RatingItem', () => {

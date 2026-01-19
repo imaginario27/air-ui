@@ -41,9 +41,9 @@ describe('AccordionItem', () => {
         const wrapper = factory()
         const iconButton = wrapper.findComponent(ActionIconButton)
 
-        expect(iconButton.props('icon')).toBe('mdiPlus')
+        expect(iconButton.props('icon')).toBe('mdi:plus')
 
         await wrapper.find('.accordion-header').trigger('click')
-        expect(iconButton.props('icon')).toBe('mdiMinus')
+        expect(iconButton.props('icon')).toBe('mdi:minus')
     })
 })

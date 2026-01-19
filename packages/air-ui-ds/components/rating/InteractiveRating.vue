@@ -33,16 +33,16 @@ const props = defineProps({
         validator: (value: RatingItemColor) => Object.values(RatingItemColor).includes(value),
     },
     emptyIndicatorIcon: {
-        type: String as PropType<any>,
-        default: 'mdiStarOutline'
+        type: String as PropType<string>,
+        default: 'mdi:star-outline'
     },
     halfIndicatorIcon: {
-        type: String as PropType<any>,
-        default: 'mdiStarHalfFull'
+        type: String as PropType<string>,
+        default: 'mdi:star-half-full'
     },
     fullIndicatorIcon: {
-        type: String as PropType<any>,
-        default: 'mdiStar'
+        type: String as PropType<string>,
+        default: 'mdi:star'
     },
     hoverPreview: {
         type: Boolean,

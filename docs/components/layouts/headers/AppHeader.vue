@@ -23,19 +23,19 @@
 
         <template #header-actions>
             <!-- <ActionIconButton 
-                icon="mdiMagnify"
+                icon="mdi:magnify"
             /> -->
  
             <ActionIconButton 
                 v-if="!isMobile"
-                :icon="isDark ? 'mdiMoonWaxingCrescent' : 'mdiWeatherSunny'"
+                :icon="isDark ? 'mdi:moon-waxing-crescent' : 'mdi:weather-sunny'"
                 @click="toggleDark"
             />
             <ActionButton 
                 v-else
                 :text="isDark ? 'Switch to light mode' : 'Switch to dark mode'"
                 :iconPosition="IconPosition.LEFT"
-                :icon="isDark ? 'mdiMoonWaxingCrescent' : 'mdiWeatherSunny'"
+                :icon="isDark ? 'mdi:moon-waxing-crescent' : 'mdi:weather-sunny'"
                 isFullWidth
                 @click="toggleDark"
             />

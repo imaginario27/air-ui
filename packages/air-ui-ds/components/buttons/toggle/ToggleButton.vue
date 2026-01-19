@@ -16,21 +16,19 @@
         @click="emitClick"
     >
         <!-- Left icon -->
-        <MdiIcon
+        <Icon
             v-if="iconPosition === IconPosition.LEFT"
-            :icon="icon"
-            preserveAspectRatio="xMidYMid meet"
-            :size="iconSizeClass"
+            :name="icon"
+            :iconClass="iconSizeClass"
         />
         <span :class="['font-semibold', textSizeClass]">
             {{ text }}
         </span>
         <!-- Right icon -->
-        <MdiIcon
+        <Icon
             v-if="iconPosition === IconPosition.RIGHT"
-            :icon="icon"
-            preserveAspectRatio="xMidYMid meet"
-            :size="iconSizeClass"
+            :name="icon"
+            :iconClass="iconSizeClass"
         />
     </button>
 </template>
@@ -47,8 +45,8 @@ const props = defineProps({
         validator: (value: ButtonSize) => Object.values(ButtonSize).includes(value),
     },
     icon: {
-        type: String as PropType<any>,
-        default: 'mdiHelp',
+        type: String as PropType<string>,
+        default: 'mdi:help',
     },
     iconPosition: {
         type: String as PropType<IconPosition>,

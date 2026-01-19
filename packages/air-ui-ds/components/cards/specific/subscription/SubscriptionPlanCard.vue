@@ -28,13 +28,13 @@
                 {{ computedAmount }}{{ currencySymbol }}<span class="text-text-neutral-subtle font-normal text-lg">/{{ computedPeriodicity }}</span>
             </span>
 
-            <MdiIcon 
+            <Icon 
                 v-if="isActive && !isFeatured"
-                icon="mdiCheckCircle"
-                size="24"
-                preserveAspectRatio="xMidYMid meet"
-                class="active-icon absolute top-0 right-0 text-icon-primary-brand-active"
+                name="mdi:check-circle"
+                :size="IconSize.LG"
+                iconClass="active-icon absolute top-0 right-0 text-icon-primary-brand-active"
             />
+          
         </CardHeader>
 
         <CardBody class="h-full">
@@ -49,7 +49,7 @@
                 >
                     <ListItem 
                         v-for="feature in features" :key="feature"
-                        icon="mdiCheck"
+                        icon="mdi:check"
                         :spaced="hasFeatureListSeparator"
                     >
                         {{ feature }}

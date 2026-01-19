@@ -1,13 +1,10 @@
-
-
 ## Component
 
 ::component-code
 ---
 srcDir: 'icons/Icon.vue'
 props:
-    icon: "mdi:help"
-    type: "collection"
+    name: "mdi:help"
     mode: "css"
     size: "md"
     color: "neutral"
@@ -42,11 +39,6 @@ items:
           text: PRIMARY_BRAND
         - value: secondary-brand
           text: SECONDARY_BRAND
-    type:
-        - value: native
-          text: NATIVE
-        - value: collection
-          text: COLLECTION
     mode:
         - value: css
           text: CSS
@@ -59,13 +51,11 @@ propsSettingsExcludedProps: ['svgCustomize']
 
 ## Setup
 
-By default, the `Icon` component uses the **Nuxt Mdi module** to render icons. Additionally, it supports iconify collections provided by the **Nuxt Icon module**.
+The `Icon` component uses the ***Nuxt Icon module** to render icons. 
 
-In the event of using the iconify collections by using the type `IconType.COLLECTION`, ensure that you have the Nuxt Icon module installed and configured in your Nuxt project.
+Please, make sure you have the Nuxt Icon module installed and configured in your Nuxt project.
 
-### Iconify collection usage
-
-Decide whether you want to use local setup or server-served icons.
+In order to use icon collections, decide whether you want to use local setup or server-served icons.
 
 ### Local setup
 
@@ -95,14 +85,9 @@ export default defineNuxtConfig({
 ---
 props: [
     {
-        "name": "icon",
-        "default": "'mdiHelp'",
+        "name": "name",
+        "default": "'mdi:help'",
         "type": "string",
-    },
-    {
-        "name": "type",
-        "default": "IconType.COLLECTION",
-        "type": "IconType",
     },
     {
         "name": "mode",
@@ -125,28 +110,25 @@ props: [
     },
     {
         "name": "iconClass",
-        "type": "string",
+        "type": "string | string[]",
     }
 ]
 ---
 ::
 
 ## Usage
-### icon 
+### name 
 
-Sets the icon to be displayed. 
-
-- For **native icons** (e.g., Material Design Icons), use the PascalCase format — for example: `mdiAccount`.
-- For **collection-based icons**, use the standard format: `collectionName:iconName` — for example: `mdi:account`.
+Sets the name of the icon to be displayed. Uses the `collection-name:icon-name` format.
 
 ```vue
 <template>
-    <Icon icon="mdiAccount" />
+    <Icon name="mdi:help" />
 </template>
 ``` 
 
 - **Type:** `string`
-- **Default:** `'mdiHelp'`
+- **Default:** `'mdi:help'`
 
 <br />
 
@@ -160,7 +142,7 @@ props:
 
 #### Custom icon collections
 
-By using the `IconType.COLLECTION` type, you can leverage custom icon collections.
+To use custom icon collections, you need to configure them in your `nuxt.config.ts` file. Here's an example of how to add a custom icon collection:
 
 ```ts
 export default defineNuxtConfig({
@@ -190,38 +172,6 @@ props:
 
 For further information, please refer to the [Nuxt Icon module documentation](https://nuxt.com/modules/icon){:target="_blank"}.
 
-### type
-
-Sets the type of icon to be used. It uses the `IconType` enum.
-
-```vue
-<template>
-    <Icon 
-        :type="IconType.NATIVE" 
-        icon="mdiAccount" 
-    />
-</template>
-```
-
-- **Type:** `IconType`
-- **Default:** `IconType.NATIVE`
-
-#### Options
-::options-table
----
-options: [
-    {
-        value: "NATIVE",
-        description: "Native Icon",
-    },
-    {
-        value: "COLLECTION",
-        description: "Collection-based Icon",
-    },
-]
----
-::
-
 ### mode
 
 Sets the rendering mode of the icon. It uses the `IconMode` enum.
@@ -232,7 +182,7 @@ Only works when using `IconType.COLLECTION`.
 <template>
     <Icon 
         :mode="IconMode.CSS" 
-        icon="mdiAccount" 
+        icon="mdi:help" 
     />
 </template>
 ```
@@ -359,7 +309,7 @@ It only works when using `IconType.COLLECTION` with `mode="svg"`.
 ```vue
 <template>
     <Icon 
-        icon="mdiAccount" 
+        icon="mdi:account" 
         :svgCustomize="customizeSVG" 
         type="collection" 
         mode="svg" 
@@ -398,17 +348,12 @@ Adds custom CSS classes to the icon element.
 
 ```vue
 <template>
-    <Icon icon="mdiAccount" iconClass="custom-icon-class" />
+    <Icon icon="mdi:account" iconClass="custom-icon-class" />
 </template>
 ```
 
-- **Type:** `string`
+- **Type:** `string | string[]`
 
 ## Documentation pages
-### Nuxt Mdi
-- [Docs](https://nuxt.com/modules/nuxt-mdi){:target="_blank"}
-- [Icon library](https://pictogrammers.com/library/mdi/){:target="_blank"}
-
-### Collection icons
 - [Docs](https://nuxt.com/modules/icon){:target="_blank"}
 - [Icon library](https://icones.js.org/){:target="_blank"}

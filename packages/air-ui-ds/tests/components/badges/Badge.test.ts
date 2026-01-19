@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils'
 import Badge from '@/components/badges/Badge.vue'
-import { MdiIcon } from '#components'
+import Icon from '~/components/icons/Icon.vue'
 
 const factory = (props = {}) => {
     return mount(Badge, {
@@ -22,8 +22,8 @@ describe('Badge.vue', () => {
     })
 
     it('renders icon when showIcon is true', () => {
-        const wrapper = factory({ showIcon: true, icon: 'mdiCheck' })
-        expect(wrapper.findComponent(MdiIcon).exists()).toBe(true)
+        const wrapper = factory({ showIcon: true, icon: 'mdi:check' })
+        expect(wrapper.findComponent(Icon).exists()).toBe(true)
     })
 
     it('renders close button when closeable is true', async () => {

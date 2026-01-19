@@ -2,20 +2,30 @@ import { mount } from '@vue/test-utils'
 import EmptyStatePlaceholder from '~/components/empty-states/EmptyState.vue'
 import { Orientation } from '@/models/enums/orientations'
 import { EmptyPlaceholderContainerStyle } from '@/models/enums/emptyPlaceholders'
-import { MdiIcon } from '#components'
-import ActionButton from '@/components/buttons/ActionButton.vue'    
+import ActionButton from '@/components/buttons/ActionButton.vue'
+import Icon from '@/components/icons/Icon.vue'
 
 const factory = (props?: Partial<InstanceType<typeof EmptyStatePlaceholder>['$props']>) => {
     return mount(EmptyStatePlaceholder, {
         props,
+        global: {
+            stubs: {
+                Icon,
+                ActionButton
+            }
+        }
     })
 }
 
 describe('EmptyStatePlaceholder', () => {
     it('renders with default title and icon if no props provided', () => {
         const wrapper = factory()
+
         expect(wrapper.text()).toContain('Ups! No data found')
-        expect(wrapper.findComponent(MdiIcon).exists()).toBe(true)
+
+        const icon = wrapper.findComponent(Icon)
+        expect(icon.exists()).toBe(true)
+        expect(icon.props('name')).toBe('mdi:database-alert-outline')
     })
 
     it('renders provided title and description', () => {
@@ -40,7 +50,7 @@ describe('EmptyStatePlaceholder', () => {
             descriptionClass: 'custom-desc',
         })
 
-        const titleEl = wrapper.find('span')
+        const titleEl = wrapper.find('span.font-semibold') 
         const descEl = wrapper.find('p')
 
         expect(titleEl.classes()).toContain('custom-title')
@@ -52,9 +62,11 @@ describe('EmptyStatePlaceholder', () => {
             hasContainer: false,
         })
 
-        const outer = wrapper.find('div')
-        expect(outer.classes()).not.toContain('bg-background-neutral-subtlest')
-        expect(outer.classes()).not.toContain('p-[5vw]')
+        const outer = wrapper.findAll('div')[0]
+        const classes = outer.classes().join(' ')
+
+        expect(classes).not.toContain('bg-background-neutral-subtlest')
+        expect(classes).not.toContain('p-[5vw]')
     })
 
     it('applies container class when hasContainer is true', () => {
@@ -63,8 +75,10 @@ describe('EmptyStatePlaceholder', () => {
             containerStyle: EmptyPlaceholderContainerStyle.FILLED_PRIMARY_BRAND,
         })
 
-        const outer = wrapper.find('div')
-        expect(outer.classes()).toContain('bg-background-primary-brand-soft')
+        const outer = wrapper.findAll('div')[0]
+        const classes = outer.classes().join(' ') 
+
+        expect(classes).toContain('bg-background-primary-brand-soft')
     })
 
     it('renders ActionButton when buttonText is provided', () => {
@@ -110,7 +124,7 @@ describe('EmptyStatePlaceholder', () => {
             styledContainerClass: 'custom-styled-container',
         })
 
-        const outer = wrapper.find('div')
+        const outer = wrapper.findAll('div')[0]
         expect(outer.classes()).toContain('custom-styled-container')
     })
 })

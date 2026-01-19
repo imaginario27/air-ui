@@ -35,7 +35,7 @@
 
                     <ActionIconButton 
                         v-if="hasCopyToClipboardButton"
-                        icon="mdiContentCopy"
+                        icon="mdi:content-copy"
                         :size="ButtonSize.XS"
                         @click="handleCopyToClipboard"
                     />

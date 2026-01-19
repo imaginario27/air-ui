@@ -18,11 +18,10 @@
         }"
         :disabled
     >
-        <MdiIcon
-            :icon
-            size="20"
-            preserveAspectRatio="xMidYMid meet"
-            class="min-w-[20px]"
+        <Icon 
+            v-if="icon"
+            :name="icon"
+            :iconClass
         />
     </component>
 </template>
@@ -53,8 +52,8 @@ const props = defineProps({
         default: 'Button text'
     },
     icon: {
-        type: String as PropType<any>,
-        default: "mdiHelp"
+        type: String as PropType<string>,
+        default: "mdi:help"
     },
     disabled: {
         type: Boolean as PropType<boolean>,

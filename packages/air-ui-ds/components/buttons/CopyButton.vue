@@ -83,8 +83,8 @@ const props = defineProps({
         validator: (value: ButtonSize) => Object.values(ButtonSize).includes(value),
     },
     icon: {
-        type: String as PropType<any>,
-        default: "mdiContentCopy",
+        type: String as PropType<string>,
+        default: "mdi:content-copy",
     },
     iconPosition: {
         type: String as PropType<IconPosition>,
@@ -114,7 +114,7 @@ const handleCopy = useThrottleFn(
         const success = await copyToClipboard(props.textToCopy)
 
         if (success) {
-            currentCopyButtonIcon.value = 'mdiCheck'
+            currentCopyButtonIcon.value = 'mdi:check-circle-outline'
             currentCopyButtonText.value = props.copySuccessText
 
             if (
@@ -133,7 +133,7 @@ const handleCopy = useThrottleFn(
 
             emit('success')
         } else {
-            currentCopyButtonIcon.value = 'mdiAlertCircleOutline'
+            currentCopyButtonIcon.value = 'mdi:alert-circle-outline'
             currentCopyButtonText.value = props.copyErrorText
 
             if (props.showToast) {

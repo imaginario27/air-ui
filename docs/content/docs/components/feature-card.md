@@ -6,7 +6,7 @@ srcDir: 'cards/specific/FeatureCard.vue'
 props: 
     title: "Feature title"
     description: "Feature description"
-    icon: "mdiHelp"
+    icon: "mdi:help"
     containedIconShape: "circle"
     containedIconStyleType: "filled"
     containedIconColor: "secondary-brand"
@@ -62,7 +62,7 @@ props: [
     },
     {
         "name": "icon",
-        "default": "mdiHelp",
+        "default": "mdi:help",
         "type": "string",
     },
     {
@@ -125,13 +125,13 @@ Sets the icon of the feature.
 ```vue
 <template>
     <FeatureCard 
-        icon="mdiHelp"
+        icon="mdi:help"
     />
 </template>
 ```
 
 - **Type:** `string`
-- **Default:** `'mdiHelp'`
+- **Default:** `'mdi:help'`
 
 ### containedIconShape
 Stablishes the shape of the contained icon. Uses the `IconContainerShape` enum.

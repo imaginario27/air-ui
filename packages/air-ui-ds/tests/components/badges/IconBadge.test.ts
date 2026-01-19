@@ -1,6 +1,7 @@
 import { mount } from '@vue/test-utils'
 import IconBadge from '@/components/badges/IconBadge.vue'
-import { MdiIcon } from '#components'
+import Icon from '~/components/icons/Icon.vue'
+import { IconSize } from '@/models/enums/icons'
 
 describe('IconBadge', () => {
     const factory = (props: Partial<InstanceType<typeof IconBadge>['$props']> = {}) => {
@@ -12,14 +13,14 @@ describe('IconBadge', () => {
     it('renders the MdiIcon with default props', () => {
         const wrapper = factory()
 
-        const icon = wrapper.findComponent(MdiIcon)
+        const icon = wrapper.findComponent(Icon)
         expect(icon.exists()).toBe(true)
-        expect(icon.props('icon')).toBe('mdiHelp')
-        expect(icon.props('size')).toBe('16px')
+        expect(icon.props('name')).toBe('mdi:help')
+        expect(icon.props('size')).toBe(IconSize.SM)
     })
 
     it('renders the MdiIcon with provided icon', () => {
-        const wrapper = factory({ icon: 'mdiCheck' })
-        expect(wrapper.findComponent(MdiIcon).exists()).toBe(true)
+        const wrapper = factory({ icon: 'mdi:check' })
+        expect(wrapper.findComponent(Icon).exists()).toBe(true)
     })
 })

@@ -92,7 +92,7 @@ describe('CompactHeader.vue', () => {
             userFullname: 'Jane Doe',
             userAvatarUrl: '/avatar.png',
             userMenuItems: [
-                { text: 'Profile', icon: 'mdiAccount', callback: vi.fn() }
+                { text: 'Profile', icon: 'mdi:account', callback: vi.fn() }
             ]
         })
 

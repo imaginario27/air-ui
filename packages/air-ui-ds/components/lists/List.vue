@@ -48,7 +48,7 @@ const props = defineProps({
         type: Number as PropType<number>,
         default: 1,
     },
-    listItemIcon: String as PropType<any>,
+    listItemIcon: String as PropType<string>,
     listItemIconClass: {
         type: String as PropType<string>,
         default: 'text-icon-secondary-brand-default'

@@ -8,10 +8,8 @@
                 v-if="email" 
                 class="flex gap-2 items-center text-text-primary-brand-default"
             >
-                <MdiIcon
-                    icon="mdiAt"
-                    size="20"
-                    preserveAspectRatio="xMidYMid meet"
+                <Icon
+                    name="mdi:at"
                 />
                 <span class="font-semibold text-sm">
                     {{ email }}
@@ -22,10 +20,8 @@
                 v-if="phone" 
                 class="flex gap-2 items-center text-text-neutral-subtle"
             >
-                <MdiIcon
-                    icon="mdiPhoneOutline"
-                    size="20"
-                    preserveAspectRatio="xMidYMid meet"
+                <Icon
+                    name="mdi:phone-outline"
                 />
                 <span class="text-sm">
                     {{ phone }}

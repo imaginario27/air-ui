@@ -78,8 +78,8 @@ defineProps({
         default: false,
     },
     icon: {
-        type: String as PropType<any>,
-        default: 'mdiInformationOutline',
+        type: String as PropType<string>,
+        default: 'mdi:information-outline',
     },
     title: {
         type: String as PropType<string>,
@@ -91,7 +91,7 @@ defineProps({
         default: 'Close',
     },
     buttonActionText: String as PropType<string>,
-    buttonActionIcon: String as PropType<any>,
+    buttonActionIcon: String as PropType<string>,
     isLoading: { 
         type: Boolean as PropType<boolean>,
         default: false,

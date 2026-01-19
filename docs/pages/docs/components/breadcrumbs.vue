@@ -13,7 +13,7 @@ definePageMeta({
     title: 'Breadcrumbs',
     layout: 'docs',
     overtitle: 'Components',
-    description: 'A navigation component that shows the current page’s location within a site’s hierarchy, allowing easy backtracking.',
+    description: 'Provides a navigational aid that displays the user\'s current location within a hierarchy and allows easy navigation to previous levels with automatic level detection.',
 })
 
 // Route

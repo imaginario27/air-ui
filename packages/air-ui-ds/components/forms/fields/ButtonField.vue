@@ -22,8 +22,6 @@
             :loadingText
             :styleType
             :actionType
-            :svgIcon
-            :useSVGIconColor
             :isRounded
             :isFullWidth
             :isMobileFullWidth
@@ -62,18 +60,13 @@ const props = defineProps({
         validator: (value: ButtonSize) => Object.values(ButtonSize).includes(value),
     },
     icon: {
-        type: String as PropType<any>,
-        default: "mdiHelp"
+        type: String as PropType<string>,
+        default: "mdi:help"
     },
     iconPosition: {
         type: String as PropType<IconPosition>,
         default: IconPosition.NONE,
         validator: (value: IconPosition) => Object.values(IconPosition).includes(value),
-    },
-    svgIcon: String as PropType<string>,
-    useSVGIconColor: {
-        type: Boolean as PropType<boolean>,
-        default: false,
     },
     disabled: {
         type: Boolean as PropType<boolean>,

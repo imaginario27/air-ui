@@ -1,11 +1,13 @@
 import { mount } from '@vue/test-utils'
 import Tab from '@/components/tabs/Tab.vue'
 import Badge from '@/components/badges/Badge.vue'
+import Icon from '@/components/icons/Icon.vue'
 import { TabStyle, TabDecoration } from '@/models/enums/tabs'
 import { BadgeStyle, BadgeShape } from '@/models/enums/badges'
 import { ColorAccent } from '@/models/enums/colors'
 import { nextTick } from 'vue'
 
+// Mock placeholder image
 vi.mock('@/assets/images/placeholders/missing-image-placeholder.png', () => ({
     default: '/mocked/missing-image.png'
 }))
@@ -21,9 +23,10 @@ const factory = (props: Partial<InstanceType<typeof Tab>['$props']> = {}) => {
         },
         global: {
             stubs: {
-                MdiIcon: {
-                    name: 'MdiIcon',
-                    template: '<div class="mdi-icon" />'
+                Icon: {
+                    name: 'Icon',
+                    props: ['name'],
+                    template: '<div class="icon-stub" />'
                 }
             }
         }
@@ -45,7 +48,7 @@ describe('Tab.vue', () => {
 
     it('renders icon when decoration is ICON', () => {
         const wrapper = factory({ decoration: TabDecoration.ICON })
-        expect(wrapper.find('.mdi-icon').exists()).toBe(true)
+        expect(wrapper.findComponent(Icon).exists()).toBe(true)
     })
 
     it('renders image when decoration is IMAGE', async () => {
@@ -55,7 +58,6 @@ describe('Tab.vue', () => {
         })
 
         await nextTick()
-
         const img = wrapper.find('img')
         expect(img.exists()).toBe(true)
         expect(img.attributes('src')).toBe('/test.png')
@@ -70,7 +72,6 @@ describe('Tab.vue', () => {
 
         const img = wrapper.find('img')
         await img.trigger('error')
-
         await nextTick()
 
         const fallbackImg = wrapper.find('img')
@@ -101,8 +102,9 @@ describe('Tab.vue', () => {
             tabStyle: TabStyle.PILL,
             active: true
         })
-        expect(wrapper.classes()).toContain('bg-background-primary-brand-subtle-active')
-        expect(wrapper.classes()).toContain('text-text-primary-brand-active')
+        const classes = wrapper.classes()
+        expect(classes).toContain('bg-background-primary-brand-subtle-active')
+        expect(classes).toContain('text-text-primary-brand-active')
     })
 
     it('applies correct classes for PILL_MONOCRHOME inactive', () => {
@@ -110,7 +112,9 @@ describe('Tab.vue', () => {
             tabStyle: TabStyle.PILL_MONOCRHOME,
             active: false
         })
-        expect(wrapper.classes()).toContain('hover:text-text-neutral-on-monochrome-hover-bg')
+
+        const classes = wrapper.classes()
+        expect(classes).toContain('hover:text-text-neutral-on-monochrome-hover-bg')
     })
 
     it('badge gets correct style and color when active is true', () => {

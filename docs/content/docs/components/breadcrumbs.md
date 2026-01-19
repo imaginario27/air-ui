@@ -3,18 +3,169 @@
 ::component-code
 ---
 srcDir: 'breadcrumbs/Breadcrumbs.vue'
+props: 
+    showHome: true
+    homeIcon: "mdi:home-outline"
+    separatorIcon: "mdi:chevron-right"
+    includeCurrent: false
+    homeIconClass: ""
+    separatorClass: ""
+    crumbClass: ""
+    currentCrumbClass: ""
 previewBackground: 'white'
 ---
 ::
 
+## Props
+
+::props-table
+---
+props: [
+    {
+        "name": "showHome",
+        "default": "true",
+        "type": "boolean",  
+    },
+    {
+        "name": "homeIcon",
+        "default": "'mdi:home-outline'",
+        "type": "string",  
+    },
+    {
+        "name": "separatorIcon",
+        "default": "'mdi:chevron-right'",
+        "type": "string",  
+    },
+    {
+        "name": "includeCurrent",
+        "default": "false",
+        "type": "boolean",  
+    },
+    {
+        "name": "homeIconClass",
+        "default": "''",
+        "type": "string",  
+    },
+    {
+        "name": "separatorClass",
+        "default": "''",
+        "type": "string",  
+    },
+    {
+        "name": "crumbClass",
+        "default": "''",
+        "type": "string",  
+    },
+    {
+        "name": "currentCrumbClass",
+        "default": "''",
+        "type": "string",  
+    },
+]
+---
+::
+
 ## Usage
-The breadcrumbs component is used to display a list of breadcrumbs, which are used to navigate between different pages in an application.
+### showHome
 
-It automatically detects the url hierarchy and displays the breadcrumbs accordingly.
+Determines whether to display the home icon at the beginning of the breadcrumbs.
 
-## Example
 ```vue
 <template>
-    <Breadcrumbs />
+    <Breadcrumbs showHome />
 </template>
 ```
+
+- **Type:** `boolean`
+- **Default:** `true`
+
+### homeIcon
+
+Specifies the icon to be used for the home link in the breadcrumbs.
+
+```vue
+<template>
+    <Breadcrumbs homeIcon="mdi:home-outline" /> 
+</template>
+```
+
+- **Type:** `string`
+- **Default:** `'mdi:home-outline'`
+
+## separatorIcon
+
+Specifies the icon to be used as a separator between breadcrumb items.
+
+```vue
+<template>
+    <Breadcrumbs separatorIcon="mdi:chevron-right" />
+</template>
+```
+
+- **Type:** `string`
+- **Default:** `'mdi:chevron-right'`
+
+### includeCurrent
+
+Determines whether to include the current page in the breadcrumb trail.
+
+```vue
+<template>
+    <Breadcrumbs :includeCurrent="false" />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `false`
+
+### homeIconClass
+
+Applies custom CSS classes to the home icon.
+
+```vue
+<template>
+    <Breadcrumbs homeIconClass="custom-home-icon" />
+</template>
+```
+
+- **Type:** `string`
+- **Default:** `''`
+
+### separatorClass
+
+Applies custom CSS classes to the separator icon.
+
+```vue
+<template>
+    <Breadcrumbs separatorClass="custom-separator" />
+</template>
+```
+
+- **Type:** `string`
+- **Default:** `''`
+
+### crumbClass
+
+Applies custom CSS classes to each breadcrumb item.
+
+```vue
+<template>
+    <Breadcrumbs crumbClass="custom-crumb" />
+</template>
+```
+
+- **Type:** `string`
+- **Default:** `''`
+
+### currentCrumbClass
+
+Applies custom CSS classes to the current breadcrumb item.
+
+```vue
+<template>
+    <Breadcrumbs currentCrumbClass="custom-current-crumb" />
+</template>
+```
+
+- **Type:** `string`
+- **Default:** `''`

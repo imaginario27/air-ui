@@ -18,26 +18,21 @@
             ...(actionType === ButtonActionType.ACTION ? { onClick: emitClick } : {})
         }"
         :disabled
-        
     >
         <!-- Left icon -->
-        <MdiIcon
+        <Icon 
             v-if="iconPosition === IconPosition.LEFT"
-            :icon
-            size="20"
-            preserveAspectRatio="xMidYMid meet"
-            class="min-w-[20px]"
+            :name="icon"
+            :iconClass="textIconClass"
         />
         <span :class="[ 'font-semibold' ]">
             {{ text }}
         </span>
         <!-- Right icon -->
-        <MdiIcon
+        <Icon
             v-if="iconPosition === IconPosition.RIGHT"
-            :icon
-            size="20"
-            preserveAspectRatio="xMidYMid meet"
-            class="min-w-[20px]"
+            :name="icon"
+            :iconClass="textIconClass"
         />
     </component>
 </template>
@@ -68,8 +63,8 @@ const props = defineProps({
         default: 'Button text'
     },
     icon: {
-        type: String as PropType<any>,
-        default: "mdiHelp"
+        type: String as PropType<string>,
+        default: "mdi:help"
     },
     iconPosition: {
         type: String as PropType<IconPosition>,

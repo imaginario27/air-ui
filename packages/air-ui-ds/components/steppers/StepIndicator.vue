@@ -16,6 +16,7 @@
         <span 
             v-if="status === StepStatus.NONE"
             :class="[
+                'flex items-center justify-center',
                 'font-bold',
                 stepNumberSizeClass,
                 textColorClass,
@@ -25,10 +26,9 @@
                 {{ step }}
             </template>
             <template v-else-if="type === StepIndicatorType.ICON && stepIcon">
-                <MdiIcon 
-                    :icon="stepIcon"
-                    :size="iconSize"
-                    preserveAspectRatio="xMidYMid meet"
+                <Icon
+                    :name="stepIcon"
+                    :iconClass="iconSizeClass"
                 />
             </template>
         </span>
@@ -37,6 +37,7 @@
         <span 
             v-if="status === StepStatus.INACTIVE"
             :class="[
+                'flex items-center justify-center',
                 'font-bold',
                 stepNumberSizeClass,
                 textColorClass,
@@ -46,10 +47,9 @@
                 {{ step }}
             </template>
             <template v-else-if="type === StepIndicatorType.ICON && stepIcon">
-                <MdiIcon 
-                    :icon="stepIcon"
-                    :size="iconSize"
-                    preserveAspectRatio="xMidYMid meet"
+                <Icon 
+                    :name="stepIcon"
+                    :iconClass="iconSizeClass"
                 />
             </template>
         </span>
@@ -58,6 +58,7 @@
         <span 
             v-else-if="status === StepStatus.CURRENT"
             :class="[
+                'flex items-center justify-center',
                 'font-bold text-text-primary-brand-default',
                 stepNumberSizeClass,
                 textColorClass,
@@ -67,10 +68,9 @@
                 {{ step }}
             </template>
             <template v-else-if="type === StepIndicatorType.ICON && stepIcon">
-                <MdiIcon 
-                    :icon="stepIcon"
-                    :size="iconSize"
-                    preserveAspectRatio="xMidYMid meet"
+                <Icon 
+                    :name="stepIcon"
+                    :iconClass="iconSizeClass"
                 />
             </template>
             <template v-else-if="type === StepIndicatorType.EMPTY">
@@ -87,13 +87,14 @@
         <!-- COMPLETED -->
         <span 
             v-else-if="status === StepStatus.COMPLETED"
-            class="text-sm font-semibold text-text-primary-brand-default"
+            :class="[
+                'text-sm font-semibold text-text-primary-brand-default',
+                'flex items-center justify-center',
+            ]"
         >
-            <MdiIcon 
-                :icon="completedIcon"
-                :size="iconSize"
-                preserveAspectRatio="xMidYMid meet"
-                class="text-icon-neutral-on-filled-bg"
+            <Icon 
+                :name="completedIcon"
+                :iconClass="['!text-icon-neutral-on-filled-bg', iconSizeClass]"
             />
         </span>
     </div>
@@ -120,10 +121,10 @@ const props = defineProps({
         type: Number as PropType<number>,
         default: 1,
     },
-    stepIcon: String as PropType<any>,
+    stepIcon: String as PropType<string>,
     completedIcon: {
-        type: String as PropType<any>,
-        default: 'mdiCheck',
+        type: String as PropType<string>,
+        default: 'mdi:check',
     },
     isHovered: {
         type: Boolean as PropType<boolean>,
@@ -160,15 +161,15 @@ const containerBorderClass = computed(() => {
     return base
 })
 
-const iconSize = computed(() => {
+const iconSizeClass = computed(() => {
     const variant = {
-        [StepIndicatorSize.XL]: '24',
-        [StepIndicatorSize.LG]: '20',
-        [StepIndicatorSize.MD]: '20',
-        [StepIndicatorSize.SM]: '16',
-        [StepIndicatorSize.XS]: '16',
+        [StepIndicatorSize.XL]: 'w-[24px] h-[24px] min-w-[24px] min-h-[24px]',
+        [StepIndicatorSize.LG]: 'w-[20px] h-[20px] min-w-[20px] min-h-[20px]',
+        [StepIndicatorSize.MD]: 'w-[20px] h-[20px] min-w-[20px] min-h-[20px]',
+        [StepIndicatorSize.SM]: 'w-[16px] h-[16px] min-w-[16px] min-h-[16px]',
+        [StepIndicatorSize.XS]: 'w-[16px] h-[16px] min-w-[16px] min-h-[16px]',
     }
-    return variant[props.size as StepIndicatorSize] || '24'
+    return variant[props.size as StepIndicatorSize] || 'w-[24px] h-[24px] min-w-[24px] min-h-[24px]'
 })
 
 const stepNumberSizeClass = computed(() => {

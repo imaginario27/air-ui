@@ -9,15 +9,15 @@ props:
     steps:
         - title: "Step 1"
           description: "Description one"
-          icon: "mdiHomeOutline"
+          icon: "mdi:home-outline"
         - title: "Step 2"
           description: "Description two"
-          icon: "mdiAccountOutline"
+          icon: "mdi:account-outline"
         - title: "Step 3"
           description: "Description three"
-          icon: "mdiMapMarkerStarOutline"
+          icon: "mdi:map-marker-star-outline"
     type: "number"
-    completedIcon: "mdiCheck"
+    completedIcon: "mdi:check"
     isInteractive: false
     hasDivider: true
     justifySteps: false
@@ -75,7 +75,7 @@ props: [
     },
     {
         "name": "completedIcon",
-        "default": "mdiCheck",
+        "default": "mdi:check",
         "type": "string"
     },
     {
@@ -197,12 +197,12 @@ Sets the icon to be displayed when the step is completed.
 
 ```vue
 <template>
-    <TabStepper completedIcon="mdiCheck" />
+    <TabStepper completedIcon="mdi:check" />
 </template>
 ```
 
 - **Type:** `string`
-- **Default:** `mdiCheck`
+- **Default:** `mdi:check`
 
 ### isInteractive
 

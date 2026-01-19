@@ -2,6 +2,7 @@ import { mount } from '@vue/test-utils'
 import DropdownMenuItem from '@/components/dropdowns/DropdownMenuItem.vue'
 import { DropdownActionType, DropdownItemType } from '~/models/enums/dropdowns'
 import { NuxtLink } from '#components'
+import Icon from '@/components/icons/Icon.vue'
 
 vi.mock('@/assets/images/placeholders/missing-image-placeholder.png', () => ({
     default: '/mocked/missing-image.png'
@@ -17,6 +18,15 @@ const factory = (props?: Record<string, any>) => {
         props: {
             ...defaultProps,
             ...props
+        },
+        global: {
+            stubs: {
+                NuxtLink: {
+                    name: 'NuxtLink',
+                    template: '<a><slot /></a>'
+                },
+                Icon
+            }
         }
     })
 }
@@ -47,6 +57,30 @@ describe('DropdownMenuItem.vue', () => {
         expect(wrapper.text()).toContain('Hello world')
     })
 
+    describe('icon rendering', () => {
+        it('renders Icon when type is ICON and icon prop is provided', () => {
+            const wrapper = factory({
+                type: DropdownItemType.ICON,
+                icon: 'mdi:account'
+            })
+
+            const icon = wrapper.findComponent(Icon)
+            expect(icon.exists()).toBe(true)
+            expect(icon.props('name')).toBe('mdi:account')
+        })
+
+        it('renders Icon when type is DANGER_ICON and icon is provided', () => {
+            const wrapper = factory({
+                type: DropdownItemType.DANGER_ICON,
+                icon: 'mdi:delete'
+            })
+
+            const icon = wrapper.findComponent(Icon)
+            expect(icon.exists()).toBe(true)
+            expect(icon.props('name')).toBe('mdi:delete')
+        })
+    })
+
     describe('image rendering', () => {
         it('renders imgUrl when provided and image loads', () => {
             const wrapper = factory({
@@ -72,6 +106,19 @@ describe('DropdownMenuItem.vue', () => {
 
             const fallbackImg = wrapper.find('img')
             expect(fallbackImg.attributes('src')).toBe('/mocked/missing-image.png')
+        })
+    })
+
+    describe('danger text type', () => {
+        it('applies danger text style when type is DANGER_TEXT', () => {
+            const wrapper = factory({
+                type: DropdownItemType.DANGER_TEXT,
+                text: 'Delete item'
+            })
+
+            const root = wrapper.find('[class*="text-text-delete"]')
+            expect(wrapper.text()).toContain('Delete item')
+            expect(root.exists()).toBe(true)
         })
     })
 })

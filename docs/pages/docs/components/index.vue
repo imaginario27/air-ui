@@ -31,11 +31,9 @@
                         'gap-2',
                     ]"
                 >
-                    <MdiIcon 
-                        v-if="group.sectionIcon" 
-                        :icon="group.sectionIcon" 
-                        preserveAspectRatio="xMidYMid meet"
-                        class="w-[20px] h-[20px] min-w-[20px] min-h-[20px]" 
+                    <Icon
+                        v-if="group.sectionIcon"
+                        :name="group.sectionIcon"
                     />
                     {{ group.title }}
                 </h2>
@@ -55,7 +53,7 @@
             <EmptyState 
                 v-if="!groupedComponents.length"
                 :title="`No components found for ${searchQuery}`"
-                icon="mdiMagnify"
+                icon="mdi:magnify"
                 description="Try with another search input."
                 hasContainer
                 :containerStyle="EmptyPlaceholderContainerStyle.FILLED_NEUTRAL"
