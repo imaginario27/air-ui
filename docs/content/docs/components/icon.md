@@ -51,7 +51,7 @@ propsSettingsExcludedProps: ['svgCustomize']
 
 ## Setup
 
-The `Icon` component uses the ***Nuxt Icon module** to render icons. 
+The `Icon` component uses the **Nuxt Icon module** to render icons. 
 
 Please, make sure you have the Nuxt Icon module installed and configured in your Nuxt project.
 

@@ -1,67 +1,131 @@
+
 <template>
-    <div 
-        ref="dropdownContainer" 
+    <div
+        ref="dropdownContainer"
         data-test="dropdown-container"
         :class="[isRelative && 'relative']"
     >
-        <div 
-            v-if="isOpen"
-            v-bind="$attrs" 
-            :class="[
-                'bg-background-surface',
-                'py-1',
-                'rounded',
-                hasShadow && 'shadow-lg',
-                'w-full',
-                'flex flex-col',
-                'z-50',
-                hasBorder && 'border border-border-default',
-                positionClass ? positionClass : dropdownPositionClass,
-                dropdownClass,
-            ]"
-            :style="!positionClass && positionOffsetStyle"
+        <!-- Activator Wrapper -->
+        <div
+            ref="activatorWrapper"
+            class="dropdown-activator"
+            @click="onActivatorClick"
         >
-            <slot 
-                v-if="$slots['items']"
-                name="items"
-                :onClose="toggle"
+            <slot
+                name="activator"
+                :isOpen="isOpen"
             />
-            <template v-else-if="items?.length && !$slots['items']">
-                <DropdownMenuItem 
-                    v-for="(item, index) in items" :key="index"
-                    :actionType="item.actionType"
-                    :text="item.text"
-                    :icon="item.icon"
-                    :size="item.size"
-                    :type="item.type"
-                    :userDisplayName="item.userDisplayName"
-                    :userProfileImg="item.userProfileImg"
-                    :imgUrl="item.imgUrl"
-                    :alt="item.alt"
-                    :helpText="item.helpText"
-                    :to="item.to"
-                    :isExternal="item.isExternal"
-                    :exportData="item.exportData"
-                    :exportFields="item.exportFields"
-                    :exportType="item.exportType"
-                    :exportFileName="item.exportFileName"
-                    :hasSeparator="item.hasSeparator"
-                    @click="handleClick(item.callback)"
-                />
-            </template>
         </div>
-        <!-- Activator Slot -->
-        <slot 
-            name="activator" 
-            :onClick="toggle"
-            :isOpen
-        />
+
+        <template v-if="shouldTeleport">    
+            <!-- Teleported Dropdown Menu -->
+            <teleport to="body">
+                <div
+                    v-if="isOpen"
+                    ref="dropdown"
+                    v-bind="$attrs"
+                    :class="[
+                        'bg-background-surface',
+                        'py-1',
+                        'rounded',
+                        hasShadow && 'shadow-lg',
+                        'flex flex-col',
+                        'z-50',
+                        hasBorder && 'border border-border-default',
+                        dropdownClass,
+                    ]"
+                    :style="computedTeleportStyle"
+                >
+                    <slot
+                        v-if="$slots.items"
+                        name="items"
+                        :onClose="close"
+                    />
+                    <template v-else-if="items?.length">
+                        <DropdownMenuItem
+                            v-for="(item, index) in items"
+                            :key="index"
+                            :actionType="item.actionType"
+                            :text="item.text"
+                            :icon="item.icon"
+                            :size="item.size"
+                            :type="item.type"
+                            :userDisplayName="item.userDisplayName"
+                            :userProfileImg="item.userProfileImg"
+                            :imgUrl="item.imgUrl"
+                            :alt="item.alt"
+                            :helpText="item.helpText"
+                            :to="item.to"
+                            :isExternal="item.isExternal"
+                            :exportData="item.exportData"
+                            :exportFields="item.exportFields"
+                            :exportType="item.exportType"
+                            :exportFileName="item.exportFileName"
+                            :hasSeparator="item.hasSeparator"
+                            @click="handleClick(item.callback)"
+                        />
+                    </template>
+                </div>
+            </teleport>
+        </template>
+        <template v-else>
+            <div 
+                v-if="isOpen"
+                ref="dropdown"
+                v-bind="$attrs" 
+                :class="[
+                    'bg-background-surface',
+                    'py-1',
+                    'rounded',
+                    hasShadow && 'shadow-lg',
+                    'w-full',
+                    'flex flex-col',
+                    'z-50',
+                    hasBorder && 'border border-border-default',
+                    positionClass ? positionClass : dropdownPositionClass,
+                    dropdownClass,
+                ]"
+                :style="!positionClass && positionOffsetStyle"
+            >
+                <slot 
+                    v-if="$slots['items']"
+                    name="items"
+                    :onClose="toggle"
+                />
+                <template v-else-if="items?.length && !$slots['items']">
+                    <DropdownMenuItem 
+                        v-for="(item, index) in items" :key="index"
+                        :actionType="item.actionType"
+                        :text="item.text"
+                        :icon="item.icon"
+                        :size="item.size"
+                        :type="item.type"
+                        :userDisplayName="item.userDisplayName"
+                        :userProfileImg="item.userProfileImg"
+                        :imgUrl="item.imgUrl"
+                        :alt="item.alt"
+                        :helpText="item.helpText"
+                        :to="item.to"
+                        :isExternal="item.isExternal"
+                        :exportData="item.exportData"
+                        :exportFields="item.exportFields"
+                        :exportType="item.exportType"
+                        :exportFileName="item.exportFileName"
+                        :hasSeparator="item.hasSeparator"
+                        @click="handleClick(item.callback)"
+                    />
+                </template>
+            </div>
+        </template>
     </div>
 </template>
+
 <script setup lang="ts">
-// Component options
+// Imports
+import type { CSSProperties } from 'vue'
+
 defineOptions({
-    inheritAttrs: false, // Prevents Vue from automatically applying attributes incorrectly
+    inheritAttrs: false,
 })
 
 // Props
@@ -94,27 +158,149 @@ const props = defineProps({
         type: Boolean as PropType<boolean>,
         default: true,
     },
+    shouldTeleport: {
+        type: Boolean as PropType<boolean>,
+        default: true,
+    },
 })
 
-// Ref
-const dropdownContainer = ref(null)
+// Refs
+const activatorWrapper = ref<HTMLElement | null>(null)
+const dropdown = ref<HTMLElement | null>(null)
+const isOpen = ref(false)
 
-// Composables
-const [isOpen, toggle] = useToggle(false)
+// States
+const isPositioned = ref(false)
+const activatorRect = ref<DOMRect | null>(null)
+const dropdownRect = ref<DOMRect | null>(null)
 
-onClickOutside(dropdownContainer, () => {
+// Methods
+const close = () => {
     isOpen.value = false
-})
-
-// Handlers
-const handleClick = (callback?: () => void) => {
-    if(callback) {
-        callback()
-    }
-    toggle()
+    isPositioned.value = false
 }
 
-// Computed
+const open = () => {
+    isOpen.value = true
+    isPositioned.value = false
+
+    nextTick(() => {
+        requestAnimationFrame(() => {
+            updateRects()
+            isPositioned.value = true
+        })
+    })
+}
+
+const toggle = () => {
+    if (isOpen.value) {
+        close()
+    } else {
+        open()
+    }
+}
+
+const getActivatorElement = () => {
+    return activatorWrapper.value
+}
+
+const onActivatorClick = (event: MouseEvent) => {
+    if (!activatorWrapper.value) return
+
+    if (activatorWrapper.value.contains(event.target as Node)) {
+        toggle()
+    }
+}
+
+const updateRects = () => {
+    const activatorEl = getActivatorElement()
+    if (!activatorEl || !dropdown.value) return
+
+    activatorRect.value = activatorEl.getBoundingClientRect()
+    dropdownRect.value = dropdown.value.getBoundingClientRect()
+}
+
+const handleClick = (callback?: () => void) => {
+    if (callback) callback()
+    close()
+}
+
+const handleClickOutside = (event: MouseEvent) => {
+    const dropdownEl = dropdown.value
+    const activatorEl = activatorWrapper.value
+
+    if (!dropdownEl || !activatorEl) return
+
+    const target = event.target as Node
+
+    if (
+        !dropdownEl.contains(target) &&
+        !activatorEl.contains(target)
+    ) {
+        close()
+    }
+}
+
+const handleScrollOutside = (event: Event) => {
+    const dropdownEl = dropdown.value
+    const activatorEl = activatorWrapper.value
+
+    if (!dropdownEl || !activatorEl) return
+
+    const target = event.target as Node
+
+    // If scroll happened on an element not containing the dropdown or activator
+    if (
+        !dropdownEl.contains(target) &&
+        !activatorEl.contains(target)
+    ) {
+        close()
+    }
+}
+
+const computedTeleportStyle = computed<CSSProperties>(() => {
+    if (!isPositioned.value || !activatorRect.value || !dropdownRect.value) {
+        return {
+            position: 'absolute',
+            top: '0px',
+            left: '0px',
+            visibility: 'hidden',
+            zIndex: '50',
+            width: '0px',
+        }
+    }
+
+    const a = activatorRect.value
+    const d = dropdownRect.value
+    const x = Number(props.positionXOffset) || 0
+    const y = Number(props.positionYOffset) || 0
+
+    const [primary, secondary] = props.position.toLowerCase().split('-')
+
+    let top = 0
+    let left = 0
+
+    if (primary === 'bottom') top = a.bottom + y
+    if (primary === 'top') top = a.top - d.height - y
+    if (primary === 'left') left = a.left - d.width - x
+    if (primary === 'right') left = a.right + x
+
+    if (secondary === 'left') left = a.left
+    if (secondary === 'right') left = a.right - d.width
+    if (secondary === 'top') top = a.top
+    if (secondary === 'bottom') top = a.bottom - d.height
+
+    return {
+        position: 'absolute',
+        top: `${top + window.scrollY}px`,
+        left: `${left + window.scrollX}px`,
+        width: `${a.width}px`,
+        visibility: 'visible',
+        zIndex: '50',
+    }
+})
+
+// Styles for non-teleported dropdown
 const dropdownPositionClass = computed(() => {
     const variant = {
         [DropdownPosition.LEFT_TOP]: 'absolute right-full top-0',
@@ -204,4 +390,15 @@ const positionOffsetStyle = computed(() => {
     return style
 })
 
+onMounted(() => {
+    document.addEventListener('click', handleClickOutside)
+    window.addEventListener('resize', close)
+    document.addEventListener('scroll', handleScrollOutside, true)
+})
+
+onBeforeUnmount(() => {
+    document.removeEventListener('click', handleClickOutside)
+    window.removeEventListener('resize', close)
+    document.removeEventListener('scroll', handleScrollOutside, true)
+})
 </script>

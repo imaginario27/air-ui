@@ -114,7 +114,7 @@ const handleCopy = useThrottleFn(
         const success = await copyToClipboard(props.textToCopy)
 
         if (success) {
-            currentCopyButtonIcon.value = 'mdi:check-circle-outline'
+            currentCopyButtonIcon.value = 'mdi:check'
             currentCopyButtonText.value = props.copySuccessText
 
             if (

@@ -3,6 +3,7 @@
         <!-- Dropdown Menu -->
         <DropdownMenu
             ref="dropdownContainer"
+            :shouldTeleport="false"
             :positionClass="`absolute ${dropdownPositionClass}`"
             dropdownClass="max-w-full z-10"
             :class="[ 
@@ -12,7 +13,7 @@
                 'border-border-default', 
             ]"
         >
-            <template #activator="{ onClick, isOpen }">
+            <template #activator="{ isOpen }">
                 <!-- Select Box -->
                 <div
                     :class="[ 
@@ -29,7 +30,7 @@
                         disabled ? 'text-text-neutral-disabled' : 'text-text-default',
                         sizeClass,
                     ]"
-                    @click="!disabled && onClick()"
+                    @click="!disabled"
                 >
                     <div v-if="multiple">
                         <template v-if="Array.isArray(selected) && selected.length">
