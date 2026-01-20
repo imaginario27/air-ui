@@ -3,13 +3,10 @@
         :name
         :mode
         :customize="svgCustomize"
-        :class="[
-            iconSizeClass,
-            iconColorClass,
-            ...normalizedIconClass,
-        ]"
+        :class="finalIconClasses"
     />
 </template>
+
 <script setup lang="ts">
 // Props
 const props = defineProps({
@@ -24,23 +21,36 @@ const props = defineProps({
     },
     size: {
         type: String as PropType<IconSize>,
-        default: IconSize.MD, 
+        default: IconSize.MD,
         validator: (value: IconSize) => Object.values(IconSize).includes(value),
     },
     color: String as PropType<ColorAccent>,
-    svgCustomize: Function as PropType<CollectionCustomizeCallback>,  
-    iconClass: [String, Array] as PropType<string | string[]>,    
+    svgCustomize: Function as PropType<CollectionCustomizeCallback>,
+    iconClass: [String, Array] as PropType<string | string[]>,
 })
 
-// Computed function
+// Normalize iconClass into array
 const normalizedIconClass = computed(() => {
     return Array.isArray(props.iconClass)
         ? props.iconClass
         : props.iconClass?.split(' ').filter(Boolean) || []
 })
 
-// Computed classes
+// Detect overrides
+const hasTextClass = computed(() =>
+    normalizedIconClass.value.some(cls => cls.startsWith('text-'))
+)
+
+const hasSizeClass = computed(() =>
+    normalizedIconClass.value.some(cls =>
+        /^(w-|h-|min-w-|min-h-)/.test(cls)
+    )
+)
+
+// Size classes (skipped if overridden)
 const iconSizeClass = computed(() => {
+    if (hasSizeClass.value) return null
+
     const variants = {
         [IconSize.XS]: 'w-[12px] h-[12px] min-w-[12px] min-h-[12px]',
         [IconSize.SM]: 'w-[16px] h-[16px] min-w-[16px] min-h-[16px]',
@@ -50,10 +60,13 @@ const iconSizeClass = computed(() => {
         [IconSize.XXL]: 'w-[40px] h-[40px] min-w-[40px] min-h-[40px]',
     }
 
-    return variants[props.size as IconSize] || 'w-[20px] h-[20px] min-w-[20px] min-h-[20px]'
+    return variants[props.size as IconSize] || variants[IconSize.MD]
 })
 
+// Color classes (skipped if overridden)
 const iconColorClass = computed(() => {
+    if (hasTextClass.value) return null
+
     if (!props.color) return 'text-inherit'
 
     const variants = {
@@ -67,5 +80,16 @@ const iconColorClass = computed(() => {
     }
 
     return variants[props.color] || 'text-inherit'
+})
+
+// Final class list (deduplicated)
+const finalIconClasses = computed(() => {
+    const classes = [
+        iconSizeClass.value,
+        iconColorClass.value,
+        ...normalizedIconClass.value,
+    ].filter(Boolean)
+
+    return [...new Set(classes)]
 })
 </script>

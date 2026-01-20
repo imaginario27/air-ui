@@ -11,6 +11,7 @@ props:
     positionYOffset: 8
     positionClass: ''
     isRelative: true
+    shouldTeleport: true
     class: "min-w-[200px]"
 items:
     position:
@@ -46,8 +47,6 @@ slotComponents:
         props:
             text: "Open dropdown"
             styleType: "neutral-filled"
-        slotProps:
-            onClick: "@click"
 external:
     - items
 externalTypes:
@@ -99,7 +98,11 @@ props: [
         "default": "true",
         "type": "boolean",
     },
-
+    {
+        "name": "shouldTeleport",
+        "default": "true",
+        "type": "boolean",
+    },
 ]
 ---
 ::
@@ -132,11 +135,10 @@ slots: [
                 v-bind="item"
             />
         </template>
-        <template #activator="{ onClick }">
+        <template #activator>
             <ActionButton
                 text="Open dropdown"
                 styleType="neutral-filled"
-                @click="onClick"
             />
         </template>
     </DropdownMenu>
@@ -189,11 +191,10 @@ It can be used while not using the `<template #items>` slot.
         :items="exampleItems"
         class="min-w-[200px]"
     >
-        <template #activator="{ onClick }">
+        <template #activator>
             <ActionButton
                 text="Open dropdown"
                 styleType="neutral-filled"
-                @click="onClick"
             />
         </template>
     </DropdownMenu>
@@ -375,7 +376,7 @@ Applies Tailwind classes to control the dropdown menu's placement relative to it
 ---
 props:
     title: "Important"
-    description: "When applying positionClass, position offsets and default positions will be ignored."
+    description: "When applying positionClass, position offsets and default positions will be ignored and it only works with teleport disabled (shouldTeleport=false)."
 ---
 ::
 
@@ -398,6 +399,23 @@ Sets the dropdown menu wrapper as the relative element. In case relative is `fal
 <template>
     <DropdownMenu
         isRelative
+    >
+        ....
+    </DropdownMenu>
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `true`
+
+### shouldTeleport
+
+Determines whether the dropdown menu should be teleported to the end of the document body. This is useful for avoiding overflow issues within containers that have restricted dimensions or overflow settings.
+
+```vue
+<template>
+    <DropdownMenu
+        shouldTeleport="false"
     >
         ....
     </DropdownMenu>

@@ -2,7 +2,7 @@
 
 ::component-code
 ---
-srcDir: 'skelettons/Skeletton.vue'
+srcDir: 'skeletons/Skeleton.vue'
 props: 
     class: "w-64 h-64"
 previewBackground: 'white'

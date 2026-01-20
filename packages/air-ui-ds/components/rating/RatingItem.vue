@@ -45,9 +45,9 @@ const iconSizeClass = computed(() => {
 
 const colorClass = computed(() => {
     const colorVariants = {
-        [RatingItemColor.GOLD]: 'text-icon-rating',
-        [RatingItemColor.PRIMARY_BRAND]: 'text-icon-primary-brand-rating',
+        [RatingItemColor.GOLD]: '!text-icon-rating',
+        [RatingItemColor.PRIMARY_BRAND]: '!text-icon-primary-brand-rating',
     }
-    return colorVariants[props.color as RatingItemColor] || 'text-icon-rating'
+    return colorVariants[props.color as RatingItemColor] || '!text-icon-rating'
 })
 </script>

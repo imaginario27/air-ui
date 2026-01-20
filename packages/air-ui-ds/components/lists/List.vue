@@ -9,8 +9,8 @@
         <template v-if="items.length && !$slots.default">
             <ListItem 
                 v-for="(item, index) in items" :key="index" 
-                :icon="listItemIcon"
-                :iconClass="listItemIconClass"
+                :markerIcon="listItemIcon"
+                :markerIconClass="listItemIconClass"
                 :size="listItemSize"
                 :spaced="spaced"
             >

@@ -123,10 +123,10 @@ const orientationClass = computed(() => {
 
 const iconSizeClass = computed(() => {
     const iconSize = {
-        [Orientation.VERTICAL]: '!min-w-[40px] !max-w-[40px]',
-        [Orientation.HORIZONTAL]: '!min-w-[32px] !max-w-[32px]',
+        [Orientation.VERTICAL]: 'w-[40px] h-[40px] min-w-[40px] min-h-[40px]',
+        [Orientation.HORIZONTAL]: 'w-[32px] h-[32px] min-w-[32px] min-h-[32px]',
     }
-    return iconSize[props.orientation as Orientation] || '!min-w-[32px] max-w-[32px]'
+    return iconSize[props.orientation as Orientation] || 'w-[32px] h-[32px] min-w-[32px] min-h-[32px]'
 })
 
 const containerClasses = computed(() => {

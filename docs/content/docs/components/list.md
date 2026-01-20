@@ -308,11 +308,11 @@ If set to `true`, the list items will be have more vertical spaced
 ---
 props: [
     {
-        "name": "icon",
+        "name": "markerIcon",
         "type": "string",
     },
     {
-        "name": "iconClass",
+        "name": "markerIconClass",
         "default": "'text-icon-secondary-brand-default'",
         "type": "string",
     },

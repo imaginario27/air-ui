@@ -138,7 +138,7 @@ const iconColorClass = computed(() => {
         [AlertType.WARNING]: '!text-icon-warning-on-bg',
         [AlertType.DANGER]: '!text-icon-danger',
         [AlertType.SUCCESS]: '!text-icon-success',
-        [AlertType.INFO]: 'text-icon-info',
+        [AlertType.INFO]: '!text-icon-info',
     }
     return variant[props.type as AlertType] || '!text-icon-warning-on-bg'
 })

@@ -6,7 +6,7 @@
 srcDir: 'dividers/Divider.vue'
 props: 
     orientation: "horizontal"
-    hideOnMobile: "false"
+    hideOnMobile: false
 items:
     orientation: 
         - value: horizontal

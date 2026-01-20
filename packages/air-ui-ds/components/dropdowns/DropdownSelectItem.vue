@@ -65,7 +65,7 @@
             <Icon 
                 v-if="isSelected && activeStyle === SelectActiveStyle.CHECK"
                 name="mdi:check"
-                iconClass="text-icon-primary-brand-active"
+                iconClass="!text-icon-primary-brand-active"
             />
         </div>
         <p 
