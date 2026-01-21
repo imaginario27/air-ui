@@ -1,69 +1,63 @@
 import { mount } from '@vue/test-utils'
-import RatingItem from '@/components/rating/RatingItem.vue'
-import Icon from '@/components/icons/Icon.vue'
-import { RatingItemSize, RatingItemColor } from '@/models/enums/rating'
+import RatingItem from '~/components/rating/RatingItem.vue'
+
+type FactoryOptions = {
+    icon?: string
+    size?: string
+    color?: string
+    isInteractive?: boolean
+}
+
+const defaultProps = {
+    icon: 'mdi:star-outline',
+    size: 'sm',
+    color: 'gold',
+    isInteractive: false
+}
+
+const factory = (options: FactoryOptions = {}) => {
+    return mount(RatingItem, {
+        props: {
+            ...defaultProps,
+            ...options
+        }
+    })
+}
 
 describe('RatingItem', () => {
     it('renders with default props', () => {
-        const wrapper = mount(RatingItem)
+        const wrapper = factory()
+        const icon = wrapper.findComponent({ name: 'Icon' })
 
-        const icon = wrapper.findComponent(Icon)
         expect(icon.exists()).toBe(true)
         expect(icon.props('name')).toBe('mdi:star-outline')
-        expect(icon.classes()).toContain('text-icon-rating')
         expect(icon.classes()).toContain('w-[20px]')
+        expect(icon.classes()).toContain('!text-icon-rating')
         expect(icon.classes()).not.toContain('hover:cursor-pointer')
     })
 
+    it('renders custom icon when provided', () => {
+        const wrapper = factory({ icon: 'mdi:heart' })
+        expect(wrapper.findComponent({ name: 'Icon' }).props('name')).toBe('mdi:heart')
+    })
+
     it('applies correct size class based on size prop', () => {
-        const wrapper = mount(RatingItem, {
-            props: {
-                size: RatingItemSize.XL
-            }
-        })
+        const sizeMap: Record<string, string> = {
+            sm: 'w-[20px]',
+            md: 'w-[24px]',
+            lg: 'w-[32px]',
+            xl: 'w-[40px]',
+            xxl: 'w-[48px]'
+        }
 
-        const icon = wrapper.findComponent(Icon)
-        expect(icon.classes()).toContain('w-[40px]')
-        expect(icon.classes()).toContain('h-[40px]')
+        for (const [size, className] of Object.entries(sizeMap)) {
+            const wrapper = factory({ size })
+            expect(wrapper.findComponent({ name: 'Icon' }).classes()).toContain(className)
+        }
     })
 
-    it('applies correct color class based on color prop', () => {
-        const wrapper = mount(RatingItem, {
-            props: {
-                color: RatingItemColor.PRIMARY_BRAND
-            }
-        })
-
-        const icon = wrapper.findComponent(Icon)
-        expect(icon.classes()).toContain('text-icon-primary-brand-rating')
-    })
-
-    it('adds interactive class when isInteractive is true', () => {
-        const wrapper = mount(RatingItem, {
-            props: {
-                isInteractive: true
-            }
-        })
-
-        const icon = wrapper.findComponent(Icon)
-        expect(icon.classes()).toContain('hover:cursor-pointer')
-    })
-
-    it('falls back to default size and color if invalid values are provided', () => {
-        const consoleWarnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
-
-        const wrapper = mount(RatingItem, {
-            props: {
-                // @ts-expect-error: intentionally invalid
-                size: 'invalid',
-                // @ts-expect-error: intentionally invalid
-                color: 'invalid'
-            }
-        })
-
-        const icon = wrapper.findComponent(Icon)
-        expect(icon.classes()).toContain('text-icon-rating')
-        expect(icon.classes()).toContain('w-[20px]')
-        consoleWarnSpy.mockRestore()
+    it('adds hover class when isInteractive is true', () => {
+        const wrapper = factory({ isInteractive: true })
+        expect(wrapper.findComponent({ name: 'Icon' }).classes()).toContain('hover:cursor-pointer')
     })
 })

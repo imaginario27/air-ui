@@ -17,8 +17,12 @@ describe('Feature.vue', () => {
         return mount(Feature, {
             props,
             global: {
-                components: {
-                    Icon
+                stubs: {
+                    Icon: {
+                        name: 'Icon',
+                        props: ['name', 'size', 'color', 'iconClass'],
+                        template: '<i class="icon-stub" :data-icon="name" />'
+                    }
                 }
             }
         })

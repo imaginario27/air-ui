@@ -4,7 +4,7 @@
             class="border border-border-default"
             positionClass="absolute bottom-[64px]"
         >
-            <template #activator="{ onClick }">
+            <template #activator>
 
                  <!-- User Wrapper -->
                 <div 
@@ -18,7 +18,6 @@
                         'items-center',
                         'bg-background-surface',
                     ]"
-                    @click="() => onClick()"
                 >
                     <User 
                         :displayName="userDisplayName" 

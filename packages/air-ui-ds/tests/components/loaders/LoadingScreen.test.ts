@@ -15,6 +15,11 @@ const factory = (props = {}, slots = {}) => {
                 Loading,
                 ContainedIcon,
                 ActionButton,
+                Icon: {
+                    name: 'Icon',
+                    props: ['name', 'iconClass', 'mode'],
+                    template: '<i class="stub-icon" />'
+                }
             },
         },
     })

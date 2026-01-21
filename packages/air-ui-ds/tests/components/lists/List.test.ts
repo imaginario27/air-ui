@@ -6,6 +6,11 @@ import { ListLayout, ListItemSize } from '@/models/enums/lists'
 const factory = (props = {}, options = {}) => {
     return mount(List, {
         props,
+        global: {
+            components: {
+                ListItem
+            }
+        },
         ...options
     })
 }
@@ -20,16 +25,22 @@ describe('List.vue', () => {
         const slotFactory = (props = {}) =>
             factory(props, {
                 slots: {
-                    default: '<li>Item 1</li><li>Item 2</li>'
+                    default: '<li>Slot Item 1</li><li>Slot Item 2</li>'
                 }
             })
 
         it('renders slot content instead of items prop', () => {
             const wrapper = slotFactory()
-            const items = wrapper.findAll('li')
-            expect(items).toHaveLength(2)
-            expect(items[0].text()).toBe('Item 1')
-            expect(items[1].text()).toBe('Item 2')
+            const listItems = wrapper.findAll('li')
+            expect(listItems).toHaveLength(2)
+            expect(listItems[0].text()).toBe('Slot Item 1')
+            expect(listItems[1].text()).toBe('Slot Item 2')
+        })
+
+        it('does not render ListItem components when slot is provided', () => {
+            const wrapper = slotFactory()
+            const customListItems = wrapper.findAllComponents(ListItem)
+            expect(customListItems.length).toBe(0)
         })
     })
 
@@ -42,37 +53,45 @@ describe('List.vue', () => {
             expect(items[1].text()).toContain('Beta')
         })
 
-        it('passes icon props correctly to ListItem', () => {
+        it('passes props correctly to ListItem', () => {
             const wrapper = factory({
-                listItemIcon: 'check',
+                items: ['Item 1'],
+                listItemIcon: 'mdi:check',
                 listItemIconClass: 'custom-icon',
                 listItemSize: ListItemSize.MD,
                 spaced: true
             })
+
             const listItem = wrapper.findComponent(ListItem)
+            expect(listItem.exists()).toBe(true)
+
             expect(listItem.props()).toMatchObject({
-                icon: 'check',
-                iconClass: 'custom-icon',
+                markerIcon: 'mdi:check', 
+                markerIconClass: 'custom-icon',
                 size: ListItemSize.MD,
                 spaced: true
             })
         })
     })
 
-    it('does not have separator classes by default', () => {
+    it('does not apply separator classes by default', () => {
         const wrapper = factory()
         const ul = wrapper.find('ul')
-        expect(ul.classes()).not.toContain('divide-y')
-        expect(ul.classes()).not.toContain('border-y')
+        const classes = ul.classes()
+
+        expect(classes).not.toContain('divide-y')
+        expect(classes).not.toContain('border-y')
     })
 
-    it('adds separator classes when hasSeparator is true', () => {
+    it('applies separator classes when hasSeparator is true', () => {
         const wrapper = factory({ hasSeparator: true })
         const ul = wrapper.find('ul')
-        expect(ul.classes()).toContain('divide-y')
-        expect(ul.classes()).toContain('border-y')
-        expect(ul.classes()).toContain('divide-border-neutral-subtle')
-        expect(ul.classes()).toContain('border-border-neutral-subtle')
+        const classes = ul.classes()
+
+        expect(classes).toContain('divide-y')
+        expect(classes).toContain('border-y')
+        expect(classes).toContain('divide-border-neutral-subtle')
+        expect(classes).toContain('border-border-neutral-subtle')
     })
 
     it('applies grid layout classes when layout is GRID', () => {
@@ -82,9 +101,8 @@ describe('List.vue', () => {
             tabletCols: 2,
             mobileCols: 1
         })
-        const ul = wrapper.find('ul')
-        const classList = ul.classes().join(' ')
 
+        const classList = wrapper.find('ul').classes().join(' ')
         expect(classList).toContain('grid')
         expect(classList).toContain('grid-cols-1')
         expect(classList).toContain('sm:grid-cols-2')
@@ -92,20 +110,25 @@ describe('List.vue', () => {
         expect(classList).toContain('gap-6')
     })
 
-    it('applies default tabletCols when not specified', () => {
+    it('uses default tabletCols if not specified', () => {
         const wrapper = factory({
             layout: ListLayout.GRID,
             cols: 4,
             mobileCols: 2
         })
+
         const classList = wrapper.find('ul').classes().join(' ')
-        expect(classList).toContain('grid-cols-2') // mobile
-        expect(classList).toContain('sm:grid-cols-2') // default tabletCols
-        expect(classList).toContain('lg:grid-cols-4') // custom cols
+        expect(classList).toContain('grid-cols-2')       // mobile
+        expect(classList).toContain('sm:grid-cols-2')    // default tablet
+        expect(classList).toContain('lg:grid-cols-4')    // desktop
     })
 
-    it('does not apply grid classes when layout is LIST', () => {
-        const wrapper = factory({ layout: ListLayout.LIST })
+    it('does not apply grid layout classes when layout is LIST', () => {
+        const wrapper = factory({
+            layout: ListLayout.LIST,
+            cols: 4
+        })
+
         const classList = wrapper.find('ul').classes()
         expect(classList).not.toContain('grid')
         expect(classList.some(c => c.startsWith('grid-cols-'))).toBe(false)

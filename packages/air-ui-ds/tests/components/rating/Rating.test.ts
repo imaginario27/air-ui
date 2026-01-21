@@ -8,7 +8,15 @@ type RatingProps = Partial<InstanceType<typeof Rating>['$props']>
 
 const factory = (props?: RatingProps): VueWrapper => {
     return mount(Rating, {
-        props
+        props,
+        global: {
+            stubs: {
+                Icon: {
+                    template: '<i class="stub-icon" />',
+                    props: ['name']
+                }
+            }
+        }
     })
 }
 

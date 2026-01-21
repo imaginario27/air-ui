@@ -5,7 +5,8 @@
             ref="dropdownContainer"
             :shouldTeleport="false"
             :positionClass="`absolute ${dropdownPositionClass}`"
-            dropdownClass="max-w-full z-10"
+            zIndex="10"
+            dropdownClass="max-w-full"
             :class="[ 
                 'max-h-[200px]', 
                 'overflow-y-auto', 

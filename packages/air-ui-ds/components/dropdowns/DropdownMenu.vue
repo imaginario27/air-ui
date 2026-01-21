@@ -19,7 +19,7 @@
 
         <template v-if="shouldTeleport">    
             <!-- Teleported Dropdown Menu -->
-            <teleport to="body">
+            <teleport :to="teleportTo">
                 <div
                     v-if="isOpen"
                     ref="dropdown"
@@ -30,11 +30,13 @@
                         'rounded',
                         hasShadow && 'shadow-lg',
                         'flex flex-col',
-                        'z-50',
                         hasBorder && 'border border-border-default',
                         dropdownClass,
                     ]"
-                    :style="computedTeleportStyle"
+                    :style="{ 
+                        ...computedTeleportStyle, 
+                        zIndex: props.zIndex 
+                    }"
                 >
                     <slot
                         v-if="$slots.items"
@@ -80,12 +82,14 @@
                     hasShadow && 'shadow-lg',
                     'w-full',
                     'flex flex-col',
-                    'z-50',
                     hasBorder && 'border border-border-default',
                     positionClass ? positionClass : dropdownPositionClass,
                     dropdownClass,
                 ]"
-                :style="!positionClass && positionOffsetStyle"
+                :style="{ 
+                    ...(!positionClass ? positionOffsetStyle : {}), 
+                    zIndex: props.zIndex 
+                }"
             >
                 <slot 
                     v-if="$slots['items']"
@@ -161,6 +165,14 @@ const props = defineProps({
     shouldTeleport: {
         type: Boolean as PropType<boolean>,
         default: true,
+    },
+    teleportTo: {
+        type: String as PropType<string>,
+        default: 'body',
+    },
+    zIndex: {
+        type: String as PropType<string>,
+        default: '50',
     },
 })
 
@@ -265,7 +277,7 @@ const computedTeleportStyle = computed<CSSProperties>(() => {
             top: '0px',
             left: '0px',
             visibility: 'hidden',
-            zIndex: '50',
+            zIndex: props.zIndex,
             width: '0px',
         }
     }
@@ -296,7 +308,7 @@ const computedTeleportStyle = computed<CSSProperties>(() => {
         left: `${left + window.scrollX}px`,
         width: `${a.width}px`,
         visibility: 'visible',
-        zIndex: '50',
+        zIndex: props.zIndex,
     }
 })
 
