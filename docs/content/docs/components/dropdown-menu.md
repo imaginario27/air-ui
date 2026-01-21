@@ -12,6 +12,7 @@ props:
     positionClass: ''
     isRelative: true
     shouldTeleport: true
+    zIndex: "50"
     class: "min-w-[200px]"
 items:
     position:
@@ -102,6 +103,11 @@ props: [
         "name": "shouldTeleport",
         "default": "true",
         "type": "boolean",
+    },
+    {
+        "name": "zIndex",
+        "default": "'50'",
+        "type": "string",
     },
 ]
 ---
@@ -424,6 +430,23 @@ Determines whether the dropdown menu should be teleported to the end of the docu
 
 - **Type:** `boolean`
 - **Default:** `true`
+
+### zIndex
+
+Sets the CSS z-index property for the dropdown menu, controlling its stacking order relative to other elements on the page.
+
+```vue
+<template>
+    <DropdownMenu
+        zIndex="50"
+    >
+        ....
+    </DropdownMenu>
+</template>
+```
+
+- **Type:** `string`
+- **Default:** `'50'`
 
 ## DropdownMenuItem
 `<DropdownMenuItem>` represents an individual item within the dropdown menu. It supports multiple visual and functional types—such as text, icons, user profiles, and images—making it flexible for various use cases like navigation, actions, or exporting data.

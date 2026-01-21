@@ -20,6 +20,15 @@ const factory = (props?: Props): VueWrapper => {
         props: {
             modelValue: 3,
             ...props
+        },
+        global: {
+            stubs: {
+                Icon: {
+                    name: 'Icon',
+                    props: ['name', 'iconClass', 'mode'],
+                    template: '<i :data-icon="name" class="stub-icon" />'
+                }
+            }
         }
     })
 }

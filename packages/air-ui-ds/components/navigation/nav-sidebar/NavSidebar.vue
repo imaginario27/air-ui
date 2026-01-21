@@ -92,7 +92,7 @@
                         :style="{ minWidth: `${collapsedSubmenuWidth}px` }"
                     >
                         <!-- Use NavSidebarMenuItem as activator -->
-                        <template #activator="{ onClick }">
+                        <template #activator>
                             <NavSidebarMenuItem 
                                 :text="item.text"
                                 :icon="item.icon"
@@ -100,7 +100,6 @@
                                 isCollapsed
                                 :showDropdownArrow="false"
                                 :class="itemsCustomClass"
-                                @click="onClick"
                             />
                         </template>
 

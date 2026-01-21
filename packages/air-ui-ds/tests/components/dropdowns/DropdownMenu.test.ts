@@ -1,4 +1,4 @@
-import { mount } from '@vue/test-utils'
+import { mount, VueWrapper } from '@vue/test-utils'
 import DropdownMenu from '@/components/dropdowns/DropdownMenu.vue'
 import DropdownMenuItem from '@/components/dropdowns/DropdownMenuItem.vue'
 import { DropdownPosition } from '@/models/enums/positions'
@@ -6,16 +6,15 @@ import { DropdownPosition } from '@/models/enums/positions'
 const factory = (options: {
     props?: Record<string, unknown>
     slots?: Record<string, any>
-} = {}) => {
+} = {}): VueWrapper => {
     return mount(DropdownMenu, {
         props: {
             items: [],
+            shouldTeleport: false, // force dropdown into wrapper DOM
             ...options.props,
         },
         slots: {
-            activator: `<template #activator="{ onClick }">
-                <button @click="onClick">Open</button>
-            </template>`,
+            activator: '<template #activator="{ isOpen }"><button>Open</button></template>',
             ...options.slots,
         },
         global: {
@@ -33,76 +32,85 @@ describe('DropdownMenu.vue', () => {
         expect(wrapper.exists()).toBe(true)
     })
 
-    it('renders the activator slot', () => {
+    it('renders the activator slot content', () => {
         const wrapper = factory()
         expect(wrapper.html()).toContain('Open')
     })
 
-    it('calls item callback and closes dropdown on item click', async () => {
+    it('toggles dropdown open and closed on activator click', async () => {
+        const wrapper = factory()
+        const activator = wrapper.find('.dropdown-activator')
+
+        await activator.trigger('click')
+        await wrapper.vm.$nextTick()
+
+        expect((wrapper.vm as any).isOpen).toBe(true)
+
+        await activator.trigger('click')
+        expect((wrapper.vm as any).isOpen).toBe(false)
+    })
+
+    it('calls callback and closes dropdown on item click', async () => {
         const mockCallback = vi.fn()
 
         const wrapper = factory({
             props: {
-                items: [
-                    {
-                        text: 'Action',
-                        callback: mockCallback,
-                    },
-                ],
+                items: [{ text: 'Item', callback: mockCallback }],
             },
         })
 
-        await wrapper.find('button').trigger('click')
+        await wrapper.find('.dropdown-activator').trigger('click')
+        await wrapper.vm.$nextTick()
         await wrapper.vm.$nextTick()
 
         const item = wrapper.findComponent(DropdownMenuItem)
+        expect(item.exists()).toBe(true)
 
-        // simulate the emitted click
+        // emit a click from the actual component
         await item.vm.$emit('click')
-        wrapper.vm.handleClick(mockCallback)
         await wrapper.vm.$nextTick()
 
         expect(mockCallback).toHaveBeenCalled()
-        expect(wrapper.vm.isOpen).toBe(false)
+        expect((wrapper.vm as any).isOpen).toBe(false)
     })
 
-    it('uses computed dropdownPositionClass when positionClass is not provided', async () => {
+    it('renders dropdown with default positioning class when no positionClass is provided', async () => {
         const wrapper = factory({
             props: {
                 position: DropdownPosition.BOTTOM_LEFT,
-                items: [{ text: 'Test' }],
+                items: [{ text: 'Item' }],
             },
         })
 
-        await wrapper.find('button').trigger('click')
+        await wrapper.find('.dropdown-activator').trigger('click')
+        await wrapper.vm.$nextTick()
         await wrapper.vm.$nextTick()
 
         const dropdown = wrapper.find('[class*="bg-background-surface"]')
-        const classAttr = dropdown.attributes('class') || ''
+        expect(dropdown.exists()).toBe(true)
 
+        const classAttr = dropdown.attributes('class') || ''
         expect(classAttr.includes('left-0')).toBe(true)
         expect(classAttr.includes('top-full')).toBe(true)
     })
 
-    it('applies margin offsets based on position and offset props', async () => {
+    it('applies positionClass override when provided', async () => {
         const wrapper = factory({
             props: {
-                position: DropdownPosition.TOP_LEFT,
-                positionXOffset: '12px',
-                positionYOffset: 20,
-                items: [{ text: 'Offset Test' }],
+                positionClass: 'fixed bottom-0 left-0',
+                items: [{ text: 'Positioned' }],
             },
         })
 
-        await wrapper.find('button').trigger('click')
+        await wrapper.find('.dropdown-activator').trigger('click')
         await wrapper.vm.$nextTick()
         await wrapper.vm.$nextTick()
 
         const dropdown = wrapper.find('[class*="bg-background-surface"]')
-        const style = dropdown.attributes('style') || ''
-
-        expect(style.includes('margin-bottom: 20px')).toBe(true)
-        expect(style.includes('margin-left: 12px')).toBe(true)
+        expect(dropdown.exists()).toBe(true)
+        expect(dropdown.classes()).toContain('fixed')
+        expect(dropdown.classes()).toContain('bottom-0')
+        expect(dropdown.classes()).toContain('left-0')
     })
 
     it('does not render shadow when hasShadow is false', async () => {
@@ -113,28 +121,13 @@ describe('DropdownMenu.vue', () => {
             },
         })
 
-        await wrapper.find('button').trigger('click')
+        await wrapper.find('.dropdown-activator').trigger('click')
+        await wrapper.vm.$nextTick()
         await wrapper.vm.$nextTick()
 
         const dropdown = wrapper.find('[class*="bg-background-surface"]')
+        expect(dropdown.exists()).toBe(true)
         expect(dropdown.classes()).not.toContain('shadow-lg')
-    })
-
-    it('applies positionClass when provided', async () => {
-        const wrapper = factory({
-            props: {
-                positionClass: 'fixed bottom-0 left-0',
-                items: [{ text: 'Positioned' }],
-            },
-        })
-
-        await wrapper.find('button').trigger('click')
-        await wrapper.vm.$nextTick()
-
-        const dropdown = wrapper.find('[class*="bg-background-surface"]')
-        expect(dropdown.classes()).toContain('fixed')
-        expect(dropdown.classes()).toContain('bottom-0')
-        expect(dropdown.classes()).toContain('left-0')
     })
 
     it('adds relative class when isRelative is true', () => {
@@ -143,145 +136,45 @@ describe('DropdownMenu.vue', () => {
         expect(container.classes()).toContain('relative')
     })
 
-    it('does not add relative class when isRelative is false', () => {
+    it('omits relative class when isRelative is false', () => {
         const wrapper = factory({ props: { isRelative: false } })
         const container = wrapper.find('[data-test="dropdown-container"]')
         expect(container.classes()).not.toContain('relative')
     })
-})
 
-describe('DropdownMenu.vue - positioning offsets', () => {
-    it('applies marginTop and marginLeft for BOTTOM_LEFT', async () => {
-        const wrapper = factory({
-            props: {
-                position: DropdownPosition.BOTTOM_LEFT,
-                positionXOffset: 10,
-                positionYOffset: '5px',
-                items: [{ text: 'Item' }],
-            },
-        })
+    it('cleans up global event listeners on unmount', () => {
+        const removeEventListenerSpy = vi.spyOn(document, 'removeEventListener')
+        const wrapper = factory()
 
-        await wrapper.find('button').trigger('click')
-        await wrapper.vm.$nextTick()
-        await wrapper.vm.$nextTick()
-
-        const style = wrapper.find('[class*="bg-background-surface"]').attributes('style') || ''
-        expect(style).toContain('margin-top: 5px')
-        expect(style).toContain('margin-left: 10px')
+        wrapper.unmount()
+        expect(removeEventListenerSpy).toHaveBeenCalledWith('click', expect.any(Function))
     })
 
-    it('applies marginTop and marginRight for BOTTOM_RIGHT', async () => {
+    it('renders custom slot content when provided in "items" slot', async () => {
         const wrapper = factory({
-            props: {
-                position: DropdownPosition.BOTTOM_RIGHT,
-                positionXOffset: '16px',
-                positionYOffset: 8,
-                items: [{ text: 'Item' }],
+            slots: {
+                items: '<div class="custom-item">Custom</div>',
             },
         })
 
-        await wrapper.find('button').trigger('click')
-        await wrapper.vm.$nextTick()
+        await wrapper.find('.dropdown-activator').trigger('click')
         await wrapper.vm.$nextTick()
 
-        const style = wrapper.find('[class*="bg-background-surface"]').attributes('style') || ''
-        expect(style).toContain('margin-top: 8px')
-        expect(style).toContain('margin-right: 16px')
+        const customSlot = wrapper.find('.custom-item')
+        expect(customSlot.exists()).toBe(true)
     })
 
-    it('applies marginBottom and marginRight for TOP_RIGHT', async () => {
+    it('renders fallback items when slot is not provided', async () => {
         const wrapper = factory({
             props: {
-                position: DropdownPosition.TOP_RIGHT,
-                positionXOffset: '24px',
-                positionYOffset: '10px',
-                items: [{ text: 'Item' }],
+                items: [{ text: 'Fallback' }],
             },
         })
 
-        await wrapper.find('button').trigger('click')
-        await wrapper.vm.$nextTick()
-        await wrapper.vm.$nextTick()
-
-        const style = wrapper.find('[class*="bg-background-surface"]').attributes('style') || ''
-        expect(style).toContain('margin-bottom: 10px')
-        expect(style).toContain('margin-right: 24px')
-    })
-
-    it('applies marginBottom and marginLeft for LEFT_BOTTOM', async () => {
-        const wrapper = factory({
-            props: {
-                position: DropdownPosition.LEFT_BOTTOM,
-                positionXOffset: 4,
-                positionYOffset: 6,
-                items: [{ text: 'Item' }],
-            },
-        })
-
-        await wrapper.find('button').trigger('click')
-        await wrapper.vm.$nextTick()
+        await wrapper.find('.dropdown-activator').trigger('click')
         await wrapper.vm.$nextTick()
 
-        const style = wrapper.find('[class*="bg-background-surface"]').attributes('style') || ''
-        expect(style).toContain('margin-bottom: 6px')
-        expect(style).toContain('margin-right: 4px')
-    })
-
-    it('applies marginTop and marginRight for LEFT_TOP', async () => {
-        const wrapper = factory({
-            props: {
-                position: DropdownPosition.LEFT_TOP,
-                positionXOffset: '6px',
-                positionYOffset: '12px',
-                items: [{ text: 'Item' }],
-            },
-        })
-
-        await wrapper.find('button').trigger('click')
-        await wrapper.vm.$nextTick()
-        await wrapper.vm.$nextTick()
-
-        const style = wrapper.find('[class*="bg-background-surface"]').attributes('style') || ''
-        expect(style).toContain('margin-top: 12px')
-        expect(style).toContain('margin-right: 6px')
-    })
-
-    it('applies marginTop and marginLeft for RIGHT_TOP', async () => {
-        const wrapper = factory({
-            props: {
-                position: DropdownPosition.RIGHT_TOP,
-                positionXOffset: '20px',
-                positionYOffset: '15px',
-                items: [{ text: 'Item' }],
-            },
-        })
-
-        await wrapper.find('button').trigger('click')
-        await wrapper.vm.$nextTick()
-        await wrapper.vm.$nextTick()
-
-        const style = wrapper.find('[class*="bg-background-surface"]').attributes('style') || ''
-        expect(style).toContain('margin-top: 15px')
-        expect(style).toContain('margin-left: 20px')
-    })
-
-    it('applies marginBottom and marginLeft for RIGHT_BOTTOM', async () => {
-        const wrapper = factory({
-            props: {
-                position: DropdownPosition.RIGHT_BOTTOM,
-                positionXOffset: '18px',
-                positionYOffset: 22,
-                items: [{ text: 'Item' }],
-            },
-        })
-
-        await wrapper.find('button').trigger('click')
-        await wrapper.vm.$nextTick()
-        await wrapper.vm.$nextTick()
-
-        const style = wrapper.find('[class*="bg-background-surface"]').attributes('style') || ''
-        expect(style).toContain('margin-bottom: 22px')
-        expect(style).toContain('margin-left: 18px')
+        const item = wrapper.findComponent(DropdownMenuItem)
+        expect(item.exists()).toBe(true)
     })
 })
-

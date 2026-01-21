@@ -30,8 +30,13 @@ describe('ContainedIcon.vue', () => {
         expect(icon.props('name')).toBe('mdi:help')
 
         const iconClass = icon.props('iconClass') as string[]
-        expect(iconClass).toEqual(expect.arrayContaining(['text-icon-neutral-subtle-on-subtler-bg']))
-    })
+        expect(iconClass).toEqual(
+            expect.arrayContaining([
+            'w-[24px] h-[24px] min-w-[24px] min-h-[24px]',
+            '!text-icon-neutral-subtle-on-subtler-bg'
+            ])
+        )
+        })
 
     it('renders square shape when shape is SQUARE', () => {
         const wrapper = factory({ shape: IconContainerShape.SQUARE })
@@ -43,31 +48,31 @@ describe('ContainedIcon.vue', () => {
         const colorMap = {
             [ColorAccent.NEUTRAL]: {
                 bg: 'bg-background-neutral-sublter',
-                icon: 'text-icon-neutral-subtle-on-subtler-bg'
+                icon: '!text-icon-neutral-subtle-on-subtler-bg'
             },
             [ColorAccent.SUCCESS]: {
                 bg: 'bg-background-success-subtler',
-                icon: 'text-icon-success'
+                icon: '!text-icon-success'
             },
             [ColorAccent.WARNING]: {
                 bg: 'bg-background-warning-subtler',
-                icon: 'text-icon-warning-on-bg'
+                icon: '!text-icon-warning-on-bg'
             },
             [ColorAccent.DANGER]: {
                 bg: 'bg-background-danger-subtler',
-                icon: 'text-icon-danger'
+                icon: '!text-icon-danger'
             },
             [ColorAccent.INFO]: {
                 bg: 'bg-background-info-subtler',
-                icon: 'text-icon-info'
+                icon: '!text-icon-info'
             },
             [ColorAccent.PRIMARY_BRAND]: {
                 bg: 'bg-background-primary-brand-soft',
-                icon: 'text-icon-primary-brand-default'
+                icon: '!text-icon-primary-brand-default'
             },
             [ColorAccent.SECONDARY_BRAND]: {
                 bg: 'bg-background-secondary-brand-soft',
-                icon: 'text-icon-secondary-brand-default'
+                icon: '!text-icon-secondary-brand-default'
             }
         }
 
@@ -99,7 +104,7 @@ describe('ContainedIcon.vue', () => {
         expect(container.classes()).toContain('bg-background-danger-bold')
 
         const iconClass = icon.props('iconClass') as string[]
-        expect(iconClass).toEqual(expect.arrayContaining(['text-icon-neutral-on-filled-bg']))
+        expect(iconClass).toEqual(expect.arrayContaining(['!text-icon-neutral-on-filled-bg']))
     })
 
     it('applies correct size classes for container and icon', () => {
@@ -133,7 +138,6 @@ describe('ContainedIcon.vue', () => {
             expect(iconClass.some(cls => cls.includes(sizeMap[size].icon))).toBe(true)
         }
     })
-
 
     it('passes the correct icon name prop to Icon', () => {
         const wrapper = factory({ icon: 'mdi:account' })

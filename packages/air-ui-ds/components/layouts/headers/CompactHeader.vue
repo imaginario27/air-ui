@@ -81,13 +81,12 @@
                     class="min-w-[200px]"
                     :positionYOffset="8"
                 >
-                    <template #activator="{ onClick }">
+                    <template #activator>
                         <Avatar 
                             :size="AvatarSize.MD"
                             isInteractive
                             :displayName="userFullname"
                             :imgUrl="userAvatarUrl"
-                            @click="onClick"
                         />
                     </template>
                     <template #items>
@@ -112,11 +111,10 @@
                         :class="navMobileMenuClass"
                         :positionYOffset="8"
                     >
-                        <template #activator="{ onClick }">
+                        <template #activator>
                             <ActionIconButton 
                                 icon="mdi:menu"
                                 class="lg:hidden shadow-sm"
-                                @click="onClick"
                             />
                         </template>
                         <template #items>
