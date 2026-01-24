@@ -62,12 +62,8 @@
                             ]"
                             :aria-label="network.name"
                         >
-                            <img 
-                                :src="network.icon"
-                                :alt="`${network.name} icon`"
-                                width="20"
-                                height="20"
-                                class="min-w-[20px] min-h-[20px]"
+                            <Icon
+                                :name="network.icon"
                             />
                         </a>
                     </div>  

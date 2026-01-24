@@ -6,7 +6,7 @@ export interface MenuItem {
 export interface SocialNetwork {
     name: string
     link: string
-    icon: any
+    icon: string
 }
 
 export interface SidebarMenuItem {

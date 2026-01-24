@@ -7,22 +7,27 @@ export const componentList: ComponentPortfolioItem[] = [
     {
         title: 'Error display',
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/error-display`,
+        imgUrl: `/images/thumbnails/components/error-display.png`,
     },
     {
         title: 'Grid',
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/grid`,
+        imgUrl: `/images/thumbnails/components/grid.png`,
     },
     {
         title: 'Section',
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/section`,
+        imgUrl: `/images/thumbnails/components/section.png`,
     },
     {
         title: 'Header',
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/compact-header`,
+        imgUrl: `/images/thumbnails/components/header.png`,
     },
     {
         title: 'Footer',
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/footer`,
+        imgUrl: `/images/thumbnails/components/footer.png`,
     },
 
     // ELEMENT
@@ -73,10 +78,12 @@ export const componentList: ComponentPortfolioItem[] = [
     {
         title: 'Feature',
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/feature`,
+        imgUrl: `/images/thumbnails/components/feature.png`,
     },
     {
         title: 'Heading',
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/heading`,
+        imgUrl: `/images/thumbnails/components/heading.png`,
     },
     {
         title: 'Icon',
@@ -91,10 +98,12 @@ export const componentList: ComponentPortfolioItem[] = [
     {
         title: 'Overtitle',
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/overtitle`,
+        imgUrl: `/images/thumbnails/components/overtitle.png`,
     },
     {
         title: 'Placeholder',
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/content-placeholder`,
+        imgUrl: `/images/thumbnails/components/placeholder.png`,
     },
     {
         title: 'Progress',
@@ -120,10 +129,12 @@ export const componentList: ComponentPortfolioItem[] = [
     {
         title: 'Breadcrumbs',
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/breadcrumbs`,
+        imgUrl: `/images/thumbnails/components/breadcrumbs.png`,
     },
     {
         title: 'NavLink',
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/nav-link`,
+        imgUrl: `/images/thumbnails/components/nav-link.png`,
     },
     {
         title: 'Pagination',
@@ -133,6 +144,7 @@ export const componentList: ComponentPortfolioItem[] = [
     {
         title: 'Sidebar',
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/nav-sidebar`,
+        imgUrl: `/images/thumbnails/components/sidebar.png`,
     },
     {
         title: 'Stepper',
@@ -158,10 +170,12 @@ export const componentList: ComponentPortfolioItem[] = [
     {
         title: 'ButtonField',
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/button-field`,
+        imgUrl: `/images/thumbnails/components/button-field.png`,
     },
     {
         title: 'CheckboxField',
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/checkbox-field`,
+        imgUrl: `/images/thumbnails/components/checkbox-field.png`,
     },
     {
         title: 'DataField',
