@@ -11,8 +11,11 @@
                 :alt="imgAlt"
                 :aspectRatio="imgAspectRatio"
                 :hoverEffect="imgHoverEffect"
+                :hasHoverIcon="hasImageHoverIcon"
                 :hoverIcon="imgHoverIcon"
+                :hoverIconClass="imgHoverIconClass"
                 :fallbackIcon="imgFallbackIcon"
+                :fallbackIconClass="imgFallbackIconClass"
                 :containerClass="imgContainerClass"
             />
 
@@ -100,8 +103,14 @@ const props = defineProps({
         default: ImageHoverEffect.BLUR,
         validator: (value: ImageHoverEffect) => Object.values(ImageHoverEffect).includes(value),
     },
+    hasImageHoverIcon: {
+        type: Boolean as PropType<boolean>,
+        default: true,
+    },
     imgHoverIcon: String as PropType<string>,
+    imgHoverIconClass: String as PropType<string>,
     imgFallbackIcon: String as PropType<string>,
+    imgFallbackIconClass: String as PropType<string>,
     imgContainerClass: String as PropType<string>,
     containerClass: String as PropType<string>,
     hasCardShadow: {

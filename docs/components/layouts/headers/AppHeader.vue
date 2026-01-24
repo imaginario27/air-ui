@@ -116,14 +116,14 @@ const mainHeaderMenu = computed<MenuItem[]>(() => [
         text: 'Docs',
         to: `/${AppSlug.DOCS}/${AppSlug.GETTING_STARTED}`,
     },
-    {
+    /* {
         text: 'Figma',
         to: `/${AppSlug.FIGMA}`,
     },
     {
         text: 'Releases',
         to: `/releases`,
-    },
+    }, */
 ])
 
 const tabs = computed<TabItem[]>(() => {

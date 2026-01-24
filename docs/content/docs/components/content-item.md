@@ -19,8 +19,11 @@ props:
     imgAlt: "Item image"
     imgAspectRatio: "16:9"
     imgHoverEffect: "blur"
+    hasImageHoverIcon: true
     imgHoverIcon: "mdi:eye-outline"
+    imgHoverIconClass: "text-icon-neutral-on-filled-bg"
     imgFallbackIcon: "mdi:image-off-outline"
+    imgFallbackIconClass: "text-icon-primary-brand-default"
     imgContainerClass: ""
     containerClass: ""
     hasCardShadow: true
@@ -117,11 +120,24 @@ props: [
         "type": "ImageHoverEffect",
     },
     {
+        "name": "hasImageHoverIcon",
+        "default": "true",
+        "type": "boolean",
+    },
+    {
         "name": "imgHoverIcon",
         "type": "string",
     },
     {
+        "name": "imgHoverIconClass",
+        "type": "string",
+    },
+    {
         "name": "imgFallbackIcon",
+        "type": "string",
+    },
+    {
+        "name": "imgFallbackIconClass",
         "type": "string",
     },
     {
@@ -442,6 +458,21 @@ options: [
 ---
 ::
 
+### hasImageHoverIcon
+
+Sets whether the image should display a hover icon.
+
+```vue
+<template>
+    <ContentItem 
+        :hasImageHoverIcon="true"  
+    />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `true`
+
 ### imgHoverIcon
 
 Sets the icon to be displayed on hover.
@@ -450,6 +481,21 @@ Sets the icon to be displayed on hover.
 <template>
     <ContentItem 
         imgHoverIcon="mdi:eye-outline"  
+    />
+</template>
+```
+
+- **Type:** `string`
+
+### imgHoverIconClass
+
+Sets the class of the hover icon.
+
+```vue
+<template>
+    <ContentItem 
+        imgHoverIcon="mdi:eye-outline"  
+        imgHoverIconClass="text-icon-neutral-on-filled-bg"
     />
 </template>
 ```
@@ -467,6 +513,23 @@ Sets the fallback icon when no image is found.
     />
 </template>
 ```
+
+- **Type:** `string`
+
+### imgFallbackIconClass
+
+Sets the class of the fallback icon.
+
+```vue
+<template>
+    <ContentItem 
+        imgFallbackIcon="mdi:image-off-outline"  
+        imgFallbackIconClass="text-icon-primary-brand-default"
+    />
+</template>
+```
+
+- **Type:** `string`
 
 ### imgContainerClass
 

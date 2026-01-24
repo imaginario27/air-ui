@@ -33,34 +33,42 @@ export const componentList: ComponentPortfolioItem[] = [
     {
         title: 'Action panel',
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/action-panel`,
+        imgUrl: `/images/thumbnails/components/action-panel.png`,
     },
     {
         title: 'Alert',
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/alert`,
+        imgUrl: `/images/thumbnails/components/alert.png`,
     },
     {
         title: 'Avatar',
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/avatar`,
+        imgUrl: `/images/thumbnails/components/avatar.png`,
     },
     {
         title: 'Badge',
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/badge`,
+        imgUrl: `/images/thumbnails/components/badge.png`,
     },
     {
         title: 'Button',
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/action-button`,
+        imgUrl: `/images/thumbnails/components/button.png`,
     },
     {
         title: 'Collapsible',
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/collapsible`,
+        imgUrl: `/images/thumbnails/components/collapsible.png`,
     },
     {
         title: 'Divider',
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/divider`,
+        imgUrl: `/images/thumbnails/components/divider.png`,
     },
     {
         title: 'Empty state',
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/empty-state`,
+        imgUrl: `/images/thumbnails/components/empty-state.png`,
     },
     {
         title: 'Feature',
@@ -73,10 +81,12 @@ export const componentList: ComponentPortfolioItem[] = [
     {
         title: 'Icon',
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/icon`,
+        imgUrl: `/images/thumbnails/components/icon.png`,
     },
     {
         title: 'List',
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/list`,
+        imgUrl: `/images/thumbnails/components/list.png`,
     },
     {
         title: 'Overtitle',
@@ -89,14 +99,17 @@ export const componentList: ComponentPortfolioItem[] = [
     {
         title: 'Progress',
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/progress-bar`,
+        imgUrl: `/images/thumbnails/components/progress.png`,
     },
     {
         title: 'Rating',
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/rating`,
+        imgUrl: `/images/thumbnails/components/rating.png`,
     },
     {
         title: 'User',
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/user`,
+        imgUrl: `/images/thumbnails/components/user.png`,
     },
 
     // NAVIGATION
@@ -115,6 +128,7 @@ export const componentList: ComponentPortfolioItem[] = [
     {
         title: 'Pagination',
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/button-pagination`,
+        imgUrl: `/images/thumbnails/components/pagination.png`,
     },
     {
         title: 'Sidebar',
@@ -123,10 +137,12 @@ export const componentList: ComponentPortfolioItem[] = [
     {
         title: 'Stepper',
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/tab-stepper`,
+        imgUrl: `/images/thumbnails/components/stepper.png`,
     },
     {
         title: 'Tabs',
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/tabs`,
+        imgUrl: `/images/thumbnails/components/tabs.png`,
     },
 
     // FORM
@@ -137,6 +153,7 @@ export const componentList: ComponentPortfolioItem[] = [
     {
         title: 'Form',
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/form`,
+        imgUrl: `/images/thumbnails/components/form.png`,
     },
     {
         title: 'ButtonField',
@@ -193,16 +210,19 @@ export const componentList: ComponentPortfolioItem[] = [
         title: 'Overlay',
     },
     {
-        title: 'Dropdowns',
+        title: 'Dropdown',
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/dropdown-menu`,
+        imgUrl: `/images/thumbnails/components/dropdown.png`,
     },
     {
-        title: 'ModalDialog',
+        title: 'Modal dialog',
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/modal-dialog`,
+        imgUrl: `/images/thumbnails/components/modal-dialog.png`,
     },
     {
         title: 'Popover',
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/popover`,
+        imgUrl: `/images/thumbnails/components/popover.png`,
     },
 
     // LOADING
@@ -213,6 +233,7 @@ export const componentList: ComponentPortfolioItem[] = [
     {
         title: 'Loading',
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/loading`,
+        imgUrl: `/images/thumbnails/components/loading.png`,
     },
     {
         title: 'Skeleton',
@@ -231,6 +252,7 @@ export const componentList: ComponentPortfolioItem[] = [
     {
         title: 'Accordion',
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/accordion`,
+        imgUrl: `/images/thumbnails/components/accordion.png`,
     },
     {
         title: 'Content item',
@@ -243,6 +265,7 @@ export const componentList: ComponentPortfolioItem[] = [
     {
         title: 'Table',
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/table`,
+        imgUrl: `/images/thumbnails/components/table.png`,
     },
     
     // CARDS
@@ -253,6 +276,7 @@ export const componentList: ComponentPortfolioItem[] = [
     {
         title: 'Card',
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/card`,
+        imgUrl: `/images/thumbnails/components/card.png`,
     },
     {
         title: 'ContactDetailsCard',
