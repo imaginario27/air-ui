@@ -180,42 +180,52 @@ export const componentList: ComponentPortfolioItem[] = [
     {
         title: 'DataField',
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/data-field`,
+        imgUrl: `/images/thumbnails/components/data-field.png`,
     },
     {
         title: 'FileUploadField',
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/file-upload-field`,
+        imgUrl: `/images/thumbnails/components/file-upload-field.png`,
     },
     {
         title: 'InputField',
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/input-field`,
+        imgUrl: `/images/thumbnails/components/input-field.png`,
     },
     {
         title: 'OptionButtonsGroupField',
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/option-buttons-group-field`,
+        imgUrl: `/images/thumbnails/components/option-buttons-group-field.png`,
     },
     {
         title: 'SearchField',
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/search-field`,
+        imgUrl: `/images/thumbnails/components/search-field.png`,
     },
     {
         title: 'SelectField',
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/select-field`,
+        imgUrl: `/images/thumbnails/components/select-field.png`,
     },
     {
         title: 'SwitchField',
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/switch-field`,
+        imgUrl: `/images/thumbnails/components/switch-field.png`,
     },
     {
         title: 'TextareaField',
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/textarea-field`,
+        imgUrl: `/images/thumbnails/components/textarea-field.png`,
     },
     {
         title: 'ToggleButtonsGroupField',
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/toggle-buttons-group-field`,
+        imgUrl: `/images/thumbnails/components/toggle-buttons-group-field.png`,
     },
     {
         title: 'RadioGroupField',
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/radio-group-field`,
+        imgUrl: `/images/thumbnails/components/radio-group-field.png`,
     },
 
     // OVERLAY
@@ -252,10 +262,12 @@ export const componentList: ComponentPortfolioItem[] = [
     {
         title: 'Skeleton',
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/skeleton`,
+        imgUrl: `/images/thumbnails/components/skeleton.png`,
     },
     {
         title: 'Spinner',
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/spinner`,
+        imgUrl: `/images/thumbnails/components/spinner.png`,
     },
 
     // DATA
@@ -271,10 +283,12 @@ export const componentList: ComponentPortfolioItem[] = [
     {
         title: 'Content item',
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/content-item`,
+        imgUrl: `/images/thumbnails/components/content-item.png`,
     },
     {
         title: 'DataDetails',
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/data-details`,
+        imgUrl: `/images/thumbnails/components/data-details.png`,
     },
     {
         title: 'Table',
@@ -295,26 +309,32 @@ export const componentList: ComponentPortfolioItem[] = [
     {
         title: 'ContactDetailsCard',
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/contact-details-card`,
+        imgUrl: `/images/thumbnails/components/contact-details-card.png`,
     },
     {
         title: 'FeatureCard',
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/feature-card`,
+        imgUrl: `/images/thumbnails/components/feature-card.png`,
     },
     {
         title: 'HelpTopicCard',
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/help-topic-card`,
+        imgUrl: `/images/thumbnails/components/help-topic-card.png`,
     },
     {
         title: 'MetricCard',
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/metric-card`,
+        imgUrl: `/images/thumbnails/components/metric-card.png`,
     },
     {
         title: 'TestimonialCard',
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/testimonial-card`,
+        imgUrl: `/images/thumbnails/components/testimonial-card.png`,
     },
     {
         title: 'Subscription cards',
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/current-active-subscription-card`,
+        imgUrl: `/images/thumbnails/components/subscription-cards.png`,
     },
 
     // IMAGES
@@ -325,5 +345,6 @@ export const componentList: ComponentPortfolioItem[] = [
     {
         title: 'QRCode',
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/qr-code`,
+        imgUrl: `/images/thumbnails/components/qr-code.png`,
     },
 ]

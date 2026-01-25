@@ -43,6 +43,7 @@
                     :iconClass="modelValue === value ? selectedIconColorClass : 'text-icon-neutral-subtle'"
                 />
             </div>
+
             <!-- Label with help text -->
             <div class="flex flex-col gap-1.5">
                 <label 
@@ -90,7 +91,7 @@
                 'flex items-center justify-center',
                 'transition-colors',
                 modelValue === value ? selectedCheckboxBackgroundColorClass : 'bg-neutral-white border-border-default',
-                modelValue === value && disabled && 'border-0',
+                modelValue === value && 'border-0',
                 disabled ? 'cursor-not-allowed' : 'cursor-pointer'
             ]"
             @click="selectRadio"
@@ -100,7 +101,7 @@
                 :class="[ 
                     'rounded-full',
                     'w-[50%] h-[50%]', 
-                    'bg-icon-neutral-on-filled-bg' 
+                    'bg-icon-neutral-on-filled-bg',
                 ]"
             />
         </div>

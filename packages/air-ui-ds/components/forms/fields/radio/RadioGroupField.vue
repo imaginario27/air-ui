@@ -30,12 +30,12 @@
                     :id="option.id.toString()"
                     :key="option.id"
                     v-model="selectedOption" 
-                    :name="name"
+                    :name
                     :value="option.value"
                     :label="option.label"
-                    :required="required"
+                    :required
+                    :disabled="option.disabled ? option.disabled : disabled"
                     :helpText="option.helpText"
-                    :disabled="option.disabled"
                     :inverse="inverse"
                 />
             </template>
@@ -46,12 +46,12 @@
                     :id="option.id.toString()"
                     :key="option.id"
                     v-model="selectedOption" 
-                    :name="name"
+                    :name
                     :value="option.value"
                     :label="option.label"
-                    :required="required"
+                    :required
                     :helpText="option.helpText"
-                    :disabled="option.disabled"
+                    :disabled="option.disabled ? option.disabled : disabled"
                     :type="option.type"
                     :icon="option.icon"
                 />
@@ -103,6 +103,10 @@ const props = defineProps({
         validator: (value: RadioType) => Object.values(RadioType).includes(value),
     },
     required: {
+        type: Boolean as PropType<boolean>,
+        default: false,
+    },
+    disabled: {
         type: Boolean as PropType<boolean>,
         default: false,
     },

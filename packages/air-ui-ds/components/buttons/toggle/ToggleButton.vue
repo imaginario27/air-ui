@@ -75,7 +75,7 @@ const emitClick = () => {
 const buttonStyleClass = computed(() =>
     props.active
         ? ['bg-background-primary-brand-subtle-active', 'text-text-primary-brand-on-soft-bg']
-        : ['text-text-neutral-inactive', 'hover:text-text-primary-brand-hover']
+        : ['text-text-neutral-inactive', !props.disabled && 'hover:text-text-primary-brand-hover']
 )
 
 const buttonSizeClass = computed(() => {
@@ -91,15 +91,15 @@ const buttonSizeClass = computed(() => {
 })
 
 const iconSizeClass = computed(() => {
-    const sizeVariant = {
-        [ButtonSize.XS]: '16px',
-        [ButtonSize.SM]: '16px',
-        [ButtonSize.MD]: '16px',
-        [ButtonSize.LG]: '20px',
-        [ButtonSize.XL]: '20px',
-        [ButtonSize.XXL]: '24px',
+    const variant = {
+        [ButtonSize.XS]: 'w-[16px] h-[16px] min-w-[16px] min-h-[16px]',
+        [ButtonSize.SM]: 'w-[16px] h-[16px] min-w-[16px] min-h-[16px]',
+        [ButtonSize.MD]: 'w-[16px] h-[16px] min-w-[16px] min-h-[16px]',
+        [ButtonSize.LG]: 'w-[20px] h-[20px] min-w-[20px] min-h-[20px]',
+        [ButtonSize.XL]: 'w-[20px] h-[20px] min-w-[20px] min-h-[20px]',
+        [ButtonSize.XXL]: 'w-[24px] h-[24px] min-w-[24px] min-h-[24px]',
     }
-    return sizeVariant[props.size as ButtonSize] || '20px'
+    return variant[props.size as ButtonSize] || 'w-[20px] h-[20px] min-w-[20px] min-h-[20px]'
 })
 
 const textSizeClass = computed(() => {

@@ -8,6 +8,7 @@ props:
     email: "john.doe@example.com"
     phone: "123-456-7890"
 previewBackground: 'white'
+previewContentMaxWidth: 400
 ---
 ::
 

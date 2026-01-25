@@ -33,7 +33,6 @@
             
             <!-- Custom Radio Button -->
             <div
-                
                 :class="[ 
                     radioSizeClass, 
                     'aspect-square',
@@ -41,7 +40,8 @@
                     'rounded-full', 
                     'flex items-center justify-center',
                     'transition-colors',
-                    modelValue === value ? 'bg-background-primary-brand-checked' : 'bg-neutral-white border-border-default',
+                    modelValue === value ? 'bg-background-primary-brand-checked border-0' : 'bg-neutral-white border-border-default',
+                    modelValue === value && disabled && '!bg-background-neutral-disabled !border-border-neutral-disabled',
                     disabled ? 'bg-background-neutral-disabled cursor-not-allowed' : 'cursor-pointer'
                 ]"
                 @click="selectRadio"

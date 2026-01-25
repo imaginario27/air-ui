@@ -19,7 +19,6 @@ props:
     autocomplete: "off"
     autofocus: false
     disabled: false
-    required: false
     inputCustomClass: ""
 items:
     size: 
@@ -98,12 +97,7 @@ props: [
         "name": "disabled",
         "default": "false",
         "type": "boolean",
-    },
-    {
-        "name": "required",
-        "default": "false",
-        "type": "boolean",
-    },    
+    },  
     {
         "name": "inputCustomClass",
         "type": "string",
@@ -294,19 +288,6 @@ Sets the disabled state of the field.
 ```vue
 <template>
     <SearchField disabled />
-</template>
-```
-
-- **Type:** `boolean`
-- **Default:** `false`
-
-### required
-
-Sets the required state of the field.
-
-```vue
-<template>
-    <SearchField required />
 </template>
 ```
 
