@@ -13,15 +13,12 @@ props:
         - text: 'Contact Us'
           to: ''
     socialNetworks:
-        - name: 'Twitter'
-          link: 'https://twitter.com'
-          icon: 'https://upload.wikimedia.org/wikipedia/commons/c/ce/X_logo_2023.svg'
         - name: 'LinkedIn'
           link: 'https://linkedin.com'
-          icon: 'https://upload.wikimedia.org/wikipedia/commons/8/81/LinkedIn_icon.svg'
+          icon: 'custom-icon:linkedin'
         - name: 'Facebook'
           link: 'https://facebook.com'
-          icon: 'https://upload.wikimedia.org/wikipedia/commons/b/b9/2023_Facebook_icon.svg'
+          icon: 'custom-icon:facebook'
     hasContentMaxWidth: false
     hasSidePadding: true
     isMobileCentered: false
@@ -143,9 +140,8 @@ The `socialNetworks` prop allows you to add social media links to the footer. Ea
 </template>
 <script setup lang="ts">
 const exampleSocialNetworks: SocialNetwork[] = [
-    { name: 'Twitter', link: 'https://twitter.com', icon: 'path/to/twitter-icon.svg' },
-    { name: 'LinkedIn', link: 'https://linkedin.com', icon: 'path/to/linkedin-icon.svg' },
-    { name: 'Facebook', link: 'https://facebook.com', icon: 'path/to/facebook-icon.svg' },
+    { name: 'LinkedIn', link: 'https://linkedin.com', icon: 'custom-icon:linkedin' },
+    { name: 'Facebook', link: 'https://facebook.com', icon: 'custom-icon:facebook' },
 ]
 </script>
 ```
@@ -155,7 +151,7 @@ const exampleSocialNetworks: SocialNetwork[] = [
 interface SocialNetwork {
     name: string
     link: string
-    icon: any
+    icon: string
 }
 ```
 

@@ -9,7 +9,8 @@ export interface ActionButton {
     disabled?: boolean
 }
 
-export type ToggleButton = ActionButton
+export type ToggleButton = Omit<ActionButton, 'disabled'>
+
 export interface OptionButton extends ActionButton {
     styleType?: ButtonStyleType
 }

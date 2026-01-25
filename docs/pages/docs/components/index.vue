@@ -46,6 +46,10 @@
                         :to="item.to"
                         :imgUrl="item.imgUrl"
                         :description="item.description"
+                        imgHoverIconClass="text-icon-primary-brand-default"
+                        imgContainerClass="bg-background-neutral-subtlest/60"
+                        :imgHoverEffect="ImageHoverEffect.ZOOM_IN"
+                        :hasImageHoverIcon="false"
                     />
                 </Grid>
             </div>

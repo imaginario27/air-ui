@@ -15,13 +15,13 @@
             :size="button.size"
             :icon="button.icon"
             :iconPosition="button.iconPosition"
-            :disabled="button.disabled"
+            :disabled
             :class="[
                 groupStyle === ToggleButtonGroupStyle.SEGMENTED && hasButtonBorder && 'border border-border-default rounded',
                 groupStyle === ToggleButtonGroupStyle.SEGMENTED && button.active && '!border-border-primary-brand-active',
                 !hasButtonBorder && 'rounded-button',
             ]"
-            @click="handleButtonClick(button)"
+            @click="!disabled && handleButtonClick(button)"
         />
     </div>
 </template>
@@ -56,6 +56,10 @@ defineProps({
     hasButtonBorder: {
         type: Boolean as PropType<boolean>,
         default: true,
+    },
+    disabled: {
+        type: Boolean as PropType<boolean>,
+        default: false,
     },
 })
 

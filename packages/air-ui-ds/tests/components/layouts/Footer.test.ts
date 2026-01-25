@@ -2,7 +2,6 @@ import { mount } from '@vue/test-utils'
 import Footer from '~/components/layouts/Footer.vue'
 import MaxWidthContainer from '~/components/layouts/MaxWidthContainer.vue'
 import type { MenuItem, SocialNetwork } from '@/models/types/navigation'
-import { copyToClipboard } from '#imports'
 
 const defaultMenuItems: MenuItem[] = [
     { to: '/about', text: 'About' },
@@ -10,8 +9,8 @@ const defaultMenuItems: MenuItem[] = [
 ]
 
 const defaultSocialNetworks: SocialNetwork[] = [
-    { name: 'Twitter', link: 'https://twitter.com', icon: '/twitter.svg' },
-    { name: 'LinkedIn', link: 'https://linkedin.com', icon: '/linkedin.svg' }
+    { name: 'Twitter', link: 'https://twitter.com', icon: 'twitter-icon' },
+    { name: 'LinkedIn', link: 'https://linkedin.com', icon: 'linkedin-icon' }
 ]
 
 const defaultProps = {
@@ -35,6 +34,10 @@ const factory = (props = {}, slots = {}) => {
                 NuxtLink: {
                     props: ['to'],
                     template: '<a :href="to"><slot /></a>'
+                },
+                Icon: {
+                    props: ['name'],
+                    template: '<svg :data-icon="name" />'
                 }
             }
         },
@@ -55,12 +58,10 @@ describe('Footer', () => {
 
         defaultMenuItems.forEach((item, i) => {
             const link = menuLinks[i]
-            expect(link).toBeTruthy()
-            expect(link!.text()).toBe(item.text)
-            expect(link!.attributes('href')).toBe(item.to)
+            expect(link.text()).toBe(item.text)
+            expect(link.attributes('href')).toBe(item.to)
         })
     })
-
 
     it('renders social network icons with correct attributes', () => {
         const wrapper = factory()
@@ -68,15 +69,13 @@ describe('Footer', () => {
         expect(icons).toHaveLength(defaultSocialNetworks.length)
 
         defaultSocialNetworks.forEach((network, i) => {
-            const icon = icons[i]
-            expect(icon).toBeTruthy()
-            expect(icon!.attributes('href')).toBe(network.link)
-            expect(icon!.attributes('aria-label')).toBe(network.name)
+            const iconLink = icons[i]
+            expect(iconLink.attributes('href')).toBe(network.link)
+            expect(iconLink.attributes('aria-label')).toBe(network.name)
 
-            const img = icon!.find('img')
-            expect(img.exists()).toBe(true)
-            expect(img.attributes('src')).toBe(network.icon)
-            expect(img.attributes('alt')).toBe(`${network.name} icon`)
+            const iconComponent = iconLink.find('[data-icon]')
+            expect(iconComponent.exists()).toBe(true)
+            expect(iconComponent.attributes('data-icon')).toBe(network.icon)
         })
     })
 
@@ -101,9 +100,7 @@ describe('Footer', () => {
     it('centers content when isMobileCentered is true', () => {
         const wrapper = factory({ isMobileCentered: true })
 
-        const flexWrappers = wrapper.findAll('div.flex')
-
-        const contentWrapper = flexWrappers.find(w => {
+        const contentWrapper = wrapper.findAll('div.flex').find(w => {
             const classes = w.classes()
             return classes.includes('items-center') && classes.includes('text-center')
         })

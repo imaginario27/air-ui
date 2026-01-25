@@ -141,10 +141,10 @@ const exampleButtons = ref<ToggleButton[]>([
         size?: ButtonSize
         icon?: string
         iconPosition?: IconPosition
-        disabled?: boolean
+        
     }
 
-    export type ToggleButton = ActionButton
+    export type ToggleButton = Omit<ActionButton, 'disabled'>
     ```
 
 ### modelValue

@@ -27,12 +27,12 @@
 
             <div
                 v-else
-                class="w-full h-full flex items-center justify-center bg-background-neutral-subtlest"
+                class="w-full h-full flex items-center justify-center bg-background-neutral-subtlest/60"
             >
                 <Icon
                     :name="fallbackIcon"
                     :size="IconSize.XL"
-                    iconClass="text-icon-primary-brand-default"
+                    :iconClass="fallbackIconClass"
                 />
             </div>
 
@@ -53,9 +53,10 @@
                     ]"
                 >
                     <Icon 
+                        v-if="hasHoverIcon"
                         :name="hoverIcon"
                         :size="IconSize.XL"
-                        iconClass="text-icon-neutral-on-filled-bg"
+                        :iconClass="hoverIconClass"
                     />
                 </div>
             </template>
@@ -68,7 +69,7 @@
 const props = defineProps({
     src: String as PropType<string>,
     alt: {
-        type: String,
+        type: String as PropType<string>,
         default: 'Item image',
     },
     aspectRatio: {
@@ -79,13 +80,25 @@ const props = defineProps({
         type: String as PropType<ImageHoverEffect>,
         default: ImageHoverEffect.BLUR,
     },
+    hasHoverIcon: {
+        type: Boolean as PropType<boolean>,
+        default: true,
+    },
     hoverIcon: {
         type: String as PropType<string>,
         default: 'mdi:eye-outline',
     },
+    hoverIconClass: {
+        type: String as PropType<string>,
+        default: 'text-icon-neutral-on-filled-bg',
+    },
     fallbackIcon: {
         type: String as PropType<string>,
         default: 'mdi:image-off-outline',
+    },
+    fallbackIconClass: {
+        type: String as PropType<string>,
+        default: 'text-icon-primary-brand-default',
     },
     containerClass: String as PropType<string>,
 })

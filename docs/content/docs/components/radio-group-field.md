@@ -22,6 +22,7 @@ props:
     error: ""
     type: "default"
     required: false
+    disabled: false
     helpText: "Select one of the options."
     inverse: false
     orientation: "vertical"
@@ -84,6 +85,11 @@ props: [
     },
     {
         "name": "required",
+        "default": "false",
+        "type": "boolean",
+    },
+    {
+        "name": "disabled",
         "default": "false",
         "type": "boolean",
     },
@@ -260,6 +266,27 @@ Sets whether the field is required.
 - **Type:** `boolean`
 - **Default:** `false`
 
+### disabled
+
+Sets whether the field is disabled.
+
+::content-alert
+---
+props:
+    title: "Important"
+    description: "Each radio option can also be individually disabled by setting the `disabled` property on the option object. If the `disabled` prop is set on the `RadioGroupField`, it will override the individual option settings and disable all options."
+---
+::
+
+```vue
+<template>
+    <RadioGroupField disabled />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `false`
+
 ### helpText
 
 Sets the help text of the field.
@@ -276,6 +303,14 @@ Sets the help text of the field.
 ### inverse
 
 Sets whether the radio button is displayed on the right side of the text.
+
+::content-alert
+---
+props:
+    title: "Important"
+    description: "This prop is only applicable when the `type` prop is set to `RadioType.DEFAULT`."
+---
+::
 
 ```vue
 <template>

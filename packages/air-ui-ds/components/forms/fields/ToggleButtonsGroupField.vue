@@ -23,6 +23,7 @@
             :buttons
             :modelValue
             :groupStyle
+            :disabled
             @update:modelValue="emit('update:modelValue', $event)"
         />
 
