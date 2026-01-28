@@ -47,13 +47,12 @@ const writeFile = (filePath: string, content: string): void =>
     fs.writeFileSync(filePath, content)
 
 const getColorSchemesFromColorsCss = (content: string): Set<string> => {
-    const regex = /--color-([a-z0-9-]+)-50:/g
+    const regex = /(?:--)?(?:color-)?([a-z0-9-]+)-50:/g
     const schemes = new Set<string>()
 
     let match: RegExpExecArray | null
     while ((match = regex.exec(content))) {
         const scheme = match[1]
-
         if (scheme) {
             schemes.add(scheme)
         }
@@ -145,16 +144,28 @@ const run = async (): Promise<void> => {
     // Apply replacements AFTER all questions
     for (const { theme, from, to } of replacements) {
         const regex = new RegExp(
-            String.raw`(--color-theme-${theme}-\d+:\s*var\()--${from}-(\d+\))`,
+            String.raw`(--color-theme-${theme}-\d+:\s*var\()\s*--(?:color-)?${from}-(\d+\))`,
             "g"
         )
 
+        // Result will be: var(--pink-500), not --color-pink-500
         uiThemeCss = uiThemeCss.replace(regex, `$1--${to}-$2`)
     }
 
     writeFile(uiThemePath, uiThemeCss)
 
     console.log("\n✅ ui-theme.css updated successfully\n")
+    
+    // Normalize colors.css by removing `--color-` prefix
+    const updatedColorsCss = colorsCss.replace(
+        /--color-([a-z0-9-]+):/g,
+        '--$1:'
+    )
+
+    if (updatedColorsCss !== colorsCss) {
+        writeFile(colorsPath, updatedColorsCss)
+        console.log("✅ colors.css cleaned: removed --color- prefixes\n")
+    }
 }
 
 run()

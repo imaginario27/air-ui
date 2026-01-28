@@ -50,10 +50,10 @@
                         />
                     </div>
 
-                    <!-- <CodeSnippet 
+                    <CodeSnippet 
                         code="npm create air-ui-app@latest <project_name>"
                     />
- -->
+
                     <List class="gap-4 mt-8">
                         <ListItem>
                             <Feature 
