@@ -5,6 +5,7 @@ Air UI comes with a theming system that allows you to easily adapt the look and 
 Inside the `app/assets/css/theme` folder (or custom folder location) you will find:
 - colors.css: Color schemes
 - ui-theme.css: Tailwind theme variables
+</br></br>
 
 You can easily customize one of the existing themes (e.g., primary, secondary, danger, etc.).
 
@@ -47,12 +48,16 @@ In order to customize the theme, you need to create new color schemes and assign
     }
     ```
 
+    After running the updating script, if the `--color-` string is found in `colors.css`, it will be stripped away. So you don't need to worry about that.
+
 2. Update the theme variables. 
     - Run the command `npm run update-theme-colors` to update the `ui-theme.css` file with the new colors added in `colors.css`.
         </br>
         **Important**: Make sure that `ASSETS_THEME_PATH` in `scripts/update-ui-theme-colors.ts` is set to the correct path.
     - Alternatively, you can manually update the theme variables as explained below.
         - Open `ui-theme.css` and assign the new color scheme to the corresponding theme variables. Only update the theme variables, not the entire `:root` block and do not forget to update dark theme color variables. 
+        </br></br>
+            If you are updating the theme colors manually, make sure to remove `--color-` prefix from the color names from `colors.css` when assigning them to the theme variables in `ui-theme.css`.
         </br>
     
             Example:
@@ -61,31 +66,31 @@ In order to customize the theme, you need to create new color schemes and assign
                 /* ... other variables */
                 
                 /* Updated variables */
-                --color-theme-primary-brand-50: var(--color-purple-50);
-                --color-theme-primary-brand-100: var(--color-purple-100);
-                --color-theme-primary-brand-200: var(--color-purple-200);
-                --color-theme-primary-brand-300: var(--color-purple-300);
-                --color-theme-primary-brand-400: var(--color-purple-400);
-                --color-theme-primary-brand-500: var(--color-purple-500);
-                --color-theme-primary-brand-600: var(--color-purple-600);
-                --color-theme-primary-brand-700: var(--color-purple-700);
-                --color-theme-primary-brand-800: var(--color-purple-800);
-                --color-theme-primary-brand-900: var(--color-purple-900);
-                --color-theme-primary-brand-950: var(--color-purple-950);
+                --color-theme-primary-brand-50: var(--purple-50);
+                --color-theme-primary-brand-100: var(--purple-100);
+                --color-theme-primary-brand-200: var(--purple-200);
+                --color-theme-primary-brand-300: var(--purple-300);
+                --color-theme-primary-brand-400: var(--purple-400);
+                --color-theme-primary-brand-500: var(--purple-500);
+                --color-theme-primary-brand-600: var(--purple-600);
+                --color-theme-primary-brand-700: var(--purple-700);
+                --color-theme-primary-brand-800: var(--purple-800);
+                --color-theme-primary-brand-900: var(--purple-900);
+                --color-theme-primary-brand-950: var(--purple-950);
 
                 /* Dark mode - Reverse the color scheme */
                 .dark {
-                    --color-theme-primary-brand-50: var(--color-purple-950);
-                    --color-theme-primary-brand-100: var(--color-purple-900);
-                    --color-theme-primary-brand-200: var(--color-purple-800);
-                    --color-theme-primary-brand-300: var(--color-purple-700);
-                    --color-theme-primary-brand-400: var(--color-purple-600);
-                    --color-theme-primary-brand-500: var(--color-purple-500);
-                    --color-theme-primary-brand-600: var(--color-purple-400);
-                    --color-theme-primary-brand-700: var(--color-purple-300);
-                    --color-theme-primary-brand-800: var(--color-purple-200);
-                    --color-theme-primary-brand-900: var(--color-purple-100);
-                    --color-theme-primary-brand-950: var(--color-purple-50);
+                    --color-theme-primary-brand-50: var(--purple-950);
+                    --color-theme-primary-brand-100: var(--purple-900);
+                    --color-theme-primary-brand-200: var(--purple-800);
+                    --color-theme-primary-brand-300: var(--purple-700);
+                    --color-theme-primary-brand-400: var(--purple-600);
+                    --color-theme-primary-brand-500: var(--purple-500);
+                    --color-theme-primary-brand-600: var(--purple-400);
+                    --color-theme-primary-brand-700: var(--purple-300);
+                    --color-theme-primary-brand-800: var(--purple-200);
+                    --color-theme-primary-brand-900: var(--purple-100);
+                    --color-theme-primary-brand-950: var(--purple-50);
                 }
             }
             ```
