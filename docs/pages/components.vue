@@ -1,0 +1,33 @@
+<template>
+    <Section 
+        :spacing="SectionSpacing.MD"
+        class="bg-background-primary-brand-default"
+        isDark
+    >
+        <SectionBody>
+            <Heading 
+                :title
+                description="Explore the official AirUI component library — including buttons, forms, modals, and more."
+                :align="Align.CENTER"
+            />
+        </SectionBody>
+    </Section>
+
+    <div class="flex justify-center pt-[5vh]">
+        <ComponentsPage class="max-w-[1200px]"/>
+    </div>
+</template>
+<script setup lang="ts">
+// Imports
+import ComponentsPage from '@/pages/docs/components/index.vue'
+
+definePageMeta({
+    title: 'Components | AirUI',
+})
+
+const title = ref('Components')
+
+useHead(() => ({
+    title: pageTitle(title.value, App.NAME),
+}))
+</script>

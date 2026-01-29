@@ -116,6 +116,10 @@ const mainHeaderMenu = computed<MenuItem[]>(() => [
         text: 'Docs',
         to: `/${AppSlug.DOCS}/${AppSlug.GETTING_STARTED}`,
     },
+    {
+        text: 'Components',
+        to: `/${AppSlug.COMPONENTS}`,
+    },
     /* {
         text: 'Figma',
         to: `/${AppSlug.FIGMA}`,
