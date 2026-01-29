@@ -4,17 +4,17 @@
         hasContentMaxWidth
     >
         <SectionBody>
-            <div class="flex flex-col md:flex-row gap-10">
-                <div class="w-full flex flex-col gap-8">
+            <div class="flex flex-col lg:flex-row gap-10">
+                <div class="w-full lg:w-[40%] flex flex-col gap-8">
                     <h1 
                         :class="[
                             'text-5xl',
-                            'sm:text-7xl',
+                            'sm:text-6xl',
+                            'lg:text-7xl',
                             'tracking-tight',
                             'font-bold',
                         ]"
                     >
-        
                         Build modern Nuxt apps — faster with
                         <span class="text-text-primary-brand-default">AirUI</span>
                     </h1>
@@ -78,7 +78,15 @@
                         </ListItem>
                     </List>
                 </div>
-                <ContentPlaceholder />
+
+                <div class="w-full lg:w-[60%] flex justify-center">
+                    <NuxtImg
+                        src="images/hero-air-ui.jpg"
+                        densities="[1, 2]"
+                        class="w-full max-w-[800px] h-auto object-contain"
+                        alt="AirUI hero image with Nuxt app component library"
+                    />
+                </div>
             </div>
         </SectionBody>
     </Section>
@@ -132,8 +140,8 @@
         hasContentMaxWidth
     >
         <SectionBody>
-            <div class="flex flex-col md:flex-row gap-8">
-                <div class="w-full flex flex-col gap-8">
+            <div class="flex flex-col lg:flex-row gap-8">
+                <div class="w-full lg:w-1/2 flex flex-col gap-8">
                     <Heading 
                         headingTag="h2"
                         title="Consistent design system"
@@ -165,7 +173,14 @@
                     </List>
                 </div>
 
-                <ContentPlaceholder />
+                <div class="w-full lg:w-1/2 flex justify-center items-center">
+                    <NuxtImg
+                        src="images/consistent-design-system.jpg"
+                        densities="[1, 2]"
+                        class="w-full max-w-[800px] h-auto object-contain"
+                        alt="Content design system image"
+                    />
+                </div>
             </div>
         </SectionBody>
     </Section>
@@ -177,8 +192,8 @@
         hasContentMaxWidth
     >
         <SectionBody>
-            <div class="flex flex-col md:flex-row gap-8">
-                <div class="w-full flex flex-col gap-8">
+            <div class="flex flex-col lg:flex-row gap-8">
+                <div class="w-full lg:w-1/2 flex flex-col gap-8">
                     <Heading 
                         headingTag="h2"
                         title="Flexible & customizable components"
@@ -210,7 +225,14 @@
                     </List>
                 </div>
 
-                <ContentPlaceholder />
+                <div class="w-full lg:w-1/2 flex justify-center items-center">
+                    <NuxtImg
+                        src="images/flexible-components.jpg"
+                        densities="[1, 2]"
+                        class="w-full max-w-[800px] h-auto object-contain"
+                        alt="Flexible components image"
+                    />
+                </div>
             </div>
         </SectionBody>
     </Section>
@@ -218,6 +240,6 @@
 
 <script setup lang="ts">
 definePageMeta({
-    title: 'Welcome',
+    title: 'Welcome | AirUI',
 })
 </script>
