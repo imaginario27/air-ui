@@ -1,22 +1,16 @@
 import { mount } from '@vue/test-utils'
 import Breadcrumbs from '@/components/breadcrumbs/Breadcrumbs.vue'
-import Icon from '@/components/icons/Icon.vue' 
+import Icon from '@/components/icons/Icon.vue'
 import { useRoute } from 'vue-router'
 import { reactive } from 'vue'
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import type { Mock } from 'vitest'
 
-vi.mock('#components', () => ({
-    NuxtLink: {
-        template: '<a><slot /></a>'
-    }
-}))
-
 vi.mock('vue-router', async () => {
     const actual = await vi.importActual<typeof import('vue-router')>('vue-router')
     return {
         ...actual,
-        useRoute: vi.fn()
+        useRoute: vi.fn(),
     }
 })
 
@@ -26,7 +20,7 @@ describe('Breadcrumbs', () => {
             reactive({
                 get path() {
                     return path
-                }
+                },
             })
         )
     }
@@ -36,9 +30,14 @@ describe('Breadcrumbs', () => {
             props,
             global: {
                 components: {
-                    Icon
-                }
-            }
+                    Icon,
+                },
+                stubs: {
+                    NuxtLink: {
+                        template: '<a><slot /></a>',
+                    },
+                },
+            },
         })
     }
 
@@ -49,7 +48,7 @@ describe('Breadcrumbs', () => {
     it('renders home icon when showHome is true (default)', () => {
         mockRoute('/dashboard/settings')
         const wrapper = factory()
-        expect(wrapper.findComponent({ name: 'NuxtLink' }).exists()).toBe(true)
+        expect(wrapper.find('a').exists()).toBe(true)
     })
 
     it('does not render home icon when showHome is false', () => {

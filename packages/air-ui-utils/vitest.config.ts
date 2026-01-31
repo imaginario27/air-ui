@@ -8,6 +8,7 @@ export default defineConfig({
             reporter: ['text', 'html'], // More options: 'text', 'lcov', 'html'
         },
         globals: true,
+        silent : true,
         setupFiles: ['./tests/setup.ts'],
     },
 })
