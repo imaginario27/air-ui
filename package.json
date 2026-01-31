@@ -21,9 +21,6 @@
         "typecheck:utils": "npm run typecheck --workspace=@imaginario27/air-ui-utils",
         "typecheck:all": "npm run typecheck:ds && npm run typecheck:utils"
     },
-    "engines": {
-        "node": ">=18 <=20"
-    },
     "dependencies": {
         "better-sqlite3": "^12.5.0"
     },
