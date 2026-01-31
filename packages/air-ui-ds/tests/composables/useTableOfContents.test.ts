@@ -1,5 +1,7 @@
 import { mount } from '@vue/test-utils'
 import { useTableOfContents } from '@/composables/useTableOfContents'
+import { defineComponent, nextTick } from 'vue'
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 
 // Mock `vue-router`
 vi.mock('vue-router', () => ({
@@ -18,16 +20,17 @@ describe('useTableOfContents', () => {
         disconnectMock = vi.fn()
         intersectionCallback = null
 
-        // Mock IntersectionObserver
-        global.IntersectionObserver = vi.fn((cb) => {
-            intersectionCallback = cb
-            return {
-                observe: observeMock,
-                disconnect: disconnectMock,
+        class MockIntersectionObserver {
+            constructor(cb: IntersectionObserverCallback) {
+                intersectionCallback = cb
             }
-        }) as unknown as typeof IntersectionObserver
 
-        // Spy on querySelectorAll, don't mock `document` itself
+            observe = observeMock
+            disconnect = disconnectMock
+        }
+
+        global.IntersectionObserver = MockIntersectionObserver as unknown as typeof IntersectionObserver
+
         vi.spyOn(document, 'querySelectorAll').mockImplementation(() => {
             return [
                 { id: 'heading-1' },
@@ -55,7 +58,6 @@ describe('useTableOfContents', () => {
         expect(document.querySelectorAll).toHaveBeenCalledWith('h2, h3')
         expect(observeMock).toHaveBeenCalledTimes(2)
 
-        // Check reactive value after setup and nextTick
         const vm = wrapper.vm as unknown as { activeId: string | null }
         expect(vm.activeId).toBe('heading-1')
 
@@ -75,10 +77,12 @@ describe('useTableOfContents', () => {
 
         await nextTick()
 
-        // Simulate heading-2 intersecting
-        intersectionCallback?.([
-            { isIntersecting: true, target: { id: 'heading-2' } },
-        ] as unknown as IntersectionObserverEntry[])
+        intersectionCallback?.(
+            [
+                { isIntersecting: true, target: { id: 'heading-2' } },
+            ] as unknown as IntersectionObserverEntry[],
+            {} as IntersectionObserver
+        )
 
         await nextTick()
 
