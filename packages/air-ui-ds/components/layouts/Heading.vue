@@ -17,7 +17,11 @@
                 overtitleClass,
             ]"
         >
-            {{ overtitle }}
+            <template v-if="!$slots.overtitle">
+                {{ overtitle }}
+            </template>
+
+            <slot name="overtitle"/>
         </span>
 
         <!-- Dynamic title -->
@@ -30,7 +34,11 @@
                 titleClass,
             ]"
         >
-            {{ title }}
+            <template v-if="!$slots.title">
+                {{ title }}
+            </template>
+
+            <slot name="title"/>
         </component>
 
         <!-- Description -->
@@ -43,7 +51,11 @@
                 descriptionClass,
             ]"
         >
-            {{ description }}
+            <template v-if="!$slots.description">
+                {{ description }}
+            </template>
+            
+            <slot name="description"/>
         </p>
     </div>
 </template>

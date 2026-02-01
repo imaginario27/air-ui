@@ -9,6 +9,20 @@ export interface ComponentPortfolioItem {
 
 export interface GroupedComponentPortfolioItem {
     title: string
-    sectionIcon?: any
+    sectionIcon?: string
     items: ComponentPortfolioItem[]
+}
+
+export interface GroupedUtilPortfolioItem {
+    title: string
+    sectionIcon?: string
+    items: UtilPortfolioItem[]
+}
+
+export interface UtilPortfolioItem {
+    title: string
+    to?: string
+    isSectionTitle?: boolean
+    sectionIcon?: string 
+    description?: string
 }

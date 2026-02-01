@@ -1,15 +1,9 @@
 <template>
-    <div 
-        :class="[ 
+    <div
+        :class="[
             'flex flex-col pb-8 transition-all duration-300',
-            hasSidebar && (
-                isMobile
-                    ? isMobileSidebarOpen
-                        ? 'translate-x-[240px]'
-                        : 'translate-x-0'
-                    : 'ml-[240px]'
-            ),
         ]"
+        :style="containerStyle"
     >
         <slot />
     </div>
@@ -17,14 +11,35 @@
 
 <script setup lang="ts">
 // Props
-defineProps({
+const props = defineProps({
     hasSidebar: {
         type: Boolean as PropType<boolean>,
-        default: false
-    }
+        default: false,
+    },
+    sidebarWidth: {
+        type: Number as PropType<number>,
+        default: 240,
+    },
 })
 
 // Composables
 const { isMobileSidebarOpen } = useMobileSidebar()
 const { isMobile } = useIsMobile()
+
+// Computed dynamic style
+const containerStyle = computed(() => {
+    if (!props.hasSidebar) return {}
+
+    if (isMobile.value) {
+        return {
+            transform: isMobileSidebarOpen.value
+                ? `translateX(${props.sidebarWidth}px)`
+                : 'translateX(0)',
+        }
+    }
+
+    return {
+        marginLeft: `${props.sidebarWidth}px`,
+    }
+})
 </script>

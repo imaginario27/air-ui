@@ -5,6 +5,7 @@ export const App = {
 export const AppSlug = {
     DOCS: 'docs',
     COMPONENTS: 'components',
+    UTILS: 'utils',
     FIGMA: 'figma',
     GETTING_STARTED: 'getting-started',
     THEME: 'theme',

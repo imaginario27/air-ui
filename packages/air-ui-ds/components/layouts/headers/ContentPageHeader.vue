@@ -11,6 +11,8 @@
             hasSeparator && 'border-b border-border-default'
         ]"
     >
+        <slot name="top" />
+
         <NavLink 
             v-if="hasGoBackLink"
             :text="goBackText"
@@ -48,6 +50,8 @@
         >
             {{ description ? description : pageDescription }}
         </p>
+
+        <slot name="bottom" />
     </div>
 </template>
 <script setup lang="ts">

@@ -98,7 +98,7 @@ export const lowercaseFirstLetter = (str: string): string => {
  * @param {string} str - The input string.
  * @returns {string} The transformed string with the first letter in uppercase.
  */
-export const capitalizeFirstLetter = (str: string): string => {
+export const uppercaseFirstLetter = (str: string): string => {
     if (!str) return str
     return str.charAt(0).toUpperCase() + str.slice(1)
 }
@@ -115,13 +115,13 @@ export const getCreditCardLastFourNumbers = (pan: string): string => {
 }
 
 /**
- * Returns the full name of a user by combining first and last names.
+ * Returns the full name by combining first and last names.
  *
- * @param firstName - The user's first name.
- * @param lastName - The user's last name.
+ * @param firstName - The first name.
+ * @param lastName - The last name.
  * @returns The concatenated full name in the format "FirstName LastName".
  */
-export const getUserFullName = (firstName: string, lastName: string): string => {
+export const getFullName = (firstName: string, lastName: string): string => {
     return `${firstName} ${lastName}`
 }
 

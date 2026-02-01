@@ -17,5 +17,5 @@ export const getEnvErrorMessage = (
             ? devErrorMessage
             : devErrorMessage.message
 
-    return process.dev ? devMessage : prodErrorMessage
+    return import.meta.dev ? devMessage : prodErrorMessage
 }

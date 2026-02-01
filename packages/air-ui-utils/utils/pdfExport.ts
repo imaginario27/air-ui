@@ -3,7 +3,7 @@ import autoTable from "jspdf-autotable"
 import type { Headers } from "../models/types/pdfExportTable"
 
 /**
- * Exports data to a PDF file.
+ * Exports data to a PDF file using jsPDF and jsPDF-AutoTable.
  * @param {Array<Record<string, any>>} data - The data to export.
  * @param {string} title - The title of the PDF.
  * @param {string} fileName - The name of the exported file.

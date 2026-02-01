@@ -8,11 +8,16 @@
             :itemsStyleType="SidebarNavMenuItemStyleType.COMPACT"
             itemsCustomClass="!font-medium"
             :headerHeight="121"
+            :expandedWidth="expandedSidebarWidth"
         />
     
-        <ContentBody hasSidebar class="flex-row">
+        <ContentBody 
+            hasSidebar 
+            :sidebarWidth="expandedSidebarWidth"
+            class="flex-row"
+        >
             <MainContent 
-                :tocSidebarWidth="Number(!hasTableOfContent ? 0 : 240)"
+                :tocSidebarWidth="Number(hasTableOfContent ? expandedSidebarWidth : 0)"
             >
                 <ContentPageHeader 
                     v-if="isComponentPage"
@@ -21,6 +26,18 @@
                     goBackText="Back to components"
                     :goBackLink="`/${AppSlug.DOCS}/${AppSlug.COMPONENTS}`"
                 />
+
+                <ContentPageHeader 
+                    v-else-if="isUtilsPage"
+                    :type="hasOvertitle ? PageTitleType.WITH_OVERTITLE: PageTitleType.SIMPLE" 
+                    hasGoBackLink
+                    goBackText="Back to utils"
+                    :goBackLink="`/${AppSlug.DOCS}/${AppSlug.UTILS}`"
+                >   
+                    <template v-if="hasPageMetadata" #bottom>
+                        <PageMetadata :data="pageMetadata" />
+                    </template>
+                </ContentPageHeader>
 
                 <ContentPageHeader 
                     v-else
@@ -55,6 +72,44 @@ const cleanPath = computed(() => {
 // Computed states
 const hasOvertitle = computed(() => route.meta.overtitle || null)
 const hasTableOfContent = computed(() => tocLinks.value.length)
+const hasPageMetadata = computed(() => {
+    const { category, tags, updatedAt } = route.meta
+
+    return Boolean(
+        category ||
+        (Array.isArray(tags) && tags.length > 0) ||
+        updatedAt
+    )
+})
+
+const pageMetadata = computed(() => {
+    return {
+        category: route.meta.category as string,
+        tags: route.meta.tags as string[],
+        updatedAt: route.meta.updatedAt as string,
+    }
+})
+
+const isComponentPage = computed(() => {
+    const path = cleanPath.value
+    const basePath = `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}`
+
+    if (!path) return false
+
+    return new RegExp(`^${basePath}/.+`).test(path) // Has component name slug
+})
+const isUtilsPage = computed(() => {
+    const path = cleanPath.value
+    const basePath = `/${AppSlug.DOCS}/${AppSlug.UTILS}`
+
+    if (!path) return false
+
+    return new RegExp(`^${basePath}/.+`).test(path) // Has util name slug
+})
+
+const expandedSidebarWidth = computed(() => {
+    return isUtilsPage.value ? 320 : 240
+})
 
 // Computed navigation items
 const sidebarMenu = computed<SidebarMenuItem[]>(() => {
@@ -65,6 +120,9 @@ const sidebarMenu = computed<SidebarMenuItem[]>(() => {
     switch (true) {
         case path.startsWith(`/${AppSlug.DOCS}/${AppSlug.COMPONENTS}`):
             return sidebarComponentsMenu
+        
+        case path.startsWith(`/${AppSlug.DOCS}/${AppSlug.UTILS}`):
+            return sidebarUtilsMenu
 
         case path.startsWith(`/${AppSlug.DOCS}/`):
             return sidebarGettingStartedMenu
@@ -73,6 +131,7 @@ const sidebarMenu = computed<SidebarMenuItem[]>(() => {
             return []
     }
 })
+
 
 // TOC Links
 const { data } = await useAsyncData(
@@ -98,13 +157,4 @@ const tocLinks = computed(() => {
         : []
 })
 
-// Computed go back links
-const isComponentPage = computed(() => {
-    const path = cleanPath.value
-    const basePath = `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}`
-
-    if (!path) return false
-
-    return new RegExp(`^${basePath}/.+`).test(path) // Has component name slug
-})
 </script>
