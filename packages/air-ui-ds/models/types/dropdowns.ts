@@ -1,7 +1,7 @@
 export interface DropdownMenuItem {
     actionType?: DropdownActionType
     text?: string
-    icon?: any
+    icon?: string
     size?: DropdownItemSize
     type?: DropdownItemType
     userDisplayName?: string
@@ -11,10 +11,6 @@ export interface DropdownMenuItem {
     helpText?: string
     to?: string
     isExternal?: boolean
-    exportData?: Record<string, any>[]
-    exportFields?: Record<string, any>
-    exportType?: string
-    exportFileName?: string
     hasSeparator?: boolean
     callback?: () => void
 }

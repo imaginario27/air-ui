@@ -59,10 +59,6 @@
                             :helpText="item.helpText"
                             :to="item.to"
                             :isExternal="item.isExternal"
-                            :exportData="item.exportData"
-                            :exportFields="item.exportFields"
-                            :exportType="item.exportType"
-                            :exportFileName="item.exportFileName"
                             :hasSeparator="item.hasSeparator"
                             @click="handleClick(item.callback)"
                         />
@@ -111,10 +107,6 @@
                         :helpText="item.helpText"
                         :to="item.to"
                         :isExternal="item.isExternal"
-                        :exportData="item.exportData"
-                        :exportFields="item.exportFields"
-                        :exportType="item.exportType"
-                        :exportFileName="item.exportFileName"
                         :hasSeparator="item.hasSeparator"
                         @click="handleClick(item.callback)"
                     />

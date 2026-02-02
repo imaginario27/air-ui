@@ -199,17 +199,6 @@ export const utilList: UtilPortfolioItem[] = [
         description: 'Generates a secure password that meets specified security requirements.',
     },
 
-    // EXPORTS
-    {
-        isSectionTitle: true,
-        title: 'Exports',
-    },
-    {
-        title: 'exportDataToPDF',
-        to: `/${AppSlug.DOCS}/${AppSlug.UTILS}/export-data-to-pdf`,
-        description: 'Exports data to a PDF file using jsPDF and jsPDF-AutoTable.',
-    },
-
     // RATINGS
     {
         isSectionTitle: true,

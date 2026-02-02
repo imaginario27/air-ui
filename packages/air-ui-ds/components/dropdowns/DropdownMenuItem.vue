@@ -64,8 +64,6 @@
 
 <script setup lang="ts">
 // Imports
-//@ts-ignore
-import JsonExcel from "vue-json-excel3"
 import missingImagePlaceholder from "@/assets/images/placeholders/missing-image-placeholder.png"
 import { NuxtLink } from '#components'
 
@@ -118,22 +116,6 @@ const props = defineProps({
         type: Boolean as PropType<boolean>,
         default: false,
     },
-    exportData: {
-        type: Array as PropType<Record<string, any>[]>,
-        default: () => [],
-    },
-    exportFields: {
-        type: Object as PropType<Record<string, any>>,
-        default: () => ({}), 
-    },
-    exportType: {
-        type: String as PropType<string>,
-        default: "xls",
-    },
-    exportFileName: {
-        type: String as PropType<string>,
-        default: "exported-data",
-    },
     hasSeparator: {
         type: Boolean as PropType<boolean>,
         default: false,
@@ -151,9 +133,6 @@ const emitClick = () => {
         emit("close")
     }
 }
-
-/* // Shallow ref - Avoid issues with SSR and JsonExcel
-const JsonExcel = shallowRef() */
 
 // Handlers for image load and error
 const handleImageLoad = () => {
@@ -202,8 +181,6 @@ const dynamicComponent = computed(() => {
     switch (props.actionType) {
         case DropdownActionType.LINK:
             return NuxtLink
-        case DropdownActionType.EXPORT_EXCEL:
-            return JsonExcel
         case DropdownActionType.ACTION:
             return "div"
         default:
@@ -220,21 +197,8 @@ const componentProps = computed(() => {
             rel: props.isExternal ? 'noopener noreferrer' : undefined,
             external: props.isExternal,
         }
-    } else if (props.actionType === DropdownActionType.EXPORT_EXCEL) {
-        return {
-            data: props.exportData,
-            fields: props.exportFields,
-            name: `${props.exportFileName}.${props.exportType}`,
-        }
     } else {
         return {}
     }
 })
-
-/* onMounted(async () => {
-    //@ts-ignore
-    const module = await import('vue-json-excel3')
-    JsonExcel.value = module.default
-})
-*/
 </script>

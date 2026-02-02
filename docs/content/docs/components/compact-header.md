@@ -367,10 +367,6 @@ interface DropdownMenuItem {
     helpText?: string
     to?: string
     isExternal?: boolean
-    exportData?: Record<string, any>[]
-    exportFields?: Record<string, any>
-    exportType?: string
-    exportFileName?: string
     hasSeparator?: boolean
     callback?: () => void
 }

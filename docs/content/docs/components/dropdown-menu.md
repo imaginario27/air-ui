@@ -236,10 +236,6 @@ interface DropdownMenuItem {
     helpText?: string
     to?: string
     isExternal?: boolean
-    exportData?: Record<string, any>[]
-    exportFields?: Record<string, any>
-    exportType?: string
-    exportFileName?: string
     hasSeparator?: boolean
     callback?: () => void
 }
@@ -493,8 +489,6 @@ items:
           text: ACTION
         - value: link
           text: LINK
-        - value: export-excel
-          text: EXPORT_EXCEL
 propsSettingsExcludedProps: ['class']
 ---
 ::
@@ -560,26 +554,6 @@ props: [
         "name": "isExternal",
         "default": "false",
         "type": "boolean",
-    },
-    {
-        "name": "exportData",
-        "default": [],
-        "type": "Record<string, any>[]",
-    },
-    {
-        "name": "exportFields",
-        "default": {},
-        "type": "Record<string, any>",
-    },
-    {
-        "name": "exportType",
-        "default": "xls",
-        "type": "string",
-    },
-    {
-        "name": "exportFileName",
-        "default": "exported-data",
-        "type": "string",
     },
     {
         "name": "hasSeparator",
@@ -780,81 +754,18 @@ Sets whether the menu item is external or not.
 - **Type:** `boolean`
 - **Default:** `false`
 
-### exportData
-Sets the export data for the menu item. 
+### hasSeparator
+Adds a separator line below the menu item.
 
 ```vue
 <template>
     <DropdownMenuItem
-        exportData=[
-            { name: 'Name', value: 'John Doe' },
-            { name: 'Email', value: 'john.doe@example.com' },
-        ]
+        hasSeparator
     >
         ....
     </DropdownMenuItem>
 </template>
 ```
 
-- **Type:** `Record<string, any>[]`
-- **Default:** `[]`
-
-### exportFields
-Sets the export fields for the menu item. 
-
-```vue
-<template>
-    <DropdownMenuItem
-        exportFields={{
-            name: 'Name',
-            email: 'Email',
-        }}
-    >
-        ....
-    </DropdownMenuItem>
-</template>
-```
-
-- **Type:** `Record<string, any>`
-- **Default:** `{}`
-
-### exportType
-Sets the export type for the menu item.
-
-```vue
-<template>
-    <DropdownMenuItem
-        exportType="xls"
-    >
-        ....
-    </DropdownMenuItem>
-</template>
-```
-
-- **Type:** `string`
-- **Default:** `'xls'`
-
-### exportFileName
-Sets the export file name for the menu item.
-
-```vue
-<template>
-    <DropdownMenuItem
-        exportFileName="exported-data"
-    >
-        ....
-    </DropdownMenuItem>
-</template>
-```
-
-- **Type:** `string`
-- **Default:** `'exported-data'`
-
-## Menu Item Export Props
-
-The export-related props on `DropdownMenuItem` utilize the [`vue-json-excel3`](https://vue-json-excel3.netlify.app/){ target="_blank" } library to enable exporting data to Excel (`.xls`) format. 
-This allows you to provide export functionality directly within a dropdown menu item.
-
-For full configuration details and advanced usage, refer to the [official vue-json-excel3 documentation](https://vue-json-excel3.netlify.app/){ target="_blank" }.
-
-
+- **Type:** `boolean`
+- **Default:** `false`
