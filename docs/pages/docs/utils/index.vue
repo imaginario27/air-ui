@@ -53,7 +53,7 @@
                                     <ProseCode>
                                         <NavLink 
                                             :text="util.title"
-                                            :to="`/${AppSlug.DOCS}/${AppSlug.UTILS}/${util.to}`"
+                                            :to="util.to"
                                         >
                                             {{ util.title }}
                                         </NavLink>

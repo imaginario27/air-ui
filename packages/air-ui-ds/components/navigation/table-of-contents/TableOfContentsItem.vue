@@ -1,16 +1,18 @@
 <template>
     <li>
         <a
-            :href="`#${link.id}`"
+            href="#"
             :class="[
                 'hover:text-text-primary-brand-hover',
                 'font-medium text-text-neutral-subtle',
                 link.depth !== 2 && 'pl-4',
                 activeId === link.id && 'text-text-primary-brand-active font-semibold',
             ]"
+            @click.prevent="handleClick"
         >
             {{ link.text }}
         </a>
+
         <ul
             v-if="link.children?.length"
             class="mt-1 space-y-1"
@@ -26,8 +28,7 @@
 </template>
 
 <script setup lang="ts">
-// Props
-defineProps({
+const props = defineProps({
     link: {
         type: Object as PropType<TOCLink>,
         required: true,
@@ -37,4 +38,17 @@ defineProps({
         default: null,
     },
 })
+
+const handleClick = () => {
+    const el = document.getElementById(props.link.id)
+    if (el) {
+        el.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start',
+        })
+
+        // Optional: Update the hash in the URL
+        history.replaceState(null, '', `#${props.link.id}`)
+    }
+}
 </script>

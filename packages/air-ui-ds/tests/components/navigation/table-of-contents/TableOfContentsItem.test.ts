@@ -16,18 +16,22 @@ const baseLink: TOCLink = {
 }
 
 describe('TableOfContentsItem', () => {
-    it('renders link with correct href and text', () => {
+    beforeEach(() => {
+        vi.restoreAllMocks()
+    })
+
+    it('renders anchor with correct text and href', () => {
         const wrapper = factory({
             link: baseLink,
             activeId: null,
         })
 
         const anchor = wrapper.find('a')
-        expect(anchor.attributes('href')).toBe('#section-1')
         expect(anchor.text()).toBe('Section 1')
+        expect(anchor.attributes('href')).toBe('#')
     })
 
-    it('adds "pl-4" class if depth is not 2', () => {
+    it('adds "pl-4" class when depth is not 2', () => {
         const wrapper = factory({
             link: { ...baseLink, depth: 1 },
             activeId: null,
@@ -36,7 +40,7 @@ describe('TableOfContentsItem', () => {
         expect(wrapper.find('a').classes()).toContain('pl-4')
     })
 
-    it('does not add "pl-4" class if depth is 2', () => {
+    it('omits "pl-4" class when depth is 2', () => {
         const wrapper = factory({
             link: { ...baseLink, depth: 2 },
             activeId: null,
@@ -45,7 +49,7 @@ describe('TableOfContentsItem', () => {
         expect(wrapper.find('a').classes()).not.toContain('pl-4')
     })
 
-    it('applies active styling when link.id matches activeId', () => {
+    it('applies active classes when link.id matches activeId', () => {
         const wrapper = factory({
             link: baseLink,
             activeId: 'section-1',
@@ -56,10 +60,10 @@ describe('TableOfContentsItem', () => {
         expect(anchor.classes()).toContain('font-semibold')
     })
 
-    it('does not apply active styling when link.id does not match activeId', () => {
+    it('does not apply active classes when link.id does not match activeId', () => {
         const wrapper = factory({
             link: baseLink,
-            activeId: 'other-section',
+            activeId: 'other-id',
         })
 
         const anchor = wrapper.find('a')
@@ -67,44 +71,65 @@ describe('TableOfContentsItem', () => {
         expect(anchor.classes()).not.toContain('font-semibold')
     })
 
-        it('renders child TableOfContentsItem components recursively', () => {
+    it('renders nested TableOfContentsItem components when children exist', () => {
         const wrapper = factory({
             link: {
                 ...baseLink,
                 children: [
-                    {
-                        id: 'child-1',
-                        text: 'Child 1',
-                        depth: 2,
-                        children: [],
-                    },
-                    {
-                        id: 'child-2',
-                        text: 'Child 2',
-                        depth: 2,
-                        children: [],
-                    },
+                    { id: 'child-1', text: 'Child 1', depth: 2, children: [] },
+                    { id: 'child-2', text: 'Child 2', depth: 2, children: [] },
                 ],
             },
             activeId: 'child-1',
         })
 
-        const childComponents = wrapper.findAllComponents(TableOfContentsItem)
+        const items = wrapper.findAllComponents(TableOfContentsItem)
 
-        // Only the two child components (not including self)
-        expect(childComponents).toHaveLength(2)
+        expect(items).toHaveLength(2)
 
-        expect(childComponents[0].props('link').id).toBe('child-1')
-        expect(childComponents[1].props('link').id).toBe('child-2')
+        expect(items[0].props('link').id).toBe('child-1')
+        expect(items[1].props('link').id).toBe('child-2')
     })
 
 
-    it('does not render child list if no children exist', () => {
+    it('does not render children list when children array is empty', () => {
         const wrapper = factory({
             link: baseLink,
             activeId: null,
         })
 
         expect(wrapper.find('ul').exists()).toBe(false)
+    })
+
+    it('scrolls to element and updates URL on anchor click', async () => {
+        const scrollIntoView = vi.fn()
+        const mockElement = { scrollIntoView }
+        vi.spyOn(document, 'getElementById').mockReturnValue(mockElement as unknown as HTMLElement)
+        vi.spyOn(history, 'replaceState').mockImplementation(() => {})
+
+        const wrapper = factory({
+            link: baseLink,
+            activeId: null,
+        })
+
+        await wrapper.find('a').trigger('click')
+
+        expect(document.getElementById).toHaveBeenCalledWith('section-1')
+        expect(scrollIntoView).toHaveBeenCalledWith({
+            behavior: 'smooth',
+            block: 'start',
+        })
+        expect(history.replaceState).toHaveBeenCalledWith(null, '', '#section-1')
+    })
+
+    it('does not throw when clicked element is not found in DOM', async () => {
+        vi.spyOn(document, 'getElementById').mockReturnValue(null)
+
+        const wrapper = factory({
+            link: baseLink,
+            activeId: null,
+        })
+
+        await expect(wrapper.find('a').trigger('click')).resolves.not.toThrow()
     })
 })

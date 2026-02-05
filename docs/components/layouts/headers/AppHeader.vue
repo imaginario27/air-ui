@@ -14,9 +14,10 @@
                 class="max-w-[80px]"
             />
             <Badge 
-                :color="ColorAccent.PRIMARY_BRAND"
+                :color="isDark ? ColorAccent.NEUTRAL : ColorAccent.PRIMARY_BRAND"
                 :shape="BadgeShape.PILL"
                 :text="designSystemDetails.version"
+                :isTransparent="isDark"
                 class="self-end select-none"
             />
         </template>

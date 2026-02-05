@@ -1,7 +1,7 @@
 <template>
     <Section 
         :spacing="SectionSpacing.MD"
-        class="bg-background-primary-brand-default"
+        :class="[isDark ? 'bg-background-primary-brand-default/20' : 'bg-background-primary-brand-default']"
         isDark
     >
         <SectionBody>
@@ -22,12 +22,16 @@
 import ComponentsPage from '@/pages/docs/components/index.vue'
 
 definePageMeta({
-    title: 'Components | AirUI',
+    title: 'Components',
 })
 
 const title = ref('Components')
 
 useHead(() => ({
-    title: pageTitle(title.value, App.NAME),
+    title: title.value,
 }))
+
+// Stores
+const darkModeStore = useDarkMode()
+const { isDark } = darkModeStore
 </script>

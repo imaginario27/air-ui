@@ -30,7 +30,7 @@
                 <ContentPageHeader 
                     v-else-if="isUtilsPage"
                     :type="hasOvertitle ? PageTitleType.WITH_OVERTITLE: PageTitleType.SIMPLE" 
-                    hasGoBackLink
+                    :hasGoBackLink="isUtilsChildPage"
                     goBackText="Back to utils"
                     :goBackLink="`/${AppSlug.DOCS}/${AppSlug.UTILS}`"
                 >   
@@ -98,13 +98,19 @@ const isComponentPage = computed(() => {
 
     return new RegExp(`^${basePath}/.+`).test(path) // Has component name slug
 })
-const isUtilsPage = computed(() => {
+
+const isUtilsRootPage = computed(() => {
     const path = cleanPath.value
-    const basePath = `/${AppSlug.DOCS}/${AppSlug.UTILS}`
+    return !!path && path === `/${AppSlug.DOCS}/${AppSlug.UTILS}`
+})
 
-    if (!path) return false
+const isUtilsChildPage = computed(() => {
+    const path = cleanPath.value
+    return !!path && path.startsWith(`/${AppSlug.DOCS}/${AppSlug.UTILS}/`)
+})
 
-    return new RegExp(`^${basePath}/.+`).test(path) // Has util name slug
+const isUtilsPage = computed(() => {
+    return isUtilsRootPage.value || isUtilsChildPage.value
 })
 
 const expandedSidebarWidth = computed(() => {
@@ -156,5 +162,4 @@ const tocLinks = computed(() => {
         ? filterDepth(data.value.body.toc.links)
         : []
 })
-
 </script>

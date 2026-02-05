@@ -49,7 +49,7 @@
                             :imgUrl="item.imgUrl"
                             :description="item.description"
                             imgHoverIconClass="text-icon-primary-brand-default"
-                            imgContainerClass="bg-background-neutral-subtlest/60"
+                            :imgContainerClass="isDark ? 'bg-theme-neutral-950' : 'bg-background-neutral-subtlest/60'"
                             :imgHoverEffect="ImageHoverEffect.ZOOM_IN"
                             :hasImageHoverIcon="false"
                         />
@@ -86,6 +86,10 @@ definePageMeta({
 
 // States
 const searchQuery = ref('')
+
+// Stores
+const darkModeStore = useDarkMode()
+const { isDark } = darkModeStore
 
 // Computed
 const groupedComponents = computed<GroupedComponentPortfolioItem[]>(() => {

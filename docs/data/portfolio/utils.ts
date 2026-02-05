@@ -37,36 +37,6 @@ export const utilList: UtilPortfolioItem[] = [
         title: 'Dates',
     },
     {
-        title: 'formatISODateToDDMMYYYY',
-        to: `/${AppSlug.DOCS}/${AppSlug.UTILS}/format-iso-date-to-ddmmyyyy`,
-        description: "Formats an ISO date string to 'dd/mm/yyyy'.",
-    },
-    {
-        title: 'formatDateToDDMMYYYY',
-        to: `/${AppSlug.DOCS}/${AppSlug.UTILS}/format-date-to-ddmmyyyy`,
-        description: 'Converts a date string from `YYYY-MM-DD` format to `DD/MM/YYYY` format.',
-    },
-    {
-        title: 'formatRelativeDate',
-        to: `/${AppSlug.DOCS}/${AppSlug.UTILS}/format-relative-date`,
-        description: 'Returns a human-readable relative date string (e.g., "Today", "Yesterday", "2 days ago").',
-    },
-    {
-        title: 'formatDateToMonthYear',
-        to: `/${AppSlug.DOCS}/${AppSlug.UTILS}/format-date-to-month-year`,
-        description: 'Formats a date string (YYYY-MM) into an object containing the full month name and year.',
-    },
-    {
-        title: 'getNextMonthISODate',
-        to: `/${AppSlug.DOCS}/${AppSlug.UTILS}/get-next-month-iso-date`,
-        description: 'Adds a month to a given ISO date string.',
-    },
-    {
-        title: 'getNextYearToISODate',
-        to: `/${AppSlug.DOCS}/${AppSlug.UTILS}/get-next-year-to-iso-date`,
-        description: 'Adds a year to a given ISO date string.',
-    },
-    {
         title: 'formatLocalizedDateTime',
         to: `/${AppSlug.DOCS}/${AppSlug.UTILS}/format-localized-date-time`,
         description: 'Formats a date (ISO string or timestamp) into a localized full date with optional time.',
@@ -74,7 +44,7 @@ export const utilList: UtilPortfolioItem[] = [
     {
         title: 'formatLocalizedDate',
         to: `/${AppSlug.DOCS}/${AppSlug.UTILS}/format-localized-date`,
-        description: 'Formats a YYYY-MM-DD date string into a localized full date.',
+        description: 'Formats a date string (YYYY-MM-DD or ISO 8601) into a localized full date.',
     },
 
     // ENCODING
@@ -167,17 +137,6 @@ export const utilList: UtilPortfolioItem[] = [
         description: 'Validates whether a given array field is not empty.',
     },
 
-    // NAVIGATION
-    {
-        isSectionTitle: true,
-        title: 'Navigation',
-    },
-    {
-        title: 'goBack',
-        to: `/${AppSlug.DOCS}/${AppSlug.UTILS}/go-back`,
-        description: "Navigates to the previous URL using the router's back method or a fallback URL if no history exists.",
-    },
-
     // PASSWORDS
     {
         isSectionTitle: true,
@@ -219,11 +178,6 @@ export const utilList: UtilPortfolioItem[] = [
         title: 'trimText',
         to: `/${AppSlug.DOCS}/${AppSlug.UTILS}/trim-text`,
         description: 'Trims leading and trailing whitespace from a string.',
-    },
-    {
-        title: 'highlightKeywordInText',
-        to: `/${AppSlug.DOCS}/${AppSlug.UTILS}/highlight-keyword-in-text`,
-        description: 'Highlights a keyword inside a given text by wrapping matches in a span with a highlight class.',
     },
     {
         title: 'convertStringIntoSlugFormat',

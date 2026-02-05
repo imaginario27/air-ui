@@ -5,6 +5,7 @@
             'flex-col',
             'gap-3',
             'w-full',
+            'scroll-smooth',
         ]"
         :style="!isMobile && `max-width: calc(100% - ${tocSidebarWidth}px)`"
     >
