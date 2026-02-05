@@ -39,32 +39,6 @@ export const trimText = (
 }
 
 /**
- * Highlights a keyword inside a given text by wrapping matches in a span with a highlight class.
- *
- * @param {string} text - The full text where the keyword should be highlighted.
- * @param {string} keyword - The word to highlight.
- * @param {string} highlightClass - Optional Tailwind or custom CSS class for styling the highlight.
- * @returns {string} The modified text with highlighted words wrapped in a span.
- */
-export const highlightKeywordInText = (
-    text: string = '', 
-    keyword: string = '', 
-    highlightClass = 'text-text-active font-semibold'
-): string => {
-    if (!text.trim()) return text 
-    if (!keyword.trim()) return text
-
-    // Escape special characters in the keyword to prevent regex errors
-    const escapedKeyword = keyword.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')
-
-    // Create a case-insensitive regular expression for the keyword
-    const regex = new RegExp(`(${escapedKeyword})`, 'gi')
-
-    // Replace matching words with a highlighted <span>
-    return text.replace(regex, `<span class="${highlightClass}">$1</span>`)
-}
-
-/**
  * Converts a string into a slug format.
  * - Converts to lowercase
  * - Removes special characters
@@ -98,7 +72,7 @@ export const lowercaseFirstLetter = (str: string): string => {
  * @param {string} str - The input string.
  * @returns {string} The transformed string with the first letter in uppercase.
  */
-export const capitalizeFirstLetter = (str: string): string => {
+export const uppercaseFirstLetter = (str: string): string => {
     if (!str) return str
     return str.charAt(0).toUpperCase() + str.slice(1)
 }
@@ -115,13 +89,13 @@ export const getCreditCardLastFourNumbers = (pan: string): string => {
 }
 
 /**
- * Returns the full name of a user by combining first and last names.
+ * Returns the full name by combining first and last names.
  *
- * @param firstName - The user's first name.
- * @param lastName - The user's last name.
+ * @param firstName - The first name.
+ * @param lastName - The last name.
  * @returns The concatenated full name in the format "FirstName LastName".
  */
-export const getUserFullName = (firstName: string, lastName: string): string => {
+export const getFullName = (firstName: string, lastName: string): string => {
     return `${firstName} ${lastName}`
 }
 

@@ -9,7 +9,7 @@
             <template v-if="isFeatured && !isActive">
                 <div class="w-full flex justify-between gap-3">
                     <CardTitle 
-                        :title="capitalizeFirstLetter(title)" 
+                        :title="uppercaseFirstLetter(title)" 
                         class="text-text-primary-brand-default"
                     />
                     <Badge 
@@ -21,7 +21,7 @@
             </template>
 
             <template v-else>
-                <CardTitle :title="capitalizeFirstLetter(title)" class="text-text-primary-brand-default"/>
+                <CardTitle :title="uppercaseFirstLetter(title)" class="text-text-primary-brand-default"/>
             </template>     
 
             <span class="text-4xl font-semibold">

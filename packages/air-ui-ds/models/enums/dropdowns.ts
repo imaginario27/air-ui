@@ -15,5 +15,4 @@ export enum DropdownItemSize {
 export enum DropdownActionType {
     ACTION = 'action',
     LINK = 'link',
-    EXPORT_EXCEL = 'export-excel',
 }

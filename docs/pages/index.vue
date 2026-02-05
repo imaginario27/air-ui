@@ -81,7 +81,7 @@
 
                 <div class="w-full lg:w-[60%] flex justify-center">
                     <NuxtImg
-                        src="images/hero-air-ui.jpg"
+                        src="images/hero-air-ui.png"
                         densities="[1, 2]"
                         class="w-full max-w-[800px] h-auto object-contain"
                         alt="AirUI hero image with Nuxt app component library"
@@ -175,7 +175,7 @@
 
                 <div class="w-full lg:w-1/2 flex justify-center items-center">
                     <NuxtImg
-                        src="images/consistent-design-system.jpg"
+                        src="images/consistent-design-system.png"
                         densities="[1, 2]"
                         class="w-full max-w-[800px] h-auto object-contain"
                         alt="Content design system image"
@@ -229,7 +229,7 @@
                     <NuxtImg
                         src="images/flexible-components.jpg"
                         densities="[1, 2]"
-                        class="w-full max-w-[800px] h-auto object-contain"
+                        class="w-full max-w-[800px] h-auto object-contain rounded-sm"
                         alt="Flexible components image"
                     />
                 </div>

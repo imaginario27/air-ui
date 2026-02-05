@@ -1,6 +1,6 @@
 {
     "name": "@imaginario27/air-ui-utils",
-    "version": "1.0.8",
+    "version": "1.0.12",
     "author": "imaginario27",
     "type": "module",
     "homepage": "https://air-ui.netlify.app/",
@@ -21,8 +21,6 @@
         "typecheck": "vue-tsc --noEmit -p tsconfig.typecheck.json"
     },
     "dependencies": {
-        "jspdf": "4.0.0",
-        "jspdf-autotable": "5.0.7",
         "nuxt": "4.3.0",
         "vue": "3.5.27",
         "vue-router": "5.0.1"

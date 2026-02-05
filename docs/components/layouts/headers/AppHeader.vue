@@ -14,9 +14,10 @@
                 class="max-w-[80px]"
             />
             <Badge 
-                :color="ColorAccent.PRIMARY_BRAND"
+                :color="isDark ? ColorAccent.NEUTRAL : ColorAccent.PRIMARY_BRAND"
                 :shape="BadgeShape.PILL"
                 :text="designSystemDetails.version"
+                :isTransparent="isDark"
                 class="self-end select-none"
             />
         </template>
@@ -68,6 +69,7 @@
                 <TabBar 
                     v-model="tabActiveIndex" 
                     :tabs 
+                    :decoration="TabDecoration.ICON"
                 />
             </div>
         </template>
@@ -155,6 +157,9 @@ const tabActiveIndex = computed(() => {
 
         case path.startsWith(`/${AppSlug.DOCS}/${AppSlug.COMPONENTS}`):
             return 1
+
+        case path.startsWith(`/${AppSlug.DOCS}/${AppSlug.UTILS}`):
+            return 2
 
         default:
             return 0

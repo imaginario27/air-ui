@@ -109,7 +109,6 @@ const exampleTableData = [
     { col1: 'Dominic Brady', col2: 'dominic.brady@example.com', col3: 'Active' },
     { col1: 'Naomi Swanson', col2: 'naomi.swanson@example.com', col3: 'Pending' },
     { col1: 'Jeremiah Parks', col2: 'jeremiah.parks@example.com', col3: 'Active' },
-
 ]
 
 // Computed

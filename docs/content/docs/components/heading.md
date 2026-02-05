@@ -123,6 +123,46 @@ props: [
 ---
 ::
 
+## Slots
+::slots-table
+---
+slots: [
+    {
+        name: "overtitle",
+        description: "Template to render custom content inside the overtitle slot. If used, the overtitle prop will be ignored.",
+    },
+    {
+        name: "title",
+        description: "Template to render custom content inside the title slot. If used, the title prop will be ignored.",
+    },
+    {
+        name: "description",
+        description: "Template to render custom content inside the description slot. If used, the description prop will be ignored.",
+    },
+]
+---
+::
+
+```vue
+<template>
+    <Heading
+        :size="HeadingSize.XL"
+    >
+        <template #overtitle>
+            Overtitle
+        </template>
+
+        <template #title>
+            <Icon name="mdi:star" /> Custom Title
+        </template>
+
+        <template #description>
+            Description content goes here.
+        </template>
+    </Heading>
+</template>
+```
+
 ## Usage
 ### overtitle
 

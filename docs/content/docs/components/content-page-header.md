@@ -87,6 +87,34 @@ props: [
 ---
 ::
 
+::slots-table
+---
+slots: [
+    {
+        "name": "top",
+        "description": "Slot to insert custom content at the top of the header."
+    },
+    {
+        "name": "bottom",
+        "description": "Slot to insert custom content at the bottom of the header."
+    }
+]
+---
+::
+
+```vue
+<template>
+    <ContentPageHeader>
+        <template #top>
+            <!-- Custom content at the top of the header -->
+        </template>
+        <template #bottom>
+            <!-- Custom content at the bottom of the header -->
+        </template>
+    </ContentPageHeader>
+</template>
+```
+
 ## Usage
 ### type
 

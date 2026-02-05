@@ -105,6 +105,11 @@ export default defineNuxtConfig({
                         "width=device-width, initial-scale=1.0, user-scalable=no",
                 },
             ],
+
+            title: 'Loading...',
+
+            // $s is replaced by the page title
+            titleTemplate: '%s | AirUI',
         },
     },
 

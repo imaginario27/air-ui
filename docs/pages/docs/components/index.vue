@@ -1,68 +1,79 @@
 <template>
-    <Section>
+    <Section class="!gap-6">
+        <SectionHeader v-if="componentList.length">
+            <Form>
+                <FormRow>
+                    <SearchField 
+                        id="search"
+                        v-model="searchQuery"
+                        placeholder="Search a component"
+                        :size="InputSize.LG"
+                        :maxLength="FieldMaxLength.SEARCH"
+                    />
+                </FormRow>
+            </Form>
+        </SectionHeader>
         <SectionBody>
-            <!-- Filter -->
-            <div>
-                <Form>
-                    <FormRow>
-                        <SearchField 
-                            id="search"
-                            v-model="searchQuery"
-                            placeholder="Search a component"
-                            :size="InputSize.LG"
-                            :maxLength="FieldMaxLength.SEARCH"
-                        />
-                    </FormRow>
-                </Form>
-            </div>
-
-            <div 
-                v-for="group in groupedComponents" 
-                :key="group.title" 
-                class="mb-12"
-            >
-                <h2 
-                    :class="[
-                        'text-2xl',
-                        'font-bold',
-                        'mb-8',
-                        'flex',
-                        'items-center',
-                        'gap-2',
-                    ]"
+            <template v-if="groupedComponents.length">
+                <div 
+                    v-for="group in groupedComponents" 
+                    :key="group.title" 
+                    class="mb-12"
                 >
-                    <Icon
-                        v-if="group.sectionIcon"
-                        :name="group.sectionIcon"
-                    />
-                    {{ group.title }}
-                </h2>
-
-                <Grid :cols="4">
-                    <ContentItem 
-                        v-for="item in group.items"
-                        :key="item.to"
-                        :title="item.title"
-                        :to="item.to"
-                        :imgUrl="item.imgUrl"
-                        :description="item.description"
-                        imgHoverIconClass="text-icon-primary-brand-default"
-                        imgContainerClass="bg-background-neutral-subtlest/60"
-                        :imgHoverEffect="ImageHoverEffect.ZOOM_IN"
-                        :hasImageHoverIcon="false"
-                    />
-                </Grid>
-            </div>
+                    <Heading 
+                        :size="HeadingSize.SM"
+                        headingTag="h2"
+                        :class="[
+                            'mb-8',
+                            'flex',
+                            'items-center',
+                            'gap-2',
+                        ]"
+                    >
+                        <template #title>
+                            <Icon
+                                v-if="group.sectionIcon"
+                                :name="group.sectionIcon"
+                                class="relative top-[2px]"
+                            />
+                            {{ group.title }}
+                        </template>
+                    </Heading>
+    
+                    <Grid :cols="4">
+                        <ContentItem 
+                            v-for="item in group.items"
+                            :key="item.to"
+                            :title="item.title"
+                            :to="item.to"
+                            :imgUrl="item.imgUrl"
+                            :description="item.description"
+                            imgHoverIconClass="text-icon-primary-brand-default"
+                            :imgContainerClass="isDark ? 'bg-theme-neutral-950' : 'bg-background-neutral-subtlest/60'"
+                            :imgHoverEffect="ImageHoverEffect.ZOOM_IN"
+                            :hasImageHoverIcon="false"
+                        />
+                    </Grid>
+                </div>
+            </template>
 
             <EmptyState 
-                v-if="!groupedComponents.length"
+                v-else-if="!groupedComponents.length"
                 :title="`No components found for ${searchQuery}`"
                 icon="mdi:magnify"
                 description="Try with another search input."
                 hasContainer
                 :containerStyle="EmptyPlaceholderContainerStyle.FILLED_NEUTRAL"
             />
-          
+
+            <EmptyState 
+                v-else-if="!componentList.length"
+                title="No components available"
+                icon="mdi:database-off"
+                description="There are currently no components to display."
+                hasContainer
+                :containerStyle="EmptyPlaceholderContainerStyle.FILLED_NEUTRAL"
+            />
         </SectionBody>
     </Section>
 </template>
@@ -75,6 +86,10 @@ definePageMeta({
 
 // States
 const searchQuery = ref('')
+
+// Stores
+const darkModeStore = useDarkMode()
+const { isDark } = darkModeStore
 
 // Computed
 const groupedComponents = computed<GroupedComponentPortfolioItem[]>(() => {
