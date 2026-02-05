@@ -240,6 +240,6 @@
 
 <script setup lang="ts">
 definePageMeta({
-    title: 'Welcome | AirUI',
+    title: 'Welcome',
 })
 </script>
