@@ -1,38 +1,54 @@
 <template>
     <Teleport to="body">
-        <div
-            v-if="modelValue"
-            :id
-            class="fixed inset-0 z-[9999] bg-background-overlay backdrop-blur-sm overflow-y-auto"
-            
+        <Transition
+            appear
+            enter-active-class="transition-opacity duration-300 ease-out"
+            enter-from-class="opacity-0"
+            leave-active-class="transition-opacity duration-200 ease-in"
+            leave-to-class="opacity-0"
         >
-            <div 
-                class="modal-container min-h-full flex w-full items-center justify-center p-4"
-                @click.self="closeModalOnClickOutside"
+            <div
+                v-if="modelValue"
+                :id
+                class="fixed inset-0 z-[9999] bg-background-overlay backdrop-blur-sm overflow-y-auto"
             >
-                <div
-                    :class="[
-                        'bg-background-surface rounded-lg shadow-xl',
-                        'relative w-full my-8',
-                        'overflow-visible',
-                        cardClasses,
-                    ]"
+                <div 
+                    class="modal-container min-h-full flex w-full items-center justify-center p-4"
+                    @click.self="closeModalOnClickOutside"
                 >
-                    <ActionIconButton
-                        v-if="hasCornerCloseButton"
-                        :styleType="ButtonStyleType.NEUTRAL_TRANSPARENT"
-                        :size="ButtonSize.MD"
-                        icon="mdi:close"
-                        class="absolute top-4 right-4 z-10"
-                        @click="closeModal"
-                    />
+                    <Transition
+                        appear
+                        enter-active-class="transition-all duration-300 ease-out"
+                        enter-from-class="opacity-0 scale-95"
+                        leave-active-class="transition-all duration-200 ease-in"
+                        leave-to-class="opacity-0 scale-95"
+                    >
+                        <div
+                            v-show="modelValue"
+                            :class="[
+                                'bg-background-surface rounded-lg shadow-xl',
+                                'relative w-full my-8',
+                                'overflow-visible',
+                                cardClasses,
+                            ]"
+                        >
+                            <ActionIconButton
+                                v-if="hasCornerCloseButton"
+                                :styleType="ButtonStyleType.NEUTRAL_TRANSPARENT"
+                                :size="ButtonSize.MD"
+                                icon="mdi:close"
+                                class="absolute top-4 right-4 z-10"
+                                @click="closeModal"
+                            />
 
-                    <div class="p-4 md:p-6">
-                        <slot />
-                    </div>
+                            <div class="p-4 md:p-6">
+                                <slot />
+                            </div>
+                        </div>
+                    </Transition>
                 </div>
             </div>
-        </div>
+        </Transition>
     </Teleport>
 </template>
 

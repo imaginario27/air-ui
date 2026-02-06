@@ -1,34 +1,4 @@
 /**
- * A composable to handle clicks outside a specified element.
- *
- * @param elementRef - A reference to the target DOM element.
- * @param callback - A function to call when a click outside the element is detected.
- */
-export const useClickOutside = (
-    elementRef: Ref<HTMLElement | null>, 
-    callback: () => void
-): void => {
-    const handleClick = (event: MouseEvent): void => {
-        const element = elementRef.value
-
-        if (!(element instanceof HTMLElement)) return
-
-        if (!element.contains(event.target as Node)) {
-            callback()
-        }
-    }
-
-    watchEffect((cleanup) => {
-        document.addEventListener('mousedown', handleClick) 
-
-        cleanup(() => {
-            document.removeEventListener('mousedown', handleClick) 
-        })
-    })
-}
-
-
-/**
  * Copies text to the clipboard.
  * @param text - The text to copy.
  * @returns A promise that resolves to true if successful, false otherwise.
