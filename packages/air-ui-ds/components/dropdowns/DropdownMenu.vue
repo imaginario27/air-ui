@@ -20,33 +20,96 @@
         <template v-if="shouldTeleport">    
             <!-- Teleported Dropdown Menu -->
             <teleport :to="teleportTo">
-                <div
+                <Transition
+                    appear
+                    enter-active-class="transition-opacity duration-200 ease-out"
+                    enter-from-class="opacity-0"
+                    leave-active-class="transition-opacity duration-150 ease-in"
+                    leave-to-class="opacity-0"
+                >
+                    <div
+                        v-if="isOpen"
+                        ref="dropdown"
+                        v-bind="$attrs"
+                        :class="[
+                            'bg-background-surface',
+                            'py-1',
+                            'rounded',
+                            hasShadow && 'shadow-lg',
+                            'flex flex-col',
+                            hasBorder && 'border border-border-default',
+                            dropdownClass,
+                        ]"
+                        :style="{ 
+                            ...computedTeleportStyle, 
+                            zIndex: props.zIndex 
+                        }"
+                    >
+                        <slot
+                            v-if="$slots.items"
+                            name="items"
+                            :onClose="close"
+                        />
+                        <template v-else-if="items?.length">
+                            <DropdownMenuItem
+                                v-for="(item, index) in items"
+                                :key="index"
+                                :actionType="item.actionType"
+                                :text="item.text"
+                                :icon="item.icon"
+                                :size="item.size"
+                                :type="item.type"
+                                :userDisplayName="item.userDisplayName"
+                                :userProfileImg="item.userProfileImg"
+                                :imgUrl="item.imgUrl"
+                                :alt="item.alt"
+                                :helpText="item.helpText"
+                                :to="item.to"
+                                :isExternal="item.isExternal"
+                                :hasSeparator="item.hasSeparator"
+                                @click="handleClick(item.callback)"
+                            />
+                        </template>
+                    </div>
+                </Transition>
+            </teleport>
+        </template>
+        <template v-else>
+            <Transition
+                appear
+                enter-active-class="transition-all duration-200 ease-out"
+                enter-from-class="opacity-0 scale-95"
+                leave-active-class="transition-all duration-150 ease-in"
+                leave-to-class="opacity-0 scale-95"
+            >
+                <div 
                     v-if="isOpen"
                     ref="dropdown"
-                    v-bind="$attrs"
+                    v-bind="$attrs" 
                     :class="[
                         'bg-background-surface',
                         'py-1',
                         'rounded',
                         hasShadow && 'shadow-lg',
+                        'w-full',
                         'flex flex-col',
                         hasBorder && 'border border-border-default',
+                        positionClass ? positionClass : dropdownPositionClass,
                         dropdownClass,
                     ]"
                     :style="{ 
-                        ...computedTeleportStyle, 
+                        ...(!positionClass ? positionOffsetStyle : {}), 
                         zIndex: props.zIndex 
                     }"
                 >
-                    <slot
-                        v-if="$slots.items"
+                    <slot 
+                        v-if="$slots['items']"
                         name="items"
-                        :onClose="close"
+                        :onClose="toggle"
                     />
-                    <template v-else-if="items?.length">
-                        <DropdownMenuItem
-                            v-for="(item, index) in items"
-                            :key="index"
+                    <template v-else-if="items?.length && !$slots['items']">
+                        <DropdownMenuItem 
+                            v-for="(item, index) in items" :key="index"
                             :actionType="item.actionType"
                             :text="item.text"
                             :icon="item.icon"
@@ -64,54 +127,7 @@
                         />
                     </template>
                 </div>
-            </teleport>
-        </template>
-        <template v-else>
-            <div 
-                v-if="isOpen"
-                ref="dropdown"
-                v-bind="$attrs" 
-                :class="[
-                    'bg-background-surface',
-                    'py-1',
-                    'rounded',
-                    hasShadow && 'shadow-lg',
-                    'w-full',
-                    'flex flex-col',
-                    hasBorder && 'border border-border-default',
-                    positionClass ? positionClass : dropdownPositionClass,
-                    dropdownClass,
-                ]"
-                :style="{ 
-                    ...(!positionClass ? positionOffsetStyle : {}), 
-                    zIndex: props.zIndex 
-                }"
-            >
-                <slot 
-                    v-if="$slots['items']"
-                    name="items"
-                    :onClose="toggle"
-                />
-                <template v-else-if="items?.length && !$slots['items']">
-                    <DropdownMenuItem 
-                        v-for="(item, index) in items" :key="index"
-                        :actionType="item.actionType"
-                        :text="item.text"
-                        :icon="item.icon"
-                        :size="item.size"
-                        :type="item.type"
-                        :userDisplayName="item.userDisplayName"
-                        :userProfileImg="item.userProfileImg"
-                        :imgUrl="item.imgUrl"
-                        :alt="item.alt"
-                        :helpText="item.helpText"
-                        :to="item.to"
-                        :isExternal="item.isExternal"
-                        :hasSeparator="item.hasSeparator"
-                        @click="handleClick(item.callback)"
-                    />
-                </template>
-            </div>
+            </Transition>
         </template>
     </div>
 </template>

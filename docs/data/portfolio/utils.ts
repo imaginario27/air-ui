@@ -75,11 +75,6 @@ export const utilList: UtilPortfolioItem[] = [
         title: 'Events',
     },
     {
-        title: 'useClickOutside',
-        to: `/${AppSlug.DOCS}/${AppSlug.UTILS}/use-click-outside`,
-        description: 'A composable to handle clicks outside a specified element.',
-    },
-    {
         title: 'copyToClipboard',
         to: `/${AppSlug.DOCS}/${AppSlug.UTILS}/copy-to-clipboard`,
         description: 'Copies text to the clipboard.',
