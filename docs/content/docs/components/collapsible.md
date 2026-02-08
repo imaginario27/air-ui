@@ -4,14 +4,19 @@
 ---
 srcDir: 'collapsibles/Collapsible.vue'
 props: 
+    modelValue: false
     title: "Item title"
 slots:
-  default: ""
+    default: ""
 slotComponents:
-  default:
-    srcDir: 'placeholders/ContentPlaceholder.vue'
-    props:
-        text: "Insert content here"
+    default:
+        srcDir: 'placeholders/ContentPlaceholder.vue'
+        props:
+            text: "Insert content here"
+external:
+  - modelValue
+externalTypes:
+  - boolean
 ---
 ::
 
@@ -20,6 +25,11 @@ slotComponents:
 ::props-table
 ---
 props: [
+    {
+        "name": "modelValue",
+        "default": false,
+        "type": "boolean",
+    },
     {
         "name": "title",
         "default": "'Item title'",
@@ -52,6 +62,26 @@ slots: [
 ```
 
 ## Usage
+### modelValue
+Provides a way to control the open/closed state of the collapsible from a parent component. By default default, it handles open state internally.
+
+`modelValue` is particularly useful when you want to trigger toggle state from outside of the collapsiable or from the slot itself.
+
+```vue
+<template>
+    <Collapsible 
+        v-model="isOpen" 
+        title="My collapsible title"
+    >
+        <button @click="isOpen = false">Close from inside</button>
+    </Collapsible>
+
+    <button @click="isOpen = true">Open from outside</button>
+</template>
+<script setup lang="ts">
+const isOpen = ref(false)
+</script>
+
 ### title
 Collapsible item title.
 

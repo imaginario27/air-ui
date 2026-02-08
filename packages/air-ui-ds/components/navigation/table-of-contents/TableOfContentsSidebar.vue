@@ -5,14 +5,17 @@
             'flex-col',
             'gap-3',
             'w-full',
-            'max-w-[240px]',
             'pt-12',
             'pb-8',
             'px-content-side-padding-mobile md:px-content-side-padding',
             'bg-background-container-surface',
-            'h-screen',
-            'fixed right-0'
+            'fixed right-0',
+            'overflow-y-auto',
         ]"
+        :style="{
+            maxWidth: maxWidth + 'px',
+            height: `calc(100vh - ${topOffset}px)`,
+        }"
     >
         <TableOfContents
             :title
@@ -25,5 +28,13 @@
 defineProps({
     title: String as PropType<string>,
     links: Array as PropType<TOCLink[]>,
+    maxWidth: {
+        type: Number as PropType<number>,
+        default: 240,
+    },
+    topOffset: {
+        type: Number,
+        default: 0,
+    },
 })
 </script>

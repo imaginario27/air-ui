@@ -8,6 +8,7 @@ props:
     cols: 3
     tabletCols: 2
     mobileCols: 1
+    gapClass: 'gap-6'
 slots:
   default: ""
 slotComponents:
@@ -41,7 +42,12 @@ props: [
         "name": "mobileCols",
         "default": "1",
         "type": "number",
-    },     
+    },  
+    {
+        "name": "gapClass",
+        "default": "'gap-6'",
+        "type": "string",
+    },   
 ]
 ---
 ::
@@ -99,3 +105,18 @@ Sets the number of columns for mobile viewports.
 - **Type:** `number`
 - **Default:** `1`
 
+
+### gapClass
+
+Sets the gap between grid items using Tailwind CSS gap classes.
+
+```vue
+<template>
+    <Grid gapClass="gap-8">
+        ...
+    </Grid>
+</template>
+```
+
+- **Type:** `string`
+- **Default:** `'gap-6'`

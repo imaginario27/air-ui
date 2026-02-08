@@ -22,6 +22,7 @@
                 :key="index"
                 :link="child"
                 :activeId
+                @click="emit('itemClick')"
             />
         </ul>
     </li>
@@ -39,16 +40,23 @@ const props = defineProps({
     },
 })
 
+// Emits
+const emit = defineEmits(['itemClick'])
+
+// Methods
 const handleClick = () => {
     const el = document.getElementById(props.link.id)
+
     if (el) {
         el.scrollIntoView({
             behavior: 'smooth',
             block: 'start',
         })
 
-        // Optional: Update the hash in the URL
-        history.replaceState(null, '', `#${props.link.id}`)
+        // Update the hash in the URL
+        history.replaceState(history.state, '', `#${props.link.id}`)
     }
+
+    emit('itemClick')
 }
 </script>

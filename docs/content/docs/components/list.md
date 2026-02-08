@@ -13,6 +13,7 @@ props:
     cols: 2
     tabletCols: 2
     mobileCols: 1
+    gapClass: "gap-6"
     listItemIcon: "mdi:check"
     listItemIconClass: "text-icon-secondary-brand-default"
     listItemSize: "sm"
@@ -70,6 +71,11 @@ props: [
         "name": "mobileCols",
         "default": "1",
         "type": "number",
+    },
+    {
+        "name": "gapClass",
+        "default": "'gap-6'",
+        "type": "string",
     },
     {
         "name": "listItemIcon",
@@ -221,6 +227,22 @@ The number of columns in the grid layout.
     />
 </template>
 ```
+- **Type:** `number`
+
+### gapClass
+The gap class applied to the list when using grid layout.
+
+```vue
+<template>
+    <List
+        :layout="ListLayout.GRID"
+        gapClass="gap-4"
+    />
+</template>
+```
+
+- **Type:** `string`
+- **Default:** `'gap-6'`
 
 ### listItemIcon
 The icon displayed as the marker on the list item. If it is not provided, the list item will not use any icon.
