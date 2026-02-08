@@ -9,8 +9,8 @@ vi.mock('@/composables/useTableOfContents', () => ({
 }))
 
 const mockLinks: TOCLink[] = [
-    { id: 'section-1', text: 'Section 1', depth: 2},
-    { id: 'section-2', text: 'Section 2', depth: 2 },
+    { id: 'section-1', text: 'Section 1', depth: 2, children: [] },
+    { id: 'section-2', text: 'Section 2', depth: 2, children: [] },
 ]
 
 describe('TableOfContents', () => {
@@ -60,5 +60,18 @@ describe('TableOfContents', () => {
 
         const items = wrapper.findAllComponents(TableOfContentsItem)
         expect(items).toHaveLength(0)
+    })
+
+    it('emits "itemClick" when a TableOfContentsItem emits it', async () => {
+        const wrapper = mount(TableOfContents, {
+            props: {
+                links: mockLinks,
+            },
+        })
+
+        const firstItem = wrapper.findComponent(TableOfContentsItem)
+        await firstItem.vm.$emit('itemClick')
+
+        expect(wrapper.emitted('itemClick')).toBeTruthy()
     })
 })

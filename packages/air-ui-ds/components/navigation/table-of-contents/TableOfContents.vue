@@ -15,6 +15,7 @@
                 :key="index"
                 :link="link"
                 :activeId
+                @itemClick="$emit('itemClick')"
             />
         </ul>
     </nav>
@@ -29,6 +30,9 @@ defineProps({
         default: () => [],
     },
 })
+
+// Emits
+defineEmits(['itemClick'])
 
 // Composable
 const { activeId } = useTableOfContents()

@@ -52,8 +52,12 @@
                     'lg:hidden',
                 ]"
             >
-                <Collapsible :title="tocTitle">
-                    <TableOfContents :links="tocLinks" />
+                <Collapsible v-model="isTOCOpen" :title="tocTitle">
+                    <TableOfContents 
+                        :links="tocLinks" 
+                        class="max-h-[200px] overflow-y-auto"
+                        @itemClick="() => isTOCOpen = false"
+                    />
                 </Collapsible>
             </div>
             
@@ -98,6 +102,7 @@ defineProps({
 
 // States
 const tocTitle = ref('On this page')
+const isTOCOpen = ref(false)
 
 // Stores
 const darkModeStore = useDarkMode()

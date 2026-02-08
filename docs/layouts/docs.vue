@@ -7,7 +7,7 @@
             :menuItems="sidebarMenu"
             :itemsStyleType="SidebarNavMenuItemStyleType.COMPACT"
             itemsCustomClass="!font-medium"
-            :headerHeight="121"
+            :headerHeight="headerHeightOffset"
             :expandedWidth="expandedSidebarWidth"
         />
     
@@ -17,7 +17,7 @@
             class="flex-row"
         >
             <MainContent 
-                :tocSidebarWidth="Number(hasTableOfContent ? expandedSidebarWidth : 0)"
+                :tocSidebarWidth="Number(hasTableOfContent ? tocSidebarWidth : 0)"
             >
                 <ContentPageHeader 
                     v-if="isComponentPage"
@@ -50,18 +50,18 @@
                 v-if="hasTableOfContent"
                 :title="tocTitle"
                 :links="tocLinks"
+                :topOffset="headerHeightOffset + 32"
+                :maxWidth="tocSidebarWidth"
                 class="hidden lg:flex"
             />
         </ContentBody>
-        <!-- Modal -->
-        <!-- <SearchModalDialog
-            v-model="showSearchModal" 
-        /> -->
     </div> 
 </template>
 <script setup lang="ts">
 // States
 const tocTitle = ref('On this page')
+const tocSidebarWidth = 280
+const headerHeightOffset = 121
 
 // Route
 const route = useRoute()

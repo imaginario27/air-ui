@@ -208,6 +208,11 @@ export const componentList: ComponentPortfolioItem[] = [
         imgUrl: `/images/thumbnails/components/select-field.png`,
     },
     {
+        title: 'SelectableCardField',
+        to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/selectable-card-field`,
+        imgUrl: `/images/thumbnails/components/selectable-card-field.png`,
+    },
+    {
         title: 'SwitchField',
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/switch-field`,
         imgUrl: `/images/thumbnails/components/switch-field.png`,
@@ -327,14 +332,19 @@ export const componentList: ComponentPortfolioItem[] = [
         imgUrl: `/images/thumbnails/components/metric-card.png`,
     },
     {
-        title: 'TestimonialCard',
-        to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/testimonial-card`,
-        imgUrl: `/images/thumbnails/components/testimonial-card.png`,
+        title: 'SelectableCard',
+        to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/selectable-card`,
+        imgUrl: `/images/thumbnails/components/selectable-card.png`,
     },
     {
         title: 'Subscription cards',
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/current-active-subscription-card`,
         imgUrl: `/images/thumbnails/components/subscription-cards.png`,
+    },
+    {
+        title: 'TestimonialCard',
+        to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/testimonial-card`,
+        imgUrl: `/images/thumbnails/components/testimonial-card.png`,
     },
 
     // IMAGES

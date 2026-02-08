@@ -48,6 +48,10 @@ const props = defineProps({
         type: Number as PropType<number>,
         default: 1,
     },
+    gapClass: {
+        type: String as PropType<string>,
+        default: 'gap-6',
+    },
     listItemIcon: String as PropType<string>,
     listItemIconClass: {
         type: String as PropType<string>,
@@ -65,5 +69,5 @@ const props = defineProps({
 })
 
 // Computed classes
-const gridClasses = computed(() => getGridClasses(props.cols, props.tabletCols, props.mobileCols))
+const gridClasses = computed(() => getGridClasses(props.cols, props.tabletCols, props.mobileCols, props.gapClass))
 </script>

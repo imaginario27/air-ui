@@ -14,3 +14,8 @@ export enum SelectActiveStyle {
     CHECK = 'check',
     FILL = 'fill',
 }
+
+export enum CardSelectionMode {
+    CARD = 'card',
+    BUTTON = 'button',
+}
