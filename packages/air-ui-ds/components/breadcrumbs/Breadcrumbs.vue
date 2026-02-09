@@ -2,7 +2,7 @@
     <nav aria-label="breadcrumb">
         <ul
             :class="[
-                'flex items-center space-x-2 text-icon-neutral-subtler',
+                'flex items-center space-x-2 text-icon-neutral-subtle font-medium',
             ]"
         >
             <!-- Home Link -->
@@ -11,7 +11,7 @@
                     <Icon 
                         :name="homeIcon"
                         :iconClass="[
-                            'text-icon-neutral-subtler hover:text-icon-neutral-on-monochrome-hover-bg',
+                            'text-icon-neutral-subtle hover:text-icon-neutral-on-monochrome-hover-bg',
                             homeIconClass,
                         ]"
                     />
@@ -29,7 +29,7 @@
                     v-if="index > 0 || showHome"
                     :name="separatorIcon"
                     :iconClass="[
-                        'text-icon-neutral-subtler',
+                        'text-icon-neutral-subtle',
                         separatorClass,
                     ]"
                 />
@@ -42,7 +42,7 @@
                         'text-sm',
                         crumb.isCurrent
                             ? currentCrumbClass || 'text-text-default'
-                            : 'text-text-neutral-subtler hover:text-text-neutral-on-monochrome-hover-bg',
+                            : 'text-text-neutral-subtle hover:text-text-default',
                         crumbClass,
                     ]"
                 >

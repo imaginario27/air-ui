@@ -253,6 +253,11 @@ props: [
         "default": "false",
         "type": "boolean"
     },
+    {
+        "name": "isStripped",
+        "default": "false",
+        "type": "boolean"
+    },
 ]
 ---
 ::
@@ -273,3 +278,203 @@ Displays a hover effect on the row if it is `true`.
 
 - **Type:** `boolean`
 - **Default:** `false`
+
+#### isStripped
+
+When `true`, it applies a different background color to even rows, creating a stripped effect.
+
+```vue
+<template>
+    ...
+    <TableRow isStripped>
+        ...
+    </TableRow>
+    ...
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `false`
+
+
+## Examples
+
+### Stripped table demo
+
+::component-code
+---
+srcDir: 'content/demos/tables/StrippedTableDemo.vue'
+previewBackground: "white"
+isCodePreviewEnabled: false
+componentSource: 'docs'
+---
+::
+
+```vue
+<template>
+    <TableWrapper v-if="exampleTableData.length">
+        <Table>
+            <TableHeader>
+                <TableHeaderCell>Column 1</TableHeaderCell>
+                <TableHeaderCell>Column 2</TableHeaderCell>
+                <TableHeaderCell>Column 3</TableHeaderCell>
+                <TableHeaderCell><!-- Cell actions --></TableHeaderCell>
+            </TableHeader>
+            <TableBody>
+                <TableRow v-for="(item, index) in paginatedData" :key="index" isStripped>
+                    <TableCell>{{ item.col1 }}</TableCell>
+                    <TableCell>{{ item.col2 }}</TableCell>
+                    <TableCell>{{ item.col3 }}</TableCell>
+                    <TableCellActions>
+                        <ActionIconButton 
+                            :size="ButtonSize.MD"
+                            icon="mdi:eye-outline"
+                        />
+                    </TableCellActions>
+                </TableRow>
+            </TableBody>
+        </Table>
+        <ButtonPagination 
+            v-model:modelValue="currentPage"
+            v-model:items-per-page="currentItemsPerPage"
+            :totalItems="exampleTableData.length"
+        />
+    </TableWrapper>
+    <EmptyState v-else />
+</template>
+
+<script setup lang="ts">
+// States
+const currentPage = ref(1)
+const currentItemsPerPage = ref(10)
+
+// Static example data
+const exampleTableData = [
+    { col1: 'John Doe', col2: 'johndoe@example.com', col3: 'Active' },
+    ...
+]
+
+// Computed
+const paginatedData = computed(() =>
+    getPaginatedData(exampleTableData, currentPage.value, currentItemsPerPage.value)
+)
+</script>
+```
+
+### Sorteable table demo
+
+::component-code
+---
+srcDir: 'content/demos/tables/SorteableTableDemo.vue'
+previewBackground: "white"
+isCodePreviewEnabled: false
+componentSource: 'docs'
+---
+::
+
+```vue
+<template>
+    <TableWrapper v-if="exampleTableData.length">
+        <Table>
+            <TableHeader>
+                <TableHeaderCell
+                    sorteable
+                    columnKey="col1"
+                    :sortKey
+                    :sortAsc
+                    :onToggleSort="() => toggleSort('col1')"
+                >
+                    Column 1
+                </TableHeaderCell>
+
+                <TableHeaderCell
+                    sorteable
+                    columnKey="col2"
+                    :sortKey
+                    :sortAsc
+                    :onToggleSort="() => toggleSort('col2')"
+                >
+                    Column 2
+                </TableHeaderCell>
+
+                <TableHeaderCell
+                    sorteable
+                    columnKey="col3"
+                    :sortKey
+                    :sortAsc
+                    :onToggleSort="() => toggleSort('col3')"
+                >
+                    Column 3
+                </TableHeaderCell>
+
+                <TableHeaderCell><!-- Actions --></TableHeaderCell>
+            </TableHeader>
+            <TableBody>
+                <TableRow v-for="(item, index) in paginatedData" :key="index">
+                    <TableCell>{{ item.col1 }}</TableCell>
+                    <TableCell>{{ item.col2 }}</TableCell>
+                    <TableCell>{{ item.col3 }}</TableCell>
+                    <TableCellActions>
+                        <ActionIconButton 
+                            :size="ButtonSize.MD"
+                            icon="mdi:eye-outline"
+                        />
+                    </TableCellActions>
+                </TableRow>
+            </TableBody>
+        </Table>
+        <ButtonPagination 
+            v-model:modelValue="currentPage"
+            v-model:items-per-page="currentItemsPerPage"
+            :totalItems="exampleTableData.length"
+        />
+    </TableWrapper>
+    <EmptyState v-else />
+</template>
+
+<script setup lang="ts">
+// States
+const currentPage = ref(1)
+const currentItemsPerPage = ref(10)
+
+// Static example data
+type ExampleTableDataItem = {
+    col1: string
+    col2: string
+    col3: string
+}
+
+const exampleTableData = ref<ExampleTableDataItem[]>([
+    { col1: 'John Doe', col2: 'johndoe@example.com', col3: 'Active' },
+    { col1: 'Jane Smith', col2: 'janesmith@example.com', col3: 'Inactive' },
+    { col1: 'Alice Johnson', col2: 'alice.j@example.com', col3: 'Pending' },
+    { col1: 'Bob Brown', col2: 'bob.brown@example.com', col3: 'Active' },
+    { col1: 'Charlie Davis', col2: 'charlie.davis@example.com', col3: 'Inactive' },
+    { col1: 'Emma Wilson', col2: 'emma.wilson@example.com', col3: 'Pending' },
+    { col1: 'Liam Taylor', col2: 'liam.taylor@example.com', col3: 'Active' },
+    { col1: 'Olivia Moore', col2: 'olivia.moore@example.com', col3: 'Inactive' },
+    { col1: 'Noah Miller', col2: 'noah.miller@example.com', col3: 'Active' },
+    { col1: 'Ava Martin', col2: 'ava.martin@example.com', col3: 'Pending' },
+    { col1: 'Sophia Clark', col2: 'sophia.clark@example.com', col3: 'Active' },
+    { col1: 'Mason Lewis', col2: 'mason.lewis@example.com', col3: 'Inactive' },
+    { col1: 'Isabella Young', col2: 'isabella.young@example.com', col3: 'Active' },
+    { col1: 'Logan Hall', col2: 'logan.hall@example.com', col3: 'Pending' },
+    { col1: 'Mia Allen', col2: 'mia.allen@example.com', col3: 'Active' },
+    { col1: 'Ethan Wright', col2: 'ethan.wright@example.com', col3: 'Inactive' },
+    { col1: 'Amelia Scott', col2: 'amelia.scott@example.com', col3: 'Pending' },
+])
+
+// Composables
+const {
+    sortKey,
+    sortAsc,
+    toggleSort,
+    sortedData,
+} = useTable(exampleTableData)
+
+// Computed
+const paginatedData = computed(() =>
+    getPaginatedData(sortedData.value, currentPage.value, currentItemsPerPage.value)
+)
+</script>
+```

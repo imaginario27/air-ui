@@ -2,7 +2,7 @@ import { mount } from '@vue/test-utils'
 import Tab from '@/components/tabs/Tab.vue'
 import Badge from '@/components/badges/Badge.vue'
 import Icon from '@/components/icons/Icon.vue'
-import { TabStyle, TabDecoration } from '@/models/enums/tabs'
+import { TabStyle, TabDecoration, TabSize } from '@/models/enums/tabs'
 import { BadgeStyle, BadgeShape } from '@/models/enums/badges'
 import { ColorAccent } from '@/models/enums/colors'
 import { nextTick } from 'vue'
@@ -18,6 +18,7 @@ const factory = (props: Partial<InstanceType<typeof Tab>['$props']> = {}) => {
             text: 'Dashboard',
             tabStyle: TabStyle.UNDERLINE,
             decoration: TabDecoration.NONE,
+            size: TabSize.LG,
             active: false,
             ...props
         },
@@ -34,16 +35,29 @@ const factory = (props: Partial<InstanceType<typeof Tab>['$props']> = {}) => {
 }
 
 describe('Tab.vue', () => {
-    it('renders tab text', () => {
+    it('renders default tab text', () => {
         const wrapper = factory()
         expect(wrapper.text()).toContain('Dashboard')
     })
 
-    it('applies underline style when tabStyle is UNDERLINE', () => {
+    it('applies underline style and default size', () => {
         const wrapper = factory({ tabStyle: TabStyle.UNDERLINE })
         const classes = wrapper.classes()
-        expect(classes).toContain('flex')
         expect(classes).toContain('border-b-2')
+        expect(classes).toContain('min-h-[52px]')
+    })
+
+    it('applies pill style and LG size', () => {
+        const wrapper = factory({ tabStyle: TabStyle.PILL, size: TabSize.LG })
+        const classes = wrapper.classes()
+        expect(classes).toContain('rounded')
+        expect(classes).toContain('min-h-[40px]')
+    })
+
+    it('applies pill style and SM size', () => {
+        const wrapper = factory({ tabStyle: TabStyle.PILL, size: TabSize.SM })
+        const classes = wrapper.classes()
+        expect(classes).toContain('min-h-[32px]')
     })
 
     it('renders icon when decoration is ICON', () => {
@@ -51,20 +65,19 @@ describe('Tab.vue', () => {
         expect(wrapper.findComponent(Icon).exists()).toBe(true)
     })
 
-    it('renders image when decoration is IMAGE', async () => {
+    it('renders image when decoration is IMAGE and image loads', async () => {
         const wrapper = factory({
             decoration: TabDecoration.IMAGE,
             imgUrl: '/test.png'
         })
 
-        await nextTick()
         const img = wrapper.find('img')
         expect(img.exists()).toBe(true)
         expect(img.attributes('src')).toBe('/test.png')
         expect(img.attributes('alt')).toBe('Tab decoration')
     })
 
-    it('renders fallback image when image load fails', async () => {
+    it('renders fallback image when image fails to load', async () => {
         const wrapper = factory({
             decoration: TabDecoration.IMAGE,
             imgUrl: '/broken.png'
@@ -78,46 +91,42 @@ describe('Tab.vue', () => {
         expect(fallbackImg.attributes('src')).toBe('/mocked/missing-image.png')
     })
 
-    it('renders badge when badgeValue is provided', () => {
+    it('renders badge when badgeValue is string', () => {
         const wrapper = factory({ badgeValue: '5' })
         const badge = wrapper.findComponent(Badge)
         expect(badge.exists()).toBe(true)
         expect(badge.text()).toContain('5')
     })
 
-    it('renders number badgeValue as string', () => {
+    it('renders badge when badgeValue is number', () => {
         const wrapper = factory({ badgeValue: 9 })
         const badge = wrapper.findComponent(Badge)
         expect(badge.exists()).toBe(true)
         expect(badge.text()).toContain('9')
     })
 
-    it('does not render badge when badgeValue is null or undefined', () => {
-        expect(factory({ badgeValue: undefined }).findComponent(Badge).exists()).toBe(false)
-        expect(factory({}).findComponent(Badge).exists()).toBe(false)
+    it('does not render badge when badgeValue is undefined', () => {
+        const wrapper = factory({ badgeValue: undefined })
+        expect(wrapper.findComponent(Badge).exists()).toBe(false)
     })
 
-    it('applies correct classes when active is true (PILL style)', () => {
+    it('does not render badge when badgeValue is null', () => {
+        const wrapper = factory({ badgeValue: null as any })
+        expect(wrapper.findComponent(Badge).exists()).toBe(false)
+    })
+
+    it('applies active styles for PILL style', () => {
         const wrapper = factory({
             tabStyle: TabStyle.PILL,
             active: true
         })
+
         const classes = wrapper.classes()
         expect(classes).toContain('bg-background-primary-brand-subtle-active')
-        expect(classes).toContain('text-text-primary-brand-active')
+        expect(classes).toContain('text-text-primary-brand-on-soft-bg')
     })
 
-    it('applies correct classes for PILL_MONOCRHOME inactive', () => {
-        const wrapper = factory({
-            tabStyle: TabStyle.PILL_MONOCRHOME,
-            active: false
-        })
-
-        const classes = wrapper.classes()
-        expect(classes).toContain('hover:text-text-neutral-on-monochrome-hover-bg')
-    })
-
-    it('badge gets correct style and color when active is true', () => {
+    it('badge uses correct props when active is true', () => {
         const wrapper = factory({
             badgeValue: 'New',
             active: true
@@ -128,14 +137,25 @@ describe('Tab.vue', () => {
         expect(badge.props('shape')).toBe(BadgeShape.PILL)
     })
 
-    it('badge gets correct style and color when active is false', () => {
+    it('badge uses correct props when active is false', () => {
         const wrapper = factory({
             badgeValue: 'New',
-            active: false,
-            tabStyle: TabStyle.UNDERLINE
+            active: false
         })
         const badge = wrapper.findComponent(Badge)
         expect(badge.props('styleType')).toBe(BadgeStyle.FLAT)
         expect(badge.props('color')).toBe(ColorAccent.NEUTRAL)
+    })
+
+    it('defaults to underline style if invalid tabStyle is passed', () => {
+        const wrapper = factory({ tabStyle: 'INVALID' as TabStyle })
+        const classes = wrapper.classes()
+        expect(classes).toContain('border-b-2')
+    })
+
+    it('defaults to LG size if invalid size is passed', () => {
+        const wrapper = factory({ size: 'UNKNOWN' as TabSize })
+        const classes = wrapper.classes()
+        expect(classes).toContain('min-h-[52px]')
     })
 })

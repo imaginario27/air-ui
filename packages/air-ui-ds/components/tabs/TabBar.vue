@@ -1,5 +1,12 @@
 <template>
-    <div class="flex flex-wrap">
+    <div 
+        :class="[
+            'flex flex-wrap',
+            hasContainer && 'border border-border-default',
+            hasContainer && containerStyleClass,
+            hasContainer && isContainerFullWidth && 'w-full',
+        ]"
+    >
         <Tab 
             v-for="(tab, index) in tabs" 
             :key="index" 
@@ -9,6 +16,7 @@
             :badgeValue="tab.badgeValue"
             :active="index === activeIndex" 
             :tabStyle
+            :size="tabSize"
             :decoration
             @click="handleTabClick(index, tab.to)"
         />
@@ -37,7 +45,20 @@ const props = defineProps({
         default: 0,
     },
     tabStyle: String as PropType<TabStyle>,
+    tabSize: {
+        type: String as PropType<TabSize>,
+        default: TabSize.LG,
+        validator: (value: TabSize) => Object.values(TabSize).includes(value),
+    },
     decoration: String as PropType<TabDecoration>,
+    hasContainer: {
+        type: Boolean as PropType<boolean>,
+        default: false,
+    },
+    isContainerFullWidth: {
+        type: Boolean as PropType<boolean>,
+        default: false,
+    },
 })
 
 // Local
@@ -61,4 +82,16 @@ const handleTabClick = (index: number, to?: string) => {
 watch(() => props.modelValue, (newVal) => {
     activeIndex.value = newVal
 })
+
+// Computed classes
+const containerStyleClass = computed(() => {
+    const variant: Record<TabSize, string> = {
+        [TabSize.LG]: "p-4 rounded-md",
+        [TabSize.MD]: "p-3 rounded-sm",
+        [TabSize.SM]: "p-2 rounded-sm",
+    }
+
+    return variant[props.tabSize as TabSize] || "p-4 rounded-md"
+})
+
 </script>

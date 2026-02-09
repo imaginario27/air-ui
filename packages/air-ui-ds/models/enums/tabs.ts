@@ -9,3 +9,9 @@ export enum TabDecoration {
     ICON = 'icon',
     IMAGE = 'image',
 }
+
+export enum TabSize {
+    LG = 'lg',
+    MD = 'md',
+    SM = 'sm',
+}

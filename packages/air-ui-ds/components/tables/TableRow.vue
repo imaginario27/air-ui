@@ -1,5 +1,9 @@
 <template>
-    <tr :class="isHoverable && 'hover:bg-background-neutral-subtlest'">
+    <tr 
+        :class="[
+            isHoverable && 'hover:bg-background-neutral-subtlest',
+            isStripped && 'even:bg-background-neutral-subtlest',
+        ]">
         <slot />
     </tr>
 </template>
@@ -7,6 +11,10 @@
 // Props
 defineProps({
     isHoverable: {
+        type: Boolean as PropType<boolean>,
+        default: false,
+    },
+    isStripped: {
         type: Boolean as PropType<boolean>,
         default: false,
     },
