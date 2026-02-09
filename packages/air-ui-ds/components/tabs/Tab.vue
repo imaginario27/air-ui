@@ -64,6 +64,11 @@ const props = defineProps({
         default: TabStyle.UNDERLINE,
         validator: (value: TabStyle) => Object.values(TabStyle).includes(value),
     },
+    size: {
+        type: String as PropType<TabSize>,
+        default: TabSize.LG,
+        validator: (value: TabSize) => Object.values(TabSize).includes(value),
+    },
     text: {
         type: String as PropType<string>,
         default: 'Tab text',
@@ -101,25 +106,25 @@ const handleImageError = () => {
 const styleClass = computed(() => {
     const styleVariants = {
         [TabStyle.UNDERLINE]: [
-            'min-h-[52px]', 
+            underlineStyleSizeClass.value,
             'border-b-2', 
             props.active ? 
                 'border-b-border-primary-brand-default text-text-primary-brand-active' 
-                : 'border-b-border-inactive text-text-neutral-inactive, hover:text-text-primary-brand-hover hover:border-b-border-primary-brand-hover',  
+                : 'border-b-border-inactive !text-text-default hover:!text-text-primary-brand-hover hover:border-b-border-primary-brand-hover',  
         ],
         [TabStyle.PILL]: [
-            'min-h-[40px]',
+            pillStyleSizeClass.value,
             'rounded', 
             props.active ? 
-                'text-text-primary-brand-active bg-background-primary-brand-subtle-active' 
-                : 'text-text-neutral-inactive hover:text-text-primary-brand-hover',  
+                'text-text-primary-brand-on-soft-bg bg-background-primary-brand-subtle-active' 
+                : '!text-text-default hover:!text-text-primary-brand-hover',  
         ],
         [TabStyle.PILL_MONOCRHOME]: [
-            'min-h-[40px]',
+            pillStyleSizeClass.value,
             'rounded', 
             props.active ? 
                 'text-text-neutral-on-monochrome-active-bg bg-background-neutral-active' 
-                : 'text-text-neutral-inactive hover:text-text-neutral-on-monochrome-hover-bg',  
+                : '!text-text-default hover:!text-text-neutral-on-monochrome-hover-bg',  
         ],
     }
     return styleVariants[props.tabStyle as TabStyle] || [
@@ -129,6 +134,26 @@ const styleClass = computed(() => {
             'border-b-border-primary-brand-default text-text-primary-brand-active' 
             : 'border-b-border-inactive text-text-neutral-inactive, hover:text-text-primary-brand-hover hover:border-b-border-primary-brand-hover',  
     ]
+})
+
+const underlineStyleSizeClass = computed(() => {
+    const variant: Record<TabSize, string> = {
+        [TabSize.LG]: "min-h-[52px]",
+        [TabSize.MD]: "min-h-[40px]",
+        [TabSize.SM]: "min-h-[36px]",
+    }
+
+    return variant[props.size as TabSize] || "min-h-[52px]"
+})
+
+const pillStyleSizeClass = computed(() => {
+    const variant: Record<TabSize, string> = {
+        [TabSize.LG]: "min-h-[40px]",
+        [TabSize.MD]: "min-h-[36px]",
+        [TabSize.SM]: "min-h-[32px]",
+    }
+
+    return variant[props.size as TabSize] || "min-h-[40px]"
 })
 
 // Computed functions

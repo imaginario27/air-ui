@@ -73,13 +73,16 @@ components: [
 ---
 srcDir: 'tabs/TabBar.vue'
 props: 
-    modelValue: 0
-    tabStyle: "underline"
-    decoration: "none"
     tabs:
         - text: "Tab 1"
         - text: "Tab 2"
         - text: "Tab 3"
+    modelValue: 0
+    tabStyle: "underline"
+    tabSize: "lg"
+    decoration: "none"
+    hasContainer: false
+    isContainerFullWidth: false
 items:
     tabStyle: 
         - value: underline
@@ -88,6 +91,13 @@ items:
           text: PILL
         - value: pill-monochrome
           text: PILL_MONOCRHOME
+    tabSize:
+        - value: lg
+          text: LG
+        - value: md
+          text: MD
+        - value: sm
+          text: SM
     decoration: 
         - value: none
           text: NONE
@@ -126,9 +136,24 @@ props: [
         "type": "TabStyle",
     },
     {
+        "name": "tabSize",
+        "default": "TabSize.LG",
+        "type": "TabSize",
+    },
+    {
         "name": "decoration",
         "default": "TabDecoration.NONE",
         "type": "TabDecoration",
+    },
+    {
+        "name": "hasContainer",
+        "default": "false",
+        "type": "boolean",
+    },
+    {
+        "name": "isContainerFullWidth",
+        "default": "false",
+        "type": "boolean",
     },
 ]
 ---
@@ -222,13 +247,45 @@ options: [
 ---
 ::
 
+#### tabSize 
+Sets the size of the tabs. It uses the `TabSize` enum.
+
+```vue
+<template>
+    <TabBar :tabSize="TabSize.SM" />
+</template>
+```
+
+- **Type:** `TabSize`
+- **Default:** `TabSize.LG`
+
+##### Options
+::options-table
+---
+options: [
+    {
+        value: "LG",
+        description: "Large size tab"
+    },
+    {
+        value: "MD",
+        description: "Medium size tab"
+    },
+    {
+        value: "SM",
+        description: "Small size tab"
+    },
+]
+---
+::
+
 #### decoration
 Sets the type of decoration of the tabs. It uses the `TabDecoration` enum.
 
 ```vue
 <template>
     <TabBar 
-        :TabDecoration="TabDecoration.IMAGE" />
+        :decoration="TabDecoration.IMAGE" />
         :tabs="exampleTabs" 
     />
 </template>
@@ -273,6 +330,35 @@ options: [
 ]
 ---
 ::
+
+#### hasContainer
+Adds a border and padding to the `TabBar` component.
+
+```vue<template>
+    <TabBar 
+        ...
+        :hasContainer="true"
+    />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `false`
+
+#### isContainerFullWidth
+When `hasContainer` is `true`, this prop makes the container take the full width of its parent.
+
+```vue<template>
+    <TabBar 
+        ...
+        :hasContainer="true"
+        :isContainerFullWidth="true"
+    />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `false`
 
 ## TabContent
 

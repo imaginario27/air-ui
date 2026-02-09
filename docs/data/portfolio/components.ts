@@ -198,6 +198,11 @@ export const componentList: ComponentPortfolioItem[] = [
         imgUrl: `/images/thumbnails/components/option-buttons-group-field.png`,
     },
     {
+        title: 'PinField',
+        to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/pin-field`,
+        imgUrl: `/images/thumbnails/components/pin-field.png`,
+    },
+    {
         title: 'SearchField',
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/search-field`,
         imgUrl: `/images/thumbnails/components/search-field.png`,
@@ -294,6 +299,11 @@ export const componentList: ComponentPortfolioItem[] = [
         title: 'DataDetails',
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/data-details`,
         imgUrl: `/images/thumbnails/components/data-details.png`,
+    },
+    {
+        title: 'ScrollArea',
+        to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/scroll-area`,
+        imgUrl: `/images/thumbnails/components/scroll-area.png`,
     },
     {
         title: 'Table',

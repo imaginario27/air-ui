@@ -89,7 +89,7 @@
     --color-icon-neutral-inactive: var(--color-theme-neutral-400);
     --color-icon-neutral-on-filled-bg: var(--color-theme-neutral-white);
     --color-icon-neutral-on-filled-secondary-brand-bg: var(--color-theme-neutral-white);
-    --color-icon-neutral-on-monochrome-active-bg: var(--color-theme-neutral-700);
+    --color-icon-neutral-on-monochrome-active-bg: var(--color-theme-neutral-950);
     --color-icon-neutral-on-monochrome-hover-bg: var(--color-theme-neutral-600);
     --color-icon-neutral-on-neutral-bg: var(--color-theme-neutral-950);
     --color-icon-neutral-on-primary-brand-soft-bg: var(--color-theme-neutral-400);
@@ -117,7 +117,7 @@
     --color-text-neutral-disabled: var(--color-theme-neutral-400);
     --color-text-neutral-inactive: var(--color-theme-neutral-400);
     --color-text-neutral-on-filled: var(--color-theme-neutral-white);
-    --color-text-neutral-on-monochrome-active-bg: var(--color-theme-neutral-700);
+    --color-text-neutral-on-monochrome-active-bg: var(--color-theme-neutral-950);
     --color-text-neutral-on-monochrome-hover-bg: var(--color-theme-neutral-600);
     --color-text-neutral-on-neutral-bg: var(--color-theme-neutral-950);
     --color-text-neutral-on-neutral-filled-bg: var(--color-theme-neutral-white);
@@ -310,7 +310,7 @@
     --color-icon-neutral-inactive: var(--color-theme-neutral-400);
     --color-icon-neutral-on-filled-bg: var(--color-theme-neutral-950);
     --color-icon-neutral-on-filled-secondary-brand-bg: var(--color-theme-neutral-white);
-    --color-icon-neutral-on-monochrome-active-bg: var(--color-theme-neutral-700);
+    --color-icon-neutral-on-monochrome-active-bg: var(--color-theme-neutral-950);
     --color-icon-neutral-on-monochrome-hover-bg: var(--color-theme-neutral-600);
     --color-icon-neutral-on-neutral-bg: var(--color-theme-neutral-950);
     --color-icon-neutral-on-primary-brand-soft-bg: var(--color-theme-neutral-600);
@@ -338,7 +338,7 @@
     --color-text-neutral-disabled: var(--color-theme-neutral-400);
     --color-text-neutral-inactive: var(--color-theme-neutral-400);
     --color-text-neutral-on-filled: var(--color-theme-neutral-950);
-    --color-text-neutral-on-monochrome-active-bg: var(--color-theme-neutral-700);
+    --color-text-neutral-on-monochrome-active-bg: var(--color-theme-neutral-950);
     --color-text-neutral-on-monochrome-hover-bg: var(--color-theme-neutral-600);
     --color-text-neutral-on-neutral-bg: var(--color-theme-neutral-950);
     --color-text-neutral-on-neutral-filled-bg: var(--color-theme-neutral-white);

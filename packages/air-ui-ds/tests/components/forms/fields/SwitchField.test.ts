@@ -11,14 +11,18 @@ const defaultProps = {
     id: 'switch-id'
 }
 
+const factory = (props: Record<string, unknown> = {}) => {
+    return mount(SwitchField, {
+        props: {
+            ...defaultProps,
+            ...props
+        }
+    })
+}
+
 describe('SwitchField', () => {
     it('renders legend when provided', () => {
-        const wrapper = mount(SwitchField, {
-            props: {
-                ...defaultProps,
-                legend: 'Settings'
-            }
-        })
+        const wrapper = factory({ legend: 'Settings' })
 
         const legend = wrapper.find('legend')
         expect(legend.exists()).toBe(true)
@@ -26,12 +30,7 @@ describe('SwitchField', () => {
     })
 
     it('renders label when provided', () => {
-        const wrapper = mount(SwitchField, {
-            props: {
-                ...defaultProps,
-                label: 'Enable feature'
-            }
-        })
+        const wrapper = factory({ label: 'Enable feature' })
 
         const label = wrapper.find('label')
         expect(label.exists()).toBe(true)
@@ -39,13 +38,10 @@ describe('SwitchField', () => {
     })
 
     it('applies correct size and switch styling classes', () => {
-        const wrapper = mount(SwitchField, {
-            props: {
-                ...defaultProps,
-                size: ControlFieldSize.LG,
-                styleType: SwitchStyle.SUCCESS,
-                modelValue: true
-            }
+        const wrapper = factory({
+            size: ControlFieldSize.LG,
+            styleType: SwitchStyle.SUCCESS,
+            modelValue: true
         })
 
         const switchWrapper = wrapper.find('div.relative.flex.items-center')
@@ -54,12 +50,7 @@ describe('SwitchField', () => {
     })
 
     it('renders help text when provided and no error is present', () => {
-        const wrapper = mount(SwitchField, {
-            props: {
-                ...defaultProps,
-                helpText: 'Helpful info'
-            }
-        })
+        const wrapper = factory({ helpText: 'Helpful info' })
 
         const help = wrapper.find('p')
         expect(help.exists()).toBe(true)
@@ -68,12 +59,7 @@ describe('SwitchField', () => {
     })
 
     it('renders error text when error is present', () => {
-        const wrapper = mount(SwitchField, {
-            props: {
-                ...defaultProps,
-                error: 'Required field'
-            }
-        })
+        const wrapper = factory({ error: 'Required field' })
 
         const error = wrapper.find('p')
         expect(error.exists()).toBe(true)
@@ -82,12 +68,7 @@ describe('SwitchField', () => {
     })
 
     it('emits update:modelValue when switch is toggled', async () => {
-        const wrapper = mount(SwitchField, {
-            props: {
-                ...defaultProps,
-                modelValue: false
-            }
-        })
+        const wrapper = factory({ modelValue: false })
 
         const toggle = wrapper.find('div.relative.flex.items-center')
         await toggle.trigger('click')
@@ -96,12 +77,9 @@ describe('SwitchField', () => {
     })
 
     it('does not emit update:modelValue when disabled', async () => {
-        const wrapper = mount(SwitchField, {
-            props: {
-                ...defaultProps,
-                modelValue: false,
-                disabled: true
-            }
+        const wrapper = factory({
+            modelValue: false,
+            disabled: true
         })
 
         const toggle = wrapper.find('div.relative.flex.items-center')
@@ -113,13 +91,10 @@ describe('SwitchField', () => {
     it('emits update:error from toggle when validator fails', async () => {
         const validator = vi.fn().mockReturnValue('Validation failed')
 
-        const wrapper = mount(SwitchField, {
-            props: {
-                ...defaultProps,
-                modelValue: false,
-                required: true,
-                validator
-            }
+        const wrapper = factory({
+            modelValue: false,
+            required: true,
+            validator
         })
 
         const toggle = wrapper.find('div.relative.flex.items-center')
@@ -136,14 +111,11 @@ describe('SwitchField', () => {
     it('emits update:error on modelValue change via watch', async () => {
         const validator = vi.fn().mockReturnValue('Invalid')
 
-        const wrapper = mount(SwitchField, {
-            props: {
-                ...defaultProps,
-                required: true,
-                validator,
-                modelValue: false,
-                error: ''
-            }
+        const wrapper = factory({
+            required: true,
+            validator,
+            modelValue: false,
+            error: ''
         })
 
         await wrapper.setProps({ modelValue: true })
@@ -155,13 +127,10 @@ describe('SwitchField', () => {
     it('does not validate when required is false', async () => {
         const validator = vi.fn()
 
-        const wrapper = mount(SwitchField, {
-            props: {
-                ...defaultProps,
-                required: false,
-                validator,
-                modelValue: true
-            }
+        const wrapper = factory({
+            required: false,
+            validator,
+            modelValue: true
         })
 
         await wrapper.setProps({ modelValue: false })
@@ -169,16 +138,26 @@ describe('SwitchField', () => {
         expect(validator).not.toHaveBeenCalled()
     })
 
-    it('renders icon when `icon` prop is provided', () => {
-        const wrapper = mount(SwitchField, {
-            props: {
-                ...defaultProps,
-                icon: 'mdi:mdi-test'
-            }
-        })
+    it('renders icon when icon prop is provided', () => {
+        const wrapper = factory({ icon: 'mdi:mdi-test' })
 
         const icon = wrapper.findComponent({ name: 'Icon' })
         expect(icon.exists()).toBe(true)
         expect(icon.props('name')).toBe('mdi:mdi-test')
+    })
+
+    it('places switch next to label when fitToContent is enabled', () => {
+        const wrapper = factory({
+            label: 'Enable feature',
+            fitToContent: true
+        })
+
+        const mainWrapper = wrapper
+            .findAll('div')
+            .find(div => div.classes().includes('items-center'))
+
+        expect(mainWrapper).toBeDefined()
+        expect(mainWrapper!.classes()).toContain('w-max')
+        expect(mainWrapper!.classes()).toContain('gap-3')
     })
 })
