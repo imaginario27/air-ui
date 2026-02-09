@@ -23,6 +23,7 @@
             :class="[ 
                 'flex items-center gap-3',
                 label || icon ? 'justify-between' : 'justify-end',
+                fitToContent && 'w-max',
                 'text-sm w-full',
                 hasError ? 'text-text-error' : 'text-text-default',
                 checkboxWrapperClass && checkboxWrapperClass
@@ -101,7 +102,6 @@
     </div>
 </template>
 
-
 <script setup lang="ts">
 // Props
 const props = defineProps({
@@ -144,6 +144,10 @@ const props = defineProps({
         default: SwitchStyle.BRAND,
         validator: (value: SwitchStyle) => Object.values(SwitchStyle).includes(value),
     },    
+    fitToContent: {
+        type: Boolean as PropType<boolean>,
+        default: false,
+    },
     checkboxWrapperClass: String as PropType<string>,
     labelClass: String as PropType<string>,
 })

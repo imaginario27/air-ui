@@ -17,6 +17,7 @@ props:
     size: "md"
     icon: null
     styleType: "brand"
+    fitToContent: false
     checkboxWrapperClass: ""
     labelClass: ""
 items:
@@ -102,6 +103,11 @@ props: [
         "name": "styleType",
         "default": "SwitchStyle.BRAND",
         "type": "SwitchStyle",
+    },
+    {
+        "name": "fitToContent",
+        "default": "false",
+        "type": "boolean",
     },
     {
         "name": "checkboxWrapperClass",
@@ -303,6 +309,19 @@ options: [
 ]
 ---
 ::
+
+### fitToContent
+
+When set to `true`, the switch field will adjust its width to fit its content, rather than stretching to fill the container.
+
+```vue
+<template>
+    <SwitchField fitToContent />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `false`
 
 ### checkboxWrapperClass
 
