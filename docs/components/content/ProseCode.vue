@@ -4,7 +4,7 @@
             'px-1 py-0.5',
             'rounded',
             'bg-background-neutral-subtlest',
-            'border border-border-neutral-disabled',
+            'border border-border-default/60',
             'text-sm font-mono',
             'text-text-default',
             textClass,

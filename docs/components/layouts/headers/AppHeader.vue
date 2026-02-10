@@ -6,7 +6,8 @@
         :sidebarTogglePosition="SidebarTogglePosition.LOGO_LEFT_SIDE"
         hasBorder
         isSticky
-        class="backdrop-blur-md"
+        headerClass="border-border-neutral-subtle"
+        :class="[ isDark ? 'backdrop-blur-lg bg-background-surface/90' : 'backdrop-blur-md']"
     >
         <template #header-logo>
             <AppLogo
@@ -67,7 +68,7 @@
                     'px-content-side-padding-mobile',
                     'md:px-content-side-padding',
                     'border-b',
-                    'border-border-default',
+                    'border-border-neutral-subtle',
                 ]"
             >
                 <TabBar 

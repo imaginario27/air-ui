@@ -9,6 +9,7 @@
                         placeholder="Search a component"
                         :size="InputSize.LG"
                         :maxLength="FieldMaxLength.SEARCH"
+                        inputCustomClass="bg-background-neutral-subtlest/60"
                     />
                 </FormRow>
             </Form>

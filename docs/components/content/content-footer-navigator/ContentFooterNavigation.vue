@@ -6,7 +6,7 @@
             'gap-4',
             'mt-8',
             'pt-8',
-            'border-t border-border-default',
+            'border-t border-border-neutral-subtle',
             justifyClass,
         ]"
     >

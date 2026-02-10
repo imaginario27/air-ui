@@ -6,7 +6,7 @@
     <Footer
         :class="[
             'border-t',
-            'border-t-border-default',
+            'border-t-border-neutral-subtle',
         ]"
     >
         <span class="text-sm text-text-neutral-subtle">

@@ -9,6 +9,7 @@
             itemsCustomClass="!font-medium"
             :headerHeight="headerHeightOffset"
             :expandedWidth="expandedSidebarWidth"
+            class="border-border-neutral-subtle"
         />
     
         <ContentBody 
@@ -25,6 +26,7 @@
                     hasGoBackLink
                     goBackText="Back to components"
                     :goBackLink="`/${AppSlug.DOCS}/${AppSlug.COMPONENTS}`"
+                    class="border-border-neutral-subtle"
                 />
 
                 <ContentPageHeader 
@@ -33,6 +35,7 @@
                     :hasGoBackLink="isUtilsChildPage"
                     goBackText="Back to utils"
                     :goBackLink="`/${AppSlug.DOCS}/${AppSlug.UTILS}`"
+                    class="border-border-neutral-subtle"
                 >   
                     <template v-if="hasPageMetadata" #bottom>
                         <PageMetadata :data="pageMetadata" />
@@ -42,6 +45,7 @@
                 <ContentPageHeader 
                     v-else
                     :type="hasOvertitle ? PageTitleType.WITH_OVERTITLE: PageTitleType.SIMPLE" 
+                    class="border-border-neutral-subtle"
                 />
 
                 <slot />

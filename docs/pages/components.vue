@@ -31,7 +31,7 @@ useHead(() => ({
     title: title.value,
 }))
 
-// Stores
+// Composables
 const darkModeStore = useDarkMode()
 const { isDark } = darkModeStore
 </script>

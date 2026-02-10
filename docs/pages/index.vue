@@ -1,97 +1,113 @@
 <template>
-    <Section 
-        :spacing="SectionSpacing.XL" 
-        hasContentMaxWidth
-    >
-        <SectionBody>
-            <div class="flex flex-col lg:flex-row gap-10">
-                <div class="w-full lg:w-[40%] flex flex-col gap-8">
-                    <h1 
-                        :class="[
-                            'text-5xl',
-                            'sm:text-6xl',
-                            'lg:text-7xl',
-                            'tracking-tight',
-                            'font-bold',
-                        ]"
-                    >
-                        Build modern Nuxt apps — faster with
-                        <span class="text-text-primary-brand-default">AirUI</span>
-                    </h1>
+    <AnimatedParticleBackground>
+        <Section 
+            :spacing="SectionSpacing.XL" 
+            hasContentMaxWidth
+        >
+            <SectionBody>
+                <div class="flex flex-col lg:flex-row gap-10">
+                    <div class="w-full lg:w-[40%] flex flex-col gap-8">
+                        <h1 
+                            :class="[
+                                'text-5xl',
+                                'sm:text-6xl',
+                                'lg:text-7xl',
+                                'tracking-tight',
+                                'font-bold',
+                            ]"
+                        >
+                            Build modern Nuxt apps — faster with
+                            <span class="text-text-primary-brand-default">AirUI</span>
+                        </h1>
 
-                    <p 
-                        :class="[
-                            'text-text-neutral-subtle',
-                            'text-lg',
-                            'sm:text-xl/8',
-                        ]"
-                    >
-                        A lightweight, flexible UI framework for Nuxt, powered by Tailwind CSS.  
-                        Fully customizable and built for speed.
-                    </p>
+                        <p 
+                            :class="[
+                                'text-text-neutral-subtle',
+                                'text-lg',
+                                'sm:text-xl/8',
+                            ]"
+                        >
+                            A lightweight, flexible UI framework for Nuxt, powered by Tailwind CSS.  
+                            Fully customizable and built for speed.
+                        </p>
 
-                    <div class="flex flex-col sm:flex-row gap-4">
-                        <ActionButton 
-                            :styleType="ButtonStyleType.PRIMARY_BRAND_FILLED"
-                            :size="ButtonSize.XXL"
-                            :actionType="ButtonActionType.LINK"
-                            text="Get started"
-                            :to="`/${AppSlug.DOCS}/${AppSlug.GETTING_STARTED}`"
-                            isMobileFullWidth
+                        <div class="flex flex-col sm:flex-row gap-4">
+                            <ActionButton 
+                                :styleType="ButtonStyleType.PRIMARY_BRAND_FILLED"
+                                :size="ButtonSize.XXL"
+                                :actionType="ButtonActionType.LINK"
+                                text="Get started"
+                                :to="`/${AppSlug.DOCS}/${AppSlug.GETTING_STARTED}`"
+                                isMobileFullWidth
+                                :class="[
+                                    isDark && [
+                                        'shadow-md',
+                                        'shadow-background-primary-brand-default/40',
+                                        'transition-shadow',
+                                    ],
+                                ]"
+                            />
+                            <ActionButton 
+                                :size="ButtonSize.XXL"
+                                :actionType="ButtonActionType.LINK"
+                                text="Explore components"
+                                :iconPosition="IconPosition.RIGHT"
+                                icon="mdi:arrow-right-thin"
+                                :to="`/${AppSlug.DOCS}/${AppSlug.COMPONENTS}`"
+                                isMobileFullWidth
+                                :class="[
+                                    isDark && [
+                                        'shadow-md',
+                                        'shadow-border-default/40',
+                                        'transition-shadow',
+                                    ],
+                                ]"
+                            />
+                        </div>
+
+                        <CodeSnippet 
+                            code="npm create air-ui-app@latest <project_name>"
                         />
-                        <ActionButton 
-                            :size="ButtonSize.XXL"
-                            :actionType="ButtonActionType.LINK"
-                            text="Explore components"
-                            :iconPosition="IconPosition.RIGHT"
-                            icon="mdi:arrow-right-thin"
-                            :to="`/${AppSlug.DOCS}/${AppSlug.COMPONENTS}`"
-                            isMobileFullWidth
-                        />
+
+                        <List class="gap-4 mt-8">
+                            <ListItem>
+                                <Feature 
+                                    title="Built with Tailwind CSS"
+                                    description="Utility-first styling with full design freedom."
+                                    icon="mdi:tailwind"
+                                />
+                            </ListItem>
+                            <ListItem>
+                                <Feature 
+                                    title="Optimized for Nuxt"
+                                    description="Auto-imported components, composables, and stores — zero config needed."
+                                    icon="mdi:lightning-bolt-outline"
+                                />
+                            </ListItem>
+                            <ListItem>
+                                <Feature 
+                                    title="Type-safe with TypeScript"
+                                    description="Fully typed API surface for a smoother developer experience."
+                                    icon="mdi:language-typescript"
+                                />
+                            </ListItem>
+                        </List>
                     </div>
 
-                    <CodeSnippet 
-                        code="npm create air-ui-app@latest <project_name>"
-                    />
-
-                    <List class="gap-4 mt-8">
-                        <ListItem>
-                            <Feature 
-                                title="Built with Tailwind CSS"
-                                description="Utility-first styling with full design freedom."
-                                icon="mdi:tailwind"
-                            />
-                        </ListItem>
-                        <ListItem>
-                            <Feature 
-                                title="Optimized for Nuxt"
-                                description="Auto-imported components, composables, and stores — zero config needed."
-                                icon="mdi:lightning-bolt-outline"
-                            />
-                        </ListItem>
-                        <ListItem>
-                            <Feature 
-                                title="Type-safe with TypeScript"
-                                description="Fully typed API surface for a smoother developer experience."
-                                icon="mdi:language-typescript"
-                            />
-                        </ListItem>
-                    </List>
+                    <div class="w-full lg:w-[60%] flex justify-center">
+                        <NuxtImg
+                            src="images/hero-air-ui.png"
+                            densities="[1, 2]"
+                            class="w-full max-w-[800px] h-auto object-contain"
+                            alt="AirUI hero image with Nuxt app component library"
+                        />
+                    </div>
                 </div>
+            </SectionBody>
+        </Section>
+    </AnimatedParticleBackground>
 
-                <div class="w-full lg:w-[60%] flex justify-center">
-                    <NuxtImg
-                        src="images/hero-air-ui.png"
-                        densities="[1, 2]"
-                        class="w-full max-w-[800px] h-auto object-contain"
-                        alt="AirUI hero image with Nuxt app component library"
-                    />
-                </div>
-            </div>
-        </SectionBody>
-    </Section>
-
-    <Divider />
+    <Divider class="border-border-neutral-subtle"/>
 
     <Section 
         :spacing="SectionSpacing.LG"
@@ -133,7 +149,7 @@
         </SectionBody>
     </Section>
 
-    <Divider />
+    <Divider class="border-border-neutral-subtle"/>
 
     <Section 
         :spacing="SectionSpacing.XL"
@@ -185,7 +201,7 @@
         </SectionBody>
     </Section>
 
-    <Divider />
+    <Divider class="border-border-neutral-subtle"/>
 
     <Section 
         :spacing="SectionSpacing.XL"
@@ -242,4 +258,8 @@
 definePageMeta({
     title: 'Welcome',
 })
+
+// Composables
+const darkModeStore = useDarkMode()
+const { isDark } = darkModeStore
 </script>

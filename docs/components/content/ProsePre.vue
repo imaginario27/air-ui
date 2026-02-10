@@ -3,7 +3,7 @@
         :class="[
             'dark', // Forces the dark theme
             'bg-background-neutral-subtlest',
-            'border border-border-neutral-disabled',
+            'border border-border-default/60',
             'px-4 p-2 my-4',
             'overflow-x-auto',
             'rounded-md',
