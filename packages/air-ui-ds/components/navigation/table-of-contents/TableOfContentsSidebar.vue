@@ -8,7 +8,7 @@
             'pt-12',
             'pb-8',
             'px-content-side-padding-mobile md:px-content-side-padding',
-            'bg-background-container-surface',
+            'bg-background-surface',
             'fixed right-0',
             'overflow-y-auto',
         ]"

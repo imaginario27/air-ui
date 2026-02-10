@@ -10,7 +10,7 @@
 import logoLight from '@/public/images/logo/air-ui-logo-color.svg?raw'
 import logoDark from '@/public/images/logo/air-ui-logo-white.svg?raw'
 
-// Stores
+// Composables
 const darkModeStore = useDarkMode()
 const { isDark } = darkModeStore
 </script>

@@ -36,7 +36,7 @@
             :class="[
                 'flex flex-col',
                 'w-full',
-                'border border-border-default',
+                'border border-border-neutral-subtle',
                 'rounded'
             ]"
         >
@@ -45,7 +45,7 @@
                 :class="[
                     'flex flex-col',
                     'w-full',
-                    'border-b border-border-default',
+                    'border-b border-border-neutral-subtle',
                     'p-4',
                     'gap-4',
                 ]"
@@ -102,7 +102,7 @@
                     'w-full',
                     'items-center justify-center',
                     !showCode ? 'py-20 px-8' : 'p-8',
-                    'border-b border-border-default',
+                    'border-b border-border-neutral-subtle',
                     componentPreviewClass,
                     'rounded',
                 ]"
@@ -114,7 +114,7 @@
                         'items-center',
                         'w-full',
                         'items-center justify-center',
-                        isPreviewContentBoxed && 'p-4 md:p-8 border border-border-default rounded bg-background-container-surface',
+                        isPreviewContentBoxed && 'p-4 md:p-8 border border-border-neutral-subtle rounded bg-background-container-surface',
                     ]"
                     :style="previewContentStyle"
                 >
@@ -170,7 +170,7 @@
                         'p-4',
                         'overflow-x-auto',
                         'text-sm font-mono',
-                        showPlayground ? 'rounded-b border-b border-border-default' : 'rounded',
+                        showPlayground ? 'rounded-b border-b border-border-neutral-subtle' : 'rounded',
                     ]"
             >
                 <CopyButton 
@@ -283,7 +283,7 @@ const component = defineAsyncComponent(() => {
         name: 'FallbackMessage',
         render() {
             return h('div', {
-                class: 'px-2 py-1 rounded-sm bg-background-neutral-subtlest border border-border-default',
+                class: 'px-2 py-1 rounded-sm bg-background-neutral-subtlest border border-border-neutral-subtle',
             }, [
                 h('span', {
                     class: 'text-semibold text-text-neutral-subtle',
@@ -416,6 +416,8 @@ const mapSlotBindings = (
 // Composable 
 /* Color mode disabled - CUrrently dark mode forced*/
 /* const colorMode = useColorMode() */
+const darkModeStore = useDarkMode()
+const { isDark } = darkModeStore
 const { $prettier } = useNuxtApp()
 
 // Shiki highlighter
@@ -669,11 +671,11 @@ watchEffect(generateCode)
 // Computed classes
 const componentPreviewClass = computed(() => {
     const variant = {
-        ['white']: 'bg-background-container-surface',
-        ['neutral-subtle']: 'bg-gray-50 dark:bg-gray-900',
+        ['white']: isDark.value ? 'bg-neutral-900/50' : 'bg-background-container-surface',
+        ['neutral-subtle']: isDark.value ? 'bg-neutral-900/50' : 'bg-neutral-50',
     }
 
-    return variant[props.previewBackground] || 'bg-gray-50 dark:bg-gray-900'
+    return variant[props.previewBackground] || (isDark.value ? 'bg-neutral-900' : 'bg-neutral-50')
 })
 
 const previewContentStyle = computed(() => {
