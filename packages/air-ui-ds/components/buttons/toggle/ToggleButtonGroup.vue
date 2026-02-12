@@ -7,22 +7,40 @@
             'rounded-button'
         ]"
     >
-        <ToggleButton
-            v-for="(button, index) in buttons"
-            :key="index"
-            :active="button.value === modelValue"
-            :text="button.text"
-            :size="button.size"
-            :icon="button.icon"
-            :iconPosition="button.iconPosition"
-            :disabled
-            :class="[
-                groupStyle === ToggleButtonGroupStyle.SEGMENTED && hasButtonBorder && 'border border-border-default rounded',
-                groupStyle === ToggleButtonGroupStyle.SEGMENTED && button.active && '!border-border-primary-brand-active',
-                !hasButtonBorder && 'rounded-button',
-            ]"
-            @click="!disabled && handleButtonClick(button)"
-        />
+        <template v-if="!onlyIcon">
+            <ToggleButton
+                v-for="(button, index) in buttons"
+                :key="index"
+                :active="button.value === modelValue"
+                :text="!onlyIcon && 'text' in button ? button.text : undefined"
+                :size="button.size"
+                :icon="button.icon"
+                :iconPosition="'iconPosition' in button ? button.iconPosition : undefined"
+                :disabled
+                :class="[
+                    groupStyle === ToggleButtonGroupStyle.SEGMENTED && hasButtonBorder && 'border border-border-default rounded',
+                    groupStyle === ToggleButtonGroupStyle.SEGMENTED && button.active && '!border-border-primary-brand-active',
+                    !hasButtonBorder && 'rounded-button',
+                ]"
+                @click="!disabled && handleButtonClick(button)"
+            />
+        </template>
+        <template v-else>
+            <ToggleIconButton
+                v-for="(button, index) in buttons"
+                :key="index"
+                :active="button.value === modelValue"
+                :size="button.size"
+                :icon="button.icon"
+                :disabled
+                :class="[
+                    groupStyle === ToggleButtonGroupStyle.SEGMENTED && hasButtonBorder && 'border border-border-default rounded',
+                    groupStyle === ToggleButtonGroupStyle.SEGMENTED && button.active && '!border-border-primary-brand-active',
+                    !hasButtonBorder && 'rounded-button',
+                ]"
+                @click="!disabled && handleButtonClick(button)"
+            />
+        </template>
     </div>
 </template>
 
@@ -34,7 +52,7 @@ defineProps({
         default: 'button-1',
     },
     buttons: {
-        type: Array as PropType<ToggleButton[]>,
+        type: Array as PropType<ToggleButtonItem[]>,
         default: () => [
             {
                 text: 'Button 1',
@@ -47,6 +65,10 @@ defineProps({
                 action: () => {},
             },
         ],
+    },
+    onlyIcon: {
+        type: Boolean as PropType<boolean>, 
+        default: false, 
     },
     groupStyle: {
         type: String as PropType<ToggleButtonGroupStyle>,
@@ -67,7 +89,7 @@ defineProps({
 const emit = defineEmits(['update:modelValue'])
 
 // Handlers
-const handleButtonClick = (button: ToggleButton) => {
+const handleButtonClick = (button: ToggleButtonItem) => {
     if (button?.action) {
         button.action()
     }

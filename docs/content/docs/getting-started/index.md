@@ -11,11 +11,55 @@ Air UI is a modern component and utility framework built on **Vue**, **Nuxt**, a
 
 Air UI is composed of two focused, modular packages — each designed to serve a specific purpose in your application architecture:
 
-* **[`@imaginario27/air-ui-ds`](https://www.npmjs.com/package/@imaginario27/air-ui-ds)**
-  Provides a fully typed component library, design tokens, themes, and composables tailored for Vue and Nuxt projects. Ideal for building consistent UI across applications.
 
-* **[`@imaginario27/air-ui-utils`](https://www.npmjs.com/package/@imaginario27/air-ui-utils)**
-  A standalone utility package offering reusable, type-safe logic and composables. Designed for Nuxt but suitable for any modern JavaScript or TypeScript project.
+
+::grid
+---
+cols: 2
+---
+::feature-card
+---
+title: '@imaginario27/air-ui-ds'
+description: 'Provides a fully typed component library, design tokens, themes, and composables tailored for Vue and Nuxt projects. Ideal for building consistent UI across applications.'
+---
+#footer
+::card-actions
+---
+class: 'justify-end'
+---
+::action-button
+---
+text: 'Visit npm package'
+actionType: 'link'
+isExternal: true
+to: 'https://www.npmjs.com/package/@imaginario27/air-ui-ds'
+icon: 'mdi:external-link'
+iconPosition: 'left'
+---
+::
+
+::feature-card
+---
+title: '@imaginario27/air-ui-utils'
+description: 'A standalone utility package offering reusable, type-safe logic and composables. Designed for Nuxt but suitable for any modern JavaScript or TypeScript project.'
+---
+#footer
+::card-actions
+---
+class: 'justify-end'
+---
+::action-button
+---
+text: 'Visit npm package'
+actionType: 'link'
+isExternal: true
+to: 'https://www.npmjs.com/package/@imaginario27/air-ui-utils'
+icon: 'mdi:external-link'
+iconPosition: 'left'
+---
+::
+::
+
 
 ## Core technologies
 

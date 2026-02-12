@@ -8,8 +8,6 @@
             'text-nowrap',
             ...buttonStyleClass,
             buttonSizeClass,
-            horizontalPaddingClass,
-            gapClass,
             disabled ? 'opacity-disabled cursor-not-allowed' : '',
             'self-start',
         ]"
@@ -17,16 +15,6 @@
     >
         <!-- Left icon -->
         <Icon
-            v-if="iconPosition === IconPosition.LEFT"
-            :name="icon"
-            :iconClass="iconSizeClass"
-        />
-        <span :class="['font-semibold', textSizeClass]">
-            {{ text }}
-        </span>
-        <!-- Right icon -->
-        <Icon
-            v-if="iconPosition === IconPosition.RIGHT"
             :name="icon"
             :iconClass="iconSizeClass"
         />
@@ -35,10 +23,6 @@
 <script setup lang="ts">
 // Props
 const props = defineProps({
-    text: {
-        type: String as PropType<string>,
-        default: 'Button text',
-    },
     size: {
         type: String as PropType<ButtonSize>,
         default: ButtonSize.LG,
@@ -47,11 +31,6 @@ const props = defineProps({
     icon: {
         type: String as PropType<string>,
         default: 'mdi:help',
-    },
-    iconPosition: {
-        type: String as PropType<IconPosition>,
-        default: IconPosition.NONE,
-        validator: (value: IconPosition) => Object.values(IconPosition).includes(value),
     },
     disabled: {
         type: Boolean as PropType<boolean>,
@@ -80,14 +59,14 @@ const buttonStyleClass = computed(() =>
 
 const buttonSizeClass = computed(() => {
     const sizeVariant = {
-        [ButtonSize.XS]: 'h-[24px]',
-        [ButtonSize.SM]: 'h-[28px]',
-        [ButtonSize.MD]: 'h-[32px]',
-        [ButtonSize.LG]: 'h-[36px]',
-        [ButtonSize.XL]: 'h-[40px]',
-        [ButtonSize.XXL]: 'h-[48px]',
+        [ButtonSize.XS]: 'w-[24px] h-[24px]',
+        [ButtonSize.SM]: 'w-[28px] h-[28px]',
+        [ButtonSize.MD]: 'w-[32px] h-[32px]',
+        [ButtonSize.LG]: 'w-[36px] h-[36px]',
+        [ButtonSize.XL]: 'w-[40px] h-[40px]',
+        [ButtonSize.XXL]: 'w-[48px] h-[48px]',
     }
-    return sizeVariant[props.size as ButtonSize] || 'h-[36px]'
+    return sizeVariant[props.size as ButtonSize] || 'w-[36px] h-[36px]'
 })
 
 const iconSizeClass = computed(() => {
@@ -100,41 +79,5 @@ const iconSizeClass = computed(() => {
         [ButtonSize.XXL]: 'w-[24px] h-[24px] min-w-[24px] min-h-[24px]',
     }
     return variant[props.size as ButtonSize] || 'w-[20px] h-[20px] min-w-[20px] min-h-[20px]'
-})
-
-const textSizeClass = computed(() => {
-    const sizeVariant = {
-        [ButtonSize.XS]: 'text-xs',
-        [ButtonSize.SM]: 'text-sm',
-        [ButtonSize.MD]: 'text-sm',
-        [ButtonSize.LG]: 'text-sm',
-        [ButtonSize.XL]: 'text-sm',
-        [ButtonSize.XXL]: 'text-base',
-    }
-    return sizeVariant[props.size as ButtonSize] || 'text-sm'
-})
-
-const horizontalPaddingClass = computed(() => {
-    const sizeVariant = {
-        [ButtonSize.XS]: 'px-2',
-        [ButtonSize.SM]: 'px-2',
-        [ButtonSize.MD]: 'px-2.5',
-        [ButtonSize.LG]: 'px-3',
-        [ButtonSize.XL]: 'px-3.5',
-        [ButtonSize.XXL]: 'px-4',
-    }
-    return sizeVariant[props.size as ButtonSize] || 'px-3'
-})
-
-const gapClass = computed(() => {
-    const sizeVariant = {
-        [ButtonSize.XS]: 'gap-1',
-        [ButtonSize.SM]: 'gap-1.5',
-        [ButtonSize.MD]: 'gap-2',
-        [ButtonSize.LG]: 'gap-2',
-        [ButtonSize.XL]: 'gap-2',
-        [ButtonSize.XXL]: 'gap-2',
-    }
-    return sizeVariant[props.size as ButtonSize] || 'gap-2'
 })
 </script>

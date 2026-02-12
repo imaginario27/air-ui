@@ -2,7 +2,10 @@
     <div 
         :class="[
             'flex flex-col gap-4 w-full pt-5',
-            hasBorder && 'border-t border-border-neutral-subtle'
+            hasBorder && [
+                'border-t',
+                isDark ? 'border-border-default/70' : 'border-border-neutral-subtle',
+            ]
         ]"
     >
         <slot />
@@ -16,4 +19,8 @@ defineProps({
         default: true
     }
 })
+
+// Composables
+const darkModeStore = useDarkMode()
+const { isDark } = darkModeStore
 </script>

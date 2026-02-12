@@ -11,15 +11,54 @@ You can easily customize one of the existing themes (e.g., primary, secondary, d
 
 ### Native theme palettes
 
-| Theme palette | Description                                     | Typical usage                                                 |
-| ------------- | ----------------------------------------------- | ------------------------------------------------------------- |
-| **Primary**   | Main brand identity colors.                     | Primary actions, highlights, key UI elements.                 |
-| **Secondary** | Supporting brand accent colors.                 | Secondary actions, accents, complementary UI elements.        |
-| **Danger**    | Represents destructive or critical states.      | Errors, destructive actions, alerts, validation failures.     |
-| **Info**      | Used for informational and contextual feedback. | Notifications, informational banners, hints, helper messages. |
-| **Neutral**   | The foundation palette for the UI.              | Layout surfaces, backgrounds, borders, default text.          |
-| **Success**   | Positive and successful states.                 | Success messages, confirmations, completed actions.           |
-| **Warning**   | Cautionary and attention-required states.       | Warnings, notices, non-blocking alerts.                       |
+::theme-palette-table
+---
+items: [
+    {
+        "name": "Primary",
+        "description": "Main brand identity colors.",
+        "color": "primary-brand",
+        "usage": "Primary actions, highlights, key UI elements."
+    },
+    {
+        "name": "Secondary",
+        "description": "Supporting brand accent colors.",
+        "color": "secondary-brand",
+        "usage": "Secondary actions, accents, complementary UI elements."
+    },
+    {
+        "name": "Danger",
+        "description": "Represents destructive or critical states.",
+        "color": "danger",
+        "usage": "Errors, destructive actions, alerts, validation failures."
+    },
+    {
+        "name": "Info",
+        "description": "Used for informational and contextual feedback.",
+        "color": "info",
+        "usage": "Notifications, informational banners, hints, helper messages."
+    },
+    {
+        "name": "Neutral",
+        "description": "The foundation palette for the UI.",
+        "color": "neutral",
+        "usage": "Layout surfaces, backgrounds, borders, default text."
+    },
+    {
+        "name": "Success",
+        "description": "Positive and successful states.",
+        "color": "success",
+        "usage": "Success messages, confirmations, completed actions."
+    },
+    {
+        "name": "Warning",
+        "description": "Cautionary and attention-required states.",
+        "color": "warning",
+        "usage": "Warnings, notices, non-blocking alerts."
+    },
+]
+---
+::
 
 ### Customization steps
 

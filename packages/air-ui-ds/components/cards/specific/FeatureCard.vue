@@ -6,6 +6,7 @@
     >
         <CardHeader :class="['!flex-col', align === Align.CENTER && 'items-center']">
             <ContainedIcon 
+                v-if="icon"
                 :icon
                 :shape="containedIconShape"
                 :styleType="containedIconStyleType"
@@ -13,11 +14,14 @@
             />
             <CardTitle :title :class="[align === Align.CENTER && 'text-center']"/>
         </CardHeader>
-        <CardBody>
+        <CardBody class="flex-1">
             <p :class="['text-sm', align === Align.CENTER && 'text-center']">
                 {{ description }}
             </p>
         </CardBody>
+        <CardFooter v-if="$slots.footer">
+            <slot name="footer"/>
+        </CardFooter>
     </Card>
 </template>
 <script setup lang="ts">
@@ -31,10 +35,7 @@ defineProps({
         type: String as PropType<string>,
         default: 'Feature description'
     },
-    icon: {
-        type: String as PropType<string>,
-        default: 'mdi:help'
-    },
+    icon: String as PropType<string>,
     containedIconShape: {
         type: String as PropType<IconContainerShape>,
         default: IconContainerShape.CIRCLE,
@@ -54,6 +55,8 @@ defineProps({
         type: String as PropType<Align.LEFT | Align.CENTER>,
         default: Align.LEFT,
         validator: (value: Align) => [Align.LEFT, Align.CENTER].includes(value),
-    }
+    },
 })
+
+defineEmits(['footerBtnClick'])
 </script>

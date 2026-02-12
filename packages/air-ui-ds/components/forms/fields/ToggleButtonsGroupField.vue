@@ -24,6 +24,7 @@
             :modelValue
             :groupStyle
             :disabled
+            :onlyIcon
             @update:modelValue="emit('update:modelValue', $event)"
         />
 
@@ -49,7 +50,11 @@ defineProps({
     },
     label: String as PropType<string>,
     helpText: String as PropType<string>,
-    buttons: Array as PropType<ToggleButton[]>,
+    buttons: Array as PropType<ToggleButton[] | ToggleIconButton[]>,
+    onlyIcon: {
+        type: Boolean as PropType<boolean>, 
+        default: false, 
+    },
     modelValue: {
         type: String as PropType<string>,
         required: true,

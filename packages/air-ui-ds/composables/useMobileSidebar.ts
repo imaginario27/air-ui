@@ -4,6 +4,7 @@ const isMobileSidebarOpen: Ref = ref(false)
 export const useMobileSidebar = () => {
 
     const { isMobile } = useIsMobile()
+    const route = useRoute()
     
     const toggleMobileSidebar = () => {
         isMobileSidebarOpen.value = !isMobileSidebarOpen.value
@@ -22,6 +23,14 @@ export const useMobileSidebar = () => {
             isMobileSidebarOpen.value = false
         }
     })
+
+    // Close on route change
+    watch(
+        () => route.fullPath,
+        () => {
+            isMobileSidebarOpen.value = false
+        },
+    )
 
     return {
         isMobileSidebarOpen,

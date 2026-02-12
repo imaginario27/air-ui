@@ -201,20 +201,21 @@ const exampleButtons = ref<ToggleButton[]>([
 ```
 
 - **Type:** `ToggleButton[]`
-    ```ts
-    export interface ActionButton {
-        text: string
-        value: string
-        active?: boolean
-        action?: () => void
-        size?: ButtonSize
-        icon?: string
-        iconPosition?: IconPosition
-        disabled?: boolean
-    }
 
-    export type ToggleButton = ActionButton
-    ```
+```ts
+export interface ActionButton {
+    text: string
+    value: string
+    active?: boolean
+    action?: () => void
+    size?: ButtonSize
+    icon?: string
+    iconPosition?: IconPosition
+    disabled?: boolean
+}
+
+export type ToggleButton = ActionButton
+```
 
 ### modelValue
 

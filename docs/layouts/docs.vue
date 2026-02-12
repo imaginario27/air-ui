@@ -49,6 +49,8 @@
                 />
 
                 <slot />
+
+                <AppFooter />
             </MainContent>
             <TableOfContentsSidebar
                 v-if="hasTableOfContent"

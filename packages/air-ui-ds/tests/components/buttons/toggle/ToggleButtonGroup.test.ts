@@ -1,17 +1,17 @@
 import { mount } from '@vue/test-utils'
 import ToggleButtonGroup from '@/components/buttons/toggle/ToggleButtonGroup.vue'
 import ToggleButton from '@/components/buttons/toggle/ToggleButton.vue'
-import { ToggleButtonGroupStyle, ButtonSize} from '@/models/enums/buttons'
+import ToggleIconButton from '@/components/buttons/toggle/ToggleIconButton.vue'
+import { ToggleButtonGroupStyle, ButtonSize } from '@/models/enums/buttons'
 import { IconPosition } from '@/models/enums/icons'
 
-const buttons = [
+const createButtons = () => [
     {
         text: 'First',
         value: 'first',
         size: ButtonSize.MD,
         icon: 'mdi:one',
         iconPosition: IconPosition.LEFT,
-        disabled: false,
         action: vi.fn(),
     },
     {
@@ -20,101 +20,162 @@ const buttons = [
         size: ButtonSize.MD,
         icon: 'mdi:two',
         iconPosition: IconPosition.RIGHT,
-        disabled: false,
         action: vi.fn(),
     },
 ]
 
-const factory = (props = {}) => {
-    return mount(ToggleButtonGroup, {
+const factory = (props: Record<string, unknown> = {}) => {
+    const buttons = createButtons()
+
+    const wrapper = mount(ToggleButtonGroup, {
         props: {
             modelValue: 'first',
             buttons,
             groupStyle: ToggleButtonGroupStyle.GROUPED,
             hasButtonBorder: true,
+            disabled: false,
+            onlyIcon: false,
             ...props,
         },
         global: {
             stubs: {
-                ToggleButton,
+                ToggleButton: true,
+                ToggleIconButton: true,
             },
         },
     })
+
+    return { wrapper, buttons }
 }
 
 describe('ToggleButtonGroup', () => {
-    it('renders all buttons passed via props', () => {
-        const wrapper = factory()
+    it('renders ToggleButton components when onlyIcon is false', () => {
+        const { wrapper } = factory()
+
         const toggleButtons = wrapper.findAllComponents(ToggleButton)
         expect(toggleButtons).toHaveLength(2)
     })
 
-    it('applies grouped style class when groupStyle is GROUPED', () => {
-        const wrapper = factory({ groupStyle: ToggleButtonGroupStyle.GROUPED })
+    it('renders ToggleIconButton components when onlyIcon is true', () => {
+        const { wrapper } = factory({ onlyIcon: true })
+
+        const toggleIconButtons = wrapper.findAllComponents(ToggleIconButton)
+        expect(toggleIconButtons).toHaveLength(2)
+    })
+
+    it('applies grouped style classes when groupStyle is GROUPED', () => {
+        const { wrapper } = factory({
+            groupStyle: ToggleButtonGroupStyle.GROUPED,
+        })
+
         expect(wrapper.classes()).toContain('border')
         expect(wrapper.classes()).toContain('overflow-hidden')
     })
 
-    it('applies segmented style and border when groupStyle is SEGMENTED and hasButtonBorder is true', () => {
-        const wrapper = factory({
+    it('applies segmented border classes when groupStyle is SEGMENTED and hasButtonBorder is true', () => {
+        const { wrapper } = factory({
             groupStyle: ToggleButtonGroupStyle.SEGMENTED,
             hasButtonBorder: true,
         })
 
-        const buttons = wrapper.findAllComponents(ToggleButton)
-        buttons.forEach(btn => {
+        const toggleButtons = wrapper.findAllComponents(ToggleButton)
+
+        toggleButtons.forEach(btn => {
             expect(btn.classes()).toContain('border')
         })
     })
 
-    it('does not apply extra border when hasButtonBorder is false', () => {
-        const wrapper = factory({ hasButtonBorder: false })
-        const buttons = wrapper.findAllComponents(ToggleButton)
-        buttons.forEach(btn => {
+    it('applies rounded-button class when hasButtonBorder is false', () => {
+        const { wrapper } = factory({
+            hasButtonBorder: false,
+        })
+
+        const toggleButtons = wrapper.findAllComponents(ToggleButton)
+
+        toggleButtons.forEach(btn => {
             expect(btn.classes()).toContain('rounded-button')
         })
     })
 
-    it('marks only the selected button as active', () => {
-        const wrapper = factory({ modelValue: 'second' })
-        const buttons = wrapper.findAllComponents(ToggleButton)
-        expect(buttons[0].props('active')).toBe(false)
-        expect(buttons[1].props('active')).toBe(true)
+    it('marks the correct button as active based on modelValue', () => {
+        const { wrapper } = factory({ modelValue: 'second' })
+
+        const toggleButtons = wrapper.findAllComponents(ToggleButton)
+
+        expect(toggleButtons[0].props('active')).toBe(false)
+        expect(toggleButtons[1].props('active')).toBe(true)
     })
 
-    it('calls button action and emits update:modelValue on click', async () => {
-        const wrapper = factory()
-        const buttons = wrapper.findAllComponents(ToggleButton)
-        await buttons[1].trigger('click')
+    it('calls button action and emits update:modelValue when clicked', async () => {
+        const { wrapper, buttons } = factory()
 
-        expect(buttons[1].props('text')).toBe('Second')
-        expect(buttons[1].props('icon')).toBe('mdi:two')
-        expect(buttons[1].props('iconPosition')).toBe(IconPosition.RIGHT)
+        const toggleButtons = wrapper.findAllComponents(ToggleButton)
 
-        // Action function called
-        expect(buttons[1].props('disabled')).toBe(false)
-        expect(buttons[1].props('active')).toBe(false)
-        expect(buttons[1].props('action')).toBeUndefined() // action isn't passed as a prop to ToggleButton
+        await toggleButtons[1].trigger('click')
 
-        // Check emitted event
+        expect(buttons[1].action).toHaveBeenCalledTimes(1)
+
         expect(wrapper.emitted('update:modelValue')).toBeTruthy()
         expect(wrapper.emitted('update:modelValue')?.[0]).toEqual(['second'])
     })
 
-    it('handles buttons without action gracefully', async () => {
-        const wrapper = factory({
-            buttons: [
-                {
-                    text: 'No Action',
-                    value: 'no-action',
+    it('does not call action or emit event when disabled is true', async () => {
+        const { wrapper, buttons } = factory({
+            disabled: true,
+        })
+
+        const toggleButtons = wrapper.findAllComponents(ToggleButton)
+
+        await toggleButtons[1].trigger('click')
+
+        expect(buttons[1].action).not.toHaveBeenCalled()
+        expect(wrapper.emitted('update:modelValue')).toBeUndefined()
+    })
+
+    it('handles button without action safely', async () => {
+        const wrapper = mount(ToggleButtonGroup, {
+            props: {
+                modelValue: 'other',
+                buttons: [
+                    {
+                        text: 'No Action',
+                        value: 'no-action',
+                    },
+                ],
+            },
+            global: {
+                stubs: {
+                    ToggleButton: true,
+                    ToggleIconButton: true,
                 },
-            ],
-            modelValue: 'other',
+            },
         })
 
         const toggleButton = wrapper.findComponent(ToggleButton)
+
         await toggleButton.trigger('click')
+
         expect(wrapper.emitted('update:modelValue')).toBeTruthy()
         expect(wrapper.emitted('update:modelValue')?.[0]).toEqual(['no-action'])
+    })
+
+    it('renders no buttons when buttons array is empty', () => {
+        const wrapper = mount(ToggleButtonGroup, {
+            props: {
+                buttons: [],
+            },
+            global: {
+                stubs: {
+                    ToggleButton: true,
+                    ToggleIconButton: true,
+                },
+            },
+        })
+
+        const toggleButtons = wrapper.findAllComponents(ToggleButton)
+        const toggleIconButtons = wrapper.findAllComponents(ToggleIconButton)
+
+        expect(toggleButtons).toHaveLength(0)
+        expect(toggleIconButtons).toHaveLength(0)
     })
 })

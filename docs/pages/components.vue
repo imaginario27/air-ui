@@ -18,13 +18,7 @@
     </div>
 </template>
 <script setup lang="ts">
-// Imports
-import ComponentsPage from '@/pages/docs/components/index.vue'
-
-definePageMeta({
-    title: 'Components',
-})
-
+// States
 const title = ref('Components')
 
 useHead(() => ({
