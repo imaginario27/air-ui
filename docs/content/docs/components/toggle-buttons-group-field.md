@@ -14,6 +14,7 @@ props:
         - text: "Option 2"
           value: "option2"
     modelValue: "option1"
+    onlyIcon: false
     groupStyle: "grouped"
     disabled: false
 items:
@@ -62,6 +63,11 @@ props: [
         "type": "string",
     },
     {
+        "name": "onlyIcon", 
+        "default": "false", 
+        "type": "boolean",
+    },
+    {
         "name": "groupStyle",
         "type": "ToggleButtonGroupStyle",
     },   
@@ -69,8 +75,7 @@ props: [
         "name": "disabled",
         "default": "false",
         "type": "boolean",
-    },
-     
+    },    
 ]
 ---
 ::
@@ -119,6 +124,10 @@ Sets the help text of the field.
 
 Sets the buttons options of the field. Use two buttons for the toggle behavior.
 
+Buttons can be of type `ToggleButton` or `ToggleIconButton`. The first one includes a text and an optional icon, while the second one is only an icon button.
+
+#### Using TogggleButton array
+
 ```vue
 <template>
     <ToggleButtonsGroupField :buttons="exampleButtons" />
@@ -131,21 +140,42 @@ const exampleButtons = ref<ToggleButton[]>([
 </script>
 ```
 
-- **Type:** `ToggleButton[]`
-    ```ts
-    export interface ActionButton {
-        text: string
-        value: string
-        active?: boolean
-        action?: () => void
-        size?: ButtonSize
-        icon?: string
-        iconPosition?: IconPosition
-        
-    }
+#### Using TogggleIconButton array 
+```vue 
+<template> 
+    <ToggleButtonsGroupField 
+        :buttons="exampleIconButtons" 
+        onlyIcon 
+    /> 
+</template> 
+<script setup lang="ts">
+const exampleIconButtons = ref<ToggleIconButton[]>([ 
+    { icon: 'mdi:arrow-up', value: 'Newest' }, 
+    { icon: 'mdi:arrow-down', value: 'Oldest' }, 
+    ]) 
+</script> 
+```
 
-    export type ToggleButton = Omit<ActionButton, 'disabled'>
-    ```
+- **Type:** `ToggleButton[] | ToggleIconButton[]`
+    
+```ts
+export interface BaseToggleButton {
+    value: string
+    active?: boolean
+    action?: () => void
+    size?: ButtonSize
+    icon?: string
+}
+
+export interface ToggleButton extends BaseToggleButton {
+    text: string
+    iconPosition?: IconPosition
+}
+
+export type ToggleIconButton = BaseToggleButton
+
+export type ToggleButtonItem = ToggleButton | ToggleIconButton
+```
 
 ### modelValue
 
@@ -162,6 +192,26 @@ const selectedValue = ref<string>('option1')
 
 - **Type:** `string`
 - **Required:** `true`
+
+### onlyIcon
+When using icon buttons, this prop determines whether to display only the icons or also the text (if available). 
+```vue 
+    <template> 
+        <ToggleButtonsGroupField 
+            :buttons="exampleIconButtons" 
+            onlyIcon 
+        /> 
+    </template> 
+<script setup lang="ts"> 
+const exampleIconButtons = ref<ToggleIconButton[]>([ 
+    { icon: 'mdi:arrow-up', value: 'Newest' }, 
+    { icon: 'mdi:arrow-down', value: 'Oldest' }, 
+]) 
+</script> 
+``` 
+
+- **Type:** `boolean` 
+- **Default:** `false`
 
 ### groupStyle
 

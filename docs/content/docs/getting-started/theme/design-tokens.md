@@ -16,130 +16,491 @@ Below is a complete list of the available **Tailwind class names** generated fro
 
 ### Background colors
 
-| Tailwind class                           | Description                                   |
-| ---------------------------------------- | --------------------------------------------- |
-| `bg-background-container-surface`        | Main surface for contained layouts and cards  |
-| `bg-background-overlay`                  | Overlay backgrounds (modals, dialogs)         |
-| `bg-background-surface`                  | Default application background                |
-| `bg-background-danger-bold`              | Strong danger background for critical actions |
-| `bg-background-danger-subtler`           | Subtle danger background                      |
-| `bg-background-danger-subtlest`          | Very light danger background                  |
-| `bg-background-delete-default`           | Default delete action background              |
-| `bg-background-delete-hover`             | Delete action on hover                        |
-| `bg-background-delete-on-neutral-hover`  | Delete background over neutral hover          |
-| `bg-background-delete-soft`              | Soft delete background                        |
-| `bg-background-delete-soft-hover`        | Soft delete hover state                       |
-| `bg-background-info-bold`                | Strong informational background               |
-| `bg-background-info-subtler`             | Subtle informational background               |
-| `bg-background-info-subtlest`            | Very light informational background           |
-| `bg-background-neutral-active`           | Active neutral surface                        |
-| `bg-background-neutral-bold`             | Emphasized neutral background                 |
-| `bg-background-neutral-default`          | Default neutral background                    |
-| `bg-background-neutral-disabled`         | Disabled background state                     |
-| `bg-background-neutral-hover`            | Hover state for neutral surfaces              |
-| `bg-background-neutral-hover-subtle`     | Subtle hover state                            |
-| `bg-background-neutral-subtle`           | Low-contrast neutral background               |
-| `bg-background-neutral-subtlest`         | Minimal neutral background                    |
-| `bg-background-neutral-filled-default`   | Filled neutral element                        |
-| `bg-background-neutral-filled-hover`     | Hover state for filled neutral elements       |
-| `bg-background-primary-brand-default`    | Primary brand background                      |
-| `bg-background-primary-brand-hover`      | Primary brand hover state                     |
-| `bg-background-primary-brand-active`     | Primary brand active state                    |
-| `bg-background-primary-brand-soft`       | Soft primary brand background                 |
-| `bg-background-primary-brand-soft-hover` | Soft primary brand hover                      |
-| `bg-background-secondary-brand-default`  | Secondary brand background                    |
-| `bg-background-secondary-brand-hover`    | Secondary brand hover                         |
-| `bg-background-success-bold`             | Strong success background                     |
-| `bg-background-success-subtler`          | Subtle success background                     |
-| `bg-background-success-subtlest`         | Very light success background                 |
-| `bg-background-warning-bold`             | Strong warning background                     |
-| `bg-background-warning-subtler`          | Subtle warning background                     |
-| `bg-background-warning-subtlest`         | Very light warning background                 |
+::design-token-table
+---
+type: 'background'
+items: [
+    {
+        "name": "background-container-surface",
+        "description": "Main surface for contained layouts and cards.",
+    },
+    {
+        "name": "background-overlay",
+        "description": "Overlay backgrounds (modals, dialogs).",
+    },
+    {
+        "name": "background-surface",
+        "description": "Default application background.",
+    },
+    {
+        "name": "background-danger-bold",
+        "description": "Strong danger background for critical actions.",
+    },
+    {
+        "name": "background-danger-subtler",
+        "description": "Subtle danger background.",
+    },
+    {
+        "name": "background-danger-subtlest",
+        "description": "Very light danger background.",
+    },
+    {
+        "name": "background-delete-default",
+        "description": "Default delete action background.",
+    },
+    {
+        "name": "background-delete-hover",
+        "description": "Delete action on hover.",
+    },
+    {
+        "name": "background-delete-on-neutral-hover",
+        "description": "Delete background over neutral hover.",
+    },
+    {
+        "name": "background-delete-soft",
+        "description": "Soft delete background.",
+    },
+    {
+        "name": "background-delete-soft-hover",
+        "description": "Soft delete hover state.",
+    },
+    {
+        "name": "background-info-bold",
+        "description": "Strong informational background.",
+    },
+    {
+        "name": "background-info-subtler",
+        "description": "Subtle informational background.",
+    },
+    {
+        "name": "background-info-subtlest",
+        "description": "Very light informational background.",
+    },
+    {
+        "name": "background-neutral-active",
+        "description": "Active neutral surface.",
+    },
+    {
+        "name": "background-neutral-bold",
+        "description": "Emphasized neutral background.",
+    },
+    {
+        "name": "background-neutral-default",
+        "description": "Default neutral background.",
+    },
+    {
+        "name": "background-neutral-disabled",
+        "description": "Disabled background state.",
+    },
+    {
+        "name": "background-neutral-hover",
+        "description": "Hover state for neutral surfaces.",
+    },
+    {
+        "name": "background-neutral-hover-subtle",
+        "description": "Subtle hover state.",
+    },
+    {
+        "name": "background-neutral-subtle",
+        "description": "Low-contrast neutral background.",
+    },
+    {
+        "name": "background-neutral-subtlest",
+        "description": "Minimal neutral background.",
+    },
+    {
+        "name": "background-neutral-filled-default",
+        "description": "Filled neutral element.",
+    },
+    {
+        "name": "background-neutral-filled-hover",
+        "description": "Hover state for filled neutral elements.",
+    },
+    {
+        "name": "background-primary-brand-default",
+        "description": "Primary brand background.",
+    },
+    {
+        "name": "background-primary-brand-hover",
+        "description": "Primary brand hover state.",
+    },
+    {
+        "name": "background-primary-brand-active",
+        "description": "Primary brand active state.",
+    },
+    {
+        "name": "background-primary-brand-soft",
+        "description": "Soft primary brand background.",
+    },
+    {
+        "name": "background-primary-brand-soft-hover",
+        "description": "Soft primary brand hover.",
+    },
+    {
+        "name": "background-secondary-brand-default",
+        "description": "Secondary brand background.",
+    },
+    {
+        "name": "background-secondary-brand-hover",
+        "description": "Secondary brand hover.",
+    },
+    {
+        "name": "background-success-bold",
+        "description": "Strong success background.",
+    },
+    {
+        "name": "background-success-subtler",
+        "description": "Subtle success background.",
+    },
+    {
+        "name": "background-success-subtlest",
+        "description": "Very light success background.",
+    },
+    {
+        "name": "background-warning-bold",
+        "description": "Strong warning background.",
+    },
+    {
+        "name": "background-warning-subtler",
+        "description": "Subtle warning background.",
+    },
+    {
+        "name": "background-warning-subtlest",
+        "description": "Very light warning background.",
+    }
+    
+]
+---
+::
+
 
 ### Text colors
 
-| Tailwind class                      | Description                         |
-| ----------------------------------- | ----------------------------------- |
-| `text-text-default`                 | Default text color                  |
-| `text-text-danger`                  | Danger text                         |
-| `text-text-delete`                  | Delete-related text                 |
-| `text-text-error`                   | Error text                          |
-| `text-text-info`                    | Informational text                  |
-| `text-text-success`                 | Success text                        |
-| `text-text-warning`                 | Warning text                        |
-| `text-text-warning-on-bg`           | Warning text on colored backgrounds |
-| `text-text-neutral-disabled`        | Disabled text                       |
-| `text-text-neutral-inactive`        | Inactive or muted text              |
-| `text-text-neutral-on-filled`       | Text on filled neutral backgrounds  |
-| `text-text-neutral-subtle`          | Subtle secondary text               |
-| `text-text-neutral-subtler`         | More muted text                     |
-| `text-text-neutral-subtlest`        | Least prominent text                |
-| `text-text-primary-brand-default`   | Primary brand text                  |
-| `text-text-primary-brand-hover`     | Primary brand hover text            |
-| `text-text-primary-brand-active`    | Primary brand active text           |
-| `text-text-secondary-brand-default` | Secondary brand text                |
+::design-token-table
+---
+type: 'text'
+items: [
+    {
+        "name": "text-default",
+        "description": "Default text color.",
+    },
+    {
+        "name": "text-danger",
+        "description": "Text for danger states.",
+    },
+    {
+        "name": "text-delete",
+        "description": "Text related to delete actions.",
+    },
+    {
+        "name": "text-error",
+        "description": "Text for error states.",
+    },
+    {
+        "name": "text-info",
+        "description": "Text for informational messages.",
+    },
+    {
+        "name": "text-success",
+        "description": "Text for success states.",
+    },
+    {
+        "name": "text-warning",
+        "description": "Text for warning states.",
+    },
+    {
+        "name": "text-warning-on-bg",
+        "description": "Warning text on colored backgrounds.",
+    },
+    {
+        "name": "text-neutral-disabled",
+        "description": "Text for disabled elements.",
+    },
+    {
+        "name": "text-neutral-inactive",
+        "description": "Text for inactive or muted elements.",
+    },
+    {
+        "name": "text-neutral-on-filled",
+        "description": "Text color for filled neutral backgrounds.",
+    },
+    {
+        "name": "text-neutral-subtle",
+        "description": "Subtle secondary text color.",
+    },
+    {
+        "name": "text-neutral-subtler",
+        "description": "More muted text color.",
+    },
+    {
+        "name": "text-neutral-subtlest",
+        "description": "Least prominent text color.",
+    },
+    {
+        "name": "text-primary-brand-default",
+        "description": "Primary brand text color.",
+    },
+    {
+        "name": "text-primary-brand-hover",
+        "description": "Primary brand hover text color.",
+    },
+    {
+        "name": "text-primary-brand-active",
+        "description": "Primary brand active text color.",
+    },
+    {
+        "name": "text-secondary-brand-default",
+        "description": "Secondary brand text color.",
+    }
+]
+---
+::
 
 ### Border colors
 
-| Tailwind class                        | Description                      |
-| ------------------------------------- | -------------------------------- |
-| `border-border-default`               | Default border color             |
-| `border-border-danger`                | Danger border                    |
-| `border-border-error`                 | Error border                     |
-| `border-border-info`                  | Informational border             |
-| `border-border-success`               | Success border                   |
-| `border-border-warning`               | Warning border                   |
-| `border-border-neutral-hover`         | Hover border on neutral elements |
-| `border-border-neutral-subtle`        | Subtle neutral border            |
-| `border-border-neutral-disabled`      | Disabled border                  |
-| `border-border-primary-brand-default` | Primary brand border             |
-| `border-border-primary-brand-hover`   | Primary brand hover border       |
-| `border-border-primary-brand-active`  | Primary brand active border      |
-| `border-border-secondary-brand`       | Secondary brand border           |
-| `border-border-delete-default`        | Default delete border            |
-| `border-border-delete-subtle`         | Subtle delete border             |
+::design-token-table
+---
+type: 'border'
+items: [
+    {
+        "name": "border-default",
+        "description": "Default border color.",
+    },
+    {
+        "name": "border-danger",
+        "description": "Border for danger states.",
+    },
+    {
+        "name": "border-error",
+        "description": "Border for error states.",
+    },
+    {
+        "name": "border-info",
+        "description": "Border for informational messages.",
+    },
+    {
+        "name": "border-success",
+        "description": "Border for success states.",
+    },
+    {
+        "name": "border-warning",
+        "description": "Border for warning states.",
+    },
+    {
+        "name": "border-neutral-hover",
+        "description": "Border color on neutral hover state.",
+    },
+    {
+        "name": "border-neutral-subtle",
+        "description": "Subtle neutral border color.",
+    },
+    {
+        "name": "border-neutral-disabled",
+        "description": "Border color for disabled elements.",
+    },
+    {
+        "name": "border-primary-brand-default",
+        "description": "Primary brand border color.",
+    },
+    {
+        "name": "border-primary-brand-hover",
+        "description": "Primary brand hover border color.",
+    },
+    {
+        "name": "border-primary-brand-active",
+        "description": "Primary brand active border color.",
+    },
+    {
+        "name": "border-secondary-brand",
+        "description": "Secondary brand border color.",
+    },
+    {
+        "name": "border-delete-default",
+        "description": "Default delete border color.",
+    },
+    {
+        "name": "border-delete-subtle",
+        "description": "Subtle delete border color.",
+    }
+]
+---
+::
 
 ### Icon colors
 
-| Tailwind class                      | Description                         |
-| ----------------------------------- | ----------------------------------- |
-| `text-icon-default`                 | Default icon color                  |
-| `text-icon-danger`                  | Danger icon                         |
-| `text-icon-danger-subtle`           | Subtle danger icon                  |
-| `text-icon-info`                    | Informational icon                  |
-| `text-icon-info-subtle-strong`      | Emphasized subtle info icon         |
-| `text-icon-success`                 | Success icon                        |
-| `text-icon-success-subtle`          | Subtle success icon                 |
-| `text-icon-warning`                 | Warning icon                        |
-| `text-icon-warning-on-bg`           | Warning icon on colored backgrounds |
-| `text-icon-warning-subtle`          | Subtle warning icon                 |
-| `text-icon-neutral-disabled`        | Disabled icon                       |
-| `text-icon-neutral-inactive`        | Inactive icon                       |
-| `text-icon-neutral-subtle`          | Subtle neutral icon                 |
-| `text-icon-neutral-subtler`         | More muted icon                     |
-| `text-icon-neutral-subtlest`        | Least prominent icon                |
-| `text-icon-primary-brand-default`   | Primary brand icon                  |
-| `text-icon-primary-brand-hover`     | Primary brand hover icon            |
-| `text-icon-primary-brand-active`    | Primary brand active icon           |
-| `text-icon-secondary-brand-default` | Secondary brand icon                |
+::design-token-table
+---
+type: 'icon'
+items: [
+    {
+        "name": "icon-default",
+        "description": "Default icon color",
+    },
+    {
+        "name": "icon-danger",
+        "description": "Danger icon",
+    },
+    {
+        "name": "icon-danger-subtle",
+        "description": "Subtle danger icon",
+    },
+    {
+        "name": "icon-info",
+        "description": "Informational icon",
+    },
+    {
+        "name": "icon-info-subtle-strong",
+        "description": "Emphasized subtle info icon",
+    },
+    {
+        "name": "icon-success",
+        "description": "Success icon",
+    },
+    {
+        "name": "icon-success-subtle",
+        "description": "Subtle success icon",
+    },
+    {
+        "name": "icon-warning",
+        "description": "Warning icon",
+    },
+    {
+        "name": "icon-warning-on-bg",
+        "description": "Warning icon on colored backgrounds",
+    },
+    {
+        "name": "icon-warning-subtle",
+        "description": "Subtle warning icon",
+    },
+    {
+        "name": "icon-neutral-disabled",
+        "description": "Disabled icon",
+    },
+    {
+        "name": "icon-neutral-inactive",
+        "description": "Inactive icon",
+    },
+    {
+        "name": "icon-neutral-subtle",
+        "description": "Subtle neutral icon color",
+    },
+    {
+        "name": "icon-neutral-subtler",
+        "description": "More muted neutral icon color",
+    },
+    {
+        "name": "icon-neutral-subtlest",
+        "description": "Least prominent neutral icon color",
+    },
+    {
+        "name": "icon-primary-brand-default",
+        "description": "Primary brand icon color",
+    },
+    {
+        "name": "icon-primary-brand-hover",
+        "description": "Primary brand hover icon color",
+    },
+    {
+        "name": "icon-primary-brand-active",
+        "description": "Primary brand active icon color",
+    },
+    {
+        "name": "icon-secondary-brand-default ",
+       	"description": 	"Secondary brand icon color ",
+    }
+]
+---
+::
 
-### Spacing tokens
+### Spacing
 
-| Tailwind class           | Description                          |
-| ------------------------ | ------------------------------------ |
-| `gap-column`             | Default column gap spacing           |
-| `px-content-side`        | Horizontal content padding           |
-| `px-content-side-mobile` | Mobile horizontal content padding    |
-| `pb-content-body`        | Bottom padding for content areas     |
-| `py-section-xs`          | Extra-small vertical section spacing |
-| `py-section-sm`          | Small vertical section spacing       |
-| `py-section-md`          | Medium vertical section spacing      |
-| `py-section-lg`          | Large vertical section spacing       |
-| `py-section-xl`          | Extra-large vertical section spacing |
+::design-token-table
+---
+type: 'others'
+items: [
+    {
+        "name": "column-gap",
+        "description": "Default column gap spacing",
+    },
+    {
+        "name": "content-side",
+        "description": "Horizontal content padding",
+    },
+    {
+        "name": "content-side-mobile",
+        "description": "Mobile horizontal content padding",
+    },
+    {
+        "name": "content-body-bottom",
+        "description": "Bottom padding for content areas",
+    },
+    {
+        "name": "section-xs",
+        "description": "Extra-small vertical section spacing",
+    },
+    {
+        "name": "section-sm",
+        "description": "Small vertical section spacing",
+    },
+    {
+        "name": "section-md",
+        "description": "Medium vertical section spacing",
+    },
+    {
+        "name": "section-lg",
+        "description": "Large vertical section spacing",
+    },
+    {
+        "name": "section-xl",
+        "description": "Extra-large vertical section spacing",
+    }
+]
+---
+::
 
-### Radius & opacity
+### Radius
 
-| Tailwind class     | Description                   |
-| ------------------ | ----------------------------- |
-| `rounded-button`   | Standard button border radius |
-| `opacity-disabled` | Opacity for disabled elements |
+::design-token-table
+---
+type: 'radius'
+items: [
+    {
+        "name": "button",
+        "description": "Standard button border radius",
+    },
+]
+---
+::
+
+### Opacity
+
+::design-token-table
+---
+type: 'opacity'
+items: [
+    {
+        "name": "disabled",
+        "description": "Opacity for disabled elements",
+    },
+]
+---
+::
+
+## Token usage
+
+Levarage design tokens in your code by applying the corresponding Tailwind classes, following the pattern: `category-name` (e.g., `bg-background-neutral-bold`, `text-text-default`, `border-border-default`, `opacity-disabled`).
+
+```vue
+<div 
+    :class="[
+        'bg-background-neutral-bold',
+        'text-text-default',
+        'border-border-default',
+        'p-section-md',
+        'rounded-button',
+        'opacity-disabled',
+    ]"
+>
+    This div uses various design tokens for styling.
+</div>
+```

@@ -62,7 +62,6 @@ props: [
     },
     {
         "name": "icon",
-        "default": "mdi:help",
         "type": "string",
     },
     {
@@ -89,6 +88,27 @@ props: [
 ---
 ::
 
+## Slots
+::slots-table
+---
+slots: [
+    {
+        name: "footer",
+        description: "Template to render footer content. Typically used for action buttons.",
+    },
+]
+---
+::
+
+```vue
+<template>
+    <FeatureCard>
+        <template #footer>
+            <!-- Insert content here -->
+        </template>
+    </FeatureCard>
+</template>
+```
 
 ## Usage
 ### title
@@ -120,7 +140,7 @@ Sets the description of the feature.
 - **Default:** `'Feature description'`
 
 ### icon
-Sets the icon of the feature.
+Sets the icon of the feature. If not provided, the icon will not appear at all.
 
 ```vue
 <template>
@@ -131,7 +151,6 @@ Sets the icon of the feature.
 ```
 
 - **Type:** `string`
-- **Default:** `'mdi:help'`
 
 ### containedIconShape
 Stablishes the shape of the contained icon. Uses the `IconContainerShape` enum.

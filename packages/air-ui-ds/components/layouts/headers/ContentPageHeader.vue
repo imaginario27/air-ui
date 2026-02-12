@@ -39,6 +39,7 @@
                 'font-semibold',
                 'leading-tight',
                 'text-text-default',
+                'break-all'
             ]"
         >
             {{ title ? title : pageTitle }}

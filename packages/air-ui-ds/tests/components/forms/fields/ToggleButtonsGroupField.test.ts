@@ -57,14 +57,30 @@ describe('ToggleButtonsGroupField', () => {
         const wrapper = mount(ToggleButtonsGroupField, {
             props: {
                 ...defaultProps,
-                groupStyle: ToggleButtonGroupStyle.SEGMENTED
+                groupStyle: ToggleButtonGroupStyle.SEGMENTED,
+                disabled: true,
+                onlyIcon: true
             }
         })
 
         const group = wrapper.findComponent(ToggleButtonGroup)
+
         expect(group.props('buttons')).toEqual(defaultProps.buttons)
         expect(group.props('modelValue')).toBe('option1')
-        expect(group.props('groupStyle')).toBe('segmented')
+        expect(group.props('groupStyle')).toBe(ToggleButtonGroupStyle.SEGMENTED)
+        expect(group.props('disabled')).toBe(true)
+        expect(group.props('onlyIcon')).toBe(true)
+    })
+
+    it('passes onlyIcon as false by default', () => {
+        const wrapper = mount(ToggleButtonsGroupField, {
+            props: {
+                ...defaultProps
+            }
+        })
+
+        const group = wrapper.findComponent(ToggleButtonGroup)
+        expect(group.props('onlyIcon')).toBe(false)
     })
 
     it('emits update:modelValue when ToggleButtonGroup emits', async () => {
@@ -75,6 +91,7 @@ describe('ToggleButtonsGroupField', () => {
         })
 
         const group = wrapper.findComponent(ToggleButtonGroup)
+
         await group.vm.$emit('update:modelValue', 'option2')
 
         expect(wrapper.emitted('update:modelValue')).toEqual([['option2']])

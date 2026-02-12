@@ -9,7 +9,22 @@ export interface ActionButton {
     disabled?: boolean
 }
 
-export type ToggleButton = Omit<ActionButton, 'disabled'>
+export interface BaseToggleButton {
+    value: string
+    active?: boolean
+    action?: () => void
+    size?: ButtonSize
+    icon?: string
+}
+
+export interface ToggleButton extends BaseToggleButton {
+    text: string
+    iconPosition?: IconPosition
+}
+
+export type ToggleIconButton = BaseToggleButton
+
+export type ToggleButtonItem = ToggleButton | ToggleIconButton
 
 export interface OptionButton extends ActionButton {
     styleType?: ButtonStyleType

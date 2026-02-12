@@ -7,39 +7,40 @@
         hasBorder
         isSticky
         headerClass="border-border-neutral-subtle"
-        :class="[ isDark ? 'backdrop-blur-lg bg-background-surface/90' : 'backdrop-blur-md']"
+        class="backdrop-blur-lg bg-background-surface/90"
+        navMobileMenuClass="lg:hidden min-w-[300px]"
     >
         <template #header-logo>
-            <AppLogo
-                :src="isDark ? logoDark : logoLight"
-                class="max-w-[80px]"
-            />
-            <Badge 
-                :color="isDark ? ColorAccent.NEUTRAL : ColorAccent.PRIMARY_BRAND"
-                :shape="BadgeShape.PILL"
-                :text="designSystemDetails.version"
-                :isTransparent="isDark"
-                class="self-end select-none"
-            />
+            <div :class="['flex gap-3', isMobile && 'mt-1.5']">
+                <AppLogo
+                    :src="isDark ? logoDark : logoLight"
+                    class="w-[80px]"
+                />
+                <Badge 
+                    :color="isDark ? ColorAccent.NEUTRAL : ColorAccent.PRIMARY_BRAND"
+                    :shape="BadgeShape.PILL"
+                    :text="designSystemDetails.version"
+                    :isTransparent="isDark"
+                    class="select-none self-end"
+                />
+            </div>
         </template>
 
-        <template #header-actions>
-            <!-- <ActionIconButton 
-                icon="mdi:magnify"
-            /> -->
- 
-            <ActionIconButton 
+        <template #header-actions> 
+            <ToggleButtonGroup
                 v-if="!isMobile"
-                :icon="isDark ? 'mdi:moon-waxing-crescent' : 'mdi:weather-sunny'"
-                @click="toggleDark"
+                v-model="toggleButtonTheme"
+                :buttons="themeToggleIconButtons"
+                :hasButtonBorder="false"
+                onlyIcon
             />
-            <ActionButton 
+            <ToggleButtonsGroupField
                 v-else
-                :text="isDark ? 'Switch to light mode' : 'Switch to dark mode'"
-                :iconPosition="IconPosition.LEFT"
-                :icon="isDark ? 'mdi:moon-waxing-crescent' : 'mdi:weather-sunny'"
-                isFullWidth
-                @click="toggleDark"
+                id="theme"
+                v-model="toggleButtonTheme"
+                :buttons="themeToggleButtons"
+                :hasButtonBorder="false"
+                label="Theme"
             />
         </template>
 
@@ -61,7 +62,7 @@
                     />
                 </Collapsible>
             </div>
-            
+    
             <div
                 v-if="tabs.length"
                 :class="[ 
@@ -71,10 +72,20 @@
                     'border-border-neutral-subtle',
                 ]"
             >
+                <!-- Mobile select -->
+                <DropdownSelect
+                    v-model="selectedTabRoute"
+                    :options="tabSelectOptions"
+                    :size="SelectSize.LG"
+                    class="mb-4 sm:hidden"
+                />
+
+                <!-- Desktop tabs -->
                 <TabBar 
                     v-model="tabActiveIndex" 
                     :tabs 
                     :decoration="TabDecoration.ICON"
+                    class="hidden sm:flex"
                 />
             </div>
         </template>
@@ -101,13 +112,42 @@ defineProps({
     },
 })
 
+// Stores
+const darkModeStore = useDarkMode()
+const { isDark, themeMode, setTheme } = darkModeStore
+
 // States
 const tocTitle = ref('On this page')
 const isTOCOpen = ref(false)
 
-// Stores
-const darkModeStore = useDarkMode()
-const { toggleDark, isDark } = darkModeStore
+const themeToggleIconButtons = ref<ToggleIconButton[]>([
+    { icon: 'mdi:weather-sunny', value: 'light' },
+    { icon: 'mdi:moon-waxing-crescent', value: 'dark' },
+    { icon: 'mdi:theme-light-dark', value: 'system' },
+])
+
+
+const themeToggleButtons = ref<ToggleButton[]>([
+    {
+        text: 'Light',
+        value: 'light',
+        icon: 'mdi:weather-sunny',
+        iconPosition: IconPosition.LEFT,
+    },
+    {
+        text: 'Dark',
+        value: 'dark',
+        icon: 'mdi:moon-waxing-crescent',
+        iconPosition: IconPosition.LEFT,
+    },
+    {
+        text: 'System',
+        value: 'system',
+        icon: 'mdi:theme-light-dark',
+        iconPosition: IconPosition.LEFT,
+    },
+])
+
 
 // Composables
 const { isMobile } = useIsMobile()
@@ -118,7 +158,7 @@ const cleanPath = computed(() => {
     return route.path?.split('?')[0]?.split('#')[0] || ''
 })
 
-// Computed navigation items
+// Computed
 const mainHeaderMenu = computed<MenuItem[]>(() => [
     {
         text: 'Docs',
@@ -172,6 +212,23 @@ const tabActiveIndex = computed(() => {
     }
 })
 
+const tabSelectOptions = computed(() =>
+    convertToSelectOptions(tabs.value, {
+        text: 'text',
+        value: 'to',
+        icon: 'icon',
+    }),
+)
+
+const selectedTabRoute = computed({
+    get: () => cleanPath.value,
+    set: (value: string) => {
+        if (value) {
+            navigateTo(value)
+        }
+    },
+})
+
 // TOC Links
 const { data } = await useAsyncData(
     () => queryCollection('content').path(cleanPath.value).first(),
@@ -194,5 +251,12 @@ const tocLinks = computed(() => {
     return data.value?.body?.toc?.links
         ? filterDepth(data.value.body.toc.links)
         : []
+})
+
+const toggleButtonTheme = computed({
+    get: () => themeMode.value,
+    set: (value: 'light' | 'dark' | 'system') => {
+        setTheme(value)
+    },
 })
 </script>
