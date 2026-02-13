@@ -210,6 +210,15 @@ props: [
         "default": "'Group title'",
         "type": "string"
     },
+    {
+        "name": "titleClass",
+        "type": "string"
+    },
+    {
+        "name": "headingTag",
+        "default": "'h1'",
+        "type": "'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'"
+    },
 ]
 ---
 ::

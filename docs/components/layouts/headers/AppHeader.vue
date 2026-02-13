@@ -41,6 +41,7 @@
                 :buttons="themeToggleButtons"
                 :hasButtonBorder="false"
                 label="Theme"
+                class="pt-4 border-t border-border-neutral-subtle"
             />
         </template>
 
@@ -77,7 +78,11 @@
                     v-model="selectedTabRoute"
                     :options="tabSelectOptions"
                     :size="SelectSize.LG"
-                    class="mb-4 sm:hidden"
+                    :class="[
+                        !tocLinks.length && 'mt-4',
+                        'mb-4', 
+                        'sm:hidden'
+                    ]"
                 />
 
                 <!-- Desktop tabs -->
@@ -94,7 +99,7 @@
 <script setup lang="ts">
 // Imports
 import logoLight from '@/public/images/logo/air-ui-logo-color.svg?raw'
-import logoDark from '@/public/images/logo/air-ui-logo-white.svg?raw'
+import logoDark from '@/public/images/logo/air-ui-logo-dark-theme.svg?raw'
 
 // Props 
 defineProps({
@@ -221,7 +226,25 @@ const tabSelectOptions = computed(() =>
 )
 
 const selectedTabRoute = computed({
-    get: () => cleanPath.value,
+    get: () => {
+        const path = cleanPath.value
+
+        if (!path) return ''
+
+        switch (true) {
+            case path.startsWith(`/${AppSlug.DOCS}/${AppSlug.GETTING_STARTED}`):
+                return `/${AppSlug.DOCS}/${AppSlug.GETTING_STARTED}`
+
+            case path.startsWith(`/${AppSlug.DOCS}/${AppSlug.COMPONENTS}`):
+                return `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}`
+
+            case path.startsWith(`/${AppSlug.DOCS}/${AppSlug.UTILS}`):
+                return `/${AppSlug.DOCS}/${AppSlug.UTILS}`
+
+            default:
+                return path
+        }
+    },
     set: (value: string) => {
         if (value) {
             navigateTo(value)

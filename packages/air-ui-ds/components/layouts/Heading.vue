@@ -26,7 +26,7 @@
 
         <!-- Dynamic title -->
         <component
-            :is="headingTag"
+            :is="resolvedHeadingTag"
             :class="[
                 titleSizeClass, 
                 'font-semibold', 
@@ -91,9 +91,9 @@ const props = defineProps({
             Object.values(HeadingSpacing).includes(value as HeadingSpacing),
     },
     headingTag: {
-        type: [String, Number] as PropType<'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'>,
+        type: String as PropType<'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'>,
         default: 'h1',
-        validator: (value: string | number) => ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'].includes(value as string)
+        validator: (value: string ) => ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'].includes(value as string)
     },
     isMobileCentered: {
         type: Boolean as PropType<boolean>,
@@ -197,4 +197,10 @@ const spaceDescriptionClass = computed(() => {
         ? spaced[props.size]
         : normal[props.size] || 'mt-6'
 })
+
+const resolvedHeadingTag = computed(() =>
+    ['h1','h2','h3','h4','h5','h6'].includes(props.headingTag)
+        ? props.headingTag
+        : 'h1'
+)
 </script>
