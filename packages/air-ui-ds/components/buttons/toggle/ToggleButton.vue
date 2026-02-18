@@ -4,7 +4,6 @@
         :disabled
         :class="[
             'flex items-center justify-center',
-            'aspect-square',
             'text-nowrap',
             ...buttonStyleClass,
             buttonSizeClass,

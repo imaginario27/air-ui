@@ -52,27 +52,38 @@ describe('ToggleButtonGroup', () => {
     it('renders ToggleButton components when onlyIcon is false', () => {
         const { wrapper } = factory()
 
-        const toggleButtons = wrapper.findAllComponents(ToggleButton)
-        expect(toggleButtons).toHaveLength(2)
+        expect(wrapper.findAllComponents(ToggleButton)).toHaveLength(2)
+        expect(wrapper.findAllComponents(ToggleIconButton)).toHaveLength(0)
     })
 
     it('renders ToggleIconButton components when onlyIcon is true', () => {
         const { wrapper } = factory({ onlyIcon: true })
 
-        const toggleIconButtons = wrapper.findAllComponents(ToggleIconButton)
-        expect(toggleIconButtons).toHaveLength(2)
+        expect(wrapper.findAllComponents(ToggleIconButton)).toHaveLength(2)
+        expect(wrapper.findAllComponents(ToggleButton)).toHaveLength(0)
     })
 
-    it('applies grouped style classes when groupStyle is GROUPED', () => {
+    it('applies grouped container classes when groupStyle is GROUPED', () => {
         const { wrapper } = factory({
             groupStyle: ToggleButtonGroupStyle.GROUPED,
         })
 
         expect(wrapper.classes()).toContain('border')
-        expect(wrapper.classes()).toContain('overflow-hidden')
+        expect(wrapper.classes()).toContain('border-border-default')
+        expect(wrapper.classes()).not.toContain('flex-wrap')
     })
 
-    it('applies segmented border classes when groupStyle is SEGMENTED and hasButtonBorder is true', () => {
+    it('applies segmented container classes when groupStyle is SEGMENTED', () => {
+        const { wrapper } = factory({
+            groupStyle: ToggleButtonGroupStyle.SEGMENTED,
+        })
+
+        expect(wrapper.classes()).toContain('flex-wrap')
+        expect(wrapper.classes()).toContain('gap-3')
+        expect(wrapper.classes()).not.toContain('border-border-default')
+    })
+
+    it('applies border classes to children when segmented and hasButtonBorder is true', () => {
         const { wrapper } = factory({
             groupStyle: ToggleButtonGroupStyle.SEGMENTED,
             hasButtonBorder: true,
@@ -82,11 +93,13 @@ describe('ToggleButtonGroup', () => {
 
         toggleButtons.forEach(btn => {
             expect(btn.classes()).toContain('border')
+            expect(btn.classes()).toContain('rounded-button')
         })
     })
 
-    it('applies rounded-button class when hasButtonBorder is false', () => {
+    it('applies rounded-button class only when hasButtonBorder is false', () => {
         const { wrapper } = factory({
+            groupStyle: ToggleButtonGroupStyle.SEGMENTED,
             hasButtonBorder: false,
         })
 
@@ -94,6 +107,7 @@ describe('ToggleButtonGroup', () => {
 
         toggleButtons.forEach(btn => {
             expect(btn.classes()).toContain('rounded-button')
+            expect(btn.classes()).not.toContain('border')
         })
     })
 
@@ -132,7 +146,7 @@ describe('ToggleButtonGroup', () => {
         expect(wrapper.emitted('update:modelValue')).toBeUndefined()
     })
 
-    it('handles button without action safely', async () => {
+    it('emits update:modelValue when button has no action', async () => {
         const wrapper = mount(ToggleButtonGroup, {
             props: {
                 modelValue: 'other',
@@ -172,10 +186,7 @@ describe('ToggleButtonGroup', () => {
             },
         })
 
-        const toggleButtons = wrapper.findAllComponents(ToggleButton)
-        const toggleIconButtons = wrapper.findAllComponents(ToggleIconButton)
-
-        expect(toggleButtons).toHaveLength(0)
-        expect(toggleIconButtons).toHaveLength(0)
+        expect(wrapper.findAllComponents(ToggleButton)).toHaveLength(0)
+        expect(wrapper.findAllComponents(ToggleIconButton)).toHaveLength(0)
     })
 })

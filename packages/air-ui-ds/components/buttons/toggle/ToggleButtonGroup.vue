@@ -2,7 +2,7 @@
     <div 
         :class="[
             'flex',
-            groupStyle === ToggleButtonGroupStyle.GROUPED ? 'border border-border-default overflow-hidden' : 'flex-wrap gap-3',
+            groupStyle === ToggleButtonGroupStyle.GROUPED ? 'border border-border-default' : 'flex-wrap gap-3',
             'w-fit',
             'rounded-button'
         ]"
@@ -18,7 +18,7 @@
                 :iconPosition="'iconPosition' in button ? button.iconPosition : undefined"
                 :disabled
                 :class="[
-                    groupStyle === ToggleButtonGroupStyle.SEGMENTED && hasButtonBorder && 'border border-border-default rounded',
+                    groupStyle === ToggleButtonGroupStyle.SEGMENTED && hasButtonBorder && 'border border-border-default rounded-button',
                     groupStyle === ToggleButtonGroupStyle.SEGMENTED && button.active && '!border-border-primary-brand-active',
                     !hasButtonBorder && 'rounded-button',
                 ]"
@@ -34,7 +34,7 @@
                 :icon="button.icon"
                 :disabled
                 :class="[
-                    groupStyle === ToggleButtonGroupStyle.SEGMENTED && hasButtonBorder && 'border border-border-default rounded',
+                    groupStyle === ToggleButtonGroupStyle.SEGMENTED && hasButtonBorder && 'border border-border-default rounded-button',
                     groupStyle === ToggleButtonGroupStyle.SEGMENTED && button.active && '!border-border-primary-brand-active',
                     !hasButtonBorder && 'rounded-button',
                 ]"
