@@ -27,6 +27,29 @@
         </template>
 
         <template #header-actions> 
+            <ActionIconButton
+                v-if="!isMobile"
+                icon="mdi:magnify"
+                :size="ButtonSize.LG"
+                isRounded
+                @click="isSearchModalOpen = true"
+            />
+
+            <ActionButton
+                v-else
+                icon="mdi:magnify"
+                :iconPosition="IconPosition.LEFT"
+                text="Search"
+                :size="ButtonSize.LG"
+                isRounded
+                isFullWidth
+                @click="isSearchModalOpen = true"
+            />
+
+            <SearchModalDialog 
+                v-model="isSearchModalOpen"
+            />
+
             <ToggleButtonGroup
                 v-if="!isMobile"
                 v-model="toggleButtonTheme"
@@ -124,13 +147,13 @@ const { isDark, themeMode, setTheme } = darkModeStore
 // States
 const tocTitle = ref('On this page')
 const isTOCOpen = ref(false)
+const isSearchModalOpen = ref(false)
 
 const themeToggleIconButtons = ref<ToggleIconButton[]>([
     { icon: 'mdi:weather-sunny', value: 'light' },
     { icon: 'mdi:moon-waxing-crescent', value: 'dark' },
     { icon: 'mdi:theme-light-dark', value: 'system' },
 ])
-
 
 const themeToggleButtons = ref<ToggleButton[]>([
     {
@@ -152,7 +175,6 @@ const themeToggleButtons = ref<ToggleButton[]>([
         iconPosition: IconPosition.LEFT,
     },
 ])
-
 
 // Composables
 const { isMobile } = useIsMobile()

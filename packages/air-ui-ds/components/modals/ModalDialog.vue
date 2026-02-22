@@ -10,10 +10,27 @@
             <div
                 v-if="modelValue"
                 :id
-                class="fixed inset-0 z-[9999] bg-background-overlay backdrop-blur-sm overflow-y-auto"
+                :class="[
+                    'fixed',
+                    'inset-0',
+                    'z-[9999]',
+                    'bg-background-overlay',
+                    'backdrop-blur-sm',
+                    'overflow-y-auto',
+                    overlayClass,
+                ]"
             >
                 <div 
-                    class="modal-container min-h-full flex w-full items-center justify-center p-4"
+                    :class="[
+                        'modal-container',
+                        'min-h-full',
+                        'flex',
+                        'w-full',
+                        'items-center',
+                        'justify-center',
+                        'p-4',
+                        containerClass,
+                    ]"
                     @click.self="closeModalOnClickOutside"
                 >
                     <Transition
@@ -41,7 +58,7 @@
                                 @click="closeModal"
                             />
 
-                            <div class="p-4 md:p-6">
+                            <div :class="['p-4 md:p-6', cardClasses]">
                                 <slot />
                             </div>
                         </div>
@@ -59,10 +76,6 @@ const props = defineProps({
         type: Boolean as PropType<boolean>,
         default: false,
     },
-    cardClasses: {
-        type: String as PropType<string>,
-        default: 'max-w-[600px]',
-    },
     closeOnClickOutside: {
         type: Boolean as PropType<boolean>,
         default: false,
@@ -71,7 +84,14 @@ const props = defineProps({
         type: Boolean as PropType<boolean>,
         default: true,
     },
+    overlayClass: String as PropType<string>,
+    containerClass: String as PropType<string>,
+    cardClasses: {
+        type: String as PropType<string>,
+        default: 'max-w-[600px]',
+    },
     id: String as PropType<string>,
+        
 })
 
 // Emits
@@ -109,11 +129,11 @@ const handleEscKey = (event: KeyboardEvent) => {
 
 // Event listeners
 const addEscListener = () => {
-    window.addEventListener('keydown', handleEscKey)
+    globalThis.addEventListener('keydown', handleEscKey)
 }
 
 const removeEscListener = () => {
-    window.removeEventListener('keydown', handleEscKey)
+    globalThis.removeEventListener('keydown', handleEscKey)
 }
 
 // Cleanup on component unmount

@@ -94,11 +94,6 @@ props: [
         "type": "boolean",
     },
     {
-        "name": "cardClasses",
-        "default": "'max-w-[600px]'",
-        "type": "string",
-    },
-    {
         "name": "closeOnClickOutside",
         "default": "false",
         "type": "boolean",
@@ -107,6 +102,19 @@ props: [
         "name": "hasCornerCloseButton",
         "default": "true",
         "type": "boolean",
+    },
+    {
+        "name": "overlayClass",
+        "type": "string",
+    },
+    {
+        "name": "containerClass",
+        "type": "string",
+    },
+    {
+        "name": "cardClasses",
+        "type": "string",
+        "default": "'max-w-[600px]'",
     },
     {
         "name": "id",
@@ -133,20 +141,6 @@ const showModal = ref(false)
 
 - **Type:** `boolean`
 - **Default:** `false`
-
-### cardClasses
-Sets the classes for the modal card. It can be used to set the maximum width of the modal card.
-
-```vue
-<template>
-    <ModalDialog :cardClasses="'max-w-[600px]' >
-        ...
-    </ModalDialog>
-</template>
-```
-
-- **Type:** `string`
-- **Default:** `'max-w-[600px]'`
 
 ### closeOnClickOutside
 Enables to close the modal when clicking outside the modal card. If set to `false`, the modal cannot be closed by clicking outside the modal card.
@@ -175,6 +169,43 @@ Sets the close button to have a corner button. If set to `false`, the close butt
 
 - **Type:** `boolean`
 - **Default:** `true`
+
+### overlayClass
+Sets the classes for the modal overlay.
+
+```vue
+<template>
+    <ModalDialog :overlayClass="'bg-black/50'" >
+        ...
+    </ModalDialog>
+</template>
+```
+- **Type:** `string`
+
+### containerClass
+Sets the classes for the modal container. 
+
+```vue
+<template>
+    <ModalDialog :containerClass="'p-4'" >
+        ...
+    </ModalDialog>
+</template>
+```
+
+### cardClasses
+Sets the classes for the modal card. It can be used to set the maximum width of the modal card.
+
+```vue
+<template>
+    <ModalDialog :cardClasses="'max-w-[600px]' >
+        ...
+    </ModalDialog>
+</template>
+```
+
+- **Type:** `string`
+- **Default:** `'max-w-[600px]'`
 
 ### id
 Sets the id of the modal.

@@ -2,7 +2,17 @@ import { mount } from '@vue/test-utils'
 import { nextTick } from 'vue'
 import ModalDialog from '@/components/modals/ModalDialog.vue'
 
-const factory = (props?: Partial<InstanceType<typeof ModalDialog>['$props']>, slots?: { default?: string }) => {
+vi.mock('#imports', () => ({
+    useHead: (input: any) => {
+        const config = typeof input === 'function' ? input() : input
+        document.body.className = config?.bodyAttrs?.class ?? ''
+    }
+}))
+
+const factory = (
+    props?: Partial<InstanceType<typeof ModalDialog>['$props']>,
+    slots?: { default?: string }
+) => {
     return mount(ModalDialog, {
         props: {
             modelValue: true,
@@ -15,7 +25,7 @@ const factory = (props?: Partial<InstanceType<typeof ModalDialog>['$props']>, sl
         global: {
             stubs: {
                 ActionIconButton: {
-                    template: '<button @click="$emit(\'click\')">X</button>'
+                    template: '<button data-test="close-btn" @click="$emit(\'click\')" />'
                 }
             }
         }
@@ -25,92 +35,110 @@ const factory = (props?: Partial<InstanceType<typeof ModalDialog>['$props']>, sl
 describe('ModalDialog', () => {
     afterEach(() => {
         document.body.innerHTML = ''
+        document.body.className = ''
+        vi.restoreAllMocks()
     })
 
-    it('renders content when modelValue is true', () => {
+    it('renders slot content when modelValue is true', () => {
         factory()
         expect(document.body.innerHTML).toContain('Modal content')
     })
 
-    it('does not render content when modelValue is false', () => {
-        const wrapper = factory({ modelValue: false })
-        expect(wrapper.html()).not.toContain('Modal content')
+    it('does not render overlay when modelValue is false', () => {
+        factory({ modelValue: false })
+        expect(document.querySelector('.bg-background-overlay')).toBeNull()
     })
 
-    it('applies custom cardClasses and id', () => {
+    it('applies id and custom classes correctly', () => {
         factory({
-            cardClasses: 'custom-card',
-            id: 'my-modal'
+            id: 'my-modal',
+            overlayClass: 'custom-overlay',
+            containerClass: 'custom-container',
+            cardClasses: 'custom-card'
         })
 
-        const modal = document.querySelector('#my-modal')
-        expect(modal).not.toBeNull()
-        expect(modal!.querySelector('.custom-card')).not.toBeNull()
+        const overlay = document.querySelector('#my-modal')
+        expect(overlay).not.toBeNull()
+        expect(overlay?.classList.contains('custom-overlay')).toBe(true)
+
+        const container = document.querySelector('.modal-container')
+        expect(container?.classList.contains('custom-container')).toBe(true)
+
+        expect(document.querySelector('.custom-card')).not.toBeNull()
     })
 
-    it('emits update:modelValue and close when close button clicked', async () => {
-        const wrapper = factory({ hasCornerCloseButton: true, closeOnClickOutside: true })
+    it('emits close events when close button is clicked', async () => {
+        const wrapper = factory({ hasCornerCloseButton: true })
 
-        const button = document.querySelector('button')
+        const button = document.querySelector('[data-test="close-btn"]')
         expect(button).not.toBeNull()
 
-        await button!.dispatchEvent(new Event('click'))
+        button!.dispatchEvent(new Event('click'))
         await nextTick()
 
-        expect(wrapper.emitted('update:modelValue')).toBeTruthy()
-        expect(wrapper.emitted('update:modelValue')![0]).toEqual([false])
+        expect(wrapper.emitted('update:modelValue')?.[0]).toEqual([false])
         expect(wrapper.emitted('close')).toBeTruthy()
     })
 
-    it('emits update:modelValue and close on overlay click when closeOnClickOutside is true', async () => {
+    it('closes when clicking container itself and closeOnClickOutside is true', async () => {
         const wrapper = factory({ closeOnClickOutside: true })
 
-        const overlay = document.querySelector('.modal-container')
-        expect(overlay).not.toBeNull()
-
-        await overlay!.dispatchEvent(new MouseEvent('click', { bubbles: true }))
+        const container = document.querySelector('.modal-container')
+        container!.dispatchEvent(new MouseEvent('click', { bubbles: true }))
         await nextTick()
 
-        expect(wrapper.emitted('update:modelValue')).toBeTruthy()
-        expect(wrapper.emitted('update:modelValue')![0]).toEqual([false])
+        expect(wrapper.emitted('update:modelValue')?.[0]).toEqual([false])
         expect(wrapper.emitted('close')).toBeTruthy()
     })
 
-    it('does not emit close events on overlay click when closeOnClickOutside is false', async () => {
-        const wrapper = factory({ closeOnClickOutside: false })
+    it('does not close when clicking inside modal card content', async () => {
+        const wrapper = factory({ closeOnClickOutside: true })
 
-        const overlay = document.querySelector('.bg-background-overlay')
-        expect(overlay).not.toBeNull()
-
-        await overlay!.dispatchEvent(new MouseEvent('click', { bubbles: true }))
+        const card = document.querySelector('.bg-background-surface')
+        card!.dispatchEvent(new MouseEvent('click', { bubbles: true }))
         await nextTick()
 
         expect(wrapper.emitted('update:modelValue')).toBeFalsy()
         expect(wrapper.emitted('close')).toBeFalsy()
     })
 
-    it('emits update:modelValue and close on Escape key when closeOnClickOutside is true', async () => {
-        const wrapper = factory({ closeOnClickOutside: true, modelValue: false })
+    it('does not close on container click when closeOnClickOutside is false', async () => {
+        const wrapper = factory({ closeOnClickOutside: false })
 
-        // Manually update modelValue to trigger the watcher
+        const container = document.querySelector('.modal-container')
+        container!.dispatchEvent(new MouseEvent('click', { bubbles: true }))
+        await nextTick()
+
+        expect(wrapper.emitted('update:modelValue')).toBeFalsy()
+        expect(wrapper.emitted('close')).toBeFalsy()
+    })
+
+    it('closes on Escape key when enabled', async () => {
+        const wrapper = factory({
+            closeOnClickOutside: true,
+            modelValue: false
+        })
+
+        // Trigger watcher to register ESC listener
         await wrapper.setProps({ modelValue: true })
         await nextTick()
 
-        // Dispatch Escape key event
-        const event = new KeyboardEvent('keydown', { key: 'Escape' })
-        window.dispatchEvent(event)
+        window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }))
         await nextTick()
 
-        expect(wrapper.emitted('update:modelValue')).toBeTruthy()
-        expect(wrapper.emitted('update:modelValue')![0]).toEqual([false])
+        expect(wrapper.emitted('update:modelValue')?.[0]).toEqual([false])
         expect(wrapper.emitted('close')).toBeTruthy()
     })
 
+    it('does not close on Escape key when disabled', async () => {
+        const wrapper = factory({
+            closeOnClickOutside: false,
+            modelValue: false
+        })
 
-    it('does not emit close events on Escape key when closeOnClickOutside is false', async () => {
-        const wrapper = factory({ closeOnClickOutside: false })
-
+        await wrapper.setProps({ modelValue: true })
         await nextTick()
+
         window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }))
         await nextTick()
 
@@ -118,10 +146,30 @@ describe('ModalDialog', () => {
         expect(wrapper.emitted('close')).toBeFalsy()
     })
 
+    it('adds and removes Escape listener when modelValue changes', async () => {
+        const addSpy = vi.spyOn(globalThis, 'addEventListener')
+        const removeSpy = vi.spyOn(globalThis, 'removeEventListener')
+
+        const wrapper = factory({ modelValue: false })
+
+        await wrapper.setProps({ modelValue: true })
+        expect(addSpy).toHaveBeenCalledWith('keydown', expect.any(Function))
+
+        await wrapper.setProps({ modelValue: false })
+        expect(removeSpy).toHaveBeenCalledWith('keydown', expect.any(Function))
+    })
+
+    it('removes Escape listener on unmount', () => {
+        const removeSpy = vi.spyOn(globalThis, 'removeEventListener')
+
+        const wrapper = factory()
+        wrapper.unmount()
+
+        expect(removeSpy).toHaveBeenCalledWith('keydown', expect.any(Function))
+    })
+
     it('does not render close button when hasCornerCloseButton is false', () => {
         factory({ hasCornerCloseButton: false })
-
-        const button = document.querySelector('button')
-        expect(button).toBeNull()
+        expect(document.querySelector('[data-test="close-btn"]')).toBeNull()
     })
 })
