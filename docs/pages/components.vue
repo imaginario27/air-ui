@@ -18,12 +18,12 @@
     </div>
 </template>
 <script setup lang="ts">
+definePageMeta({
+    title: 'Components',
+})
+
 // States
 const title = ref('Components')
-
-useHead(() => ({
-    title: title.value,
-}))
 
 // Composables
 const darkModeStore = useDarkMode()
