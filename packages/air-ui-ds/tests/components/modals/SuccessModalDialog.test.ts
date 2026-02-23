@@ -112,14 +112,14 @@ describe('SuccessModalDialog.vue', () => {
         const wrapper = factory({
             closeOnClickOutside: true,
             hasCornerCloseButton: true,
-            cardClasses: 'custom-class'
+            cardClass: 'custom-class'
         })
         await nextTick()
 
         const modalDialog = wrapper.findComponent(ModalDialog)
         expect(modalDialog.props('closeOnClickOutside')).toBe(true)
         expect(modalDialog.props('hasCornerCloseButton')).toBe(true)
-        expect(modalDialog.props('cardClasses')).toBe('custom-class')
+        expect(modalDialog.props('cardClass')).toBe('custom-class')
     })
 
     it('does not render ModalActions when showModalActions is false', async () => {

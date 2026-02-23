@@ -10,7 +10,7 @@
         :isLoading
         :loadingText
         :orientation
-        :cardClasses
+        :cardClass
         :closeOnClickOutside
         :hasCornerCloseButton
     />
@@ -57,7 +57,7 @@ defineProps({
         default: Orientation.HORIZONTAL,
         validator: (value: Orientation) => Object.values(Orientation).includes(value),
     },
-    cardClasses: {
+    cardClass: {
         type: String as PropType<string>,
         default: 'max-w-[520px]',
     },

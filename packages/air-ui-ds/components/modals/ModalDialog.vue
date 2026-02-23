@@ -46,7 +46,7 @@
                                 'bg-background-surface rounded-lg shadow-xl',
                                 'relative w-full my-8',
                                 'overflow-visible',
-                                cardClasses,
+                                cardClass,
                             ]"
                         >
                             <ActionIconButton
@@ -58,7 +58,7 @@
                                 @click="closeModal"
                             />
 
-                            <div :class="['p-4 md:p-6', cardClasses]">
+                            <div :class="['p-4 md:p-6', cardClass]">
                                 <slot />
                             </div>
                         </div>
@@ -86,7 +86,7 @@ const props = defineProps({
     },
     overlayClass: String as PropType<string>,
     containerClass: String as PropType<string>,
-    cardClasses: {
+    cardClass: {
         type: String as PropType<string>,
         default: 'max-w-[600px]',
     },

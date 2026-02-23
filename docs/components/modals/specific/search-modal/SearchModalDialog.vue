@@ -1,7 +1,7 @@
 <template>
     <ModalDialog 
         :modelValue="modelValue" 
-        cardClasses="!p-0 max-w-[700px] max-h-[400px]"
+        cardClass="!p-0 max-w-[700px] max-h-[400px]"
         containerClass="items-start md:items-center"
         :hasCornerCloseButton="false"
         @update:modelValue="updateModelValue"

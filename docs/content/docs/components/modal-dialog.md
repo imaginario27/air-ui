@@ -112,7 +112,7 @@ props: [
         "type": "string",
     },
     {
-        "name": "cardClasses",
+        "name": "cardClass",
         "type": "string",
         "default": "'max-w-[600px]'",
     },
@@ -193,12 +193,12 @@ Sets the classes for the modal container.
 </template>
 ```
 
-### cardClasses
+### cardClass
 Sets the classes for the modal card. It can be used to set the maximum width of the modal card.
 
 ```vue
 <template>
-    <ModalDialog :cardClasses="'max-w-[600px]' >
+    <ModalDialog :cardClass="'max-w-[600px]' >
         ...
     </ModalDialog>
 </template>
