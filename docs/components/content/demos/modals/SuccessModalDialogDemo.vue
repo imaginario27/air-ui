@@ -5,7 +5,7 @@
         :title
         :description
         :buttonText
-        :cardClasses
+        :cardClass
         :closeOnClickOutside
         :hasCornerCloseButton
     />
@@ -37,7 +37,7 @@ defineProps({
         type: String as PropType<string>,
         default: 'Close window',
     },
-    cardClasses: {
+    cardClass: {
         type: String as PropType<string>,
         default: 'max-w-[400px]',
     },

@@ -8,7 +8,7 @@ props:
     title: "Modal title"
     description: "Modal description"
     buttonText: "Close"
-    cardClasses: "max-w-[400px]"
+    cardClass: "max-w-[400px]"
     closeOnClickOutside: true
     hasCornerCloseButton: false
 previewBackground: "white"
@@ -25,7 +25,7 @@ componentSource: 'docs'
         title="Modal title"
         description="Modal description"
         buttonText="Close"
-        cardClasses="max-w-[520px]"
+        cardClass="max-w-[520px]"
         :closeOnClickOutside="false"
         :hasCornerCloseButton="false"
     />
@@ -71,7 +71,7 @@ props: [
         "type": "string",
     },
     {
-        "name": "cardClasses",
+        "name": "cardClass",
         "default": "'max-w-[400px]'",
         "type": "string",
     },
@@ -154,12 +154,12 @@ Sets the text for the close button.
 - **Default:** `'Close'`
 
 
-### cardClasses
+### cardClass
 Sets the classes for the modal card. It can be used to set the maximum width of the modal card.
 
 ```vue
 <template>
-    <ModalDialog :cardClasses="'max-w-[400px]' />
+    <ModalDialog :cardClass="'max-w-[400px]' />
 </template>
 ```
 

@@ -54,7 +54,7 @@ describe('ModalDialog', () => {
             id: 'my-modal',
             overlayClass: 'custom-overlay',
             containerClass: 'custom-container',
-            cardClasses: 'custom-card'
+            cardClass: 'custom-card'
         })
 
         const overlay = document.querySelector('#my-modal')

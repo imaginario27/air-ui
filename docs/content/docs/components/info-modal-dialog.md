@@ -13,7 +13,7 @@ props:
     isLoading: false
     loadingText: "Processing..."
     orientation: "vertical"
-    cardClasses: "max-w-[400px]"
+    cardClass: "max-w-[400px]"
     closeOnClickOutside: true
     hasCornerCloseButton: false
 items:
@@ -41,7 +41,7 @@ componentSource: 'docs'
         :isLoading="false"
         loadingText="Processing..."
         :orientation="Orientation.VERTICAL"
-        cardClasses="max-w-[520px]"
+        cardClass="max-w-[520px]"
         :closeOnClickOutside="false"
         :hasCornerCloseButton="false"
     />
@@ -112,7 +112,7 @@ props: [
         "type": "Orientation",
     },
     {
-        "name": "cardClasses",
+        "name": "cardClass",
         "default": "'max-w-[520px]'",
         "type": "string",
     },
@@ -273,12 +273,12 @@ options: [
 ---
 ::
 
-### cardClasses
+### cardClass
 Sets the classes for the modal card. It can be used to set the maximum width of the modal card.
 
 ```vue
 <template>
-    <InfoModalDialog :cardClasses="'max-w-[400px]' />
+    <InfoModalDialog :cardClass="'max-w-[400px]' />
 </template>
 ```
 

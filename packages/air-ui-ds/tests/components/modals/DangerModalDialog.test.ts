@@ -119,14 +119,14 @@ describe('DangerModalDialog.vue', () => {
         const wrapper = factory({
             closeOnClickOutside: true,
             hasCornerCloseButton: true,
-            cardClasses: 'custom-card'
+            cardClass: 'custom-card'
         })
         await nextTick()
 
         const modal = wrapper.findComponent(ModalDialog)
         expect(modal.props('closeOnClickOutside')).toBe(true)
         expect(modal.props('hasCornerCloseButton')).toBe(true)
-        expect(modal.props('cardClasses')).toBe('custom-card')
+        expect(modal.props('cardClass')).toBe('custom-card')
     })
 
     it('passes props to ContainedIcon correctly', async () => {

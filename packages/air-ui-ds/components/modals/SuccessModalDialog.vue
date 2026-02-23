@@ -3,7 +3,7 @@
         :modelValue 
         :closeOnClickOutside
         :hasCornerCloseButton
-        :cardClasses
+        :cardClass
         @update:modelValue="updateModelValue"
     >
         <ModalContent class="!gap-6 items-center">   
@@ -54,7 +54,7 @@ defineProps({
         type: String as PropType<string>,
         default: 'Close',
     },
-    cardClasses: {
+    cardClass: {
         type: String as PropType<string>,
         default: 'max-w-[400px]',
     },
