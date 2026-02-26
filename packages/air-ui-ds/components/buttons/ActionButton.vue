@@ -6,7 +6,6 @@
         :class="[
             'flex items-center justify-center',
             isRounded ? 'rounded-full' : 'rounded-button',
-            'aspect-square',
             'text-nowrap',
             ...buttonStyleClass,
             buttonSizeClass,
