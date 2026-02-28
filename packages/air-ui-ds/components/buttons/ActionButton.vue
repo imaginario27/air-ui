@@ -32,7 +32,7 @@
                 />
             </div>
             
-            <span :class="['font-semibold', textSizeClass, textClass]">
+            <span :class="['font-semibold', textSizeClass, textClass, textTopSpacingClass]">
                 {{ loadingText }}
             </span>
         </template>
@@ -52,7 +52,7 @@
                 />
             </template>
 
-            <span :class="['font-semibold', textSizeClass, textClass]">
+            <span :class="['font-semibold', textSizeClass, textClass, textTopSpacingClass]">
                 {{ text }}
             </span>
 
@@ -330,14 +330,37 @@ const iconColorClass = computed(() => {
 })
 
 const horizontalPaddingClass = computed(() => {
-    const variant = {
-        [ButtonSize.XS]: 'px-2',
-        [ButtonSize.SM]: 'px-2',
-        [ButtonSize.MD]: 'px-2.5',
-        [ButtonSize.LG]: 'px-3',
-        [ButtonSize.XL]: 'px-3.5',
-        [ButtonSize.XXL]: 'px-4',
+    let variant
+
+    if (props.iconPosition === IconPosition.LEFT) {
+        variant = {
+            [ButtonSize.XS]: 'pl-3 pr-4',
+            [ButtonSize.SM]: 'pl-3 pr-4',
+            [ButtonSize.MD]: 'pl-4 pr-5',
+            [ButtonSize.LG]: 'pl-4 pr-5',
+            [ButtonSize.XL]: 'pl-4 pr-5',
+            [ButtonSize.XXL]: 'pl-4 pr-5',
+        }
+    } else if (props.iconPosition === IconPosition.RIGHT) {
+        variant = {
+            [ButtonSize.XS]: 'pl-4 pr-3',
+            [ButtonSize.SM]: 'pl-4 pr-3',
+            [ButtonSize.MD]: 'pl-5 pr-4',
+            [ButtonSize.LG]: 'pl-5 pr-4',
+            [ButtonSize.XL]: 'pl-5 pr-4',
+            [ButtonSize.XXL]: 'pl-5 pr-4',
+        }
+    } else {
+        variant = {
+            [ButtonSize.XS]: 'px-3',
+            [ButtonSize.SM]: 'px-3',
+            [ButtonSize.MD]: 'px-4',
+            [ButtonSize.LG]: 'px-4',
+            [ButtonSize.XL]: 'px-4',
+            [ButtonSize.XXL]: 'px-4',
+        }
     }
+
     return variant[props.size as ButtonSize] || 'px-3'
 })
 
@@ -350,7 +373,15 @@ const gapClass = computed(() => {
         [ButtonSize.XL]: 'gap-2',
         [ButtonSize.XXL]: 'gap-2',
     }
+
     return variant[props.size as ButtonSize] || 'gap-2'
+})
+
+
+const textTopSpacingClass = computed(() => {
+    return props.size === ButtonSize.XXL
+        ? undefined
+        : 'pt-0.5'
 })
 
 // Props for the dynamic component

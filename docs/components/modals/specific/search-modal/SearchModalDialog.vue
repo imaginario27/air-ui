@@ -10,6 +10,7 @@
             <!-- Search Input -->
             <SearchModalInput
                 v-model="searchValue"
+                :isOpen="modelValue"
                 :maxLength="FieldMaxLength.SEARCH"
                 @close="updateModelValue(false)"
             />

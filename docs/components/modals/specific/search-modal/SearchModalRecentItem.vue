@@ -20,10 +20,10 @@
                 :color="badgeColor" 
                 :style="badgeStyle"
             />
-            <span v-if="breadcrumbs" class="text-text-neutral-subtler">
+            <span v-if="breadcrumbs" class="text-sm text-text-neutral-subtle">
                 {{ breadcrumbs }}
             </span>
-            <h3 class="text-sm">
+            <h3 class="text-base font-semibold">
                 {{ text }}
             </h3>
         </NuxtLink>

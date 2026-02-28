@@ -27,9 +27,11 @@
         </template>
 
         <template #header-actions> 
-            <ActionIconButton
+            <ActionButton
                 v-if="!isMobile"
                 icon="mdi:magnify"
+                :iconPosition="IconPosition.LEFT"
+                text="Ctrl K"
                 :size="ButtonSize.LG"
                 isRounded
                 @click="isSearchModalOpen = true"
@@ -303,5 +305,29 @@ const toggleButtonTheme = computed({
     set: (value: 'light' | 'dark' | 'system') => {
         setTheme(value)
     },
+})
+
+// Methods
+const handleOpenSearchModalKey = (event: KeyboardEvent) => {
+    if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'k') {
+        event.preventDefault()
+        isSearchModalOpen.value = true
+    }
+}
+
+const addOpenSearchModalKeyListener = () => {
+    globalThis.addEventListener('keydown', handleOpenSearchModalKey)
+}
+
+const removeOpenSearchModalKeyListener = () => {
+    globalThis.removeEventListener('keydown', handleOpenSearchModalKey)
+}
+
+onMounted(() => {
+    addOpenSearchModalKeyListener()
+})
+
+onUnmounted(() => {
+    removeOpenSearchModalKeyListener()
 })
 </script>
