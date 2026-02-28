@@ -8,6 +8,7 @@ props:
     homeIcon: "mdi:home-outline"
     separatorIcon: "mdi:chevron-right"
     includeCurrent: false
+    customRoute: null
     homeIconClass: ""
     separatorClass: ""
     crumbClass: ""
@@ -40,6 +41,11 @@ props: [
         "name": "includeCurrent",
         "default": "false",
         "type": "boolean",  
+    },
+    {
+        "name": "customRoute",
+        "default": "null",
+        "type": "string | null | undefined",
     },
     {
         "name": "homeIconClass",
@@ -117,6 +123,18 @@ Determines whether to include the current page in the breadcrumb trail.
 
 - **Type:** `boolean`
 - **Default:** `false`
+
+### customRoute
+Allows you to specify a custom route for generating breadcrumbs instead of using the current route.
+
+```vue
+<template>
+    <Breadcrumbs customRoute="/custom/path" />
+</template>
+```
+
+- **Type:** `string | null | undefined`
+- **Default:** `null`
 
 ### homeIconClass
 

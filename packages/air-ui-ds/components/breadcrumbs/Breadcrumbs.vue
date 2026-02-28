@@ -75,6 +75,10 @@ const props = defineProps({
         type: Boolean as PropType<boolean>,
         default: false,
     },
+    customRoute: {
+        type: String as PropType<string | undefined | null>,
+        default: null,
+    },
     homeIconClass: {
         type: String as PropType<string>,
         default: '',
@@ -96,9 +100,16 @@ const props = defineProps({
 // Route
 const route = useRoute()
 
-// Generate all breadcrumbs from route segments
+// Decide which path to use
+const basePath = computed(() => {
+    return props.customRoute ?? route.path
+})
+
+// Generate all breadcrumbs from selected path
 const allCrumbs = computed(() => {
-    const pathSegments = route.path.split('/').filter(Boolean)
+    const pathSegments = basePath.value
+        .split('/')
+        .filter(Boolean)
 
     return pathSegments.map((segment, index) => {
         return {

@@ -25,7 +25,9 @@ describe('Breadcrumbs', () => {
         )
     }
 
-    const factory = (props: Partial<InstanceType<typeof Breadcrumbs>['$props']> = {}) => {
+    const factory = (
+        props: Partial<InstanceType<typeof Breadcrumbs>['$props']> = {}
+    ) => {
         return mount(Breadcrumbs, {
             props,
             global: {
@@ -71,10 +73,23 @@ describe('Breadcrumbs', () => {
         mockRoute('/about')
         const wrapper = factory({ showHome: false })
 
-        const separatorIcons = wrapper.findAllComponents(Icon).filter(icon => {
-            return icon.props('name') === 'mdi:chevron-right'
-        })
+        const separatorIcons = wrapper
+            .findAllComponents(Icon)
+            .filter(icon => icon.props('name') === 'mdi:chevron-right')
 
         expect(separatorIcons.length).toBe(0)
+    })
+
+    it('uses customRoute instead of current route path', () => {
+        mockRoute('/ignored/path')
+
+        const wrapper = factory({
+            customRoute: '/admin/users',
+            includeCurrent: true,
+        })
+
+        expect(wrapper.text()).toContain('Admin')
+        expect(wrapper.text()).toContain('Users')
+        expect(wrapper.text()).not.toContain('Ignored')
     })
 })
