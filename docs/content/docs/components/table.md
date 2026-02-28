@@ -220,7 +220,6 @@ Forces the cell and the column to fit is width to the content of the cell. Usefu
 The `to` prop is used to set the `href` attribute of the `a` tag inside the `TableCell` component. It is useful when you want to link to another page or resource.
 
 
-
 ```vue
 <template>
     ...
@@ -240,6 +239,133 @@ props:
 ::
 
 **UX imprevement**: When using the `to` prop, provide the `<TableRow>` component the `isHoverable` prop to ensure a better UX experience.
+
+### TableHeaderCell
+The `TableHeaderCell` component accepts some props:
+::props-table
+---
+props: [
+    {
+        "name": "scope",
+        "default": "TableHeaderCellScope.COL",
+        "type": "TableHeaderCellScope"
+    },
+    {
+        "name": "sorteable",
+        "default": "false",
+        "type": "boolean"
+    },
+    {
+        "name": "columnKey",
+        "type": "string"
+    },
+    {
+        "name": "sortKey",
+        "type": "string"
+    },
+    {
+        "name": "sortAsc",
+        "type": "boolean"
+    },
+    {
+        "name": "onToggleSort",
+        "type": "() => void"
+    },
+    {
+        "name": "fitToContent",
+        "type": "boolean",
+        "default": "false"
+    },
+    {
+        "name": "to",
+        "type": "string"
+    },  
+]
+---
+::
+
+#### scope
+The `scope` prop is used to set the scope of the header cell. It uses the `TableHeaderCellScope` enum.
+
+- **Type:** `TableHeaderCellScope`
+- **Default:** `TableHeaderCellScope.COL`
+
+##### Options
+::options-table
+---
+options: [
+    {
+        value: "COL",
+        description: "Indicates that the header cell is a column header.",
+    },
+    {
+        value: "ROW",
+        description: "Indicates that the header cell is a row header.",
+    },
+]
+---
+::
+
+##### Note about scope
+
+::content-alert
+---
+props:
+    title: "Important"
+    description: "When scope is set to <strong>COL</strong>, the fitToContent and to props are ignored and have no effect on the header cell. When scope is set to <strong>ROW</strong>, sorting is disabled. In this case, the following props should not be used, as they will not apply: sorteable, columnKey, sortKey, sortAsc, and onToggleSort."
+---
+::
+
+#### sorteable
+When `true`, it indicates that the column is sortable. 
+
+It is recommended to use this prop together with `columnKey`, `sortKey`, `sortAsc` and `onToggleSort` props.
+
+```vue
+<template>
+    ...
+    <TableHeaderCell
+        sorteable
+        columnKey="col1"
+        :sortKey
+        :sortAsc
+        :onToggleSort="() => toggleSort('col1')"
+    >
+        Column 1
+    </TableHeaderCell>
+    ...
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `false`
+
+#### columnKey
+The `columnKey` prop is used to set the key of the column. It is useful when you want to sort the column.
+
+- **Type:** `string`
+- **Default:** `''`
+
+#### sortKey
+The `sortKey` prop is used to set the current sort key. It is useful when you want to sort the column.
+
+- **Type:** `string`
+- **Default:** `''`
+
+#### sortAsc
+The `sortAsc` prop is used to set the current sort direction. It is useful when you want to sort the column.
+
+- **Type:** `boolean`
+- **Default:** `true`
+
+#### onToggleSort
+The `onToggleSort` prop is used to set the function that will be called when the user clicks on the header cell to toggle the sort direction. It is useful when you want to sort the column.
+
+- **Type:** `() => void`
+- **Default:** `undefined`
+
+#### fitToContent / to
+These props have the same behavior as in the `TableCell` component, but in this case they will be applied to the header cell.
 
 ### TableRow
 
@@ -297,9 +423,9 @@ When `true`, it applies a different background color to even rows, creating a st
 - **Default:** `false`
 
 
-## Examples
+## Table examples
 
-### Stripped table demo
+### Stripped
 
 ::component-code
 ---
@@ -361,7 +487,7 @@ const paginatedData = computed(() =>
 </script>
 ```
 
-### Sorteable table demo
+### Sorteable
 
 ::component-code
 ---
@@ -475,6 +601,70 @@ const {
 // Computed
 const paginatedData = computed(() =>
     getPaginatedData(sortedData.value, currentPage.value, currentItemsPerPage.value)
+)
+</script>
+```
+
+### Row header cell
+
+::component-code
+---
+srcDir: 'content/demos/tables/RowHeaderCellTableDemo.vue'
+previewBackground: "white"
+isCodePreviewEnabled: false
+componentSource: 'docs'
+---
+::
+
+```vue
+<template>
+    <TableWrapper v-if="exampleTableData.length">
+        <Table>
+            <TableBody>
+                <TableRow v-for="(item, index) in paginatedData" :key="index">
+                    <TableHeaderCell :scope="TableHeaderCellScope.ROW">
+                        {{ item.colHeader }}
+                    </TableHeaderCell>
+                    <TableCell>{{ item.col1 }}</TableCell>
+                    <TableCell>{{ item.col2 }}</TableCell>
+                    <TableCell>{{ item.col3 }}</TableCell>
+                    <TableCellActions>
+                        <ActionIconButton 
+                            :size="ButtonSize.MD"
+                            icon="mdi:eye-outline"
+                        />
+                    </TableCellActions>
+                </TableRow>
+            </TableBody>
+        </Table>
+        <ButtonPagination 
+            v-model:modelValue="currentPage"
+            v-model:items-per-page="currentItemsPerPage"
+            :totalItems="exampleTableData.length"
+        />
+    </TableWrapper>
+    <EmptyState v-else />
+</template>
+
+<script setup lang="ts">
+// States
+const currentPage = ref(1)
+const currentItemsPerPage = ref(10)
+
+// Static example data
+const exampleTableData = [
+    { colHeader: 'Col1', col1: 'John Doe', col2: 'johndoe@example.com', col3: 'Active' },
+    { colHeader: 'Col2', col1: 'Jane Smith', col2: 'janesmith@example.com', col3: 'Inactive' },
+    { colHeader: 'Col3', col1: 'Alice Johnson', col2: 'alice.j@example.com', col3: 'Pending' },
+    { colHeader: 'Col4', col1: 'Bob Brown', col2: 'bob.brown@example.com', col3: 'Active' },
+    { colHeader: 'Col5', col1: 'Charlie Davis', col2: 'charlie.davis@example.com', col3: 'Inactive' },
+    { colHeader: 'Col6', col1: 'Emma Wilson', col2: 'emma.wilson@example.com', col3: 'Pending' },
+    { colHeader: 'Col7', col1: 'Liam Taylor', col2: 'liam.taylor@example.com', col3: 'Active' },
+]
+
+// Computed
+const paginatedData = computed(() =>
+    getPaginatedData(exampleTableData, currentPage.value, currentItemsPerPage.value)
 )
 </script>
 ```

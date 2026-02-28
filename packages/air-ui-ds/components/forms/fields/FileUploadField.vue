@@ -60,7 +60,10 @@
                         </p>
                     </template>
                     <template #button="{ fileInput }">
-                        <div class="w-full flex justify-center my-4">
+                        <div 
+                            class="w-full flex justify-center my-4"
+                            @click.stop
+                        >
                             <ActionButton
                                 :text="computedButtonText"
                                 :styleType="ButtonStyleType.PRIMARY_BRAND_SOFT"
@@ -201,25 +204,41 @@ const acceptedFileTypes = computed(() => {
 })
 
 const computedTitleText = computed(() => {
-    if (props.showPreview && props.previewImageUrl && selectedFiles.value.length === 0) {
-        return props.title || 'Upload a new file to replace current one'
+    const isReplacingExisting =
+        props.showPreview &&
+        props.previewImageUrl &&
+        selectedFiles.value.length === 0
+
+    if (isReplacingExisting) {
+        return props.title ?? 'Upload a new file to replace current one'
     }
 
-    if (!props.title) {
-        if (props.multiple) return 'Drag & drop files here or click to upload'
-        else return 'Drag & drop a file here or click to upload'
-    } else return props.title
+    if (props.title) {
+        return props.title
+    }
+
+    return props.multiple
+        ? 'Drag & drop files here or click to upload'
+        : 'Drag & drop a file here or click to upload'
 })
 
 const computedButtonText = computed(() => {
-    if (props.showPreview && props.previewImageUrl && selectedFiles.value.length === 0) {
-        return props.buttonText || 'Replace file'
+    const isReplacingExisting =
+        props.showPreview &&
+        props.previewImageUrl &&
+        selectedFiles.value.length === 0
+
+    if (isReplacingExisting) {
+        return props.buttonText ?? 'Replace file'
     }
 
-    if (!props.buttonText) {
-        if (props.multiple) return 'Upload files'
-        else return 'Upload a file'
-    } else return props.buttonText
+    if (props.buttonText) {
+        return props.buttonText
+    }
+
+    return props.multiple
+        ? 'Upload files'
+        : 'Upload a file'
 })
 
 const selectedFiles = computed({
@@ -229,10 +248,6 @@ const selectedFiles = computed({
 
         if (props.required) {
             runValidation()
-        }
-
-        if (newFiles.length === 0) {
-            dropzoneKey.value++ // This forces Vue3Dropzone to re-render
         }
     },
 })

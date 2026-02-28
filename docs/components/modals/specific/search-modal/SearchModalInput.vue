@@ -17,6 +17,7 @@
             
             <!-- Search Input -->
             <input 
+                ref="inputRef"
                 type="text" 
                 :value="modelValue" 
                 placeholder="Search" 
@@ -42,9 +43,13 @@
 
 <script setup lang="ts">
 // Props
-defineProps({
+const props = defineProps({
     modelValue: String as PropType<string>,
+    isOpen: Boolean as PropType<boolean>,
 })
+
+// Refs
+const inputRef = ref<HTMLInputElement | null>(null)
 
 // Emits
 const emit = defineEmits(['update:modelValue', 'close'])
@@ -60,4 +65,23 @@ const emitUpdate = (event: Event) => {
 const closeModal = () => {
    emit('close')
 }
+
+// Methods
+const focusInput = async () => {
+    await nextTick()
+    requestAnimationFrame(() => {
+        inputRef.value?.focus()
+    })
+}
+
+// Watchers
+watch(
+    () => props.isOpen,
+    async (isOpen) => {
+        if (!isOpen) return
+
+        await focusInput()
+    },
+    { immediate: true },
+)
 </script>

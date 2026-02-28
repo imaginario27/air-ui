@@ -1,13 +1,20 @@
 <template>
     <div
-        :class="[ 
-            'inline-flex items-center gap-2 font-semibold text-xs px-2 h-[24px] w-fit',
+        :class="[
+            'inline-flex',
+            'items-center',
+            'gap-2',
+            'font-semibold',
+            'text-xs',
+            'px-2',
+            'h-[24px]',
+            'w-fit',
             styleClass,
             shapeClass,
             colorClass,
             borderColorClass,
             isTransparent ? 'bg-transparent' : undefined,
-            showDot ? 'pl-3' : undefined
+            showDot ? 'pl-3' : undefined,
         ]"
     >
         <!-- Dot -->
@@ -25,7 +32,14 @@
         />
 
         <!-- Text -->
-        <span :class="textClass">{{ text }}</span>
+        <span
+            :class="[
+                'pt-0.25',
+                textClass,
+            ]"
+        >
+            {{ text }}
+        </span>
 
         <!-- Close button -->
         <div 
@@ -195,7 +209,7 @@ const iconColorClass = computed(() => {
 })
 
 const dotColorClass = computed(() => {
-    if (props.styleType === BadgeStyle.FILLED) return "bg-text-on-filled"
+    if (props.styleType === BadgeStyle.FILLED) return "bg-text-neutral-on-filled"
 
     const dotVariant: Record<ColorAccent, string> = {
         [ColorAccent.NEUTRAL]: "bg-icon-neutral-subtle",

@@ -87,6 +87,7 @@ props: [
 ---
 ::
 
+## Slots
 ::slots-table
 ---
 slots: [

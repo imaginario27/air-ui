@@ -47,7 +47,7 @@ props: [
         "type": "string",
     }, 
     {
-        "name": "align",
+        "name": "size",
         "default": "NavLinkSize.SM",
         "type": "NavLinkSize",
     },
