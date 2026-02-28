@@ -244,6 +244,11 @@ export const componentList: ComponentPortfolioItem[] = [
         title: 'Overlay',
     },
     {
+        title: 'Drawer',
+        to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/drawer`,
+        imgUrl: `/images/thumbnails/components/drawer.png`,
+    },
+    {
         title: 'Dropdown',
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/dropdown-menu`,
         imgUrl: `/images/thumbnails/components/dropdown.png`,
