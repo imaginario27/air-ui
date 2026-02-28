@@ -28,6 +28,10 @@ props:
     showPreview: false
     previewImageUrl: ""
     previewContainerClasses: "w-[120px] h-[120px] min-w-[120px]"
+external:
+  - modelValue
+externalTypes:
+  - File[]
 isPreviewContentBoxed: true
 previewContentMaxWidth: 600
 propsSettingsExcludedProps: ['validator', 'modelValue', 'accept']

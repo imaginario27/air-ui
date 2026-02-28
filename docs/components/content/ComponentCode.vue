@@ -301,14 +301,22 @@ const componentProps = reactive({
 })
 
 // Component Event Bindings
-const componentEvents = reactive({
-    ...Object.entries(props.model || {}).reduce((acc, [key]) => {
-        acc[`onUpdate:${key}`] = (e: any) => setComponentProp(key, e)
-        return acc
-    }, {} as Record<string, (e: any) => void>),
-    ...(componentProps.modelValue !== undefined
-        ? { 'onUpdate:modelValue': (e: any) => setComponentProp('modelValue', e) }
-        : {}),
+const componentEvents = computed(() => {
+    const events: Record<string, any> = {}
+
+    if (componentProps.modelValue !== undefined) {
+        events['onUpdate:modelValue'] = (e: any) => {
+            setComponentProp('modelValue', e)
+        }
+    }
+
+    for (const [key] of Object.entries(props.model || {})) {
+        events[`onUpdate:${key}`] = (e: any) => {
+            setComponentProp(key, e)
+        }
+    }
+
+    return events
 })
 
 
