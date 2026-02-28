@@ -56,11 +56,13 @@
                     'flex',
                     'items-center',
                     'justify-between',
+                    'gap-3',
+                    headerClass,
                 ]"
             >
                 <component
                     :is="titleHeadingTag"
-                    class="text-lg font-semibold"
+                    :class="['text-lg', 'font-semibold', titleClass]"
                 >
                     {{ title }}
                 </component>
@@ -74,7 +76,7 @@
             </div>
 
             <!-- Content -->
-            <div class="flex-1 overflow-y-auto">
+            <div :class="['flex-1', 'overflow-y-auto', drawerContentClass]">
                 <slot />
             </div>
         </aside>
@@ -130,7 +132,10 @@ const props = defineProps({
         default: true,
     },
     drawerClass: String as PropType<string>,
+    drawerContentClass: String as PropType<string>,
     overlayClass: String as PropType<string>,
+    headerClass: String as PropType<string>,
+    titleClass: String as PropType<string>,
 })
 
 // Emits

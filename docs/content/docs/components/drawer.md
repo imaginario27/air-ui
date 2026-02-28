@@ -106,14 +106,24 @@ props: [
     },
     {
         "name": "drawerClass",
-        "default": "",
+        "type": "string",
+    },
+    {
+        "name": "drawerContentClass",
         "type": "string",
     },
     {
         "name": "overlayClass",
-        "default": "",
         "type": "string",
     }, 
+    {
+        "name": "headerClass",
+        "type": "string",
+    },
+    {
+        "name": "titleClass",
+        "type": "string",
+    },
 ]
 ---
 ::
@@ -289,13 +299,24 @@ Allows you to pass custom CSS classes to the drawer element for additional styli
 
 ```vue
 <template>
-    <Drawer drawerClass="custom-drawer-class">
+    <Drawer drawerClass="p-8">
         ...
     </Drawer>
 </template>
 ```
 
 - **Type:** `string`
+
+### drawerContentClass
+Allows you to pass custom CSS classes to the drawer content area for additional styling.
+
+```vue
+<template>
+    <Drawer drawerContentClass="bg-gray-100">
+        ...
+    </Drawer>
+</template>
+```
 
 ### overlayClass
 Allows you to pass custom CSS classes to the overlay element for additional styling.
@@ -304,10 +325,36 @@ Allows you to pass custom CSS classes to the overlay element for additional styl
 <template>
     <Drawer 
         hasOverlay
-        overlayClass="custom-overlay-class"
+        overlayClass="bg-black bg-opacity-50"
     >
         ...
     </Drawer>
+</template>
+```
+
+- **Type:** `string`
+
+### headerClass
+Allows you to pass custom CSS classes to the drawer header for additional styling.
+
+```vue
+<template>
+    <Drawer headerClass="bg-blue-500 text-white">
+        ...
+    </Drawer>
+</template>
+``` 
+
+- **Type:** `string`
+
+### titleClass
+Allows you to pass custom CSS classes to the drawer title for additional styling.
+
+```vue
+<template>
+    <Drawer titleClass="text-red-500">
+        ...
+    </Drawer>   
 </template>
 ```
 

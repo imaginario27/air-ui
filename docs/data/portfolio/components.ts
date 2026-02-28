@@ -246,6 +246,7 @@ export const componentList: ComponentPortfolioItem[] = [
     {
         title: 'Drawer',
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/drawer`,
+        imgUrl: `/images/thumbnails/components/drawer.png`,
     },
     {
         title: 'Dropdown',

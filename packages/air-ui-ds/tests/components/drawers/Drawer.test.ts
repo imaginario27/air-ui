@@ -74,21 +74,46 @@ describe('Drawer.vue', () => {
         expect(wrapper.emitted('update:modelValue')?.[0]).toEqual([false])
     })
 
-    it('renders title with correct heading tag', () => {
+    it('does not render close button when hasCloseButton is false', () => {
+        const wrapper = factory({ hasCloseButton: false })
+
+        expect(wrapper.find('[data-test="close-btn"]').exists()).toBe(false)
+    })
+
+    it('renders title with correct heading tag and titleClass', () => {
         const wrapper = factory({
             title: 'My Drawer',
             titleHeadingTag: 'h3',
+            titleClass: 'custom-title',
         })
 
         const heading = wrapper.find('h3')
         expect(heading.exists()).toBe(true)
         expect(heading.text()).toBe('My Drawer')
+        expect(heading.classes()).toContain('custom-title')
     })
 
     it('does not render header when hasHeader is false', () => {
         const wrapper = factory({ hasHeader: false })
 
         expect(wrapper.find('h2, h3, h4, h5, h6').exists()).toBe(false)
+    })
+
+    it('applies headerClass when provided', () => {
+        const wrapper = factory({
+            headerClass: 'custom-header',
+        })
+
+        const header = wrapper.find('.custom-header')
+        expect(header.exists()).toBe(true)
+    })
+
+    it('applies drawerContentClass when provided', () => {
+        const wrapper = factory({
+            drawerContentClass: 'custom-content',
+        })
+
+        expect(wrapper.find('.custom-content').exists()).toBe(true)
     })
 
     it('applies correct position classes for RIGHT direction', () => {
@@ -103,8 +128,7 @@ describe('Drawer.vue', () => {
     it('applies correct position classes for LEFT direction', () => {
         const wrapper = factory({ direction: Direction.LEFT })
 
-        const aside = wrapper.find('aside')
-        expect(aside.classes()).toContain('left-0')
+        expect(wrapper.find('aside').classes()).toContain('left-0')
     })
 
     it('applies maxWidth style for horizontal directions', () => {
