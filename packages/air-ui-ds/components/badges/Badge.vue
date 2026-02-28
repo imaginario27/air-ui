@@ -34,7 +34,7 @@
         <!-- Text -->
         <span
             :class="[
-                'pt-0.5',
+                'pt-0.25',
                 textClass,
             ]"
         >

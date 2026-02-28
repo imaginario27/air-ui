@@ -381,7 +381,7 @@ const gapClass = computed(() => {
 const textTopSpacingClass = computed(() => {
     return props.size === ButtonSize.XXL
         ? undefined
-        : 'pt-0.5'
+        : 'pt-0.25'
 })
 
 // Props for the dynamic component
