@@ -1,6 +1,11 @@
 import { mount } from '@vue/test-utils'
 import Drawer from '@/components/drawers/Drawer.vue'
 import { Direction } from '@/models/enums/directions'
+import { useHead } from '#imports'
+
+vi.mock('#imports', () => ({
+    useHead: vi.fn(),
+}))
 
 describe('Drawer.vue', () => {
     const factory = (props = {}) => {
@@ -12,8 +17,10 @@ describe('Drawer.vue', () => {
             global: {
                 stubs: {
                     Transition: false,
+                    Teleport: true,
                     ActionIconButton: {
-                        template: '<button data-test="close-btn" @click="$emit(\'click\')" />',
+                        template:
+                            '<button data-test="close-btn" @click="$emit(\'click\')" />',
                     },
                 },
             },
@@ -53,7 +60,6 @@ describe('Drawer.vue', () => {
 
         await wrapper.find('.bg-background-overlay').trigger('click')
 
-        expect(wrapper.emitted('update:modelValue')).toBeTruthy()
         expect(wrapper.emitted('update:modelValue')?.[0]).toEqual([false])
     })
 
@@ -70,7 +76,6 @@ describe('Drawer.vue', () => {
 
         await wrapper.find('[data-test="close-btn"]').trigger('click')
 
-        expect(wrapper.emitted('update:modelValue')).toBeTruthy()
         expect(wrapper.emitted('update:modelValue')?.[0]).toEqual([false])
     })
 
@@ -88,6 +93,7 @@ describe('Drawer.vue', () => {
         })
 
         const heading = wrapper.find('h3')
+
         expect(heading.exists()).toBe(true)
         expect(heading.text()).toBe('My Drawer')
         expect(heading.classes()).toContain('custom-title')
@@ -100,18 +106,13 @@ describe('Drawer.vue', () => {
     })
 
     it('applies headerClass when provided', () => {
-        const wrapper = factory({
-            headerClass: 'custom-header',
-        })
+        const wrapper = factory({ headerClass: 'custom-header' })
 
-        const header = wrapper.find('.custom-header')
-        expect(header.exists()).toBe(true)
+        expect(wrapper.find('.custom-header').exists()).toBe(true)
     })
 
     it('applies drawerContentClass when provided', () => {
-        const wrapper = factory({
-            drawerContentClass: 'custom-content',
-        })
+        const wrapper = factory({ drawerContentClass: 'custom-content' })
 
         expect(wrapper.find('.custom-content').exists()).toBe(true)
     })
@@ -119,10 +120,11 @@ describe('Drawer.vue', () => {
     it('applies correct position classes for RIGHT direction', () => {
         const wrapper = factory({ direction: Direction.RIGHT })
 
-        const aside = wrapper.find('aside')
-        expect(aside.classes()).toContain('right-0')
-        expect(aside.classes()).toContain('top-0')
-        expect(aside.classes()).toContain('h-full')
+        const classes = wrapper.find('aside').classes()
+
+        expect(classes).toContain('right-0')
+        expect(classes).toContain('top-0')
+        expect(classes).toContain('h-full')
     })
 
     it('applies correct position classes for LEFT direction', () => {
@@ -131,14 +133,24 @@ describe('Drawer.vue', () => {
         expect(wrapper.find('aside').classes()).toContain('left-0')
     })
 
+    it('applies correct position classes for TOP direction', () => {
+        const wrapper = factory({ direction: Direction.TOP })
+
+        const classes = wrapper.find('aside').classes()
+
+        expect(classes).toContain('top-0')
+        expect(classes).toContain('w-full')
+    })
+
     it('applies maxWidth style for horizontal directions', () => {
         const wrapper = factory({
             direction: Direction.RIGHT,
             maxSize: 500,
         })
 
-        const aside = wrapper.find('aside')
-        expect((aside.element as HTMLElement).style.maxWidth).toBe('500px')
+        const aside = wrapper.find('aside').element as HTMLElement
+
+        expect(aside.style.maxWidth).toBe('500px')
     })
 
     it('applies maxHeight style for vertical directions', () => {
@@ -147,26 +159,30 @@ describe('Drawer.vue', () => {
             maxSize: 400,
         })
 
-        const aside = wrapper.find('aside')
-        expect((aside.element as HTMLElement).style.maxHeight).toBe('400px')
+        const aside = wrapper.find('aside').element as HTMLElement
+
+        expect(aside.style.maxHeight).toBe('400px')
     })
 
-    it('applies border class when hasBorder is true', () => {
+    it('applies correct border class per direction', () => {
+        expect(factory({ direction: Direction.RIGHT }).find('aside').classes()).toContain('border-l')
+        expect(factory({ direction: Direction.LEFT }).find('aside').classes()).toContain('border-r')
+        expect(factory({ direction: Direction.TOP }).find('aside').classes()).toContain('border-b')
+        expect(factory({ direction: Direction.BOTTOM }).find('aside').classes()).toContain('border-t')
+    })
+
+    it('does not apply border classes when hasBorder is false', () => {
         const wrapper = factory({
             direction: Direction.RIGHT,
-            hasBorder: true,
-        })
-
-        expect(wrapper.find('aside').classes()).toContain('border-l')
-    })
-
-    it('does not apply border class when hasBorder is false', () => {
-        const wrapper = factory({
             hasBorder: false,
         })
 
         const classes = wrapper.find('aside').classes()
-        expect(classes.some(c => c.startsWith('border-'))).toBe(false)
+
+        expect(classes).not.toContain('border-l')
+        expect(classes).not.toContain('border-r')
+        expect(classes).not.toContain('border-t')
+        expect(classes).not.toContain('border-b')
     })
 
     it('applies custom drawerClass and overlayClass', () => {

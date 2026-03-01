@@ -41,6 +41,11 @@ code .line:empty {
     display: none;
 }
 
+/* Fixes the icon color issue */
+.pre-shiki-wrapper button span {
+    background: var(--color-text-neutral-on-filled)!important;
+}
+
 /* OTHER */
 .bg-diagonal-stripes {
     background-image: repeating-linear-gradient(
