@@ -67,6 +67,10 @@ items:
           text: SM
         - value: xs
           text: XS
+enums:
+    spinnerSize: "LoadingSpinnerSize"
+    iconContainerSize: "IconContainerSize"
+    buttonSize: "ButtonSize"
 previewBackground: 'white'
 ---
 ::

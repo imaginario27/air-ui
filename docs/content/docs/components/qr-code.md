@@ -44,6 +44,10 @@ items:
           text: LINEAR
         - value: radial
           text: RADIAL
+enums:
+    renderAs: "QRRenderAs"
+    level: "QRLevel"
+    gradientType: "QRGradientType"
 previewBackground: 'white'
 propsSettingsExcludedProps: ['imageSettings']
 ---

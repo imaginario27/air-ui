@@ -54,6 +54,9 @@ external:
   - items
 externalTypes:
   - VerticalStepperItem[]
+enums:
+    stepType: "StepIndicatorType"
+    stepSize: "StepIndicatorSize"
 propsSettingsExcludedProps: ['items']
 previewBackground: 'white'
 ---
@@ -367,6 +370,9 @@ items:
           text: SM
         - value: xs
           text: XS  
+enums:
+    stepType: "StepIndicatorType"
+    stepSize: "StepIndicatorSize"
 previewBackground: 'white'
 ---
 ::
@@ -497,6 +503,3 @@ slots: [
     </VerticalStep>
 </template>
 ```
-
-
-   

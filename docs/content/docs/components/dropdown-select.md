@@ -63,6 +63,11 @@ external:
     - options
 externalTypes:
     - SelectOption[]
+enums:
+    size: "SelectSize"
+    activeStyle: "SelectActiveStyle"
+    dropdownPosition: "DropdownPosition"
+    type: "SelectType"
 propsSettingsExcludedProps: ['options']
 ---
 ::

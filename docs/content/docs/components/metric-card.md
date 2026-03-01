@@ -14,9 +14,10 @@ items:
           text: LEFT
         - value: center
           text: CENTER
+enums:
+    align: "Align"
 ---
 ::
-
 
 ## Props
 

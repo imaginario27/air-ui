@@ -22,6 +22,9 @@ items:
           text: HORIZONTAL
         - value: vertical
           text: VERTICAL
+
+enums:
+    orientation: "Orientation"
 ---
 ::
 

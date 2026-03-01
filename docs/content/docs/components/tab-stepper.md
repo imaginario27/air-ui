@@ -43,6 +43,9 @@ external:
 externalTypes:
   - number
   - TabStep[]  
+enums:
+    type: "StepIndicatorType"
+    size: "StepIndicatorSize"
 propsSettingsExcludedProps: ['steps']
 previewBackground: 'white'
 ---

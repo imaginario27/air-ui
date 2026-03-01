@@ -59,6 +59,11 @@ items:
           text: TOP
         - value: bottom
           text: BOTTOM
+enums:
+    size: "InputSize"
+    type: "SelectType"
+    activeStyle: "SelectActiveStyle"
+    dropdownPosition: "Position"
 isPreviewContentBoxed: true
 previewContentMaxWidth: 400
 propsSettingsExcludedProps: ['validator','options']

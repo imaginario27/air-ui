@@ -15,6 +15,8 @@ items:
           text: SECONDARY BRAND
         - value: neutral
           text: NEUTRAL
+enums:
+    color: "ColorAccent"
 previewBackground: 'white'
 ---
 ::

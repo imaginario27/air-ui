@@ -22,6 +22,8 @@ slotComponents:
     default:
         srcDir: 'content/demos/scroll/ScrollContentDemo.vue'
         componentSource: 'docs'
+enums:
+    scrollOrientation: "ScrollOrientation"
 previewBackground: 'white'
 ---
 ::

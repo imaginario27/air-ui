@@ -30,6 +30,9 @@ items:
           text: PRIMARY_BRAND
 external:
   - modelValue
+enums:
+    size: "RatingItemSize"
+    color: "RatingItemColor"
 previewBackground: 'white'
 ---
 ::

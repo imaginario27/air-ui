@@ -65,6 +65,11 @@ items:
           text: DELETE_TRANSPARENT
 emits:
     buttonClick: "() => console.log('Button clicked')"
+enums:
+    orientation: "Orientation"
+    buttonIconPosition: "IconPosition"
+    buttonStyleType: "ButtonStyleType"
+    containerStyle: "EmptyPlaceholderContainerStyle"
 previewBackground: 'white'
 ---
 ::

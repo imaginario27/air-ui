@@ -34,6 +34,21 @@ items:
           text: BASIC
         - value: card
           text: CARD
+    imgAspectRatio:
+        - value: 1:1
+          text: AR_1_1
+        - value: 4:3
+          text: AR_4_3
+        - value: 3:2
+          text: AR_3_2
+        - value: 16:9
+          text: AR_16_9
+        - value: 3:4
+          text: AR_3_4
+        - value: 4:5
+          text: AR_4_5
+        - value: 2:3
+          text: AR_2_3
     imgHoverEffect:
         - value: zoomIn
           text: ZOOM_IN
@@ -43,6 +58,10 @@ items:
           text: OVERLAY
         - value: blur
           text: BLUR
+enums:
+    type: "ContentItemType"
+    imgAspectRatio: "AspectRatio"
+    imgHoverEffect: "ImageHoverEffect"
 previewBackground: 'white'
 ---
 ::

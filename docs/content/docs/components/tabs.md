@@ -110,6 +110,10 @@ external:
   - modelValue
 externalTypes:
   - TabItem[]
+enum:
+    tabStyle: "TabStyle"
+    tabSize: "TabSize"
+    decoration: "TabDecoration"
 propsSettingsExcludedProps: ['tabs', 'modelValue']
 previewBackground: 'white'
 ---

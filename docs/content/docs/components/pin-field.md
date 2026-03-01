@@ -33,6 +33,8 @@ items:
           text: String
         - value: number
           text: Number
+enums:
+    size: "InputSize"
 isPreviewContentBoxed: true
 previewContentMaxWidth: 400
 propsSettingsExcludedProps: ['validator']

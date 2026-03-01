@@ -22,6 +22,8 @@ items:
           text: PRIMARY_BRAND
         - value : secondary-brand
           text: SECONDARY_BRAND
+enums:
+    color: "ColorAccent"
 ---
 ::
 

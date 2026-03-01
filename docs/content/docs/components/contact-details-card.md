@@ -34,7 +34,6 @@ props: [
 ---
 ::
 
-
 ## Usage
 ### name
 Sets the contact name.

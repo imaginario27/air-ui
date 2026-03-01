@@ -40,6 +40,8 @@ externalTypes:
     - number
     - number
     - PaginationRowPerPageOption[]
+enums:
+    styleType: "ButtonPaginationStyle"
 propsSettingsExcludedProps: ['modelValue', 'itemsPerPage', 'rowsPerPageOptions']
 previewBackground: 'white'
 ---

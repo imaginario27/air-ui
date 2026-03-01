@@ -56,6 +56,11 @@ external:
   - items
 externalTypes:
   - Badge[]
+enums:
+    styleType: "BadgeStyle"
+    shape: "BadgeShape"
+    color: "ColorAccent"
+    counterType: "StackCounterType"
 propsSettingsExcludedProps: ['items']
 ---
 ::

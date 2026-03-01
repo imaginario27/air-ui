@@ -72,7 +72,11 @@ items:
           text: LEFT
         - value: right
           text: RIGHT
-
+enums:
+    actionType: "ButtonActionType"
+    styleType: "ButtonStyleType"
+    size: "ButtonSize"
+    iconPosition: "IconPosition"
 isPreviewContentBoxed: true
 previewContentMaxWidth: 400
 ---

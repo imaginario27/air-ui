@@ -36,6 +36,9 @@ external:
 externalTypes:
   - number
   - CircleStep[]  
+enums:
+    type: "StepIndicatorType"
+    size: "StepIndicatorSize"
 propsSettingsExcludedProps: ['steps']
 previewBackground: 'white'
 ---
@@ -63,7 +66,7 @@ props: [
     },
     {
         "name": "size",
-        "default": "StepIndicator.XL",
+        "default": "StepIndicatorSize.XL",
         "type": "StepIndicator"
     },
     {

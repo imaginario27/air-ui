@@ -26,6 +26,8 @@ items:
           text: LG
         - value: md
           text: MD
+enums:
+    size: "InputSize"
 isPreviewContentBoxed: true
 previewContentMaxWidth: 400
 ---

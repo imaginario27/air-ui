@@ -16,6 +16,8 @@ items:
           text: GOLD  
         - value: primary-brand
           text: PRIMARY_BRAND 
+enums:
+    ratingStarColor: "RatingItemColor"
 previewBackground: 'white'
 ---
 ::

@@ -40,6 +40,10 @@ items:
           text: SM
         - value: xs
           text: XS   
+enums:
+    type: "StepIndicatorType"
+    status: "StepStatus"
+    size: "StepIndicatorSize"
 previewBackground: 'white'
 ---
 ::

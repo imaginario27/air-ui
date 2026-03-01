@@ -50,6 +50,9 @@ external:
   - buttons
 externalTypes:
   - ToggleButton[]
+enums:
+    buttonStyle: "ButtonStyleType"
+    buttonSize: "ButtonSize"
 isPreviewContentBoxed: true
 previewContentMaxWidth: 800
 propsSettingsExcludedProps: ['validator', 'buttons']

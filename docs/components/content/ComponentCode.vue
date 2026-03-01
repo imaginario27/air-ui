@@ -239,7 +239,11 @@ const props = defineProps({
     componentSource: {
         type: String as PropType<'docs' | 'design-system'>,
         default: 'design-system',
-    }
+    },
+    enums: {
+        type: Object as PropType<Record<string, string>>,
+        default: () => ({}),
+    },
 })
 
 // States
@@ -440,6 +444,15 @@ const escapeHtml = (str: string) =>
         .replace(/"/g, '&quot;')
         .replace(/'/g, '&#39;')
 
+// Sets the correct enum value based on the provided enums mapping
+const toEnumKey = (value: unknown) => {
+    return String(value)
+        .trim()
+        .replace(/[^a-zA-Z0-9]+/g, '_') // hyphens/spaces -> underscore
+        .replace(/^_+|_+$/g, '') // trim underscores
+        .toUpperCase()
+}
+
 // Code generation for <pre>
 const generateCode = async () => {
     const componentName = props.srcDir?.split('/').pop()?.replace('.vue', '') || 'Component'
@@ -507,14 +520,28 @@ ${scriptLines.join('\n')}
                 : `    :${name}="${varName}"`
         }
 
+        // If prop is defined as enum
+        if (props.enums?.[name]) {
+            const enumName = props.enums[name]
+            const enumKey = toEnumKey(value)
+
+            return `    :${name}="${enumName}.${enumKey}"`
+        }
+
         // If the value is a string, bind as normal string attribute (escaped)
         if (typeof value === 'string') {
             return `    ${name}="${escapeHtml(value)}"`
         }
 
         // If boolean or number, bind as dynamic prop (colon syntax)
-        if (typeof value === 'boolean' || isFinite(Number(value))) {
-            return `    :${name}="${value}"`
+        if (typeof value === 'boolean') {
+            // true → shorthand
+            if (value === true) {
+                return `    ${name}`
+            }
+
+            // false → explicit binding
+            return `    :${name}="false"`
         }
 
         // For objects or arrays, stringify and escape the value

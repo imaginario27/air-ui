@@ -50,6 +50,12 @@ items:
           text: XL
         - value: lg
           text: LG
+enums:
+    styleType: "IconContainerStyleType"
+    mode: "IconMode"
+    shape: "IconContainerShape"
+    color: "ColorAccent"
+    size: "IconContainerSize"
 previewBackground: 'white'
 ---
 ::

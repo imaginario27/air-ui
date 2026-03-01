@@ -31,6 +31,8 @@ external:
   - buttons
 externalTypes:
   - AlertButton[]
+enums:
+    type: "AlertType"
 propsSettingsExcludedProps: ['buttons']
 ---
 ::

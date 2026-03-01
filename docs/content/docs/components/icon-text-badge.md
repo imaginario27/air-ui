@@ -25,6 +25,8 @@ items:
           text: SECONDARY_BRAND
 emits:
     close: "() => console.log('Badge clicked')"
+enums:
+    color: "ColorAccent"
 ---
 ::
 

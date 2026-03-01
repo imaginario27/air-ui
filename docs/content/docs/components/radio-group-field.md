@@ -37,6 +37,9 @@ items:
           text: VERTICAL
         - value: horizontal
           text: HORIZONTAL
+enums:
+    type: "RadioType"
+    orientation: "Orientation"
 isPreviewContentBoxed: true
 previewContentMaxWidth: 400
 propsSettingsExcludedProps: ['validator', 'options']

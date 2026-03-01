@@ -44,6 +44,11 @@ items:
           text: CSS
         - value: svg
           text: SVG
+enums:
+    mode: "IconMode"
+    size: "IconSize"
+    color: "ColorAccent"
+    mode: "IconMode"
 previewBackground: 'white'
 propsSettingsExcludedProps: ['svgCustomize']
 ---

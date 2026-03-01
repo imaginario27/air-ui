@@ -27,6 +27,8 @@ external:
   - buttons
 externalTypes:
   - ToggleButton[]
+enums:
+    groupStyle: "ToggleButtonGroupStyle"
 isPreviewContentBoxed: true
 previewContentMaxWidth: 400
 propsSettingsExcludedProps: ['validator', 'buttons']

@@ -64,6 +64,9 @@ external:
   - menuItems
 externalTypes:
   - SidebarMenuItem[]
+enums:
+    itemsStyleType: "SidebarNavMenuItemStyleType"
+    collapseTogglePosition: "Position"
 propsSettingsExcludedProps: [
     'menuItems',
     'class',

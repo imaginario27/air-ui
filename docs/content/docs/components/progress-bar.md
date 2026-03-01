@@ -57,6 +57,11 @@ items:
           text: CENTER
         - value: right
           text: RIGHT
+enums:
+    color: "ColorAccent"
+    size: "ProgressBarSize"
+    progressLabelPosition: "Position"
+    progressLabelAlignment: "Align"
 previewBackground: 'white'
 ---
 ::
