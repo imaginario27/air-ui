@@ -215,7 +215,8 @@ Determines whether the drawer should display a header section containing the tit
 ### hasCloseButton
 Controls the visibility of the close button in the drawer header.
 
-```vue<template>
+```vue
+<template>
     <Drawer :hasCloseButton="false">
         ...
     </Drawer>
@@ -242,7 +243,8 @@ Enables closing the drawer when the user clicks on the overlay outside of the dr
 ### title
 Sets the text to be displayed as the drawer's title in the header.
 
-```vue<template>
+```vue
+<template>
     <Drawer title="My Custom Title">
         ...
     </Drawer>

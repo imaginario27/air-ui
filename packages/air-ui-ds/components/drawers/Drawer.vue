@@ -1,86 +1,88 @@
 <template>
-    <!-- Overlay -->
-    <Transition
-        enter-active-class="transition-opacity duration-200 ease-out"
-        enter-from-class="opacity-0"
-        enter-to-class="opacity-100"
-        leave-active-class="transition-opacity duration-200 ease-in"
-        leave-from-class="opacity-100"
-        leave-to-class="opacity-0"
-    >
-        <div
-            v-if="isOpen && hasOverlay"
-            :class="[
-                'fixed',
-                'inset-0',
-                'bg-background-overlay',
-                'backdrop-blur-sm',
-                'z-[10000]',
-                overlayClass,
-            ]"
-            @click="closeOnOverlayClick ? close() : null"
-        />
-    </Transition>
-
-    <!-- Drawer -->
-    <Transition
-        :enter-active-class="transitionClasses.enterActive"
-        :enter-from-class="transitionClasses.enterFrom"
-        :enter-to-class="transitionClasses.enterTo"
-        :leave-active-class="transitionClasses.leaveActive"
-        :leave-from-class="transitionClasses.leaveFrom"
-        :leave-to-class="transitionClasses.leaveTo"
-    >
-        <aside
-            v-if="isOpen"
-            :class="[
-                'fixed',
-                'bg-background-container-surface',
-                'shadow-xl',
-                'z-[10000]',
-                'p-4',
-                'flex',
-                'flex-col',
-                'gap-4',
-                positionClasses,
-                sizeClasses,
-                drawerClass,
-                borderClass,
-            ]"
-            :style="drawerInlineStyle"
+    <Teleport to="body">
+        <!-- Overlay -->
+        <Transition
+            enter-active-class="transition-opacity duration-200 ease-out"
+            enter-from-class="opacity-0"
+            enter-to-class="opacity-100"
+            leave-active-class="transition-opacity duration-200 ease-in"
+            leave-from-class="opacity-100"
+            leave-to-class="opacity-0"
         >
-            <!-- Header -->
             <div
-                v-if="hasHeader"
+                v-if="isOpen && hasOverlay"
                 :class="[
-                    'flex',
-                    'items-center',
-                    'justify-between',
-                    'gap-3',
-                    headerClass,
+                    'fixed',
+                    'inset-0',
+                    'bg-background-overlay',
+                    'backdrop-blur-sm',
+                    'z-[10000]',
+                    overlayClass,
                 ]"
+                @click="closeOnOverlayClick ? close() : null"
+            />
+        </Transition>
+
+        <!-- Drawer -->
+        <Transition
+            :enter-active-class="transitionClasses.enterActive"
+            :enter-from-class="transitionClasses.enterFrom"
+            :enter-to-class="transitionClasses.enterTo"
+            :leave-active-class="transitionClasses.leaveActive"
+            :leave-from-class="transitionClasses.leaveFrom"
+            :leave-to-class="transitionClasses.leaveTo"
+        >
+            <aside
+                v-if="isOpen"
+                :class="[
+                    'fixed',
+                    'bg-background-container-surface',
+                    'shadow-xl',
+                    'z-[10000]',
+                    'p-4',
+                    'flex',
+                    'flex-col',
+                    'gap-4',
+                    positionClasses,
+                    sizeClasses,
+                    drawerClass,
+                    borderClass,
+                ]"
+                :style="drawerInlineStyle"
             >
-                <component
-                    :is="titleHeadingTag"
-                    :class="['text-lg', 'font-semibold', titleClass]"
+                <!-- Header -->
+                <div
+                    v-if="hasHeader"
+                    :class="[
+                        'flex',
+                        'items-center',
+                        'justify-between',
+                        'gap-3',
+                        headerClass,
+                    ]"
                 >
-                    {{ title }}
-                </component>
+                    <component
+                        :is="titleHeadingTag"
+                        :class="['text-lg', 'font-semibold', titleClass]"
+                    >
+                        {{ title }}
+                    </component>
 
-                <ActionIconButton
-                    v-if="hasCloseButton"
-                    :icon="buttonCloseIcon"
-                    :styleType="ButtonStyleType.NEUTRAL_TRANSPARENT"
-                    @click="close"
-                />
-            </div>
+                    <ActionIconButton
+                        v-if="hasCloseButton"
+                        :icon="buttonCloseIcon"
+                        :styleType="ButtonStyleType.NEUTRAL_TRANSPARENT"
+                        @click="close"
+                    />
+                </div>
 
-            <!-- Content -->
-            <div :class="['flex-1', 'overflow-y-auto', drawerContentClass]">
-                <slot />
-            </div>
-        </aside>
-    </Transition>
+                <!-- Content -->
+                <div :class="['flex-1', 'overflow-y-auto', drawerContentClass]">
+                    <slot />
+                </div>
+            </aside>
+        </Transition>
+    </Teleport>
 </template>
 
 <script setup lang="ts">
@@ -128,6 +130,10 @@ const props = defineProps({
         default: 'mdi:close',
     },
     hasBorder: {
+        type: Boolean as PropType<boolean>,
+        default: true,
+    },
+    lockBodyScroll: {
         type: Boolean as PropType<boolean>,
         default: true,
     },
@@ -246,4 +252,19 @@ const borderClass = computed(() => {
 const close = () => {
     emit('update:modelValue', false)
 }
+
+// Locks and unlocks the background scroll while modal is open
+useHead(() => {
+    return props.modelValue && props.lockBodyScroll
+        ? {
+              bodyAttrs: {
+                  class: 'modal-open',
+              },
+          }
+        : {
+              bodyAttrs: {
+                  class: '',
+              },
+          }
+})
 </script>
