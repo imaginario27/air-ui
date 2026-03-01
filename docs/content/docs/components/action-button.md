@@ -82,6 +82,11 @@ items:
           text: RIGHT
 emits:
     click: "() => console.log('Button clicked')"
+enums:
+    actionType: "ButtonActionType"
+    styleType: "ButtonStyleType"
+    size: "ButtonSize"
+    iconPosition: "IconPosition"
 ---
 ::
 

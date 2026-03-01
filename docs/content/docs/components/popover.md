@@ -36,6 +36,10 @@ slotComponents:
             text: "Insert content here"
     activator:
         srcDir: 'buttons/ActionButton.vue'
+enums:
+    position: "Position"
+    align: "Align"
+    trigger: "Trigger"
 ---
 ::
 

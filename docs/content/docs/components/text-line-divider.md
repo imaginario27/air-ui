@@ -27,7 +27,10 @@ items:
           text: LEFT
         - value: center
           text: CENTER
-
+enums:
+    styleType: "DividerStyle"
+    size: "DividerSize"
+    align: "Align"
 previewBackground: 'white'
 ---
 ::

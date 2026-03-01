@@ -40,7 +40,12 @@ items:
           text: SM
         - value: md
           text: MD
-        
+enums:
+    layoutOrientation: "Orientation"
+    detailsOrientation: "Orientation"
+    verticalLayoutAlign: "VerticalLayoutAlign"
+    shape: "AvatarShape"
+    size: "AvatarSize"     
 previewBackground: 'white'
 ---
 ::

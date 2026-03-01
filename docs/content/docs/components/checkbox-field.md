@@ -28,6 +28,8 @@ external:
 externalTypes:
   - boolean
   - string
+enums:
+    size: "ControlFieldSize"
 isPreviewContentBoxed: true
 previewContentMaxWidth: 400
 propsSettingsExcludedProps: ['validator']

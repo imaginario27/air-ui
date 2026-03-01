@@ -26,7 +26,6 @@ props: [
         "name": "textClass",
         "type": "string",
     },
-
 ]
 ---
 ::

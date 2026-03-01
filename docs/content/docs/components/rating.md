@@ -27,6 +27,9 @@ items:
           text: GOLD
         - value: primary-brand
           text: PRIMARY_BRAND
+enums:
+    size: "RatingItemSize"
+    color: "RatingItemColor"
 previewBackground: 'white'
 ---
 ::
@@ -222,7 +225,9 @@ items:
           text: GOLD
         - value: primary-brand
           text: PRIMARY_BRAND
-
+enums:
+    size: "RatingItemSize"
+    color: "RatingItemColor"
 previewBackground: 'white'
 ---
 ::

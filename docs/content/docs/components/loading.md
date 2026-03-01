@@ -24,6 +24,8 @@ items:
           text: SM
         - value: xs
           text: XS
+enums:
+    spinnerSize: "LoadingSpinnerSize"
 previewBackground: 'white'
 ---
 ::

@@ -68,6 +68,11 @@ items:
           text: XS
 emits:
     click: "() => console.log('Button clicked')"
+
+enums:
+    actionType: "ButtonActionType"
+    styleType: "ButtonStyleType"
+    size: "ButtonSize"
 ---
 ::
 

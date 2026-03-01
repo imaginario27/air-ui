@@ -42,6 +42,11 @@ items:
           text: LEFT
         - value: center
           text: CENTER
+enums:
+    containedIconShape: "IconContainerShape"
+    containedIconStyleType: "IconContainerStyleType"
+    containedIconColor: "ColorAccent"
+    align: "Align"
 ---
 ::
 

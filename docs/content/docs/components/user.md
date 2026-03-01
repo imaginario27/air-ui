@@ -30,6 +30,10 @@ items:
           text: SM
         - value: md
           text: MD
+enums:
+    shape: "AvatarShape"
+    size: "AvatarSize"
+    avatarSize: "AvatarSize"
 previewBackground: 'white'
 ---
 ::

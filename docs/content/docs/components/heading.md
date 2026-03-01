@@ -55,6 +55,10 @@ items:
           text: H5
         - value: h6
           text: H6
+enums:
+    align: "Align"
+    size: "HeadingSize"
+    spacing: "HeadingSpacing"
 previewBackground: 'white'
 ---
 ::

@@ -83,6 +83,10 @@ items:
           text: DELETE_TRANSPARENT
 external:
     - features
+enums:
+    alignSelectButton: "Align"
+    buttonStyle: "ButtonStyleType"
+    featuredButtonStyle: "ButtonStyleType"
 propsSettingsExcludedProps: ['features']
 ---
 ::

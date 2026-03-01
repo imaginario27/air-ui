@@ -55,6 +55,9 @@ external:
 externalTypes:
   - MenuItem[]
   - DropdownMenuItem[]
+enums:
+    pageTitleFormat: "PageTitleFormat"
+    sidebarTogglePosition: "SidebarTogglePosition"
 propsSettingsExcludedProps: ['navMenuItems', 'userMenuItems', 'class']
 ---
 ::

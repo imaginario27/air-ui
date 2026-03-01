@@ -34,9 +34,11 @@ items:
           text: XXXL
         - value: 4xl
           text: XXXXL
+enums:
+    shape: "AvatarShape"
+    size: "AvatarSize"
 ---
 ::
-
 
 ## Props
 

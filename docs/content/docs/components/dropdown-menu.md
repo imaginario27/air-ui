@@ -52,6 +52,8 @@ external:
     - items
 externalTypes:
     - DropdownMenuItem[]
+enums:
+    position: "DropdownPosition"
 ---
 ::
 

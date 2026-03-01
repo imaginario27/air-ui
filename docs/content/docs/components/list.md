@@ -31,6 +31,9 @@ items:
           text: SM
         - value: md
           text: MD
+enums:
+    layout: "ListLayout"
+    listItemSize: "ListItemSize"
 external:
   - items
 propsSettingsExcludedProps: ['items']

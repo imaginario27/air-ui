@@ -30,6 +30,9 @@ items:
           text: CENTER
         - value: right
           text: RIGHT
+enums:
+    orientation: "Orientation"
+    alignContent: "Align"
 propsSettingsExcludedProps: ['errorMappings']
 previewBackground: 'white'
 ---

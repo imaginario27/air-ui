@@ -24,6 +24,8 @@ items:
           text: WITH_OVERTITLE
         - value: with-breadcrumbs
           text: WITH_BREADCRUMBS
+enums:
+    type: "PageTitleType"
 previewBackground: 'white'
 ---
 ::

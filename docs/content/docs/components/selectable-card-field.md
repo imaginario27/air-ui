@@ -171,6 +171,18 @@ items:
           text: CENTER
         - value: right
           text: RIGHT
+enums:
+    containedIconShape: "IconContainerShape"
+    containedIconStyleType: "IconContainerStyleType"
+    containedIconColor: "ColorAccent"
+    layoutAlign: "Align"
+    selectMode: "CardSelectionMode"
+    secondaryBtnStyleType: "ButtonStyleType"
+    secondaryBtnIconPosition: "IconPosition"
+    selectBtnStyleType: "ButtonStyleType"
+    selectBtnIconPosition: "IconPosition"
+    buttonSize: "ButtonSize"
+    footerContentAlign: "Align"
 propsSettingsExcludedProps: ['options', 'validator', 'modelValue']
 isPreviewContentBoxed: true
 ---

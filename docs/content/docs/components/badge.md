@@ -43,6 +43,10 @@ items:
           text: SECONDARY_BRAND
 emits:
     close: "() => console.log('Badge clicked')"
+enums:
+    styleType: "BadgeStyle"
+    shape: "BadgeShape"
+    color: "ColorAccent"
 previewBackground: 'white'
 ---
 ::

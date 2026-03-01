@@ -38,10 +38,13 @@ external:
   - items
 externalTypes:
   - Avatar[]
+enums:
+    shape: "AvatarShape"
+    size: "AvatarStackSize"
+    counterType: "StackCounterType"
 propsSettingsExcludedProps: ['items']
 ---
 ::
-
 
 ## Props
 

@@ -59,6 +59,11 @@ items:
           text: LEFT
         - value: right
           text: RIGHT
+enums:
+    buttonType: "ButtonType"
+    styleType: "ButtonStyleType"
+    size: "ButtonSize"
+    iconPosition: "IconPosition"
 ---
 ::
 

@@ -33,6 +33,9 @@ items:
           text: SM
         - value: xs
           text: XS
+enums:
+    size: "NavLinkSize"
+    iconPosition: "IconPosition"
 ---
 ::
 
@@ -121,15 +124,15 @@ Sets the size of the link. Uses the `NavLinkSize` enum.
 options: [
     {
         value: "XXL",
-        description: "Large size.",
+        description: "Extra extra large size.",
     },
     {
         value: "XL",
-        description: "Medium size.",
+        description: "Extra large size.",
     },
     {
         value: "LG",
-        description: "Small size.",
+        description: "Large size.",
     },
     {
         value: "MD",
@@ -141,7 +144,7 @@ options: [
     },
     {
         value: "XS",
-        description: "Small size.",
+        description: "Extra small size.",
     },
 ]
 ---

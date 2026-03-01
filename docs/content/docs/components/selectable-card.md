@@ -158,6 +158,18 @@ external:
   - modelValue
 externalTypes:
   - boolean
+enums:
+    selectMode: "CardSelectionMode"
+    containedIconShape: "IconContainerShape"
+    containedIconStyleType: "IconContainerStyleType"
+    containedIconColor: "ColorAccent"
+    layoutAlign: "Align"
+    buttonSize: "ButtonSize"
+    secondaryBtnStyleType: "ButtonStyleType"
+    secondaryBtnIconPosition: "IconPosition"
+    selectBtnStyleType: "ButtonStyleType"
+    selectBtnIconPosition: "IconPosition"
+    footerContentAlign: "Align"
 previewContentMaxWidth: 400
 ---
 ::
