@@ -26,10 +26,10 @@
                         'rounded',
                         disabled ? 'cursor-not-allowed' : 'cursor-pointer',
                         'border border-border-default',
-                        selectBoxClass,
                         'text-sm',
                         disabled ? 'text-text-neutral-disabled' : 'text-text-default',
                         sizeClass,
+                        selectBoxClass,
                     ]"
                     @click="!disabled"
                 >

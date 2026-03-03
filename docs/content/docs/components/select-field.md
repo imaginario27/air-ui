@@ -34,6 +34,7 @@ props:
     isLoading: false
     loadingText: "Loading options..."
     loadingOptionsPlaceholder: "Options are being loaded"
+    selectBoxClass: ""
 items:
     size: 
         - value: lg
@@ -198,6 +199,10 @@ props: [
     {
         "name": "loadingOptionsPlaceholder",
         "default": "'Options are being loaded'",
+    },
+    {
+        "name": "selectBoxClass",
+        "type": "string",
     },
 ]
 ---
@@ -656,6 +661,18 @@ Sets the placeholder text displayed when options are being loaded.
 
 - **Type:** `string`
 - **Default:** `'Options are being loaded'`
+
+### selectBoxClass
+
+Allows passing custom classes to the select box for additional styling.
+
+```vue
+<template>
+    <SelectField selectBoxClass="custom-select-box" />
+</template>
+```
+
+- **Type:** `string`
 
 
 

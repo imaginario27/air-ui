@@ -17,15 +17,18 @@ componentSource: 'docs'
             v-model="activeTabIndex"
             :tabs
         />
-            <TabContent v-if="activeTabIndex === 0">
-                <ContentPlaceholder text="Content 1"/>
-            </TabContent>
-            <TabContent v-else-if="activeTabIndex === 1">
-                <ContentPlaceholder text="Content 2"/>
-            </TabContent>
-            <TabContent v-else-if="activeTabIndex === 2">
-                <ContentPlaceholder text="Content 3"/>
-            </TabContent>
+
+        <TabContent v-if="activeTabIndex === 0">
+            <ContentPlaceholder text="Content 1"/>
+        </TabContent>
+
+        <TabContent v-else-if="activeTabIndex === 1">
+            <ContentPlaceholder text="Content 2"/>
+        </TabContent>
+        
+        <TabContent v-else-if="activeTabIndex === 2">
+            <ContentPlaceholder text="Content 3"/>
+        </TabContent>
     </TabsContainer>
 </template>
 <script setup lang="ts">
