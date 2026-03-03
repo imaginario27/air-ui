@@ -168,7 +168,6 @@
                         'component-code-pre',
                         'bg-background-neutral-subtlest',
                         'p-4',
-                        'overflow-x-auto',
                         'text-sm font-mono',
                         showPlayground ? 'rounded-b border-b border-border-neutral-subtle' : 'rounded',
                     ]"
@@ -177,9 +176,16 @@
                     :textToCopy="rawCode"
                     :size="ButtonSize.SM"
                     icon="mdi:content-copy"
-                    class="absolute right-0 top-0 m-4"
+                    class="absolute right-0 top-0 m-2"
                 />
-                <div v-html="code" />
+                <div
+                    :class="[
+                        'p-2',
+                        'overflow-x-auto',
+                    ]"
+                >
+                    <div v-html="code" />
+                </div>
             </div>
         
         </div>

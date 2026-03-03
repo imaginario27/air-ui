@@ -143,6 +143,7 @@ const updateModelValue = (value: boolean) => {
     emit('update:modelValue', value)
 }
 
+// Methods
 const handleResultClick = async (item: SearchItem) => {
     if (!item.to) return
 
@@ -151,6 +152,30 @@ const handleResultClick = async (item: SearchItem) => {
 
     await navigateTo(item.to)
 }
+
+
+const handleCloseSearchModalKey = (event: KeyboardEvent) => {
+    if (event.key === 'Escape') {
+        event.preventDefault()
+        updateModelValue(false)
+    }
+}
+
+const addCloseSearchModalKeyListener = () => {
+    globalThis.addEventListener('keydown', handleCloseSearchModalKey)
+}
+
+const removeCloseSearchModalKeyListener = () => {
+    globalThis.removeEventListener('keydown', handleCloseSearchModalKey)
+}
+
+onMounted(() => {
+    addCloseSearchModalKeyListener()
+})
+
+onUnmounted(() => {
+    removeCloseSearchModalKeyListener()
+})
 
 // Initialize Fuse only when modal opens
 watch(

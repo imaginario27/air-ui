@@ -89,6 +89,26 @@ props: [
 ---
 ::
 
+## Slots
+::slots-table
+---
+slots: [
+    {
+        name: "default",
+        description: "Template to render custom content in the body of the modal, between the header and the actions. It is particularly useful for inserting alerts or forms inside the modal.",
+    },
+]
+---
+::
+
+```vue
+<template>
+    <SuccessModalDialog>
+        <!-- Insert content here -->
+    </SuccessModalDialog>
+</template>
+```
+
 ## Usage
 ### modelValue
 Sets the modal to open or close.

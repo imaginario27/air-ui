@@ -47,6 +47,7 @@
             :allowDeselect
             :isLoading="isLoadingOptions"
             :loadingText
+            :selectBoxClass
             @update:modelValue="handleValueUpdate"
         />
 
@@ -158,6 +159,7 @@ const props = defineProps({
         type: String as PropType<string>,
         default: 'Options are being loaded',
     },
+    selectBoxClass: String as PropType<string>,
 })
 
 // Emits
