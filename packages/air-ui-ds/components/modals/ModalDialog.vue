@@ -91,7 +91,6 @@ const props = defineProps({
         default: 'max-w-[600px]',
     },
     id: String as PropType<string>,
-        
 })
 
 // Emits
@@ -122,7 +121,7 @@ const closeModalOnClickOutside = () => {
 }
 
 const handleEscKey = (event: KeyboardEvent) => {
-    if (props.closeOnClickOutside && event.key === 'Escape') {
+    if (event.key === 'Escape') {
         closeModal()
     }
 }
