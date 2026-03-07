@@ -49,6 +49,16 @@
                         autocomplete="off"
                     />
                 </FormRow>
+                <FormRow>
+                    <FileUploadField 
+                        id="files"
+                        v-model="formData.files"
+                        label="Screenshots (optional)"
+                        :accept="['image/png', 'image/jpeg']"
+                        multiple
+                        :maxFiles="4"
+                    />
+                </FormRow>
                 <FormActions class="justify-end">
                     <ActionButton 
                         text="Cancel"
@@ -58,6 +68,7 @@
                         :styleType="ButtonStyleType.PRIMARY_BRAND_FILLED"
                         :text="submitButtonText"
                         type="submit"
+                        :isLoading="isSubmitting"
                     />
                 </FormActions>
             </Form>
@@ -90,6 +101,7 @@ const formData = reactive({
     description: '',
     github: '',
     page: route.fullPath,
+    files: [],
 })
 
 const metadata = reactive({
@@ -187,6 +199,14 @@ What improvement would you like to see?
 How would this help you when using the component or documentation?`
 })
 
+const submitMessage = computed(() => {
+    if (props.type === FeedbackType.BUG) {
+        return 'Issue submitted successfully'
+    }
+
+    return 'Suggestion submitted successfully'
+}) 
+
 // Methods
 const updateModelValue = (value: boolean) => {
     emit('update:modelValue', value)
@@ -200,9 +220,7 @@ const handleClose = () => {
 const handleSubmit = async () => {
     const isValid = validateFormFields()
 
-    const hasErrors = !isValid
-
-    if (hasErrors) {
+    if (!isValid) {
         $toast.error(FormSubmitError.REQUIRED_FIELDS, {
             toastId: 'form-required-fields-error',
         })
@@ -212,24 +230,27 @@ const handleSubmit = async () => {
     isSubmitting.value = true
 
     try {
-        const githubUsername = formData.github?.replace(/^@/, '').trim()
+        const form = new FormData()
+
+        form.append('type', props.type)
+        form.append('title', formData.title)
+        form.append('description', formData.description)
+        form.append('github', formData.github)
+        form.append('page', formData.page)
+
+        form.append('metadata', JSON.stringify(metadata))
+
+        formData.files.forEach((file) => {
+            form.append('files', file)
+        })
 
         await $fetch('/api/feedback', {
             method: 'POST',
-            body: {
-                type: props.type,
-                title: formData.title,
-                description: formData.description,
-                github: githubUsername,
-                page: formData.page,
-                metadata,
-            },
+            body: form,
         })
 
         emit('action')
-
         handleClose()
-
         resetForm()
     } catch (error) {
         $toast.error(error, {
@@ -239,9 +260,9 @@ const handleSubmit = async () => {
 
     isSubmitting.value = false
 
-    $toast.success('Form submitted successfully', {
+    $toast.success(submitMessage.value, {
         toastId: 'form-success',
-    })    
+    })
 }
 
 onMounted(() => {
