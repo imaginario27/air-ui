@@ -57,6 +57,7 @@
                         :accept="['image/png', 'image/jpeg']"
                         multiple
                         :maxFiles="4"
+                        :maxFileSize="0.25"
                     />
                 </FormRow>
                 <FormActions class="justify-end">
@@ -101,7 +102,7 @@ const formData = reactive({
     description: '',
     github: '',
     page: route.fullPath,
-    files: [],
+    files: [] as File[],
 })
 
 const metadata = reactive({
@@ -110,6 +111,7 @@ const metadata = reactive({
     browser: '',
     os: '',
     viewport: '',
+    language: '',
 })
 
 const isSubmitting = ref(false)
@@ -240,8 +242,24 @@ const handleSubmit = async () => {
 
         form.append('metadata', JSON.stringify(metadata))
 
-        formData.files.forEach((file) => {
-            form.append('files', file)
+        formData.files.forEach((entry) => {
+            let file: Blob | null = null
+
+            if (entry instanceof Blob) {
+                file = entry
+            } else if (
+                typeof entry === 'object' &&
+                entry !== null &&
+                'file' in entry &&
+                entry.file instanceof Blob
+            ) {
+                file = entry.file
+            }
+
+            if (file) {
+                const filename = file instanceof File ? file.name : 'screenshot'
+                form.append('files', file, filename)
+            }
         })
 
         await $fetch('/api/feedback', {
@@ -252,6 +270,10 @@ const handleSubmit = async () => {
         emit('action')
         handleClose()
         resetForm()
+
+        $toast.success(submitMessage.value, {
+            toastId: 'form-success',
+        })
     } catch (error) {
         $toast.error(error, {
             toastId: 'submit-error',
@@ -259,16 +281,15 @@ const handleSubmit = async () => {
     }
 
     isSubmitting.value = false
-
-    $toast.success(submitMessage.value, {
-        toastId: 'form-success',
-    })
 }
 
 onMounted(() => {
-    metadata.url = globalThis.location.href
+    if (import.meta.client) {
+        metadata.url = globalThis.location.href
+    }
     metadata.userAgent = navigator.userAgent
     metadata.viewport = `${window.innerWidth}x${window.innerHeight}`
+    metadata.language = navigator.language
 
     const ua = navigator.userAgent
 

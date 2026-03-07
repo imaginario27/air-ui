@@ -10,6 +10,9 @@ export default defineNuxtConfig({
     runtimeConfig: {
         githubToken: process.env.GITHUB_TOKEN,
         githubRepo: 'imaginario27/air-ui',
+        cloudinaryCloudName: process.env.CLOUDINARY_CLOUD_NAME,
+        cloudinaryApiKey: process.env.CLOUDINARY_API_KEY,
+        cloudinaryApiSecret: process.env.CLOUDINARY_API_SECRET,
     },
 
     modules: ["@pinia/nuxt", "@nuxt/image", "@nuxt/eslint", "@vueuse/nuxt", "@nuxt/content", "@nuxt/icon"],
@@ -145,7 +148,7 @@ export default defineNuxtConfig({
     css: ["~/assets/css/main.css", "~/assets/css/docs.css"],
 
     vite: {
-        plugins: [tailwindcss()],
+        plugins: [tailwindcss() as any],
     },
 })
 
