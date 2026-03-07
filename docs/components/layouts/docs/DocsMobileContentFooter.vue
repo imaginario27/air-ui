@@ -64,6 +64,12 @@
             </div>
         </SectionBody>
     </Section>
+
+    <FeedbackModalDialog 
+        v-if="feedbackModalType"
+        v-model="showSuggestionModal"
+        :type="feedbackModalType"
+    />
 </template>
 <script setup lang="ts">
 // States
