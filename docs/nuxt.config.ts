@@ -7,13 +7,10 @@ export default defineNuxtConfig({
     devtools: { enabled: false },
     ssr: false,
 
-    /* runtimeConfig: {
-        secretEnv: process.env.SECRET_ENV,
-        public: {
-            publicEnv: process.env.PUBLIC_ENV,
-            GQL_HOST: "https://spacex-production.up.railway.app/",
-        },
-    }, */
+    runtimeConfig: {
+        githubToken: process.env.GITHUB_TOKEN,
+        githubRepo: 'imaginario27/air-ui',
+    },
 
     modules: ["@pinia/nuxt", "@nuxt/image", "@nuxt/eslint", "@vueuse/nuxt", "@nuxt/content", "@nuxt/icon"],
 

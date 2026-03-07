@@ -52,10 +52,10 @@
 
                 <AppFooter />
             </MainContent>
-            <TableOfContentsSidebar
+            <DocSidebar
                 v-if="hasTableOfContent"
-                :title="tocTitle"
-                :links="tocLinks"
+                :tocTitle
+                :tocLinks
                 :topOffset="headerHeightOffset + 32"
                 :maxWidth="tocSidebarWidth"
                 class="hidden lg:flex"

@@ -15,25 +15,32 @@ The `Section` component provides a structured layout for organizing content into
 ```vue
 <template>
     <Section>
+        <!-- Optional: Use section header if you need to insert title, buttons or other elements. -->
         <SectionHeader>
-            <!-- Section header content such as title or actions -->
+            <!-- For more title customization, use heading over section title. -->
+            <Heading 
+                headingTag="h2" 
+                title="Custom Section Title"
+            />
+
+            <!-- Alternatively, if a simple title is needed, you can use the section title component. -->
             <SectionTitle title="Basic Section Layout" />
-
-            <!-- 
-                You can also use the <Heading> component or any custom code here 
-
-                <Heading 
-                    headingTag="h2" 
-                    title="Custom Section Title"
-                />
-            -->
         </SectionHeader>
+
+        <!-- Highly recommended: Useful to display the content in a proper way. -->
         <SectionBody>
             <!-- Section body content goes here -->
             <ContentPlaceholder 
                 text="This is a basic section content"
             />
         </SectionBody>
+
+        <!-- Optional: Use section footer if you need to insert links, button or additional info. -->
+        <SectionFooter>
+            <!-- Your section footer content here -->
+
+            <p class="text-sm"> Basic section footer </p>
+        </SectionFooter>
     </Section>
 </template>
 ```
@@ -60,7 +67,10 @@ components: [
         name: "<SectionBody>",
         description: "Contains the main content of the section.",
     },
-    
+    {
+        name: "<SectionFooter>",
+        description: "Defines the footer area of the section, typically containing additional information or actions.",
+    }
 ]
 ---
 ::
@@ -306,5 +316,25 @@ The `SectionBody` component contains the main content of the section.
 </template>
 ```
 
+### SectionFooter
 
+The `SectionFooter` component defines the footer area of the section, typically containing additional information or actions.
 
+```vue<template>
+    <SectionFooter>
+        ...
+    </SectionFooter>
+</template>
+```
+
+::props-table
+---
+props: [
+    {
+        "name": "hasBorder",
+        "type": "boolean",
+        "default": "false"
+    },
+]
+---
+::

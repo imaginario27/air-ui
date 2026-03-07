@@ -20,3 +20,7 @@ export const FieldError = {
     PASSWORDS_DO_NOT_MATCH: 'Passwords do not match.',
     INVALID_URL: 'Invalid URL.',
 }
+
+export const FormSubmitError = {
+    REQUIRED_FIELDS: 'Please fill in all required fields.',
+}

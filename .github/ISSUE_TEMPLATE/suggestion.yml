@@ -1,0 +1,32 @@
+name: Suggestion
+description: Suggest improvements to Air UI docs or components
+title: "[Suggestion]: "
+labels: ["suggestion", "docs"]
+body:
+
+    - type: input
+      id: page
+      attributes:
+          label: Docs page
+          description: Which page relates to the suggestion?
+          placeholder: https://air-ui.dev/docs/components/button
+
+    - type: input
+      id: component
+      attributes:
+          label: Component
+          placeholder: Button
+
+    - type: textarea
+      id: suggestion
+      attributes:
+          label: Suggestion
+          description: Describe the improvement you'd like to see
+      validations:
+          required: true
+
+    - type: textarea
+      id: usecase
+      attributes:
+          label: Use case
+          description: How would this help you?

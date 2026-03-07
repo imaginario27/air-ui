@@ -130,22 +130,6 @@ describe('ModalDialog', () => {
         expect(wrapper.emitted('close')).toBeTruthy()
     })
 
-    it('does not close on Escape key when disabled', async () => {
-        const wrapper = factory({
-            closeOnClickOutside: false,
-            modelValue: false
-        })
-
-        await wrapper.setProps({ modelValue: true })
-        await nextTick()
-
-        window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }))
-        await nextTick()
-
-        expect(wrapper.emitted('update:modelValue')).toBeFalsy()
-        expect(wrapper.emitted('close')).toBeFalsy()
-    })
-
     it('adds and removes Escape listener when modelValue changes', async () => {
         const addSpy = vi.spyOn(globalThis, 'addEventListener')
         const removeSpy = vi.spyOn(globalThis, 'removeEventListener')

@@ -1,0 +1,52 @@
+name: Bug report
+description: Report a problem in Air UI documentation or components
+title: "[Bug]: "
+labels: ["bug", "docs"]
+body:
+
+    - type: input
+      id: page
+      attributes:
+          label: Docs page
+          description: URL of the page where the issue occurred
+          placeholder: https://air-ui.dev/docs/components/button
+      validations:
+          required: true
+
+    - type: input
+      id: component
+      attributes:
+          label: Component
+          description: Which component is affected?
+          placeholder: Button
+
+    - type: textarea
+      id: description
+      attributes:
+          label: Description
+          description: Describe the problem
+      validations:
+          required: true
+
+    - type: textarea
+      id: steps
+      attributes:
+          label: Steps to reproduce
+          description: What steps reproduce the issue?
+
+    - type: textarea
+      id: expected
+      attributes:
+          label: Expected behavior
+          description: What should happen?
+
+    - type: dropdown
+      id: browser
+      attributes:
+          label: Browser
+          options:
+              - Chrome
+              - Firefox
+              - Safari
+              - Edge
+              - Other
