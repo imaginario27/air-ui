@@ -49,10 +49,13 @@
                 />
 
                 <slot />
+                
+                <DocsMobileContentFooter v-if="isMobile && hasTableOfContent" />
 
                 <AppFooter />
             </MainContent>
-            <DocSidebar
+            
+            <DocsSidebar
                 v-if="hasTableOfContent"
                 :tocTitle
                 :tocLinks
@@ -74,6 +77,9 @@ const route = useRoute()
 const cleanPath = computed(() => {
     return route.path?.split('?')[0]?.split('#')[0] || ''
 })
+
+// Composables
+const { isMobile } = useIsMobile()
 
 // Computed states
 const hasOvertitle = computed(() => route.meta.overtitle || null)

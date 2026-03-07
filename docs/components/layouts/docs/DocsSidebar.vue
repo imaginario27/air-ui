@@ -39,13 +39,13 @@
             </span>
 
             <ul class="w-full flex flex-col gap-2">
-                <DocSidebarListItem 
+                <DocsSidebarListItem 
                     text="Suggestions & Feedback"
                     icon="mdi-lightbulb-on-outline"
                     :actionType="ListItemActionType.ACTION"
                     @click="handleOpenFeedbackModal(FeedbackType.SUGGESTION)"
                 />
-                <DocSidebarListItem 
+                <DocsSidebarListItem 
                     text="Report an issue"
                     icon="mdi-alert-circle-outline"
                     :actionType="ListItemActionType.ACTION"
