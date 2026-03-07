@@ -49,13 +49,16 @@
                 />
 
                 <slot />
+                
+                <DocsMobileContentFooter v-if="isMobile && hasTableOfContent" />
 
                 <AppFooter />
             </MainContent>
-            <TableOfContentsSidebar
+            
+            <DocsSidebar
                 v-if="hasTableOfContent"
-                :title="tocTitle"
-                :links="tocLinks"
+                :tocTitle
+                :tocLinks
                 :topOffset="headerHeightOffset + 32"
                 :maxWidth="tocSidebarWidth"
                 class="hidden lg:flex"
@@ -74,6 +77,9 @@ const route = useRoute()
 const cleanPath = computed(() => {
     return route.path?.split('?')[0]?.split('#')[0] || ''
 })
+
+// Composables
+const { isMobile } = useIsMobile()
 
 // Computed states
 const hasOvertitle = computed(() => route.meta.overtitle || null)

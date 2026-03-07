@@ -8,7 +8,10 @@ export const FieldMaxLength = {
     MESSAGE: 500,
     PASSWORD: 64, 
     SEARCH: 80,  
-    DESCRIPTION: 400,     
+    DESCRIPTION: 400,    
+    GITHUB_ISSUE_SUBJECT: 120,
+    GITHUB_ISSUE_DESCRIPTION: 2000,
+    GITHUB_ISSUE_USERNAME: 39,
 }
 
 export const FieldError = {
@@ -19,4 +22,8 @@ export const FieldError = {
     INVALID_DATE_RANGE: 'Start date must be before or equal to end date',
     PASSWORDS_DO_NOT_MATCH: 'Passwords do not match.',
     INVALID_URL: 'Invalid URL.',
+}
+
+export const FormSubmitError = {
+    REQUIRED_FIELDS: 'Please fill in all required fields.',
 }

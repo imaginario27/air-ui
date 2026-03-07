@@ -305,9 +305,6 @@ const isImageLoaded = ref(true)
 const selected = ref<SelectOption[] | SelectOption | null>(props.multiple ? [] : null)
 const searchQuery = ref('')
 
-// Ref
-const dropdownContainer = ref(null)
-
 // Handlers for image load and error
 const handleImageLoad = () => {
     isImageLoaded.value = true

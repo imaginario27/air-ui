@@ -1,7 +1,6 @@
 import { mount } from '@vue/test-utils'
 import Drawer from '@/components/drawers/Drawer.vue'
 import { Direction } from '@/models/enums/directions'
-import { useHead } from '#imports'
 
 vi.mock('#imports', () => ({
     useHead: vi.fn(),
@@ -193,5 +192,45 @@ describe('Drawer.vue', () => {
 
         expect(wrapper.find('aside').classes()).toContain('custom-drawer')
         expect(wrapper.find('.bg-background-overlay').classes()).toContain('custom-overlay')
+    })
+
+    it('closes drawer when Escape key is pressed', async () => {
+        const wrapper = factory({ modelValue: false })
+
+        await wrapper.setProps({ modelValue: true })
+
+        window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }))
+
+        expect(wrapper.emitted('update:modelValue')?.[0]).toEqual([false])
+    })
+
+    it('adds Escape listener when modelValue becomes true', async () => {
+        const addSpy = vi.spyOn(globalThis, 'addEventListener')
+
+        const wrapper = factory({ modelValue: false })
+
+        await wrapper.setProps({ modelValue: true })
+
+        expect(addSpy).toHaveBeenCalledWith('keydown', expect.any(Function))
+    })
+
+    it('removes Escape listener when modelValue becomes false', async () => {
+        const removeSpy = vi.spyOn(globalThis, 'removeEventListener')
+
+        const wrapper = factory({ modelValue: true })
+
+        await wrapper.setProps({ modelValue: false })
+
+        expect(removeSpy).toHaveBeenCalledWith('keydown', expect.any(Function))
+    })
+
+    it('removes Escape listener on unmount', () => {
+        const removeSpy = vi.spyOn(globalThis, 'removeEventListener')
+
+        const wrapper = factory()
+
+        wrapper.unmount()
+
+        expect(removeSpy).toHaveBeenCalledWith('keydown', expect.any(Function))
     })
 })

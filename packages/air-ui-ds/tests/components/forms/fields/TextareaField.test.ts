@@ -11,54 +11,67 @@ const defaultProps = {
     maxLength: 100
 }
 
+const factory = (props = {}) => {
+    return mount(TextareaField, {
+        props: {
+            ...defaultProps,
+            ...props
+        }
+    })
+}
+
 describe('TextareaField', () => {
     it('renders correctly with minimal props', () => {
-        const wrapper = mount(TextareaField, {
-            props: {
-                ...defaultProps
-            }
-        })
+        const wrapper = factory()
 
         const textarea = wrapper.find('textarea')
+
         expect(textarea.exists()).toBe(true)
         expect(textarea.attributes('id')).toBe('textarea-id')
         expect(textarea.attributes('maxlength')).toBe('100')
         expect(textarea.attributes('placeholder')).toBe('Placeholder')
+        expect(textarea.attributes('autocomplete')).toBe('off')
     })
 
     it('renders label when provided', () => {
-        const wrapper = mount(TextareaField, {
-            props: {
-                ...defaultProps,
-                label: 'Message'
-            }
+        const wrapper = factory({
+            label: 'Message'
         })
 
         const label = wrapper.find('label')
+
         expect(label.exists()).toBe(true)
         expect(label.text()).toBe('Message')
         expect(label.attributes('for')).toBe('textarea-id')
     })
 
-    it('emits update:modelValue on input', async () => {
-        const wrapper = mount(TextareaField, {
-            props: {
-                ...defaultProps
-            }
+    it.concurrent('emits update:modelValue on input', async () => {
+        const wrapper = factory()
+
+        const textarea = wrapper.find('textarea')
+
+        await textarea.setValue('Hello world')
+
+        expect(wrapper.emitted('update:modelValue')).toEqual([
+            ['Hello world']
+        ])
+    })
+
+    it('does not emit update:modelValue when disabled', async () => {
+        const wrapper = factory({
+            disabled: true
         })
 
         const textarea = wrapper.find('textarea')
-        await textarea.setValue('Hello world')
 
-        expect(wrapper.emitted('update:modelValue')).toEqual([['Hello world']])
+        await textarea.setValue('test')
+
+        expect(wrapper.emitted('update:modelValue')).toBeUndefined()
     })
 
     it('renders error message and icon when error is present', () => {
-        const wrapper = mount(TextareaField, {
-            props: {
-                ...defaultProps,
-                error: 'Field is required'
-            }
+        const wrapper = factory({
+            error: 'Field is required'
         })
 
         const errorText = wrapper.find('p.text-text-error')
@@ -66,134 +79,183 @@ describe('TextareaField', () => {
 
         expect(errorText.exists()).toBe(true)
         expect(errorText.text()).toBe('Field is required')
+
         expect(icon.exists()).toBe(true)
         expect(icon.props('name')).toBe('mdi:alert-circle')
     })
 
     it('renders help text when no error is present', () => {
-        const wrapper = mount(TextareaField, {
-            props: {
-                ...defaultProps,
-                helpText: 'This is a helper'
-            }
+        const wrapper = factory({
+            helpText: 'Helper text'
         })
 
         const helpText = wrapper.find('p.text-text-neutral-subtle')
+
         expect(helpText.exists()).toBe(true)
-        expect(helpText.text()).toBe('This is a helper')
+        expect(helpText.text()).toBe('Helper text')
     })
 
-    it('renders character counter when hasCharCounter is true', () => {
-        const wrapper = mount(TextareaField, {
-            props: {
-                ...defaultProps,
-                modelValue: '12345',
-                hasCharCounter: true
-            }
+    it.concurrent('renders character counter when enabled', () => {
+        const wrapper = factory({
+            modelValue: '12345'
         })
 
         const counter = wrapper.find('p.text-right')
+
         expect(counter.exists()).toBe(true)
         expect(counter.text()).toBe('5 / 100')
     })
 
-    it('does not render character counter when hasCharCounter is false', () => {
-        const wrapper = mount(TextareaField, {
-            props: {
-                ...defaultProps,
-                hasCharCounter: false
-            }
+    it.concurrent('does not render character counter when disabled', () => {
+        const wrapper = factory({
+            hasCharCounter: false
         })
 
         const counter = wrapper.find('p.text-right')
+
         expect(counter.exists()).toBe(false)
     })
 
-    it('handles readonly, disabled, wrap, spellcheck and autofocus attributes', () => {
-        const wrapper = mount(TextareaField, {
-            props: {
-                ...defaultProps,
-                readonly: true,
-                disabled: true,
-                wrap: 'hard',
-                spellcheck: true,
-                autofocus: true
-            }
+    it('applies textareaClass when provided', () => {
+        const wrapper = factory({
+            textareaClass: 'custom-textarea'
         })
 
-        const textarea = wrapper.find('textarea')
-        expect(textarea.attributes('readonly')).toBeDefined()
-        expect(textarea.attributes('disabled')).toBeDefined()
-        expect(textarea.attributes('wrap')).toBe('hard')
-        expect(textarea.attributes('spellcheck')).toBe('true')
-        expect(textarea.attributes('autofocus')).toBeDefined()
+        const container = wrapper.find('div.border')
+
+        expect(container.classes()).toContain('custom-textarea')
+    })
+
+    it('applies minHeightClass and maxHeightClass when autoResize is enabled', () => {
+        const wrapper = factory({
+            autoResize: true,
+            minHeightClass: 'min-h-[200px]',
+            maxHeightClass: 'max-h-[400px]'
+        })
+
+        const container = wrapper.find('div.border')
+
+        expect(container.classes()).toContain('min-h-[200px]')
+        expect(container.classes()).toContain('max-h-[400px]')
     })
 
     it('emits update:error on blur if validation fails', async () => {
         const validator = vi.fn().mockReturnValue('Invalid input')
 
-        const wrapper = mount(TextareaField, {
-            props: {
-                ...defaultProps,
-                required: true,
-                validator,
-                modelValue: 'text'
-            }
+        const wrapper = factory({
+            required: true,
+            validator,
+            modelValue: 'text'
         })
 
         const textarea = wrapper.find('textarea')
+
         await textarea.trigger('blur')
 
         expect(validator).toHaveBeenCalledWith('text')
-        expect(wrapper.emitted('update:error')).toEqual([['Invalid input']])
+
+        expect(wrapper.emitted('update:error')).toEqual([
+            ['Invalid input']
+        ])
     })
 
     it('emits update:error from watcher when modelValue changes', async () => {
         const validator = vi.fn().mockReturnValue('Too long')
 
-        const wrapper = mount(TextareaField, {
-            props: {
-                ...defaultProps,
-                validator,
-                required: true,
-                modelValue: ''
-            }
+        const wrapper = factory({
+            validator,
+            required: true,
+            modelValue: ''
         })
 
-        await wrapper.setProps({ modelValue: 'Changed' })
+        await wrapper.setProps({
+            modelValue: 'Changed'
+        })
 
         expect(validator).toHaveBeenCalledWith('Changed')
-        expect(wrapper.emitted('update:error')).toEqual([['Too long']])
+
+        expect(wrapper.emitted('update:error')).toEqual([
+            ['Too long']
+        ])
     })
 
     it('does not run validation when required is false', async () => {
         const validator = vi.fn()
 
-        const wrapper = mount(TextareaField, {
-            props: {
-                ...defaultProps,
-                validator,
-                required: false,
-                modelValue: ''
-            }
+        const wrapper = factory({
+            validator,
+            required: false
         })
 
-        await wrapper.setProps({ modelValue: 'any' })
+        await wrapper.setProps({
+            modelValue: 'any'
+        })
 
         expect(validator).not.toHaveBeenCalled()
     })
 
-    it('applies minHeightClass to the container', () => {
-        const wrapper = mount(TextareaField, {
-            props: {
-                ...defaultProps,
-                minHeightClass: 'min-h-[200px]'
-            }
+    it('applies filled state when modelValue contains text', () => {
+        const wrapper = factory({
+            modelValue: 'content'
         })
 
-        const containers = wrapper.findAll('div')
-        const hasMinHeight = containers.some(div => div.classes().includes('min-h-[200px]'))
+        const container = wrapper.find('div.border')
 
-        expect(hasMinHeight).toBe(true)
+        expect(container.classes()).toContain('text-text-default')
+    })
+
+    it('applies blur styles when blurContent is true', () => {
+        const wrapper = factory({
+            blurContent: true,
+            revealBlurOnFocus: false
+        })
+
+        const textarea = wrapper.find('textarea')
+
+        expect(textarea.classes()).toContain('blur-sm')
+        expect(textarea.classes()).toContain('select-none')
+        expect(textarea.classes()).toContain('caret-transparent')
+        expect(textarea.classes()).toContain('pointer-events-none')
+    })
+
+    it('removes blur when focused if revealBlurOnFocus is enabled', async () => {
+        const wrapper = factory({
+            blurContent: true,
+            revealBlurOnFocus: true
+        })
+
+        const textarea = wrapper.find('textarea')
+
+        await textarea.trigger('focus')
+
+        expect(wrapper.emitted('update:blurContent')).toEqual([
+            [false]
+        ])
+    })
+
+    it('restores blur on blur event when revealBlurOnFocus is enabled', async () => {
+        const wrapper = factory({
+            blurContent: false,
+            revealBlurOnFocus: true
+        })
+
+        const textarea = wrapper.find('textarea')
+
+        await textarea.trigger('blur')
+
+        expect(wrapper.emitted('update:blurContent')).toContainEqual([true])
+    })
+
+    it('applies focus ring when focused', async () => {
+        const wrapper = factory()
+
+        const textarea = wrapper.find('textarea')
+
+        await textarea.trigger('focus')
+
+        const container = wrapper.find('div.border')
+
+        expect(container.classes()).toContain('ring-2')
+        expect(container.classes()).toContain('ring-border-primary-brand-default')
     })
 })

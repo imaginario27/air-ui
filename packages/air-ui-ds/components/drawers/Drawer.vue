@@ -253,6 +253,37 @@ const close = () => {
     emit('update:modelValue', false)
 }
 
+const handleEscKey = (event: KeyboardEvent) => {
+    if (event.key === 'Escape') {
+        close()
+    }
+}
+
+// Event listeners
+const addEscListener = () => {
+    globalThis.addEventListener('keydown', handleEscKey)
+}
+
+const removeEscListener = () => {
+    globalThis.removeEventListener('keydown', handleEscKey)
+}
+
+// Watchers
+watch(
+    () => props.modelValue,
+    newValue => {
+        if (newValue) {
+            addEscListener() // Add Esc key listener
+        } else {
+            removeEscListener() // Remove Esc key listener
+        }
+    }
+)
+
+onUnmounted(() => {
+    removeEscListener()
+})
+
 // Locks and unlocks the background scroll while modal is open
 useHead(() => {
     return props.modelValue && props.lockBodyScroll

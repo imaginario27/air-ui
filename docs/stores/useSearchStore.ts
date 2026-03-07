@@ -37,7 +37,7 @@ export const useSearchStore = defineStore('search', () => {
         // Add to top
         recentSearches.value.unshift(item)
 
-        // Limit size (recommended)
+        // Limit size
         if (recentSearches.value.length > 10) {
             recentSearches.value = recentSearches.value.slice(0, 10)
         }
