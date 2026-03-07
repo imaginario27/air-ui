@@ -278,6 +278,15 @@ const handleScrollOutside = (event: Event) => {
     }
 }
 
+const handleKeydown = (event: KeyboardEvent) => {
+    if (!isOpen.value) return
+
+    if (event.key === 'Escape') {
+        close()
+    }
+}
+
+// Computed
 const computedTeleportStyle = computed<CSSProperties>(() => {
     if (!isPositioned.value || !activatorRect.value || !dropdownRect.value) {
         return {
@@ -414,11 +423,13 @@ onMounted(() => {
     document.addEventListener('click', handleClickOutside)
     window.addEventListener('resize', close)
     document.addEventListener('scroll', handleScrollOutside, true)
+    document.addEventListener('keydown', handleKeydown)
 })
 
 onBeforeUnmount(() => {
     document.removeEventListener('click', handleClickOutside)
     window.removeEventListener('resize', close)
     document.removeEventListener('scroll', handleScrollOutside, true)
+    document.removeEventListener('keydown', handleKeydown)
 })
 </script>
