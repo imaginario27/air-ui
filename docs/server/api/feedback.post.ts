@@ -12,26 +12,41 @@ export default defineEventHandler(async (event) => {
 
     const metadata = body.metadata || {}
 
+    const reportedBy = body.github
+    ? `<a href="https://github.com/${body.github}" target="_blank" rel="noopener noreferrer">@${body.github}</a>`
+    : 'Anonymous'
+
     const issueBody = `
-Page:
+**Page**
 ${body.page}
 
-Type:
+**Reported by**
+${reportedBy}
+
+**Type**
 ${body.type}
 
-Description:
+---
+
+## Description
 ${body.description}
 
 ---
 
-Environment
+## Environment
 
-URL: ${metadata.url || 'N/A'}
-Browser: ${metadata.browser || 'N/A'}
-OS: ${metadata.os || 'N/A'}
-Viewport: ${metadata.viewport || 'N/A'}
-Language: ${metadata.language || 'N/A'}
-User Agent: ${metadata.userAgent || 'N/A'}
+- **URL:** ${metadata.url || 'N/A'}
+- **Browser:** ${metadata.browser || 'N/A'}
+- **OS:** ${metadata.os || 'N/A'}
+- **Viewport:** ${metadata.viewport || 'N/A'}
+- **Language:** ${metadata.language || 'N/A'}
+
+<details>
+<summary><strong>User Agent</strong></summary>
+
+${metadata.userAgent || 'N/A'}
+
+</details>
 `
 
     const githubApiURL = `https://api.github.com/repos/${config.githubRepo}/issues`
@@ -43,7 +58,7 @@ User Agent: ${metadata.userAgent || 'N/A'}
             Accept: 'application/vnd.github+json',
         },
         body: {
-            title: `[${body.type === FeedbackType.BUG ? FeedbackType.BUG : FeedbackType.SUGGESTION}] ${body.title}`,
+            title: `[${body.type}] ${body.title}`,
             labels,
             body: issueBody.trim(),
         },

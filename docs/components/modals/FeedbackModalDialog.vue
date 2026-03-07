@@ -21,7 +21,7 @@
                         :placeholder="subjectTitlePlaceholder"
                         required
                         :validator="validateField"
-                        :maxLength="FieldMaxLength.SUBJECT"
+                        :maxLength="FieldMaxLength.GITHUB_ISSUE_SUBJECT"
                     />
                 </FormRow>
                 <FormRow>
@@ -33,7 +33,20 @@
                         :placeholder="descriptionPlaceholder"
                         required
                         :validator="validateField"
-                        :maxLength="FieldMaxLength.MESSAGE"
+                        :maxLength="FieldMaxLength.GITHUB_ISSUE_DESCRIPTION"
+                        minHeightClass="min-h-[300px]"
+                        textareaClass="max-h-[600px]"
+                    />
+                </FormRow>
+                <FormRow>
+                    <InputField
+                        id="github"
+                        v-model="formData.github"
+                        label="GitHub username (optional)"
+                        placeholder="your-github-username"
+                        :maxLength="FieldMaxLength.GITHUB_ISSUE_USERNAME"
+                        helpText="Add your username without '@'"
+                        autocomplete="off"
                     />
                 </FormRow>
                 <FormActions class="justify-end">
@@ -75,6 +88,7 @@ const route = useRoute()
 const formData = reactive({
     title: '',
     description: '',
+    github: '',
     page: route.fullPath,
 })
 
@@ -123,10 +137,10 @@ const pageTitle = computed(() => {
 
 const modalTitle = computed(() => {
     if (props.type === FeedbackType.BUG) {
-        return `Report an issue about ${pageTitle.value}`
+        return `Report an issue | ${pageTitle.value}`
     }
 
-    return `Suggestions & Feedback about ${pageTitle.value}`
+    return `Suggestions & Feedback | ${pageTitle.value}`
 })
 
 const modalDescription = computed(() => {
@@ -139,10 +153,10 @@ const modalDescription = computed(() => {
 
 const submitButtonText = computed(() => {
     if (props.type === FeedbackType.BUG) {
-        return 'Submit Issue'
+        return 'Submit issue'
     }
 
-    return 'Submit Suggestion'
+    return 'Submit suggestion'
 })
 
 const subjectTitlePlaceholder = computed(() => {
@@ -198,12 +212,15 @@ const handleSubmit = async () => {
     isSubmitting.value = true
 
     try {
+        const githubUsername = formData.github?.replace(/^@/, '').trim()
+
         await $fetch('/api/feedback', {
             method: 'POST',
             body: {
                 type: props.type,
                 title: formData.title,
                 description: formData.description,
+                github: githubUsername,
                 page: formData.page,
                 metadata,
             },

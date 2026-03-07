@@ -9,7 +9,6 @@ props:
     label: "Label"
     placeholder: "Placeholder"
     helpText: "Help text example"
-    minHeightClass: "min-h-[150px]"
     modelValue: "Sample text"
     validator: null
     error: ""
@@ -20,8 +19,14 @@ props:
     autofocus: false
     wrap: "soft"
     spellcheck: false
+    autoResize: false
+    blurContent: false
+    revealBlurOnFocus: true
     disabled: false
     required: false  
+    minHeightClass: "min-h-[150px]"
+    maxHeightClass: "max-h-[300px]"
+    textareaClass: ""
 isPreviewContentBoxed: true
 previewContentMaxWidth: 600
 propsSettingsExcludedProps: ['validator']
@@ -50,11 +55,6 @@ props: [
     },
     {
         "name": "helpText",
-        "type": "string",
-    },
-    {
-        "name": "minHeightClass",
-        "default": "'min-h-[150px]'",
         "type": "string",
     },
     {
@@ -107,6 +107,21 @@ props: [
         "type": "boolean",
     },
     {
+        "name": "autoResize",
+        "default": "false",
+        "type": "boolean",
+    },
+    {
+        "name": "blurContent",
+        "default": "false",
+        "type": "boolean",
+    },
+    {
+        "name": "revealBlurOnFocus",
+        "default": "true",
+        "type": "boolean",
+    },
+    {
         "name": "disabled",
         "default": "false",
         "type": "boolean",
@@ -115,7 +130,21 @@ props: [
         "name": "required",
         "default": "false",
         "type": "boolean",
-    }  
+    },
+    {
+        "name": "minHeightClass",
+        "default": "'min-h-[150px]'",
+        "type": "string",
+    },
+    {
+        "name": "maxHeightClass",
+        "default": "'max-h-[300px]'",
+        "type": "string",
+    },
+    {
+        "name": "textareaClass",
+        "type": "string",
+    }
 ]
 ---
 ::
@@ -171,19 +200,6 @@ Sets the help text displayed below the input field.
 ```
 
 - **Type:** `string`
-
-### minHeightClass
-
-Sets the minimum height CSS class for the textarea.
-
-```vue
-<template>
-    <TextareaField minHeightClass="min-h-[150px]" />
-</template>
-```
-
-- **Type:** `string`
-- **Default:** `'min-h-[150px]'`
 
 ### modelValue
 
@@ -320,6 +336,81 @@ Sets the spellcheck attribute of the textarea.
 - **Type:** `boolean`
 - **Default:** `false`
 
+### autoResize
+
+Enables or disables the auto-resize feature of the textarea. It does not refer to the native `resize` property of the textarea, but to automatically adjusting the height based on the content.
+
+```vue
+<template>
+    <TextareaField autoResize />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `false`
+
+### blurContent
+
+Enables or disables the blur effect on the content of the textarea.
+
+```vue
+<template>
+    <TextareaField blurContent />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `false`
+
+
+#### Security note
+::content-alert
+---
+props:
+    title: "Important"
+    description: "Blurring the content does not protect sensitive information. Users can still copy or view the content in other ways."
+---
+::
+
+To prevent sensitive information from being exposed, consider using other security measures such as encryption or secure storage.
+
+Additionally, you can handle the value of `v-model` dynamically:
+
+```vue
+<template>
+    <TextareaField
+        id="protected-field"
+        v-model="protectedValue"
+        v-model:blurContent="isBlurred"
+    />
+</template>
+
+<script setup lang="ts">
+const protectedValue = ref('')
+const isBlurred = ref(true)
+
+// Example reveal logic
+const revealValue = async () => {
+    const decrypted = await fetchSecret()
+    protectedValue.value = decrypted
+    isBlurred.value = false
+}
+</script>
+```
+
+### revealBlurOnFocus
+
+Controls whether the blur effect is revealed when the textarea is focused.
+
+```vue
+<template>
+    <TextareaField revealBlurOnFocus />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `true`
+
 ### disabled
 
 Sets the disabled state of the field.
@@ -345,3 +436,49 @@ Sets the required state of the field.
 
 - **Type:** `boolean`
 - **Default:** `false`
+
+### minHeightClass
+
+Sets the minimum height CSS class for the textarea.
+
+```vue
+<template>
+    <TextareaField minHeightClass="min-h-[150px]" />
+</template>
+```
+
+- **Type:** `string`
+- **Default:** `'min-h-[150px]'`
+
+### maxHeightClass
+
+Sets the maximum height CSS class for the textarea.
+
+::content-alert
+---
+props:
+    title: "Important"
+    description: "Max height only applies when autoResize is enabled."
+---
+::
+
+```vue
+<template>
+    <TextareaField maxHeightClass="max-h-[300px]" />
+</template>
+```
+
+- **Type:** `string`
+- **Default:** `'max-h-[300px]'`
+
+### textareaClass
+
+Sets the custom CSS class for the textarea.
+
+```vue
+<template>
+    <TextareaField textareaClass="border-border-success" />
+</template>
+```
+
+- **Type:** `string`
