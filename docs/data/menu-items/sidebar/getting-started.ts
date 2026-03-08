@@ -25,4 +25,17 @@ export const sidebarGettingStartedMenu: SidebarMenuItem[] = [
         text: 'Design tokens',
         to: `/${AppSlug.DOCS}/${AppSlug.GETTING_STARTED}/${AppSlug.THEME}/design-tokens`,
     },
+    {
+        isSectionTitle: true,
+        text: 'Agents',
+        icon: 'mdi:robot-outline',
+    },
+    {
+        text: 'MCP Server',
+        to: `/${AppSlug.DOCS}/${AppSlug.GETTING_STARTED}/${AppSlug.AGENTS}/mcp-server`,
+    },
+    {
+        text: 'LLMs.txt',
+        to: `/${AppSlug.DOCS}/${AppSlug.GETTING_STARTED}/${AppSlug.AGENTS}/llms-txt`,
+    }
 ]

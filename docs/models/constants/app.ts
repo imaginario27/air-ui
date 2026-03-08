@@ -9,4 +9,5 @@ export const AppSlug = {
     FIGMA: 'figma',
     GETTING_STARTED: 'getting-started',
     THEME: 'theme',
+    AGENTS: 'agents',
 }

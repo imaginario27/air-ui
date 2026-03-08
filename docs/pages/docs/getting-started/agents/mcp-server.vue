@@ -8,14 +8,14 @@
 
             <ContentFooterNavigation 
                 :previousPage="{
-                    label: 'Theme customization',
-                    link: `/${AppSlug.DOCS}/${AppSlug.GETTING_STARTED}/${AppSlug.THEME}/theme-customization`,
-                    description: 'Learn how to customize the theme of AirUI.'
+                    label: 'Design tokens',
+                    link: `/${AppSlug.DOCS}/${AppSlug.GETTING_STARTED}/${AppSlug.THEME}/design-tokens`,
+                    description: 'Learn how to customize the design tokens of AirUI.'
                 }"
                 :nextPage="{
-                    label: 'MCP Server',
-                    link: `/${AppSlug.DOCS}/${AppSlug.GETTING_STARTED}/${AppSlug.AGENTS}/mcp-server`,
-                    description: 'Learn about the MCP Server and how to use it with AirUI.'
+                    label: 'LLMs.txt',
+                    link: `/${AppSlug.DOCS}/${AppSlug.GETTING_STARTED}/${AppSlug.AGENTS}/llms-txt`,
+                    description: 'Learn about the LLMs.txt file and how to use it with AirUI.'
                 }"
             />
         </SectionBody>
@@ -24,10 +24,10 @@
 
 <script setup lang="ts">
 definePageMeta({
-    title: 'Design tokens',
+    title: 'MCP Server',
     layout: 'docs',
     overtitle: 'Getting Started',
-    description: 'Learn about AirUI’s design tokens and how to customize them to fit your project’s needs.'
+    description: 'Use Air UI docs directly inside AI assistants with Model Context Protocol (MCP).'
 })
 
 // Route

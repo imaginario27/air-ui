@@ -8,11 +8,6 @@
 
             <ContentFooterNavigation 
                 :previousPage="{
-                    label: 'Theme customization',
-                    link: `/${AppSlug.DOCS}/${AppSlug.GETTING_STARTED}/${AppSlug.THEME}/theme-customization`,
-                    description: 'Learn how to customize the theme of AirUI.'
-                }"
-                :nextPage="{
                     label: 'MCP Server',
                     link: `/${AppSlug.DOCS}/${AppSlug.GETTING_STARTED}/${AppSlug.AGENTS}/mcp-server`,
                     description: 'Learn about the MCP Server and how to use it with AirUI.'
@@ -24,10 +19,10 @@
 
 <script setup lang="ts">
 definePageMeta({
-    title: 'Design tokens',
+    title: 'LLMs.txt',
     layout: 'docs',
     overtitle: 'Getting Started',
-    description: 'Learn about AirUI’s design tokens and how to customize them to fit your project’s needs.'
+    description: 'Use the LLMs.txt file to provide AI assistants with access to AirUI documentation and resources in a standardized way.'
 })
 
 // Route
