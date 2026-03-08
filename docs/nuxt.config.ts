@@ -15,7 +15,7 @@ export default defineNuxtConfig({
         cloudinaryApiSecret: process.env.CLOUDINARY_API_SECRET,
     },
 
-    modules: ["@pinia/nuxt", "@nuxt/image", "@nuxt/eslint", "@vueuse/nuxt", "@nuxt/content", "@nuxt/icon"],
+    modules: ["@pinia/nuxt", "@nuxt/image", "@nuxt/eslint", "@vueuse/nuxt", "@nuxt/content", "@nuxt/icon", "nuxt-llms"],
 
     plugins: ["@/plugins/vue3-toastify", "@/plugins/prettier"],
 
@@ -141,6 +141,38 @@ export default defineNuxtConfig({
         ],
     },
 
+    llms: {
+        domain: process.env.LLM_DOMAIN || 'https://air-ui.netlify.app',
+        title: 'Air UI',
+        description: 'Air UI design system documentation and resources',
+        sections: [
+            {
+                title: 'Getting Started',
+                description: 'Introduction and setup instructions for Air UI',
+                contentCollection: 'content',
+                contentFilters: [
+                    { field: 'path', operator: 'LIKE', value: '/docs/getting-started%' }
+                ]
+            },
+            {
+                title: 'Components',
+                description: 'Documentation for Air UI components',
+                contentCollection: 'content',
+                contentFilters: [
+                    { field: 'path', operator: 'LIKE', value: '/docs/components%' }
+                ]
+            },
+            {
+                title: 'Utilities',
+                description: 'Documentation for Air UI utilities',
+                contentCollection: 'content',
+                contentFilters: [
+                    { field: 'path', operator: 'LIKE', value: '/docs/utils%' }
+                ]
+            }
+        ]
+    },
+  
     eslint: {
         // options here
     },
