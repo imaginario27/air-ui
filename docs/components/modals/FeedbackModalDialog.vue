@@ -63,12 +63,14 @@
                 <FormActions class="justify-end">
                     <ActionButton 
                         text="Cancel"
+                        isMobileFullWidth
                         @click="handleClose"
                     />
                     <ActionButton 
                         :styleType="ButtonStyleType.PRIMARY_BRAND_FILLED"
                         :text="submitButtonText"
                         type="submit"
+                        isMobileFullWidth
                         :isLoading="isSubmitting"
                     />
                 </FormActions>
