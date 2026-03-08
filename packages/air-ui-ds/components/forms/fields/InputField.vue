@@ -30,13 +30,13 @@
                 'border',
                 'rounded-md',
                 'transition-all',
+                'text-text-default',
                 icon ? 'pl-3' : 'pl-4',
                 suffixIcon ? 'pr-3' : 'pr-4',
                 inputSizeClass,
                 type === 'color' && 'w-fit',
                 hasError ? 'border-border-error text-text-error' : 'border-border-default',
                 isFocused && 'ring-2 ring-border-primary-brand-default',
-                filled ? 'text-text-default' : 'text-text-neutral-subtler',
                 disabled ? 'bg-background-neutral-disabled' : 'bg-neutral-white',
                 disabled && 'cursor-not-allowed',
             ]"
@@ -64,6 +64,7 @@
                     'outline-none',
                     'bg-transparent',
                     'text-sm',
+                    'placeholder-text-neutral-subtler',
                     type === 'color' && '!w-[40px] rounded-full border-0 hover:cursor-pointer',
                     disabled && 'cursor-not-allowed',
                 ]"
@@ -235,15 +236,6 @@ const validationMode = useInjectedValidationMode()
 
 // Computed States
 const hasError = computed(() => props.error !== '')
-const filled = computed(() => {
-    if (typeof props.modelValue === 'string') {
-        return props.modelValue.trim().length > 0
-    }
-    if (typeof props.modelValue === 'number') {
-        return true
-    }
-    return false
-})
 
 const passwordInputType = computed(() => {
     if (props.type !== 'password') return props.type

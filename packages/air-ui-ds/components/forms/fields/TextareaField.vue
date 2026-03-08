@@ -24,11 +24,11 @@
                 'p-4',
                 'relative',
                 'overflow-auto',
+                'text-text-default',
                 minHeightClass,
                 autoResize && maxHeightClass,
                 hasError ? 'border-border-error text-text-error' : 'border-border-default',
                 isFocused && 'ring-2 ring-border-primary-brand-default',
-                filled ? 'text-text-default' : 'text-text-neutral-subtler',
                 textareaClass,
             ]"
         >
@@ -53,6 +53,7 @@
                     'resize-none',
                     'max-h-full',
                     'transition-[height,filter]',
+                    'placeholder-text-neutral-subtler',
                     isBlurred && 'blur-sm',
                     preventSelection && [
                         'select-none',
@@ -197,7 +198,6 @@ const textareaRef = ref<HTMLTextAreaElement | null>(null)
 
 // Computed States
 const hasError = computed(() => props.error !== '')
-const filled = computed(() => !!props.modelValue.trim())
 
 const isBlurred = computed(() => {
     if (!props.blurContent) return false
