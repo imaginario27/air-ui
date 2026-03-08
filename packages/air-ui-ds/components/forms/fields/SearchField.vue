@@ -30,7 +30,6 @@
                 'pl-3 pr-4',
                 inputSizeClass,
                 'text-text-default',
-                'placeholder-text-neutral-subtler',
                 'border-border-default',
                 inputCustomClass,
                 isFocused && 'ring-2 ring-border-primary-brand-default',
@@ -57,6 +56,7 @@
                     'w-full',
                     'outline-none',
                     'bg-transparent',
+                    'placeholder-text-neutral-subtler',
                     'text-sm',
                     disabled ? 'cursor-not-allowed' : undefined,
                 ]"

@@ -39,6 +39,7 @@
                     'border rounded-md',
                     'outline-none',
                     'transition-all',
+                    'placeholder-text-neutral-subtler',
                     hasError
                         ? 'border-border-error'
                         : 'border-border-default',
