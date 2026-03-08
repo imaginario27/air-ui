@@ -3,30 +3,26 @@
         <ProseTable v-if="normalizedItems.length">
             <ProseThead v-if="headers.length">
                 <ProseTr>
-                    <ProseTh
-                        v-for="header in headers"
-                        :key="header"
-                    >
+                    <ProseTh v-for="header in headers" :key="header">
                         {{ header }}
                     </ProseTh>
                 </ProseTr>
             </ProseThead>
 
             <ProseTbody>
-                <ProseTr
-                    v-for="(row, rowIndex) in normalizedItems"
-                    :key="rowIndex"
-                >
-                    <ProseTd
-                        v-for="(cell, cellIndex) in row"
-                        :key="cellIndex"
-                        :class="[
-                            'text-text-default',
-                            'text-sm',
-                            boldColumnIndexes.includes(cellIndex) && 'font-semibold',
-                        ]"
-                    >
-                        {{ cell }}
+                <ProseTr v-for="(row, rowIndex) in normalizedItems" :key="rowIndex">
+                    <ProseTd v-for="(cell, cellIndex) in row" :key="cellIndex" :class="[
+                        'text-text-default',
+                        'text-sm',
+                        boldColumnIndexes.includes(cellIndex) && 'font-semibold',
+                    ]">
+                        <ProseCode v-if="codeColumnIndexes.includes(cellIndex)" class="text-xs">
+                            {{ cell }}
+                        </ProseCode>
+
+                        <template v-else>
+                            {{ cell }}
+                        </template>
                     </ProseTd>
                 </ProseTr>
             </ProseTbody>
@@ -50,20 +46,19 @@ const props = defineProps({
         type: Array as PropType<string[]>,
         default: () => [],
     },
+    codeColumns: {
+        type: Array as PropType<string[]>,
+        default: () => [],
+    },
 })
 
-/**
- * Precompute slug keys from headers
- */
+
 const headerKeys = computed(() =>
     props.headers.map((header) =>
         convertStringIntoSlugFormat(header),
     ),
 )
 
-/**
- * Determine which column indexes should be bold
- */
 const boldColumnIndexes = computed(() => {
     const boldKeys = props.boldColumns.map((col) =>
         convertStringIntoSlugFormat(col),
@@ -72,6 +67,18 @@ const boldColumnIndexes = computed(() => {
     return headerKeys.value
         .map((key, index) =>
             boldKeys.includes(key) ? index : -1,
+        )
+        .filter((index) => index !== -1)
+})
+
+const codeColumnIndexes = computed(() => {
+    const codeKeys = props.codeColumns.map((col) =>
+        convertStringIntoSlugFormat(col),
+    )
+
+    return headerKeys.value
+        .map((key, index) =>
+            codeKeys.includes(key) ? index : -1,
         )
         .filter((index) => index !== -1)
 })

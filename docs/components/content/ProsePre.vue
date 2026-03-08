@@ -30,6 +30,7 @@
                 'overflow-x-auto',
                 'border-none',
                 'rounded-md',
+                'text-text-default',
             ]"
         > <slot /> </pre>
     </div>
