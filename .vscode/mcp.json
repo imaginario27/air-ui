@@ -1,0 +1,15 @@
+{
+    "servers": {
+        "nuxt": {
+            "type": "http",
+            "url": "https://nuxt.com/mcp"
+        }
+    },
+    "mcpServers": {
+        "nuxt": {
+            "type": "http",
+            "url": "https://nuxt.com/mcp",
+            "tools": ["*"]
+        }
+    }
+}
