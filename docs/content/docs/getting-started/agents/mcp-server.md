@@ -7,7 +7,7 @@ The Air UI MCP server exposes documentation search and retrieval tools so assist
 
 ## Endpoint
 
-Air UI docs exposes MCP over HTTP at:
+Air UI docs exposes MCP over this public endpoint:
 
 ```text
 https://air-ui.netlify.app/mcp
@@ -71,7 +71,7 @@ Use this deeplink to install directly in VS Code:
 text: "Install MCP in VS Code"
 actionType: "link"
 isExternal: true
-to: "http://localhost:3000/mcp/deeplink?ide=vscode"
+to: "https://air-ui.netlify.app/mcp/deeplink?ide=vscode"
 styleType: "neutral-filled"
 icon: "mdi:microsoft-visual-studio-code"
 iconPosition: "left"
@@ -121,7 +121,7 @@ Use this deeplink to install directly in Cursor:
 text: "Install MCP in Cursor"
 actionType: "link"
 isExternal: true
-to: "http://localhost:3000/mcp/deeplink?ide=cursor"
+to: "https://air-ui.netlify.app/mcp/deeplink?ide=cursor"
 styleType: "neutral-filled"
 icon: "mdi:cursor-default"
 iconPosition: "left"
