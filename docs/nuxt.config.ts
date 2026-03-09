@@ -183,6 +183,10 @@ export default defineNuxtConfig({
         // options here
     },
 
+    experimental: {
+        asyncContext: true
+    },
+
     css: ["~/assets/css/main.css", "~/assets/css/docs.css"],
 
     vite: {
