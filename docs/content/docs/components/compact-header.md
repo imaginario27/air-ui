@@ -8,8 +8,18 @@ props:
     navMenuItems:
         - text: "Home"
           to: ""
+        - text: "Services"
+          to: ""
         - text: "About"
           to: ""
+          children:
+            - text: "Team"
+              to: ""
+            - text: "Mission"
+              to: ""
+    submenuYOffset: 8
+    submenuDropdownClass: "min-w-[200px]"
+    submenuTrigger: "click"
     userFullname: "Jane Smith"
     userAvatarUrl: "https://randomuser.me/api/portraits/women/44.jpg"
     userMenuItems:
@@ -49,6 +59,11 @@ items:
           text: LOGO_LEFT_SIDE
         - value: logo-right-side
           text: LOGO_RIGHT_SIDE
+    submenuTrigger:
+        - value: click
+          text: CLICK
+        - value: hover
+          text: HOVER
 external:
   - navMenuItems
   - userMenuItems
@@ -58,6 +73,7 @@ externalTypes:
 enums:
     pageTitleFormat: "PageTitleFormat"
     sidebarTogglePosition: "SidebarTogglePosition"
+    submenuTrigger: "Trigger"
 propsSettingsExcludedProps: ['navMenuItems', 'userMenuItems', 'class']
 ---
 ::
@@ -76,6 +92,21 @@ props: [
         "name": "navMenuItems",
         "default": "[]",
         "type": "MenuItem[]"
+    },
+    {
+        "name": "submenuYOffset",
+        "default": "8",
+        "type": "number"
+    },
+    {
+        "name": "submenuDropdownClass",
+        "default": "'min-w-[220px]'",
+        "type": "string"
+    },
+    {
+        "name": "submenuTrigger",
+        "default": "Trigger.CLICK",
+        "type": "Trigger"
     },
     {
         "name": "userFullname",
@@ -265,7 +296,7 @@ options: [
 
 ### navMenuItems
 
-The `navMenuItems` prop allows you to define the navigation menu items displayed in the compact header. You can pass an array of `MenuItem` objects to customize the menu.
+The `navMenuItems` prop allows you to define the navigation menu items displayed in the compact header. You can pass an array of `MenuItem` objects to customize the menu, including optional `children` for submenu items.
 
 ```vue
 <template>
@@ -281,7 +312,18 @@ const mainHeaderMenu = ref<MenuItem[]>([
     },
     {
         text: "About",
-        to: "/about",
+        to: "",
+        submenuDropdownClass: "min-w-[320px]",
+        children: [
+            {
+                text: "Team",
+                to: "/about/team",
+            },
+            {
+                text: "Mission",
+                to: "/about/mission",
+            },
+        ],
     },
     {
         text: "Contact",
@@ -296,8 +338,79 @@ const mainHeaderMenu = ref<MenuItem[]>([
 interface MenuItem {
     text: string
     to: string
+    children?: {
+        text: string
+        to: string
+    }[]
+    submenuDropdownClass?: string
 }
 ```
+
+### submenuYOffset
+
+The `submenuYOffset` prop allows you to control the vertical offset in pixels for nav menu submenus.
+
+```vue
+<template>
+    <CompactHeader
+        :navMenuItems="mainHeaderMenu"
+        :submenuYOffset="12"
+    />
+</template>
+```
+
+- **Type:** `number`
+- **Default:** `8`
+
+### submenuDropdownClass
+
+The `submenuDropdownClass` prop allows you to define the default class for submenu dropdown containers (for example width classes).
+
+If a menu item defines `submenuDropdownClass`, that item value takes precedence over `submenuDropdownClass`.
+
+```vue
+<template>
+    <CompactHeader
+        :navMenuItems="mainHeaderMenu"
+        submenuDropdownClass="min-w-[280px]"
+    />
+</template>
+```
+
+- **Type:** `string`
+- **Default:** `'min-w-[220px]'`
+
+### submenuTrigger
+
+The `submenuTrigger` prop controls how nav menu submenus are opened.
+
+```vue
+<template>
+    <CompactHeader
+        :navMenuItems="mainHeaderMenu"
+        :submenuTrigger="Trigger.HOVER"
+    />
+</template>
+```
+
+- **Type:** `Trigger`
+- **Default:** `Trigger.CLICK`
+
+#### Options
+::options-table
+---
+options: [
+    {
+        value: "CLICK",
+        description: "Open the submenu when clicking the nav menu item.",
+    },
+    {
+        value: "HOVER",
+        description: "Open the submenu when hovering the nav menu item.",
+    },
+]
+---
+::
 
 ### userFullname
 

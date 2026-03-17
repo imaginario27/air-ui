@@ -13,7 +13,7 @@
             'flex flex-col items-center gap-6',
             'py-4',
             'border-r border-border-default',
-            'transition-transform duration-300',
+            'transition-all duration-300 ease-in-ou',
             isMobileSidebarOpen ? 'translate-x-0' : '-translate-x-full',
             'lg:translate-x-0', // Always visible on large screens
         ]"
@@ -89,6 +89,7 @@
                         :key="item.text"
                         :position="index < props.collapsedFlipLimit ? DropdownPosition.RIGHT_TOP : DropdownPosition.RIGHT_BOTTOM"
                         :positionXOffset="collapsedSubmenuOffset"
+                        :trigger="collapsedSubmenuTrigger"
                         :style="{ minWidth: `${collapsedSubmenuWidth}px` }"
                     >
                         <!-- Use NavSidebarMenuItem as activator -->
@@ -247,6 +248,11 @@ const props = defineProps({
     collapsedSubmenuWidth: {
         type: Number as PropType<number>,
         default: 200,
+    },
+    collapsedSubmenuTrigger: {
+        type: String as PropType<Trigger>,
+        default: Trigger.CLICK,
+        validator: (value: Trigger) => Object.values(Trigger).includes(value),
     },
     collapsedFlipLimit: {
         type: Number as PropType<number>,

@@ -6,6 +6,7 @@ srcDir: 'dropdowns/DropdownMenu.vue'
 props: 
     hasShadow: true
     hasBorder: true
+    trigger: 'click'
     position: 'bottom-right'
     positionXOffset: 0
     positionYOffset: 8
@@ -32,6 +33,11 @@ items:
           text: RIGHT_TOP
         - value: right-bottom
           text: RIGHT_BOTTOM
+    trigger:
+        - value: click
+          text: CLICK
+        - value: hover
+          text: HOVER
 slots:
     items: ""
     activator: ""
@@ -54,6 +60,7 @@ externalTypes:
     - DropdownMenuItem[]
 enums:
     position: "DropdownPosition"
+    trigger: "Trigger"
 ---
 ::
 
@@ -75,6 +82,11 @@ props: [
         "name": "hasBorder",
         "default": "true",
         "type": "boolean",
+    },
+    {
+        "name": "trigger",
+        "default": "Trigger.CLICK",
+        "type": "Trigger",
     },
     {
         "name": "position",
@@ -274,6 +286,39 @@ Activates a border on the menu.
 
 - **Type:** `boolean`
 - **Default:** `true`
+
+### trigger
+Controls how the dropdown is opened from the activator.
+
+```vue
+<template>
+    <DropdownMenu
+        :trigger="Trigger.HOVER"
+    >
+        ....
+    </DropdownMenu>
+</template>
+```
+
+- **Type:** `Trigger`
+- **Default:** `Trigger.CLICK`
+
+#### Options
+
+::options-table
+---
+options: [
+    {
+        value: "CLICK",
+        description: "Opens and closes the dropdown on activator click.",
+    },
+    {
+        value: "HOVER",
+        description: "Opens the dropdown on hover and closes when pointer leaves activator/dropdown.",
+    },
+]
+---
+::
 
 ### position
 Sets the position of the dropdown menu relative to its activator. Uses the `DropdownPosition` enum.

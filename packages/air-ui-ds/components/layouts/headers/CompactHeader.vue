@@ -64,6 +64,9 @@
                     v-if="navMenuItems.length"
                     :menuItems="navMenuItems" 
                     :detectActive="detectActiveMenuItem"
+                    :submenuYOffset
+                    :submenuDropdownClass
+                    :submenuTrigger
                     :class="navMenuClass"
                 />
 
@@ -79,7 +82,7 @@
                 <DropdownMenu 
                     v-if="userMenuItems.length && userFullname"
                     class="min-w-[200px]"
-                    :positionYOffset="8"
+                    :positionYOffset="submenuYOffset"
                 >
                     <template #activator>
                         <Avatar 
@@ -109,7 +112,7 @@
                 <template v-if="isMobile && showMobileMenuToggle">
                     <DropdownMenu 
                         :class="navMobileMenuClass"
-                        :positionYOffset="8"
+                        :positionYOffset="submenuYOffset"
                     >
                         <template #activator>
                             <ActionIconButton 
@@ -118,11 +121,23 @@
                             />
                         </template>
                         <template #items>
-                            <DropdownMenuItem 
-                                v-for="item in navMenuItems" :key="item.text"
-                                :text="item.text"
-                                :to="item.to"
-                            />
+                            <template v-for="item in navMenuItems" :key="item.text">
+                                <DropdownMenuItem 
+                                    v-if="!getSubmenuItems(item).length"
+                                    :text="item.text"
+                                    :to="item.to"
+                                />
+
+                                <template v-else>
+                                    <DropdownMenuItem
+                                        v-for="submenuItem in getSubmenuItems(item)"
+                                        :key="`${item.text}-${submenuItem.text}`"
+                                        :text="`- ${submenuItem.text}`"
+                                        :to="submenuItem.to"
+                                        class="pl-5"
+                                    />
+                                </template>
+                            </template>
                             
                             <DropdownMenuActions v-if="$slots['header-actions']">
                                 <slot name="header-actions" />
@@ -160,6 +175,19 @@ const props = defineProps({
     navMenuItems: {
         type: Array as PropType<MenuItem[]>,
         default: () => [],
+    },
+    submenuYOffset: {
+        type: Number as PropType<number>,
+        default: 8,
+    },
+    submenuDropdownClass: {
+        type: String as PropType<string>,
+        default: 'min-w-[220px]',
+    },
+    submenuTrigger: {
+        type: String as PropType<Trigger>,
+        default: Trigger.CLICK,
+        validator: (value: Trigger) => Object.values(Trigger).includes(value),
     },
     userFullname: String as PropType<string>,
     userAvatarUrl: String as PropType<string>,
@@ -210,6 +238,10 @@ const props = defineProps({
 // Composables
 const { isMobileSidebarOpen, toggleMobileSidebar } = useMobileSidebar()
 const { isMobile } = useIsMobile()
+
+const getSubmenuItems = (item: MenuItem): NonNullable<MenuItem['children']> => {
+    return item.children ?? []
+}
 
 // Page title
 const route = useRoute()

@@ -1,6 +1,13 @@
+export interface SubmenuItem {
+    text: string
+    to: string
+}
+
 export interface MenuItem {
     text: string
     to: string
+    children?: SubmenuItem[]
+    submenuDropdownClass?: string
 }
 
 export interface SocialNetwork {

@@ -37,12 +37,12 @@ describe('NavSidebarMenuItem.vue', () => {
         expect(link.attributes('href')).toBe('/settings')
     })
 
-    it('renders NuxtLink even if `to` is null', () => {
+    it('renders button when `to` is not provided', () => {
         const wrapper = factory()
-        const link = wrapper.find('a')
+        const button = wrapper.find('button')
 
-        expect(link.exists()).toBe(true)
-        expect(link.attributes('href')).toBeUndefined()
+        expect(button.exists()).toBe(true)
+        expect(button.attributes('type')).toBe('button')
     })
 
     it('renders text in span when not collapsed', () => {
@@ -131,17 +131,17 @@ describe('NavSidebarMenuItem.vue', () => {
             styleType: SidebarNavMenuItemStyleType.SPACED
         })
 
-        const link = wrapper.find('a')
-        const content = link.find('div')
+        const button = wrapper.find('button')
+        const content = button.find('div')
 
-        expect(link.classes()).toContain('min-h-[40px]')
+        expect(button.classes()).toContain('min-h-[40px]')
         expect(content.classes()).toContain('gap-3')
     })
 
     it('emits click when NuxtLink is clicked', async () => {
         const wrapper = factory()
 
-        await wrapper.find('a').trigger('click')
+        await wrapper.find('button').trigger('click')
 
         expect(wrapper.emitted('click')).toBeTruthy()
     })
