@@ -4,7 +4,7 @@
             :class="[
                 'font-medium',
                 'transition-colors',
-                'duration-200',
+                'duration-150',
                 activeClass
             ]"
         >

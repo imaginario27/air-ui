@@ -10,6 +10,8 @@
             ref="activatorWrapper"
             class="dropdown-activator"
             @click="onActivatorClick"
+            @mouseenter="onActivatorMouseEnter"
+            @mouseleave="onActivatorMouseLeave"
         >
             <slot
                 name="activator"
@@ -44,6 +46,8 @@
                             ...computedTeleportStyle, 
                             zIndex: props.zIndex 
                         }"
+                        @mouseenter="onDropdownMouseEnter"
+                        @mouseleave="onDropdownMouseLeave"
                     >
                         <slot
                             v-if="$slots.items"
@@ -101,6 +105,8 @@
                         ...(!positionClass ? positionOffsetStyle : {}), 
                         zIndex: props.zIndex 
                     }"
+                    @mouseenter="onDropdownMouseEnter"
+                    @mouseleave="onDropdownMouseLeave"
                 >
                     <slot 
                         v-if="$slots['items']"
@@ -182,12 +188,18 @@ const props = defineProps({
         type: String as PropType<string>,
         default: '50',
     },
+    trigger: {
+        type: String as PropType<Trigger>,
+        default: Trigger.CLICK,
+        validator: (value: Trigger) => Object.values(Trigger).includes(value),
+    },
 })
 
 // Refs
 const activatorWrapper = ref<HTMLElement | null>(null)
 const dropdown = ref<HTMLElement | null>(null)
 const isOpen = ref(false)
+const closeTimer = ref<ReturnType<typeof setTimeout> | null>(null)
 
 // States
 const isPositioned = ref(false)
@@ -198,6 +210,20 @@ const dropdownRect = ref<DOMRect | null>(null)
 const close = () => {
     isOpen.value = false
     isPositioned.value = false
+}
+
+const clearCloseTimer = () => {
+    if (closeTimer.value !== null) {
+        globalThis.clearTimeout(closeTimer.value)
+        closeTimer.value = null
+    }
+}
+
+const scheduleClose = () => {
+    clearCloseTimer()
+    closeTimer.value = globalThis.setTimeout(() => {
+        close()
+    }, 120)
 }
 
 const open = () => {
@@ -225,11 +251,33 @@ const getActivatorElement = () => {
 }
 
 const onActivatorClick = (event: MouseEvent) => {
+    if (props.trigger !== Trigger.CLICK) return
     if (!activatorWrapper.value) return
 
     if (activatorWrapper.value.contains(event.target as Node)) {
         toggle()
     }
+}
+
+const onActivatorMouseEnter = () => {
+    if (props.trigger !== Trigger.HOVER) return
+
+    clearCloseTimer()
+    open()
+}
+
+const onActivatorMouseLeave = () => {
+    if (props.trigger !== Trigger.HOVER) return
+
+    scheduleClose()
+}
+
+const onDropdownMouseEnter = () => {
+    onActivatorMouseEnter()
+}
+
+const onDropdownMouseLeave = () => {
+    onActivatorMouseLeave()
 }
 
 const updateRects = () => {
@@ -245,35 +293,19 @@ const handleClick = (callback?: () => void) => {
     close()
 }
 
-const handleClickOutside = (event: MouseEvent) => {
+const shouldCloseFromTarget = (target: Node) => {
     const dropdownEl = dropdown.value
     const activatorEl = activatorWrapper.value
 
-    if (!dropdownEl || !activatorEl) return
+    if (!dropdownEl || !activatorEl) return false
 
-    const target = event.target as Node
-
-    if (
-        !dropdownEl.contains(target) &&
-        !activatorEl.contains(target)
-    ) {
-        close()
-    }
+    return !dropdownEl.contains(target) && !activatorEl.contains(target)
 }
 
-const handleScrollOutside = (event: Event) => {
-    const dropdownEl = dropdown.value
-    const activatorEl = activatorWrapper.value
-
-    if (!dropdownEl || !activatorEl) return
-
+const handleOutsideEvent = (event: Event) => {
     const target = event.target as Node
 
-    // If scroll happened on an element not containing the dropdown or activator
-    if (
-        !dropdownEl.contains(target) &&
-        !activatorEl.contains(target)
-    ) {
+    if (shouldCloseFromTarget(target)) {
         close()
     }
 }
@@ -420,16 +452,17 @@ const positionOffsetStyle = computed(() => {
 })
 
 onMounted(() => {
-    document.addEventListener('click', handleClickOutside)
+    document.addEventListener('click', handleOutsideEvent)
     window.addEventListener('resize', close)
-    document.addEventListener('scroll', handleScrollOutside, true)
+    document.addEventListener('scroll', handleOutsideEvent, true)
     document.addEventListener('keydown', handleKeydown)
 })
 
 onBeforeUnmount(() => {
-    document.removeEventListener('click', handleClickOutside)
+    clearCloseTimer()
+    document.removeEventListener('click', handleOutsideEvent)
     window.removeEventListener('resize', close)
-    document.removeEventListener('scroll', handleScrollOutside, true)
+    document.removeEventListener('scroll', handleOutsideEvent, true)
     document.removeEventListener('keydown', handleKeydown)
 })
 </script>

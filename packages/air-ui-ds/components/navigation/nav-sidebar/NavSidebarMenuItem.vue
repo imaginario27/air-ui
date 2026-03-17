@@ -1,6 +1,7 @@
 <template>
-    <NuxtLink 
-        :to
+    <component
+        :is="componentTag"
+        v-bind="componentProps"
         :class="[
             'flex',
             'items-center',
@@ -41,9 +42,11 @@
             :name="isOpen ? 'mdi:chevron-up' : 'mdi:chevron-down'"
             :class="iconSizeClass"
         />
-    </NuxtLink>
+    </component>
 </template>
 <script setup lang="ts">
+import { NuxtLink } from '#components'
+
 // Props
 const props = defineProps({
     text: {
@@ -133,5 +136,17 @@ const iconSizeClass = computed(() => {
 
 const isActive = computed(() => {
     return props.detectActive && route.path === props.to
+})
+
+const componentTag = computed(() => {
+    return props.to ? NuxtLink : 'button'
+})
+
+const componentProps = computed(() => {
+    if (props.to) {
+        return { to: props.to }
+    }
+
+    return { type: 'button' }
 })
 </script>

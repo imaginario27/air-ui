@@ -34,6 +34,7 @@ props:
     showCollapseDivider: false
     collapsedSubmenuOffset: 20
     collapsedSubmenuWidth: 200
+    collapsedSubmenuTrigger: "click"
     collapsedFlipLimit: 8
     showCollapseToggle: false
     collapseTogglePosition: "bottom"
@@ -60,6 +61,11 @@ items:
           text: TOP
         - value: bottom
           text: BOTTOM
+    collapsedSubmenuTrigger:
+        - value: click
+          text: CLICK
+        - value: hover
+          text: HOVER
 external:
   - menuItems
 externalTypes:
@@ -67,6 +73,7 @@ externalTypes:
 enums:
     itemsStyleType: "SidebarNavMenuItemStyleType"
     collapseTogglePosition: "Position"
+    collapsedSubmenuTrigger: "Trigger"
 propsSettingsExcludedProps: [
     'menuItems',
     'class',
@@ -129,6 +136,11 @@ props: [
         "name": "collapsedSubmenuWidth",
         "default": "200",
         "type": "number",
+    },
+    {
+        "name": "collapsedSubmenuTrigger",
+        "default": "Trigger.CLICK",
+        "type": "Trigger",
     },
     {
         "name": "collapsedFlipLimit",
@@ -482,6 +494,38 @@ The `collapsedSubmenuWidth` prop allows you to set the width for submenus dropdo
 
 - **Type:** `number`
 - **Default:** `200`
+
+### collapsedSubmenuTrigger
+
+The `collapsedSubmenuTrigger` prop allows you to control how submenu dropdowns are opened when the sidebar is collapsed.
+
+```vue
+<template>
+    <NavSidebar
+        isCollapsed
+        :collapsedSubmenuTrigger="Trigger.HOVER"
+    />
+</template>
+```
+
+- **Type:** `Trigger`
+- **Default:** `Trigger.CLICK`
+
+#### Options
+::options-table
+---
+options: [
+    {
+        value: "CLICK",
+        description: "Open the collapsed submenu when clicking the icon item.",
+    },
+    {
+        value: "HOVER",
+        description: "Open the collapsed submenu when hovering the icon item.",
+    },
+]
+---
+::
 
 ### collapsedFlipLimit
 
