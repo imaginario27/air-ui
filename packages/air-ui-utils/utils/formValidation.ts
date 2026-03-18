@@ -1,4 +1,12 @@
 
+import { FieldError } from '../models/constants/form'
+import type {
+    ArrayValidator,
+    CreateRulesFieldValidatorOptions,
+    RuleValidationItem,
+    RuleValidationValue,
+} from '../models/types/formValidation'
+
 /**
  * Validates a field value to ensure it is not empty, null, or undefined.
  *
@@ -102,7 +110,7 @@ export const validateDateRange = (
     const start = new Date(startDate)
     const end = new Date(endDate)
 
-    if (isNaN(start.getTime()) || isNaN(end.getTime()) || start > end) {
+    if (Number.isNaN(start.getTime()) || Number.isNaN(end.getTime()) || start > end) {
         return invalidRangeMessage
     }
 
@@ -196,4 +204,161 @@ export const validateArrayField = (
     }
 
     return null
+}
+
+/**
+ * Composes multiple array validators into a single validator function.
+ *
+ * Validators run in order and validation stops at the first error found.
+ *
+ * @typeParam T - Item type in the validated array.
+ * @param validators - List of validators to execute sequentially.
+ * @returns A validator function that returns the first error message, or null if all validators pass.
+ */
+export const composeArrayValidators = <T>(
+    validators: ArrayValidator<T>[],
+): ArrayValidator<T> => {
+    return (value: T[]) => {
+        for (const validator of validators) {
+            const error = validator(value)
+            if (error) {
+                return error
+            }
+        }
+
+        return null
+    }
+}
+
+/**
+ * Validates that the array contains at least one complete rule.
+ *
+ * A rule is considered complete when item, operator, and value are all present.
+ *
+ * @param value - Rules array to validate.
+ * @param requiredFieldMessage - Optional custom message returned when no complete rule exists.
+ * @returns Validation error message or null.
+ */
+export const validateAtLeastOneRule = (
+    value: RuleValidationItem[],
+    requiredFieldMessage = 'Add at least one complete rule.',
+): string | null => {
+    const hasCompleteRule = value.some(rule => isRuleComplete(rule))
+
+    if (!hasCompleteRule) {
+        return requiredFieldMessage
+    }
+
+    return null
+}
+
+/**
+ * Validates that no rule is partially filled.
+ *
+ * Empty rows are allowed. Rows with some data must be fully complete.
+ *
+ * @param value - Rules array to validate.
+ * @param incompleteRuleMessage - Optional custom message returned when incomplete rows are found.
+ * @returns Validation error message or null.
+ */
+export const validateRuleCompleteness = (
+    value: RuleValidationItem[],
+    incompleteRuleMessage = 'Complete all rule fields before continuing.',
+): string | null => {
+    const hasIncompleteRule = value.some(rule => !isRuleEmpty(rule) && !isRuleComplete(rule))
+
+    if (hasIncompleteRule) {
+        return incompleteRuleMessage
+    }
+
+    return null
+}
+
+/**
+ * Validates that the number of rules does not exceed the specified limit.
+ *
+ * @param value - Rules array to validate.
+ * @param maxRules - Maximum number of allowed rules.
+ * @param maxRulesMessage - Optional custom message returned when max is exceeded.
+ * @returns Validation error message or null.
+ */
+export const validateMaxRules = (
+    value: RuleValidationItem[],
+    maxRules: number,
+    maxRulesMessage?: string,
+): string | null => {
+    const normalizedMax = Math.floor(maxRules)
+    if (normalizedMax <= 0) {
+        return null
+    }
+
+    if (value.length > normalizedMax) {
+        return maxRulesMessage ?? `No more than ${normalizedMax} rule${normalizedMax > 1 ? 's' : ''} allowed.`
+    }
+
+    return null
+}
+
+/**
+ * Creates a ready-to-use validator function for RulesField values.
+ *
+ * By default, this validator:
+ * 1) Rejects incomplete rows
+ * 2) Requires at least one complete row
+ *
+ * You can add extra custom validators that run after the built-in checks.
+ *
+ * @param options - Validation behavior options.
+ * @param options.required - Whether at least one complete rule is required.
+ * @param options.requiredFieldMessage - Custom message for missing complete rules.
+ * @param options.incompleteRuleMessage - Custom message for incomplete rows.
+ * @param options.validators - Additional custom validators.
+ * @returns A validator compatible with form field validator APIs.
+ */
+export const createRulesFieldValidator = (
+    options: CreateRulesFieldValidatorOptions = {},
+): ArrayValidator<RuleValidationItem> => {
+    const {
+        required = true,
+        requiredFieldMessage,
+        incompleteRuleMessage,
+        maxRules,
+        maxRulesMessage,
+        validators = [],
+    } = options
+
+    const baseValidators: ArrayValidator<RuleValidationItem>[] = []
+
+    if (incompleteRuleMessage) {
+        baseValidators.push(value => validateRuleCompleteness(value, incompleteRuleMessage))
+    } else {
+        baseValidators.push(validateRuleCompleteness)
+    }
+
+    if (required) {
+        baseValidators.push(value => validateAtLeastOneRule(value, requiredFieldMessage))
+    }
+
+    if (typeof maxRules === 'number') {
+        baseValidators.push(value => validateMaxRules(value, maxRules, maxRulesMessage))
+    }
+
+    return composeArrayValidators([...baseValidators, ...validators])
+}
+
+// Helper functions for rule validation
+const hasValue = (value: RuleValidationValue): boolean => {
+    if (typeof value === 'string') {
+        return value.trim() !== ''
+    }
+
+    return value !== null
+}
+
+const isRuleEmpty = (rule: RuleValidationItem): boolean => {
+    return !hasValue(rule.item) && !hasValue(rule.operator) && !hasValue(rule.value)
+}
+
+const isRuleComplete = (rule: RuleValidationItem): boolean => {
+    return hasValue(rule.item) && hasValue(rule.operator) && hasValue(rule.value)
 }

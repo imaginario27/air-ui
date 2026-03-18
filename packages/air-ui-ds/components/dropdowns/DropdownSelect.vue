@@ -31,7 +31,7 @@
                         sizeClass,
                         selectBoxClass,
                     ]"
-                    @click="!disabled"
+                    @click="handleSelectBoxClick"
                 >
                     <div v-if="multiple">
                         <template v-if="Array.isArray(selected) && selected.length">
@@ -312,6 +312,15 @@ const handleImageLoad = () => {
 
 const handleImageError = () => {
     isImageLoaded.value = false
+}
+
+const handleSelectBoxClick = (event: MouseEvent) => {
+    // DropdownMenu handles open/close at its activator wrapper level,
+    // so disabled state must stop click propagation before it reaches that wrapper.
+    if (props.disabled || props.isLoading) {
+        event.preventDefault()
+        event.stopPropagation()
+    }
 }
 
 // Initialize the selected state dynamically based on the 'modelValue' (key options: id or value)

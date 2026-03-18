@@ -619,3 +619,71 @@ validators: {
     startDate: value => validateField(value),
     endDate: value => validateDateRange(formData.startDate, value),
 }
+```
+
+#### composeArrayValidators
+Composes multiple array validators and returns the first error found.
+
+```ts
+const validateRules = composeArrayValidators([
+    validateRuleCompleteness,
+    validateAtLeastOneRule,
+])
+
+validators: {
+    rules: validateRules,
+}
+```
+
+#### validateRuleCompleteness
+Validates that rule rows are not partially completed.
+Empty rows are allowed; partially filled rows are rejected.
+
+```ts
+validators: {
+    rules: validateRuleCompleteness,
+}
+```
+
+#### validateAtLeastOneRule
+Validates that at least one complete rule exists.
+
+```ts
+validators: {
+    rules: validateAtLeastOneRule,
+}
+```
+
+#### validateMaxRules
+Validates that a rules array does not exceed a maximum length.
+
+```ts
+validators: {
+    rules: value => validateMaxRules(value, 10, 'You can add up to 10 rules.'),
+}
+```
+
+#### createRulesFieldValidator
+Creates a ready-to-use validator for `RulesField`, combining:
+- incomplete row validation
+- at least one complete rule validation
+- max rules validation (optional)
+- optional custom validators
+
+```ts
+const validateRules = createRulesFieldValidator({
+    required: true,
+    maxRules: 10,
+    requiredFieldMessage: 'Add at least one complete rule.',
+    incompleteRuleMessage: 'Complete all rule fields before continuing.',
+    maxRulesMessage: 'You can add up to 10 rules.',
+})
+
+const { formErrors, validateFormFields } = useForm({
+    formData,
+    requiredFields: ['rules'],
+    validators: {
+        rules: validateRules,
+    },
+})
+```

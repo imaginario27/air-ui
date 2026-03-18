@@ -60,6 +60,7 @@
     --color-border-delete-subtle: var(--color-theme-danger-200);
     --color-border-neutral-disabled: var(--color-theme-neutral-200);
     --color-border-neutral-hover: var(--color-theme-neutral-400);
+    --color-border-neutral-on-disabled-bg: var(--color-theme-neutral-300);
     --color-border-neutral-on-filled: var(--color-theme-neutral-white);
     --color-border-neutral-stacked: var(--color-theme-neutral-white);
     --color-border-neutral-subtle: var(--color-theme-neutral-100);
@@ -281,6 +282,7 @@
     --color-border-delete-subtle: var(--color-theme-danger-800);
     --color-border-neutral-disabled: var(--color-theme-neutral-400);
     --color-border-neutral-hover: var(--color-theme-neutral-700);
+    --color-border-neutral-on-disabled-bg: var(--color-theme-neutral-300);
     --color-border-neutral-on-filled: var(--color-theme-neutral-950);
     --color-border-neutral-stacked: var(--color-theme-neutral-white);
     --color-border-neutral-subtle: var(--color-theme-neutral-50);

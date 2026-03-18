@@ -1,6 +1,6 @@
 <template>
     <div :class="['flex flex-col', 'w-full', 'gap-2']">
-        <div class="w-full flex gap-2 justify-between">
+        <div v-if="label" class="w-full flex gap-2 justify-between">
             <!-- Label -->
             <label
                 v-if="label"
@@ -15,7 +15,7 @@
                 {{ label }}
             </label>
             <NavLink 
-                v-if="linkText"
+                v-if="linkText && linkUrl"
                 :text="linkText"
                 :to="linkUrl"
                 textClass="font-normal"

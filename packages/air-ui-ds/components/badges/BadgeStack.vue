@@ -14,6 +14,7 @@
             :closeable
             :showIcon
             :icon="item.icon"
+            :class="badgeClass"
             @close="() => emit('close', item)"
         />
         <Badge 
@@ -23,6 +24,7 @@
             :shape="BadgeShape.BADGE"
             :color="ColorAccent.NEUTRAL"
             :isTransparent
+            :class="ellipsisBadgeClass"
         />
     </div>
 </template>
@@ -90,6 +92,8 @@ const props = defineProps({
         default: StackCounterType.ELLIPSIS,
         validator: (value: StackCounterType) => Object.values(StackCounterType).includes(value),
     },
+    badgeClass: String as PropType<string>,
+    ellipsisBadgeClass: String as PropType<string>,
 })
 
 // Emits

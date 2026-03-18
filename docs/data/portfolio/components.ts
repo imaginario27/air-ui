@@ -203,6 +203,16 @@ export const componentList: ComponentPortfolioItem[] = [
         imgUrl: `/images/thumbnails/components/pin-field.png`,
     },
     {
+        title: 'RadioGroupField',
+        to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/radio-group-field`,
+        imgUrl: `/images/thumbnails/components/radio-group-field.png`,
+    },
+    {
+        title: 'RulesField',
+        to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/rules-field`,
+        imgUrl: `/images/thumbnails/components/rules-field.png`,
+    },
+    {
         title: 'SearchField',
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/search-field`,
         imgUrl: `/images/thumbnails/components/search-field.png`,
@@ -223,6 +233,11 @@ export const componentList: ComponentPortfolioItem[] = [
         imgUrl: `/images/thumbnails/components/switch-field.png`,
     },
     {
+        title: 'TagsField',
+        to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/tags-field`,
+        imgUrl: `/images/thumbnails/components/tags-field.png`,
+    },
+    {
         title: 'TextareaField',
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/textarea-field`,
         imgUrl: `/images/thumbnails/components/textarea-field.png`,
@@ -231,11 +246,6 @@ export const componentList: ComponentPortfolioItem[] = [
         title: 'ToggleButtonsGroupField',
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/toggle-buttons-group-field`,
         imgUrl: `/images/thumbnails/components/toggle-buttons-group-field.png`,
-    },
-    {
-        title: 'RadioGroupField',
-        to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/radio-group-field`,
-        imgUrl: `/images/thumbnails/components/radio-group-field.png`,
     },
 
     // OVERLAY
