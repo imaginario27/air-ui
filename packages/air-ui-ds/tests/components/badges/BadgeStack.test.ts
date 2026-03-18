@@ -70,4 +70,29 @@ describe('BadgeStack.vue', () => {
         const badges = wrapper.findAllComponents(Badge)
         expect(badges.length).toBe(0)
     })
+
+    it('applies badgeClass to visible badges', () => {
+        const customClass = 'custom-badge-class'
+        const wrapper = factory({ badgeClass: customClass })
+        const badges = wrapper.findAllComponents(Badge)
+
+        badges.forEach((badge) => {
+            expect(badge.classes()).toContain(customClass)
+        })
+    })
+
+    it('applies ellipsisBadgeClass only to ellipsis badge', () => {
+        const ellipsisClass = 'custom-ellipsis-class'
+        const wrapper = factory({ itemsLimit: 2, ellipsisBadgeClass: ellipsisClass })
+        const badges = wrapper.findAllComponents(Badge)
+
+        const ellipsisBadge = badges.find((badge) => badge.text() === '...')
+        expect(ellipsisBadge).toBeTruthy()
+        expect(ellipsisBadge?.classes()).toContain(ellipsisClass)
+
+        const visibleBadges = badges.filter((badge) => badge.text() !== '...')
+        visibleBadges.forEach((badge) => {
+            expect(badge.classes()).not.toContain(ellipsisClass)
+        })
+    })
 })

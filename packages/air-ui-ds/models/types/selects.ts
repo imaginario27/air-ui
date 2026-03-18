@@ -2,6 +2,8 @@ export interface SelectOption {
     id?: string | number
     value: string | number
     text?: string
+    inputType?: AllowedInputType
+    applicableTypes?: AllowedInputType[]
     icon?: string
     userDisplayName?: string
     userProfileImg?: string

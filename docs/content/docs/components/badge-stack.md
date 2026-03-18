@@ -19,6 +19,8 @@ props:
     showIcon: false
     itemsLimit: 3
     counterType: "ellipsis"
+    badgeClass: ""
+    ellipsisBadgeClass: ""
 items:
     styleType:
         - value: border
@@ -119,6 +121,14 @@ props: [
         "name": "counterType",
         "default": "StackCounterType.ELLIPSIS",
         "type": "StackCounterType",
+    },
+    {
+        "name": "badgeClass",
+        "type": "string",
+    },
+    {
+        "name": "ellipsisBadgeClass",
+        "type": "string",
     },
 ]
 ---
@@ -369,3 +379,25 @@ options: [
 ]
 ---
 ::
+
+### badgeClass
+The `badgeClass` prop allows you to apply custom CSS classes to the badges in the stack.
+
+```vue
+<template>
+    <BadgeStack badgeClass="border-red-500" />
+</template>
+```
+
+- **Type:** `string`
+
+### ellipsisBadgeClass
+The `ellipsisBadgeClass` prop allows you to apply custom CSS classes to the ellipsis badge when the `counterType` is set to `StackCounterType.ELLIPSIS`.
+
+```vue
+<template>
+    <BadgeStack :counterType="StackCounterType.ELLIPSIS" ellipsisBadgeClass="bg-blue-500" />
+</template>
+```
+
+- **Type:** `string`

@@ -127,6 +127,7 @@ describe('InputField.vue', () => {
 
     it('displays NavLink when linkText and linkUrl are provided', () => {
         const wrapper = factory({
+            label: 'Password',
             linkText: 'Forgot password?',
             linkUrl: '/forgot'
         })

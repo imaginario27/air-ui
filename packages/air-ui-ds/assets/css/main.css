@@ -68,6 +68,7 @@
     --color-border-delete-subtle: var(--color-border-delete-subtle);
     --color-border-neutral-disabled: var(--color-border-neutral-disabled);
     --color-border-neutral-hover: var(--color-border-neutral-hover);
+    --color-border-neutral-on-disabled-bg: var(--color-border-neutral-on-disabled-bg);
     --color-border-neutral-on-filled: var(--color-border-neutral-on-filled);
     --color-border-neutral-stacked: var(--color-border-neutral-stacked);
     --color-border-neutral-subtle: var(--color-border-neutral-subtle);
