@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils'
 import TagsField from '~/components/forms/fields/TagsField.vue'
-import BadgeStack from '~/components/badges/BadgeStack.vue'
+import Badge from '~/components/badges/Badge.vue'
 import { FormValidationMode } from '~/models/enums/formValidations'
 
 vi.mock('~/composables/useFormValidationMode', () => ({
@@ -36,15 +36,29 @@ describe('TagsField.vue', () => {
         expect(helpText.text()).toBe('Press Enter to add a tag')
     })
 
-    it('renders existing tags in BadgeStack', () => {
+    it('renders existing tags as badges', () => {
         const wrapper = factory({ modelValue: ['Nuxt', 'TypeScript'] })
-        const badgeStack = wrapper.findComponent(BadgeStack)
+        const badges = wrapper.findAllComponents(Badge)
 
-        expect(badgeStack.exists()).toBe(true)
-        expect(badgeStack.props('items')).toEqual([
-            { text: 'Nuxt' },
-            { text: 'TypeScript' },
-        ])
+        expect(badges).toHaveLength(2)
+        expect(badges[0]?.props('text')).toBe('Nuxt')
+        expect(badges[1]?.props('text')).toBe('TypeScript')
+    })
+
+    it('renders default clear button text when clear action is visible', () => {
+        const wrapper = factory({ modelValue: ['Nuxt'] })
+        const clearButton = wrapper.find('button[type="button"]')
+
+        expect(clearButton.exists()).toBe(true)
+        expect(clearButton.text()).toBe('Clear')
+    })
+
+    it('renders custom clear button text', () => {
+        const wrapper = factory({ modelValue: ['Nuxt'], clearText: 'Remove all' })
+        const clearButton = wrapper.find('button[type="button"]')
+
+        expect(clearButton.exists()).toBe(true)
+        expect(clearButton.text()).toBe('Remove all')
     })
 
     it('emits update:modelValue when pressing Enter with a new tag', async () => {
@@ -87,11 +101,11 @@ describe('TagsField.vue', () => {
         expect(wrapper.emitted('update:modelValue')).toEqual([[['Nuxt']]])
     })
 
-    it('removes selected tag when BadgeStack emits close', async () => {
+    it('removes selected tag when badge emits close', async () => {
         const wrapper = factory({ modelValue: ['Nuxt', 'Vue'] })
-        const badgeStack = wrapper.findComponent(BadgeStack)
+        const badges = wrapper.findAllComponents(Badge)
 
-        await badgeStack.vm.$emit('close', { text: 'Nuxt' })
+        await badges[0]?.vm.$emit('close')
 
         expect(wrapper.emitted('update:modelValue')).toEqual([[['Vue']]])
     })
@@ -105,8 +119,8 @@ describe('TagsField.vue', () => {
 
         expect(wrapper.emitted('update:modelValue')).toBeUndefined()
 
-        const badgeStack = wrapper.findComponent(BadgeStack)
-        expect(badgeStack.props('closeable')).toBe(false)
+        const badges = wrapper.findAllComponents(Badge)
+        expect(badges[0]?.props('closeable')).toBe(false)
     })
 
     it('runs validation on blur when required is true', async () => {

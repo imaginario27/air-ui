@@ -14,7 +14,14 @@
             >
                 {{ label }}
             </label>
-            <!-- Reset -->
+            <button
+                v-if="showClearButton"
+                type="button"
+                class="text-sm font-medium text-text-neutral-subtle hover:text-text-default transition-colors"
+                @click="handleClear"
+            >
+                {{ clearText }}
+            </button>
         </div>
 
         <!-- Input Container -->
@@ -44,30 +51,33 @@
             </span>
 
             <!-- Tags -->
-            <div class="flex w-full items-center py-1.5">
-                <BadgeStack
-                    v-if="tagBadges.length"
-                    :items="tagBadges"
+            <div class="flex flex-wrap w-full items-center gap-2 py-1.5">
+                <Badge
+                    v-for="tag in modelValue"
+                    :key="tag"
+                    :text="tag"
                     :closeable="!disabled"
-                    :badgeClass="badgeContainerClass"
-                    @close="handleBadgeRemove"
+                    :class="badgeContainerClass"
+                    @close="handleBadgeRemove(tag)"
                 />
 
                 <input
                     :id
+                    ref="inputRef"
                     type="text"
                     :value="inputValue"
                     :placeholder="computedPlaceholder"
                     :autofocus
-                    :disabled
+                    :disabled="disabled || isMaxTagsReached"
                     :class="[
                         'flex-1',
-                        'min-w-0',
+                        'min-w-16',
+                        'self-center',
                         'outline-none',
                         'bg-transparent',
                         'text-sm',
                         'placeholder-text-neutral-subtler',
-                        disabled && 'cursor-not-allowed',
+                        (disabled || isMaxTagsReached) && 'cursor-not-allowed',
                     ]"
                     @focus="handleFocus"
                     @blur="handleBlur"
@@ -111,6 +121,10 @@ const props = defineProps({
         type: String as PropType<string>,
         default: 'Enter values separated by commas',
     },
+    clearText: {
+        type: String as PropType<string>,
+        default: 'Clear',
+    },
     helpText: String as PropType<string>,
     icon: String as PropType<string>,    
     modelValue: {
@@ -146,14 +160,15 @@ const emit = defineEmits(['update:modelValue', 'update:error'])
 // States
 const isFocused = ref(false)
 const inputValue = ref('')
+const inputRef = ref<HTMLInputElement | null>(null)
 
 // Composables
 const validationMode = useInjectedValidationMode()
 
 // Computed States
 const hasError = computed(() => props.error !== '')
-const tagBadges = computed(() => props.modelValue.map(tag => ({ text: tag })))
 const isMaxTagsReached = computed(() => Number.isFinite(props.maxTags) && props.modelValue.length >= (props.maxTags as number))
+const showClearButton = computed(() => !props.disabled && (props.modelValue.length > 0 || inputValue.value.trim().length > 0))
 
 const computedPlaceholder = computed(() => {
     if (props.modelValue.length > 0) return undefined
@@ -216,7 +231,7 @@ const handleBlur = () => {
 }
 
 const handleInput = (event: Event) => {
-    if (props.disabled) return
+    if (props.disabled || isMaxTagsReached.value) return
 
     const target = event.target as HTMLInputElement
     inputValue.value = target.value
@@ -237,9 +252,21 @@ const handleKeydown = (event: KeyboardEvent) => {
     }
 }
 
-const handleBadgeRemove = (badge: Badge) => {
-    const updatedTags = props.modelValue.filter(tag => tag !== badge.text)
+const handleBadgeRemove = (tagToRemove: string) => {
+    const updatedTags = props.modelValue.filter(tag => tag !== tagToRemove)
     updateTags(updatedTags)
+}
+
+const handleClear = () => {
+    if (props.disabled) return
+
+    inputValue.value = ''
+    updateTags([])
+    emit('update:error', '')
+
+    nextTick(() => {
+        inputRef.value?.focus()
+    })
 }
 
 const runValidation = () => {

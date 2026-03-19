@@ -568,9 +568,6 @@ Enables validation execution together with `validator`.
 </template>
 
 <script setup lang="ts">
-import { reactive } from 'vue'
-import { createRulesFieldValidator } from '@imaginario27/air-ui-utils/utils/formValidation'
-
 const { $toast } = useNuxtApp()
 
 const itemOptions = [
