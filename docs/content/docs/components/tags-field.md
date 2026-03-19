@@ -7,6 +7,7 @@ props:
     id: "tags-field-id"
     label: "Tags"
     placeholder: "Enter values separated by commas"
+    clearText: "Clear"
     helpText: "Press Enter or comma to add a tag"
     icon: null
     modelValue: 
@@ -43,6 +44,11 @@ props: [
     {
         "name": "placeholder",
         "default": "'Enter values separated by commas'",
+        "type": "string",
+    },
+    {
+        "name": "clearText",
+        "default": "'Clear'",
         "type": "string",
     },
     {
@@ -172,6 +178,23 @@ Disables input and tag interactions.
 
 - **Type:** `boolean`
 - **Default:** `false`
+
+### clearText
+
+Customizes the clear button label.
+
+```vue
+<template>
+    <TagsField
+        id="tags-clear-text"
+        v-model="tags"
+        clearText="Remove all"
+    />
+</template>
+```
+
+- **Type:** `string`
+- **Default:** `'Clear'`
 
 ### required
 
