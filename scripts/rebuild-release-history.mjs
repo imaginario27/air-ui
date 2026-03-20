@@ -113,6 +113,22 @@ function extractPrNumber(subject) {
     return match?.[1] ?? null
 }
 
+function shouldIncludeCommit(subject) {
+    // Extraer el scope: type(scope):
+    const scopeMatch = subject.match(/^\w+\(([^)]+)\):/)
+    if (!scopeMatch) return true
+
+    const scope = scopeMatch[1].toLowerCase()
+
+    // Excluir solo si el scope es EXCLUSIVAMENTE "docs"
+    // Incluir si es "docs+design system", "design system+docs", etc.
+    if (scope === "docs") {
+        return false
+    }
+
+    return true
+}
+
 function parseGitCommits(raw, githubBaseUrl) {
     if (!raw) return []
 
@@ -123,7 +139,7 @@ function parseGitCommits(raw, githubBaseUrl) {
             const [sha, date, subject] = line.split("\x1f")
             const type = classifyCommit(subject)
 
-            if (type === null) return null
+            if (type === null || !shouldIncludeCommit(subject)) return null
 
             const prNumber = extractPrNumber(subject)
 
