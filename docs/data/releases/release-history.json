@@ -1,12 +1,43 @@
 {
-  "generatedAt": "2026-03-20T18:04:02.106Z",
+  "generatedAt": "2026-03-20T18:19:13.243Z",
   "source": "github-git-history+npm-publish-dates",
   "githubBaseUrl": "https://github.com/imaginario27/air-ui",
   "packages": [
     {
       "packageName": "@imaginario27/air-ui-ds",
-      "latestVersion": "1.4.2",
+      "latestVersion": "1.4.3",
       "entries": [
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.4.3",
+          "publishedAt": "2026-03-20",
+          "releaseType": "patch",
+          "notes": [
+            "fix whitespace wraps in docs table and fix items custom classes in nav sidebar"
+          ],
+          "metadata": {
+            "commitCount": 1,
+            "commits": [
+              {
+                "sha": "96c30402ae8464e8ad66d9a74e2f3f98db183e45",
+                "shortSha": "96c3040",
+                "date": "2026-03-20",
+                "subject": "fix(docs + design system): fix whitespace wraps in docs table and fix items custom classes in nav sidebar",
+                "normalizedSubject": "fix whitespace wraps in docs table and fix items custom classes in nav sidebar",
+                "type": "fixed",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/96c30402ae8464e8ad66d9a74e2f3f98db183e45",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 0,
+              "fixed": 1,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
         {
           "packageName": "@imaginario27/air-ui-ds",
           "version": "1.4.2",

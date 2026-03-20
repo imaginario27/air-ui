@@ -5,6 +5,17 @@ All notable changes to this package are documented in this file.
 Historical releases were reconstructed from git history (GitHub repository) and npm publish dates.
 Future releases will include detailed entries generated with Changesets.
 
+## 1.4.3 - 2026-03-20
+
+Release type: patch.
+Commits found in range: 1.
+
+### Fixed
+
+1. fix whitespace wraps in docs table and fix items custom classes in nav sidebar ([96c3040](https://github.com/imaginario27/air-ui/commit/96c30402ae8464e8ad66d9a74e2f3f98db183e45))
+
+- Package: @imaginario27/air-ui-ds.
+
 ## 1.4.2 - 2026-03-20
 
 Release type: patch.
