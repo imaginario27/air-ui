@@ -8,15 +8,20 @@
         "docs": "npm run dev --workspace=docs",
         "ds": "npm run dev --workspace=@imaginario27/air-ui-ds",
         "utils": "npm run dev --workspace=@imaginario27/air-ui-utils",
+        "changeset": "changeset",
+        "rebuild-release-history": "node scripts/rebuild-release-history.mjs",
+        "version-packages": "changeset version",
+        "release": "changeset publish",
         "test:docs": "npm run test --workspace=docs",
         "test:ds": "npm run test --workspace=@imaginario27/air-ui-ds",
         "test:utils": "npm run test --workspace=@imaginario27/air-ui-utils",
-        "publish:ds:patch": "npm version patch --workspace=@imaginario27/air-ui-ds --no-git-tag-version && npm publish --workspace=@imaginario27/air-ui-ds --access public",
-        "publish:ds:minor": "npm version minor --workspace=@imaginario27/air-ui-ds --no-git-tag-version && npm publish --workspace=@imaginario27/air-ui-ds --access public",
-        "publish:ds:major": "npm version major --workspace=@imaginario27/air-ui-ds --no-git-tag-version && npm publish --workspace=@imaginario27/air-ui-ds --access public",
-        "publish:utils:patch": "npm version patch --workspace=@imaginario27/air-ui-utils --no-git-tag-version && npm publish --workspace=@imaginario27/air-ui-utils --access public",
-        "publish:utils:minor": "npm version minor --workspace=@imaginario27/air-ui-utils --no-git-tag-version && npm publish --workspace=@imaginario27/air-ui-utils --access public",
-        "publish:utils:major": "npm version major --workspace=@imaginario27/air-ui-utils --no-git-tag-version && npm publish --workspace=@imaginario27/air-ui-utils --access public",
+        "finalize-release": "node scripts/finalize-release.mjs",
+        "publish:ds:patch": "node scripts/check-git-clean.mjs && npm version patch --workspace=@imaginario27/air-ui-ds --no-git-tag-version && npm publish --workspace=@imaginario27/air-ui-ds --access public && npm run rebuild-release-history && npm run finalize-release -- @imaginario27/air-ui-ds",
+        "publish:ds:minor": "node scripts/check-git-clean.mjs && npm version minor --workspace=@imaginario27/air-ui-ds --no-git-tag-version && npm publish --workspace=@imaginario27/air-ui-ds --access public && npm run rebuild-release-history && npm run finalize-release -- @imaginario27/air-ui-ds",
+        "publish:ds:major": "node scripts/check-git-clean.mjs && npm version major --workspace=@imaginario27/air-ui-ds --no-git-tag-version && npm publish --workspace=@imaginario27/air-ui-ds --access public && npm run rebuild-release-history && npm run finalize-release -- @imaginario27/air-ui-ds",
+        "publish:utils:patch": "node scripts/check-git-clean.mjs && npm version patch --workspace=@imaginario27/air-ui-utils --no-git-tag-version && npm publish --workspace=@imaginario27/air-ui-utils --access public && npm run rebuild-release-history && npm run finalize-release -- @imaginario27/air-ui-utils",
+        "publish:utils:minor": "node scripts/check-git-clean.mjs && npm version minor --workspace=@imaginario27/air-ui-utils --no-git-tag-version && npm publish --workspace=@imaginario27/air-ui-utils --access public && npm run rebuild-release-history && npm run finalize-release -- @imaginario27/air-ui-utils",
+        "publish:utils:major": "node scripts/check-git-clean.mjs && npm version major --workspace=@imaginario27/air-ui-utils --no-git-tag-version && npm publish --workspace=@imaginario27/air-ui-utils --access public && npm run rebuild-release-history && npm run finalize-release -- @imaginario27/air-ui-utils",
         "typecheck:ds": "npm run typecheck --workspace=@imaginario27/air-ui-ds",
         "typecheck:utils": "npm run typecheck --workspace=@imaginario27/air-ui-utils",
         "typecheck:all": "npm run typecheck:ds && npm run typecheck:utils"
@@ -25,6 +30,7 @@
         "better-sqlite3": "^12.5.0"
     },
     "devDependencies": {
+        "@changesets/cli": "2.30.0",
         "baseline-browser-mapping": "2.9.11",
         "vue-tsc": "^3.1.8"
     }

@@ -1,0 +1,2286 @@
+{
+  "generatedAt": "2026-03-20T18:19:13.243Z",
+  "source": "github-git-history+npm-publish-dates",
+  "githubBaseUrl": "https://github.com/imaginario27/air-ui",
+  "packages": [
+    {
+      "packageName": "@imaginario27/air-ui-ds",
+      "latestVersion": "1.4.3",
+      "entries": [
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.4.3",
+          "publishedAt": "2026-03-20",
+          "releaseType": "patch",
+          "notes": [
+            "fix whitespace wraps in docs table and fix items custom classes in nav sidebar"
+          ],
+          "metadata": {
+            "commitCount": 1,
+            "commits": [
+              {
+                "sha": "96c30402ae8464e8ad66d9a74e2f3f98db183e45",
+                "shortSha": "96c3040",
+                "date": "2026-03-20",
+                "subject": "fix(docs + design system): fix whitespace wraps in docs table and fix items custom classes in nav sidebar",
+                "normalizedSubject": "fix whitespace wraps in docs table and fix items custom classes in nav sidebar",
+                "type": "fixed",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/96c30402ae8464e8ad66d9a74e2f3f98db183e45",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 0,
+              "fixed": 1,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.4.2",
+          "publishedAt": "2026-03-20",
+          "releaseType": "patch",
+          "notes": [
+            "fix tags field cursor issue and updates docs"
+          ],
+          "metadata": {
+            "commitCount": 1,
+            "commits": [
+              {
+                "sha": "131e48ce977c67042996b1de036de10a43aceddd",
+                "shortSha": "131e48c",
+                "date": "2026-03-19",
+                "subject": "fix(docs + design system): fix tags field cursor issue and updates docs",
+                "normalizedSubject": "fix tags field cursor issue and updates docs",
+                "type": "fixed",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/131e48ce977c67042996b1de036de10a43aceddd",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 0,
+              "fixed": 1,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.4.1",
+          "publishedAt": "2026-03-19",
+          "releaseType": "patch",
+          "notes": [
+            "add new TagsField and RulesField components + component fixes"
+          ],
+          "metadata": {
+            "commitCount": 1,
+            "commits": [
+              {
+                "sha": "c8c125eb110eedc16f29706778578514bc28eb4f",
+                "shortSha": "c8c125e",
+                "date": "2026-03-18",
+                "subject": "feat(design system + docs): add new TagsField and RulesField components + component fixes",
+                "normalizedSubject": "add new TagsField and RulesField components + component fixes",
+                "type": "added",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/c8c125eb110eedc16f29706778578514bc28eb4f",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 1,
+              "fixed": 0,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.4.0",
+          "publishedAt": "2026-03-18",
+          "releaseType": "minor",
+          "notes": [
+            "add submenus to compact header and collapsed sidebar"
+          ],
+          "metadata": {
+            "commitCount": 1,
+            "commits": [
+              {
+                "sha": "15af22fb36573e517d27781b23e0e619c52cbc89",
+                "shortSha": "15af22f",
+                "date": "2026-03-17",
+                "subject": "feat(design system + docs): add submenus to compact header and collapsed sidebar",
+                "normalizedSubject": "add submenus to compact header and collapsed sidebar",
+                "type": "added",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/15af22fb36573e517d27781b23e0e619c52cbc89",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 1,
+              "fixed": 0,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.3.0",
+          "publishedAt": "2026-03-17",
+          "releaseType": "minor",
+          "notes": [
+            "fix placeholder color in inputs"
+          ],
+          "metadata": {
+            "commitCount": 1,
+            "commits": [
+              {
+                "sha": "f42f3d7d35095c03b156fbc0ae347dd70cd77bca",
+                "shortSha": "f42f3d7",
+                "date": "2026-03-08",
+                "subject": "fix(design system): fix placeholder color in inputs",
+                "normalizedSubject": "fix placeholder color in inputs",
+                "type": "fixed",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/f42f3d7d35095c03b156fbc0ae347dd70cd77bca",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 0,
+              "fixed": 1,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.2.11",
+          "publishedAt": "2026-03-08",
+          "releaseType": "patch",
+          "notes": [
+            "Historical release reconstructed from npm publish metadata (no package commits found in this publish window)."
+          ],
+          "metadata": {
+            "commitCount": 0,
+            "commits": [],
+            "groups": {
+              "added": 0,
+              "fixed": 0,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.2.10",
+          "publishedAt": "2026-03-07",
+          "releaseType": "patch",
+          "notes": [
+            "add close on esc key in Dropdown menus",
+            "Improves feedback modal and add new props to TexteareaField",
+            "Add basic feedback system, updates docs pages and add listeners + new section component",
+            "fix close on escape click in modal dialog"
+          ],
+          "metadata": {
+            "commitCount": 4,
+            "commits": [
+              {
+                "sha": "b99930ee272d8d4a59d7921cf7281e4626255e27",
+                "shortSha": "b99930e",
+                "date": "2026-03-07",
+                "subject": "feat(design-system): add close on esc key in Dropdown menus",
+                "normalizedSubject": "add close on esc key in Dropdown menus",
+                "type": "added",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/b99930ee272d8d4a59d7921cf7281e4626255e27",
+                "prUrl": null
+              },
+              {
+                "sha": "a6d8267cf9bc1ce87618c8980a89313ff09156d8",
+                "shortSha": "a6d8267",
+                "date": "2026-03-07",
+                "subject": "feat(docs + design system): Improves feedback modal and add new props to TexteareaField",
+                "normalizedSubject": "Improves feedback modal and add new props to TexteareaField",
+                "type": "added",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/a6d8267cf9bc1ce87618c8980a89313ff09156d8",
+                "prUrl": null
+              },
+              {
+                "sha": "c78ddd34ccedde4191faaecc40c7c13dadb82dad",
+                "shortSha": "c78ddd3",
+                "date": "2026-03-07",
+                "subject": "feat(docs + design system): Add basic feedback system, updates docs pages and add listeners + new section component",
+                "normalizedSubject": "Add basic feedback system, updates docs pages and add listeners + new section component",
+                "type": "added",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/c78ddd34ccedde4191faaecc40c7c13dadb82dad",
+                "prUrl": null
+              },
+              {
+                "sha": "50852488c4a9a6ed22558aa8f8a715e76b8332f1",
+                "shortSha": "5085248",
+                "date": "2026-03-03",
+                "subject": "fix(design system): fix close on escape click in modal dialog",
+                "normalizedSubject": "fix close on escape click in modal dialog",
+                "type": "fixed",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/50852488c4a9a6ed22558aa8f8a715e76b8332f1",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 3,
+              "fixed": 1,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.2.9",
+          "publishedAt": "2026-03-03",
+          "releaseType": "patch",
+          "notes": [
+            "fix docs search modal and add missing docs info"
+          ],
+          "metadata": {
+            "commitCount": 1,
+            "commits": [
+              {
+                "sha": "6463e28b96433c47b3f5d7002005bf71c2b2d333",
+                "shortSha": "6463e28",
+                "date": "2026-03-03",
+                "subject": "feat(docs + design system): fix docs search modal and add missing docs info",
+                "normalizedSubject": "fix docs search modal and add missing docs info",
+                "type": "added",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/6463e28b96433c47b3f5d7002005bf71c2b2d333",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 1,
+              "fixed": 0,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.2.8",
+          "publishedAt": "2026-03-03",
+          "releaseType": "patch",
+          "notes": [
+            "add copy button to prose pre and fix drawer teleport issue"
+          ],
+          "metadata": {
+            "commitCount": 1,
+            "commits": [
+              {
+                "sha": "030ad03d2df515e861260f2960674d4507d001fd",
+                "shortSha": "030ad03",
+                "date": "2026-03-01",
+                "subject": "feat(docs + design system): add copy button to prose pre and fix drawer teleport issue",
+                "normalizedSubject": "add copy button to prose pre and fix drawer teleport issue",
+                "type": "added",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/030ad03d2df515e861260f2960674d4507d001fd",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 1,
+              "fixed": 0,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.2.7",
+          "publishedAt": "2026-03-01",
+          "releaseType": "patch",
+          "notes": [
+            "updage drawer component"
+          ],
+          "metadata": {
+            "commitCount": 1,
+            "commits": [
+              {
+                "sha": "67f31e95f50979b01679103868571a9304a18f50",
+                "shortSha": "67f31e9",
+                "date": "2026-02-28",
+                "subject": "feat: updage drawer component",
+                "normalizedSubject": "updage drawer component",
+                "type": "added",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/67f31e95f50979b01679103868571a9304a18f50",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 1,
+              "fixed": 0,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.2.6",
+          "publishedAt": "2026-02-28",
+          "releaseType": "patch",
+          "notes": [
+            "add Drawer component"
+          ],
+          "metadata": {
+            "commitCount": 1,
+            "commits": [
+              {
+                "sha": "0f1dac4e25eaed45c4bb24e10b62b3d190f24524",
+                "shortSha": "0f1dac4",
+                "date": "2026-02-28",
+                "subject": "feat: add Drawer component",
+                "normalizedSubject": "add Drawer component",
+                "type": "added",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/0f1dac4e25eaed45c4bb24e10b62b3d190f24524",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 1,
+              "fixed": 0,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.2.5",
+          "publishedAt": "2026-02-28",
+          "releaseType": "patch",
+          "notes": [
+            "bump package version"
+          ],
+          "metadata": {
+            "commitCount": 1,
+            "commits": [
+              {
+                "sha": "227e98b6b8fc6fe487e3b50e0dc6e6665395cafb",
+                "shortSha": "227e98b",
+                "date": "2026-02-28",
+                "subject": "feat(design-system): bump package version",
+                "normalizedSubject": "bump package version",
+                "type": "added",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/227e98b6b8fc6fe487e3b50e0dc6e6665395cafb",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 1,
+              "fixed": 0,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.2.4",
+          "publishedAt": "2026-02-28",
+          "releaseType": "patch",
+          "notes": [
+            "add customRoute to Breadcrumbs and scope prop to TableHeaderCell",
+            "improve search modal, badge and action button",
+            "updates components code, fixes file upload file and updates docs pages",
+            "adjust text top padding",
+            "removes aspect-square class from ActionButton"
+          ],
+          "metadata": {
+            "commitCount": 5,
+            "commits": [
+              {
+                "sha": "08faa897195307e3cd21f03ebabc031af3e629fe",
+                "shortSha": "08faa89",
+                "date": "2026-02-28",
+                "subject": "feat(design system + docs): add customRoute to Breadcrumbs and scope prop to TableHeaderCell",
+                "normalizedSubject": "add customRoute to Breadcrumbs and scope prop to TableHeaderCell",
+                "type": "added",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/08faa897195307e3cd21f03ebabc031af3e629fe",
+                "prUrl": null
+              },
+              {
+                "sha": "1823325462331827d2b5aef8a36e512609c19629",
+                "shortSha": "1823325",
+                "date": "2026-02-28",
+                "subject": "fix(design-system): updates components code, fixes file upload file and updates docs pages",
+                "normalizedSubject": "updates components code, fixes file upload file and updates docs pages",
+                "type": "fixed",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/1823325462331827d2b5aef8a36e512609c19629",
+                "prUrl": null
+              },
+              {
+                "sha": "568da6a72ab4ded0178d581ddd0719bf6eb32682",
+                "shortSha": "568da6a",
+                "date": "2026-02-28",
+                "subject": "fix(design-system): adjust text top padding",
+                "normalizedSubject": "adjust text top padding",
+                "type": "fixed",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/568da6a72ab4ded0178d581ddd0719bf6eb32682",
+                "prUrl": null
+              },
+              {
+                "sha": "1635becd7ee132929b085dc7f6bc197efb69b041",
+                "shortSha": "1635bec",
+                "date": "2026-02-28",
+                "subject": "feat(design system + docs): improve search modal, badge and action button",
+                "normalizedSubject": "improve search modal, badge and action button",
+                "type": "added",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/1635becd7ee132929b085dc7f6bc197efb69b041",
+                "prUrl": null
+              },
+              {
+                "sha": "147f2d4b95d497ddd0bf95e57bfbde698ec15366",
+                "shortSha": "147f2d4",
+                "date": "2026-02-26",
+                "subject": "fix(design-system): removes aspect-square class from ActionButton",
+                "normalizedSubject": "removes aspect-square class from ActionButton",
+                "type": "fixed",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/147f2d4b95d497ddd0bf95e57bfbde698ec15366",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 2,
+              "fixed": 3,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.2.3",
+          "publishedAt": "2026-02-26",
+          "releaseType": "patch",
+          "notes": [
+            "renames modal dialog cardClasses prop to cardClass"
+          ],
+          "metadata": {
+            "commitCount": 1,
+            "commits": [
+              {
+                "sha": "0f6dde3399e63f6cdde9f2f0e958bf743ba55385",
+                "shortSha": "0f6dde3",
+                "date": "2026-02-23",
+                "subject": "fix(design system): renames modal dialog cardClasses prop to cardClass",
+                "normalizedSubject": "renames modal dialog cardClasses prop to cardClass",
+                "type": "fixed",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/0f6dde3399e63f6cdde9f2f0e958bf743ba55385",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 0,
+              "fixed": 1,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.2.2",
+          "publishedAt": "2026-02-23",
+          "releaseType": "patch",
+          "notes": [
+            "add basic search modal dialog + add custom wrapper classes to modal dialog component"
+          ],
+          "metadata": {
+            "commitCount": 1,
+            "commits": [
+              {
+                "sha": "23067a10a84f353593cb9430a8d94c673a494c1d",
+                "shortSha": "23067a1",
+                "date": "2026-02-22",
+                "subject": "feat(docs + design system): add basic search modal dialog + add custom wrapper classes to modal dialog component",
+                "normalizedSubject": "add basic search modal dialog + add custom wrapper classes to modal dialog component",
+                "type": "added",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/23067a10a84f353593cb9430a8d94c673a494c1d",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 1,
+              "fixed": 0,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.2.1",
+          "publishedAt": "2026-02-22",
+          "releaseType": "patch",
+          "notes": [
+            "update dependencies and improve toggles"
+          ],
+          "metadata": {
+            "commitCount": 1,
+            "commits": [
+              {
+                "sha": "a119bf4396147b8e24652682ada438744416c0b1",
+                "shortSha": "a119bf4",
+                "date": "2026-02-18",
+                "subject": "refactor(design-system): update dependencies and improve toggles",
+                "normalizedSubject": "update dependencies and improve toggles",
+                "type": "changed",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/a119bf4396147b8e24652682ada438744416c0b1",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 0,
+              "fixed": 0,
+              "changed": 1,
+              "breaking": 0
+            }
+          }
+        },
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.2.0",
+          "publishedAt": "2026-02-18",
+          "releaseType": "minor",
+          "notes": [
+            "fix app header style issues and new props to Form/Data field groups"
+          ],
+          "metadata": {
+            "commitCount": 1,
+            "commits": [
+              {
+                "sha": "f43acaf6c16850f25ee0c7adfa1ab05e55bfbd1e",
+                "shortSha": "f43acaf",
+                "date": "2026-02-13",
+                "subject": "fix(docs + design system): fix app header style issues and new props to Form/Data field groups",
+                "normalizedSubject": "fix app header style issues and new props to Form/Data field groups",
+                "type": "fixed",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/f43acaf6c16850f25ee0c7adfa1ab05e55bfbd1e",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 0,
+              "fixed": 1,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.1.19",
+          "publishedAt": "2026-02-13",
+          "releaseType": "patch",
+          "notes": [
+            "Improve documentation, toggle buttons field, composables and more"
+          ],
+          "metadata": {
+            "commitCount": 1,
+            "commits": [
+              {
+                "sha": "0ddcb0cc09c8ad8b7a31922c82d8f12d1dea8343",
+                "shortSha": "0ddcb0c",
+                "date": "2026-02-12",
+                "subject": "feat(docs+design system): Improve documentation, toggle buttons field, composables and more",
+                "normalizedSubject": "Improve documentation, toggle buttons field, composables and more",
+                "type": "added",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/0ddcb0cc09c8ad8b7a31922c82d8f12d1dea8343",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 1,
+              "fixed": 0,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.1.18",
+          "publishedAt": "2026-02-12",
+          "releaseType": "patch",
+          "notes": [
+            "Improves docs styling and updates the background of ToCSidebar"
+          ],
+          "metadata": {
+            "commitCount": 1,
+            "commits": [
+              {
+                "sha": "ba5c7bd02c82884b8da8eecb01d0c27a3e875a3b",
+                "shortSha": "ba5c7bd",
+                "date": "2026-02-10",
+                "subject": "feat(docs + design system): Improves docs styling and updates the background of ToCSidebar",
+                "normalizedSubject": "Improves docs styling and updates the background of ToCSidebar",
+                "type": "added",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/ba5c7bd02c82884b8da8eecb01d0c27a3e875a3b",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 1,
+              "fixed": 0,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.1.17",
+          "publishedAt": "2026-02-10",
+          "releaseType": "patch",
+          "notes": [
+            "add PinField and ScrollArea component + add fit to content prop to SwitchField"
+          ],
+          "metadata": {
+            "commitCount": 1,
+            "commits": [
+              {
+                "sha": "789120048f32c4bd594031d9067a068eae6723c7",
+                "shortSha": "7891200",
+                "date": "2026-02-09",
+                "subject": "feat(design system): add PinField and ScrollArea component + add fit to content prop to SwitchField",
+                "normalizedSubject": "add PinField and ScrollArea component + add fit to content prop to SwitchField",
+                "type": "added",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/789120048f32c4bd594031d9067a068eae6723c7",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 1,
+              "fixed": 0,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.1.16",
+          "publishedAt": "2026-02-09",
+          "releaseType": "patch",
+          "notes": [
+            "Improves breadcrumbs, fixes tab styling issues and adds new functionalities to tabs an tables."
+          ],
+          "metadata": {
+            "commitCount": 1,
+            "commits": [
+              {
+                "sha": "6f35018388a750e726ce95570c77d6b9c05deb8f",
+                "shortSha": "6f35018",
+                "date": "2026-02-09",
+                "subject": "feat(design-system): Improves breadcrumbs, fixes tab styling issues and adds new functionalities to tabs an tables.",
+                "normalizedSubject": "Improves breadcrumbs, fixes tab styling issues and adds new functionalities to tabs an tables.",
+                "type": "added",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/6f35018388a750e726ce95570c77d6b9c05deb8f",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 1,
+              "fixed": 0,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.1.15",
+          "publishedAt": "2026-02-09",
+          "releaseType": "patch",
+          "notes": [
+            "add SelectableCard and SelectableCardField components and docs pages + Improves TOC components and collapsible"
+          ],
+          "metadata": {
+            "commitCount": 1,
+            "commits": [
+              {
+                "sha": "085df49cd271372508d2cc1430abcf79ce64efdc",
+                "shortSha": "085df49",
+                "date": "2026-02-08",
+                "subject": "feat(docs + design system): add SelectableCard and SelectableCardField components and docs pages + Improves TOC components and collapsible",
+                "normalizedSubject": "add SelectableCard and SelectableCardField components and docs pages + Improves TOC components and collapsible",
+                "type": "added",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/085df49cd271372508d2cc1430abcf79ce64efdc",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 1,
+              "fixed": 0,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.1.14",
+          "publishedAt": "2026-02-08",
+          "releaseType": "patch",
+          "notes": [
+            "add transitions to dropdowns and modals"
+          ],
+          "metadata": {
+            "commitCount": 1,
+            "commits": [
+              {
+                "sha": "9c837a567265118b6607e9633632ed8e7a216fad",
+                "shortSha": "9c837a5",
+                "date": "2026-02-06",
+                "subject": "feat(design-system): add transitions to dropdowns and modals",
+                "normalizedSubject": "add transitions to dropdowns and modals",
+                "type": "added",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/9c837a567265118b6607e9633632ed8e7a216fad",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 1,
+              "fixed": 0,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.1.13",
+          "publishedAt": "2026-02-06",
+          "releaseType": "patch",
+          "notes": [
+            "adds missing utils docs pages and fixes general issues"
+          ],
+          "metadata": {
+            "commitCount": 1,
+            "commits": [
+              {
+                "sha": "3f31a477d1bb1c04b2065b940093cfa59c6089ae",
+                "shortSha": "3f31a47",
+                "date": "2026-02-05",
+                "subject": "feat(docs + design system): adds missing utils docs pages and fixes general issues",
+                "normalizedSubject": "adds missing utils docs pages and fixes general issues",
+                "type": "added",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/3f31a477d1bb1c04b2065b940093cfa59c6089ae",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 1,
+              "fixed": 0,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.1.12",
+          "publishedAt": "2026-02-05",
+          "releaseType": "patch",
+          "notes": [
+            "removes export depedencies and jsPDF + bumps package versions"
+          ],
+          "metadata": {
+            "commitCount": 1,
+            "commits": [
+              {
+                "sha": "9139e1221a00638c4cdb8021006c7276d2ccaed5",
+                "shortSha": "9139e12",
+                "date": "2026-02-02",
+                "subject": "fix: removes export depedencies and jsPDF + bumps package versions",
+                "normalizedSubject": "removes export depedencies and jsPDF + bumps package versions",
+                "type": "fixed",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/9139e1221a00638c4cdb8021006c7276d2ccaed5",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 0,
+              "fixed": 1,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.1.11",
+          "publishedAt": "2026-02-02",
+          "releaseType": "patch",
+          "notes": [
+            "Historical release reconstructed from npm publish metadata (no package commits found in this publish window)."
+          ],
+          "metadata": {
+            "commitCount": 0,
+            "commits": [],
+            "groups": {
+              "added": 0,
+              "fixed": 0,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.1.10",
+          "publishedAt": "2026-02-02",
+          "releaseType": "patch",
+          "notes": [
+            "Add utils docs pages + Updates components props"
+          ],
+          "metadata": {
+            "commitCount": 1,
+            "commits": [
+              {
+                "sha": "6f65f044b0ccc85dcc00f3ba6735232ce957a02b",
+                "shortSha": "6f65f04",
+                "date": "2026-02-01",
+                "subject": "feat(docs + design system): Add utils docs pages + Updates components props",
+                "normalizedSubject": "Add utils docs pages + Updates components props",
+                "type": "added",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/6f65f044b0ccc85dcc00f3ba6735232ce957a02b",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 1,
+              "fixed": 0,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.1.9",
+          "publishedAt": "2026-01-31",
+          "releaseType": "patch",
+          "notes": [
+            "Historical release reconstructed from npm publish metadata (no package commits found in this publish window)."
+          ],
+          "metadata": {
+            "commitCount": 0,
+            "commits": [],
+            "groups": {
+              "added": 0,
+              "fixed": 0,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.1.8",
+          "publishedAt": "2026-01-28",
+          "releaseType": "patch",
+          "notes": [
+            "Historical release reconstructed from npm publish metadata (no package commits found in this publish window)."
+          ],
+          "metadata": {
+            "commitCount": 0,
+            "commits": [],
+            "groups": {
+              "added": 0,
+              "fixed": 0,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.1.7",
+          "publishedAt": "2026-01-25",
+          "releaseType": "patch",
+          "notes": [
+            "add missing component thumbnails and fix styles",
+            "Adds more components thumbnails",
+            "Adds a part of the components page thumbnails + Hides unused header menu items",
+            "Adds teleport to dropdowns + Updates dropdown activator references + Updates unit tests"
+          ],
+          "metadata": {
+            "commitCount": 4,
+            "commits": [
+              {
+                "sha": "35eea46f366995f8dace66a03b0e36ad3eeca119",
+                "shortSha": "35eea46",
+                "date": "2026-01-25",
+                "subject": "feat(docs,design-system): add missing component thumbnails and fix styles",
+                "normalizedSubject": "add missing component thumbnails and fix styles",
+                "type": "added",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/35eea46f366995f8dace66a03b0e36ad3eeca119",
+                "prUrl": null
+              },
+              {
+                "sha": "e45980a715f1c052c36f6843bc669e7e8dce138e",
+                "shortSha": "e45980a",
+                "date": "2026-01-24",
+                "subject": "feat(docs): Adds more components thumbnails",
+                "normalizedSubject": "Adds more components thumbnails",
+                "type": "added",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/e45980a715f1c052c36f6843bc669e7e8dce138e",
+                "prUrl": null
+              },
+              {
+                "sha": "7c9d08fac9b8124c85638e4ed09223c224d35d90",
+                "shortSha": "7c9d08f",
+                "date": "2026-01-24",
+                "subject": "feat(docs): Adds a part of the components page thumbnails + Hides unused header menu items",
+                "normalizedSubject": "Adds a part of the components page thumbnails + Hides unused header menu items",
+                "type": "added",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/7c9d08fac9b8124c85638e4ed09223c224d35d90",
+                "prUrl": null
+              },
+              {
+                "sha": "ea96bcff1eaf5ec5c45695349b0acd25eda5b952",
+                "shortSha": "ea96bcf",
+                "date": "2026-01-21",
+                "subject": "feat(design-system): Adds teleport to dropdowns + Updates dropdown activator references + Updates unit tests",
+                "normalizedSubject": "Adds teleport to dropdowns + Updates dropdown activator references + Updates unit tests",
+                "type": "added",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/ea96bcff1eaf5ec5c45695349b0acd25eda5b952",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 4,
+              "fixed": 0,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.1.6",
+          "publishedAt": "2026-01-21",
+          "releaseType": "patch",
+          "notes": [
+            "Historical release reconstructed from npm publish metadata (no package commits found in this publish window)."
+          ],
+          "metadata": {
+            "commitCount": 0,
+            "commits": [],
+            "groups": {
+              "added": 0,
+              "fixed": 0,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.1.5",
+          "publishedAt": "2026-01-20",
+          "releaseType": "patch",
+          "notes": [
+            "Fixes color and sizes issues + Add teleport version to DropdownMenu"
+          ],
+          "metadata": {
+            "commitCount": 1,
+            "commits": [
+              {
+                "sha": "3419e6e1845e0e065dc1fcd0ebff3e0a7cbcc0eb",
+                "shortSha": "3419e6e",
+                "date": "2026-01-20",
+                "subject": "fix(design-system): Fixes color and sizes issues + Add teleport version to DropdownMenu",
+                "normalizedSubject": "Fixes color and sizes issues + Add teleport version to DropdownMenu",
+                "type": "fixed",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/3419e6e1845e0e065dc1fcd0ebff3e0a7cbcc0eb",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 0,
+              "fixed": 1,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.1.4",
+          "publishedAt": "2026-01-20",
+          "releaseType": "patch",
+          "notes": [
+            "Adds text-inherit to Icon component"
+          ],
+          "metadata": {
+            "commitCount": 1,
+            "commits": [
+              {
+                "sha": "e15bcb61c39fdc42fe8538428f212bbeba5d0650",
+                "shortSha": "e15bcb6",
+                "date": "2026-01-19",
+                "subject": "fix(design-system): Adds text-inherit to Icon component",
+                "normalizedSubject": "Adds text-inherit to Icon component",
+                "type": "fixed",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/e15bcb61c39fdc42fe8538428f212bbeba5d0650",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 0,
+              "fixed": 1,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.1.2",
+          "publishedAt": "2026-01-19",
+          "releaseType": "patch",
+          "notes": [
+            "Fixes icons colors and bump version"
+          ],
+          "metadata": {
+            "commitCount": 1,
+            "commits": [
+              {
+                "sha": "fa03dfd197e9a63c8658230ab52a3c732ee7dd9a",
+                "shortSha": "fa03dfd",
+                "date": "2026-01-19",
+                "subject": "fix(design system): Fixes icons colors and bump version",
+                "normalizedSubject": "Fixes icons colors and bump version",
+                "type": "fixed",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/fa03dfd197e9a63c8658230ab52a3c732ee7dd9a",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 0,
+              "fixed": 1,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.1.1",
+          "publishedAt": "2026-01-19",
+          "releaseType": "patch",
+          "notes": [
+            "Fixes packages bump version"
+          ],
+          "metadata": {
+            "commitCount": 1,
+            "commits": [
+              {
+                "sha": "7fe0732ec573c05b08c687f802c7c4e5c3a78c24",
+                "shortSha": "7fe0732",
+                "date": "2026-01-19",
+                "subject": "Fixes packages bump version",
+                "normalizedSubject": "Fixes packages bump version",
+                "type": "fixed",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/7fe0732ec573c05b08c687f802c7c4e5c3a78c24",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 0,
+              "fixed": 1,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.1.0",
+          "publishedAt": "2026-01-19",
+          "releaseType": "minor",
+          "notes": [
+            "Replaces the Nuxt MDI icon module with Nuxt Icon module",
+            "add iconify module and introduce unified icon components"
+          ],
+          "metadata": {
+            "commitCount": 2,
+            "commits": [
+              {
+                "sha": "b3343f152ee8726f4312059428bec15097b64ce8",
+                "shortSha": "b3343f1",
+                "date": "2026-01-17",
+                "subject": "feat(design-system): Replaces the Nuxt MDI icon module with Nuxt Icon module",
+                "normalizedSubject": "Replaces the Nuxt MDI icon module with Nuxt Icon module",
+                "type": "added",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/b3343f152ee8726f4312059428bec15097b64ce8",
+                "prUrl": null
+              },
+              {
+                "sha": "6afb8a587e7fad52d7a96a9f2b4d1a8cff80bba3",
+                "shortSha": "6afb8a5",
+                "date": "2026-01-06",
+                "subject": "feat(design-system): add iconify module and introduce unified icon components",
+                "normalizedSubject": "add iconify module and introduce unified icon components",
+                "type": "added",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/6afb8a587e7fad52d7a96a9f2b4d1a8cff80bba3",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 2,
+              "fixed": 0,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.0.23",
+          "publishedAt": "2026-01-06",
+          "releaseType": "patch",
+          "notes": [
+            "Add ProgressBar component and bump package version"
+          ],
+          "metadata": {
+            "commitCount": 1,
+            "commits": [
+              {
+                "sha": "e2ff7085a50cca4e869c93fdbe8ada0cda0afe91",
+                "shortSha": "e2ff708",
+                "date": "2026-01-05",
+                "subject": "feat(design-system): Add ProgressBar component and bump package version",
+                "normalizedSubject": "Add ProgressBar component and bump package version",
+                "type": "added",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/e2ff7085a50cca4e869c93fdbe8ada0cda0afe91",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 1,
+              "fixed": 0,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.0.22",
+          "publishedAt": "2026-01-05",
+          "releaseType": "patch",
+          "notes": [
+            "Improves the NavSidebar and completes the component dock page"
+          ],
+          "metadata": {
+            "commitCount": 1,
+            "commits": [
+              {
+                "sha": "55c74b63ffda9d4b3c7ba4c8d064ac3808d55bce",
+                "shortSha": "55c74b6",
+                "date": "2026-01-03",
+                "subject": "feat(design-system + docs):  Improves the NavSidebar and completes the component dock page",
+                "normalizedSubject": "Improves the NavSidebar and completes the component dock page",
+                "type": "added",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/55c74b63ffda9d4b3c7ba4c8d064ac3808d55bce",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 1,
+              "fixed": 0,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.0.21",
+          "publishedAt": "2026-01-03",
+          "releaseType": "patch",
+          "notes": [
+            "Add setPageTitle to ErrorDisplay component and updates AirUI package"
+          ],
+          "metadata": {
+            "commitCount": 1,
+            "commits": [
+              {
+                "sha": "406cdbb15efb34c9160876b15b541a5bfdac55ef",
+                "shortSha": "406cdbb",
+                "date": "2025-12-31",
+                "subject": "feat(ui + docs): Add setPageTitle to ErrorDisplay component and updates AirUI package",
+                "normalizedSubject": "Add setPageTitle to ErrorDisplay component and updates AirUI package",
+                "type": "added",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/406cdbb15efb34c9160876b15b541a5bfdac55ef",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 1,
+              "fixed": 0,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.0.20",
+          "publishedAt": "2025-12-31",
+          "releaseType": "patch",
+          "notes": [
+            "Rename error component to ErrorDisplay and add error mappings"
+          ],
+          "metadata": {
+            "commitCount": 1,
+            "commits": [
+              {
+                "sha": "8ad4276ccc2090adbcfacab748bcfa8d695abbfa",
+                "shortSha": "8ad4276",
+                "date": "2025-12-31",
+                "subject": "feat(ui): Rename error component to ErrorDisplay and add error mappings",
+                "normalizedSubject": "Rename error component to ErrorDisplay and add error mappings",
+                "type": "added",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/8ad4276ccc2090adbcfacab748bcfa8d695abbfa",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 1,
+              "fixed": 0,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.0.19",
+          "publishedAt": "2025-12-31",
+          "releaseType": "patch",
+          "notes": [
+            "Add Error component and adjust heading breakpoints"
+          ],
+          "metadata": {
+            "commitCount": 1,
+            "commits": [
+              {
+                "sha": "2a568475daf8581a426232cde65d99a1809419ea",
+                "shortSha": "2a56847",
+                "date": "2025-12-30",
+                "subject": "feat(ui): Add Error component and adjust heading breakpoints",
+                "normalizedSubject": "Add Error component and adjust heading breakpoints",
+                "type": "added",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/2a568475daf8581a426232cde65d99a1809419ea",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 1,
+              "fixed": 0,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.0.18",
+          "publishedAt": "2025-12-30",
+          "releaseType": "patch",
+          "notes": [
+            "add footer component, new docs pages, and unit tests; remove unused components"
+          ],
+          "metadata": {
+            "commitCount": 1,
+            "commits": [
+              {
+                "sha": "717eb0d2f9076512288920b5f84832dee392d955",
+                "shortSha": "717eb0d",
+                "date": "2025-12-30",
+                "subject": "feat(packages + docs): add footer component, new docs pages, and unit tests; remove unused components",
+                "normalizedSubject": "add footer component, new docs pages, and unit tests; remove unused components",
+                "type": "added",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/717eb0d2f9076512288920b5f84832dee392d955",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 1,
+              "fixed": 0,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.0.17",
+          "publishedAt": "2025-12-29",
+          "releaseType": "patch",
+          "notes": [
+            "Historical release reconstructed from npm publish metadata (no package commits found in this publish window)."
+          ],
+          "metadata": {
+            "commitCount": 0,
+            "commits": [],
+            "groups": {
+              "added": 0,
+              "fixed": 0,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.0.16",
+          "publishedAt": "2025-12-29",
+          "releaseType": "patch",
+          "notes": [
+            "Improves the copy button + Fixes links and table description text sizes + Adds redirects middleware",
+            "Adds new components docs pages + Adds component titles at the top + Adds new CopyButton and CodeSnippet",
+            "Adds new components docs pages + Fixes Toc composable"
+          ],
+          "metadata": {
+            "commitCount": 3,
+            "commits": [
+              {
+                "sha": "5b289539957d2a9901cf23acead7660fb06373c7",
+                "shortSha": "5b28953",
+                "date": "2025-12-27",
+                "subject": "feat(docs + packages): Improves the copy button + Fixes links and table description text sizes + Adds redirects middleware",
+                "normalizedSubject": "Improves the copy button + Fixes links and table description text sizes + Adds redirects middleware",
+                "type": "added",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/5b289539957d2a9901cf23acead7660fb06373c7",
+                "prUrl": null
+              },
+              {
+                "sha": "cfb3bb475f31674a03bd3144cb02a76f670f2dd9",
+                "shortSha": "cfb3bb4",
+                "date": "2025-12-27",
+                "subject": "feat(docs): Adds new components docs pages + Adds component titles at the top + Adds new CopyButton and CodeSnippet",
+                "normalizedSubject": "Adds new components docs pages + Adds component titles at the top + Adds new CopyButton and CodeSnippet",
+                "type": "added",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/cfb3bb475f31674a03bd3144cb02a76f670f2dd9",
+                "prUrl": null
+              },
+              {
+                "sha": "675a95642dd4e3ce214f9ac8b9c2a8ceea3f7eab",
+                "shortSha": "675a956",
+                "date": "2025-12-26",
+                "subject": "feat(docs + packages): Adds new components docs pages + Fixes Toc composable",
+                "normalizedSubject": "Adds new components docs pages + Fixes Toc composable",
+                "type": "added",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/675a95642dd4e3ce214f9ac8b9c2a8ceea3f7eab",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 3,
+              "fixed": 0,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.0.15",
+          "publishedAt": "2025-12-26",
+          "releaseType": "patch",
+          "notes": [
+            "Adds new docs pages and new info in the options in components pages + Updates some components"
+          ],
+          "metadata": {
+            "commitCount": 1,
+            "commits": [
+              {
+                "sha": "3bff6ac43bb9291346101252f6ba83fa872e7cb7",
+                "shortSha": "3bff6ac",
+                "date": "2025-12-24",
+                "subject": "feat(docs + design system): Adds new docs pages and new info in the options in components pages + Updates some components",
+                "normalizedSubject": "Adds new docs pages and new info in the options in components pages + Updates some components",
+                "type": "added",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/3bff6ac43bb9291346101252f6ba83fa872e7cb7",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 1,
+              "fixed": 0,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.0.14",
+          "publishedAt": "2025-12-24",
+          "releaseType": "patch",
+          "notes": [
+            "add interactive script to update UI theme color schemes"
+          ],
+          "metadata": {
+            "commitCount": 1,
+            "commits": [
+              {
+                "sha": "a846e0a06eabbcdd15fd5b491257a6e34ad4c910",
+                "shortSha": "a846e0a",
+                "date": "2025-12-23",
+                "subject": "feat(theme): add interactive script to update UI theme color schemes",
+                "normalizedSubject": "add interactive script to update UI theme color schemes",
+                "type": "added",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/a846e0a06eabbcdd15fd5b491257a6e34ad4c910",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 1,
+              "fixed": 0,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.0.13",
+          "publishedAt": "2025-12-23",
+          "releaseType": "patch",
+          "notes": [
+            "improve getting started pages and UI components"
+          ],
+          "metadata": {
+            "commitCount": 1,
+            "commits": [
+              {
+                "sha": "999f9654e821630af762593dc712d47a46913e35",
+                "shortSha": "999f965",
+                "date": "2025-12-22",
+                "subject": "feat(docs + packages): improve getting started pages and UI components",
+                "normalizedSubject": "improve getting started pages and UI components",
+                "type": "added",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/999f9654e821630af762593dc712d47a46913e35",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 1,
+              "fixed": 0,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.0.12",
+          "publishedAt": "2025-12-13",
+          "releaseType": "patch",
+          "notes": [
+            "Historical release reconstructed from npm publish metadata (no package commits found in this publish window)."
+          ],
+          "metadata": {
+            "commitCount": 0,
+            "commits": [],
+            "groups": {
+              "added": 0,
+              "fixed": 0,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.0.11",
+          "publishedAt": "2025-12-13",
+          "releaseType": "patch",
+          "notes": [
+            "Historical release reconstructed from npm publish metadata (no package commits found in this publish window)."
+          ],
+          "metadata": {
+            "commitCount": 0,
+            "commits": [],
+            "groups": {
+              "added": 0,
+              "fixed": 0,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.0.10",
+          "publishedAt": "2025-12-10",
+          "releaseType": "patch",
+          "notes": [
+            "Historical release reconstructed from npm publish metadata (no package commits found in this publish window)."
+          ],
+          "metadata": {
+            "commitCount": 0,
+            "commits": [],
+            "groups": {
+              "added": 0,
+              "fixed": 0,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.0.9",
+          "publishedAt": "2025-12-10",
+          "releaseType": "patch",
+          "notes": [
+            "Historical release reconstructed from npm publish metadata (no package commits found in this publish window)."
+          ],
+          "metadata": {
+            "commitCount": 0,
+            "commits": [],
+            "groups": {
+              "added": 0,
+              "fixed": 0,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.0.8",
+          "publishedAt": "2025-12-10",
+          "releaseType": "patch",
+          "notes": [
+            "Historical release reconstructed from npm publish metadata (no package commits found in this publish window)."
+          ],
+          "metadata": {
+            "commitCount": 0,
+            "commits": [],
+            "groups": {
+              "added": 0,
+              "fixed": 0,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.0.7",
+          "publishedAt": "2025-12-10",
+          "releaseType": "patch",
+          "notes": [
+            "Historical release reconstructed from npm publish metadata (no package commits found in this publish window)."
+          ],
+          "metadata": {
+            "commitCount": 0,
+            "commits": [],
+            "groups": {
+              "added": 0,
+              "fixed": 0,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.0.6",
+          "publishedAt": "2025-12-09",
+          "releaseType": "patch",
+          "notes": [
+            "Historical release reconstructed from npm publish metadata (no package commits found in this publish window)."
+          ],
+          "metadata": {
+            "commitCount": 0,
+            "commits": [],
+            "groups": {
+              "added": 0,
+              "fixed": 0,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.0.5",
+          "publishedAt": "2025-12-09",
+          "releaseType": "patch",
+          "notes": [
+            "Historical release reconstructed from npm publish metadata (no package commits found in this publish window)."
+          ],
+          "metadata": {
+            "commitCount": 0,
+            "commits": [],
+            "groups": {
+              "added": 0,
+              "fixed": 0,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.0.4",
+          "publishedAt": "2025-12-09",
+          "releaseType": "patch",
+          "notes": [
+            "Historical release reconstructed from npm publish metadata (no package commits found in this publish window)."
+          ],
+          "metadata": {
+            "commitCount": 0,
+            "commits": [],
+            "groups": {
+              "added": 0,
+              "fixed": 0,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.0.3",
+          "publishedAt": "2025-12-08",
+          "releaseType": "patch",
+          "notes": [
+            "Historical release reconstructed from npm publish metadata (no package commits found in this publish window)."
+          ],
+          "metadata": {
+            "commitCount": 0,
+            "commits": [],
+            "groups": {
+              "added": 0,
+              "fixed": 0,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.0.2",
+          "publishedAt": "2025-12-07",
+          "releaseType": "patch",
+          "notes": [
+            "Historical release reconstructed from npm publish metadata (no package commits found in this publish window)."
+          ],
+          "metadata": {
+            "commitCount": 0,
+            "commits": [],
+            "groups": {
+              "added": 0,
+              "fixed": 0,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.0.1",
+          "publishedAt": "2025-12-07",
+          "releaseType": "patch",
+          "notes": [
+            "improve app header, docs index, utils and navigation",
+            "Init"
+          ],
+          "metadata": {
+            "commitCount": 2,
+            "commits": [
+              {
+                "sha": "e81f70f1ea6aa21e85cd7c8faff4437712794734",
+                "shortSha": "e81f70f",
+                "date": "2025-12-07",
+                "subject": "refactor: improve app header, docs index, utils and navigation",
+                "normalizedSubject": "improve app header, docs index, utils and navigation",
+                "type": "changed",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/e81f70f1ea6aa21e85cd7c8faff4437712794734",
+                "prUrl": null
+              },
+              {
+                "sha": "f153db6d125daee38fd029ac4bcdb81190893024",
+                "shortSha": "f153db6",
+                "date": "2025-12-05",
+                "subject": "Init",
+                "normalizedSubject": "Init",
+                "type": "changed",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/f153db6d125daee38fd029ac4bcdb81190893024",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 0,
+              "fixed": 0,
+              "changed": 2,
+              "breaking": 0
+            }
+          }
+        },
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.0.0",
+          "publishedAt": "2025-12-05",
+          "releaseType": "initial",
+          "notes": [
+            "Historical release reconstructed from npm publish metadata (no package commits found in this publish window)."
+          ],
+          "metadata": {
+            "commitCount": 0,
+            "commits": [],
+            "groups": {
+              "added": 0,
+              "fixed": 0,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "packageName": "@imaginario27/air-ui-utils",
+      "latestVersion": "1.2.0",
+      "entries": [
+        {
+          "packageName": "@imaginario27/air-ui-utils",
+          "version": "1.2.0",
+          "publishedAt": "2026-03-18",
+          "releaseType": "minor",
+          "notes": [
+            "update dependencies and improve toggles"
+          ],
+          "metadata": {
+            "commitCount": 1,
+            "commits": [
+              {
+                "sha": "a119bf4396147b8e24652682ada438744416c0b1",
+                "shortSha": "a119bf4",
+                "date": "2026-02-18",
+                "subject": "refactor(design-system): update dependencies and improve toggles",
+                "normalizedSubject": "update dependencies and improve toggles",
+                "type": "changed",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/a119bf4396147b8e24652682ada438744416c0b1",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 0,
+              "fixed": 0,
+              "changed": 1,
+              "breaking": 0
+            }
+          }
+        },
+        {
+          "packageName": "@imaginario27/air-ui-utils",
+          "version": "1.1.1",
+          "publishedAt": "2026-02-18",
+          "releaseType": "minor",
+          "notes": [
+            "Improves breadcrumbs, fixes tab styling issues and adds new functionalities to tabs an tables."
+          ],
+          "metadata": {
+            "commitCount": 1,
+            "commits": [
+              {
+                "sha": "6f35018388a750e726ce95570c77d6b9c05deb8f",
+                "shortSha": "6f35018",
+                "date": "2026-02-09",
+                "subject": "feat(design-system): Improves breadcrumbs, fixes tab styling issues and adds new functionalities to tabs an tables.",
+                "normalizedSubject": "Improves breadcrumbs, fixes tab styling issues and adds new functionalities to tabs an tables.",
+                "type": "added",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/6f35018388a750e726ce95570c77d6b9c05deb8f",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 1,
+              "fixed": 0,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
+        {
+          "packageName": "@imaginario27/air-ui-utils",
+          "version": "1.0.14",
+          "publishedAt": "2026-02-09",
+          "releaseType": "patch",
+          "notes": [
+            "add transitions to dropdowns and modals"
+          ],
+          "metadata": {
+            "commitCount": 1,
+            "commits": [
+              {
+                "sha": "9c837a567265118b6607e9633632ed8e7a216fad",
+                "shortSha": "9c837a5",
+                "date": "2026-02-06",
+                "subject": "feat(design-system): add transitions to dropdowns and modals",
+                "normalizedSubject": "add transitions to dropdowns and modals",
+                "type": "added",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/9c837a567265118b6607e9633632ed8e7a216fad",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 1,
+              "fixed": 0,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
+        {
+          "packageName": "@imaginario27/air-ui-utils",
+          "version": "1.0.13",
+          "publishedAt": "2026-02-06",
+          "releaseType": "patch",
+          "notes": [
+            "adds missing utils docs pages and fixes general issues"
+          ],
+          "metadata": {
+            "commitCount": 1,
+            "commits": [
+              {
+                "sha": "3f31a477d1bb1c04b2065b940093cfa59c6089ae",
+                "shortSha": "3f31a47",
+                "date": "2026-02-05",
+                "subject": "feat(docs + design system): adds missing utils docs pages and fixes general issues",
+                "normalizedSubject": "adds missing utils docs pages and fixes general issues",
+                "type": "added",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/3f31a477d1bb1c04b2065b940093cfa59c6089ae",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 1,
+              "fixed": 0,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
+        {
+          "packageName": "@imaginario27/air-ui-utils",
+          "version": "1.0.12",
+          "publishedAt": "2026-02-05",
+          "releaseType": "patch",
+          "notes": [
+            "Historical release reconstructed from npm publish metadata (no package commits found in this publish window)."
+          ],
+          "metadata": {
+            "commitCount": 0,
+            "commits": [],
+            "groups": {
+              "added": 0,
+              "fixed": 0,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
+        {
+          "packageName": "@imaginario27/air-ui-utils",
+          "version": "1.0.11",
+          "publishedAt": "2026-02-04",
+          "releaseType": "patch",
+          "notes": [
+            "removes export depedencies and jsPDF + bumps package versions"
+          ],
+          "metadata": {
+            "commitCount": 1,
+            "commits": [
+              {
+                "sha": "9139e1221a00638c4cdb8021006c7276d2ccaed5",
+                "shortSha": "9139e12",
+                "date": "2026-02-02",
+                "subject": "fix: removes export depedencies and jsPDF + bumps package versions",
+                "normalizedSubject": "removes export depedencies and jsPDF + bumps package versions",
+                "type": "fixed",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/9139e1221a00638c4cdb8021006c7276d2ccaed5",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 0,
+              "fixed": 1,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
+        {
+          "packageName": "@imaginario27/air-ui-utils",
+          "version": "1.0.10",
+          "publishedAt": "2026-02-02",
+          "releaseType": "patch",
+          "notes": [
+            "Historical release reconstructed from npm publish metadata (no package commits found in this publish window)."
+          ],
+          "metadata": {
+            "commitCount": 0,
+            "commits": [],
+            "groups": {
+              "added": 0,
+              "fixed": 0,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
+        {
+          "packageName": "@imaginario27/air-ui-utils",
+          "version": "1.0.9",
+          "publishedAt": "2026-02-02",
+          "releaseType": "patch",
+          "notes": [
+            "Add utils docs pages + Updates components props"
+          ],
+          "metadata": {
+            "commitCount": 1,
+            "commits": [
+              {
+                "sha": "6f65f044b0ccc85dcc00f3ba6735232ce957a02b",
+                "shortSha": "6f65f04",
+                "date": "2026-02-01",
+                "subject": "feat(docs + design system): Add utils docs pages + Updates components props",
+                "normalizedSubject": "Add utils docs pages + Updates components props",
+                "type": "added",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/6f65f044b0ccc85dcc00f3ba6735232ce957a02b",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 1,
+              "fixed": 0,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
+        {
+          "packageName": "@imaginario27/air-ui-utils",
+          "version": "1.0.8",
+          "publishedAt": "2026-01-31",
+          "releaseType": "patch",
+          "notes": [
+            "Replaces the Nuxt MDI icon module with Nuxt Icon module",
+            "improve getting started pages and UI components",
+            "Fixes packages bump version",
+            "Bumps package version"
+          ],
+          "metadata": {
+            "commitCount": 4,
+            "commits": [
+              {
+                "sha": "7fe0732ec573c05b08c687f802c7c4e5c3a78c24",
+                "shortSha": "7fe0732",
+                "date": "2026-01-19",
+                "subject": "Fixes packages bump version",
+                "normalizedSubject": "Fixes packages bump version",
+                "type": "fixed",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/7fe0732ec573c05b08c687f802c7c4e5c3a78c24",
+                "prUrl": null
+              },
+              {
+                "sha": "0eaefbcbe5fe8cbcf3b6297a80873687a631258b",
+                "shortSha": "0eaefbc",
+                "date": "2026-01-19",
+                "subject": "Bumps package version",
+                "normalizedSubject": "Bumps package version",
+                "type": "changed",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/0eaefbcbe5fe8cbcf3b6297a80873687a631258b",
+                "prUrl": null
+              },
+              {
+                "sha": "b3343f152ee8726f4312059428bec15097b64ce8",
+                "shortSha": "b3343f1",
+                "date": "2026-01-17",
+                "subject": "feat(design-system): Replaces the Nuxt MDI icon module with Nuxt Icon module",
+                "normalizedSubject": "Replaces the Nuxt MDI icon module with Nuxt Icon module",
+                "type": "added",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/b3343f152ee8726f4312059428bec15097b64ce8",
+                "prUrl": null
+              },
+              {
+                "sha": "999f9654e821630af762593dc712d47a46913e35",
+                "shortSha": "999f965",
+                "date": "2025-12-22",
+                "subject": "feat(docs + packages): improve getting started pages and UI components",
+                "normalizedSubject": "improve getting started pages and UI components",
+                "type": "added",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/999f9654e821630af762593dc712d47a46913e35",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 2,
+              "fixed": 1,
+              "changed": 1,
+              "breaking": 0
+            }
+          }
+        },
+        {
+          "packageName": "@imaginario27/air-ui-utils",
+          "version": "1.0.7",
+          "publishedAt": "2025-12-10",
+          "releaseType": "patch",
+          "notes": [
+            "Historical release reconstructed from npm publish metadata (no package commits found in this publish window)."
+          ],
+          "metadata": {
+            "commitCount": 0,
+            "commits": [],
+            "groups": {
+              "added": 0,
+              "fixed": 0,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
+        {
+          "packageName": "@imaginario27/air-ui-utils",
+          "version": "1.0.6",
+          "publishedAt": "2025-12-10",
+          "releaseType": "patch",
+          "notes": [
+            "Historical release reconstructed from npm publish metadata (no package commits found in this publish window)."
+          ],
+          "metadata": {
+            "commitCount": 0,
+            "commits": [],
+            "groups": {
+              "added": 0,
+              "fixed": 0,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
+        {
+          "packageName": "@imaginario27/air-ui-utils",
+          "version": "1.0.5",
+          "publishedAt": "2025-12-09",
+          "releaseType": "patch",
+          "notes": [
+            "Historical release reconstructed from npm publish metadata (no package commits found in this publish window)."
+          ],
+          "metadata": {
+            "commitCount": 0,
+            "commits": [],
+            "groups": {
+              "added": 0,
+              "fixed": 0,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
+        {
+          "packageName": "@imaginario27/air-ui-utils",
+          "version": "1.0.4",
+          "publishedAt": "2025-12-09",
+          "releaseType": "patch",
+          "notes": [
+            "Historical release reconstructed from npm publish metadata (no package commits found in this publish window)."
+          ],
+          "metadata": {
+            "commitCount": 0,
+            "commits": [],
+            "groups": {
+              "added": 0,
+              "fixed": 0,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
+        {
+          "packageName": "@imaginario27/air-ui-utils",
+          "version": "1.0.3",
+          "publishedAt": "2025-12-09",
+          "releaseType": "patch",
+          "notes": [
+            "Historical release reconstructed from npm publish metadata (no package commits found in this publish window)."
+          ],
+          "metadata": {
+            "commitCount": 0,
+            "commits": [],
+            "groups": {
+              "added": 0,
+              "fixed": 0,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
+        {
+          "packageName": "@imaginario27/air-ui-utils",
+          "version": "1.0.2",
+          "publishedAt": "2025-12-07",
+          "releaseType": "patch",
+          "notes": [
+            "Historical release reconstructed from npm publish metadata (no package commits found in this publish window)."
+          ],
+          "metadata": {
+            "commitCount": 0,
+            "commits": [],
+            "groups": {
+              "added": 0,
+              "fixed": 0,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
+        {
+          "packageName": "@imaginario27/air-ui-utils",
+          "version": "1.0.1",
+          "publishedAt": "2025-12-07",
+          "releaseType": "patch",
+          "notes": [
+            "Init"
+          ],
+          "metadata": {
+            "commitCount": 1,
+            "commits": [
+              {
+                "sha": "f153db6d125daee38fd029ac4bcdb81190893024",
+                "shortSha": "f153db6",
+                "date": "2025-12-05",
+                "subject": "Init",
+                "normalizedSubject": "Init",
+                "type": "changed",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/f153db6d125daee38fd029ac4bcdb81190893024",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 0,
+              "fixed": 0,
+              "changed": 1,
+              "breaking": 0
+            }
+          }
+        },
+        {
+          "packageName": "@imaginario27/air-ui-utils",
+          "version": "1.0.0",
+          "publishedAt": "2025-12-05",
+          "releaseType": "initial",
+          "notes": [
+            "Historical release reconstructed from npm publish metadata (no package commits found in this publish window)."
+          ],
+          "metadata": {
+            "commitCount": 0,
+            "commits": [],
+            "groups": {
+              "added": 0,
+              "fixed": 0,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
