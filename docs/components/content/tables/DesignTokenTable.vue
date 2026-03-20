@@ -94,7 +94,7 @@
 
                             <ProseCode 
                                 :color="ColorAccent.NEUTRAL"
-                                class="font-semibold"
+                                class="font-semibold whitespace-nowrap"
                             >
                                 {{ item.name }}
                             </ProseCode>

@@ -37,7 +37,7 @@
                         </span>
                     </ProseTd>
                     <ProseTd v-if="showDefaultColumn">
-                        <ProseCode v-if="prop.default">
+                        <ProseCode v-if="prop.default" class="whitespace-nowrap">
                             {{ prop.default }}
                         </ProseCode>
                         <span v-else class="text-sm font-mono">

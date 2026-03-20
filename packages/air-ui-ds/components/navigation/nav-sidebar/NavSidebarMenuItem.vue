@@ -11,6 +11,7 @@
             'hover:bg-background-neutral-hover',
             'justify-between',
             spacingClass,
+            !isActive && 'text-text-default',
             isActive && 'text-text-primary-brand-on-neutral-hover-bg bg-background-neutral-hover',
         ]"
         @click="$emit('click')"
@@ -26,12 +27,12 @@
             <Icon
                 v-if="icon"
                 :name="icon"
-                :iconClass="['!text-icon-neutral-subtler', iconSizeClass]"
+                :iconClass="[iconClass || 'text-icon-neutral-subtler', iconSizeClass]"
             />
 
-            <span 
+            <span
                 v-if="!isCollapsed"
-                :class="[!isActive && 'text-text-default']"
+                :class="textClass"
             >
                 {{ text }}
             </span>
@@ -79,6 +80,8 @@ const props = defineProps({
         type: Boolean as PropType<boolean>,
         default: false,
     },
+    textClass: String as PropType<string>,
+    iconClass: String as PropType<string>,
 })
 
 // Emits 

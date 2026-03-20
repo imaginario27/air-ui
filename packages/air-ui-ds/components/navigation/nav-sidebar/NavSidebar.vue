@@ -98,6 +98,8 @@
                                 :text="item.text"
                                 :icon="item.icon"
                                 :styleType="itemsStyleType"
+                                :textClass="itemsTextClass"
+                                :iconClass="itemsIconClass"
                                 isCollapsed
                                 :showDropdownArrow="false"
                                 :class="itemsCustomClass"
@@ -124,6 +126,8 @@
                         :icon="item.icon"
                         :to="item.to"
                         :styleType="itemsStyleType"
+                        :textClass="itemsTextClass"
+                        :iconClass="itemsIconClass"
                         :showDropdownArrow="!!item.children"
                         :isOpen="openItems[index]"
                         :isCollapsed
@@ -140,10 +144,11 @@
                             :icon="child.icon"
                             :to="child.to"
                             :styleType="itemsStyleType"
+                            :textClass="subItemsTextClass"
+                            :iconClass="subItemsIconClass"
                             :class="[
-                                itemsCustomClass,
                                 'ml-4',
-                                '!font-medium',
+                                subItemsCustomClass ? subItemsCustomClass : '!font-medium',
                             ]"
                         />
                     </template>
@@ -309,7 +314,12 @@ const props = defineProps({
         default: SidebarNavMenuItemStyleType.COMPACT, 
         validator: (value: SidebarNavMenuItemStyleType) => Object.values(SidebarNavMenuItemStyleType).includes(value),
     },    
-    itemsCustomClass: String as PropType<string>
+    itemsCustomClass: String as PropType<string>,
+    itemsTextClass: String as PropType<string>,
+    itemsIconClass: String as PropType<string>,
+    subItemsCustomClass: String as PropType<string>,
+    subItemsTextClass: String as PropType<string>,
+    subItemsIconClass: String as PropType<string>,
 })
 
 // States 

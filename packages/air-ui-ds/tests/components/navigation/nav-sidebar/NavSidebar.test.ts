@@ -211,4 +211,57 @@ describe('NavSidebar.vue', () => {
         expect(allItems.length).toBeGreaterThan(3)
     })
 
+    it('applies subItemsCustomClass to expanded child menu items', async () => {
+        const customClass = '!text-text-danger !font-bold'
+        const wrapper = factory({
+            props: {
+                subItemsCustomClass: customClass
+            }
+        })
+
+        const items = wrapper.findAllComponents(NavSidebarMenuItem)
+        await items[2]!.trigger('click')
+        await nextTick()
+
+        const subItems = wrapper
+            .findAllComponents(NavSidebarMenuItem)
+            .filter(item => String(item.props('text')).startsWith('Subitem'))
+
+        expect(subItems).toHaveLength(2)
+
+        subItems.forEach((item) => {
+            const classes = item.classes()
+            expect(classes).toContain('!text-text-danger')
+            expect(classes).toContain('!font-bold')
+        })
+    })
+
+    it('forwards custom text and icon classes for items and subitems', async () => {
+        const wrapper = factory({
+            props: {
+                itemsTextClass: '!text-text-success',
+                itemsIconClass: '!text-icon-success',
+                subItemsTextClass: '!text-text-danger',
+                subItemsIconClass: '!text-icon-danger',
+            }
+        })
+
+        const items = wrapper.findAllComponents(NavSidebarMenuItem)
+        expect(items[0]!.props('textClass')).toBe('!text-text-success')
+        expect(items[0]!.props('iconClass')).toBe('!text-icon-success')
+
+        await items[2]!.trigger('click')
+        await nextTick()
+
+        const subItems = wrapper
+            .findAllComponents(NavSidebarMenuItem)
+            .filter(item => String(item.props('text')).startsWith('Subitem'))
+
+        expect(subItems).toHaveLength(2)
+        subItems.forEach((item) => {
+            expect(item.props('textClass')).toBe('!text-text-danger')
+            expect(item.props('iconClass')).toBe('!text-icon-danger')
+        })
+    })
+
 })
