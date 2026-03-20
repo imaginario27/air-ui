@@ -197,14 +197,15 @@ const mainHeaderMenu = computed<MenuItem[]>(() => [
         text: 'Components',
         to: `/${AppSlug.COMPONENTS}`,
     },
+    {
+        text: 'Releases',
+        to: `/releases`,
+    },
     /* {
         text: 'Figma',
         to: `/${AppSlug.FIGMA}`,
     },
-    {
-        text: 'Releases',
-        to: `/releases`,
-    }, */
+    */
 ])
 
 const tabs = computed<TabItem[]>(() => {
