@@ -3,6 +3,7 @@
         :class="[
             'inline-flex',
             'items-center',
+            'whitespace-nowrap',
             'gap-2',
             'font-semibold',
             'text-xs',
@@ -35,6 +36,7 @@
         <span
             :class="[
                 'pt-0.25',
+                'whitespace-nowrap',
                 textClass,
             ]"
         >

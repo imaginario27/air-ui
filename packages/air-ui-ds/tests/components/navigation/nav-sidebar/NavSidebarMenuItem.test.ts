@@ -145,4 +145,29 @@ describe('NavSidebarMenuItem.vue', () => {
 
         expect(wrapper.emitted('click')).toBeTruthy()
     })
+
+    it('applies textClass on the label span', () => {
+        const wrapper = factory({
+            text: 'Settings',
+            textClass: '!text-text-danger'
+        })
+
+        expect(wrapper.find('span').classes()).toContain('!text-text-danger')
+    })
+
+    it('applies iconClass only to the item icon, not to the dropdown arrow', () => {
+        const wrapper = factory({
+            icon: 'mdi:home',
+            iconClass: '!text-icon-success',
+            showDropdownArrow: true,
+            isOpen: false,
+        })
+
+        const icons = wrapper.findAllComponents(Icon)
+        const itemIcon = icons.find(icon => icon.props('name') === 'mdi:home')
+        const arrowIcon = icons.find(icon => icon.props('name') === 'mdi:chevron-down')
+
+        expect(itemIcon?.props('iconClass')).toContain('!text-icon-success')
+        expect(arrowIcon?.props('iconClass')).toBeUndefined()
+    })
 })

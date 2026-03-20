@@ -32,7 +32,7 @@
                 />
             </div>
             
-            <span :class="['font-semibold', textSizeClass, textClass, textTopSpacingClass]">
+            <span :class="['font-semibold', 'leading-none', textSizeClass, textClass]">
                 {{ loadingText }}
             </span>
         </template>
@@ -52,7 +52,7 @@
                 />
             </template>
 
-            <span :class="['font-semibold', textSizeClass, textClass, textTopSpacingClass]">
+            <span :class="['font-semibold', 'leading-none', textSizeClass, textClass]">
                 {{ text }}
             </span>
 
@@ -376,14 +376,6 @@ const gapClass = computed(() => {
 
     return variant[props.size as ButtonSize] || 'gap-2'
 })
-
-
-const textTopSpacingClass = computed(() => {
-    return props.size === ButtonSize.XXL
-        ? undefined
-        : 'pt-0.25'
-})
-
 // Props for the dynamic component
 const componentProps = computed(() => {
     if (props.actionType === ButtonActionType.LINK) {

@@ -49,6 +49,12 @@ props:
     footerHeight: 0
     footerSafeAreaHeight: 180
     itemsStyleType: "compact"
+    itemsCustomClass: ""
+    itemsTextClass: ""
+    itemsIconClass: ""
+    subItemsCustomClass: ""
+    subItemsTextClass: ""
+    subItemsIconClass: ""
     class: "relative !h-[500px] translate-x-0"
 items:
     itemsStyleType:
@@ -213,6 +219,26 @@ props: [
     },
     {
         "name": "itemsCustomClass",
+        "type": "string",
+    },
+    {
+        "name": "itemsTextClass",
+        "type": "string",
+    },
+    {
+        "name": "itemsIconClass",
+        "type": "string",
+    },
+    {
+        "name": "subItemsCustomClass",
+        "type": "string",
+    },
+    {
+        "name": "subItemsTextClass",
+        "type": "string",
+    },
+    {
+        "name": "subItemsIconClass",
         "type": "string",
     },
 ]
@@ -786,14 +812,74 @@ options: [
 
 ### itemsCustomClass
 
-The `itemsCustomClass` prop allows you to set a custom class for the menu items. It is useful when you want to apply specific styles to the menu items.
+The `itemsCustomClass` prop allows you to set custom classes on the menu item wrapper.
 
-**Important**: It only works when menu items are passed as an array by using the `menuItems` props.
+Use this prop for wrapper-level styles such as spacing, background, border, or font weight.
 
 ```vue
 <template>
     <NavSidebar
-        :itemsCustomClass="'custom-class-name'"
+        :itemsCustomClass="'!rounded-xl !border !border-border-brand'"
+    />
+</template>
+```
+
+### itemsTextClass
+
+The `itemsTextClass` prop allows you to set custom classes specifically for top-level menu item text.
+
+```vue
+<template>
+    <NavSidebar
+        :itemsTextClass="'!text-text-primary-brand-default'"
+    />
+</template>
+```
+
+### itemsIconClass
+
+The `itemsIconClass` prop allows you to set custom classes specifically for top-level menu item icon.
+
+```vue
+<template>
+    <NavSidebar
+        :itemsIconClass="'!text-icon-primary-brand-default'"
+    />
+</template>
+```
+
+### subItemsCustomClass
+
+The `subItemsCustomClass` prop allows you to set custom classes on expanded child menu item wrappers (nested items).
+
+```vue
+<template>
+    <NavSidebar
+        :subItemsCustomClass="'!rounded-lg !font-bold'"
+    />
+</template>
+```
+
+### subItemsTextClass
+
+The `subItemsTextClass` prop allows you to set custom classes specifically for expanded child menu item text.
+
+```vue
+<template>
+    <NavSidebar
+        :subItemsTextClass="'!text-text-danger'"
+    />
+</template>
+```
+
+### subItemsIconClass
+
+The `subItemsIconClass` prop allows you to set custom classes specifically for expanded child menu item icon.
+
+```vue
+<template>
+    <NavSidebar
+        :subItemsIconClass="'!text-icon-danger'"
     />
 </template>
 ```

@@ -17,7 +17,7 @@
                     <ProseTd>
                         <ProseCode 
                             :color="ColorAccent.PRIMARY_BRAND"
-                            class="font-semibold"
+                            class="font-semibold whitespace-nowrap"
                         >
                             {{ option.name }}
                         </ProseCode>
