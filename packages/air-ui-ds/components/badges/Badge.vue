@@ -139,7 +139,7 @@ const shapeClass = computed(() => {
 const colorClass = computed(() => {
     if (props.styleType === BadgeStyle.FLAT) {
         const flatColorVariant: Record<ColorAccent, string> = {
-            [ColorAccent.NEUTRAL]: "bg-background-neutral-sublter",
+            [ColorAccent.NEUTRAL]: "bg-background-neutral-subtler",
             [ColorAccent.SUCCESS]: "bg-background-success-subtler",
             [ColorAccent.WARNING]: "bg-background-warning-subtler",
             [ColorAccent.DANGER]: "bg-background-danger-subtler",
@@ -154,7 +154,7 @@ const colorClass = computed(() => {
     const colorVariant: Record<ColorAccent, string> = {
         [ColorAccent.NEUTRAL]: props.styleType === BadgeStyle.FILLED
             ? "bg-background-neutral-bold"
-            : "bg-background-neutral-sublter",
+            : "bg-background-neutral-subtler",
         [ColorAccent.SUCCESS]: props.styleType === BadgeStyle.FILLED
             ? "bg-background-success-bold"
             : "bg-background-success-subtlest",
@@ -175,7 +175,7 @@ const colorClass = computed(() => {
             : "bg-background-secondary-brand-soft",
     }
 
-    return colorVariant[props.color as ColorAccent] || "bg-background-neutral-sublter"
+    return colorVariant[props.color as ColorAccent] || "bg-background-neutral-subtler"
 })
 
 const textClass = computed(() => {

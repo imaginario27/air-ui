@@ -67,7 +67,7 @@ const iconContainerClass = computed(() => {
     const colorVariants: Record<ColorAccent, string> = {
         [ColorAccent.NEUTRAL]: filled
             ? 'bg-background-neutral-bold'
-            : 'bg-background-neutral-sublter',
+            : 'bg-background-neutral-subtler',
         [ColorAccent.SUCCESS]: filled
             ? 'bg-background-success-bold'
             : 'bg-background-success-subtler',
@@ -90,7 +90,7 @@ const iconContainerClass = computed(() => {
 
     return colorVariants[props.color as ColorAccent] || (filled
         ? 'bg-background-neutral-bold'
-        : 'bg-background-neutral-sublter')
+        : 'bg-background-neutral-subtler')
 })
 
 const iconColorClass = computed(() => {

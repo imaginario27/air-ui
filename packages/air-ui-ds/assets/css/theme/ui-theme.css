@@ -21,7 +21,7 @@
     --color-background-neutral-filled-transparent: #182953d9;
     --color-background-neutral-hover: var(--color-theme-neutral-100);
     --color-background-neutral-hover-subtle: var(--color-theme-neutral-100);
-    --color-background-neutral-sublter: var(--color-theme-neutral-100);
+    --color-background-neutral-subtler: var(--color-theme-neutral-100);
     --color-background-neutral-subtle: var(--color-theme-neutral-200);
     --color-background-neutral-subtlest: var(--color-theme-neutral-50);
     --color-background-neutral-subtlest-on-container-surface: var(--color-theme-neutral-50);
@@ -243,7 +243,7 @@
     --color-background-neutral-filled-transparent: #182953d9;
     --color-background-neutral-hover: var(--color-theme-neutral-50);
     --color-background-neutral-hover-subtle: var(--color-theme-neutral-200);
-    --color-background-neutral-sublter: var(--color-theme-neutral-100);
+    --color-background-neutral-subtler: var(--color-theme-neutral-100);
     --color-background-neutral-subtle: var(--color-theme-neutral-200);
     --color-background-neutral-subtlest: var(--color-theme-neutral-50);
     --color-background-neutral-subtlest-on-container-surface: var(--color-theme-neutral-100);

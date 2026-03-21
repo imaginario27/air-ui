@@ -34,7 +34,7 @@
                     'h-[40px]',
                     'rounded-full',
                     'aspect-square',
-                    modelValue === value ? selectedIconBackgroundColorClass : 'bg-background-neutral-sublter'
+                    modelValue === value ? selectedIconBackgroundColorClass : 'bg-background-neutral-subtler'
                 ]"
             >
                 <Icon
