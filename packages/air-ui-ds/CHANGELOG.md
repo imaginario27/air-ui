@@ -5,6 +5,17 @@ All notable changes to this package are documented in this file.
 Historical releases were reconstructed from git history (GitHub repository) and npm publish dates.
 Future releases will include detailed entries generated with Changesets.
 
+## 1.4.4 - 2026-03-21
+
+Release type: patch.
+Commits found in range: 1.
+
+### Added
+
+1. update package versions ([c5a01a1](https://github.com/imaginario27/air-ui/commit/c5a01a186b047bceca41d6cf50d1f9da4e1aa15e))
+
+- Package: @imaginario27/air-ui-ds.
+
 ## 1.4.3 - 2026-03-20
 
 Release type: patch.
@@ -340,14 +351,12 @@ Commits found in range: 0.
 ## 1.1.7 - 2026-01-25
 
 Release type: patch.
-Commits found in range: 4.
+Commits found in range: 2.
 
 ### Added
 
 1. add missing component thumbnails and fix styles ([35eea46](https://github.com/imaginario27/air-ui/commit/35eea46f366995f8dace66a03b0e36ad3eeca119))
-2. Adds more components thumbnails ([e45980a](https://github.com/imaginario27/air-ui/commit/e45980a715f1c052c36f6843bc669e7e8dce138e))
-3. Adds a part of the components page thumbnails + Hides unused header menu items ([7c9d08f](https://github.com/imaginario27/air-ui/commit/7c9d08fac9b8124c85638e4ed09223c224d35d90))
-4. Adds teleport to dropdowns + Updates dropdown activator references + Updates unit tests ([ea96bcf](https://github.com/imaginario27/air-ui/commit/ea96bcff1eaf5ec5c45695349b0acd25eda5b952))
+2. Adds teleport to dropdowns + Updates dropdown activator references + Updates unit tests ([ea96bcf](https://github.com/imaginario27/air-ui/commit/ea96bcff1eaf5ec5c45695349b0acd25eda5b952))
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -498,13 +507,12 @@ Commits found in range: 0.
 ## 1.0.16 - 2025-12-29
 
 Release type: patch.
-Commits found in range: 3.
+Commits found in range: 2.
 
 ### Added
 
 1. Improves the copy button + Fixes links and table description text sizes + Adds redirects middleware ([5b28953](https://github.com/imaginario27/air-ui/commit/5b289539957d2a9901cf23acead7660fb06373c7))
-2. Adds new components docs pages + Adds component titles at the top + Adds new CopyButton and CodeSnippet ([cfb3bb4](https://github.com/imaginario27/air-ui/commit/cfb3bb475f31674a03bd3144cb02a76f670f2dd9))
-3. Adds new components docs pages + Fixes Toc composable ([675a956](https://github.com/imaginario27/air-ui/commit/675a95642dd4e3ce214f9ac8b9c2a8ceea3f7eab))
+2. Adds new components docs pages + Fixes Toc composable ([675a956](https://github.com/imaginario27/air-ui/commit/675a95642dd4e3ce214f9ac8b9c2a8ceea3f7eab))
 
 - Package: @imaginario27/air-ui-ds.
 

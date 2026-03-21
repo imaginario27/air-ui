@@ -1,7 +1,7 @@
 <template>
     <ModalDialog 
-        :modelValue
-        @update:modelValue="updateModelValue"
+        :model-value="props.modelValue"
+        @update:model-value="updateModelValue"
     >
         <ModalContent>  
             <ModalTitle :title="modalTitle" />
@@ -12,6 +12,15 @@
 
             <!-- Form -->
             <Form @submit="handleSubmit">
+                <input
+                    v-model="formData.website"
+                    type="text"
+                    name="website"
+                    autocomplete="off"
+                    tabindex="-1"
+                    aria-hidden="true"
+                    class="sr-only"
+                >
                 <FormRow>
                     <InputField
                         id="subject"
@@ -60,6 +69,23 @@
                         :maxFileSize="0.25"
                     />
                 </FormRow>
+                <FormRow v-if="turnstileEnabled">
+                    <div class="w-full rounded-xl border border-gray-200 bg-gray-50 p-3 sm:p-4">
+                        <p class="mb-2 text-xs font-medium text-text-secondary">
+                            Security check
+                        </p>
+                        <div
+                            ref="turnstileWidgetContainer"
+                            class="flex w-full justify-center"
+                        />
+                    </div>
+                    <p
+                        v-if="turnstileError"
+                        class="mt-2 rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-status-danger"
+                    >
+                        {{ turnstileError }}
+                    </p>
+                </FormRow>
                 <FormActions class="justify-end">
                     <ActionButton 
                         text="Cancel"
@@ -79,6 +105,11 @@
     </ModalDialog>
 </template>
 <script setup lang="ts">
+import type {
+    FeedbackFormData,
+    FeedbackMetadata,
+} from '@/models/types/feedbackModal'
+
 // Props
 const props = defineProps({
     modelValue: {
@@ -96,18 +127,21 @@ const props = defineProps({
 const { $toast } = useNuxtApp()
 
 // Composables
+const config = useRuntimeConfig()
 const route = useRoute()
+const { submitFeedback } = useFeedbackSubmission()
 
 // States
-const formData = reactive({
+const formData = reactive<FeedbackFormData>({
     title: '',
     description: '',
     github: '',
+    website: '',
     page: route.fullPath,
-    files: [] as File[],
+    files: [],
 })
 
-const metadata = reactive({
+const metadata = reactive<FeedbackMetadata>({
     url: '',
     userAgent: '',
     browser: '',
@@ -117,6 +151,22 @@ const metadata = reactive({
 })
 
 const isSubmitting = ref(false)
+const formStartedAt = ref(Date.now())
+const turnstileWidgetContainer = ref<HTMLElement | null>(null)
+
+const turnstileSiteKey = computed(() => config.public.turnstileSiteKey as string || '')
+const {
+    turnstileEnabled,
+    turnstileToken,
+    turnstileError,
+    renderTurnstile,
+    clearTurnstileState,
+} = useTurnstile({
+    siteKey: turnstileSiteKey,
+    theme: 'auto',
+    size: 'flexible',
+    appearance: 'always',
+})
 
 // Validation
 const { formErrors, resetForm, validateFormFields } = useForm({
@@ -231,47 +281,30 @@ const handleSubmit = async () => {
         return
     }
 
+    if (turnstileEnabled.value && !turnstileToken.value) {
+        $toast.error('Please complete the captcha.', {
+            toastId: 'turnstile-required',
+        })
+        turnstileError.value = 'Captcha verification is required.'
+        return
+    }
+
     isSubmitting.value = true
 
     try {
-        const form = new FormData()
-
-        form.append('type', props.type)
-        form.append('title', formData.title)
-        form.append('description', formData.description)
-        form.append('github', formData.github)
-        form.append('page', formData.page)
-
-        form.append('metadata', JSON.stringify(metadata))
-
-        formData.files.forEach((entry) => {
-            let file: Blob | null = null
-
-            if (entry instanceof Blob) {
-                file = entry
-            } else if (
-                typeof entry === 'object' &&
-                entry !== null &&
-                'file' in entry &&
-                entry.file instanceof Blob
-            ) {
-                file = entry.file
-            }
-
-            if (file) {
-                const filename = file instanceof File ? file.name : 'screenshot'
-                form.append('files', file, filename)
-            }
-        })
-
-        await $fetch('/api/feedback', {
-            method: 'POST',
-            body: form,
+        await submitFeedback({
+            type: props.type,
+            formData,
+            metadata,
+            clientSubmittedAt: formStartedAt.value,
+            turnstileToken: turnstileToken.value,
         })
 
         emit('action')
         handleClose()
         resetForm()
+        clearTurnstileState()
+        formStartedAt.value = Date.now()
 
         $toast.success(submitMessage.value, {
             toastId: 'form-success',
@@ -307,5 +340,23 @@ onMounted(() => {
     else if (ua.includes('Android')) metadata.os = 'Android'
     else if (ua.includes('iPhone') || ua.includes('iPad')) metadata.os = 'iOS'
     else metadata.os = 'Unknown'
+
+    if (props.modelValue && turnstileEnabled.value) {
+        renderTurnstile(turnstileWidgetContainer.value)
+    }
+})
+
+watch(() => props.modelValue, (isOpen) => {
+    if (!isOpen) {
+        clearTurnstileState()
+        formStartedAt.value = Date.now()
+        return
+    }
+
+    formStartedAt.value = Date.now()
+
+    if (turnstileEnabled.value) {
+        renderTurnstile(turnstileWidgetContainer.value)
+    }
 })
 </script>
