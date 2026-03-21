@@ -195,6 +195,13 @@ export default defineNuxtConfig({
 
     vite: {
         plugins: [tailwindcss() as any],
+        optimizeDeps: {
+            include: [
+                'vue3-toastify',
+                'prettier',
+                'fuse.js',
+            ]
+        },
     },
 })
 

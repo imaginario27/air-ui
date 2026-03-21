@@ -1,7 +1,7 @@
 ## AirUI design tokens
 
 Air UI uses **design tokens** to define colors, spacing, radius, and other visual decisions in a consistent and scalable way.
-All tokens are exposed through Tailwind utilities and centrally managed in `main.css` file.
+The semantic tokens documented here are exposed through Tailwind utilities and sourced from `packages/air-ui-ds/assets/css/main.css` and `packages/air-ui-ds/assets/css/theme/ui-theme.css`.
 
 Design tokens act as the **foundation of the design system**, ensuring visual consistency across components, layouts, and themes.
 
@@ -9,10 +9,11 @@ Design tokens act as the **foundation of the design system**, ensuring visual co
 
 * Tokens are defined as CSS variables inside the `@theme` block
 * Tailwind utilities consume those variables automatically
+* `design-token-table` expects the raw token name only, without the Tailwind utility prefix. For example, use `background-neutral-bold` in the table item, not `bg-background-neutral-bold`
 
 ## Available design tokens
 
-Below is a complete list of the available **Tailwind class names** generated from the design tokens.
+Below is the list of the semantic tokens exposed by `air-ui-ds` and intended to be used with `design-token-table`.
 
 ### Background colors
 
@@ -93,6 +94,10 @@ items: [
         "description": "Disabled background state.",
     },
     {
+        "name": "background-neutral-filled-transparent",
+        "description": "Transparent filled neutral background.",
+    },
+    {
         "name": "background-neutral-hover",
         "description": "Hover state for neutral surfaces.",
     },
@@ -101,12 +106,20 @@ items: [
         "description": "Subtle hover state.",
     },
     {
+        "name": "background-neutral-subtler",
+        "description": "Exposed subtler neutral background token.",
+    },
+    {
         "name": "background-neutral-subtle",
         "description": "Low-contrast neutral background.",
     },
     {
         "name": "background-neutral-subtlest",
         "description": "Minimal neutral background.",
+    },
+    {
+        "name": "background-neutral-subtlest-on-container-surface",
+        "description": "Subtlest neutral background on container surfaces.",
     },
     {
         "name": "background-neutral-filled-default",
@@ -129,6 +142,14 @@ items: [
         "description": "Primary brand active state.",
     },
     {
+        "name": "background-primary-brand-checked",
+        "description": "Primary brand checked state.",
+    },
+    {
+        "name": "background-primary-brand-checked-subtlest",
+        "description": "Subtlest primary brand checked background.",
+    },
+    {
         "name": "background-primary-brand-soft",
         "description": "Soft primary brand background.",
     },
@@ -137,12 +158,36 @@ items: [
         "description": "Soft primary brand hover.",
     },
     {
+        "name": "background-primary-brand-on-checked-subtle-bg",
+        "description": "Primary brand background used on checked subtle surfaces.",
+    },
+    {
+        "name": "background-primary-brand-subtle-active",
+        "description": "Active primary brand background for subtle variants.",
+    },
+    {
         "name": "background-secondary-brand-default",
         "description": "Secondary brand background.",
     },
     {
         "name": "background-secondary-brand-hover",
         "description": "Secondary brand hover.",
+    },
+    {
+        "name": "background-secondary-brand-checked",
+        "description": "Secondary brand checked state.",
+    },
+    {
+        "name": "background-secondary-brand-checked-subtlest",
+        "description": "Subtlest secondary brand checked background.",
+    },
+    {
+        "name": "background-secondary-brand-on-checked-subtle-bg",
+        "description": "Secondary brand background used on checked subtle surfaces.",
+    },
+    {
+        "name": "background-secondary-brand-soft",
+        "description": "Soft secondary brand background.",
     },
     {
         "name": "background-success-bold",
@@ -169,6 +214,40 @@ items: [
         "description": "Very light warning background.",
     }
     
+]
+---
+::
+
+### Chart colors
+
+::design-token-table
+---
+type: 'others'
+items: [
+    {
+        "name": "chart-variant-one",
+        "description": "Chart color variant one.",
+    },
+    {
+        "name": "chart-variant-two",
+        "description": "Chart color variant two.",
+    },
+    {
+        "name": "chart-variant-three",
+        "description": "Chart color variant three.",
+    },
+    {
+        "name": "chart-variant-four",
+        "description": "Chart color variant four.",
+    },
+    {
+        "name": "chart-variant-five",
+        "description": "Chart color variant five.",
+    },
+    {
+        "name": "chart-variant-six",
+        "description": "Chart color variant six.",
+    }
 ]
 ---
 ::
@@ -225,8 +304,36 @@ items: [
         "description": "Text color for filled neutral backgrounds.",
     },
     {
+        "name": "text-neutral-on-monochrome-active-bg",
+        "description": "Neutral text on active monochrome backgrounds.",
+    },
+    {
+        "name": "text-neutral-on-monochrome-hover-bg",
+        "description": "Neutral text on hover monochrome backgrounds.",
+    },
+    {
+        "name": "text-neutral-on-neutral-bg",
+        "description": "Neutral text on neutral backgrounds.",
+    },
+    {
+        "name": "text-neutral-on-neutral-filled-bg",
+        "description": "Neutral text on filled neutral backgrounds.",
+    },
+    {
+        "name": "text-neutral-on-primary-brand-soft-bg",
+        "description": "Neutral text on soft primary brand backgrounds.",
+    },
+    {
         "name": "text-neutral-subtle",
         "description": "Subtle secondary text color.",
+    },
+    {
+        "name": "text-neutral-subtle-on-disabled-bg",
+        "description": "Subtle neutral text on disabled backgrounds.",
+    },
+    {
+        "name": "text-neutral-subtle-on-subtler-bg",
+        "description": "Subtle neutral text on subtler backgrounds.",
     },
     {
         "name": "text-neutral-subtler",
@@ -249,8 +356,28 @@ items: [
         "description": "Primary brand active text color.",
     },
     {
+        "name": "text-primary-brand-on-checked-subtlest",
+        "description": "Primary brand text on checked subtlest backgrounds.",
+    },
+    {
+        "name": "text-primary-brand-on-neutral-hover-bg",
+        "description": "Primary brand text on neutral hover backgrounds.",
+    },
+    {
+        "name": "text-primary-brand-on-soft-bg",
+        "description": "Primary brand text on soft brand backgrounds.",
+    },
+    {
         "name": "text-secondary-brand-default",
         "description": "Secondary brand text color.",
+    },
+    {
+        "name": "text-secondary-brand-on-checked-subtlest",
+        "description": "Secondary brand text on checked subtlest backgrounds.",
+    },
+    {
+        "name": "text-secondary-brand-on-soft-bg",
+        "description": "Secondary brand text on soft brand backgrounds.",
     }
 ]
 ---
@@ -275,6 +402,10 @@ items: [
         "description": "Border for error states.",
     },
     {
+        "name": "border-inactive",
+        "description": "Border for inactive elements.",
+    },
+    {
         "name": "border-info",
         "description": "Border for informational messages.",
     },
@@ -289,6 +420,18 @@ items: [
     {
         "name": "border-neutral-hover",
         "description": "Border color on neutral hover state.",
+    },
+    {
+        "name": "border-neutral-on-disabled-bg",
+        "description": "Neutral border on disabled backgrounds.",
+    },
+    {
+        "name": "border-neutral-on-filled",
+        "description": "Neutral border on filled backgrounds.",
+    },
+    {
+        "name": "border-neutral-stacked",
+        "description": "Neutral stacked border color.",
     },
     {
         "name": "border-neutral-subtle",
@@ -345,12 +488,24 @@ items: [
         "description": "Subtle danger icon",
     },
     {
+        "name": "icon-delete",
+        "description": "Icon color for delete actions",
+    },
+    {
+        "name": "icon-error",
+        "description": "Icon color for error states",
+    },
+    {
         "name": "icon-info",
         "description": "Informational icon",
     },
     {
         "name": "icon-info-subtle-strong",
         "description": "Emphasized subtle info icon",
+    },
+    {
+        "name": "icon-rating",
+        "description": "Icon color for rating indicators",
     },
     {
         "name": "icon-success",
@@ -381,8 +536,40 @@ items: [
         "description": "Inactive icon",
     },
     {
+        "name": "icon-neutral-on-filled-bg",
+        "description": "Neutral icon on filled backgrounds",
+    },
+    {
+        "name": "icon-neutral-on-filled-secondary-brand-bg",
+        "description": "Neutral icon on filled secondary brand backgrounds",
+    },
+    {
+        "name": "icon-neutral-on-monochrome-active-bg",
+        "description": "Neutral icon on active monochrome backgrounds",
+    },
+    {
+        "name": "icon-neutral-on-monochrome-hover-bg",
+        "description": "Neutral icon on hover monochrome backgrounds",
+    },
+    {
+        "name": "icon-neutral-on-neutral-bg",
+        "description": "Neutral icon on neutral backgrounds",
+    },
+    {
+        "name": "icon-neutral-on-primary-brand-soft-bg",
+        "description": "Neutral icon on soft primary brand backgrounds",
+    },
+    {
+        "name": "icon-neutral-on-subtlest-bg",
+        "description": "Neutral icon on subtlest backgrounds",
+    },
+    {
         "name": "icon-neutral-subtle",
         "description": "Subtle neutral icon color",
+    },
+    {
+        "name": "icon-neutral-subtle-on-subtler-bg",
+        "description": "Subtle neutral icon on subtler backgrounds",
     },
     {
         "name": "icon-neutral-subtler",
@@ -405,8 +592,24 @@ items: [
         "description": "Primary brand active icon color",
     },
     {
-        "name": "icon-secondary-brand-default ",
-       	"description": 	"Secondary brand icon color ",
+        "name": "icon-primary-brand-on-neutral-hover-bg",
+        "description": "Primary brand icon on neutral hover backgrounds",
+    },
+    {
+        "name": "icon-primary-brand-on-soft-bg",
+        "description": "Primary brand icon on soft brand backgrounds",
+    },
+    {
+        "name": "icon-primary-brand-rating",
+        "description": "Primary brand icon used for rating indicators",
+    },
+    {
+        "name": "icon-secondary-brand-active",
+        "description": "Secondary brand active icon color",
+    },
+    {
+        "name": "icon-secondary-brand-default",
+        "description": "Secondary brand icon color",
     }
 ]
 ---
@@ -423,15 +626,15 @@ items: [
         "description": "Default column gap spacing",
     },
     {
-        "name": "content-side",
+        "name": "content-side-padding",
         "description": "Horizontal content padding",
     },
     {
-        "name": "content-side-mobile",
+        "name": "content-side-padding-mobile",
         "description": "Mobile horizontal content padding",
     },
     {
-        "name": "content-body-bottom",
+        "name": "content-body-bottom-padding",
         "description": "Bottom padding for content areas",
     },
     {
@@ -488,7 +691,7 @@ items: [
 
 ## Token usage
 
-Levarage design tokens in your code by applying the corresponding Tailwind classes, following the pattern: `category-name` (e.g., `bg-background-neutral-bold`, `text-text-default`, `border-border-default`, `opacity-disabled`).
+Leverage design tokens in your code by applying the corresponding Tailwind classes, following the pattern: `category-name` (e.g., `bg-background-neutral-bold`, `text-text-default`, `border-border-default`, `opacity-disabled`).
 
 ```vue
 <div 
