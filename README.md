@@ -40,7 +40,7 @@ This project enforces **Conventional Commits** with scope validation to keep com
 feat(ds): add new button component
 fix(utils): resolve type definitions
 docs(docs): update installation guide
-refactor(chore): improve build process
+refactor(root): improve build process
 ```
 
 #### Valid Scopes
@@ -48,7 +48,7 @@ refactor(chore): improve build process
 - `ds` — Design System package (`@imaginario27/air-ui-ds`)
 - `utils` — Utils package (`@imaginario27/air-ui-utils`) 
 - `docs` — Documentation site
-- `chore` — Repository-wide changes (dependencies, tooling, etc.)
+- `root` — Repository-wide changes (dependencies, tooling, etc.)
 
 #### Valid Types
 
@@ -75,7 +75,7 @@ Husky automatically validates commits using commitlint. Invalid commits will be 
 ✅ git commit -m "fix(utils): type issue"       # Valid  
 ```
 
-**Tip:** Keep each commit focused on one package. If changes span multiple packages, create separate commits with the appropriate scope.
+**Tip:** Keep each commit focused when possible. If changes span multiple packages or folders, use the scope that best represents the change you want to describe.
 
 ### Development Servers
 
@@ -136,7 +136,7 @@ The publishing process is automated with checks and confirmation steps:
       docs/data/releases/release-history.json
       packages/air-ui-ds/CHANGELOG.md
    
-   ✅ Commit message: "chore: release @imaginario27/air-ui-ds v1.4.3"
+   ✅ Commit message: "chore(ds): release @imaginario27/air-ui-ds v1.4.3"
    Proceed? (y/n): y
    ```
 
@@ -161,31 +161,10 @@ npm run publish:utils:minor
 npm run publish:utils:major
 ```
 
-### Single Package Publishing
-
-To prevent mixing changelogs and ensure clean release history, **only one package can be published per release cycle**:
-
-```bash
-# ✅ Publish Design System
-npm run publish:ds:patch
-git push
-
-# ❌ Cannot immediately publish Utils (will be blocked)
-
-# ✅ Later: Publish Utils
-npm run publish:utils:minor
-git push
-```
-
-The validation script (`check-single-publish`) checks the git history and:
-- **Blocks** publishing the same package twice in a row
-- **Warns** when publishing a different package and reminds you to push first
-- **Allows** publishing after a push to GitHub
-
 ### Important Notes
 
 - **Git must be clean**: All changes must be committed before publishing. The script will prevent publishing with uncommitted changes.
-- **Push between releases**: Always push to GitHub after publishing one package before publishing the other. This ensures clean git history and prevents changelog mixing.
+- **Push after releases**: Push to GitHub after publishing so release commits and generated changelogs stay synchronized with the remote branch.
 - **Commits are filtered**: 
   - `chore:` commits are excluded from changelogs
   - `fix(docs)`, `feat(docs)` scoped only to docs are excluded
@@ -230,13 +209,13 @@ This project uses [Conventional Commits](https://www.conventionalcommits.org/):
 type(scope): subject
 
 type: feat, fix, docs, style, refactor, perf, test, chore
-scope: ds, utils, docs, etc.
+scope: ds, utils, docs, root, etc.
 
 Examples:
 - feat(ds): add button component
 - fix(utils): resolve array sorting bug
-- docs: update readme
-- chore: update dependencies
+- docs(docs): update readme
+- chore(root): update dependencies
 ```
 
 Commits are automatically classified into changelog sections:
