@@ -1,12 +1,43 @@
 {
-  "generatedAt": "2026-03-20T18:19:13.243Z",
+  "generatedAt": "2026-03-21T13:47:57.219Z",
   "source": "github-git-history+npm-publish-dates",
   "githubBaseUrl": "https://github.com/imaginario27/air-ui",
   "packages": [
     {
       "packageName": "@imaginario27/air-ui-ds",
-      "latestVersion": "1.4.3",
+      "latestVersion": "1.4.4",
       "entries": [
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.4.4",
+          "publishedAt": "2026-03-21",
+          "releaseType": "patch",
+          "notes": [
+            "update package versions"
+          ],
+          "metadata": {
+            "commitCount": 1,
+            "commits": [
+              {
+                "sha": "c5a01a186b047bceca41d6cf50d1f9da4e1aa15e",
+                "shortSha": "c5a01a1",
+                "date": "2026-03-21",
+                "subject": "feat(deps): update package versions",
+                "normalizedSubject": "update package versions",
+                "type": "added",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/c5a01a186b047bceca41d6cf50d1f9da4e1aa15e",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 1,
+              "fixed": 0,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
         {
           "packageName": "@imaginario27/air-ui-ds",
           "version": "1.4.3",
@@ -949,12 +980,10 @@
           "releaseType": "patch",
           "notes": [
             "add missing component thumbnails and fix styles",
-            "Adds more components thumbnails",
-            "Adds a part of the components page thumbnails + Hides unused header menu items",
             "Adds teleport to dropdowns + Updates dropdown activator references + Updates unit tests"
           ],
           "metadata": {
-            "commitCount": 4,
+            "commitCount": 2,
             "commits": [
               {
                 "sha": "35eea46f366995f8dace66a03b0e36ad3eeca119",
@@ -965,28 +994,6 @@
                 "type": "added",
                 "prNumber": null,
                 "url": "https://github.com/imaginario27/air-ui/commit/35eea46f366995f8dace66a03b0e36ad3eeca119",
-                "prUrl": null
-              },
-              {
-                "sha": "e45980a715f1c052c36f6843bc669e7e8dce138e",
-                "shortSha": "e45980a",
-                "date": "2026-01-24",
-                "subject": "feat(docs): Adds more components thumbnails",
-                "normalizedSubject": "Adds more components thumbnails",
-                "type": "added",
-                "prNumber": null,
-                "url": "https://github.com/imaginario27/air-ui/commit/e45980a715f1c052c36f6843bc669e7e8dce138e",
-                "prUrl": null
-              },
-              {
-                "sha": "7c9d08fac9b8124c85638e4ed09223c224d35d90",
-                "shortSha": "7c9d08f",
-                "date": "2026-01-24",
-                "subject": "feat(docs): Adds a part of the components page thumbnails + Hides unused header menu items",
-                "normalizedSubject": "Adds a part of the components page thumbnails + Hides unused header menu items",
-                "type": "added",
-                "prNumber": null,
-                "url": "https://github.com/imaginario27/air-ui/commit/7c9d08fac9b8124c85638e4ed09223c224d35d90",
                 "prUrl": null
               },
               {
@@ -1002,7 +1009,7 @@
               }
             ],
             "groups": {
-              "added": 4,
+              "added": 2,
               "fixed": 0,
               "changed": 0,
               "breaking": 0
@@ -1407,11 +1414,10 @@
           "releaseType": "patch",
           "notes": [
             "Improves the copy button + Fixes links and table description text sizes + Adds redirects middleware",
-            "Adds new components docs pages + Adds component titles at the top + Adds new CopyButton and CodeSnippet",
             "Adds new components docs pages + Fixes Toc composable"
           ],
           "metadata": {
-            "commitCount": 3,
+            "commitCount": 2,
             "commits": [
               {
                 "sha": "5b289539957d2a9901cf23acead7660fb06373c7",
@@ -1422,17 +1428,6 @@
                 "type": "added",
                 "prNumber": null,
                 "url": "https://github.com/imaginario27/air-ui/commit/5b289539957d2a9901cf23acead7660fb06373c7",
-                "prUrl": null
-              },
-              {
-                "sha": "cfb3bb475f31674a03bd3144cb02a76f670f2dd9",
-                "shortSha": "cfb3bb4",
-                "date": "2025-12-27",
-                "subject": "feat(docs): Adds new components docs pages + Adds component titles at the top + Adds new CopyButton and CodeSnippet",
-                "normalizedSubject": "Adds new components docs pages + Adds component titles at the top + Adds new CopyButton and CodeSnippet",
-                "type": "added",
-                "prNumber": null,
-                "url": "https://github.com/imaginario27/air-ui/commit/cfb3bb475f31674a03bd3144cb02a76f670f2dd9",
                 "prUrl": null
               },
               {
@@ -1448,7 +1443,7 @@
               }
             ],
             "groups": {
-              "added": 3,
+              "added": 2,
               "fixed": 0,
               "changed": 0,
               "breaking": 0
