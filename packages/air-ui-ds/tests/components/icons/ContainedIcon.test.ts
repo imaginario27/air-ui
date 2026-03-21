@@ -25,7 +25,7 @@ describe('ContainedIcon.vue', () => {
         const icon = wrapper.findComponent({ name: 'Icon' })
 
         expect(container.classes()).toContain('rounded-full')
-        expect(container.classes()).toContain('bg-background-neutral-sublter')
+        expect(container.classes()).toContain('bg-background-neutral-subtler')
         expect(icon.exists()).toBe(true)
         expect(icon.props('name')).toBe('mdi:help')
 
@@ -47,7 +47,7 @@ describe('ContainedIcon.vue', () => {
     it('applies correct background and icon color for each ColorAccent (FLAT)', () => {
         const colorMap = {
             [ColorAccent.NEUTRAL]: {
-                bg: 'bg-background-neutral-sublter',
+                bg: 'bg-background-neutral-subtler',
                 icon: '!text-icon-neutral-subtle-on-subtler-bg'
             },
             [ColorAccent.SUCCESS]: {

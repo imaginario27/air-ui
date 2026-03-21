@@ -70,21 +70,24 @@
                     />
                 </FormRow>
                 <FormRow v-if="turnstileEnabled">
-                    <div class="w-full rounded-xl border border-gray-200 bg-gray-50 p-3 sm:p-4">
-                        <p class="mb-2 text-xs font-medium text-text-secondary">
-                            Security check
-                        </p>
-                        <div
-                            ref="turnstileWidgetContainer"
-                            class="flex w-full justify-center"
-                        />
-                    </div>
-                    <p
-                        v-if="turnstileError"
-                        class="mt-2 rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-status-danger"
-                    >
-                        {{ turnstileError }}
-                    </p>
+                    <Card>
+                        <CardHeader>
+                            <h3 class="text-sm font-medium text-text-default">
+                                Security Check
+                            </h3>
+                        </CardHeader>
+                        <CardBody>
+                           <div 
+                                ref="turnstileWidgetContainer" 
+                                class="turnstile-widget-container flex w-full justify-center" 
+                            />
+
+                            <p v-if="turnstileError"
+                                class="mt-2 rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-status-danger">
+                                {{ turnstileError }}
+                            </p>
+                        </CardBody>
+                    </Card>
                 </FormRow>
                 <FormActions class="justify-end">
                     <ActionButton 
@@ -97,6 +100,7 @@
                         :text="submitButtonText"
                         type="submit"
                         isMobileFullWidth
+                        :disabled="isSubmitDisabled"
                         :isLoading="isSubmitting"
                     />
                 </FormActions>
@@ -261,6 +265,19 @@ const submitMessage = computed(() => {
     return 'Suggestion submitted successfully'
 }) 
 
+const hasRequiredFields = computed(() => {
+    return Boolean(formData.title.trim())
+        && Boolean(formData.description.trim())
+})
+
+const hasValidTurnstile = computed(() => {
+    return !turnstileEnabled.value || Boolean(turnstileToken.value)
+})
+
+const isSubmitDisabled = computed(() => {
+    return isSubmitting.value || !hasRequiredFields.value || !hasValidTurnstile.value
+})
+
 // Methods
 const updateModelValue = (value: boolean) => {
     emit('update:modelValue', value)
@@ -360,3 +377,10 @@ watch(() => props.modelValue, (isOpen) => {
     }
 })
 </script>
+
+<style scoped>
+.turnstile-widget-container :deep(div),
+.turnstile-widget-container :deep(iframe) {
+    width: 100% !important;
+}
+</style>

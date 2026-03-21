@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-21T13:48:44.965Z",
+  "generatedAt": "2026-03-21T18:33:40.784Z",
   "source": "github-git-history+npm-publish-dates",
   "githubBaseUrl": "https://github.com/imaginario27/air-ui",
   "packages": [
@@ -1818,8 +1818,51 @@
     },
     {
       "packageName": "@imaginario27/air-ui-utils",
-      "latestVersion": "1.2.0",
+      "latestVersion": "1.2.1",
       "entries": [
+        {
+          "packageName": "@imaginario27/air-ui-utils",
+          "version": "1.2.1",
+          "publishedAt": "2026-03-21",
+          "releaseType": "patch",
+          "notes": [
+            "update package versions",
+            "add new TagsField and RulesField components + component fixes"
+          ],
+          "metadata": {
+            "commitCount": 2,
+            "commits": [
+              {
+                "sha": "c5a01a186b047bceca41d6cf50d1f9da4e1aa15e",
+                "shortSha": "c5a01a1",
+                "date": "2026-03-21",
+                "subject": "feat(deps): update package versions",
+                "normalizedSubject": "update package versions",
+                "type": "added",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/c5a01a186b047bceca41d6cf50d1f9da4e1aa15e",
+                "prUrl": null
+              },
+              {
+                "sha": "c8c125eb110eedc16f29706778578514bc28eb4f",
+                "shortSha": "c8c125e",
+                "date": "2026-03-18",
+                "subject": "feat(design system + docs): add new TagsField and RulesField components + component fixes",
+                "normalizedSubject": "add new TagsField and RulesField components + component fixes",
+                "type": "added",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/c8c125eb110eedc16f29706778578514bc28eb4f",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 2,
+              "fixed": 0,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
         {
           "packageName": "@imaginario27/air-ui-utils",
           "version": "1.2.0",

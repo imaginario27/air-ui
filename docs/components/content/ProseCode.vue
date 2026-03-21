@@ -27,7 +27,7 @@ const props = defineProps({
 // Computed classes
 const colorClass = computed(() => {
     const variant: Record<ColorAccent, string> = {
-        [ColorAccent.NEUTRAL]: "!bg-background-neutral-sublter",
+        [ColorAccent.NEUTRAL]: "!bg-background-neutral-subtler",
         [ColorAccent.SUCCESS]: "!bg-background-success-subtler",
         [ColorAccent.WARNING]: "!bg-background-warning-subtler",
         [ColorAccent.DANGER]: "!bg-background-danger-subtler",
@@ -36,7 +36,7 @@ const colorClass = computed(() => {
         [ColorAccent.SECONDARY_BRAND]: "!bg-background-secondary-brand-soft",
     }
 
-    return variant[props.color as ColorAccent] || "!bg-background-neutral-sublter"
+    return variant[props.color as ColorAccent] || "!bg-background-neutral-subtler"
 })
 
 const textClass = computed(() => {

@@ -31,6 +31,24 @@ function getPackageVersion(pkgName) {
     return pkgJson.version
 }
 
+function getPackageScope(pkgName) {
+    if (pkgName === "@imaginario27/air-ui-ds") return "ds"
+    if (pkgName === "@imaginario27/air-ui-utils") return "utils"
+
+    return "root"
+}
+
+function getReleaseFiles(pkgName) {
+    const wsName = pkgName.split("/")[1]
+
+    return [
+        "package-lock.json",
+        "docs/data/releases/release-history.json",
+        path.join("packages", wsName, "package.json"),
+        path.join("packages", wsName, "CHANGELOG.md"),
+    ]
+}
+
 async function askConfirmation(message) {
     const rl = readline.createInterface({
         input: process.stdin,
@@ -53,7 +71,9 @@ async function main() {
         console.log(status)
 
         const version = getPackageVersion(packageName)
-        const commitMessage = `chore: release ${packageName} v${version}`
+        const scope = getPackageScope(packageName)
+        const commitMessage = `chore(${scope}): release ${packageName} v${version}`
+        const releaseFiles = getReleaseFiles(packageName)
 
         const proceed = await askConfirmation(
             `\n✅ Commit message: "${commitMessage}"\nProceed? (y/n): `
@@ -64,7 +84,7 @@ async function main() {
             process.exit(0)
         }
 
-        runGit(["add", "."])
+        runGit(["add", "--", ...releaseFiles])
         runGit(["commit", "-m", commitMessage])
 
         console.log("✅ Changes committed successfully!")
@@ -74,4 +94,4 @@ async function main() {
     }
 }
 
-main()
+await main()

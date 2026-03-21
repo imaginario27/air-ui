@@ -25,6 +25,58 @@ air-ui/
 npm install
 ```
 
+### Commit Conventions
+
+This project enforces **Conventional Commits** with scope validation to keep commits properly organized by package.
+
+#### Format
+
+```
+<type>(<scope>): <subject>
+```
+
+**Example commits:**
+```bash
+feat(ds): add new button component
+fix(utils): resolve type definitions
+docs(docs): update installation guide
+refactor(root): improve build process
+```
+
+#### Valid Scopes
+
+- `ds` — Design System package (`@imaginario27/air-ui-ds`)
+- `utils` — Utils package (`@imaginario27/air-ui-utils`) 
+- `docs` — Documentation site
+- `root` — Repository-wide changes (dependencies, tooling, etc.)
+
+#### Valid Types
+
+- `feat` — New feature
+- `fix` — Bug fix
+- `docs` — Documentation changes
+- `style` — Code style changes (formatting, semicolons, etc.)
+- `refactor` — Code refactor without feature/fix
+- `perf` — Performance improvements
+- `test` — Adding or updating tests
+- `chore` — Build, dependencies, tooling
+- `revert` — Revert previous commit
+
+#### Validation
+
+Husky automatically validates commits using commitlint. Invalid commits will be rejected:
+
+```bash
+❌ git commit -m "add new feature"              # Missing type and scope
+❌ git commit -m "feat: new feature"            # Missing scope
+❌ git commit -m "feat(invalid): feature"       # Invalid scope
+
+✅ git commit -m "feat(ds): new button"         # Valid
+✅ git commit -m "fix(utils): type issue"       # Valid  
+```
+
+**Tip:** Keep each commit focused when possible. If changes span multiple packages or folders, use the scope that best represents the change you want to describe.
+
 ### Development Servers
 
 Run individual workspaces:
@@ -84,7 +136,7 @@ The publishing process is automated with checks and confirmation steps:
       docs/data/releases/release-history.json
       packages/air-ui-ds/CHANGELOG.md
    
-   ✅ Commit message: "chore: release @imaginario27/air-ui-ds v1.4.3"
+   ✅ Commit message: "chore(ds): release @imaginario27/air-ui-ds v1.4.3"
    Proceed? (y/n): y
    ```
 
@@ -112,6 +164,7 @@ npm run publish:utils:major
 ### Important Notes
 
 - **Git must be clean**: All changes must be committed before publishing. The script will prevent publishing with uncommitted changes.
+- **Push after releases**: Push to GitHub after publishing so release commits and generated changelogs stay synchronized with the remote branch.
 - **Commits are filtered**: 
   - `chore:` commits are excluded from changelogs
   - `fix(docs)`, `feat(docs)` scoped only to docs are excluded
@@ -156,13 +209,13 @@ This project uses [Conventional Commits](https://www.conventionalcommits.org/):
 type(scope): subject
 
 type: feat, fix, docs, style, refactor, perf, test, chore
-scope: ds, utils, docs, etc.
+scope: ds, utils, docs, root, etc.
 
 Examples:
 - feat(ds): add button component
 - fix(utils): resolve array sorting bug
-- docs: update readme
-- chore: update dependencies
+- docs(docs): update readme
+- chore(root): update dependencies
 ```
 
 Commits are automatically classified into changelog sections:

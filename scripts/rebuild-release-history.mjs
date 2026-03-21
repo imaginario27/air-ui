@@ -34,6 +34,8 @@ const PACKAGES = [
     },
 ]
 
+const targetPackageName = process.argv[2] ?? null
+
 const MAX_NOTES_PER_VERSION = 10
 
 function parseSemver(version) {
@@ -388,6 +390,13 @@ function buildChangelogMarkdown(packageName, entries) {
 async function main() {
     const packagesForDocs = []
     const githubBaseUrl = getGithubBaseUrl()
+    const packagesToWrite = targetPackageName
+        ? PACKAGES.filter((pkg) => pkg.name === targetPackageName)
+        : PACKAGES
+
+    if (targetPackageName && packagesToWrite.length === 0) {
+        throw new Error(`Unknown package name: ${targetPackageName}`)
+    }
 
     for (const pkg of PACKAGES) {
         const { versions, time } = await fetchPackageTime(pkg.name)
@@ -398,9 +407,11 @@ async function main() {
             time,
             githubBaseUrl,
         })
-        const markdown = buildChangelogMarkdown(pkg.name, entries)
 
-        await writeFile(pkg.changelogPath, markdown, "utf8")
+        if (packagesToWrite.some((targetPkg) => targetPkg.name === pkg.name)) {
+            const markdown = buildChangelogMarkdown(pkg.name, entries)
+            await writeFile(pkg.changelogPath, markdown, "utf8")
+        }
 
         packagesForDocs.push({
             packageName: pkg.name,
@@ -432,7 +443,7 @@ async function main() {
 
     console.log("Release history rebuilt successfully.")
     console.log(
-        `Updated ${packagesForDocs.length} package changelogs and docs release data.`,
+        `Updated ${packagesToWrite.length} package changelog(s) and docs release data.`,
     )
 }
 

@@ -31,7 +31,7 @@ const props = defineProps({
 // Computed Classes
 const colorClass = computed(() => {
     const colorVariants = {
-        [ColorAccent.NEUTRAL]: 'bg-background-neutral-sublter',
+        [ColorAccent.NEUTRAL]: 'bg-background-neutral-subtler',
         [ColorAccent.SUCCESS]: 'bg-background-success-subtler',
         [ColorAccent.WARNING]: 'bg-background-warning-subtler',
         [ColorAccent.DANGER]: 'bg-background-danger-subtler',
@@ -39,7 +39,7 @@ const colorClass = computed(() => {
         [ColorAccent.PRIMARY_BRAND]: 'bg-background-primary-brand-soft',
         [ColorAccent.SECONDARY_BRAND]: 'bg-background-secondary-brand-soft',
     }
-    return colorVariants[props.color as ColorAccent] || 'bg-background-neutral-sublter'
+    return colorVariants[props.color as ColorAccent] || 'bg-background-neutral-subtler'
 })
 
 const iconColorClass = computed(() => {
