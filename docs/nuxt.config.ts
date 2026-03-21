@@ -200,7 +200,7 @@ export default defineNuxtConfig({
                 'vue3-toastify',
                 'prettier',
                 'fuse.js',
-                'docs/nuxt.config.ts',
+                '@jaxtheprime/vue3-dropzone',
             ]
         },
     },
