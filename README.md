@@ -25,6 +25,58 @@ air-ui/
 npm install
 ```
 
+### Commit Conventions
+
+This project enforces **Conventional Commits** with scope validation to keep commits properly organized by package.
+
+#### Format
+
+```
+<type>(<scope>): <subject>
+```
+
+**Example commits:**
+```bash
+feat(ds): add new button component
+fix(utils): resolve type definitions
+docs(docs): update installation guide
+refactor(chore): improve build process
+```
+
+#### Valid Scopes
+
+- `ds` — Design System package (`@imaginario27/air-ui-ds`)
+- `utils` — Utils package (`@imaginario27/air-ui-utils`) 
+- `docs` — Documentation site
+- `chore` — Repository-wide changes (dependencies, tooling, etc.)
+
+#### Valid Types
+
+- `feat` — New feature
+- `fix` — Bug fix
+- `docs` — Documentation changes
+- `style` — Code style changes (formatting, semicolons, etc.)
+- `refactor` — Code refactor without feature/fix
+- `perf` — Performance improvements
+- `test` — Adding or updating tests
+- `chore` — Build, dependencies, tooling
+- `revert` — Revert previous commit
+
+#### Validation
+
+Husky automatically validates commits using commitlint. Invalid commits will be rejected:
+
+```bash
+❌ git commit -m "add new feature"              # Missing type and scope
+❌ git commit -m "feat: new feature"            # Missing scope
+❌ git commit -m "feat(invalid): feature"       # Invalid scope
+
+✅ git commit -m "feat(ds): new button"         # Valid
+✅ git commit -m "fix(utils): type issue"       # Valid  
+```
+
+**Tip:** Keep each commit focused on one package. If changes span multiple packages, create separate commits with the appropriate scope.
+
 ### Development Servers
 
 Run individual workspaces:
@@ -109,9 +161,31 @@ npm run publish:utils:minor
 npm run publish:utils:major
 ```
 
+### Single Package Publishing
+
+To prevent mixing changelogs and ensure clean release history, **only one package can be published per release cycle**:
+
+```bash
+# ✅ Publish Design System
+npm run publish:ds:patch
+git push
+
+# ❌ Cannot immediately publish Utils (will be blocked)
+
+# ✅ Later: Publish Utils
+npm run publish:utils:minor
+git push
+```
+
+The validation script (`check-single-publish`) checks the git history and:
+- **Blocks** publishing the same package twice in a row
+- **Warns** when publishing a different package and reminds you to push first
+- **Allows** publishing after a push to GitHub
+
 ### Important Notes
 
 - **Git must be clean**: All changes must be committed before publishing. The script will prevent publishing with uncommitted changes.
+- **Push between releases**: Always push to GitHub after publishing one package before publishing the other. This ensures clean git history and prevents changelog mixing.
 - **Commits are filtered**: 
   - `chore:` commits are excluded from changelogs
   - `fix(docs)`, `feat(docs)` scoped only to docs are excluded
