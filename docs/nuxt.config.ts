@@ -1,6 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 import tailwindcss from "@tailwindcss/vite"
-import { resolve } from 'path'
+import { resolve } from 'node:path'
 
 export default defineNuxtConfig({
     compatibilityDate: "2024-11-01",
@@ -13,6 +13,10 @@ export default defineNuxtConfig({
         cloudinaryCloudName: process.env.CLOUDINARY_CLOUD_NAME,
         cloudinaryApiKey: process.env.CLOUDINARY_API_KEY,
         cloudinaryApiSecret: process.env.CLOUDINARY_API_SECRET,
+        turnstileSecretKey: process.env.CLOUDFLARE_TURNSTILE_SECRET_KEY,
+        public: {
+            turnstileSiteKey: process.env.CLOUDFLARE_TURNSTILE_SITE_KEY || '',
+        },
     },
 
     modules: ["@pinia/nuxt", "@nuxt/image", "@nuxt/eslint", "@vueuse/nuxt", "@nuxt/content", "@nuxt/icon", "nuxt-llms", "@nuxtjs/mcp-toolkit"],
