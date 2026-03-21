@@ -22,7 +22,7 @@ function runGit(args) {
         return execFileSync("git", ["-C", repoRoot, ...args], {
             encoding: "utf8",
         }).trim()
-    } catch (error) {
+    } catch {
         return ""
     }
 }
@@ -36,6 +36,19 @@ function getLastPublishedPackage() {
     const lines = log.split("\n")
     
     for (const line of lines) {
+        if (
+            line.includes("release @imaginario27/air-ui-ds") &&
+            line.includes("chore(")
+        ) {
+            return "@imaginario27/air-ui-ds"
+        }
+        if (
+            line.includes("release @imaginario27/air-ui-utils") &&
+            line.includes("chore(")
+        ) {
+            return "@imaginario27/air-ui-utils"
+        }
+
         if (line.includes("chore: release @imaginario27/air-ui-ds")) {
             return "@imaginario27/air-ui-ds"
         }
@@ -101,4 +114,4 @@ async function main() {
     }
 }
 
-main()
+await main()

@@ -19,7 +19,10 @@ function runGit(args) {
 }
 
 function areaFromFile(filePath) {
-    const normalizedPath = filePath.replace(/\\\\/g, "/")
+    const normalizedPath = filePath.replaceAll("\\", "/")
+
+    // Generated release metadata is shared repo state, not docs-area work.
+    if (normalizedPath === "docs/data/releases/release-history.json") return null
 
     if (normalizedPath.startsWith("docs/")) return "docs"
     if (normalizedPath.startsWith("packages/air-ui-ds/")) return "ds"
@@ -29,10 +32,9 @@ function areaFromFile(filePath) {
 }
 
 function isGeneralRootChange(filePath) {
-    const normalizedPath = filePath.replace(/\\\\/g, "/")
+    const normalizedPath = filePath.replaceAll("\\", "/")
 
-    if (normalizedPath.includes("/")) return false
-    return true
+    return !normalizedPath.includes("/")
 }
 
 function main() {
@@ -52,7 +54,9 @@ function main() {
 
     if (touchedAreas.size <= 1) process.exit(0)
 
-    const areaList = [...touchedAreas].sort().join(", ")
+    const areaList = [...touchedAreas]
+        .sort((left, right) => left.localeCompare(right))
+        .join(", ")
 
     console.error("ERROR: Commit blocked: mixed areas in one commit.")
     console.error(`   Detected areas: ${areaList}`)
