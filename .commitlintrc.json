@@ -1,7 +1,8 @@
 {
   "extends": ["@commitlint/config-conventional"],
   "rules": {
-    "scope-enum": [2, "always", ["ds", "utils", "docs", "chore"]],
+    "scope-empty": [2, "never"],
+    "scope-enum": [2, "always", ["ds", "utils", "docs", "root"]],
     "type-enum": [
       2,
       "always",
