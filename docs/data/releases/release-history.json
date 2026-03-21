@@ -1,12 +1,43 @@
 {
-  "generatedAt": "2026-03-21T18:33:40.784Z",
+  "generatedAt": "2026-03-21T19:10:25.249Z",
   "source": "github-git-history+npm-publish-dates",
   "githubBaseUrl": "https://github.com/imaginario27/air-ui",
   "packages": [
     {
       "packageName": "@imaginario27/air-ui-ds",
-      "latestVersion": "1.4.4",
+      "latestVersion": "1.4.7",
       "entries": [
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.4.7",
+          "publishedAt": "2026-03-21",
+          "releaseType": "patch",
+          "notes": [
+            "fix design token grammar error"
+          ],
+          "metadata": {
+            "commitCount": 1,
+            "commits": [
+              {
+                "sha": "b9b9178e4992569c1ea2a10550e9a69ac78f9fa1",
+                "shortSha": "b9b9178",
+                "date": "2026-03-21",
+                "subject": "fix(ds): fix design token grammar error",
+                "normalizedSubject": "fix design token grammar error",
+                "type": "fixed",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/b9b9178e4992569c1ea2a10550e9a69ac78f9fa1",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 0,
+              "fixed": 1,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
         {
           "packageName": "@imaginario27/air-ui-ds",
           "version": "1.4.4",

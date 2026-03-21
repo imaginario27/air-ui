@@ -5,6 +5,17 @@ All notable changes to this package are documented in this file.
 Historical releases were reconstructed from git history (GitHub repository) and npm publish dates.
 Future releases will include detailed entries generated with Changesets.
 
+## 1.4.7 - 2026-03-21
+
+Release type: patch.
+Commits found in range: 1.
+
+### Fixed
+
+1. fix design token grammar error ([b9b9178](https://github.com/imaginario27/air-ui/commit/b9b9178e4992569c1ea2a10550e9a69ac78f9fa1))
+
+- Package: @imaginario27/air-ui-ds.
+
 ## 1.4.4 - 2026-03-21
 
 Release type: patch.
