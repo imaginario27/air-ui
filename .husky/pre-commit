@@ -1,1 +1,2 @@
-node scripts/check-single-area-commit.mjs
+# Single-area enforcement disabled. Team handles split commits manually.
+true

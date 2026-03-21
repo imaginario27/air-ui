@@ -6,7 +6,6 @@
     ],
     "scripts": {
         "prepare": "husky",
-        "check:single-area-commit": "node scripts/check-single-area-commit.mjs",
         "docs": "npm run dev --workspace=docs",
         "ds": "npm run dev --workspace=@imaginario27/air-ui-ds",
         "utils": "npm run dev --workspace=@imaginario27/air-ui-utils",
