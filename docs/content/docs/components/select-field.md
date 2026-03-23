@@ -18,6 +18,8 @@ props:
         - value: 3
           text: Option 3
     modelValue: ""
+    validator: null
+    error: ""
     type: "text"
     size: "md"
     activeStyle: "check"

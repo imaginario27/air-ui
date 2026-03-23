@@ -33,7 +33,6 @@
             :modelValue 
             :options 
             :type 
-            :borderClass="hasError ? 'border border-border-error text-text-error' : 'border border-border-default'"
             :placeholder="computedPlaceholder"
             :size
             :activeStyle
@@ -47,7 +46,7 @@
             :allowDeselect
             :isLoading="isLoadingOptions"
             :loadingText
-            :selectBoxClass
+            :selectBoxClass="computedSelectBoxClass"
             @update:modelValue="handleValueUpdate"
         />
 
@@ -184,6 +183,12 @@ const computedPlaceholder = computed(() => {
     }
 
     return props.placeholder
+})
+
+const computedSelectBoxClass = computed(() => {
+    const errorClass = hasError.value ? 'border-border-error text-text-error' : ''
+
+    return [errorClass, props.selectBoxClass].filter(Boolean).join(' ')
 })
 
 // Handlers

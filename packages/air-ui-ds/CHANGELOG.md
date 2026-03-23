@@ -5,6 +5,17 @@ All notable changes to this package are documented in this file.
 Historical releases were reconstructed from git history (GitHub repository) and npm publish dates.
 Future releases will include detailed entries generated with Changesets.
 
+## 1.5.0 - 2026-03-23
+
+Release type: minor.
+Commits found in range: 1.
+
+### Added
+
+1. add new standalone checkbox component and fixes style issues ([560de2b](https://github.com/imaginario27/air-ui/commit/560de2b7f700565c087790c1eb3c581c0b782ba9))
+
+- Package: @imaginario27/air-ui-ds.
+
 ## 1.4.7 - 2026-03-21
 
 Release type: patch.

@@ -30,39 +30,13 @@
                 v-html="label"
             />
 
-            <!-- Hidden Native Checkbox -->
-            <input 
-                :id="id" 
-                type="checkbox" 
-                :checked="modelValue" 
-                class="hidden" 
+            <Checkbox
+                :id="id"
+                :modelValue="modelValue"
                 :disabled="disabled"
-                @change="handleChange"
-            >
-            
-            <!-- Custom Checkbox -->
-            <div
-                :class="[ 
-                    'flex items-center justify-center',
-                    controlFieldSizeClass, 
-                    'border', 
-                    'rounded', 
-                    'flex items-center justify-center',
-                    'transition-colors',
-                    modelValue ? 'bg-background-primary-brand-checked border-border-primary-brand-active' : 'bg-neutral-white border-border-default',
-                    disabled ? 'bg-background-neutral-disabled cursor-not-allowed' : 'cursor-pointer'
-                ]"
-                @click="toggleCheckbox"
-            >
-                <Icon
-                    v-if="modelValue" 
-                    name="mdi:check-bold" 
-                    :iconClass="[
-                        checkboxIconSizeClass,
-                        disabled ? '!text-icon-neutral-disabled' : '!text-icon-neutral-on-filled-bg'
-                    ]"
-                />
-            </div>
+                :size="size"
+                @update:modelValue="handleCheckboxUpdate"
+            />
             
             <!-- Label (natural position) -->
             <label 
@@ -144,24 +118,10 @@ const validationMode = useInjectedValidationMode()
 const hasError = computed(() => props.error !== '')
 
 // Computed classes
-const controlFieldSizeClass = computed(() => {
-    const sizeVariant = {
-        [ControlFieldSize.MD]: 'w-[24px] h-[24px] min-w-[24px] min-h-[24px]',
-        [ControlFieldSize.LG]: 'w-[32px] h-[32px] min-w-[32px] min-h-[32px]',
-    }
-    return sizeVariant[props.size as ControlFieldSize] || 'w-[24px] h-[24px] min-w-[24px] min-h-[24px]'
-})
-
-const checkboxIconSizeClass = computed(() => {
-    const sizeVariant = {
-        [ControlFieldSize.MD]: '!w-[16px] !h-[16px] !min-w-[16px] !min-h-[16px]',
-        [ControlFieldSize.LG]: '!w-[20px] !h-[20px] !min-w-[20px] !min-h-[20px]',
-    }
-    return sizeVariant[props.size as ControlFieldSize] || '!w-[16px] !h-[16px] !min-w-[16px] !min-h-[16px]'
-})
-
 const labelSizeClass = computed(() => {
     const sizeVariant = {
+        [ControlFieldSize.XS]: 'text-xs',
+        [ControlFieldSize.SM]: 'text-sm',
         [ControlFieldSize.MD]: 'text-sm',
         [ControlFieldSize.LG]: 'text-base',
     }
@@ -169,20 +129,14 @@ const labelSizeClass = computed(() => {
 })
 
 // Handlers
-const handleChange = () => {
-    if (validationMode.value === FormValidationMode.BLUR) {
-        runValidation()
-    }
-}
-
-const toggleCheckbox = () => {
+const handleCheckboxUpdate = (value: boolean) => {
     if (props.disabled) return
 
     if (validationMode.value === FormValidationMode.BLUR) {
         runValidation()
     }
 
-    emit('update:modelValue', !props.modelValue)
+    emit('update:modelValue', value)
 }
 
 const runValidation = () => {

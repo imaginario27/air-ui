@@ -10,6 +10,7 @@ props:
     shape: "circle"
     color: "neutral"
     size: "lg"
+    iconSize: ""
 items:
     styleType:
         - value: flat
@@ -50,12 +51,26 @@ items:
           text: XL
         - value: lg
           text: LG
+    iconSize:
+        - value: xs
+          text: XS
+        - value: sm
+          text: SM
+        - value: md
+          text: MD
+        - value: lg
+          text: LG
+        - value: xl
+          text: XL
+        - value: 2xl
+          text: XXL
 enums:
     styleType: "IconContainerStyleType"
     mode: "IconMode"
     shape: "IconContainerShape"
     color: "ColorAccent"
     size: "IconContainerSize"
+    iconSize: "IconSize"
 previewBackground: 'white'
 ---
 ::
@@ -124,7 +139,11 @@ props: [
         "name": "size",
         "default": "IconContainerSize.XL", 
         "type": "IconContainerSize",
-    },   
+    },
+    {
+        "name": "iconSize",
+        "type": "IconSize",
+    }
 ]
 ---
 ::
@@ -368,6 +387,17 @@ options: [
 ]
 ---
 ::
+
+### iconSize
+Defines the contained icon size. It uses the `IconSize` enum.
+
+```vue
+<template>
+    <ContainedIcon :iconSize="IconSize.LG" />
+</template>
+```
+
+- **Type:** `IconSize`
 
 ## Documentation pages
 - [Docs](https://nuxt.com/modules/icon){:target="_blank"}

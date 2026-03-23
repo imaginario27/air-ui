@@ -14,7 +14,8 @@
         <Icon
             :name="icon"
             :mode
-            :iconClass="[iconSizeClass, iconColorClass]"
+            :iconClass="finalIconClass"
+            v-bind="iconSizeProps"
         />
     </div>
 </template>
@@ -49,6 +50,10 @@ const props = defineProps({
         type: String as PropType<IconContainerSize>,
         default: IconContainerSize.XL, 
         validator: (value: IconContainerSize) => Object.values(IconContainerSize).includes(value),
+    },
+    iconSize: {
+        type: String as PropType<IconSize>,
+        validator: (value: IconSize) => Object.values(IconSize).includes(value),
     },
 })
 
@@ -130,4 +135,14 @@ const iconSizeClass = computed(() => {
 
     return sizeVariants[props.size as IconContainerSize] || 'w-[24px] h-[24px] min-w-[24px] min-h-[24px]'
 })
+
+const finalIconClass = computed(() => props.iconSize
+    ? [iconColorClass.value]
+    : [iconSizeClass.value, iconColorClass.value]
+)
+
+const iconSizeProps = computed(() => (props.iconSize
+    ? { size: props.iconSize }
+    : {}
+))
 </script>

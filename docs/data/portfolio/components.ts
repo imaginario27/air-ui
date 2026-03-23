@@ -173,6 +173,11 @@ export const componentList: ComponentPortfolioItem[] = [
         imgUrl: `/images/thumbnails/components/button-field.png`,
     },
     {
+        title: 'Checkbox',
+        to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/checkbox`,
+        imgUrl: `/images/thumbnails/components/checkbox.png`,
+    },
+    {
         title: 'CheckboxField',
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/checkbox-field`,
         imgUrl: `/images/thumbnails/components/checkbox-field.png`,

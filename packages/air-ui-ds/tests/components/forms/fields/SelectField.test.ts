@@ -72,6 +72,19 @@ describe('SelectField', () => {
         expect(error.classes()).toContain('text-text-error')
     })
 
+    it('passes error border classes to dropdown select box when has error', () => {
+        const wrapper = mount(SelectField, {
+            props: {
+                ...defaultProps,
+                error: 'Something went wrong'
+            }
+        })
+
+        const dropdown = wrapper.findComponent(DropdownSelect)
+        expect(dropdown.props('selectBoxClass')).toContain('border-border-error')
+        expect(dropdown.props('selectBoxClass')).toContain('text-text-error')
+    })
+
     it('emits update:modelValue on value change', async () => {
         const wrapper = mount(SelectField, {
             props: {

@@ -22,12 +22,16 @@ const findProgressBar = (wrapper: ReturnType<typeof factory>) => {
     )
 }
 
+const hasClassInAnyDiv = (wrapper: ReturnType<typeof factory>, className: string) => {
+    return wrapper.findAll('div').some(div => div.classes().includes(className))
+}
+
 describe('ProgressBar', () => {
     it('renders with default props', () => {
         const wrapper = factory()
 
         expect(wrapper.html()).toContain('w-full')
-        expect(wrapper.find('.bg-background-primary-brand-default/10').exists()).toBe(true)
+        expect(hasClassInAnyDiv(wrapper, 'bg-background-primary-brand-default/10')).toBe(true)
 
         const container = findBarContainer(wrapper)
         expect(container).toBeDefined()
@@ -175,6 +179,6 @@ describe('ProgressBar', () => {
     ])('applies correct incomplete background color class for color %s', (color, expectedClass) => {
         const wrapper = factory({ color })
 
-        expect(wrapper.find(`.${expectedClass}`).exists()).toBe(true)
+        expect(hasClassInAnyDiv(wrapper, expectedClass)).toBe(true)
     })
 })

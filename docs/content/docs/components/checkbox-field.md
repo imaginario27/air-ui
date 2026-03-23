@@ -18,10 +18,14 @@ props:
     inverse: false
 items:
     size: 
-        - value: lg
-          text: LG
+        - value: xs
+          text: XS
+        - value: sm
+          text: SM
         - value: md
           text: MD
+        - value: lg
+          text: LG
 external:
   - modelValue
   - error
@@ -234,12 +238,20 @@ Sets the size of the field. It uses the `ControlFieldSize` enum.
 ---
 options: [
     {
-        value: "LG",
-        description: "lg",
+        value: "XS",
+        description: "Extra Small",
+    },
+    {
+        value: "SM",
+        description: "Small",
     },
     {
         value: "MD",
-        description: "md",
+        description: "Medium",
+    },
+    {
+        value: "LG",
+        description: "lg",
     },
 ]
 ---
