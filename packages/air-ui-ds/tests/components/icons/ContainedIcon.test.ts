@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils'
 import ContainedIcon from '@/components/icons/ContainedIcon.vue'
-import { IconContainerShape, IconContainerSize, IconContainerStyleType, IconMode } from '@/models/enums/icons'
+import { IconContainerShape, IconContainerSize, IconContainerStyleType, IconMode, IconSize } from '@/models/enums/icons'
 import { ColorAccent } from '@/models/enums/colors'
 
 const factory = (props = {}) => {
@@ -10,7 +10,7 @@ const factory = (props = {}) => {
             stubs: {
                 Icon: {
                     name: 'Icon',
-                    props: ['name', 'mode', 'iconClass'],
+                    props: ['name', 'mode', 'iconClass', 'size'],
                     template: '<div class="mock-icon" />'
                 }
             }
@@ -149,5 +149,26 @@ describe('ContainedIcon.vue', () => {
         const wrapper = factory({ mode: IconMode.SVG })
         const icon = wrapper.findComponent({ name: 'Icon' })
         expect(icon.props('mode')).toBe(IconMode.SVG)
+    })
+
+    it('does not forward icon size when iconSize prop is not provided', () => {
+        const wrapper = factory()
+        const icon = wrapper.findComponent({ name: 'Icon' })
+        expect(icon.props('size')).toBeUndefined()
+    })
+
+    it('forwards iconSize to Icon size prop when provided', () => {
+        const wrapper = factory({ iconSize: IconSize.XXL })
+        const icon = wrapper.findComponent({ name: 'Icon' })
+        expect(icon.props('size')).toBe(IconSize.XXL)
+    })
+
+    it('uses icon color class only when iconSize prop is provided', () => {
+        const wrapper = factory({ iconSize: IconSize.XL })
+        const icon = wrapper.findComponent({ name: 'Icon' })
+        const iconClass = icon.props('iconClass') as string[]
+
+        expect(iconClass).toEqual(expect.arrayContaining(['!text-icon-neutral-subtle-on-subtler-bg']))
+        expect(iconClass).not.toEqual(expect.arrayContaining(['w-[24px] h-[24px] min-w-[24px] min-h-[24px]']))
     })
 })

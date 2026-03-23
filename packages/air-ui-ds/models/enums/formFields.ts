@@ -1,4 +1,6 @@
 export enum ControlFieldSize {
+    XS = 'xs',
+    SM = 'sm',
     MD = 'md',
     LG = 'lg',
 }

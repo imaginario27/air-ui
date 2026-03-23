@@ -1,5 +1,6 @@
 import { mount } from '@vue/test-utils'
 import CheckboxField from '~/components/forms/fields/CheckboxField.vue'
+import Checkbox from '~/components/forms/Checkbox.vue'
 import { ref } from 'vue'
 
 vi.mock('~/composables/useFormValidationMode', () => ({
@@ -11,20 +12,32 @@ const factory = (props: Record<string, any> = {}) => {
         props: {
             id: 'test-checkbox',
             ...props
+        },
+        global: {
+            components: {
+                Checkbox
+            },
+            stubs: {
+                Icon: {
+                    name: 'Icon',
+                    props: ['name', 'iconClass'],
+                    template: '<div class="mock-icon" />'
+                }
+            }
         }
     })
 }
 
 describe('CheckboxField.vue', () => {
-    it('renders label and checkbox input', () => {
+    it('renders label and checkbox control', () => {
         const wrapper = factory({ label: 'Accept terms' })
 
         const label = wrapper.find('label')
         expect(label.exists()).toBe(true)
         expect(label.html()).toContain('Accept terms')
 
-        const input = wrapper.find('input[type="checkbox"]')
-        expect(input.exists()).toBe(true)
+        const checkbox = wrapper.findComponent(Checkbox)
+        expect(checkbox.exists()).toBe(true)
     })
 
     it('renders legend when provided', () => {
@@ -53,11 +66,11 @@ describe('CheckboxField.vue', () => {
 
     it('emits update:modelValue when checkbox is toggled', async () => {
         const wrapper = factory({ modelValue: false })
+        const checkbox = wrapper.findComponent(Checkbox)
 
-        const box = wrapper.find('div.cursor-pointer')
-        expect(box.exists()).toBe(true)
+        expect(checkbox.exists()).toBe(true)
 
-        await box.trigger('click')
+        await checkbox.vm.$emit('update:modelValue', true)
 
         const emitted = wrapper.emitted('update:modelValue')
         expect(emitted).toBeTruthy()
@@ -66,11 +79,11 @@ describe('CheckboxField.vue', () => {
 
     it('does not emit when disabled is true', async () => {
         const wrapper = factory({ modelValue: false, disabled: true })
+        const checkbox = wrapper.findComponent(Checkbox)
 
-        const box = wrapper.find('div.cursor-not-allowed')
-        expect(box.exists()).toBe(true)
+        expect(checkbox.exists()).toBe(true)
 
-        await box.trigger('click')
+        await checkbox.vm.$emit('update:modelValue', true)
 
         expect(wrapper.emitted('update:modelValue')).toBeUndefined()
     })
@@ -83,11 +96,11 @@ describe('CheckboxField.vue', () => {
             required: true,
             validator
         })
+        const checkbox = wrapper.findComponent(Checkbox)
 
-        const box = wrapper.find('div.cursor-pointer')
-        expect(box.exists()).toBe(true)
+        expect(checkbox.exists()).toBe(true)
 
-        await box.trigger('click')
+        await checkbox.vm.$emit('update:modelValue', true)
 
         const emitted = wrapper.emitted('update:error')
         expect(emitted).toBeTruthy()
@@ -102,21 +115,15 @@ describe('CheckboxField.vue', () => {
         expect(labels.length).toBeGreaterThan(0)
         expect(labels[0].html()).toContain('Label First')
 
-        const input = wrapper.find('input[type="checkbox"]')
-        expect(input.exists()).toBe(true)
+        const checkbox = wrapper.findComponent(Checkbox)
+        expect(checkbox.exists()).toBe(true)
     })
 
-
-    it('applies correct size classes for control and icon', () => {
+    it('passes size prop to checkbox control', () => {
         const wrapper = factory({ size: 'lg', modelValue: true })
 
-        const box = wrapper.find('div.cursor-pointer')
-        expect(box.classes()).toContain('w-[32px]')
-        expect(box.classes()).toContain('h-[32px]')
-
-        const icon = wrapper.findComponent({ name: 'Icon' })
-        expect(icon.exists()).toBe(true)
-        expect(icon.attributes('class')).toMatch(/!w-\[20px\]/)
+        const checkbox = wrapper.findComponent(Checkbox)
+        expect(checkbox.props('size')).toBe('lg')
     })
 
     it('emits update:error from watcher when modelValue changes', async () => {
