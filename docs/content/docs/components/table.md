@@ -668,3 +668,14 @@ const paginatedData = computed(() =>
 )
 </script>
 ```
+
+### Checkbox row selection
+
+::component-code
+---
+srcDir: 'content/demos/tables/CheckboxTableDemo.vue'
+previewBackground: "white"
+isCodePreviewEnabled: false
+componentSource: 'docs'
+---
+::
