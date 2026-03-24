@@ -5,6 +5,17 @@ All notable changes to this package are documented in this file.
 Historical releases were reconstructed from git history (GitHub repository) and npm publish dates.
 Future releases will include detailed entries generated with Changesets.
 
+## 1.6.0 - 2026-03-24
+
+Release type: minor.
+Commits found in range: 1.
+
+### Added
+
+1. add SlotField form component ([d1e71a9](https://github.com/imaginario27/air-ui/commit/d1e71a903c25a39eedf86c4547496ad238a9da84))
+
+- Package: @imaginario27/air-ui-ds.
+
 ## 1.5.0 - 2026-03-23
 
 Release type: minor.
