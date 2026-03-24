@@ -233,6 +233,11 @@ export const componentList: ComponentPortfolioItem[] = [
         imgUrl: `/images/thumbnails/components/selectable-card-field.png`,
     },
     {
+        title: 'SlotField',
+        to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/slot-field`,
+        imgUrl: `/images/thumbnails/components/slot-field.png`,
+    },
+    {
         title: 'SwitchField',
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/switch-field`,
         imgUrl: `/images/thumbnails/components/switch-field.png`,
