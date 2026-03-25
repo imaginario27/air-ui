@@ -347,6 +347,11 @@ export const componentList: ComponentPortfolioItem[] = [
         imgUrl: `/images/thumbnails/components/card.png`,
     },
     {
+        title: 'ConfirmationDetailsCard',
+        to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/confirmation-details-card`,
+        imgUrl: `/images/thumbnails/components/confirmation-details-card.png`,
+    },
+    {
         title: 'ContactDetailsCard',
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/contact-details-card`,
         imgUrl: `/images/thumbnails/components/contact-details-card.png`,

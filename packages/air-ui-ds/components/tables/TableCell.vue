@@ -7,7 +7,8 @@
             'border-border-neutral-subtle',
             'text-sm',
             fitToContent ? 'w-[1%]' : 'w-auto',
-            to ? 'hover:cursor-pointer' : undefined
+            to ? 'hover:cursor-pointer' : undefined,
+            noWrap && 'whitespace-nowrap',
         ]"
         @click="handleNavigation"
     >
@@ -23,6 +24,10 @@ const props = defineProps({
         default: false,
     },
     to: String as PropType<string>,
+    noWrap: {
+        type: Boolean as PropType<boolean>,
+        default: false,
+    },
 })
 
 // Navigation handler
