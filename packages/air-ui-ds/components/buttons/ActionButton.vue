@@ -1,6 +1,6 @@
 <template>
     <component
-        :is="actionType === ButtonActionType.LINK ? NuxtLink : 'button'"
+        :is="actionType === ButtonActionType.LINK ? (disabled ? 'span' : NuxtLink) : 'button'"
         :id
         :type="actionType === ButtonActionType.ACTION ? type : undefined"
         :class="[
@@ -13,7 +13,8 @@
             gapClass,
             'self-start',
             isFullWidth && 'w-full',
-            isMobileFullWidth && 'w-full md:w-auto'
+            isMobileFullWidth && 'w-full md:w-auto',
+            disabled && 'opacity-disabled cursor-not-allowed pointer-events-none',
         ]"
         v-bind="{
             ...componentProps,
@@ -32,7 +33,7 @@
                 />
             </div>
             
-            <span :class="['font-semibold', 'leading-none', textSizeClass, textClass]">
+            <span :class="['font-semibold', 'leading-none', 'select-none', textSizeClass, textClass]">
                 {{ loadingText }}
             </span>
         </template>
@@ -52,7 +53,7 @@
                 />
             </template>
 
-            <span :class="['font-semibold', 'leading-none', textSizeClass, textClass]">
+            <span :class="['font-semibold', 'leading-none', 'select-none', textSizeClass, textClass]">
                 {{ text }}
             </span>
 
