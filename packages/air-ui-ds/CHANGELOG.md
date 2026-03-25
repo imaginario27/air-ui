@@ -5,6 +5,17 @@ All notable changes to this package are documented in this file.
 Historical releases were reconstructed from git history (GitHub repository) and npm publish dates.
 Future releases will include detailed entries generated with Changesets.
 
+## 1.7.2 - 2026-03-25
+
+Release type: patch.
+Commits found in range: 1.
+
+### Fixed
+
+1. fix disable state for link types in ActionButton and ActionIconButton ([cd538d7](https://github.com/imaginario27/air-ui/commit/cd538d7722d6c68da6180cc48799b5ae168e1886))
+
+- Package: @imaginario27/air-ui-ds.
+
 ## 1.7.1 - 2026-03-25
 
 Release type: patch.
