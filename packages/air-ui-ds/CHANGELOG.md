@@ -5,6 +5,17 @@ All notable changes to this package are documented in this file.
 Historical releases were reconstructed from git history (GitHub repository) and npm publish dates.
 Future releases will include detailed entries generated with Changesets.
 
+## 1.7.0 - 2026-03-25
+
+Release type: minor.
+Commits found in range: 1.
+
+### Added
+
+1. add ConfirmationDetailsCard and noWrap support ([a136530](https://github.com/imaginario27/air-ui/commit/a136530bd990cdfbe0afc0dbce7098d19a3d0b8e))
+
+- Package: @imaginario27/air-ui-ds.
+
 ## 1.6.0 - 2026-03-24
 
 Release type: minor.
