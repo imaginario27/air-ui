@@ -54,6 +54,32 @@ describe('ActionIconButton.vue', () => {
         expect(wrapper.find('button').attributes('disabled')).toBeDefined()
     })
 
+    it('renders as a span when actionType is LINK and disabled is true', () => {
+        const wrapper = factory({
+            actionType: ButtonActionType.LINK,
+            to: '/home',
+            disabled: true
+        })
+        expect(wrapper.find('span').exists()).toBe(true)
+        expect(wrapper.find('a').exists()).toBe(false)
+    })
+
+    it('applies disabled visual classes when disabled is true', () => {
+        const wrapper = factory({ disabled: true })
+        const classes = wrapper.find('button').classes()
+        expect(classes).toContain('opacity-disabled')
+        expect(classes).toContain('cursor-not-allowed')
+        expect(classes).toContain('pointer-events-none')
+    })
+
+    it('does not apply disabled visual classes when disabled is false', () => {
+        const wrapper = factory({ disabled: false })
+        const classes = wrapper.find('button').classes()
+        expect(classes).not.toContain('opacity-disabled')
+        expect(classes).not.toContain('cursor-not-allowed')
+        expect(classes).not.toContain('pointer-events-none')
+    })
+
     it('renders the correct icon', () => {
         const wrapper = factory({ icon: 'mdi:check' })
 

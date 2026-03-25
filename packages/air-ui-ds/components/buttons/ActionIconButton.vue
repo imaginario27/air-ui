@@ -1,6 +1,6 @@
 <template>
     <component
-        :is="actionType === ButtonActionType.LINK ? NuxtLink : 'button'"
+        :is="actionType === ButtonActionType.LINK ? (disabled ? 'span' : NuxtLink) : 'button'"
         :id
         :type="actionType === ButtonActionType.ACTION ? type : undefined"
         :class="[
@@ -9,6 +9,7 @@
             'aspect-square',
             ...buttonStyleClass,
             buttonSizeClass,
+            disabled && 'opacity-disabled cursor-not-allowed pointer-events-none',
         ]"
         v-bind="{
             ...componentProps,
