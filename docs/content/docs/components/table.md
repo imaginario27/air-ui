@@ -261,8 +261,6 @@ Prevents the cell content from wrapping to a new line. Useful for cells containi
 - **Type:** `boolean`
 - **Default:** `false`
 
-
-
 ### TableHeaderCell
 The `TableHeaderCell` component accepts some props:
 ::props-table
