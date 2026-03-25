@@ -20,7 +20,7 @@
                 </span>
 
                 <Icon
-                    name="mdi:chevron-right"
+                    :name="separatorIcon"
                     :iconClass="['text-icon-neutral-subtler', iconClass ?? '']"
                 />
 
@@ -47,9 +47,9 @@ const props = defineProps({
         type: String as PropType<string>,
         default: 'Title',
     },
-    description: {
+    separatorIcon: {
         type: String as PropType<string>,
-        required: true,
+        default: 'mdi:chevron-right',
     },
     alignement: {
         type: String as PropType<Align>,
