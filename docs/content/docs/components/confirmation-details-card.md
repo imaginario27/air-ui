@@ -6,7 +6,7 @@ srcDir: 'cards/specific/ConfirmationDetailsCard.vue'
 props: 
     scope: "Scope"
     title: "Title"
-    description: "Description"
+    separatorIcon: "mdi:chevron-right"
     alignement: "left"
 items:
     alignement: 
@@ -39,8 +39,8 @@ props: [
         "type": "string",
     },
     {
-        "name": "description",
-        "required": "true",
+        "name": "separatorIcon",
+        "default": "'mdi:chevron-right'",
         "type": "string",
     },
     {
@@ -73,7 +73,6 @@ Sets the scope label displayed at the start of the card.
 <template>
     <ConfirmationDetailsCard 
         scope="Category"
-        description="Description"
     />
 </template>
 ```
@@ -88,7 +87,6 @@ Sets the title displayed at the end of the card, rendered in bold.
 <template>
     <ConfirmationDetailsCard 
         title="My Title"
-        description="Description"
     />
 </template>
 ```
@@ -96,19 +94,19 @@ Sets the title displayed at the end of the card, rendered in bold.
 - **Type:** `string`
 - **Default:** `'Title'`
 
-### description
-Sets the description associated with the card. Required prop.
+### separatorIcon
+Overrides the icon shown between `scope` and `title`. Accepts any icon name supported by the `Icon` component.
 
 ```vue
 <template>
     <ConfirmationDetailsCard 
-        description="A description of the item being confirmed."
+        separatorIcon="mdi:arrow-right"
     />
 </template>
 ```
 
 - **Type:** `string`
-- **Required:** `true`
+- **Default:** `'mdi:chevron-right'`
 
 ### alignement
 Controls the horizontal alignment of the card content. Uses the `Align` enum.
@@ -117,7 +115,6 @@ Controls the horizontal alignment of the card content. Uses the `Align` enum.
 <template>
     <ConfirmationDetailsCard 
         :alignement="Align.CENTER"
-        description="Description"
     />
 </template>
 ```
@@ -153,7 +150,6 @@ Applies additional CSS classes to the scope label span.
 <template>
     <ConfirmationDetailsCard 
         scopeClass="text-text-neutral-subtle"
-        description="Description"
     />
 </template>
 ```
@@ -167,7 +163,6 @@ Applies additional CSS classes to the chevron icon.
 <template>
     <ConfirmationDetailsCard 
         iconClass="text-text-neutral-subtle"
-        description="Description"
     />
 </template>
 ```
@@ -181,7 +176,6 @@ Applies additional CSS classes to the title span.
 <template>
     <ConfirmationDetailsCard 
         titleClass="text-text-primary-brand-default"
-        description="Description"
     />
 </template>
 ```

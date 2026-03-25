@@ -5,7 +5,6 @@ import { Align } from '~/models/enums/positions'
 const factory = (props = {}) => {
     return mount(ConfirmationDetailsCard, {
         props: {
-            description: 'Test description',
             ...props,
         },
     })
@@ -32,11 +31,17 @@ describe('ConfirmationDetailsCard.vue', () => {
         expect(wrapper.text()).toContain('My Confirmation')
     })
 
-    it('renders the chevron-right icon', () => {
+    it('renders the default chevron-right separator icon', () => {
         const wrapper = factory()
         const icon = wrapper.findComponent({ name: 'Icon' })
         expect(icon.exists()).toBe(true)
         expect(icon.props('name')).toBe('mdi:chevron-right')
+    })
+
+    it('renders a custom separatorIcon', () => {
+        const wrapper = factory({ separatorIcon: 'mdi:arrow-right' })
+        const icon = wrapper.findComponent({ name: 'Icon' })
+        expect(icon.props('name')).toBe('mdi:arrow-right')
     })
 
     it('applies justify-start by default (left alignment)', () => {
@@ -85,6 +90,7 @@ describe('ConfirmationDetailsCard.vue', () => {
         expect(wrapper.props()).toMatchObject({
             scope: 'Scope',
             title: 'Title',
+            separatorIcon: 'mdi:chevron-right',
             alignement: Align.LEFT,
         })
     })
