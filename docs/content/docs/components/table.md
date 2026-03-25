@@ -193,6 +193,11 @@ props: [
         "name": "to",
         "type": "string"
     },
+    {
+        "name": "noWrap",
+        "default": "false",
+        "type": "boolean"
+    },
 ]
 ---
 ::
@@ -219,6 +224,7 @@ Forces the cell and the column to fit is width to the content of the cell. Usefu
 
 The `to` prop is used to set the `href` attribute of the `a` tag inside the `TableCell` component. It is useful when you want to link to another page or resource.
 
+**UX improvement**: When using the `to` prop, provide the `<TableRow>` component the `isHoverable` prop to ensure a better UX experience.
 
 ```vue
 <template>
@@ -238,7 +244,22 @@ props:
 ---
 ::
 
-**UX imprevement**: When using the `to` prop, provide the `<TableRow>` component the `isHoverable` prop to ensure a better UX experience.
+#### noWrap
+
+Prevents the cell content from wrapping to a new line. Useful for cells containing dates, IDs, or other short values that should stay on a single line.
+
+```vue
+<template>
+    ...
+    <TableCell noWrap>
+        ...
+    </TableCell>
+    ...
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `false`
 
 ### TableHeaderCell
 The `TableHeaderCell` component accepts some props:

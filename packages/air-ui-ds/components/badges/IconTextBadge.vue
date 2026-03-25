@@ -10,7 +10,7 @@
         />
 
         <!-- Text -->
-        <span :class="textClass">
+        <span :class="['whitespace-nowrap', textClass]">
             {{ text }}
         </span>
     </div>

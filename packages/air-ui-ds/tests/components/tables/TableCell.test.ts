@@ -6,7 +6,7 @@ vi.mock('#app', () => ({
     navigateTo: vi.fn()
 }))
 
-const factory = (props?: { fitToContent?: boolean; to?: string }) => {
+const factory = (props?: { fitToContent?: boolean; to?: string; noWrap?: boolean }) => {
     return mount(TableCell, {
         props,
         slots: {
@@ -49,5 +49,20 @@ describe('TableCell', () => {
         const wrapper = factory()
         await wrapper.trigger('click')
         expect(navigateTo).not.toHaveBeenCalled()
+    })
+
+    it('applies "whitespace-nowrap" class when noWrap is true', () => {
+        const wrapper = factory({ noWrap: true })
+        expect(wrapper.classes()).toContain('whitespace-nowrap')
+    })
+
+    it('does not apply "whitespace-nowrap" class when noWrap is false', () => {
+        const wrapper = factory({ noWrap: false })
+        expect(wrapper.classes()).not.toContain('whitespace-nowrap')
+    })
+
+    it('does not apply "whitespace-nowrap" class by default', () => {
+        const wrapper = factory()
+        expect(wrapper.classes()).not.toContain('whitespace-nowrap')
     })
 })

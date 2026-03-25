@@ -1,12 +1,43 @@
 {
-  "generatedAt": "2026-03-24T07:43:48.887Z",
+  "generatedAt": "2026-03-25T08:04:51.417Z",
   "source": "github-git-history+npm-publish-dates",
   "githubBaseUrl": "https://github.com/imaginario27/air-ui",
   "packages": [
     {
       "packageName": "@imaginario27/air-ui-ds",
-      "latestVersion": "1.6.0",
+      "latestVersion": "1.7.0",
       "entries": [
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.7.0",
+          "publishedAt": "2026-03-25",
+          "releaseType": "minor",
+          "notes": [
+            "add ConfirmationDetailsCard and noWrap support"
+          ],
+          "metadata": {
+            "commitCount": 1,
+            "commits": [
+              {
+                "sha": "a136530bd990cdfbe0afc0dbce7098d19a3d0b8e",
+                "shortSha": "a136530",
+                "date": "2026-03-25",
+                "subject": "feat(ds): add ConfirmationDetailsCard and noWrap support",
+                "normalizedSubject": "add ConfirmationDetailsCard and noWrap support",
+                "type": "added",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/a136530bd990cdfbe0afc0dbce7098d19a3d0b8e",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 1,
+              "fixed": 0,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
         {
           "packageName": "@imaginario27/air-ui-ds",
           "version": "1.6.0",
