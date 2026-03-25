@@ -5,6 +5,17 @@ All notable changes to this package are documented in this file.
 Historical releases were reconstructed from git history (GitHub repository) and npm publish dates.
 Future releases will include detailed entries generated with Changesets.
 
+## 1.7.1 - 2026-03-25
+
+Release type: patch.
+Commits found in range: 1.
+
+### Fixed
+
+1. remove inexisting description prop and replace it with separatorIcon prop ([4d5ad0a](https://github.com/imaginario27/air-ui/commit/4d5ad0a0a538e685ccfb40697c54a8c368732d0b))
+
+- Package: @imaginario27/air-ui-ds.
+
 ## 1.7.0 - 2026-03-25
 
 Release type: minor.

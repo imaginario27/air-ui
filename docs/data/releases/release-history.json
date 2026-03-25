@@ -1,12 +1,43 @@
 {
-  "generatedAt": "2026-03-25T08:04:51.417Z",
+  "generatedAt": "2026-03-25T09:09:01.304Z",
   "source": "github-git-history+npm-publish-dates",
   "githubBaseUrl": "https://github.com/imaginario27/air-ui",
   "packages": [
     {
       "packageName": "@imaginario27/air-ui-ds",
-      "latestVersion": "1.7.0",
+      "latestVersion": "1.7.1",
       "entries": [
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.7.1",
+          "publishedAt": "2026-03-25",
+          "releaseType": "patch",
+          "notes": [
+            "remove inexisting description prop and replace it with separatorIcon prop"
+          ],
+          "metadata": {
+            "commitCount": 1,
+            "commits": [
+              {
+                "sha": "4d5ad0a0a538e685ccfb40697c54a8c368732d0b",
+                "shortSha": "4d5ad0a",
+                "date": "2026-03-25",
+                "subject": "fix(ds): remove inexisting description prop and replace it with separatorIcon prop",
+                "normalizedSubject": "remove inexisting description prop and replace it with separatorIcon prop",
+                "type": "fixed",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/4d5ad0a0a538e685ccfb40697c54a8c368732d0b",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 0,
+              "fixed": 1,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
         {
           "packageName": "@imaginario27/air-ui-ds",
           "version": "1.7.0",
