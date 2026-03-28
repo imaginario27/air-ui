@@ -1,12 +1,43 @@
 {
-  "generatedAt": "2026-03-25T11:50:41.617Z",
+  "generatedAt": "2026-03-28T09:52:38.048Z",
   "source": "github-git-history+npm-publish-dates",
   "githubBaseUrl": "https://github.com/imaginario27/air-ui",
   "packages": [
     {
       "packageName": "@imaginario27/air-ui-ds",
-      "latestVersion": "1.7.2",
+      "latestVersion": "1.8.0",
       "entries": [
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.8.0",
+          "publishedAt": "2026-03-28",
+          "releaseType": "minor",
+          "notes": [
+            "add Slider and SliderField components"
+          ],
+          "metadata": {
+            "commitCount": 1,
+            "commits": [
+              {
+                "sha": "5454fba3558ddb98172fed4805def34d0bf1aeed",
+                "shortSha": "5454fba",
+                "date": "2026-03-28",
+                "subject": "feat(ds): add Slider and SliderField components",
+                "normalizedSubject": "add Slider and SliderField components",
+                "type": "added",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/5454fba3558ddb98172fed4805def34d0bf1aeed",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 1,
+              "fixed": 0,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
         {
           "packageName": "@imaginario27/air-ui-ds",
           "version": "1.7.2",

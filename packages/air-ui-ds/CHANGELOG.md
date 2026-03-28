@@ -5,6 +5,17 @@ All notable changes to this package are documented in this file.
 Historical releases were reconstructed from git history (GitHub repository) and npm publish dates.
 Future releases will include detailed entries generated with Changesets.
 
+## 1.8.0 - 2026-03-28
+
+Release type: minor.
+Commits found in range: 1.
+
+### Added
+
+1. add Slider and SliderField components ([5454fba](https://github.com/imaginario27/air-ui/commit/5454fba3558ddb98172fed4805def34d0bf1aeed))
+
+- Package: @imaginario27/air-ui-ds.
+
 ## 1.7.2 - 2026-03-25
 
 Release type: patch.
