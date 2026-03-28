@@ -36,7 +36,6 @@ externalTypes:
   - AccordionItem[]
 previewBackground: 'white'
 propsSettingsExcludedProps: ['items']
-
 ---
 ::
 
