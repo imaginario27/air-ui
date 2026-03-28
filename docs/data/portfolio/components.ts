@@ -71,6 +71,11 @@ export const componentList: ComponentPortfolioItem[] = [
         imgUrl: `/images/thumbnails/components/divider.png`,
     },
     {
+        title: 'Dropzone',
+        to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/dropzone`,
+        imgUrl: `/images/thumbnails/components/file-upload-field.png`,
+    },
+    {
         title: 'Empty state',
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/empty-state`,
         imgUrl: `/images/thumbnails/components/empty-state.png`,

@@ -19,3 +19,20 @@ export enum SwitchStyle {
     BRAND = 'brand',
     SUCCESS = 'success',
 }
+
+export enum DropzoneLayout {
+    LIST = 'list',
+    GRID = 'grid',
+}
+
+export enum DropzoneState {
+    DEFAULT = 'default',
+    INDETERMINATE = 'indeterminate',
+    SUCCESS = 'success',
+    ERROR = 'error',
+}
+
+export enum FileSelectStrategy {
+    MERGE = 'merge',
+    REPLACE = 'replace',
+}
