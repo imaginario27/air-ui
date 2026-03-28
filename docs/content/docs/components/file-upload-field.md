@@ -11,7 +11,12 @@ props:
     helpText: "Example help text"
     icon: "mdi:file-document-outline"
     buttonText: "Upload file"
+    singleFileTitleText: "Drag and drop a file here"
+    replaceTitleText: "Upload a new file to replace current one"
+    singleFileButtonText: "Select file"
+    replaceButtonText: "Replace file"
     upToText: "up to"
+    allFilesTypeText: "All file types"
     modelValue: []
     validator: null
     error: ""
@@ -28,13 +33,54 @@ props:
     showPreview: false
     previewImageUrl: ""
     previewContainerClasses: "w-[120px] h-[120px] min-w-[120px]"
+    itemsLayout: "list"
+    state: "default"
+    selectFileStrategy: "merge"
+    showSelectButton: true
+    showClearAllButton: true
+    clearAllButtonText: "Clear all"
+    fileTypeIconMap:
+        pdf: "mdi:file-pdf-box"
+    totalProgress: 0
+    useServerUpload: false
+    uploadUrl: ""
+    deleteUrl: ""
+    uploadHeaders:
+        Authorization: "Bearer token"
+    uploadAdditionalData:
+        module: "documents"
+    uploadWithCredentials: false
+    uploadingStatusText: "Uploading"
+    successStatusText: "Uploaded"
+    errorStatusText: "Upload failed"
+    pendingStatusText: "Pending"
+    retryIcon: "mdi:refresh"
+    removeIcon: "mdi:close"
+    retryButtonStyleType: "neutral-filled"
+    removeButtonStyleType: "delete-filled"
+    retryIconClass: "text-text-default"
+    removeIconClass: "text-text-default"
+    retryButtonClass: ""
+    removeButtonClass: ""
+    maxItemsContainerHeight: 280
+    containerClass: ""
+    dropzoneClass: ""
+    titleClass: ""
+    descriptionClass: ""
+    iconClass: ""
+    actionsClass: ""
+    listClass: ""
+    gridClass: ""
+    fileItemClass: ""
+    fileNameClass: ""
+    fileMetaClass: ""
 external:
   - modelValue
 externalTypes:
   - File[]
 isPreviewContentBoxed: true
 previewContentMaxWidth: 600
-propsSettingsExcludedProps: ['validator', 'modelValue', 'accept']
+propsSettingsExcludedProps: ['validator', 'modelValue', 'accept', 'uploadHeaders', 'uploadAdditionalData']
 ---
 ::
 
@@ -62,11 +108,31 @@ props: [
     {
         "name": "icon",
         "type": "string",
-        "default": "'mdi:upload-outline'",
+        "default": "'mdi:cloud-upload-outline'",
     },
     {
         "name": "buttonText",
         "type": "string",
+    },
+    {
+        "name": "singleFileTitleText",
+        "type": "string",
+        "default": "'Drag and drop a file here'",
+    },
+    {
+        "name": "replaceTitleText",
+        "type": "string",
+        "default": "'Upload a new file to replace current one'",
+    },
+    {
+        "name": "singleFileButtonText",
+        "type": "string",
+        "default": "'Select file'",
+    },
+    {
+        "name": "replaceButtonText",
+        "type": "string",
+        "default": "'Replace file'",
     },
     {
         "name": "upToText",
@@ -105,7 +171,7 @@ props: [
     {
         "name": "accept",
         "type": "string | string[]",
-        "default": "'application/pdf'",
+        "default": "'*'",
     },
     {
         "name": "maxFileSize",
@@ -135,6 +201,178 @@ props: [
         "name": "previewContainerClasses",
         "type": "string",
         "default": "'w-[120px] h-[120px] min-w-[120px]'",
+    },
+    {
+        "name": "itemsLayout",
+        "type": "DropzoneLayout",
+        "default": "DropzoneLayout.LIST",
+    },
+    {
+        "name": "state",
+        "type": "DropzoneState",
+        "default": "DropzoneState.DEFAULT",
+    },
+    {
+        "name": "selectFileStrategy",
+        "type": "FileSelectStrategy",
+        "default": "FileSelectStrategy.MERGE",
+    },
+    {
+        "name": "showSelectButton",
+        "type": "boolean",
+        "default": "true",
+    },
+    {
+        "name": "showClearAllButton",
+        "type": "boolean",
+        "default": "true",
+    },
+    {
+        "name": "clearAllButtonText",
+        "type": "string",
+        "default": "'Clear all'",
+    },
+    {
+        "name": "fileTypeIconMap",
+        "type": "Record<string, string>",
+        "default": "{}",
+    },
+    {
+        "name": "totalProgress",
+        "type": "number",
+        "default": "0",
+    },
+    {
+        "name": "useServerUpload",
+        "type": "boolean",
+        "default": "false",
+    },
+    {
+        "name": "uploadUrl",
+        "type": "string",
+    },
+    {
+        "name": "deleteUrl",
+        "type": "string",
+    },
+    {
+        "name": "uploadHeaders",
+        "type": "Record<string, string>",
+        "default": "{}",
+    },
+    {
+        "name": "uploadAdditionalData",
+        "type": "Record<string, string | Blob | number | boolean>",
+        "default": "{}",
+    },
+    {
+        "name": "uploadWithCredentials",
+        "type": "boolean",
+        "default": "false",
+    },
+    {
+        "name": "uploadingStatusText",
+        "type": "string",
+        "default": "'Uploading'",
+    },
+    {
+        "name": "successStatusText",
+        "type": "string",
+        "default": "'Uploaded'",
+    },
+    {
+        "name": "errorStatusText",
+        "type": "string",
+        "default": "'Upload failed'",
+    },
+    {
+        "name": "pendingStatusText",
+        "type": "string",
+        "default": "'Pending'",
+    },
+    {
+        "name": "retryIcon",
+        "type": "string",
+        "default": "'mdi:refresh'",
+    },
+    {
+        "name": "removeIcon",
+        "type": "string",
+        "default": "'mdi:close'",
+    },
+    {
+        "name": "retryButtonStyleType",
+        "type": "ButtonStyleType",
+        "default": "ButtonStyleType.NEUTRAL_FILLED",
+    },
+    {
+        "name": "removeButtonStyleType",
+        "type": "ButtonStyleType",
+        "default": "ButtonStyleType.DELETE_FILLED",
+    },
+    {
+        "name": "retryIconClass",
+        "type": "string | string[]",
+    },
+    {
+        "name": "removeIconClass",
+        "type": "string | string[]",
+    },
+    {
+        "name": "retryButtonClass",
+        "type": "string",
+    },
+    {
+        "name": "removeButtonClass",
+        "type": "string",
+    },
+    {
+        "name": "maxItemsContainerHeight",
+        "type": "number",
+    },
+    {
+        "name": "containerClass",
+        "type": "string",
+    },
+    {
+        "name": "dropzoneClass",
+        "type": "string",
+    },
+    {
+        "name": "titleClass",
+        "type": "string",
+    },
+    {
+        "name": "descriptionClass",
+        "type": "string",
+    },
+    {
+        "name": "iconClass",
+        "type": "string | string[]",
+    },
+    {
+        "name": "actionsClass",
+        "type": "string",
+    },
+    {
+        "name": "listClass",
+        "type": "string",
+    },
+    {
+        "name": "gridClass",
+        "type": "string",
+    },
+    {
+        "name": "fileItemClass",
+        "type": "string",
+    },
+    {
+        "name": "fileNameClass",
+        "type": "string",
+    },
+    {
+        "name": "fileMetaClass",
+        "type": "string",
     },
 ]
 ---
@@ -202,7 +440,7 @@ Sets the icon of the drag and drop area.
 ```
 
 - **Type:** `string`
-- **Default:** `'mdi:upload-outline'`
+- **Default:** `'mdi:cloud-upload-outline'`
 
 ### buttonText
 
@@ -215,6 +453,58 @@ Sets the button text of the field.
 ```
 
 - **Type:** `string`
+
+### singleFileTitleText
+
+Sets the dropzone title used when `multiple` is `false`.
+
+```vue
+<template>
+    <FileUploadField singleFileTitleText="Drag and drop a file here" />
+</template>
+```
+
+- **Type:** `string`
+- **Default:** `'Drag and drop a file here'`
+
+### replaceTitleText
+
+Sets the dropzone title shown when preview mode is active and the field is in replace mode.
+
+```vue
+<template>
+    <FileUploadField replaceTitleText="Upload a new file to replace current one" />
+</template>
+```
+
+- **Type:** `string`
+- **Default:** `'Upload a new file to replace current one'`
+
+### singleFileButtonText
+
+Sets the select button text used when `multiple` is `false`.
+
+```vue
+<template>
+    <FileUploadField singleFileButtonText="Select file" />
+</template>
+```
+
+- **Type:** `string`
+- **Default:** `'Select file'`
+
+### replaceButtonText
+
+Sets the select button text shown when preview mode is active and the field is in replace mode.
+
+```vue
+<template>
+    <FileUploadField replaceButtonText="Replace file" />
+</template>
+```
+
+- **Type:** `string`
+- **Default:** `'Replace file'`
 
 ### upToText
 
@@ -323,7 +613,7 @@ Sets the accepted file types for upload. It can be a string or an array of strin
 ```
 
 - **Type:** `string | string[]`
-- **Default:** `'application/pdf'`
+- **Default:** `'*'`
 
 ### maxFileSize
 Sets the maximum file size (in MB) allowed for each uploaded file.
@@ -405,4 +695,517 @@ Sets the CSS classes for the preview container.
 
 - **Type:** `string`
 - **Default:** `'w-[120px] h-[120px] min-w-[120px]'`
+
+### itemsLayout
+
+Sets how uploaded items are rendered (`LIST` or `GRID`).
+
+```vue
+<template>
+    <FileUploadField itemsLayout="grid" />
+</template>
+```
+
+- **Type:** `DropzoneLayout`
+- **Default:** `DropzoneLayout.LIST`
+
+### state
+
+Sets the visual dropzone state (`DEFAULT`, `INDETERMINATE`, `SUCCESS`, `ERROR`).
+
+```vue
+<template>
+    <FileUploadField state="success" />
+</template>
+```
+
+- **Type:** `DropzoneState`
+- **Default:** `DropzoneState.DEFAULT`
+
+### selectFileStrategy
+
+Sets how new files are handled when files already exist (`MERGE` or `REPLACE`).
+
+```vue
+<template>
+    <FileUploadField selectFileStrategy="replace" multiple />
+</template>
+```
+
+- **Type:** `FileSelectStrategy`
+- **Default:** `FileSelectStrategy.MERGE`
+
+### showSelectButton
+
+Controls visibility of the select files button.
+
+```vue
+<template>
+    <FileUploadField :showSelectButton="false" />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `true`
+
+### showClearAllButton
+
+Controls visibility of the clear all button.
+
+```vue
+<template>
+    <FileUploadField :showClearAllButton="false" />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `true`
+
+### clearAllButtonText
+
+Sets clear all button text.
+
+```vue
+<template>
+    <FileUploadField clearAllButtonText="Remove all" />
+</template>
+```
+
+- **Type:** `string`
+- **Default:** `'Clear all'`
+
+### fileTypeIconMap
+
+Overrides default icon mapping by file type/extension key.
+
+```vue
+<template>
+    <FileUploadField :fileTypeIconMap="{ pdf: 'mdi:file-pdf-box', geo: 'mdi:map-outline' }" />
+</template>
+```
+
+- **Type:** `Record<string, string>`
+- **Default:** `{}`
+
+### totalProgress
+
+Two-way bound overall upload progress value with `v-model:totalProgress`. This value is used to update the progress bar shown in the dropzone when `useServerUpload` is `true`.
+
+```vue
+<template>
+    <FileUploadField v-model:totalProgress="totalProgress" />
+</template>
+
+<script setup lang="ts">
+const totalProgress = ref(0)
+</script>
+```
+
+- **Type:** `number`
+- **Default:** `0`
+
+### useServerUpload
+
+Enables server-side upload mode.
+
+```vue
+<template>
+    <FileUploadField
+        useServerUpload
+        uploadUrl="/api/uploads"
+        deleteUrl="/api/uploads"
+    />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `false`
+
+### uploadUrl
+
+Server endpoint used to upload files.
+
+```vue
+<template>
+    <FileUploadField useServerUpload uploadUrl="/api/uploads" />
+</template>
+```
+
+- **Type:** `string`
+
+### deleteUrl
+
+Server endpoint used to delete uploaded files.
+
+```vue
+<template>
+    <FileUploadField useServerUpload deleteUrl="/api/uploads" />
+</template>
+```
+
+- **Type:** `string`
+
+### uploadHeaders
+
+Custom headers used for upload and delete requests.
+
+```vue
+<template>
+    <FileUploadField :uploadHeaders="{ Authorization: 'Bearer token' }" />
+</template>
+```
+
+- **Type:** `Record<string, string>`
+- **Default:** `{}`
+
+### uploadAdditionalData
+
+Additional key-value pairs appended to upload `FormData`.
+
+```vue
+<template>
+    <FileUploadField :uploadAdditionalData="{ module: 'documents', public: true }" />
+</template>
+```
+
+- **Type:** `Record<string, string | Blob | number | boolean>`
+- **Default:** `{}`
+
+### uploadWithCredentials
+
+Sends upload requests with credentials.
+
+```vue
+<template>
+    <FileUploadField useServerUpload uploadWithCredentials />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `false`
+
+### uploadingStatusText
+
+Text used while a file is uploading.
+
+```vue
+<template>
+    <FileUploadField uploadingStatusText="Uploading file" />
+</template>
+```
+
+- **Type:** `string`
+- **Default:** `'Uploading'`
+
+### successStatusText
+
+Text used after a successful upload.
+
+```vue
+<template>
+    <FileUploadField successStatusText="Done" />
+</template>
+```
+
+- **Type:** `string`
+- **Default:** `'Uploaded'`
+
+### errorStatusText
+
+Text used after a failed upload.
+
+```vue
+<template>
+    <FileUploadField errorStatusText="Try again" />
+</template>
+```
+
+- **Type:** `string`
+- **Default:** `'Upload failed'`
+
+### pendingStatusText
+
+Text used for files waiting to upload.
+
+```vue
+<template>
+    <FileUploadField pendingStatusText="Waiting" />
+</template>
+```
+
+- **Type:** `string`
+- **Default:** `'Pending'`
+
+### retryIcon
+
+Icon used by the retry action button.
+
+```vue
+<template>
+    <FileUploadField retryIcon="mdi:reload" />
+</template>
+```
+
+- **Type:** `string`
+- **Default:** `'mdi:refresh'`
+
+### removeIcon
+
+Icon used by the remove action button.
+
+```vue
+<template>
+    <FileUploadField removeIcon="mdi:trash-can-outline" />
+</template>
+```
+
+- **Type:** `string`
+- **Default:** `'mdi:close'`
+
+### retryButtonStyleType
+
+Style variant used by the retry action button.
+
+```vue
+<template>
+    <FileUploadField retryButtonStyleType="neutral-transparent" />
+</template>
+```
+
+- **Type:** `ButtonStyleType`
+- **Default:** `ButtonStyleType.NEUTRAL_FILLED`
+
+### removeButtonStyleType
+
+Style variant used by the remove action button.
+
+```vue
+<template>
+    <FileUploadField removeButtonStyleType="delete-transparent" />
+</template>
+```
+
+- **Type:** `ButtonStyleType`
+- **Default:** `ButtonStyleType.DELETE_FILLED`
+
+### retryIconClass
+
+Custom class or class list applied to retry icon.
+
+```vue
+<template>
+    <FileUploadField retryIconClass="text-text-default" />
+</template>
+```
+
+- **Type:** `string | string[]`
+
+### removeIconClass
+
+Custom class or class list applied to remove icon.
+
+```vue
+<template>
+    <FileUploadField :removeIconClass="['text-text-error', 'opacity-90']" />
+</template>
+```
+
+- **Type:** `string | string[]`
+
+### retryButtonClass
+
+Custom class applied to retry button wrapper.
+
+```vue
+<template>
+    <FileUploadField retryButtonClass="rounded-md" />
+</template>
+```
+
+- **Type:** `string`
+
+### removeButtonClass
+
+Custom class applied to remove button wrapper.
+
+```vue
+<template>
+    <FileUploadField removeButtonClass="rounded-md" />
+</template>
+```
+
+- **Type:** `string`
+
+### maxItemsContainerHeight
+
+Sets max height in pixels for the list items container before vertical scrolling.
+
+```vue
+<template>
+    <FileUploadField :maxItemsContainerHeight="280" />
+</template>
+```
+
+- **Type:** `number`
+
+### containerClass
+
+Custom class for the root Dropzone container.
+
+```vue
+<template>
+    <FileUploadField containerClass="bg-background-neutral-subtlest" />
+</template>
+```
+
+- **Type:** `string`
+
+### dropzoneClass
+
+Custom class for the drag-and-drop area.
+
+```vue
+<template>
+    <FileUploadField dropzoneClass="border-border-success" />
+</template>
+```
+
+- **Type:** `string`
+
+### titleClass
+
+Custom class for the dropzone title.
+
+```vue
+<template>
+    <FileUploadField titleClass="text-text-primary" />
+</template>
+```
+
+- **Type:** `string`
+
+### descriptionClass
+
+Custom class for the dropzone description.
+
+```vue
+<template>
+    <FileUploadField descriptionClass="text-text-neutral-subtle" />
+</template>
+```
+
+- **Type:** `string`
+
+### iconClass
+
+Custom class or class list for the dropzone icon.
+
+```vue
+<template>
+    <FileUploadField :iconClass="['text-icon-default', 'opacity-80']" />
+</template>
+```
+
+- **Type:** `string | string[]`
+
+### actionsClass
+
+Custom class for the actions container.
+
+```vue
+<template>
+    <FileUploadField actionsClass="justify-start" />
+</template>
+```
+
+- **Type:** `string`
+
+### listClass
+
+Custom class for list layout container.
+
+```vue
+<template>
+    <FileUploadField listClass="gap-3" />
+</template>
+```
+
+- **Type:** `string`
+
+### gridClass
+
+Custom class for grid layout container.
+
+```vue
+<template>
+    <FileUploadField itemsLayout="grid" gridClass="gap-4" />
+</template>
+```
+
+- **Type:** `string`
+
+### fileItemClass
+
+Custom class for each file item card.
+
+```vue
+<template>
+    <FileUploadField fileItemClass="shadow-xs" />
+</template>
+```
+
+- **Type:** `string`
+
+### fileNameClass
+
+Custom class for file name text.
+
+```vue
+<template>
+    <FileUploadField fileNameClass="text-sm" />
+</template>
+```
+
+- **Type:** `string`
+
+### fileMetaClass
+
+Custom class for file metadata text.
+
+```vue
+<template>
+    <FileUploadField fileMetaClass="text-xs" />
+</template>
+```
+
+- **Type:** `string`
+
+## Emits
+
+::props-table
+---
+props: [
+    {
+        "name": "update:totalProgress",
+        "type": "(value: number) => void",
+    },
+    {
+        "name": "error",
+        "type": "(message: string) => void",
+    },
+    {
+        "name": "file-added",
+        "type": "(file: File) => void",
+    },
+    {
+        "name": "file-removed",
+        "type": "(file: File) => void",
+    },
+    {
+        "name": "clear-all",
+        "type": "(files: File[]) => void",
+    },
+]
+---
+::
 
