@@ -1,8 +1,10 @@
 @import "tailwindcss";
+@source "../../node_modules/@imaginario27/air-ui-ds";
+@source "../../node_modules/@imaginario27/air-ui-utils";
+
 @import "./theme/primitives.css";
 @import "./theme/colors.css";
 @import "./theme/ui-theme.css";
-@import "./defaults.css";
 
 @theme {
     /* Disables Tailwind default colors */
@@ -29,8 +31,8 @@
     --color-background-neutral-filled-transparent: var(--color-background-neutral-filled-transparent);
     --color-background-neutral-hover: var(--color-background-neutral-hover);
     --color-background-neutral-hover-subtle: var(--color-background-neutral-hover-subtle);
-    --color-background-neutral-subtler: var(--color-background-neutral-subtler);
     --color-background-neutral-subtle: var(--color-background-neutral-subtle);
+    --color-background-neutral-subtler: var(--color-background-neutral-subtler);
     --color-background-neutral-subtlest: var(--color-background-neutral-subtlest);
     --color-background-neutral-subtlest-on-container-surface: var(--color-background-neutral-subtlest-on-container-surface);
     --color-background-neutral-filled-default: var(--color-background-neutral-filled-default);
@@ -57,15 +59,20 @@
     --color-background-warning-subtler: var(--color-background-warning-subtler);
     --color-background-warning-subtlest: var(--color-background-warning-subtlest);
     --color-border-danger: var(--color-border-danger);
+    --color-border-danger-bold: var(--color-border-danger-bold);
     --color-border-default: var(--color-border-default);
     --color-border-error: var(--color-border-error);
     --color-border-inactive: var(--color-border-inactive);
     --color-border-info: var(--color-border-info);
+    --color-border-info-bold: var(--color-border-info-bold);
     --color-border-secondary-brand: var(--color-border-secondary-brand);
     --color-border-success: var(--color-border-success);
+    --color-border-success-bold: var(--color-border-success-bold);
     --color-border-warning: var(--color-border-warning);
+    --color-border-warning-bold: var(--color-border-warning-bold);
     --color-border-delete-default: var(--color-border-delete-default);
     --color-border-delete-subtle: var(--color-border-delete-subtle);
+    --color-border-neutral-bold: var(--color-border-neutral-bold);
     --color-border-neutral-disabled: var(--color-border-neutral-disabled);
     --color-border-neutral-hover: var(--color-border-neutral-hover);
     --color-border-neutral-on-disabled-bg: var(--color-border-neutral-on-disabled-bg);
@@ -75,6 +82,9 @@
     --color-border-primary-brand-active: var(--color-border-primary-brand-active);
     --color-border-primary-brand-default: var(--color-border-primary-brand-default);
     --color-border-primary-brand-hover: var(--color-border-primary-brand-hover);
+    --color-border-secondary-brand-active: var(--color-border-secondary-brand-active);
+    --color-border-secondary-brand-default: var(--color-border-secondary-brand-default);
+    --color-border-secondary-brand-hover: var(--color-border-secondary-brand-hover);
     --color-chart-variant-five: var(--color-chart-variant-five);
     --color-chart-variant-four: var(--color-chart-variant-four);
     --color-chart-variant-one: var(--color-chart-variant-one);

@@ -21,8 +21,8 @@
     --color-background-neutral-filled-transparent: #182953d9;
     --color-background-neutral-hover: var(--color-theme-neutral-100);
     --color-background-neutral-hover-subtle: var(--color-theme-neutral-100);
-    --color-background-neutral-subtler: var(--color-theme-neutral-100);
     --color-background-neutral-subtle: var(--color-theme-neutral-200);
+    --color-background-neutral-subtler: var(--color-theme-neutral-100);
     --color-background-neutral-subtlest: var(--color-theme-neutral-50);
     --color-background-neutral-subtlest-on-container-surface: var(--color-theme-neutral-50);
     --color-background-neutral-filled-default: var(--color-theme-neutral-950);
@@ -49,15 +49,20 @@
     --color-background-warning-subtler: var(--color-theme-warning-100);
     --color-background-warning-subtlest: var(--color-theme-warning-50);
     --color-border-danger: var(--color-theme-danger-300);
+    --color-border-danger-bold: var(--color-theme-danger-700);
     --color-border-default: var(--color-theme-neutral-200);
     --color-border-error: var(--color-theme-danger-700);
     --color-border-inactive: var(--color-theme-neutral-200);
     --color-border-info: var(--color-theme-info-300);
+    --color-border-info-bold: var(--color-theme-info-700);
     --color-border-secondary-brand: var(--color-theme-secondary-brand-700);
     --color-border-success: var(--color-theme-success-300);
+    --color-border-success-bold: var(--color-theme-success-700);
     --color-border-warning: var(--color-theme-warning-300);
+    --color-border-warning-bold: var(--color-theme-warning-700);
     --color-border-delete-default: var(--color-theme-danger-600);
     --color-border-delete-subtle: var(--color-theme-danger-200);
+    --color-border-neutral-bold: var(--color-theme-neutral-500);
     --color-border-neutral-disabled: var(--color-theme-neutral-200);
     --color-border-neutral-hover: var(--color-theme-neutral-400);
     --color-border-neutral-on-disabled-bg: var(--color-theme-neutral-300);
@@ -67,6 +72,9 @@
     --color-border-primary-brand-active: var(--color-theme-primary-brand-600);
     --color-border-primary-brand-default: var(--color-theme-primary-brand-700);
     --color-border-primary-brand-hover: var(--color-theme-primary-brand-500);
+    --color-border-secondary-brand-active: var(--color-theme-secondary-brand-600);
+    --color-border-secondary-brand-default: var(--color-theme-secondary-brand-600);
+    --color-border-secondary-brand-hover: var(--color-theme-secondary-brand-500);
     --color-chart-variant-five: #e6bb45;
     --color-chart-variant-four: #e65a45;
     --color-chart-variant-one: #5f45e6;
@@ -218,7 +226,6 @@
     --color-theme-warning-950: var(--amber-950);
 }
 
-
 /* Dark mode */
 .dark {
     /* UI Theme - Colors */
@@ -243,8 +250,8 @@
     --color-background-neutral-filled-transparent: #182953d9;
     --color-background-neutral-hover: var(--color-theme-neutral-50);
     --color-background-neutral-hover-subtle: var(--color-theme-neutral-200);
-    --color-background-neutral-subtler: var(--color-theme-neutral-100);
     --color-background-neutral-subtle: var(--color-theme-neutral-200);
+    --color-background-neutral-subtler: var(--color-theme-neutral-100);
     --color-background-neutral-subtlest: var(--color-theme-neutral-50);
     --color-background-neutral-subtlest-on-container-surface: var(--color-theme-neutral-100);
     --color-background-neutral-filled-default: var(--color-theme-neutral-950);
@@ -271,15 +278,20 @@
     --color-background-warning-subtler: var(--color-theme-warning-800);
     --color-background-warning-subtlest: var(--color-theme-warning-900);
     --color-border-danger: var(--color-theme-danger-200);
+    --color-border-danger-bold: var(--color-theme-danger-400);
     --color-border-default: var(--color-theme-neutral-100);
     --color-border-error: var(--color-theme-danger-500);
     --color-border-inactive: var(--color-theme-neutral-200);
     --color-border-info: var(--color-theme-info-200);
+    --color-border-info-bold: var(--color-theme-info-400);
     --color-border-secondary-brand: var(--color-theme-secondary-brand-700);
     --color-border-success: var(--color-theme-success-200);
+    --color-border-success-bold: var(--color-theme-success-400);
     --color-border-warning: var(--color-theme-warning-600);
+    --color-border-warning-bold: var(--color-theme-warning-400);
     --color-border-delete-default: var(--color-theme-danger-400);
     --color-border-delete-subtle: var(--color-theme-danger-800);
+    --color-border-neutral-bold: var(--color-theme-neutral-500);
     --color-border-neutral-disabled: var(--color-theme-neutral-400);
     --color-border-neutral-hover: var(--color-theme-neutral-700);
     --color-border-neutral-on-disabled-bg: var(--color-theme-neutral-300);
@@ -289,6 +301,9 @@
     --color-border-primary-brand-active: var(--color-theme-primary-brand-500);
     --color-border-primary-brand-default: var(--color-theme-primary-brand-500);
     --color-border-primary-brand-hover: var(--color-theme-primary-brand-700);
+    --color-border-secondary-brand-active: var(--color-theme-secondary-brand-500);
+    --color-border-secondary-brand-default: var(--color-theme-secondary-brand-400);
+    --color-border-secondary-brand-hover: var(--color-theme-secondary-brand-700);
     --color-chart-variant-five: #e6bb45;
     --color-chart-variant-four: #e65a45;
     --color-chart-variant-one: #5f45e6;
@@ -312,7 +327,7 @@
     --color-icon-neutral-inactive: var(--color-theme-neutral-400);
     --color-icon-neutral-on-filled-bg: var(--color-theme-neutral-950);
     --color-icon-neutral-on-filled-secondary-brand-bg: var(--color-theme-neutral-white);
-    --color-icon-neutral-on-monochrome-active-bg: var(--color-theme-neutral-950);
+    --color-icon-neutral-on-monochrome-active-bg: var(--color-theme-neutral-700);
     --color-icon-neutral-on-monochrome-hover-bg: var(--color-theme-neutral-600);
     --color-icon-neutral-on-neutral-bg: var(--color-theme-neutral-950);
     --color-icon-neutral-on-primary-brand-soft-bg: var(--color-theme-neutral-600);
@@ -340,7 +355,7 @@
     --color-text-neutral-disabled: var(--color-theme-neutral-400);
     --color-text-neutral-inactive: var(--color-theme-neutral-400);
     --color-text-neutral-on-filled: var(--color-theme-neutral-950);
-    --color-text-neutral-on-monochrome-active-bg: var(--color-theme-neutral-950);
+    --color-text-neutral-on-monochrome-active-bg: var(--color-theme-neutral-700);
     --color-text-neutral-on-monochrome-hover-bg: var(--color-theme-neutral-600);
     --color-text-neutral-on-neutral-bg: var(--color-theme-neutral-950);
     --color-text-neutral-on-neutral-filled-bg: var(--color-theme-neutral-white);

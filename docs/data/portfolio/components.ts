@@ -111,6 +111,11 @@ export const componentList: ComponentPortfolioItem[] = [
         imgUrl: `/images/thumbnails/components/progress.png`,
     },
     {
+        title: 'Slider',
+        to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/slider`,
+        imgUrl: `/images/thumbnails/components/progress.png`,
+    },
+    {
         title: 'Rating',
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/rating`,
         imgUrl: `/images/thumbnails/components/rating.png`,
@@ -225,6 +230,11 @@ export const componentList: ComponentPortfolioItem[] = [
     {
         title: 'SelectField',
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/select-field`,
+        imgUrl: `/images/thumbnails/components/select-field.png`,
+    },
+    {
+        title: 'SliderField',
+        to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/slider-field`,
         imgUrl: `/images/thumbnails/components/select-field.png`,
     },
     {
