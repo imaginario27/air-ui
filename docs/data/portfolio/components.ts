@@ -113,7 +113,7 @@ export const componentList: ComponentPortfolioItem[] = [
     {
         title: 'Slider',
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/slider`,
-        imgUrl: `/images/thumbnails/components/progress.png`,
+        imgUrl: `/images/thumbnails/components/slider.png`,
     },
     {
         title: 'Rating',
@@ -235,7 +235,7 @@ export const componentList: ComponentPortfolioItem[] = [
     {
         title: 'SliderField',
         to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/slider-field`,
-        imgUrl: `/images/thumbnails/components/select-field.png`,
+        imgUrl: `/images/thumbnails/components/slider-field.png`,
     },
     {
         title: 'SelectableCardField',
