@@ -5,6 +5,28 @@ All notable changes to this package are documented in this file.
 Historical releases were reconstructed from git history (GitHub repository) and npm publish dates.
 Future releases will include detailed entries generated with Changesets.
 
+## 1.9.1 - 2026-03-31
+
+Release type: patch.
+Commits found in range: 1.
+
+### Added
+
+1. add titleClass prop to ContentPageHeader component ([17c3276](https://github.com/imaginario27/air-ui/commit/17c32762b19ac5333e87efad54fcb022a4624c0f))
+
+- Package: @imaginario27/air-ui-ds.
+
+## 1.9.0 - 2026-03-28
+
+Release type: minor.
+Commits found in range: 1.
+
+### Added
+
+1. add new Dropzone and update FileUploadField component ([0be8a1f](https://github.com/imaginario27/air-ui/commit/0be8a1fcf96373f9fbf6e048113cf83b638bb0d4))
+
+- Package: @imaginario27/air-ui-ds.
+
 ## 1.8.0 - 2026-03-28
 
 Release type: minor.

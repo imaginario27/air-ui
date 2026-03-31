@@ -13,7 +13,7 @@
             'flex flex-col items-center gap-6',
             'py-4',
             'border-r border-border-default',
-            'transition-all duration-300 ease-in-ou',
+            'transition-all duration-300 ease-in-out',
             isMobileSidebarOpen ? 'translate-x-0' : '-translate-x-full',
             'lg:translate-x-0', // Always visible on large screens
         ]"
