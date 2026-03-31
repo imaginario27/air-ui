@@ -164,6 +164,8 @@ const hasError = computed(() => props.error !== '')
 // Computed classes
 const controlFieldSizeClass = computed(() => {
     const sizeVariant = {
+        [ControlFieldSize.XS]: 'w-[32px] h-[16px] min-w-[32px] min-h-[16px]',
+        [ControlFieldSize.SM]: 'w-[40px] h-[20px] min-w-[40px] min-h-[20px]',
         [ControlFieldSize.MD]: 'w-[44px] h-[24px] min-w-[44px] min-h-[24px]',
         [ControlFieldSize.LG]: 'w-[56px] h-[32px] min-w-[56px] min-h-[32px]',
     }
@@ -172,6 +174,8 @@ const controlFieldSizeClass = computed(() => {
 
 const controlFieldHandlerSizeClass = computed(() => {
     const sizeVariant = {
+        [ControlFieldSize.XS]: 'w-[12px] h-[12px]',
+        [ControlFieldSize.SM]: 'w-[16px] h-[16px]',
         [ControlFieldSize.MD]: 'w-[16px] h-[16px]',
         [ControlFieldSize.LG]: 'w-[24px] h-[24px]',
     }
@@ -180,6 +184,8 @@ const controlFieldHandlerSizeClass = computed(() => {
 
 const labelSizeClass = computed(() => {
     const sizeVariant = {
+        [ControlFieldSize.XS]: 'text-xs',
+        [ControlFieldSize.SM]: 'text-xs',
         [ControlFieldSize.MD]: 'text-sm',
         [ControlFieldSize.LG]: 'text-base',
     }
@@ -188,6 +194,8 @@ const labelSizeClass = computed(() => {
 
 const iconSizeClass = computed(() => {
     const sizeVariant = {
+        [ControlFieldSize.XS]: 'w-[16px] h-[16px] min-w-[16px] min-h-[16px]',
+        [ControlFieldSize.SM]: 'w-[20px] h-[20px] min-w-[20px] min-h-[20px]',
         [ControlFieldSize.MD]: 'w-[20px] h-[20px] min-w-[20px] min-h-[20px]',
         [ControlFieldSize.LG]: 'w-[24px] h-[24px] min-w-[24px] min-h-[24px]',
     }

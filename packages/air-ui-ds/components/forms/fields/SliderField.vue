@@ -149,8 +149,6 @@
 </template>
 
 <script setup lang="ts">
-import { SliderSize } from '@/models/enums/sliders'
-
 const props = defineProps({
     id: {
         type: String as PropType<string>,

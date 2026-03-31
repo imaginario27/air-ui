@@ -267,8 +267,6 @@
 </template>
 
 <script setup lang="ts">
-import type { UploadMeta, UploadStatusType } from '~/models/types/uploads'
-
 const DEFAULT_FILE_TYPE_ICON_MAP: Record<string, string> = {
     image: 'mdi:file-image-outline',
     video: 'mdi:file-video-outline',
