@@ -135,6 +135,8 @@ const emit = defineEmits(['update:modelValue', 'validate'])
 // Computed classes
 const radioSizeClass = computed(() => {
     const sizeVariant = {
+        [ControlFieldSize.XS]: 'w-[16px] h-[16px]',
+        [ControlFieldSize.SM]: 'w-[20px] h-[20px]',
         [ControlFieldSize.MD]: 'w-[24px] h-[24px]',
         [ControlFieldSize.LG]: 'w-[32px] h-[32px]',
     }
@@ -143,6 +145,8 @@ const radioSizeClass = computed(() => {
 
 const labelSizeClass = computed(() => {
     const sizeVariant = {
+        [ControlFieldSize.XS]: 'text-xs',
+        [ControlFieldSize.SM]: 'text-xs',
         [ControlFieldSize.MD]: 'text-sm',
         [ControlFieldSize.LG]: 'text-base',
     }

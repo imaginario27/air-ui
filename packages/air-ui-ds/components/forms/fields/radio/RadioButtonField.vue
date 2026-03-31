@@ -172,6 +172,8 @@ const emit = defineEmits(['update:modelValue', 'validate'])
 // Computed classes
 const labelSizeClass = computed(() => {
     const sizeVariant = {
+        [ControlFieldSize.XS]: 'text-xs',
+        [ControlFieldSize.SM]: 'text-xs',
         [ControlFieldSize.MD]: 'text-sm',
         [ControlFieldSize.LG]: 'text-base',
     }
