@@ -9,6 +9,7 @@ props:
     overtitle: "Overtitle Text"
     isOverTitleUppercase: true
     overtitleClass: ""
+    titleClass: ""
     showDescription: true
     description: "This is a description for the content page header."
     hasGoBackLink: false
@@ -51,6 +52,10 @@ props: [
     },
     {
         "name": "overtitleClass",
+        "type": "string"
+    },
+    {
+        "name": "titleClass",
         "type": "string"
     },
     {
@@ -195,6 +200,21 @@ The `overtitleClass` prop allows you to add custom CSS classes to the overtitle 
     <ContentPageHeader
         overtitle="Section"
         overtitleClass="custom-overtitle-class"
+    />
+</template>
+```
+
+- **Type:** `string`
+
+### titleClass
+
+The `titleClass` prop allows you to add custom CSS classes to the title element for additional styling.
+
+```vue
+<template>
+    <ContentPageHeader
+        title="Main Title"
+        titleClass="custom-title-class"
     />
 </template>
 ```

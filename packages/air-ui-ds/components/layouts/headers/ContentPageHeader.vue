@@ -39,7 +39,8 @@
                 'font-semibold',
                 'leading-tight',
                 'text-text-default',
-                'break-all'
+                'break-all',
+                titleClass,
             ]"
         >
             {{ title ? title : pageTitle }}
@@ -67,6 +68,7 @@ defineProps({
     overtitle: String as PropType<string>,
     isOverTitleUppercase: Boolean as PropType<boolean>,
     overtitleClass: String as PropType<string>,
+    titleClass: String as PropType<string>,
     showDescription: {
         type: Boolean as PropType<boolean>,
         default: true,
