@@ -1,5 +1,5 @@
 <template>
-    <h3 class="font-semibold w-full">
+    <h3 class="font-semibold w-full text-text-default">
         {{ title }}
     </h3>
 </template>

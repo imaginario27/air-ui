@@ -5,6 +5,17 @@ All notable changes to this package are documented in this file.
 Historical releases were reconstructed from git history (GitHub repository) and npm publish dates.
 Future releases will include detailed entries generated with Changesets.
 
+## 1.9.4 - 2026-04-06
+
+Release type: patch.
+Commits found in range: 1.
+
+### Fixed
+
+1. fix CardTitle text color ([6a8807b](https://github.com/imaginario27/air-ui/commit/6a8807b9c4a3b22aa3f2b78eada1d8421ae9ed85))
+
+- Package: @imaginario27/air-ui-ds.
+
 ## 1.9.3 - 2026-04-06
 
 Release type: patch.
