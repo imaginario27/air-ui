@@ -21,7 +21,7 @@
         </label>
 
         <BadgeStack 
-            v-if="multiple && hasBadgeStack"
+            v-if="multiple && hasBadgeStack && badgesSelectedOptions.length > 0"
             :items="badgesSelectedOptions"
             closeable
             @close="handleBadgeRemove"
