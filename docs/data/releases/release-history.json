@@ -1,12 +1,74 @@
 {
-  "generatedAt": "2026-03-31T11:44:39.119Z",
+  "generatedAt": "2026-04-06T12:24:42.619Z",
   "source": "github-git-history+npm-publish-dates",
   "githubBaseUrl": "https://github.com/imaginario27/air-ui",
   "packages": [
     {
       "packageName": "@imaginario27/air-ui-ds",
-      "latestVersion": "1.9.1",
+      "latestVersion": "1.9.3",
       "entries": [
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.9.3",
+          "publishedAt": "2026-04-06",
+          "releaseType": "patch",
+          "notes": [
+            "fix SelectField empty div with multiple option and badge stack"
+          ],
+          "metadata": {
+            "commitCount": 1,
+            "commits": [
+              {
+                "sha": "041fd2df2eab1a17c83b51cc736d0d7ce591faf6",
+                "shortSha": "041fd2d",
+                "date": "2026-04-06",
+                "subject": "fix(ds): fix SelectField empty div with multiple option and badge stack",
+                "normalizedSubject": "fix SelectField empty div with multiple option and badge stack",
+                "type": "fixed",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/041fd2df2eab1a17c83b51cc736d0d7ce591faf6",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 0,
+              "fixed": 1,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.9.2",
+          "publishedAt": "2026-03-31",
+          "releaseType": "patch",
+          "notes": [
+            "fix typecheck issues"
+          ],
+          "metadata": {
+            "commitCount": 1,
+            "commits": [
+              {
+                "sha": "763c932692a380b5b172d1258dcbb38083a27fde",
+                "shortSha": "763c932",
+                "date": "2026-03-31",
+                "subject": "fix(ds): fix typecheck issues",
+                "normalizedSubject": "fix typecheck issues",
+                "type": "fixed",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/763c932692a380b5b172d1258dcbb38083a27fde",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 0,
+              "fixed": 1,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
         {
           "packageName": "@imaginario27/air-ui-ds",
           "version": "1.9.1",

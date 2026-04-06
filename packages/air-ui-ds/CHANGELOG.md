@@ -5,6 +5,28 @@ All notable changes to this package are documented in this file.
 Historical releases were reconstructed from git history (GitHub repository) and npm publish dates.
 Future releases will include detailed entries generated with Changesets.
 
+## 1.9.3 - 2026-04-06
+
+Release type: patch.
+Commits found in range: 1.
+
+### Fixed
+
+1. fix SelectField empty div with multiple option and badge stack ([041fd2d](https://github.com/imaginario27/air-ui/commit/041fd2df2eab1a17c83b51cc736d0d7ce591faf6))
+
+- Package: @imaginario27/air-ui-ds.
+
+## 1.9.2 - 2026-03-31
+
+Release type: patch.
+Commits found in range: 1.
+
+### Fixed
+
+1. fix typecheck issues ([763c932](https://github.com/imaginario27/air-ui/commit/763c932692a380b5b172d1258dcbb38083a27fde))
+
+- Package: @imaginario27/air-ui-ds.
+
 ## 1.9.1 - 2026-03-31
 
 Release type: patch.
