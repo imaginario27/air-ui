@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-06T15:53:10.451Z",
+  "generatedAt": "2026-04-07T09:15:38.732Z",
   "source": "github-git-history+npm-publish-dates",
   "githubBaseUrl": "https://github.com/imaginario27/air-ui",
   "packages": [
@@ -2190,8 +2190,39 @@
     },
     {
       "packageName": "@imaginario27/air-ui-utils",
-      "latestVersion": "1.2.1",
+      "latestVersion": "1.2.2",
       "entries": [
+        {
+          "packageName": "@imaginario27/air-ui-utils",
+          "version": "1.2.2",
+          "publishedAt": "2026-04-07",
+          "releaseType": "patch",
+          "notes": [
+            "add formatNumberWithThousands number util"
+          ],
+          "metadata": {
+            "commitCount": 1,
+            "commits": [
+              {
+                "sha": "1c660343c4718947e43c5393af2dc079f0ed176a",
+                "shortSha": "1c66034",
+                "date": "2026-04-07",
+                "subject": "feat(utils): add formatNumberWithThousands number util",
+                "normalizedSubject": "add formatNumberWithThousands number util",
+                "type": "added",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/1c660343c4718947e43c5393af2dc079f0ed176a",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 1,
+              "fixed": 0,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
         {
           "packageName": "@imaginario27/air-ui-utils",
           "version": "1.2.1",

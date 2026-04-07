@@ -5,6 +5,29 @@ All notable changes to this package are documented in this file.
 Historical releases were reconstructed from git history (GitHub repository) and npm publish dates.
 Future releases will include detailed entries generated with Changesets.
 
+## 1.2.2 - 2026-04-07
+
+Release type: patch.
+Commits found in range: 1.
+
+### Added
+
+1. add formatNumberWithThousands number util ([1c66034](https://github.com/imaginario27/air-ui/commit/1c660343c4718947e43c5393af2dc079f0ed176a))
+
+- Package: @imaginario27/air-ui-utils.
+
+## 1.2.1 - 2026-03-21
+
+Release type: patch.
+Commits found in range: 2.
+
+### Added
+
+1. update package versions ([c5a01a1](https://github.com/imaginario27/air-ui/commit/c5a01a186b047bceca41d6cf50d1f9da4e1aa15e))
+2. add new TagsField and RulesField components + component fixes ([c8c125e](https://github.com/imaginario27/air-ui/commit/c8c125eb110eedc16f29706778578514bc28eb4f))
+
+- Package: @imaginario27/air-ui-utils.
+
 ## 1.2.0 - 2026-03-18
 
 Release type: minor.
