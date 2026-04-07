@@ -132,6 +132,17 @@ export const utilList: UtilPortfolioItem[] = [
         description: 'Validates whether a given array field is not empty.',
     },
 
+    // NUMBERS
+    {
+        isSectionTitle: true,
+        title: 'Numbers',
+    },
+    {
+        title: 'formatNumberWithThousands',
+        to: `/${AppSlug.DOCS}/${AppSlug.UTILS}/format-number-with-thousands`,
+        description: 'Formats a number into a string with thousands separators using Intl locale rules.',
+    },
+
     // PASSWORDS
     {
         isSectionTitle: true,
