@@ -12,5 +12,6 @@ export interface DropdownMenuItem {
     to?: string
     isExternal?: boolean
     hasSeparator?: boolean
+    disabled?: boolean
     callback?: () => void
 }

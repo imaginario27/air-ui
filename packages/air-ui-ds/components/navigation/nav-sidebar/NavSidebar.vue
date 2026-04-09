@@ -125,6 +125,8 @@
                         :text="item.text"
                         :icon="item.icon"
                         :to="item.to"
+                        :disabled="item.disabled"
+                        :prefetchOn
                         :styleType="itemsStyleType"
                         :textClass="itemsTextClass"
                         :iconClass="itemsIconClass"
@@ -143,6 +145,8 @@
                             :text="child.text"
                             :icon="child.icon"
                             :to="child.to"
+                            :disabled="child.disabled"
+                            :prefetchOn
                             :styleType="itemsStyleType"
                             :textClass="subItemsTextClass"
                             :iconClass="subItemsIconClass"
@@ -320,6 +324,10 @@ const props = defineProps({
     subItemsCustomClass: String as PropType<string>,
     subItemsTextClass: String as PropType<string>,
     subItemsIconClass: String as PropType<string>,
+    prefetchOn: {
+        type: [String, Object] as PropType<PrefetchOnStrategy>,
+        default: PrefetchOn.VISIBILITY,
+    },
 })
 
 // States 

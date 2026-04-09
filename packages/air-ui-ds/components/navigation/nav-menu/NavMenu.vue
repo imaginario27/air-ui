@@ -43,6 +43,7 @@
                 :text="item.text"
                 :to="item.to"
                 :detectActive="props.detectActive"
+                :prefetchOn
             />
         </template>
     </nav>
@@ -83,6 +84,10 @@ const props = defineProps({
         type: String as PropType<Trigger>,
         default: Trigger.CLICK,
         validator: (value: Trigger) => Object.values(Trigger).includes(value),
+    },
+    prefetchOn: {
+        type: [String, Object] as PropType<PrefetchOnStrategy>,
+        default: PrefetchOn.VISIBILITY,
     },
 })
 

@@ -3,6 +3,7 @@ import { reactive } from 'vue'
 import NavSidebarMenuItem from '@/components/navigation/nav-sidebar/NavSidebarMenuItem.vue'
 import Icon from '@/components/icons/Icon.vue'
 import { SidebarNavMenuItemStyleType } from '#imports'
+import { PrefetchOn } from '@/models/enums/prefetch'
 
 vi.mock('#app', () => ({
     useRoute: () => reactive({
@@ -13,8 +14,8 @@ vi.mock('#app', () => ({
 describe('NavSidebarMenuItem.vue', () => {
     const globalStubs = {
         NuxtLink: {
-            template: `<a :href="to" @click="$emit('click')"><slot /></a>`,
-            props: ['to']
+            template: `<a :href="to" :data-prefetch-on="typeof prefetchOn === 'string' ? prefetchOn : JSON.stringify(prefetchOn)" @click="$emit('click')"><slot /></a>`,
+            props: ['to', 'prefetchOn']
         }
     }
 
@@ -43,6 +44,16 @@ describe('NavSidebarMenuItem.vue', () => {
 
         expect(button.exists()).toBe(true)
         expect(button.attributes('type')).toBe('button')
+    })
+
+    it('keeps parent item label left-aligned when used as button with dropdown arrow', () => {
+        const wrapper = factory({
+            text: 'Parent item',
+            showDropdownArrow: true,
+        })
+
+        const button = wrapper.find('button')
+        expect(button.classes()).toContain('text-left')
     })
 
     it('renders text in span when not collapsed', () => {
@@ -169,5 +180,37 @@ describe('NavSidebarMenuItem.vue', () => {
 
         expect(itemIcon?.props('iconClass')).toContain('!text-icon-success')
         expect(arrowIcon?.props('iconClass')).toBeUndefined()
+    })
+
+    it('applies disabled styles and text selection guard when disabled is true', () => {
+        const wrapper = factory({
+            text: 'Disabled item',
+            disabled: true,
+        })
+
+        const rootClasses = wrapper.classes()
+        const text = wrapper.find('span')
+
+        expect(rootClasses).toContain('opacity-disabled')
+        expect(rootClasses).toContain('cursor-not-allowed')
+        expect(rootClasses).toContain('pointer-events-none')
+        expect(text.classes()).toContain('select-none')
+    })
+
+    it('passes default prefetchOn strategy to NuxtLink', () => {
+        const wrapper = factory({ to: '/settings' })
+        const link = wrapper.find('a')
+
+        expect(link.attributes('data-prefetch-on')).toBe(PrefetchOn.VISIBILITY)
+    })
+
+    it('passes custom prefetchOn strategy to NuxtLink', () => {
+        const wrapper = factory({
+            to: '/settings',
+            prefetchOn: PrefetchOn.INTERACTION,
+        })
+        const link = wrapper.find('a')
+
+        expect(link.attributes('data-prefetch-on')).toBe(PrefetchOn.INTERACTION)
     })
 })

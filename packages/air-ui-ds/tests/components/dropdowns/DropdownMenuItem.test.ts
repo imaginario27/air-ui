@@ -3,6 +3,7 @@ import DropdownMenuItem from '@/components/dropdowns/DropdownMenuItem.vue'
 import { DropdownActionType, DropdownItemType } from '~/models/enums/dropdowns'
 import { NuxtLink } from '#components'
 import Icon from '@/components/icons/Icon.vue'
+import { PrefetchOn } from '@/models/enums/prefetch'
 
 vi.mock('@/assets/images/placeholders/missing-image-placeholder.png', () => ({
     default: '/mocked/missing-image.png'
@@ -23,7 +24,8 @@ const factory = (props?: Record<string, any>) => {
             stubs: {
                 NuxtLink: {
                     name: 'NuxtLink',
-                    template: '<a><slot /></a>'
+                    template: '<a><slot /></a>',
+                    props: ['to', 'target', 'rel', 'external', 'prefetchOn'],
                 },
                 Icon
             }
@@ -45,11 +47,44 @@ describe('DropdownMenuItem.vue', () => {
         expect(wrapper.findComponent(NuxtLink).exists()).toBe(true)
     })
 
+    it('uses visibility prefetch strategy by default for link action type', () => {
+        const wrapper = factory({
+            actionType: DropdownActionType.LINK,
+            to: '/test',
+        })
+
+        const link = wrapper.findComponent(NuxtLink)
+        expect(link.props('prefetchOn')).toBe(PrefetchOn.VISIBILITY)
+    })
+
+    it('passes custom prefetch strategy for link action type', () => {
+        const wrapper = factory({
+            actionType: DropdownActionType.LINK,
+            to: '/test',
+            prefetchOn: PrefetchOn.INTERACTION,
+        })
+
+        const link = wrapper.findComponent(NuxtLink)
+        expect(link.props('prefetchOn')).toBe(PrefetchOn.INTERACTION)
+    })
+
     it('emits click and close when clicked and actionType is ACTION', async () => {
         const wrapper = factory({ actionType: DropdownActionType.ACTION })
         await wrapper.trigger('click')
         expect(wrapper.emitted('click')).toBeTruthy()
         expect(wrapper.emitted('close')).toBeTruthy()
+    })
+
+    it('does not emit click and close when disabled is true', async () => {
+        const wrapper = factory({
+            actionType: DropdownActionType.ACTION,
+            disabled: true,
+        })
+
+        await wrapper.trigger('click')
+
+        expect(wrapper.emitted('click')).toBeFalsy()
+        expect(wrapper.emitted('close')).toBeFalsy()
     })
 
     it('displays the correct text', () => {
@@ -120,5 +155,14 @@ describe('DropdownMenuItem.vue', () => {
             expect(wrapper.text()).toContain('Delete item')
             expect(root.exists()).toBe(true)
         })
+    })
+
+    it('applies disabled interaction styles when disabled is true', () => {
+        const wrapper = factory({ disabled: true })
+        const classes = wrapper.classes()
+
+        expect(classes).toContain('opacity-disabled')
+        expect(classes).toContain('cursor-not-allowed')
+        expect(classes).toContain('pointer-events-none')
     })
 })

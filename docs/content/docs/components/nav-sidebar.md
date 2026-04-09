@@ -17,7 +17,7 @@ props:
         - text: 'Item 2'
           icon: 'mdi:help'
           to: null
-        - text: 'Item 3'
+        - text: 'Item 3 dasfsadfas dfasd fasd fasd fasd'
           icon: 'mdi:help'
           to: null
           children:
@@ -55,6 +55,7 @@ props:
     subItemsCustomClass: ""
     subItemsTextClass: ""
     subItemsIconClass: ""
+    prefetchOn: "visibility"
     class: "relative !h-[500px] translate-x-0"
 items:
     itemsStyleType:
@@ -72,6 +73,11 @@ items:
           text: CLICK
         - value: hover
           text: HOVER
+    prefetchOn:
+        - value: visibility
+          text: VISIBILITY
+        - value: interaction
+          text: INTERACTION
 external:
   - menuItems
 externalTypes:
@@ -80,6 +86,7 @@ enums:
     itemsStyleType: "SidebarNavMenuItemStyleType"
     collapseTogglePosition: "Position"
     collapsedSubmenuTrigger: "Trigger"
+    prefetchOn: "PrefetchOn"
 propsSettingsExcludedProps: [
     'menuItems',
     'class',
@@ -241,6 +248,11 @@ props: [
         "name": "subItemsIconClass",
         "type": "string",
     },
+    {
+        "name": "prefetchOn",
+        "default": "PrefetchOn.VISIBILITY",
+        "type": "PrefetchOnStrategy",
+    },
 ]
 ---
 ::
@@ -373,6 +385,7 @@ interface SidebarMenuItem {
     to?: string
     isSectionTitle?: boolean
     children?: SidebarMenuItem[]
+    disabled?: boolean
 }
 ```
 
@@ -882,4 +895,48 @@ The `subItemsIconClass` prop allows you to set custom classes specifically for e
         :subItemsIconClass="'!text-icon-danger'"
     />
 </template>
+```
+
+### prefetchOn
+Controls when sidebar route targets should be prefetched. It uses either the `PrefetchOnStrategy` type or the `PrefetchOn` enum.
+
+```vue
+<template>
+    <NavSidebar
+        sidebarId="main-sidebar"
+        :menuItems="routeItems"
+        :prefetchOn="PrefetchOn.INTERACTION"
+    />
+</template>
+```
+
+- **Type:** `PrefetchOnStrategy`
+- **Default:** `PrefetchOn.VISIBILITY`
+
+#### Options
+
+::options-table
+---
+options: [
+    {
+        value: "VISIBILITY",
+        description: "Prefetches routes based on visibility strategy.",
+    },
+    {
+        value: "INTERACTION",
+        description: "Prefetches routes when users hover or focus a sidebar item with a route target.",
+    },
+]
+---
+::
+
+</br>
+
+You can also pass an object strategy:
+
+```ts
+{
+    visibility: true,
+    interaction: true,
+}
 ```

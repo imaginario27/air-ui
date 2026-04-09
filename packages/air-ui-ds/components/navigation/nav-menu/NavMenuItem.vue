@@ -1,5 +1,5 @@
 <template>
-    <NuxtLink :to="to">
+    <NuxtLink :to :prefetch-on="prefetchOn">
         <span 
             :class="[
                 'font-medium',
@@ -27,6 +27,10 @@ const props = defineProps({
     detectActive: {
         type: Boolean,
         default: true,
+    },
+    prefetchOn: {
+        type: [String, Object] as PropType<PrefetchOnStrategy>,
+        default: PrefetchOn.VISIBILITY,
     },
 })
 

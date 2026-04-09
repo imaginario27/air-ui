@@ -5,6 +5,7 @@
             hasContainer && 'border border-border-default',
             hasContainer && containerStyleClass,
             hasContainer && isContainerFullWidth && 'w-full',
+            disabled && 'opacity-disabled cursor-not-allowed pointer-events-none',
         ]"
     >
         <Tab 
@@ -15,10 +16,13 @@
             :imgUrl="tab.imgUrl" 
             :badgeValue="tab.badgeValue"
             :active="index === activeIndex" 
+            :disabled="disabled || tab.disabled"
             :tabStyle
             :size="tabSize"
             :decoration
             @click="handleTabClick(index, tab.to)"
+            @pointerenter="handleTabPrefetch(tab.to)"
+            @focus="handleTabPrefetch(tab.to)"
         />
     </div>
 </template>
@@ -59,6 +63,14 @@ const props = defineProps({
         type: Boolean as PropType<boolean>,
         default: false,
     },
+    disabled: {
+        type: Boolean as PropType<boolean>,
+        default: false,
+    },
+    prefetchOn: {
+        type: [String, Object] as PropType<PrefetchOnStrategy>,
+        default: PrefetchOn.VISIBILITY,
+    },
 })
 
 // Local
@@ -69,7 +81,7 @@ const emit = defineEmits(['update:modelValue'])
 
 // Methods
 const handleTabClick = (index: number, to?: string) => {
-    if(to) { // If the to is provided, navigate to the route
+    if(to) {
         navigateTo(to)
         return
     }
@@ -78,6 +90,24 @@ const handleTabClick = (index: number, to?: string) => {
     emit('update:modelValue', index)
 }
 
+const shouldPrefetchOn = (trigger: PrefetchOn): boolean => {
+  if (typeof props.prefetchOn === 'string') {
+    return props.prefetchOn === trigger
+  }
+  
+  return trigger === PrefetchOn.VISIBILITY
+    ? !!props.prefetchOn?.visibility
+    : !!props.prefetchOn?.interaction
+}
+
+const handleTabPrefetch = (to?: string) => {
+  if (!to) return
+
+  if (!shouldPrefetchOn(PrefetchOn.INTERACTION)) return
+
+  // fire and forget — do not await to avoid blocking
+  preloadRouteComponents(to)
+}
 // Watchers
 watch(() => props.modelValue, (newVal) => {
     activeIndex.value = newVal
@@ -93,5 +123,4 @@ const containerStyleClass = computed(() => {
 
     return variant[props.tabSize as TabSize] || "p-4 rounded-md"
 })
-
 </script>

@@ -22,4 +22,5 @@ export interface SidebarMenuItem {
     to?: string
     isSectionTitle?: boolean
     children?: SidebarMenuItem[]
+    disabled?: boolean
 }

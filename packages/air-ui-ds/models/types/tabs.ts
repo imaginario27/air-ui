@@ -4,4 +4,5 @@ export interface TabItem {
     imgUrl?: string
     badgeValue?: number | string
     to?: string
+    disabled?: boolean
 }

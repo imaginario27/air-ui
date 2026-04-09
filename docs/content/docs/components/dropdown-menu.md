@@ -7,6 +7,8 @@ props:
     hasShadow: true
     hasBorder: true
     trigger: 'click'
+    disabled: false
+    prefetchOn: "visibility"
     position: 'bottom-right'
     positionXOffset: 0
     positionYOffset: 8
@@ -38,6 +40,11 @@ items:
           text: CLICK
         - value: hover
           text: HOVER
+    prefetchOn:
+        - value: visibility
+          text: VISIBILITY
+        - value: interaction
+          text: INTERACTION
 slots:
     items: ""
     activator: ""
@@ -61,6 +68,7 @@ externalTypes:
 enums:
     position: "DropdownPosition"
     trigger: "Trigger"
+    prefetchOn: "PrefetchOn"
 ---
 ::
 
@@ -87,6 +95,16 @@ props: [
         "name": "trigger",
         "default": "Trigger.CLICK",
         "type": "Trigger",
+    },
+    {
+        "name": "disabled",
+        "default": "false",
+        "type": "boolean",
+    },
+    {
+        "name": "prefetchOn",
+        "default": "PrefetchOn.VISIBILITY",
+        "type": "PrefetchOnStrategy",
     },
     {
         "name": "position",
@@ -251,6 +269,7 @@ interface DropdownMenuItem {
     to?: string
     isExternal?: boolean
     hasSeparator?: boolean
+    disabled?: boolean
     callback?: () => void
 }
 ```
@@ -319,6 +338,63 @@ options: [
 ]
 ---
 ::
+
+### disabled
+Disables the dropdown activator behavior. When `true`, click and hover triggers will not open the menu.
+
+```vue
+<template>
+    <DropdownMenu
+        :disabled="true"
+    >
+        ....
+    </DropdownMenu>
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `false`
+
+### prefetchOn
+Controls when dropdown item route targets should be prefetched. It uses either the `PrefetchOnStrategy` type or the `PrefetchOn` enum.
+
+```vue
+<template>
+    <DropdownMenu
+        :items="exampleItems"
+        :prefetchOn="PrefetchOn.INTERACTION"
+    />
+</template>
+```
+
+- **Type:** `PrefetchOnStrategy`
+- **Default:** `PrefetchOn.VISIBILITY`
+
+#### Options
+
+::options-table
+---
+options: [
+    {
+        value: "VISIBILITY",
+        description: "Prefetches routes based on visibility strategy.",
+    },
+    {
+        value: "INTERACTION",
+        description: "Prefetches routes when users hover or focus a dropdown item with a route target.",
+    },
+]
+---
+::
+
+You can also pass an object strategy:
+
+```ts
+{
+    visibility: true,
+    interaction: true,
+}
+```
 
 ### position
 Sets the position of the dropdown menu relative to its activator. Uses the `DropdownPosition` enum.
@@ -511,6 +587,8 @@ props:
     to: null
     isExternal: false
     hasSeparator: false
+    disabled: false
+    prefetchOn: "visibility"
     class: "bg-background-neutral-default shadow-sm"
 items:
     size:
@@ -536,6 +614,13 @@ items:
           text: ACTION
         - value: link
           text: LINK
+        prefetchOn:
+                - value: visibility
+                    text: VISIBILITY
+                - value: interaction
+                    text: INTERACTION
+enums:
+        prefetchOn: "PrefetchOn"
 propsSettingsExcludedProps: ['class']
 ---
 ::
@@ -606,6 +691,16 @@ props: [
         "name": "hasSeparator",
         "default": "false",
         "type": "boolean",
+    },
+    {
+        "name": "disabled",
+        "default": "false",
+        "type": "boolean",
+    },
+    {
+        "name": "prefetchOn",
+        "default": "PrefetchOn.VISIBILITY",
+        "type": "PrefetchOnStrategy",
     },
 ]
 ---
@@ -811,6 +906,63 @@ Adds a separator line below the menu item.
     >
         ....
     </DropdownMenuItem>
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `false`
+
+### prefetchOn
+Controls when the dropdown menu item route target should be prefetched. It uses either the `PrefetchOnStrategy` type or the `PrefetchOn` enum.
+
+```vue
+<template>
+    <DropdownMenuItem
+        text="Profile"
+        to="/profile"
+        :prefetchOn="PrefetchOn.INTERACTION"
+    />
+</template>
+```
+
+- **Type:** `PrefetchOnStrategy`
+- **Default:** `PrefetchOn.VISIBILITY`
+
+#### Options
+
+::options-table
+---
+options: [
+    {
+        value: "VISIBILITY",
+        description: "Prefetches routes based on visibility strategy.",
+    },
+    {
+        value: "INTERACTION",
+        description: "Prefetches routes when users hover or focus the item.",
+    },
+]
+---
+::
+
+You can also pass an object strategy:
+
+```ts
+{
+    visibility: true,
+    interaction: true,
+}
+```
+
+### disabled
+Disables the menu item interaction and applies disabled visual styles.
+
+```vue
+<template>
+    <DropdownMenuItem
+        text="Disabled item"
+        :disabled="true"
+    />
 </template>
 ```
 

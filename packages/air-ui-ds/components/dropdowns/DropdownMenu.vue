@@ -71,6 +71,8 @@
                                 :to="item.to"
                                 :isExternal="item.isExternal"
                                 :hasSeparator="item.hasSeparator"
+                                :disabled="disabled || item.disabled"
+                                :prefetchOn
                                 @click="handleClick(item.callback)"
                             />
                         </template>
@@ -129,6 +131,8 @@
                             :to="item.to"
                             :isExternal="item.isExternal"
                             :hasSeparator="item.hasSeparator"
+                            :disabled="disabled || item.disabled"
+                            :prefetchOn
                             @click="handleClick(item.callback)"
                         />
                     </template>
@@ -193,6 +197,14 @@ const props = defineProps({
         default: Trigger.CLICK,
         validator: (value: Trigger) => Object.values(Trigger).includes(value),
     },
+    disabled: {
+        type: Boolean as PropType<boolean>,
+        default: false,
+    },
+    prefetchOn: {
+        type: [String, Object] as PropType<PrefetchOnStrategy>,
+        default: PrefetchOn.VISIBILITY,
+    },
 })
 
 // Refs
@@ -251,6 +263,8 @@ const getActivatorElement = () => {
 }
 
 const onActivatorClick = (event: MouseEvent) => {
+    if(props.disabled) return
+
     if (props.trigger !== Trigger.CLICK) return
     if (!activatorWrapper.value) return
 
@@ -260,6 +274,8 @@ const onActivatorClick = (event: MouseEvent) => {
 }
 
 const onActivatorMouseEnter = () => {
+    if(props.disabled) return
+
     if (props.trigger !== Trigger.HOVER) return
 
     clearCloseTimer()
@@ -267,6 +283,8 @@ const onActivatorMouseEnter = () => {
 }
 
 const onActivatorMouseLeave = () => {
+    if(props.disabled) return
+
     if (props.trigger !== Trigger.HOVER) return
 
     scheduleClose()

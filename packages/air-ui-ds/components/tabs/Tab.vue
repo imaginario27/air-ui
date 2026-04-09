@@ -7,7 +7,8 @@
             'px-3',
             'hover:cursor-pointer',
             'group',
-            styleClass
+            disabled && 'opacity-disabled cursor-not-allowed pointer-events-none',
+            styleClass,
         ]"
     >
         <Icon
@@ -36,6 +37,7 @@
             :class="[
                 'text-sm',
                 'font-semibold',
+                disabled && 'select-none',
             ]"
         >
             {{ text }}
@@ -88,6 +90,10 @@ const props = defineProps({
         default: false,
     },
     badgeValue: [String, Number] as PropType<string | number>,
+    disabled: {
+        type: Boolean as PropType<boolean>,
+        default: false,
+    },
 })
 
 // States

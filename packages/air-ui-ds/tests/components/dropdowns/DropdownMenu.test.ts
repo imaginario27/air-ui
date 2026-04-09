@@ -1,7 +1,10 @@
-import { mount, VueWrapper } from '@vue/test-utils'
+import { mount } from '@vue/test-utils'
+import type { VueWrapper } from '@vue/test-utils'
+import { nextTick } from 'vue'
 import DropdownMenu from '@/components/dropdowns/DropdownMenu.vue'
 import DropdownMenuItem from '@/components/dropdowns/DropdownMenuItem.vue'
 import { DropdownPosition } from '@/models/enums/positions'
+import { PrefetchOn } from '@/models/enums/prefetch'
 
 const factory = (options: {
     props?: Record<string, unknown>
@@ -47,6 +50,35 @@ describe('DropdownMenu.vue', () => {
         expect((wrapper.vm as any).isOpen).toBe(true)
 
         await activator.trigger('click')
+        expect((wrapper.vm as any).isOpen).toBe(false)
+    })
+
+    it('does not open on activator click when disabled is true', async () => {
+        const wrapper = factory({
+            props: {
+                disabled: true,
+                items: [{ text: 'Item' }],
+            },
+        })
+
+        const activator = wrapper.find('.dropdown-activator')
+        await activator.trigger('click')
+
+        expect((wrapper.vm as any).isOpen).toBe(false)
+    })
+
+    it('does not open on hover when disabled is true', async () => {
+        const wrapper = factory({
+            props: {
+                disabled: true,
+                trigger: 'hover',
+                items: [{ text: 'Item' }],
+            },
+        })
+
+        const activator = wrapper.find('.dropdown-activator')
+        await activator.trigger('mouseenter')
+
         expect((wrapper.vm as any).isOpen).toBe(false)
     })
 
@@ -176,5 +208,50 @@ describe('DropdownMenu.vue', () => {
 
         const item = wrapper.findComponent(DropdownMenuItem)
         expect(item.exists()).toBe(true)
+    })
+
+    it('passes default prefetch strategy to fallback DropdownMenuItem entries', async () => {
+        const wrapper = factory({
+            props: {
+                items: [{ text: 'Prefetch default', to: '/settings' }],
+            },
+        })
+
+        await wrapper.find('.dropdown-activator').trigger('click')
+        await wrapper.vm.$nextTick()
+
+        const item = wrapper.findComponent(DropdownMenuItem)
+        expect(item.props('prefetchOn')).toBe(PrefetchOn.VISIBILITY)
+    })
+
+    it('passes custom prefetch strategy to fallback DropdownMenuItem entries', async () => {
+        const wrapper = factory({
+            props: {
+                prefetchOn: PrefetchOn.INTERACTION,
+                items: [{ text: 'Prefetch custom', to: '/settings' }],
+            },
+        })
+
+        await wrapper.find('.dropdown-activator').trigger('click')
+        await wrapper.vm.$nextTick()
+
+        const item = wrapper.findComponent(DropdownMenuItem)
+        expect(item.props('prefetchOn')).toBe(PrefetchOn.INTERACTION)
+    })
+
+    it('forwards disabled state to fallback DropdownMenuItem entries', async () => {
+        const wrapper = factory({
+            props: {
+                disabled: true,
+                items: [{ text: 'Disabled by parent' }],
+            },
+        })
+
+        const open = (wrapper.vm as any).$?.setupState?.open
+        open?.()
+        await nextTick()
+
+        const item = wrapper.findComponent(DropdownMenuItem)
+        expect(item.props('disabled')).toBe(true)
     })
 })
