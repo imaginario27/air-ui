@@ -90,23 +90,27 @@ const handleTabClick = (index: number, to?: string) => {
     emit('update:modelValue', index)
 }
 
+const isPrefetchOnOptions = (prefetchOn: PrefetchOnStrategy): prefetchOn is PrefetchOnOptions => {
+        return typeof prefetchOn === 'object' && prefetchOn !== null
+}
+
 const shouldPrefetchOn = (trigger: PrefetchOn): boolean => {
-  if (typeof props.prefetchOn === 'string') {
-    return props.prefetchOn === trigger
-  }
-  
-  return trigger === PrefetchOn.VISIBILITY
-    ? !!props.prefetchOn?.visibility
-    : !!props.prefetchOn?.interaction
+    if (!isPrefetchOnOptions(props.prefetchOn)) {
+            return props.prefetchOn === trigger
+    }
+
+    return trigger === PrefetchOn.VISIBILITY
+            ? !!props.prefetchOn.visibility
+            : !!props.prefetchOn.interaction
 }
 
 const handleTabPrefetch = (to?: string) => {
-  if (!to) return
+    if (!to) return
 
-  if (!shouldPrefetchOn(PrefetchOn.INTERACTION)) return
+    if (!shouldPrefetchOn(PrefetchOn.INTERACTION)) return
 
-  // fire and forget — do not await to avoid blocking
-  preloadRouteComponents(to)
+    // fire and forget - do not await to avoid blocking
+    preloadRouteComponents(to)
 }
 // Watchers
 watch(() => props.modelValue, (newVal) => {

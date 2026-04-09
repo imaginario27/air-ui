@@ -4,3 +4,5 @@ export type PrefetchOnStrategy =
       visibility?: boolean
       interaction?: boolean
     }
+
+export type PrefetchOnOptions = Exclude<PrefetchOnStrategy, PrefetchOn>
