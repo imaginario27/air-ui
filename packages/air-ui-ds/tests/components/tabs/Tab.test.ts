@@ -158,4 +158,13 @@ describe('Tab.vue', () => {
         const classes = wrapper.classes()
         expect(classes).toContain('min-h-[52px]')
     })
+
+    it('applies disabled interaction styles when disabled is true', () => {
+        const wrapper = factory({ disabled: true })
+        const classes = wrapper.classes()
+
+        expect(classes).toContain('opacity-disabled')
+        expect(classes).toContain('cursor-not-allowed')
+        expect(classes).toContain('pointer-events-none')
+    })
 })

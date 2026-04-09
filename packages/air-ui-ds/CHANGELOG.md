@@ -5,6 +5,17 @@ All notable changes to this package are documented in this file.
 Historical releases were reconstructed from git history (GitHub repository) and npm publish dates.
 Future releases will include detailed entries generated with Changesets.
 
+## 1.10.0 - 2026-04-09
+
+Release type: minor.
+Commits found in range: 1.
+
+### Added
+
+1. add prefetchOn and disabled states to navigation components ([04f9124](https://github.com/imaginario27/air-ui/commit/04f91246519958fdf3619427f39504269a49a911))
+
+- Package: @imaginario27/air-ui-ds.
+
 ## 1.9.4 - 2026-04-06
 
 Release type: patch.

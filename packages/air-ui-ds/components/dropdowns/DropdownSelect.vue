@@ -6,7 +6,7 @@
             :shouldTeleport="false"
             :positionClass="`absolute ${dropdownPositionClass}`"
             zIndex="10"
-            dropdownClass="max-w-full"
+            :dropdownClass
             :class="[ 
                 'max-h-[200px]', 
                 'overflow-y-auto', 
@@ -128,7 +128,7 @@
                             'p-2', 
                             'sticky',
                             'top-0', 
-                            'bg-white', 
+                            'bg-background-container-surface', 
                             'z-10'
                         ]"
                     >
@@ -298,6 +298,12 @@ const dropdownPositionClass = computed(() => {
     }
 
     return positionVariant[props.dropdownPosition as Position] || 'top-full mt-1'
+})
+
+const dropdownClass = computed(() => {
+    const baseClass= 'max-w-full'
+
+    return props.filterable? `${baseClass} pt-0!` : baseClass
 })
 
 // States

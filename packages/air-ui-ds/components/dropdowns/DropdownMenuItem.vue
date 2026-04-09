@@ -16,6 +16,7 @@
             typeClass,
             hasSeparator ? 'border-b border-border-default' : undefined,
             helpText ? 'py-2' : undefined,
+            disabled && 'opacity-disabled cursor-not-allowed pointer-events-none',
         ]"
     >
         <div class="flex items-center gap-3 w-full">
@@ -120,6 +121,14 @@ const props = defineProps({
         type: Boolean as PropType<boolean>,
         default: false,
     },
+    disabled: {
+        type: Boolean as PropType<boolean>,
+        default: false,
+    },
+    prefetchOn: {
+        type: [String, Object] as PropType<PrefetchOnStrategy>,
+        default: PrefetchOn.VISIBILITY,
+    },
 })
 
 // States
@@ -128,6 +137,8 @@ const isImageLoaded = ref(true)
 // Emits
 const emit = defineEmits(["click", "close"])
 const emitClick = () => {
+    if (props.disabled) return
+
     if (props.actionType === DropdownActionType.ACTION) {
         emit("click")
         emit("close")
@@ -196,6 +207,7 @@ const componentProps = computed(() => {
             target: props.isExternal ? '_blank' : '_self',
             rel: props.isExternal ? 'noopener noreferrer' : undefined,
             external: props.isExternal,
+            prefetchOn: props.prefetchOn,
         }
     } else {
         return {}

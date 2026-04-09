@@ -36,6 +36,7 @@ props:
     isSticky: false
     hasGlassEffect: false
     detectActiveMenuItem: true
+    prefetchOn: "visibility"
     navMenuClass: "hidden lg:flex"
     navMobileMenuClass: "lg:hidden min-w-[280px]"
     headerClass: ""
@@ -64,6 +65,11 @@ items:
           text: CLICK
         - value: hover
           text: HOVER
+    prefetchOn:
+        - value: visibility
+          text: VISIBILITY
+        - value: interaction
+          text: INTERACTION
 external:
   - navMenuItems
   - userMenuItems
@@ -74,6 +80,7 @@ enums:
     pageTitleFormat: "PageTitleFormat"
     sidebarTogglePosition: "SidebarTogglePosition"
     submenuTrigger: "Trigger"
+    prefetchOn: "PrefetchOn"
 propsSettingsExcludedProps: ['navMenuItems', 'userMenuItems', 'class']
 ---
 ::
@@ -155,6 +162,11 @@ props: [
         "name": "detectActiveMenuItem",
         "default": "true",
         "type": "boolean"
+    },
+    {
+        "name": "prefetchOn",
+        "default": "PrefetchOn.VISIBILITY",
+        "type": "PrefetchOnStrategy"
     },
     {
         "name": "navMenuClass",
@@ -629,6 +641,46 @@ const mainHeaderMenu = ref<MenuItem[]>([
 
 - **Type:** `boolean`
 - **Default:** `true`
+
+### prefetchOn
+Controls when header route targets should be prefetched. It uses either the `PrefetchOnStrategy` type or the `PrefetchOn` enum.
+
+```vue
+<template>
+    <CompactHeader
+        :navMenuItems="mainHeaderMenu"
+        :prefetchOn="PrefetchOn.INTERACTION"
+    />
+</template>
+```
+
+- **Type:** `PrefetchOnStrategy`
+- **Default:** `PrefetchOn.VISIBILITY`
+
+#### Options
+::options-table
+---
+options: [
+    {
+        value: "VISIBILITY",
+        description: "Prefetches routes based on visibility strategy.",
+    },
+    {
+        value: "INTERACTION",
+        description: "Prefetches routes when users hover or focus header navigation and user menu links.",
+    },
+]
+---
+::
+
+You can also pass an object strategy:
+
+```ts
+{
+    visibility: true,
+    interaction: true,
+}
+```
 
 ### navMenuClass
 

@@ -6,6 +6,7 @@
             'flex',
             'items-center',
             'text-sm',
+            'text-left',
             'font-semibold',
             'rounded-lg',
             'hover:bg-background-neutral-hover',
@@ -13,6 +14,7 @@
             spacingClass,
             !isActive && 'text-text-default',
             isActive && 'text-text-primary-brand-on-neutral-hover-bg bg-background-neutral-hover',
+            disabled && 'opacity-disabled cursor-not-allowed pointer-events-none',
         ]"
         @click="$emit('click')"
     >
@@ -32,7 +34,7 @@
 
             <span
                 v-if="!isCollapsed"
-                :class="textClass"
+                :class="[disabled && 'select-none', textClass]"
             >
                 {{ text }}
             </span>
@@ -82,6 +84,14 @@ const props = defineProps({
     },
     textClass: String as PropType<string>,
     iconClass: String as PropType<string>,
+    disabled: {
+        type: Boolean as PropType<boolean>,
+        default: false,
+    },
+    prefetchOn: {
+        type: [String, Object] as PropType<PrefetchOnStrategy>,
+        default: PrefetchOn.VISIBILITY,
+    },
 })
 
 // Emits 
@@ -147,7 +157,7 @@ const componentTag = computed(() => {
 
 const componentProps = computed(() => {
     if (props.to) {
-        return { to: props.to }
+        return { to: props.to, prefetchOn: props.prefetchOn }
     }
 
     return { type: 'button' }

@@ -86,6 +86,8 @@ props:
     decoration: "none"
     hasContainer: false
     isContainerFullWidth: false
+    disabled: false
+    prefetchOn: "visibility"
 items:
     tabStyle: 
         - value: underline
@@ -93,7 +95,7 @@ items:
         - value: pill
           text: PILL
         - value: pill-monochrome
-          text: PILL_MONOCRHOME
+          text: PILL_MONOCHROME
     tabSize:
         - value: lg
           text: LG
@@ -108,15 +110,21 @@ items:
           text: ICON
         - value: image
           text: IMAGE
+    prefetchOn:
+        - value: visibility
+          text: VISIBILITY
+        - value: interaction
+          text: INTERACTION
 external:
   - tabs
   - modelValue
 externalTypes:
   - TabItem[]
-enum:
+enums:
     tabStyle: "TabStyle"
     tabSize: "TabSize"
     decoration: "TabDecoration"
+    prefetchOn: "PrefetchOn"
 propsSettingsExcludedProps: ['tabs', 'modelValue']
 previewBackground: 'white'
 ---
@@ -162,6 +170,16 @@ props: [
         "default": "false",
         "type": "boolean",
     },
+    {
+        "name": "disabled",
+        "default": "false",
+        "type": "boolean",
+    },
+    {
+        "name": "prefetchOn",
+        "default": "PrefetchOn.VISIBILITY",
+        "type": "PrefetchOnStrategy",
+    },
 ]
 ---
 ::
@@ -197,6 +215,7 @@ interface TabItem {
     imgUrl?: string
     badgeValue?: number | string
     to?: string
+    disabled?: boolean
 }
 ```
 
@@ -205,6 +224,7 @@ interface TabItem {
 - **imgUrl:** Sets the image for `IMAGE` decoration type.
 - **badgeValue:** Sets the value for an optional badge at the right side of the tab label. Displays the badge only if the value is passed through the object.
 - **to:** Defines a navigation target for the tab. When provided, the tab behaves as a link and triggers a route navigation instead of updating the modelValue (active index).
+- **disabled:** Disables a single tab item. This applies disabled visual styles and blocks interaction for that item.
 
 #### modelValue
 The value of the currently active tab.
@@ -366,6 +386,62 @@ When `hasContainer` is `true`, this prop makes the container take the full width
 
 - **Type:** `boolean`
 - **Default:** `false`
+
+#### disabled
+Disables the entire `TabBar` interaction state.
+
+```vue
+<template>
+    <TabBar
+        :tabs="exampleTabs"
+        :disabled="true"
+    />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `false`
+
+#### prefetchOn
+Controls when tab route targets should be prefetched. It uses either the `PrefetchOnStrategy` type or the `PrefetchOn` enum.
+
+```vue
+<template>
+    <TabBar
+        :tabs="exampleTabs"
+        :prefetchOn="PrefetchOn.INTERACTION"
+    />
+</template>
+```
+
+- **Type:** `PrefetchOnStrategy`
+- **Default:** `PrefetchOn.VISIBILITY`
+
+##### Options
+
+::options-table
+---
+options: [
+    {
+        value: "VISIBILITY",
+        description: "Prefetches routes based on visibility strategy.",
+    },
+    {
+        value: "INTERACTION",
+        description: "Prefetches routes when users hover or focus a tab with a route target.",
+    },
+]
+---
+::
+
+You can also pass an object strategy:
+
+```ts
+{
+    visibility: true,
+    interaction: true,
+}
+```
 
 ## TabContent
 

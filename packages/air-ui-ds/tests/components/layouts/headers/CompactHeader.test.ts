@@ -1,6 +1,7 @@
 import { mount } from '@vue/test-utils'
 import CompactHeader from '@/components/layouts/headers/CompactHeader.vue'
 import { SidebarTogglePosition } from '@/models/enums/positions'
+import { PrefetchOn } from '@/models/enums/prefetch'
 
 // Mock before component import
 vi.mock('@/composables/useMobileSidebar', () => ({
@@ -155,5 +156,39 @@ describe('CompactHeader.vue', () => {
 
         expect(leftWrapper.findAllComponents({ name: 'ActionIconButton' }).length).toBeGreaterThan(0)
         expect(rightWrapper.findAllComponents({ name: 'ActionIconButton' }).length).toBeGreaterThan(0)
+    })
+
+    it('forwards prefetchOn to NavMenu', () => {
+        const wrapper = factory({
+            navMenuItems: [{ text: 'Home', to: '/' }],
+            prefetchOn: PrefetchOn.INTERACTION,
+        })
+
+        const navMenu = wrapper.findComponent({ name: 'NavMenu' })
+        expect(navMenu.props('prefetchOn')).toBe(PrefetchOn.INTERACTION)
+    })
+
+    it('forwards prefetchOn to user DropdownMenuItem entries', () => {
+        const wrapper = mount(CompactHeader, {
+            props: {
+                ...defaultProps,
+                prefetchOn: PrefetchOn.INTERACTION,
+                userFullname: 'Jane Doe',
+                userMenuItems: [
+                    { text: 'Profile', to: '/profile' },
+                ],
+            },
+            global: {
+                stubs: {
+                    DropdownMenu: {
+                        name: 'DropdownMenu',
+                        template: '<div><slot name="activator" /><slot name="items" /></div>',
+                    },
+                },
+            },
+        })
+
+        const item = wrapper.findComponent({ name: 'DropdownMenuItem' })
+        expect(item.props('prefetchOn')).toBe(PrefetchOn.INTERACTION)
     })
 })

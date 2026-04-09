@@ -67,6 +67,7 @@
                     :submenuYOffset
                     :submenuDropdownClass
                     :submenuTrigger
+                    :prefetchOn
                     :class="navMenuClass"
                 />
 
@@ -103,6 +104,7 @@
                             :to="item.to"
                             :isExternal="item.isExternal"
                             :actionType="item.actionType"
+                            :prefetchOn
                             @click="item.callback"
                         />
                     </template>
@@ -223,6 +225,10 @@ const props = defineProps({
     detectActiveMenuItem: {
         type: Boolean,
         default: true,
+    },
+    prefetchOn: {
+        type: [String, Object] as PropType<PrefetchOnStrategy>,
+        default: PrefetchOn.VISIBILITY,
     },
     navMenuClass: {
         type: String as PropType<string>,
