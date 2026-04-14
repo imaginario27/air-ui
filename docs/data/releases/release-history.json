@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-14T11:41:02.190Z",
+  "generatedAt": "2026-04-14T11:42:26.284Z",
   "source": "github-git-history+npm-publish-dates",
   "githubBaseUrl": "https://github.com/imaginario27/air-ui",
   "packages": [
@@ -2307,8 +2307,39 @@
     },
     {
       "packageName": "@imaginario27/air-ui-utils",
-      "latestVersion": "1.2.2",
+      "latestVersion": "1.2.3",
       "entries": [
+        {
+          "packageName": "@imaginario27/air-ui-utils",
+          "version": "1.2.3",
+          "publishedAt": "2026-04-14",
+          "releaseType": "patch",
+          "notes": [
+            "remove duplicated imports"
+          ],
+          "metadata": {
+            "commitCount": 1,
+            "commits": [
+              {
+                "sha": "a2779590034a360e1685193455e978391870a69f",
+                "shortSha": "a277959",
+                "date": "2026-04-14",
+                "subject": "fix(utils): remove duplicated imports",
+                "normalizedSubject": "remove duplicated imports",
+                "type": "fixed",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/a2779590034a360e1685193455e978391870a69f",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 0,
+              "fixed": 1,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
         {
           "packageName": "@imaginario27/air-ui-utils",
           "version": "1.2.2",

@@ -5,6 +5,17 @@ All notable changes to this package are documented in this file.
 Historical releases were reconstructed from git history (GitHub repository) and npm publish dates.
 Future releases will include detailed entries generated with Changesets.
 
+## 1.2.3 - 2026-04-14
+
+Release type: patch.
+Commits found in range: 1.
+
+### Fixed
+
+1. remove duplicated imports ([a277959](https://github.com/imaginario27/air-ui/commit/a2779590034a360e1685193455e978391870a69f))
+
+- Package: @imaginario27/air-ui-utils.
+
 ## 1.2.2 - 2026-04-07
 
 Release type: patch.
