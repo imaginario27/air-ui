@@ -1,3 +1,5 @@
+import { StackCounterType } from '../../air-ui-ds/models/enums/counters'
+
 /**
  * Returns the counter content for a stack display based on the number of items, counter type, and item limit.
  *
