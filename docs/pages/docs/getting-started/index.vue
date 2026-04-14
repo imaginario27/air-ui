@@ -9,7 +9,7 @@
             <ContentFooterNavigation 
                 :nextPage="{
                     label: 'Installation',
-                    link: `/${AppSlug.DOCS}/${AppSlug.GETTING_STARTED}/installation`,
+                    link: `/${DocsAppSlug.DOCS}/${DocsAppSlug.GETTING_STARTED}/installation`,
                     description: 'Learn how to install AirUI in your Nuxt project.'
                 }"
             />

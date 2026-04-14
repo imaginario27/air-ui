@@ -1,8 +1,4 @@
-export const App = {
-    NAME: 'AirUI',
-}
-
-export const AppSlug = {
+export const DocsAppSlug = {
     DOCS: 'docs',
     COMPONENTS: 'components',
     UTILS: 'utils',

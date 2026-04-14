@@ -9,12 +9,12 @@
             <ContentFooterNavigation 
                 :previousPage="{
                     label: 'Theme customization',
-                    link: `/${AppSlug.DOCS}/${AppSlug.GETTING_STARTED}/${AppSlug.THEME}/theme-customization`,
+                    link: `/${DocsAppSlug.DOCS}/${DocsAppSlug.GETTING_STARTED}/${DocsAppSlug.THEME}/theme-customization`,
                     description: 'Learn how to customize the theme of AirUI.'
                 }"
                 :nextPage="{
                     label: 'MCP Server',
-                    link: `/${AppSlug.DOCS}/${AppSlug.GETTING_STARTED}/${AppSlug.AGENTS}/mcp-server`,
+                    link: `/${DocsAppSlug.DOCS}/${DocsAppSlug.GETTING_STARTED}/${DocsAppSlug.AGENTS}/mcp-server`,
                     description: 'Learn about the MCP Server and how to use it with AirUI.'
                 }"
             />

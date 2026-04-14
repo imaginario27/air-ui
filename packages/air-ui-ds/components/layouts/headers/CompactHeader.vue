@@ -255,8 +255,11 @@ const currentPageTitle = computed<string>(() =>
     (route.meta.title as string) ?? 'Page title'
 )
 
+const config = useRuntimeConfig()
+const { public: { appName } } = config
+
 // Dynamically set the page title
 useHead(() => ({
-    title: pageTitle(currentPageTitle.value, App.NAME, props.pageTitleFormat),
+    title: pageTitle(currentPageTitle.value, appName as string, props.pageTitleFormat),
 }))
 </script>

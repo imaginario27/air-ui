@@ -37,7 +37,7 @@
                                 :size="ButtonSize.XXL"
                                 :actionType="ButtonActionType.LINK"
                                 text="Get started"
-                                :to="`/${AppSlug.DOCS}/${AppSlug.GETTING_STARTED}`"
+                                :to="`/${DocsAppSlug.DOCS}/${DocsAppSlug.GETTING_STARTED}`"
                                 isMobileFullWidth
                                 :class="[
                                     isDark && [
@@ -53,7 +53,7 @@
                                 text="Explore components"
                                 :iconPosition="IconPosition.RIGHT"
                                 icon="mdi:arrow-right-thin"
-                                :to="`/${AppSlug.DOCS}/${AppSlug.COMPONENTS}`"
+                                :to="`/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}`"
                                 isMobileFullWidth
                                 :class="[
                                     isDark && [

@@ -1,5 +1,5 @@
 import { FeedbackType } from '@/models/enums/feedbacks'
-import { FieldMaxLength } from '@/models/constants/form'
+import { FormFieldMaxLength } from '@/models/constants/form'
 import type {
     BuildIssueBodyPayload,
     CreateGitHubIssuePayload,
@@ -109,15 +109,15 @@ export const normalizeAndValidateFields = (fields: Record<string, string>): Norm
         throwBadRequest('Title and description are required')
     }
 
-    if (title.length > FieldMaxLength.GITHUB_ISSUE_SUBJECT) {
+    if (title.length > FormFieldMaxLength.GITHUB_ISSUE_SUBJECT) {
         throwBadRequest('Title is too long')
     }
 
-    if (description.length > FieldMaxLength.GITHUB_ISSUE_DESCRIPTION) {
+    if (description.length > FormFieldMaxLength.GITHUB_ISSUE_DESCRIPTION) {
         throwBadRequest('Description is too long')
     }
 
-    if (github.length > FieldMaxLength.GITHUB_ISSUE_USERNAME || (github && !/^[a-z\d](?:[a-z\d]|-(?=[a-z\d])){0,38}$/i.test(github))) {
+    if (github.length > FormFieldMaxLength.GITHUB_ISSUE_USERNAME || (github && !/^[a-z\d](?:[a-z\d]|-(?=[a-z\d])){0,38}$/i.test(github))) {
         throwBadRequest('Invalid GitHub username')
     }
 

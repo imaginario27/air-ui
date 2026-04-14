@@ -1,12 +1,98 @@
 {
-  "generatedAt": "2026-04-09T08:51:50.937Z",
+  "generatedAt": "2026-04-14T11:42:26.284Z",
   "source": "github-git-history+npm-publish-dates",
   "githubBaseUrl": "https://github.com/imaginario27/air-ui",
   "packages": [
     {
       "packageName": "@imaginario27/air-ui-ds",
-      "latestVersion": "1.10.0",
+      "latestVersion": "1.10.2",
       "entries": [
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.10.2",
+          "publishedAt": "2026-04-14",
+          "releaseType": "patch",
+          "notes": [
+            "fix typecheck errors in selects",
+            "remove duplicated imports",
+            "fix duplicated imports"
+          ],
+          "metadata": {
+            "commitCount": 3,
+            "commits": [
+              {
+                "sha": "eee12f87045fcb12556f3f38e80f87e5078a0d5c",
+                "shortSha": "eee12f8",
+                "date": "2026-04-14",
+                "subject": "fix(ds): fix typecheck errors in selects",
+                "normalizedSubject": "fix typecheck errors in selects",
+                "type": "fixed",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/eee12f87045fcb12556f3f38e80f87e5078a0d5c",
+                "prUrl": null
+              },
+              {
+                "sha": "a2779590034a360e1685193455e978391870a69f",
+                "shortSha": "a277959",
+                "date": "2026-04-14",
+                "subject": "fix(utils): remove duplicated imports",
+                "normalizedSubject": "remove duplicated imports",
+                "type": "fixed",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/a2779590034a360e1685193455e978391870a69f",
+                "prUrl": null
+              },
+              {
+                "sha": "5a324a3ea43ae5fdf794e345b54c57207860efbd",
+                "shortSha": "5a324a3",
+                "date": "2026-04-14",
+                "subject": "fix(ds): fix duplicated imports",
+                "normalizedSubject": "fix duplicated imports",
+                "type": "fixed",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/5a324a3ea43ae5fdf794e345b54c57207860efbd",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 0,
+              "fixed": 3,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.10.1",
+          "publishedAt": "2026-04-09",
+          "releaseType": "patch",
+          "notes": [
+            "fix TypeScript errors in TabBar.vue"
+          ],
+          "metadata": {
+            "commitCount": 1,
+            "commits": [
+              {
+                "sha": "273925bdca00ac9ad58c1c43de5668ed78a85da1",
+                "shortSha": "273925b",
+                "date": "2026-04-09",
+                "subject": "fix(ds): fix TypeScript errors in TabBar.vue",
+                "normalizedSubject": "fix TypeScript errors in TabBar.vue",
+                "type": "fixed",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/273925bdca00ac9ad58c1c43de5668ed78a85da1",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 0,
+              "fixed": 1,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
         {
           "packageName": "@imaginario27/air-ui-ds",
           "version": "1.10.0",
@@ -2221,8 +2307,39 @@
     },
     {
       "packageName": "@imaginario27/air-ui-utils",
-      "latestVersion": "1.2.2",
+      "latestVersion": "1.2.3",
       "entries": [
+        {
+          "packageName": "@imaginario27/air-ui-utils",
+          "version": "1.2.3",
+          "publishedAt": "2026-04-14",
+          "releaseType": "patch",
+          "notes": [
+            "remove duplicated imports"
+          ],
+          "metadata": {
+            "commitCount": 1,
+            "commits": [
+              {
+                "sha": "a2779590034a360e1685193455e978391870a69f",
+                "shortSha": "a277959",
+                "date": "2026-04-14",
+                "subject": "fix(utils): remove duplicated imports",
+                "normalizedSubject": "remove duplicated imports",
+                "type": "fixed",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/a2779590034a360e1685193455e978391870a69f",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 0,
+              "fixed": 1,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
         {
           "packageName": "@imaginario27/air-ui-utils",
           "version": "1.2.2",

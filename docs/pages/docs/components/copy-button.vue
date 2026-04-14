@@ -30,15 +30,15 @@ const activeIndex = ref(2)
 const tabs: TabItem[] = [
     {
         text: 'ActionButton',
-        to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/action-button`,
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/action-button`,
     },
     {
         text: 'ActionIconButton',
-        to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/action-icon-button`,
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/action-icon-button`,
     },
     {
         text: 'CopyButton',
-        to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/copy-button`,
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/copy-button`,
     },
 ]
 </script>

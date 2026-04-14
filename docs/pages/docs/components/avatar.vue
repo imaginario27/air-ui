@@ -31,11 +31,11 @@ const activeIndex = ref(0)
 const tabs: TabItem[] = [
     {
         text: 'Avatar',
-        to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/avatar`,
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/avatar`,
     },
     {
         text: 'Avatar stack',
-        to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/avatar-stack`,
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/avatar-stack`,
     },
 ]
 </script>

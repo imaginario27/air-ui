@@ -21,9 +21,13 @@
     </Section>
 </template>
 <script setup lang="ts">
+// States
 const title = ref('Figma')
 
+const config = useRuntimeConfig()
+const { public: { appName } } = config
+
 useHead(() => ({
-    title: pageTitle(title.value, App.NAME),
+    title: pageTitle(title.value, appName as string),
 }))
 </script>

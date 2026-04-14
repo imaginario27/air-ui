@@ -30,15 +30,15 @@ const activeIndex = ref(1)
 const tabs: TabItem[] = [
     {
         text: 'CurrentActiveSubscriptionCard',
-        to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/current-active-subscription-card`,
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/current-active-subscription-card`,
     },
     {
         text: 'SubscriptionPlanCard',
-        to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/subscription-plan-card`,
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/subscription-plan-card`,
     },
     {
         text: 'UniqueSubscriptionPlanCard',
-        to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/unique-subscription-plan-card`,
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/unique-subscription-plan-card`,
     },
 ]
 </script>

@@ -1,3 +1,5 @@
+import type { SelectOption } from '../../air-ui-ds/models/types/selects'
+
 /**
  * Creates a delay for a specified number of milliseconds.
  *
@@ -41,7 +43,6 @@ export function getPaginatedData<T>(
 
     return result.slice(start, end)
 }
-
 
 /**
  * Converts an array of objects into SelectOption[] by mapping specified keys or transformation functions.

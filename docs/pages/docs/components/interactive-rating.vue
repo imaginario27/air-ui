@@ -30,11 +30,11 @@ const activeIndex = ref(1)
 const tabs: TabItem[] = [
     {
         text: 'Rating',
-        to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/rating`,
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/rating`,
     },
     {
         text: 'InteractiveRating',
-        to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/interactive-rating`,
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/interactive-rating`,
     },
 ]
 </script>

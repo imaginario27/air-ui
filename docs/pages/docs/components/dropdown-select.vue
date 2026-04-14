@@ -30,11 +30,11 @@ const activeIndex = ref(1)
 const tabs: TabItem[] = [
     {
         text: 'DropdownMenu',
-        to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/dropdown-menu`,
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/dropdown-menu`,
     },
     {
         text: 'DropdownSelect',
-        to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/dropdown-select`,
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/dropdown-select`,
     },
 ]
 </script>

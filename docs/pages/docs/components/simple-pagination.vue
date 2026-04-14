@@ -30,11 +30,11 @@ const activeIndex = ref(1)
 const tabs: TabItem[] = [
     {
         text: 'ButtonPagination',
-        to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/button-pagination`,
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/button-pagination`,
     },
     {
         text: 'SimplePagination',
-        to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/simple-pagination`,
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/simple-pagination`,
     },
 ]
 </script>

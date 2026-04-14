@@ -5,6 +5,30 @@ All notable changes to this package are documented in this file.
 Historical releases were reconstructed from git history (GitHub repository) and npm publish dates.
 Future releases will include detailed entries generated with Changesets.
 
+## 1.10.2 - 2026-04-14
+
+Release type: patch.
+Commits found in range: 3.
+
+### Fixed
+
+1. fix typecheck errors in selects ([eee12f8](https://github.com/imaginario27/air-ui/commit/eee12f87045fcb12556f3f38e80f87e5078a0d5c))
+2. remove duplicated imports ([a277959](https://github.com/imaginario27/air-ui/commit/a2779590034a360e1685193455e978391870a69f))
+3. fix duplicated imports ([5a324a3](https://github.com/imaginario27/air-ui/commit/5a324a3ea43ae5fdf794e345b54c57207860efbd))
+
+- Package: @imaginario27/air-ui-ds.
+
+## 1.10.1 - 2026-04-09
+
+Release type: patch.
+Commits found in range: 1.
+
+### Fixed
+
+1. fix TypeScript errors in TabBar.vue ([273925b](https://github.com/imaginario27/air-ui/commit/273925bdca00ac9ad58c1c43de5668ed78a85da1))
+
+- Package: @imaginario27/air-ui-ds.
+
 ## 1.10.0 - 2026-04-09
 
 Release type: minor.

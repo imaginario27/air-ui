@@ -9,12 +9,12 @@
             <ContentFooterNavigation 
                 :previousPage="{
                     label: 'Installation',
-                    link: `/${AppSlug.DOCS}/${AppSlug.GETTING_STARTED}/installation`,
+                    link: `/${DocsAppSlug.DOCS}/${DocsAppSlug.GETTING_STARTED}/installation`,
                     description: 'Learn how to install AirUI in your project.'
                 }"
                 :nextPage="{
                     label: 'Design tokens',
-                    link: `/${AppSlug.DOCS}/${AppSlug.GETTING_STARTED}/${AppSlug.THEME}/design-tokens`,
+                    link: `/${DocsAppSlug.DOCS}/${DocsAppSlug.GETTING_STARTED}/${DocsAppSlug.THEME}/design-tokens`,
                     description: 'Learn how to customize the design tokens of AirUI.'
                 }"
             />

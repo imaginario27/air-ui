@@ -1,11 +1,21 @@
 
-import { FieldError } from '../models/constants/form'
 import type {
     ArrayValidator,
     CreateRulesFieldValidatorOptions,
     RuleValidationItem,
     RuleValidationValue,
 } from '../models/types/formValidation'
+
+// Centralized error messages for form validation
+const FieldError = {
+    REQUIRED_FIELD: 'This field is required.',
+    REQUIRED_EMAIL: 'Email is required.',
+    INVALID_EMAIL: 'Invalid email address.',
+    REQUIRED_OPTION: 'Please select an option.',
+    INVALID_DATE_RANGE: 'Start date must be before or equal to end date',
+    PASSWORDS_DO_NOT_MATCH: 'Passwords do not match.',
+    INVALID_URL: 'Invalid URL.',
+}
 
 /**
  * Validates a field value to ensure it is not empty, null, or undefined.

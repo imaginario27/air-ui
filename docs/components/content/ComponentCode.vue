@@ -439,7 +439,7 @@ const { isDark } = darkModeStore
 const { $prettier } = useNuxtApp()
 
 // Shiki highlighter
-const highlighter = await useShikiHighlighter()
+const highlighter = await useDocsShikiHighlighter()
 
 // Utility to escape code for HTML display
 const escapeHtml = (str: string) =>

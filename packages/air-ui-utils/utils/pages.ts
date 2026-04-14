@@ -1,4 +1,6 @@
 
+import { PageTitleFormat } from '../../air-ui-ds/models/enums/pages'
+
 /**
  * Generates a formatted page title based on the specified format.
  *
