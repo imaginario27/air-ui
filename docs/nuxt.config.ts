@@ -15,6 +15,7 @@ export default defineNuxtConfig({
         cloudinaryApiSecret: process.env.CLOUDINARY_API_SECRET,
         turnstileSecretKey: process.env.CLOUDFLARE_TURNSTILE_SECRET_KEY,
         public: {
+            appName: process.env.APP_NAME || 'Air UI',
             turnstileSiteKey: process.env.CLOUDFLARE_TURNSTILE_SITE_KEY || '',
         },
     },
@@ -113,7 +114,7 @@ export default defineNuxtConfig({
             title: 'Loading...',
 
             // $s is replaced by the page title
-            titleTemplate: '%s | AirUI',
+            titleTemplate: `%s | ${process.env.APP_NAME || 'AirUI'}`,
         },
     },
 
@@ -195,6 +196,13 @@ export default defineNuxtConfig({
 
     vite: {
         plugins: [tailwindcss() as any],
+        optimizeDeps: {
+            include: [
+                'prettier',
+                'vue3-toastify',
+                'fuse.js',
+            ]
+        }
     },
 })
 

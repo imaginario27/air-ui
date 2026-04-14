@@ -39,7 +39,7 @@ const presets: Record<string, Partial<AlertProps>> = {
                 {
                     text: 'View form validation',
                     actionType: ButtonActionType.LINK,
-                    to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/form#validation`
+                    to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/form#validation`
                 },
             ],
         },

@@ -157,6 +157,10 @@ const props = defineProps({
     },
 })
 
+// Runtime constants
+const config = useRuntimeConfig()
+const { public: { appName } } = config
+
 // Constants
 const defaultErrorMappings: ErrorMapping[] = [
     // 4xx Client Errors
@@ -253,7 +257,7 @@ const pageTitleText = computed(() => resolvedErrorMapping.value.title)
 
 watchEffect(() => {
     if (props.setPageTitle) {
-        document.title = pageTitle(pageTitleText.value, App.NAME)
+        document.title = pageTitle(pageTitleText.value, appName as string)
     }
 })
 

@@ -30,19 +30,19 @@ const activeIndex = ref(2)
 const tabs: TabItem[] = [
     {
         text: 'Badge',
-        to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/badge`,
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/badge`,
     },
     {
         text: 'Badge stack',
-        to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/badge-stack`,
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/badge-stack`,
     },
     {
         text: 'Icon badge',
-        to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/icon-badge`,
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/icon-badge`,
     },
     {
         text: 'Icon text badge',
-        to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/icon-text-badge`,
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/icon-text-badge`,
     },
 ]
 </script>

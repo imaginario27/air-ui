@@ -30,11 +30,11 @@ const activeIndex = ref(0)
 const tabs: TabItem[] = [
     {
         text: 'CompactHeader',
-        to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/compact-header`,
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/compact-header`,
     },
     {
         text: 'ContentPageHeader',
-        to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/content-page-header`,
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/content-page-header`,
     },
 ]
 </script>

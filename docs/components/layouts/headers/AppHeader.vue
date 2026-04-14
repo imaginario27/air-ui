@@ -191,11 +191,11 @@ const cleanPath = computed(() => {
 const mainHeaderMenu = computed<MenuItem[]>(() => [
     {
         text: 'Docs',
-        to: `/${AppSlug.DOCS}/${AppSlug.GETTING_STARTED}`,
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.GETTING_STARTED}`,
     },
     {
         text: 'Components',
-        to: `/${AppSlug.COMPONENTS}`,
+        to: `/${DocsAppSlug.COMPONENTS}`,
     },
     {
         text: 'Releases',
@@ -203,7 +203,7 @@ const mainHeaderMenu = computed<MenuItem[]>(() => [
     },
     /* {
         text: 'Figma',
-        to: `/${AppSlug.FIGMA}`,
+        to: `/${DocsAppSlug.FIGMA}`,
     },
     */
 ])
@@ -214,7 +214,7 @@ const tabs = computed<TabItem[]>(() => {
     if (!path) return []
 
     switch (true) {
-        case path.startsWith(`/${AppSlug.DOCS}/`):
+        case path.startsWith(`/${DocsAppSlug.DOCS}/`):
             return docTabs
 
         default:
@@ -228,13 +228,13 @@ const tabActiveIndex = computed(() => {
     if(!path) return 0
 
     switch (true) {
-        case path.startsWith(`/${AppSlug.DOCS}/${AppSlug.GETTING_STARTED}`):
+        case path.startsWith(`/${DocsAppSlug.DOCS}/${DocsAppSlug.GETTING_STARTED}`):
             return 0
 
-        case path.startsWith(`/${AppSlug.DOCS}/${AppSlug.COMPONENTS}`):
+        case path.startsWith(`/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}`):
             return 1
 
-        case path.startsWith(`/${AppSlug.DOCS}/${AppSlug.UTILS}`):
+        case path.startsWith(`/${DocsAppSlug.DOCS}/${DocsAppSlug.UTILS}`):
             return 2
 
         default:
@@ -257,14 +257,14 @@ const selectedTabRoute = computed({
         if (!path) return ''
 
         switch (true) {
-            case path.startsWith(`/${AppSlug.DOCS}/${AppSlug.GETTING_STARTED}`):
-                return `/${AppSlug.DOCS}/${AppSlug.GETTING_STARTED}`
+            case path.startsWith(`/${DocsAppSlug.DOCS}/${DocsAppSlug.GETTING_STARTED}`):
+                return `/${DocsAppSlug.DOCS}/${DocsAppSlug.GETTING_STARTED}`
 
-            case path.startsWith(`/${AppSlug.DOCS}/${AppSlug.COMPONENTS}`):
-                return `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}`
+            case path.startsWith(`/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}`):
+                return `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}`
 
-            case path.startsWith(`/${AppSlug.DOCS}/${AppSlug.UTILS}`):
-                return `/${AppSlug.DOCS}/${AppSlug.UTILS}`
+            case path.startsWith(`/${DocsAppSlug.DOCS}/${DocsAppSlug.UTILS}`):
+                return `/${DocsAppSlug.DOCS}/${DocsAppSlug.UTILS}`
 
             default:
                 return path

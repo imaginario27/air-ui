@@ -10,12 +10,12 @@
             <ContentFooterNavigation 
                 :previousPage="{
                     label: 'Introduction',
-                    link: `/${AppSlug.DOCS}/${AppSlug.GETTING_STARTED}`,
+                    link: `/${DocsAppSlug.DOCS}/${DocsAppSlug.GETTING_STARTED}`,
                     description: 'Get started with AirUI.'
                 }"
                 :nextPage="{
                     label: 'Theme customization',
-                    link: `/${AppSlug.DOCS}/${AppSlug.GETTING_STARTED}/${AppSlug.THEME}/theme-customization`,
+                    link: `/${DocsAppSlug.DOCS}/${DocsAppSlug.GETTING_STARTED}/${DocsAppSlug.THEME}/theme-customization`,
                     description: 'Learn how to customize the theme of AirUI.'
                 }"
             />
@@ -37,8 +37,8 @@ const activeIndex = ref(0)
 
 const contentPath = computed(() => {
     return activeIndex.value === 0
-        ? `/${AppSlug.DOCS}/${AppSlug.GETTING_STARTED}/installation-from-scratch`
-        : `/${AppSlug.DOCS}/${AppSlug.GETTING_STARTED}/installation-from-existing`
+        ? `/${DocsAppSlug.DOCS}/${DocsAppSlug.GETTING_STARTED}/installation-from-scratch`
+        : `/${DocsAppSlug.DOCS}/${DocsAppSlug.GETTING_STARTED}/installation-from-existing`
 })
 
 const { data } = await useAsyncData(

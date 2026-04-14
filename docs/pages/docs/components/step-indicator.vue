@@ -30,19 +30,19 @@ const activeIndex = ref(3)
 const tabs: TabItem[] = [
     {
         text: 'TabStepper',
-        to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/tab-stepper`,
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/tab-stepper`,
     },
     {
         text: 'CircleStepper',
-        to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/circle-stepper`,
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/circle-stepper`,
     },
     {
         text: 'VerticalStepper',
-        to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/vertical-stepper`,
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/vertical-stepper`,
     },
     {
         text: 'StepIndicator',
-        to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/step-indicator`,
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/step-indicator`,
     },
 ]
 </script>

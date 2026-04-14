@@ -30,11 +30,11 @@ const activeIndex = ref(1)
 const tabs: TabItem[] = [
     {
         text: 'Icon',
-        to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/icon`,
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/icon`,
     },
     {
         text: 'ContainedIcon',
-        to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/contained-icon`,
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/contained-icon`,
     },
 ]
 </script>

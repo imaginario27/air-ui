@@ -30,11 +30,11 @@ const activeIndex = ref(1)
 const tabs: TabItem[] = [
     {
         text: 'Accordion',
-        to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/accordion`,
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/accordion`,
     },
     {
         text: 'Accordion group',
-        to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/accordion-group`,
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/accordion-group`,
     },
 ]
 </script>

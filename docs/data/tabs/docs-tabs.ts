@@ -1,17 +1,17 @@
 export const docTabs: TabItem[] = [
     {
         text: 'Getting started',
-        to: `/${AppSlug.DOCS}/${AppSlug.GETTING_STARTED}`,
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.GETTING_STARTED}`,
         icon: 'mdi:rocket-launch',
     },
     {
         text: 'Components',
-        to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}`,
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}`,
         icon: 'mdi:cube-outline',
     },
     {
         text: 'Utils',
-        to: `/${AppSlug.DOCS}/${AppSlug.UTILS}`,
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.UTILS}`,
         icon: 'mdi:tools',
     }
 ]

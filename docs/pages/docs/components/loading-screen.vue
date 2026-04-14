@@ -30,11 +30,11 @@ const activeIndex = ref(1)
 const tabs: TabItem[] = [
     {
         text: 'Loading',
-        to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/loading`,
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/loading`,
     },
     {
         text: 'LoadingScreen',
-        to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/loading-screen`,
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/loading-screen`,
     },
 ]
 </script>

@@ -6,11 +6,11 @@ export const sidebarGettingStartedMenu: SidebarMenuItem[] = [
     },
     {
         text: 'Introduction',
-        to: `/${AppSlug.DOCS}/${AppSlug.GETTING_STARTED}`,
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.GETTING_STARTED}`,
     },
     {
         text: 'Installation',
-        to: `/${AppSlug.DOCS}/${AppSlug.GETTING_STARTED}/installation`,
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.GETTING_STARTED}/installation`,
     },
     {
         isSectionTitle: true,
@@ -19,11 +19,11 @@ export const sidebarGettingStartedMenu: SidebarMenuItem[] = [
     },
     {
         text: 'Customization',
-        to: `/${AppSlug.DOCS}/${AppSlug.GETTING_STARTED}/${AppSlug.THEME}/theme-customization`,
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.GETTING_STARTED}/${DocsAppSlug.THEME}/theme-customization`,
     },
     {
         text: 'Design tokens',
-        to: `/${AppSlug.DOCS}/${AppSlug.GETTING_STARTED}/${AppSlug.THEME}/design-tokens`,
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.GETTING_STARTED}/${DocsAppSlug.THEME}/design-tokens`,
     },
     {
         isSectionTitle: true,
@@ -32,10 +32,10 @@ export const sidebarGettingStartedMenu: SidebarMenuItem[] = [
     },
     {
         text: 'MCP Server',
-        to: `/${AppSlug.DOCS}/${AppSlug.GETTING_STARTED}/${AppSlug.AGENTS}/mcp-server`,
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.GETTING_STARTED}/${DocsAppSlug.AGENTS}/mcp-server`,
     },
     {
         text: 'LLMs.txt',
-        to: `/${AppSlug.DOCS}/${AppSlug.GETTING_STARTED}/${AppSlug.AGENTS}/llms-txt`,
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.GETTING_STARTED}/${DocsAppSlug.AGENTS}/llms-txt`,
     }
 ]

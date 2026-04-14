@@ -31,11 +31,11 @@ const activeIndex = ref(0)
 const tabs: TabItem[] = [
     {
         text: 'User',
-        to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/user`,
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/user`,
     },
     {
         text: 'Author',
-        to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/author`,
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/author`,
     },
 ]
 </script>

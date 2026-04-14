@@ -25,7 +25,7 @@
                     :type="hasOvertitle ? PageTitleType.WITH_OVERTITLE: PageTitleType.SIMPLE" 
                     hasGoBackLink
                     goBackText="Back to components"
-                    :goBackLink="`/${AppSlug.DOCS}/${AppSlug.COMPONENTS}`"
+                    :goBackLink="`/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}`"
                     class="border-border-neutral-subtle"
                 />
 
@@ -34,7 +34,7 @@
                     :type="hasOvertitle ? PageTitleType.WITH_OVERTITLE: PageTitleType.SIMPLE" 
                     :hasGoBackLink="isUtilsChildPage"
                     goBackText="Back to utils"
-                    :goBackLink="`/${AppSlug.DOCS}/${AppSlug.UTILS}`"
+                    :goBackLink="`/${DocsAppSlug.DOCS}/${DocsAppSlug.UTILS}`"
                     class="border-border-neutral-subtle"
                 >   
                     <template v-if="hasPageMetadata" #bottom>
@@ -104,7 +104,7 @@ const pageMetadata = computed(() => {
 
 const isComponentPage = computed(() => {
     const path = cleanPath.value
-    const basePath = `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}`
+    const basePath = `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}`
 
     if (!path) return false
 
@@ -113,12 +113,12 @@ const isComponentPage = computed(() => {
 
 const isUtilsRootPage = computed(() => {
     const path = cleanPath.value
-    return !!path && path === `/${AppSlug.DOCS}/${AppSlug.UTILS}`
+    return !!path && path === `/${DocsAppSlug.DOCS}/${DocsAppSlug.UTILS}`
 })
 
 const isUtilsChildPage = computed(() => {
     const path = cleanPath.value
-    return !!path && path.startsWith(`/${AppSlug.DOCS}/${AppSlug.UTILS}/`)
+    return !!path && path.startsWith(`/${DocsAppSlug.DOCS}/${DocsAppSlug.UTILS}/`)
 })
 
 const isUtilsPage = computed(() => {
@@ -136,13 +136,13 @@ const sidebarMenu = computed<SidebarMenuItem[]>(() => {
     if (!path) return []
 
     switch (true) {
-        case path.startsWith(`/${AppSlug.DOCS}/${AppSlug.COMPONENTS}`):
+        case path.startsWith(`/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}`):
             return sidebarComponentsMenu
         
-        case path.startsWith(`/${AppSlug.DOCS}/${AppSlug.UTILS}`):
+        case path.startsWith(`/${DocsAppSlug.DOCS}/${DocsAppSlug.UTILS}`):
             return sidebarUtilsMenu
 
-        case path.startsWith(`/${AppSlug.DOCS}/`):
+        case path.startsWith(`/${DocsAppSlug.DOCS}/`):
             return sidebarGettingStartedMenu
 
         default:

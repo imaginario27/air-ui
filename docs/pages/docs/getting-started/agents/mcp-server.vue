@@ -9,12 +9,12 @@
             <ContentFooterNavigation 
                 :previousPage="{
                     label: 'Design tokens',
-                    link: `/${AppSlug.DOCS}/${AppSlug.GETTING_STARTED}/${AppSlug.THEME}/design-tokens`,
+                    link: `/${DocsAppSlug.DOCS}/${DocsAppSlug.GETTING_STARTED}/${DocsAppSlug.THEME}/design-tokens`,
                     description: 'Learn how to customize the design tokens of AirUI.'
                 }"
                 :nextPage="{
                     label: 'LLMs.txt',
-                    link: `/${AppSlug.DOCS}/${AppSlug.GETTING_STARTED}/${AppSlug.AGENTS}/llms-txt`,
+                    link: `/${DocsAppSlug.DOCS}/${DocsAppSlug.GETTING_STARTED}/${DocsAppSlug.AGENTS}/llms-txt`,
                     description: 'Learn about the LLMs.txt file and how to use it with AirUI.'
                 }"
             />

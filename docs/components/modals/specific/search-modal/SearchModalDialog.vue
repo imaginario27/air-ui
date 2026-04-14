@@ -11,7 +11,7 @@
             <SearchModalInput
                 v-model="searchValue"
                 :isOpen="modelValue"
-                :maxLength="FieldMaxLength.SEARCH"
+                :maxLength="FormFieldMaxLength.SEARCH"
                 @close="updateModelValue(false)"
             />
 

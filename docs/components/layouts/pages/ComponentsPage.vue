@@ -8,7 +8,7 @@
                         v-model="searchQuery"
                         placeholder="Search a component"
                         :size="InputSize.LG"
-                        :maxLength="FieldMaxLength.SEARCH"
+                        :maxLength="FormFieldMaxLength.SEARCH"
                         inputCustomClass="bg-background-neutral-subtlest/60"
                     />
                 </FormRow>

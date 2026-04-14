@@ -9,7 +9,7 @@
             <ContentFooterNavigation 
                 :previousPage="{
                     label: 'MCP Server',
-                    link: `/${AppSlug.DOCS}/${AppSlug.GETTING_STARTED}/${AppSlug.AGENTS}/mcp-server`,
+                    link: `/${DocsAppSlug.DOCS}/${DocsAppSlug.GETTING_STARTED}/${DocsAppSlug.AGENTS}/mcp-server`,
                     description: 'Learn about the MCP Server and how to use it with AirUI.'
                 }"
             />

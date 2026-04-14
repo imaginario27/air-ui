@@ -6,7 +6,7 @@ export const utilList: UtilPortfolioItem[] = [
     },
     {
         title: 'getStackCounterContent',
-        to: `/${AppSlug.DOCS}/${AppSlug.UTILS}/get-stack-counter-content`,
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.UTILS}/get-stack-counter-content`,
         description: 'Returns the counter content for a stack display based on the number of items, counter type, and item limit.',
     },
 
@@ -17,17 +17,17 @@ export const utilList: UtilPortfolioItem[] = [
     },
     {
         title: 'delay',
-        to: `/${AppSlug.DOCS}/${AppSlug.UTILS}/delay`,
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.UTILS}/delay`,
         description: 'Creates a promise that resolves after a specified delay in milliseconds.',
     },
     {
         title: 'getPaginatedData',
-        to: `/${AppSlug.DOCS}/${AppSlug.UTILS}/get-paginated-data`,
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.UTILS}/get-paginated-data`,
         description: 'Returns a paginated subset of an array.',
     },
     {
         title: 'convertToSelectOptions',
-        to: `/${AppSlug.DOCS}/${AppSlug.UTILS}/convert-to-select-options`,
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.UTILS}/convert-to-select-options`,
         description: 'Converts an array of objects into SelectOption[] by mapping specified keys or transformation functions.',
     },
 
@@ -38,12 +38,12 @@ export const utilList: UtilPortfolioItem[] = [
     },
     {
         title: 'formatLocalizedDateTime',
-        to: `/${AppSlug.DOCS}/${AppSlug.UTILS}/format-localized-date-time`,
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.UTILS}/format-localized-date-time`,
         description: 'Formats a date (ISO string or timestamp) into a localized full date with optional time.',
     },
     {
         title: 'formatLocalizedDate',
-        to: `/${AppSlug.DOCS}/${AppSlug.UTILS}/format-localized-date`,
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.UTILS}/format-localized-date`,
         description: 'Formats a date string (YYYY-MM-DD or ISO 8601) into a localized full date.',
     },
 
@@ -54,7 +54,7 @@ export const utilList: UtilPortfolioItem[] = [
     },
     {
         title: 'encodeSvgToDataURI',
-        to: `/${AppSlug.DOCS}/${AppSlug.UTILS}/encode-svg-to-data-uri`,
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.UTILS}/encode-svg-to-data-uri`,
         description: 'Encodes an SVG string to a Data URI.',
     },
 
@@ -65,7 +65,7 @@ export const utilList: UtilPortfolioItem[] = [
     },
     {
         title: 'getEnvErrorMessage',
-        to: `/${AppSlug.DOCS}/${AppSlug.UTILS}/get-env-error-message`,
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.UTILS}/get-env-error-message`,
         description: 'Returns an error message depending on the environment.',
     },
 
@@ -76,7 +76,7 @@ export const utilList: UtilPortfolioItem[] = [
     },
     {
         title: 'copyToClipboard',
-        to: `/${AppSlug.DOCS}/${AppSlug.UTILS}/copy-to-clipboard`,
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.UTILS}/copy-to-clipboard`,
         description: 'Copies text to the clipboard.',
     },
 
@@ -87,7 +87,7 @@ export const utilList: UtilPortfolioItem[] = [
     },
     {
         title: 'filterAlphabetic',
-        to: `/${AppSlug.DOCS}/${AppSlug.UTILS}/filter-alphabetic`,
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.UTILS}/filter-alphabetic`,
         description: 'Filters out non-alphabetic characters from a given string.',
     },
 
@@ -98,37 +98,37 @@ export const utilList: UtilPortfolioItem[] = [
     },
     {
         title: 'validateField',
-        to: `/${AppSlug.DOCS}/${AppSlug.UTILS}/validate-field`,
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.UTILS}/validate-field`,
         description: 'Validates whether a given value is present (not null, undefined, or empty string).',
     },
     {
         title: 'validateEmail',
-        to: `/${AppSlug.DOCS}/${AppSlug.UTILS}/validate-email`,
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.UTILS}/validate-email`,
         description: 'Validates whether a given value is a valid email address.',
     },
     {
         title: 'validatePasswordMatch',
-        to: `/${AppSlug.DOCS}/${AppSlug.UTILS}/validate-password-match`,
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.UTILS}/validate-password-match`,
         description: 'Validates that two password values match.',
     },
     {
         title: 'validateDateRange',
-        to: `/${AppSlug.DOCS}/${AppSlug.UTILS}/validate-date-range`,
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.UTILS}/validate-date-range`,
         description: 'Validates whether a given date range is valid.',
     },
     {
         title: 'validateUrl',
-        to: `/${AppSlug.DOCS}/${AppSlug.UTILS}/validate-url`,
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.UTILS}/validate-url`,
         description: 'Validates whether a given value is a valid URL.',
     },
     {
         title: 'validateBooleanField',
-        to: `/${AppSlug.DOCS}/${AppSlug.UTILS}/validate-boolean-field`,
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.UTILS}/validate-boolean-field`,
         description: 'Validates whether a given boolean field is true.',
     },
     {
         title: 'validateArrayField',
-        to: `/${AppSlug.DOCS}/${AppSlug.UTILS}/validate-array-field`,
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.UTILS}/validate-array-field`,
         description: 'Validates whether a given array field is not empty.',
     },
 
@@ -139,7 +139,7 @@ export const utilList: UtilPortfolioItem[] = [
     },
     {
         title: 'formatNumberWithThousands',
-        to: `/${AppSlug.DOCS}/${AppSlug.UTILS}/format-number-with-thousands`,
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.UTILS}/format-number-with-thousands`,
         description: 'Formats a number into a string with thousands separators using Intl locale rules.',
     },
 
@@ -150,17 +150,17 @@ export const utilList: UtilPortfolioItem[] = [
     },
     {
         title: 'evaluateSecurePasswordConditions',
-        to: `/${AppSlug.DOCS}/${AppSlug.UTILS}/evaluate-secure-password-conditions`,
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.UTILS}/evaluate-secure-password-conditions`,
         description: 'Evaluates secure password conditions.',
     },
     {
         title: 'isSecurePassword',
-        to: `/${AppSlug.DOCS}/${AppSlug.UTILS}/is-secure-password`,
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.UTILS}/is-secure-password`,
         description: 'Checks if all secure password conditions are fulfilled.',
     },
     {
         title: 'generateSecurePassword',
-        to: `/${AppSlug.DOCS}/${AppSlug.UTILS}/generate-secure-password`,
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.UTILS}/generate-secure-password`,
         description: 'Generates a secure password that meets specified security requirements.',
     },
 
@@ -171,7 +171,7 @@ export const utilList: UtilPortfolioItem[] = [
     },
     {
         title: 'getRatingIndicator',
-        to: `/${AppSlug.DOCS}/${AppSlug.UTILS}/get-rating-indicator`,
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.UTILS}/get-rating-indicator`,
         description: 'Returns an array of MDI icon names representing a indicator rating.',
     },
 
@@ -182,37 +182,37 @@ export const utilList: UtilPortfolioItem[] = [
     },
     {
         title: 'trimText',
-        to: `/${AppSlug.DOCS}/${AppSlug.UTILS}/trim-text`,
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.UTILS}/trim-text`,
         description: 'Trims leading and trailing whitespace from a string.',
     },
     {
         title: 'convertStringIntoSlugFormat',
-        to: `/${AppSlug.DOCS}/${AppSlug.UTILS}/convert-string-into-slug-format`,
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.UTILS}/convert-string-into-slug-format`,
         description: 'Converts a string into a URL-friendly slug format.',
     },
     {
         title: 'lowercaseFirstLetter',
-        to: `/${AppSlug.DOCS}/${AppSlug.UTILS}/lowercase-first-letter`,
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.UTILS}/lowercase-first-letter`,
         description: 'Converts the first letter of a string to lowercase while keeping the rest unchanged.',
     },
     {
         title: 'uppercaseFirstLetter',
-        to: `/${AppSlug.DOCS}/${AppSlug.UTILS}/uppercase-first-letter`,
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.UTILS}/uppercase-first-letter`,
         description: 'Converts the first letter of a string to uppercase while keeping the rest unchanged.',
     },
     {
         title: 'getCreditCardLastFourNumbers',
-        to: `/${AppSlug.DOCS}/${AppSlug.UTILS}/get-credit-card-last-four-numbers`,
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.UTILS}/get-credit-card-last-four-numbers`,
         description: 'Extracts the last four digits from a given credit card number.',
     },
     {
         title: 'getFullName',
-        to: `/${AppSlug.DOCS}/${AppSlug.UTILS}/get-full-name`,
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.UTILS}/get-full-name`,
         description: 'Returns the full name of a user by combining first and last names.',
     },
     {
         title: 'getInitials',
-        to: `/${AppSlug.DOCS}/${AppSlug.UTILS}/get-initials`,
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.UTILS}/get-initials`,
         description: 'Extracts initials from a full name string.',
     },
 
@@ -223,12 +223,12 @@ export const utilList: UtilPortfolioItem[] = [
     },
     {
         title: 'generateUsername',
-        to: `/${AppSlug.DOCS}/${AppSlug.UTILS}/generate-username`,
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.UTILS}/generate-username`,
         description: 'Generates a unique username based on the user\'s first name and last names.',
     },
     {
         title: 'getUserDisplayName',
-        to: `/${AppSlug.DOCS}/${AppSlug.UTILS}/get-user-display-name`,
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.UTILS}/get-user-display-name`,
         description: 'Generates a display name using the first name and only the first last name.',
     }
 ]

@@ -30,7 +30,7 @@
                         :placeholder="subjectTitlePlaceholder"
                         required
                         :validator="validateField"
-                        :maxLength="FieldMaxLength.GITHUB_ISSUE_SUBJECT"
+                        :maxLength="FormFieldMaxLength.GITHUB_ISSUE_SUBJECT"
                     />
                 </FormRow>
                 <FormRow>
@@ -42,7 +42,7 @@
                         :placeholder="descriptionPlaceholder"
                         required
                         :validator="validateField"
-                        :maxLength="FieldMaxLength.GITHUB_ISSUE_DESCRIPTION"
+                        :maxLength="FormFieldMaxLength.GITHUB_ISSUE_DESCRIPTION"
                         minHeightClass="min-h-[300px]"
                         textareaClass="max-h-[600px]"
                     />
@@ -53,7 +53,7 @@
                         v-model="formData.github"
                         label="GitHub username (optional)"
                         placeholder="your-github-username"
-                        :maxLength="FieldMaxLength.GITHUB_ISSUE_USERNAME"
+                        :maxLength="FormFieldMaxLength.GITHUB_ISSUE_USERNAME"
                         helpText="Add your username without '@'"
                         autocomplete="off"
                     />

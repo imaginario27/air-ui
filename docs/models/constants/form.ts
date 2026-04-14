@@ -1,5 +1,5 @@
 
-export const FieldMaxLength = {
+export const FormFieldMaxLength = {
     FULLNAME: 80,
     LASTNAME: 80,         
     EMAIL: 254,  
@@ -14,7 +14,7 @@ export const FieldMaxLength = {
     GITHUB_ISSUE_USERNAME: 39,
 }
 
-export const FieldError = {
+export const FormFieldError = {
     REQUIRED_FIELD: 'This field is required.',
     REQUIRED_EMAIL: 'Email is required.',
     INVALID_EMAIL: 'Invalid email address.',

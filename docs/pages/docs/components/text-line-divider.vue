@@ -30,11 +30,11 @@ const activeIndex = ref(1)
 const tabs: TabItem[] = [
     {
         text: 'Divider',
-        to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/divider`,
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/divider`,
     },
     {
         text: 'TextLineDivider',
-        to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/text-line-divider`,
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/text-line-divider`,
     },
 ]
 </script>

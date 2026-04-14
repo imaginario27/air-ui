@@ -30,19 +30,19 @@ const activeIndex = ref(1)
 const tabs: TabItem[] = [
     {
         text: 'ModalDialog',
-        to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/modal-dialog`,
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/modal-dialog`,
     },
     {
         text: 'SuccessModalDialog',
-        to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/success-modal-dialog`,
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/success-modal-dialog`,
     },
     {
         text: 'DangerModalDialog',
-        to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/danger-modal-dialog`,
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/danger-modal-dialog`,
     },
     {
         text: 'InfoModalDialog',
-        to: `/${AppSlug.DOCS}/${AppSlug.COMPONENTS}/info-modal-dialog`,
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/info-modal-dialog`,
     },
 ]
 </script>
