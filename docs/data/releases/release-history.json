@@ -1,12 +1,43 @@
 {
-  "generatedAt": "2026-04-14T11:42:26.284Z",
+  "generatedAt": "2026-04-15T12:34:33.721Z",
   "source": "github-git-history+npm-publish-dates",
   "githubBaseUrl": "https://github.com/imaginario27/air-ui",
   "packages": [
     {
       "packageName": "@imaginario27/air-ui-ds",
-      "latestVersion": "1.10.2",
+      "latestVersion": "1.11.0",
       "entries": [
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.11.0",
+          "publishedAt": "2026-04-15",
+          "releaseType": "minor",
+          "notes": [
+            "add nested dropdown menus, sidebar menu items and section titles"
+          ],
+          "metadata": {
+            "commitCount": 1,
+            "commits": [
+              {
+                "sha": "2c49dbf1fae116b377dea988f80a3fdf28ef4c4f",
+                "shortSha": "2c49dbf",
+                "date": "2026-04-15",
+                "subject": "feat(ds): add nested dropdown menus, sidebar menu items and section titles",
+                "normalizedSubject": "add nested dropdown menus, sidebar menu items and section titles",
+                "type": "added",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/2c49dbf1fae116b377dea988f80a3fdf28ef4c4f",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 1,
+              "fixed": 0,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
         {
           "packageName": "@imaginario27/air-ui-ds",
           "version": "1.10.2",
