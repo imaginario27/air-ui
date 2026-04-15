@@ -3,14 +3,14 @@
         :is="componentTag"
         v-bind="componentProps"
         :class="[
+            !isCollapsed && 'w-full',
             'flex',
             'items-center',
-            'text-sm',
             'text-left',
-            'font-semibold',
             'rounded-lg',
             'hover:bg-background-neutral-hover',
             'justify-between',
+            levelTextClass,
             spacingClass,
             !isActive && 'text-text-default',
             isActive && 'text-text-primary-brand-on-neutral-hover-bg bg-background-neutral-hover',
@@ -82,6 +82,14 @@ const props = defineProps({
         type: Boolean as PropType<boolean>,
         default: false,
     },
+    level: {
+        type: Number as PropType<number>,
+        default: 1,
+    },
+    showNestedLevelGuide: {
+        type: Boolean as PropType<boolean>,
+        default: true,
+    },
     textClass: String as PropType<string>,
     iconClass: String as PropType<string>,
     disabled: {
@@ -101,6 +109,20 @@ defineEmits(['click'])
 const route = useRoute()
 
 // Computed classes
+const resolvedLevel = computed(() => {
+    return Math.min(Math.max(props.level, 1), 3)
+})
+
+const levelTextClass = computed(() => {
+    const variant = {
+        1: 'text-sm font-semibold',
+        2: 'text-sm font-medium',
+        3: 'text-xs font-medium',
+    }
+
+    return variant[resolvedLevel.value as 1 | 2 | 3]
+})
+
 const spacingClass = computed(() => {
     if (props.isCollapsed) {
         const collapsedVariant = {
@@ -111,10 +133,22 @@ const spacingClass = computed(() => {
         return collapsedVariant[props.styleType as SidebarNavMenuItemStyleType] || 'p-2'
     }
 
-    const variant = {
-        [SidebarNavMenuItemStyleType.SPACED]: 'min-h-[40px] py-2 pl-3 pr-2',
-        [SidebarNavMenuItemStyleType.COMPACT]: 'py-1 pl-2 pr-1',
+    const levelVariant = {
+        1: {
+            [SidebarNavMenuItemStyleType.SPACED]: 'min-h-[40px] py-2 pl-3 pr-2',
+            [SidebarNavMenuItemStyleType.COMPACT]: 'py-1 pl-2 pr-1',
+        },
+        2: {
+            [SidebarNavMenuItemStyleType.SPACED]: 'min-h-[36px] py-1.5 pl-3 pr-2',
+            [SidebarNavMenuItemStyleType.COMPACT]: 'py-1 pl-2 pr-1',
+        },
+        3: {
+            [SidebarNavMenuItemStyleType.SPACED]: 'min-h-[32px] py-1 pl-3 pr-2',
+            [SidebarNavMenuItemStyleType.COMPACT]: 'py-0.5 pl-2 pr-1',
+        },
     }
+
+    const variant = levelVariant[resolvedLevel.value as 1 | 2 | 3]
 
     return variant[props.styleType as SidebarNavMenuItemStyleType] || 'min-h-[40px] py-2 pl-3 pr-2'
 })

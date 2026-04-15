@@ -6,6 +6,11 @@ srcDir: 'dropdowns/DropdownSelect.vue'
 props: 
     id: ""
     options:
+        - id: "section-basic"
+          sectionTitle: true
+          text: "Basic options"
+          value: "section-basic"
+          icon: "mdi:shape-outline"
         - id: "item-1"
           text: "Item 1"
           value: "item-1"
@@ -187,6 +192,8 @@ Sets an id for the component.
 ### options
 Sets the options for the component.
 
+You can add non-interactive section headers by setting `sectionTitle: true` on an option.
+
 ```vue
 <template>
     <DropdownSelect
@@ -196,6 +203,12 @@ Sets the options for the component.
 
 <script setup lang="ts">
 const exampleOptions = ref<SelectOption[]>([
+    {
+        sectionTitle: true,
+        text: "Basic options",
+        value: "section-basic",
+        icon: "mdi:shape-outline",
+    },
     {
         text: "Item 1",
         value: "item-1",
@@ -220,6 +233,7 @@ const exampleOptions = ref<SelectOption[]>([
 interface SelectOption {
     id?: string | number
     value: string | number
+    sectionTitle?: boolean
     text?: string
     icon?: string
     userDisplayName?: string

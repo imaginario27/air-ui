@@ -192,6 +192,16 @@ export default defineNuxtConfig({
         asyncContext: true
     },
 
+    hooks: { // Workaround for Nuxt 4.4.2 bug:
+        'nitro:config'(nitroConfig) {
+            const imports = (nitroConfig as { imports?: { imports?: Array<{ name?: string }> } }).imports;
+            if (!imports?.imports) {
+                return;
+            }
+            imports.imports = imports.imports.filter((i) => i?.name !== 'useAppConfig');
+        },
+    },
+
     css: ["~/assets/css/main.css", "~/assets/css/docs.css"],
 
     vite: {
@@ -201,6 +211,7 @@ export default defineNuxtConfig({
                 'prettier',
                 'vue3-toastify',
                 'fuse.js',
+                'shiki',
             ]
         }
     },

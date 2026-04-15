@@ -151,31 +151,41 @@
 
                     <!-- Filtered options -->
                     <div v-if="filteredOptions.length > 0">
-                        <DropdownSelectItem
+                        <template
                             v-for="(option, index) in filteredOptions"
                             :key="index"
-                            :type="type"
-                            :text="option.text"
-                            :icon="option.icon"
-                            :userDisplayName="option.userDisplayName"
-                            :userProfileImg="option.userProfileImg"
-                            :imgUrl="option.imgUrl"
-                            :alt="option.alt"
-                            :helpText="option.helpText"
-                            :isSelected="isSelected(option)"
-                            :activeStyle="activeStyle"
-                            :to="option.to"
-                            :isExternal="option.isExternal"
-                            :class="[
-                                hasSeparator && index !== filteredOptions.length - 1 
-                                    ? 'border-b border-border-default' 
-                                    : undefined
-                            ]"
-                            @click="() => { 
-                                handleOptionClick(option)
-                                if (!multiple) onClose()
-                            }"
-                        />
+                        >
+                            <DropdownSectionItem
+                                v-if="option.sectionTitle"
+                                :text="option.text"
+                                :icon="option.icon"
+                            />
+
+                            <DropdownSelectItem
+                                v-else
+                                :type="type"
+                                :text="option.text"
+                                :icon="option.icon"
+                                :userDisplayName="option.userDisplayName"
+                                :userProfileImg="option.userProfileImg"
+                                :imgUrl="option.imgUrl"
+                                :alt="option.alt"
+                                :helpText="option.helpText"
+                                :isSelected="isSelected(option)"
+                                :activeStyle="activeStyle"
+                                :to="option.to"
+                                :isExternal="option.isExternal"
+                                :class="[
+                                    hasSeparator && index !== filteredOptions.length - 1 
+                                        ? 'border-b border-border-default' 
+                                        : undefined
+                                ]"
+                                @click="() => { 
+                                    handleOptionClick(option)
+                                    if (!multiple) onClose()
+                                }"
+                            />
+                        </template>
                     </div>
                     
                     <!-- No Results Message -->

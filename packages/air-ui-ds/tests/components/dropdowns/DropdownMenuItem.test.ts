@@ -165,4 +165,12 @@ describe('DropdownMenuItem.vue', () => {
         expect(classes).toContain('cursor-not-allowed')
         expect(classes).toContain('pointer-events-none')
     })
+
+    it('renders right chevron when hasNestedLevels is true', () => {
+        const wrapper = factory({ hasNestedLevels: true })
+        const icons = wrapper.findAllComponents(Icon)
+        const chevronIcon = icons.find(icon => icon.props('name') === 'mdi:chevron-right')
+
+        expect(chevronIcon).toBeTruthy()
+    })
 })

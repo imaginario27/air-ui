@@ -293,9 +293,9 @@ const items: SelectOption[] = [
 interface SelectOption {
     id?: string | number
     value: string | number
+    sectionTitle?: boolean
     text?: string
-    icon?: any
-    customIcon?: string
+    icon?: string
     userDisplayName?: string
     userProfileImg?: string
     imgUrl?: string

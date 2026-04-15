@@ -5,7 +5,7 @@
 srcDir: 'navigation/nav-sidebar/NavSidebar.vue'
 model:
   isCollapsed: update:isCollapsed
-props: 
+props:
     sidebarId: 'example-nav-sidebar'
     menuItems:
         - isSectionTitle: true
@@ -17,16 +17,32 @@ props:
         - text: 'Item 2'
           icon: 'mdi:help'
           to: null
-        - text: 'Item 3 dasfsadfas dfasd fasd fasd fasd'
+        - text: 'Item 3'
           icon: 'mdi:help'
           to: null
           children:
-              - text: 'Subitem 1'
-                icon: 'mdi:help-circle-outline'
-                to: null
-              - text: 'Subitem 2'
-                icon: 'mdi:help-circle-outline'
-                to: null
+            - isSectionTitle: true
+              text: 'Subsection title'
+              icon: 'mdi:shape-outline'
+            - text: 'Subitem 1'
+              icon: 'mdi:help-circle-outline'
+              to: null
+              children:
+                - isSectionTitle: true
+                  text: 'Nested subsection title'
+                  icon: 'mdi:format-list-bulleted-square'
+                - text: 'Third level item 1'
+                  icon: 'mdi:help-circle-outline'
+                  to: null
+                - text: 'Third level item 2'
+                  icon: 'mdi:help-circle-outline'
+                  to: null
+                - text: 'Third level item 3'
+                  icon: 'mdi:help-circle-outline'
+                  to: null
+            - text: 'Subitem 2'
+              icon: 'mdi:help-circle-outline'
+              to: null
     expandedWidth: 240
     collapsedWidth: 60
     multipleSubmenusOpen: false
@@ -55,6 +71,8 @@ props:
     subItemsCustomClass: ""
     subItemsTextClass: ""
     subItemsIconClass: ""
+    thirdLevelItemsCustomClass: ""
+    showNestedSectionLevelGuide: true
     prefetchOn: "visibility"
     class: "relative !h-[500px] translate-x-0"
 items:
@@ -249,6 +267,15 @@ props: [
         "type": "string",
     },
     {
+        "name": "thirdLevelItemsCustomClass",
+        "type": "string",
+    },
+    {
+        "name": "showNestedSectionLevelGuide",
+        "default": "true",
+        "type": "boolean",
+    },
+    {
         "name": "prefetchOn",
         "default": "PrefetchOn.VISIBILITY",
         "type": "PrefetchOnStrategy",
@@ -359,9 +386,25 @@ const routeItems: SidebarMenuItem[] = [
         icon: 'mdi:help',
         children: [
             {
+                isSectionTitle: true,
+                text: 'Subsection title',
+                icon: 'mdi:shape-outline',
+            },
+            {
                 text: 'Subitem 1',
                 icon: 'mdi:help',
-                to: '/',
+                children: [
+                    {
+                        isSectionTitle: true,
+                        text: 'Nested subsection title',
+                        icon: 'mdi:format-list-bulleted-square',
+                    },
+                    {
+                        text: 'Third level item',
+                        icon: 'mdi:help-circle-outline',
+                        to: '/',
+                    },
+                ],
             },
             {
                 text: 'Subitem 2',
@@ -376,6 +419,10 @@ const routeItems: SidebarMenuItem[] = [
 
 - **Type:** `SidebarMenuItem[]`
 - **Default:** `An example array`
+
+`NavSidebar` supports up to 3 nested menu levels. You can render subsection headers at any level by setting `isSectionTitle: true`.
+
+When the sidebar is collapsed, submenu labels are rendered as plain text labels without prefix markers.
 
 #### TypeScript interface
 ```ts
@@ -537,6 +584,8 @@ The `collapsedSubmenuWidth` prop allows you to set the width for submenus dropdo
 ### collapsedSubmenuTrigger
 
 The `collapsedSubmenuTrigger` prop allows you to control how submenu dropdowns are opened when the sidebar is collapsed.
+
+Collapsed submenu dropdowns support contextual lateral nesting up to 3 levels and render section titles (`isSectionTitle: true`) as non-interactive headers.
 
 ```vue
 <template>
@@ -896,6 +945,33 @@ The `subItemsIconClass` prop allows you to set custom classes specifically for e
     />
 </template>
 ```
+
+### thirdLevelItemsCustomClass
+
+The `thirdLevelItemsCustomClass` prop allows you to set custom classes on expanded third-level menu item wrappers.
+
+```vue
+<template>
+    <NavSidebar
+        :thirdLevelItemsCustomClass="'!text-text-primary-brand-default !italic'"
+    />
+</template>
+```
+
+### showNestedSectionLevelGuide
+
+Controls whether nested entries (section titles and submenu items on level 2 and level 3) render a left vertical guide line in expanded mode.
+
+```vue
+<template>
+    <NavSidebar
+        :showNestedSectionLevelGuide="true"
+    />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `true`
 
 ### prefetchOn
 Controls when sidebar route targets should be prefetched. It uses either the `PrefetchOnStrategy` type or the `PrefetchOn` enum.
