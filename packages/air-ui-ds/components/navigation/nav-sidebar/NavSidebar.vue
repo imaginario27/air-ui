@@ -55,7 +55,7 @@
             :isCollapsed
             :class="[
                 !$slots['sidebar-footer'] && '80% lg:90%',
-                isCollapsed && '!px-0 items-center',
+                isCollapsed && 'px-0! items-center',
             ]"
             :style="{
                 height: computedMenuHeight
@@ -72,91 +72,77 @@
 
             <slot name="sidebar-menu-prefix-content" />
 
-            <template v-for="(item, index) in menuItems" :key="index">
-                <!-- Section Title -->
-                <NavSidebarMenuSectionTitle 
-                    v-if="item.isSectionTitle"
-                    :text="item.text"
-                    :icon="item.icon"
-                    :styleType="itemsStyleType"
-                    :isCollapsed
-                    :showCollapseDivider
-                />
-
-                <!-- Collapsed Dropdown using NavSidebarMenuItem as activator -->
-                <template v-else-if="isCollapsed && item.children">
-                    <DropdownMenu
-                        :key="item.text"
-                        :position="index < props.collapsedFlipLimit ? DropdownPosition.RIGHT_TOP : DropdownPosition.RIGHT_BOTTOM"
-                        :positionXOffset="collapsedSubmenuOffset"
-                        :trigger="collapsedSubmenuTrigger"
-                        :style="{ minWidth: `${collapsedSubmenuWidth}px` }"
-                    >
-                        <!-- Use NavSidebarMenuItem as activator -->
-                        <template #activator>
-                            <NavSidebarMenuItem 
-                                :text="item.text"
-                                :icon="item.icon"
-                                :styleType="itemsStyleType"
-                                :textClass="itemsTextClass"
-                                :iconClass="itemsIconClass"
-                                isCollapsed
-                                :showDropdownArrow="false"
-                                :class="itemsCustomClass"
-                            />
-                        </template>
-
-                        <template #items>
-                            <DropdownMenuItem
-                                v-for="(child, childIndex) in item.children"
-                                :key="`${item.text}-${childIndex}`"
-                                :text="child.text"
-                                :type="child.icon ? DropdownItemType.ICON : DropdownItemType.TEXT"
-                                :icon="child.icon"
-                                :to="child.to"
-                            />
-                        </template>
-                    </DropdownMenu>
-                </template>
-
-                <!-- Regular item if not collapsed or no children -->
-                <template v-else>
-                    <NavSidebarMenuItem 
+            <template v-if="isCollapsed">
+                <template v-for="(item, index) in menuItems" :key="`${item.text}-${index}`">
+                    <NavSidebarMenuSectionTitle 
+                        v-if="item.isSectionTitle"
                         :text="item.text"
                         :icon="item.icon"
-                        :to="item.to"
-                        :disabled="item.disabled"
-                        :prefetchOn
                         :styleType="itemsStyleType"
-                        :textClass="itemsTextClass"
-                        :iconClass="itemsIconClass"
-                        :showDropdownArrow="!!item.children"
-                        :isOpen="openItems[index]"
                         :isCollapsed
-                        :class="itemsCustomClass"
-                        @click="item.children ? toggleItem(index) : undefined"
+                        :showCollapseDivider
                     />
 
-                    <!-- Render nested children only when expanded -->
-                    <template v-if="item.children && openItems[index] && !isCollapsed">
-                        <NavSidebarMenuItem
-                            v-for="(child, childIndex) in item.children"
-                            :key="`${index}-${childIndex}`"
-                            :text="child.text"
-                            :icon="child.icon"
-                            :to="child.to"
-                            :disabled="child.disabled"
+                    <template v-else-if="hasChildren(item)">
+                        <DropdownMenu
+                            :items="getCollapsedDropdownItems(item.children ?? [])"
+                            :position="index < props.collapsedFlipLimit ? DropdownPosition.RIGHT_TOP : DropdownPosition.RIGHT_BOTTOM"
+                            :positionXOffset="collapsedSubmenuOffset"
+                            :trigger="collapsedSubmenuTrigger"
+                            :style="{ minWidth: `${collapsedSubmenuWidth}px` }"
+                            :prefetchOn
+                        >
+                            <template #activator>
+                                <NavSidebarMenuItem 
+                                    :text="item.text"
+                                    :icon="item.icon"
+                                    :styleType="itemsStyleType"
+                                    :textClass="itemsTextClass"
+                                    :iconClass="itemsIconClass"
+                                    isCollapsed
+                                    :showDropdownArrow="false"
+                                    :class="itemsCustomClass"
+                                />
+                            </template>
+                        </DropdownMenu>
+                    </template>
+
+                    <template v-else>
+                        <NavSidebarMenuItem 
+                            :text="item.text"
+                            :icon="item.icon"
+                            :to="item.to"
+                            :disabled="item.disabled"
                             :prefetchOn
                             :styleType="itemsStyleType"
-                            :textClass="subItemsTextClass"
-                            :iconClass="subItemsIconClass"
-                            :class="[
-                                'ml-4',
-                                subItemsCustomClass ? subItemsCustomClass : '!font-medium',
-                            ]"
+                            :textClass="itemsTextClass"
+                            :iconClass="itemsIconClass"
+                            isCollapsed
+                            :showDropdownArrow="false"
+                            :class="itemsCustomClass"
                         />
                     </template>
                 </template>
+            </template>
+
+            <template v-else>
+                <NavSidebarMenuItemsTree
+                    :items="menuItems"
+                    :isCollapsed
+                    :openItems
+                    :itemsStyleType
+                    :itemsCustomClass
+                    :itemsTextClass
+                    :itemsIconClass
+                    :subItemsCustomClass
+                    :subItemsTextClass
+                    :subItemsIconClass
+                    :thirdLevelItemsCustomClass
+                    :prefetchOn
+                    :showCollapseDivider
+                    :showNestedLevelGuide="showNestedSectionLevelGuide"
+                    @toggle="toggleItem"
+                />
             </template>
 
             <slot name="sidebar-menu-suffix-content" />
@@ -217,9 +203,25 @@ const props = defineProps({
                 icon: 'mdi:help',
                 children: [
                     {
+                        isSectionTitle: true,
+                        text: 'Subsection title',
+                        icon: 'mdi:shape-outline',
+                    },
+                    {
                         text: 'Subitem 1',
                         icon: 'mdi:help',
-                        to: '/',
+                        children: [
+                            {
+                                isSectionTitle: true,
+                                text: 'Nested subsection title',
+                                icon: 'mdi:format-list-bulleted-square',
+                            },
+                            {
+                                text: 'Third level item',
+                                icon: 'mdi:help-circle-outline',
+                                to: '/',
+                            },
+                        ],
                     },
                     {
                         text: 'Subitem 2',
@@ -324,6 +326,11 @@ const props = defineProps({
     subItemsCustomClass: String as PropType<string>,
     subItemsTextClass: String as PropType<string>,
     subItemsIconClass: String as PropType<string>,
+    thirdLevelItemsCustomClass: String as PropType<string>,
+    showNestedSectionLevelGuide: {
+        type: Boolean as PropType<boolean>,
+        default: true,
+    },
     prefetchOn: {
         type: [String, Object] as PropType<PrefetchOnStrategy>,
         default: PrefetchOn.VISIBILITY,
@@ -332,7 +339,7 @@ const props = defineProps({
 
 // States 
 const isSticky = ref(false)
-const openItems = ref<Record<number, boolean>>({})
+const openItems = ref<Record<string, boolean>>({})
 
 // Emits
 const emit = defineEmits<(e: 'update:isCollapsed', value: boolean) => void>()
@@ -349,27 +356,104 @@ const {
 } = useSidebar()
 const { isMobile } = useIsMobile()
 
+const MAX_NESTING_LEVEL = 3
+
 // Methods
+const hasChildren = (item: SidebarMenuItem) => {
+    return Array.isArray(item.children) && item.children.length > 0
+}
+
+const getNodeKey = (path: number[]) => {
+    return path.join('-')
+}
+
+const parseNodeKey = (key: string) => {
+    return key.split('-').map(Number)
+}
+
+const isSameParent = (a: number[], b: number[]) => {
+    if (a.length !== b.length) return false
+
+    const aParent = a.slice(0, -1)
+    const bParent = b.slice(0, -1)
+
+    return aParent.length === bParent.length && aParent.every((value, index) => value === bParent[index])
+}
+
+const isPrefixPath = (prefix: number[], path: number[]) => {
+    if (prefix.length > path.length) return false
+
+    return prefix.every((value, index) => value === path[index])
+}
+
 const handleScroll = () => {
     if(props.stickOnScroll) {
         isSticky.value = window.scrollY > props.stickyScrollHeight
     }
 }
 
-const toggleItem = (index: number) => {
-    if (props.multipleSubmenusOpen) {
-        openItems.value[index] = !openItems.value[index]
-    } else {
-        const wasOpen = openItems.value[index]
+const toggleItem = (path: number[]) => {
+    const nodeKey = getNodeKey(path)
 
-        // Close all
-        openItems.value = {}
+    if (props.multipleSubmenusOpen) {
+        openItems.value[nodeKey] = !openItems.value[nodeKey]
+    } else {
+        const wasOpen = openItems.value[nodeKey]
+
+        const nextOpenItems = Object.fromEntries(
+            Object.entries(openItems.value).filter(([key]) => {
+                const keyPath = parseNodeKey(key)
+
+                // Always close the toggled branch descendants and the branch itself.
+                if (isPrefixPath(path, keyPath)) {
+                    return false
+                }
+
+                // Close siblings at the same level to preserve single-open behavior per level.
+                if (isSameParent(keyPath, path)) {
+                    return false
+                }
+
+                return true
+            })
+        )
 
         // Reopen the one that was toggled if it wasn't already open
         if (!wasOpen) {
-            openItems.value[index] = true
+            nextOpenItems[nodeKey] = true
         }
+
+        openItems.value = nextOpenItems
     }
+}
+
+const getCollapsedDropdownItems = (
+    items: SidebarMenuItem[],
+    level = 2
+): CollapsedDropdownItem[] => {
+    if (level > MAX_NESTING_LEVEL) {
+        return []
+    }
+
+    return items.flatMap((item) => {
+        const hasItemChildren = hasChildren(item)
+        const dropdownItem: CollapsedDropdownItem = {
+            sectionTitle: item.isSectionTitle,
+            text: item.text,
+            to: item.to,
+            icon: item.icon,
+            type: item.icon ? DropdownItemType.ICON : DropdownItemType.TEXT,
+            disabled: Boolean(item.disabled),
+            actionType: item.isSectionTitle
+                ? DropdownActionType.ACTION
+                : DropdownActionType.LINK,
+            children: hasItemChildren && level < MAX_NESTING_LEVEL
+                ? getCollapsedDropdownItems(item.children ?? [], level + 1)
+                : undefined,
+        }
+
+        return [dropdownItem]
+    })
 }
 
 // Computed

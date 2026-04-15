@@ -42,7 +42,15 @@ const defaultMenuItems = [
         text: 'Item 3',
         icon: 'mdi:help',
         children: [
-            { text: 'Subitem 1', icon: 'mdi:help', to: '/sub1' },
+            { isSectionTitle: true, text: 'Subsection A', icon: 'mdi:shape-outline' },
+            {
+                text: 'Subitem 1',
+                icon: 'mdi:help',
+                children: [
+                    { isSectionTitle: true, text: 'Nested subsection', icon: 'mdi:format-list-bulleted-square' },
+                    { text: 'Third level 1', icon: 'mdi:help-circle-outline', to: '/sub1/third-1' },
+                ]
+            },
             { text: 'Subitem 2', icon: 'mdi:help', to: '/sub2' }
         ]
     }
@@ -140,7 +148,7 @@ describe('NavSidebar.vue', () => {
         })
 
         window.scrollY = 200
-        window.dispatchEvent(new Event('scroll'))
+        globalThis.dispatchEvent(new Event('scroll'))
         await nextTick()
 
         const style = (wrapper.find('aside').element as HTMLElement).style.top
@@ -156,7 +164,7 @@ describe('NavSidebar.vue', () => {
         })
 
         window.scrollY = 50
-        window.dispatchEvent(new Event('scroll'))
+        globalThis.dispatchEvent(new Event('scroll'))
         await nextTick()
 
         const style = (wrapper.find('aside').element as HTMLElement).style.top
@@ -198,6 +206,23 @@ describe('NavSidebar.vue', () => {
         expect(dropdowns.length).toBeGreaterThan(0)
     })
 
+    it('renders collapsed submenu labels without prefix markers', async () => {
+        isSidebarCollapsedRef.value = true
+
+        const wrapper = factory()
+        await nextTick()
+
+        const activator = wrapper.find('.dropdown-activator')
+        await activator.trigger('click')
+        await nextTick()
+
+        const bodyText = globalThis.document.body.textContent ?? ''
+        expect(bodyText).toContain('Subsection A')
+        expect(bodyText).toContain('Subitem 1')
+        expect(bodyText).not.toContain('-- Subsection A')
+        expect(bodyText).not.toContain('-- Subitem 1')
+    })
+
     it('renders nested children when not collapsed and item is open', async () => {
         const wrapper = factory()
 
@@ -234,6 +259,58 @@ describe('NavSidebar.vue', () => {
             expect(classes).toContain('!text-text-danger')
             expect(classes).toContain('!font-bold')
         })
+    })
+
+    it('applies thirdLevelItemsCustomClass to expanded third-level menu items', async () => {
+        const customClass = '!text-text-primary-brand-default !italic'
+        const wrapper = factory({
+            props: {
+                thirdLevelItemsCustomClass: customClass,
+            }
+        })
+
+        const topLevelParent = wrapper
+            .findAllComponents(NavSidebarMenuItem)
+            .find(item => item.props('text') === 'Item 3')
+
+        await topLevelParent!.trigger('click')
+        await nextTick()
+
+        const secondLevelParent = wrapper
+            .findAllComponents(NavSidebarMenuItem)
+            .find(item => item.props('text') === 'Subitem 1')
+
+        await secondLevelParent!.trigger('click')
+        await nextTick()
+
+        const thirdLevelItems = wrapper
+            .findAllComponents(NavSidebarMenuItem)
+            .filter(item => String(item.props('text')).startsWith('Third level'))
+
+        expect(thirdLevelItems).toHaveLength(1)
+        expect(thirdLevelItems[0]!.classes()).toContain('!text-text-primary-brand-default')
+        expect(thirdLevelItems[0]!.classes()).toContain('!italic')
+    })
+
+    it('renders subsection titles across level 1, 2 and 3', async () => {
+        const wrapper = factory()
+
+        const topLevelParent = wrapper
+            .findAllComponents(NavSidebarMenuItem)
+            .find(item => item.props('text') === 'Item 3')
+
+        await topLevelParent!.trigger('click')
+        await nextTick()
+
+        const secondLevelParent = wrapper
+            .findAllComponents(NavSidebarMenuItem)
+            .find(item => item.props('text') === 'Subitem 1')
+
+        await secondLevelParent!.trigger('click')
+        await nextTick()
+
+        const sectionTitles = wrapper.findAllComponents(NavSidebarMenuSectionTitle)
+        expect(sectionTitles).toHaveLength(3)
     })
 
     it('forwards custom text and icon classes for items and subitems', async () => {

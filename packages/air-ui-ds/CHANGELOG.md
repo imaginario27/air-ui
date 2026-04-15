@@ -5,6 +5,17 @@ All notable changes to this package are documented in this file.
 Historical releases were reconstructed from git history (GitHub repository) and npm publish dates.
 Future releases will include detailed entries generated with Changesets.
 
+## 1.11.0 - 2026-04-15
+
+Release type: minor.
+Commits found in range: 1.
+
+### Added
+
+1. add nested dropdown menus, sidebar menu items and section titles ([2c49dbf](https://github.com/imaginario27/air-ui/commit/2c49dbf1fae116b377dea988f80a3fdf28ef4c4f))
+
+- Package: @imaginario27/air-ui-ds.
+
 ## 1.10.2 - 2026-04-14
 
 Release type: patch.

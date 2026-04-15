@@ -1,5 +1,6 @@
 export interface DropdownMenuItem {
     actionType?: DropdownActionType
+    sectionTitle?: boolean
     text?: string
     icon?: string
     size?: DropdownItemSize
@@ -14,4 +15,21 @@ export interface DropdownMenuItem {
     hasSeparator?: boolean
     disabled?: boolean
     callback?: () => void
+    children?: DropdownMenuItem[]
 }
+
+export interface CollapsedDropdownItem {
+    sectionTitle?: boolean
+    text: string
+    to?: string
+    icon?: string
+    type?: DropdownItemType
+    size?: DropdownItemSize
+    helpText?: string
+    isExternal?: boolean
+    disabled?: boolean
+    hasSeparator?: boolean
+    actionType: DropdownActionType
+    children?: CollapsedDropdownItem[]
+}
+

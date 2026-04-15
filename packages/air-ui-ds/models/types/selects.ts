@@ -6,6 +6,7 @@ import type { IconPosition } from '../enums/icons'
 export interface SelectOption {
     id?: string | number
     value: string | number
+    sectionTitle?: boolean
     text?: string
     inputType?: AllowedInputType
     applicableTypes?: AllowedInputType[]

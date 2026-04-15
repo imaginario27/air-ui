@@ -213,4 +213,38 @@ describe('NavSidebarMenuItem.vue', () => {
 
         expect(link.attributes('data-prefetch-on')).toBe(PrefetchOn.INTERACTION)
     })
+
+    it('applies level 2 typography and nested guide line when enabled', () => {
+        const wrapper = factory({
+            level: 2,
+            showNestedLevelGuide: true,
+        })
+
+        const rootClasses = wrapper.classes()
+        expect(rootClasses).toContain('text-sm')
+        expect(rootClasses).toContain('font-medium')
+        expect(rootClasses).not.toContain('border-l-2')
+    })
+
+    it('applies level 3 typography and hides nested guide line when disabled', () => {
+        const wrapper = factory({
+            level: 3,
+            showNestedLevelGuide: false,
+        })
+
+        const rootClasses = wrapper.classes()
+        expect(rootClasses).toContain('text-xs')
+        expect(rootClasses).toContain('font-medium')
+        expect(rootClasses).not.toContain('border-l-2')
+    })
+
+    it('does not render nested guide line in collapsed mode', () => {
+        const wrapper = factory({
+            level: 2,
+            showNestedLevelGuide: true,
+            isCollapsed: true,
+        })
+
+        expect(wrapper.classes()).not.toContain('border-l-2')
+    })
 })

@@ -2,6 +2,7 @@ import { mount } from '@vue/test-utils'
 import NavSidebarMenuSectionTitle from '@/components/navigation/nav-sidebar/NavSidebarMenuSectionTitle.vue'
 import Icon from '@/components/icons/Icon.vue'
 import Divider from '~/components/dividers/Divider.vue'
+import { SidebarNavMenuItemStyleType } from '#imports'
 
 const factory = (props = {}) =>
     mount(NavSidebarMenuSectionTitle, {
@@ -60,5 +61,84 @@ describe('NavSidebarMenuSectionTitle.vue', () => {
         const wrapper = factory()
         expect(wrapper.find('div').exists()).toBe(true)
         expect(wrapper.findComponent(Divider).exists()).toBe(false)
+    })
+
+    it('applies nested level styles when level is greater than 1', () => {
+        const wrapper = factory({
+            level: 2,
+            showNestedLevelGuide: true,
+        })
+
+        const root = wrapper.find('div')
+        expect(root.classes()).toContain('text-sm')
+        expect(root.classes()).toContain('font-bold')
+        expect(root.classes()).toContain('text-text-neutral-subtle')
+        expect(root.classes()).not.toContain('border-l-2')
+    })
+
+    it('keeps original level 1 border style', () => {
+        const wrapper = factory({
+            level: 1,
+            showNestedLevelGuide: true,
+        })
+
+        const root = wrapper.find('div')
+        expect(root.classes()).toContain('border-b')
+        expect(root.classes()).not.toContain('border-l-2')
+        expect(root.classes()).toContain('font-semibold')
+    })
+
+    it('applies bottom margin for expanded level 1 section title', () => {
+        const wrapper = factory({
+            level: 1,
+            isCollapsed: false,
+            styleType: SidebarNavMenuItemStyleType.COMPACT,
+        })
+
+        const root = wrapper.find('div')
+        expect(root.classes()).toContain('mb-1')
+    })
+
+    it('does not apply expanded level 1 bottom margin for nested levels', () => {
+        const wrapper = factory({
+            level: 2,
+            isCollapsed: false,
+            styleType: SidebarNavMenuItemStyleType.COMPACT,
+        })
+
+        const root = wrapper.find('div')
+        expect(root.classes()).not.toContain('mb-1')
+        expect(root.classes()).not.toContain('mb-2')
+    })
+
+    it('applies level 3 guide line with lighter border color', () => {
+        const wrapper = factory({
+            level: 3,
+            showNestedLevelGuide: true,
+        })
+
+        const root = wrapper.find('div')
+        expect(root.classes()).not.toContain('border-l-2')
+        expect(root.classes()).not.toContain('border-border-neutral-subtle/50')
+    })
+
+    it('does not render nested guide line when showNestedLevelGuide is false', () => {
+        const wrapper = factory({
+            level: 3,
+            showNestedLevelGuide: false,
+        })
+
+        const root = wrapper.find('div')
+        expect(root.classes()).not.toContain('border-l-2')
+    })
+
+    it('forwards external classes so level indentation from parent is applied', () => {
+        const wrapper = factory({
+            level: 2,
+            class: 'ml-4',
+        })
+
+        const root = wrapper.find('div')
+        expect(root.classes()).toContain('ml-4')
     })
 })

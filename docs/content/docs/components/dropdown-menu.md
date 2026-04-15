@@ -3,7 +3,22 @@
 ::component-code
 ---
 srcDir: 'dropdowns/DropdownMenu.vue'
-props: 
+props:
+    items:
+        - text: "Item 1"
+        - text: "Item 2"
+        - text: "Item 3"
+        - text: "Item 4"
+          icon: "mdi:folder-outline"
+          children:
+            - sectionTitle: true
+              text: "Nested section"
+              icon: "mdi:shape-outline"
+            - text: "Subitem 4.1"
+            - text: "Subitem 4.2"
+              children:
+              - text: "Third level item 4.2.1"
+              - text: "Third level item 4.2.2"
     hasShadow: true
     hasBorder: true
     trigger: 'click'
@@ -15,6 +30,7 @@ props:
     positionClass: ''
     isRelative: true
     shouldTeleport: true
+    nestedMenuGap: 8
     zIndex: "50"
     class: "min-w-[200px]"
 items:
@@ -46,16 +62,8 @@ items:
         - value: interaction
           text: INTERACTION
 slots:
-    items: ""
     activator: ""
 slotComponents:
-    items:
-        multiple: true
-        srcDir: 'dropdowns/DropdownMenuItem.vue'
-        props:
-            - text: "Item 1"
-            - text: "Item 2"
-            - text: "Item 3"
     activator:
         srcDir: 'buttons/ActionButton.vue'
         props:
@@ -69,6 +77,7 @@ enums:
     position: "DropdownPosition"
     trigger: "Trigger"
     prefetchOn: "PrefetchOn"
+propsSettingsExcludedProps: ['items']
 ---
 ::
 
@@ -137,6 +146,11 @@ props: [
         "type": "boolean",
     },
     {
+        "name": "nestedMenuGap",
+        "default": "8",
+        "type": "number",
+    },
+    {
         "name": "zIndex",
         "default": "'50'",
         "type": "string",
@@ -193,6 +207,27 @@ const items = ref<DropdownMenuItem[]>([
     {
         text: "Item 3",
     },
+    {
+        text: "Item 4",
+        icon: "mdi:folder-outline",
+        children: [
+            {
+                sectionTitle: true,
+                text: "Nested section",
+                icon: "mdi:shape-outline",
+            },
+            {
+                text: "Subitem 4.1",
+            },
+            {
+                text: "Subitem 4.2",
+                children: [
+                    { text: "Third level item 4.2.1" },
+                    { text: "Third level item 4.2.2" },
+                ],
+            },
+        ],
+    },
 ])
 </script>
 ```
@@ -212,6 +247,10 @@ components: [
     {
         name: "<DropdownMenuActions>",
         description: "Acts as a container for all DropdownMenuActions components. It is not included by default within the DropdownMenu component and must be manually injected when customizing the dropdown's structure.",
+    },
+    {
+        name: "<DropdownSectionItem>",
+        description: "Non-interactive section header used inside dropdown menus and dropdown selects.",
     },
 ]
 ---
@@ -249,6 +288,27 @@ const exampleItems = ref<DropdownMenuItem[]>([
     {
         text: "Item 3",
     },
+    {
+        text: "Item 4",
+        icon: "mdi:folder-outline",
+        children: [
+            {
+                sectionTitle: true,
+                text: "Nested section",
+                icon: "mdi:shape-outline",
+            },
+            {
+                text: "Subitem 4.1",
+            },
+            {
+                text: "Subitem 4.2",
+                children: [
+                    { text: "Third level item 4.2.1" },
+                    { text: "Third level item 4.2.2" },
+                ],
+            },
+        ],
+    },
 ])
 </script>
 ```
@@ -257,6 +317,7 @@ const exampleItems = ref<DropdownMenuItem[]>([
 ```ts
 interface DropdownMenuItem {
     actionType?: DropdownActionType
+    sectionTitle?: boolean
     text?: string
     icon?: any
     size?: DropdownItemSize
@@ -271,8 +332,19 @@ interface DropdownMenuItem {
     hasSeparator?: boolean
     disabled?: boolean
     callback?: () => void
+    children?: DropdownMenuItem[]
 }
 ```
+
+**Nested Items:** Supports contextual nested dropdown menus up to 3 levels. Nested items are only available when using the `:items` prop with the fallback rendering mode. Items with children will automatically render as ACTION items (not links) with a right chevron indicator.
+
+::content-alert
+---
+props:
+    title: "Important"
+    description: "Nested items only work with the :items prop. When using the #items slot with DropdownMenuItem components directly, nesting is not supported."
+---
+::
 
 ### hasShadow
 Activates a dropdown shadow on the menu.
@@ -550,6 +622,22 @@ Determines whether the dropdown menu should be teleported to the end of the docu
 - **Type:** `boolean`
 - **Default:** `true`
 
+### nestedMenuGap
+
+Sets the horizontal gap (in pixels) between a parent dropdown panel and its nested child panel.
+
+```vue
+<template>
+    <DropdownMenu
+        :items="exampleItems"
+        :nestedMenuGap="8"
+    />
+</template>
+```
+
+- **Type:** `number`
+- **Default:** `8`
+
 ### zIndex
 
 Sets the CSS z-index property for the dropdown menu, controlling its stacking order relative to other elements on the page.
@@ -587,6 +675,7 @@ props:
     to: null
     isExternal: false
     hasSeparator: false
+    hasNestedLevels: false
     disabled: false
     prefetchOn: "visibility"
     class: "bg-background-neutral-default shadow-sm"
@@ -689,6 +778,11 @@ props: [
     },
     {
         "name": "hasSeparator",
+        "default": "false",
+        "type": "boolean",
+    },
+    {
+        "name": "hasNestedLevels",
         "default": "false",
         "type": "boolean",
     },
@@ -906,6 +1000,22 @@ Adds a separator line below the menu item.
     >
         ....
     </DropdownMenuItem>
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `false`
+
+### hasNestedLevels
+
+Shows a right chevron indicator for items that open nested levels. It is used by `DropdownMenu` fallback rendering for contextual menus.
+
+```vue
+<template>
+    <DropdownMenuItem
+        text="Has nested levels"
+        hasNestedLevels
+    />
 </template>
 ```
 

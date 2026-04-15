@@ -3,6 +3,7 @@ import type { VueWrapper } from '@vue/test-utils'
 import { nextTick } from 'vue'
 import DropdownMenu from '@/components/dropdowns/DropdownMenu.vue'
 import DropdownMenuItem from '@/components/dropdowns/DropdownMenuItem.vue'
+import DropdownSectionItem from '@/components/dropdowns/DropdownSectionItem.vue'
 import { DropdownPosition } from '@/models/enums/positions'
 import { PrefetchOn } from '@/models/enums/prefetch'
 
@@ -23,6 +24,7 @@ const factory = (options: {
         global: {
             components: {
                 DropdownMenuItem,
+                DropdownSectionItem,
             },
         },
         attachTo: document.body,
@@ -253,5 +255,48 @@ describe('DropdownMenu.vue', () => {
 
         const item = wrapper.findComponent(DropdownMenuItem)
         expect(item.props('disabled')).toBe(true)
+    })
+
+    it('renders DropdownSectionItem for section title entries', async () => {
+        const wrapper = factory({
+            props: {
+                items: [{ sectionTitle: true, text: 'Section title' }],
+            },
+        })
+
+        await wrapper.find('.dropdown-activator').trigger('click')
+        await nextTick()
+
+        const sectionItem = wrapper.findComponent(DropdownSectionItem)
+        expect(sectionItem.exists()).toBe(true)
+        expect(sectionItem.text()).toContain('Section title')
+    })
+
+    it('opens nested contextual menu and keeps parent menu open', async () => {
+        const wrapper = factory({
+            props: {
+                items: [
+                    {
+                        text: 'Parent',
+                        children: [
+                            { text: 'Child 1', callback: vi.fn() },
+                        ],
+                    },
+                ],
+            },
+        })
+
+        await wrapper.find('.dropdown-activator').trigger('click')
+        await nextTick()
+
+        const activators = wrapper.findAll('.dropdown-activator')
+        expect(activators.length).toBeGreaterThan(1)
+
+        await activators[1]!.trigger('click')
+        await nextTick()
+
+        const dropdownPanels = document.body.querySelectorAll('[data-dropdown-menu-panel]')
+        expect(dropdownPanels.length).toBeGreaterThanOrEqual(2)
+        expect((wrapper.vm as any).isOpen).toBe(true)
     })
 })

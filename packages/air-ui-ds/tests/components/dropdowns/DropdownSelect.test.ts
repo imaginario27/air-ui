@@ -42,6 +42,10 @@ const factory = (props: Record<string, any> = {}) => {
                         'type'
                     ]
                 },
+                DropdownSectionItem: {
+                    template: '<div class="stubbed-section-item">{{ text }}</div>',
+                    props: ['text', 'icon']
+                },
                 DropdownMenu: {
                     template: `
                         <div>
@@ -246,5 +250,20 @@ describe('DropdownSelect.vue', () => {
         await option.trigger('click')
 
         expect(wrapper.emitted('update:modelValue')?.[0]).toEqual([null])
+    })
+
+    it('renders section title options using DropdownSectionItem', async () => {
+        const wrapper = factory({
+            options: [
+                { sectionTitle: true, text: 'Section A', value: 'section-a' },
+                { text: 'Option 1', value: '1' },
+            ],
+        })
+
+        await wrapper.find('.select-box').trigger('click')
+        await nextTick()
+
+        expect(wrapper.find('.stubbed-section-item').exists()).toBe(true)
+        expect(wrapper.find('.stubbed-section-item').text()).toContain('Section A')
     })
 })

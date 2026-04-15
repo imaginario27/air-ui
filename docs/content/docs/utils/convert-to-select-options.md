@@ -29,11 +29,12 @@ export declare function convertToSelectOptions<T>(
 ): SelectOption[]
 ```
 
-## TypeScript interface
+#### TypeScript interface
 ```ts
 interface SelectOption {
     id?: string | number
     value: string | number
+    sectionTitle?: boolean
     text?: string
     icon?: string
     userDisplayName?: string

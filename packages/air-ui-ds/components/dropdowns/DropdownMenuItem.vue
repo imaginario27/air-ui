@@ -53,6 +53,12 @@
                 :imgUrl="userProfileImg"
                 :size="AvatarSize.XS"
             />
+
+            <Icon
+                v-if="hasNestedLevels"
+                name="mdi:chevron-right"
+                iconClass="text-icon-neutral-subtle ml-auto"
+            />
         </div>
         <p 
             v-if="helpText"
@@ -122,6 +128,10 @@ const props = defineProps({
         default: false,
     },
     disabled: {
+        type: Boolean as PropType<boolean>,
+        default: false,
+    },
+    hasNestedLevels: {
         type: Boolean as PropType<boolean>,
         default: false,
     },

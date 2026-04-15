@@ -32,6 +32,7 @@
                     <div
                         v-if="isOpen"
                         ref="dropdown"
+                        data-dropdown-menu-panel
                         v-bind="$attrs"
                         :class="[
                             'bg-background-surface',
@@ -55,26 +56,70 @@
                             :onClose="close"
                         />
                         <template v-else-if="items?.length">
-                            <DropdownMenuItem
+                            <template
                                 v-for="(item, index) in items"
                                 :key="index"
-                                :actionType="item.actionType"
-                                :text="item.text"
-                                :icon="item.icon"
-                                :size="item.size"
-                                :type="item.type"
-                                :userDisplayName="item.userDisplayName"
-                                :userProfileImg="item.userProfileImg"
-                                :imgUrl="item.imgUrl"
-                                :alt="item.alt"
-                                :helpText="item.helpText"
-                                :to="item.to"
-                                :isExternal="item.isExternal"
-                                :hasSeparator="item.hasSeparator"
-                                :disabled="disabled || item.disabled"
-                                :prefetchOn
-                                @click="handleClick(item.callback)"
-                            />
+                            >
+                                <DropdownSectionItem
+                                    v-if="item.sectionTitle"
+                                    :text="item.text"
+                                    :icon="item.icon"
+                                />
+
+                                <DropdownMenu
+                                    v-else-if="canOpenNested(item)"
+                                    :items="item.children"
+                                    :position="DropdownPosition.RIGHT_TOP"
+                                    :positionXOffset="nestedMenuGap"
+                                    :positionYOffset="0"
+                                    :trigger="trigger"
+                                    :hasShadow
+                                    :hasBorder
+                                    :disabled="disabled || item.disabled"
+                                    :prefetchOn
+                                    :level="level + 1"
+                                >
+                                    <template #activator>
+                                        <DropdownMenuItem
+                                            :actionType="DropdownActionType.ACTION"
+                                            :text="item.text"
+                                            :icon="item.icon"
+                                            :size="item.size"
+                                            :type="item.type"
+                                            :userDisplayName="item.userDisplayName"
+                                            :userProfileImg="item.userProfileImg"
+                                            :imgUrl="item.imgUrl"
+                                            :alt="item.alt"
+                                            :helpText="item.helpText"
+                                            :hasSeparator="item.hasSeparator"
+                                            :disabled="disabled || item.disabled"
+                                            :hasNestedLevels="true"
+                                            :prefetchOn
+                                        />
+                                    </template>
+                                </DropdownMenu>
+
+                                <DropdownMenuItem
+                                    v-else
+                                    :actionType="resolveItemActionType(item)"
+                                    :text="item.text"
+                                    :icon="item.icon"
+                                    :size="item.size"
+                                    :type="item.type"
+                                    :userDisplayName="item.userDisplayName"
+                                    :userProfileImg="item.userProfileImg"
+                                    :imgUrl="item.imgUrl"
+                                    :alt="item.alt"
+                                    :helpText="item.helpText"
+                                    :to="item.to"
+                                    :isExternal="item.isExternal"
+                                    :hasSeparator="item.hasSeparator"
+                                    :disabled="disabled || item.disabled"
+                                    :hasNestedLevels="hasNestedItems(item)"
+                                    :prefetchOn
+                                    @click="handleClick(item.callback)"
+                                />
+                            </template>
                         </template>
                     </div>
                 </Transition>
@@ -91,6 +136,7 @@
                 <div 
                     v-if="isOpen"
                     ref="dropdown"
+                    data-dropdown-menu-panel
                     v-bind="$attrs" 
                     :class="[
                         'bg-background-surface',
@@ -116,25 +162,70 @@
                         :onClose="toggle"
                     />
                     <template v-else-if="items?.length && !$slots['items']">
-                        <DropdownMenuItem 
-                            v-for="(item, index) in items" :key="index"
-                            :actionType="item.actionType"
-                            :text="item.text"
-                            :icon="item.icon"
-                            :size="item.size"
-                            :type="item.type"
-                            :userDisplayName="item.userDisplayName"
-                            :userProfileImg="item.userProfileImg"
-                            :imgUrl="item.imgUrl"
-                            :alt="item.alt"
-                            :helpText="item.helpText"
-                            :to="item.to"
-                            :isExternal="item.isExternal"
-                            :hasSeparator="item.hasSeparator"
-                            :disabled="disabled || item.disabled"
-                            :prefetchOn
-                            @click="handleClick(item.callback)"
-                        />
+                        <template
+                            v-for="(item, index) in items"
+                            :key="index"
+                        >
+                            <DropdownSectionItem
+                                v-if="item.sectionTitle"
+                                :text="item.text"
+                                :icon="item.icon"
+                            />
+
+                            <DropdownMenu
+                                v-else-if="canOpenNested(item)"
+                                :items="item.children"
+                                :position="DropdownPosition.RIGHT_TOP"
+                                :positionXOffset="nestedMenuGap"
+                                :positionYOffset="0"
+                                :trigger="trigger"
+                                :hasShadow
+                                :hasBorder
+                                :disabled="disabled || item.disabled"
+                                :prefetchOn
+                                :level="level + 1"
+                            >
+                                <template #activator>
+                                    <DropdownMenuItem
+                                        :actionType="DropdownActionType.ACTION"
+                                        :text="item.text"
+                                        :icon="item.icon"
+                                        :size="item.size"
+                                        :type="item.type"
+                                        :userDisplayName="item.userDisplayName"
+                                        :userProfileImg="item.userProfileImg"
+                                        :imgUrl="item.imgUrl"
+                                        :alt="item.alt"
+                                        :helpText="item.helpText"
+                                        :hasSeparator="item.hasSeparator"
+                                        :disabled="disabled || item.disabled"
+                                        :hasNestedLevels="true"
+                                        :prefetchOn
+                                    />
+                                </template>
+                            </DropdownMenu>
+
+                            <DropdownMenuItem 
+                                v-else
+                                :actionType="resolveItemActionType(item)"
+                                :text="item.text"
+                                :icon="item.icon"
+                                :size="item.size"
+                                :type="item.type"
+                                :userDisplayName="item.userDisplayName"
+                                :userProfileImg="item.userProfileImg"
+                                :imgUrl="item.imgUrl"
+                                :alt="item.alt"
+                                :helpText="item.helpText"
+                                :to="item.to"
+                                :isExternal="item.isExternal"
+                                :hasSeparator="item.hasSeparator"
+                                :disabled="disabled || item.disabled"
+                                :hasNestedLevels="hasNestedItems(item)"
+                                :prefetchOn
+                                @click="handleClick(item.callback)"
+                            />
+                        </template>
                     </template>
                 </div>
             </Transition>
@@ -197,6 +288,14 @@ const props = defineProps({
         default: Trigger.CLICK,
         validator: (value: Trigger) => Object.values(Trigger).includes(value),
     },
+    level: {
+        type: Number as PropType<number>,
+        default: 1,
+    },
+    nestedMenuGap: {
+        type: Number as PropType<number>,
+        default: 8,
+    },
     disabled: {
         type: Boolean as PropType<boolean>,
         default: false,
@@ -222,6 +321,24 @@ const dropdownRect = ref<DOMRect | null>(null)
 const close = () => {
     isOpen.value = false
     isPositioned.value = false
+}
+
+const MAX_NESTED_LEVELS = 3
+
+const hasNestedItems = (item: DropdownMenuItem) => {
+    return Array.isArray(item.children) && item.children.length > 0
+}
+
+const canOpenNested = (item: DropdownMenuItem) => {
+    return props.level < MAX_NESTED_LEVELS && hasNestedItems(item)
+}
+
+const resolveItemActionType = (item: DropdownMenuItem) => {
+    // Items with children are always ACTION items (never links)
+    if (hasNestedItems(item)) {
+        return DropdownActionType.ACTION
+    }
+    return item.actionType ?? DropdownActionType.ACTION
 }
 
 const clearCloseTimer = () => {
@@ -316,6 +433,11 @@ const shouldCloseFromTarget = (target: Node) => {
     const activatorEl = activatorWrapper.value
 
     if (!dropdownEl || !activatorEl) return false
+
+    const targetElement = target as HTMLElement | null
+    if (targetElement?.closest('[data-dropdown-menu-panel]')) {
+        return false
+    }
 
     return !dropdownEl.contains(target) && !activatorEl.contains(target)
 }
