@@ -5,6 +5,17 @@ All notable changes to this package are documented in this file.
 Historical releases were reconstructed from git history (GitHub repository) and npm publish dates.
 Future releases will include detailed entries generated with Changesets.
 
+## 1.12.1 - 2026-04-16
+
+Release type: patch.
+Commits found in range: 1.
+
+### Fixed
+
+1. fix NavSidebar menu items gap ([4a9cee9](https://github.com/imaginario27/air-ui/commit/4a9cee9bdede4bb3bbb1f8fc9c528bf932f62976))
+
+- Package: @imaginario27/air-ui-ds.
+
 ## 1.12.0 - 2026-04-16
 
 Release type: minor.
