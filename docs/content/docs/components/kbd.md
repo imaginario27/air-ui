@@ -2,7 +2,7 @@
 
 ::component-code
 ---
-srcDir: 'content/Kbd.vue'
+srcDir: 'kbds/Kbd.vue'
 props:
     text: 'Ctrl'
 previewBackground: 'white'
