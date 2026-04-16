@@ -12,6 +12,7 @@
             'justify-between',
             levelTextClass,
             spacingClass,
+            nestedItemSpacingClass,
             !isActive && 'text-text-default',
             isActive && 'text-text-primary-brand-on-neutral-hover-bg bg-background-neutral-hover',
             disabled && 'opacity-disabled cursor-not-allowed pointer-events-none',
@@ -151,6 +152,15 @@ const spacingClass = computed(() => {
     const variant = levelVariant[resolvedLevel.value as 1 | 2 | 3]
 
     return variant[props.styleType as SidebarNavMenuItemStyleType] || 'min-h-[40px] py-2 pl-3 pr-2'
+})
+
+const nestedItemSpacingClass = computed(() => {
+    const variant = {
+        [SidebarNavMenuItemStyleType.SPACED]: 'my-1',
+        [SidebarNavMenuItemStyleType.COMPACT]: 'my-0.5',
+    }
+
+    return variant[props.styleType as SidebarNavMenuItemStyleType] || 'my-0.5'
 })
 
 const gapClass = computed(() => {
