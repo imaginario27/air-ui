@@ -2,13 +2,6 @@ import { mount } from '@vue/test-utils'
 import { nextTick } from 'vue'
 import ModalDialog from '@/components/modals/ModalDialog.vue'
 
-vi.mock('#imports', () => ({
-    useHead: (input: any) => {
-        const config = typeof input === 'function' ? input() : input
-        document.body.className = config?.bodyAttrs?.class ?? ''
-    }
-}))
-
 const factory = (
     props?: Partial<InstanceType<typeof ModalDialog>['$props']>,
     slots?: { default?: string }
@@ -35,6 +28,8 @@ const factory = (
 describe('ModalDialog', () => {
     afterEach(() => {
         document.body.innerHTML = ''
+        document.body.style.overflow = ''
+        document.body.style.paddingRight = ''
         document.body.className = ''
         vi.restoreAllMocks()
     })
@@ -123,7 +118,7 @@ describe('ModalDialog', () => {
         await wrapper.setProps({ modelValue: true })
         await nextTick()
 
-        window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }))
+        globalThis.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }))
         await nextTick()
 
         expect(wrapper.emitted('update:modelValue')?.[0]).toEqual([false])
@@ -150,6 +145,53 @@ describe('ModalDialog', () => {
         wrapper.unmount()
 
         expect(removeSpy).toHaveBeenCalledWith('keydown', expect.any(Function))
+    })
+
+    it('locks body scroll while open and restores it when closed', async () => {
+        const wrapper = factory({ modelValue: false })
+
+        await wrapper.setProps({ modelValue: true })
+        await nextTick()
+
+        expect(document.body.style.overflow).toBe('hidden')
+
+        await wrapper.setProps({ modelValue: false })
+        await nextTick()
+
+        expect(document.body.style.overflow).toBe('')
+    })
+
+    it('adds gutter compensation when scrollbar-gutter is not stable', async () => {
+        const wrapper = factory({ modelValue: false })
+
+        document.body.style.paddingRight = '8px'
+        vi.spyOn(document.documentElement, 'clientWidth', 'get')
+            .mockReturnValueOnce(1180)
+            .mockReturnValueOnce(1200)
+
+        await wrapper.setProps({ modelValue: true })
+        await nextTick()
+
+        expect(document.body.style.paddingRight).toBe('28px')
+
+        await wrapper.setProps({ modelValue: false })
+        await nextTick()
+
+        expect(document.body.style.paddingRight).toBe('8px')
+    })
+
+    it('does not add gutter compensation when locking keeps viewport width stable', async () => {
+        const wrapper = factory({ modelValue: false })
+
+        document.body.style.paddingRight = '8px'
+        vi.spyOn(document.documentElement, 'clientWidth', 'get')
+            .mockReturnValueOnce(1180)
+            .mockReturnValueOnce(1180)
+
+        await wrapper.setProps({ modelValue: true })
+        await nextTick()
+
+        expect(document.body.style.paddingRight).toBe('8px')
     })
 
     it('does not render close button when hasCornerCloseButton is false', () => {
