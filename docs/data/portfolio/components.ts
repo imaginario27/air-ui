@@ -91,6 +91,11 @@ export const componentList: ComponentPortfolioItem[] = [
         imgUrl: `/images/thumbnails/components/heading.png`,
     },
     {
+        title: 'Kbd',
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/kbd`,
+        imgUrl: `/images/thumbnails/components/kbd.png`,
+    },
+    {
         title: 'Icon',
         to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/icon`,
         imgUrl: `/images/thumbnails/components/icon.png`,
@@ -287,6 +292,11 @@ export const componentList: ComponentPortfolioItem[] = [
         title: 'Dropdown',
         to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/dropdown-menu`,
         imgUrl: `/images/thumbnails/components/dropdown.png`,
+    },
+    {
+        title: 'Context menu',
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/context-menu`,
+        imgUrl: `/images/thumbnails/components/context-menu.png`,
     },
     {
         title: 'Modal dialog',

@@ -13,7 +13,7 @@
                 :class="[
                     'fixed',
                     'inset-0',
-                    'z-[9999]',
+                    'z-9999',
                     'bg-background-overlay',
                     'backdrop-blur-sm',
                     'overflow-y-auto',
@@ -70,6 +70,10 @@
 </template>
 
 <script setup lang="ts">
+// State
+const previousBodyOverflow = ref<string | null>(null)
+const previousBodyPaddingRight = ref<string | null>(null)
+
 // Props
 const props = defineProps({
     modelValue: {
@@ -95,18 +99,6 @@ const props = defineProps({
 
 // Emits
 const emit = defineEmits(['update:modelValue', 'close'])
-
-// Watch for `modelValue` changes
-watch(
-    () => props.modelValue,
-    newValue => {
-        if (newValue) {
-            addEscListener() // Add Esc key listener
-        } else {
-            removeEscListener() // Remove Esc key listener
-        }
-    }
-)
 
 // Handlers
 const closeModal = () => {
@@ -135,23 +127,54 @@ const removeEscListener = () => {
     globalThis.removeEventListener('keydown', handleEscKey)
 }
 
+const lockScroll = () => {
+    if (previousBodyOverflow.value === null) {
+        previousBodyOverflow.value = document.body.style.overflow
+    }
+
+    if (previousBodyPaddingRight.value === null) {
+        previousBodyPaddingRight.value = document.body.style.paddingRight
+    }
+
+    const previousViewportWidth = document.documentElement.clientWidth
+    document.body.style.overflow = 'hidden'
+    const currentViewportWidth = document.documentElement.clientWidth
+    const layoutShiftWidth = Math.max(0, currentViewportWidth - previousViewportWidth)
+
+    const computedPaddingRight = Number.parseFloat(getComputedStyle(document.body).paddingRight)
+    const currentPaddingRight = Number.isNaN(computedPaddingRight) ? 0 : computedPaddingRight
+
+    if (layoutShiftWidth > 0) {
+        document.body.style.paddingRight = `${currentPaddingRight + layoutShiftWidth}px`
+    }
+}
+
+const unlockScroll = () => {
+    document.body.style.overflow = previousBodyOverflow.value ?? ''
+    document.body.style.paddingRight = previousBodyPaddingRight.value ?? ''
+
+    previousBodyOverflow.value = null
+    previousBodyPaddingRight.value = null
+}
+
+// Watch for `modelValue` changes
+watch(
+    () => props.modelValue,
+    newValue => {
+        if (newValue) {
+            addEscListener() // Add Esc key listener
+            lockScroll()
+        } else {
+            removeEscListener() // Remove Esc key listener
+            unlockScroll()
+        }
+    },
+    { immediate: true },
+)
+
 // Cleanup on component unmount
 onUnmounted(() => {
     removeEscListener()
-})
-
-// Locks and unlocks the background scroll while modal is open
-useHead(() => {
-    return props.modelValue
-        ? {
-              bodyAttrs: {
-                  class: 'modal-open',
-              },
-          }
-        : {
-              bodyAttrs: {
-                  class: '',
-              },
-          }
+    unlockScroll()
 })
 </script>

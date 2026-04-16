@@ -5,6 +5,17 @@ All notable changes to this package are documented in this file.
 Historical releases were reconstructed from git history (GitHub repository) and npm publish dates.
 Future releases will include detailed entries generated with Changesets.
 
+## 1.12.0 - 2026-04-16
+
+Release type: minor.
+Commits found in range: 1.
+
+### Added
+
+1. add ContextMenu and Kbd components ([9d4acce](https://github.com/imaginario27/air-ui/commit/9d4acce4d33fefec3eeab657bebfe5a5e4ff41ea))
+
+- Package: @imaginario27/air-ui-ds.
+
 ## 1.11.0 - 2026-04-15
 
 Release type: minor.

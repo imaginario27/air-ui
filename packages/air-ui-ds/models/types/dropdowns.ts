@@ -18,6 +18,12 @@ export interface DropdownMenuItem {
     children?: DropdownMenuItem[]
 }
 
+export interface ContextMenuItem extends DropdownMenuItem {
+    divider?: boolean
+    kbd?: string | string[]
+    children?: ContextMenuItem[]
+}
+
 export interface CollapsedDropdownItem {
     sectionTitle?: boolean
     text: string
