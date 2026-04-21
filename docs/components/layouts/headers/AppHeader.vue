@@ -234,9 +234,12 @@ const tabActiveIndex = computed(() => {
         case path.startsWith(`/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}`):
             return 1
 
-        case path.startsWith(`/${DocsAppSlug.DOCS}/${DocsAppSlug.UTILS}`):
+        case path.startsWith(`/${DocsAppSlug.DOCS}/${DocsAppSlug.BLOCKS}`):
             return 2
 
+        case path.startsWith(`/${DocsAppSlug.DOCS}/${DocsAppSlug.UTILS}`):
+            return 3
+        
         default:
             return 0
     }

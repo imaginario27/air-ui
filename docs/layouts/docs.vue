@@ -21,11 +21,11 @@
                 :tocSidebarWidth="Number(hasTableOfContent ? tocSidebarWidth : 0)"
             >
                 <ContentPageHeader 
-                    v-if="isComponentPage"
+                    v-if="isComponentPage || isBlocksPage"
                     :type="hasOvertitle ? PageTitleType.WITH_OVERTITLE: PageTitleType.SIMPLE" 
                     hasGoBackLink
-                    goBackText="Back to components"
-                    :goBackLink="`/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}`"
+                    :goBackText="goBackText"
+                    :goBackLink="goBackLink"
                     class="border-border-neutral-subtle"
                 />
 
@@ -33,8 +33,8 @@
                     v-else-if="isUtilsPage"
                     :type="hasOvertitle ? PageTitleType.WITH_OVERTITLE: PageTitleType.SIMPLE" 
                     :hasGoBackLink="isUtilsChildPage"
-                    goBackText="Back to utils"
-                    :goBackLink="`/${DocsAppSlug.DOCS}/${DocsAppSlug.UTILS}`"
+                    :goBackText="goBackText"
+                    :goBackLink="goBackLink"
                     class="border-border-neutral-subtle"
                 >   
                     <template v-if="hasPageMetadata" #bottom>
@@ -111,6 +111,15 @@ const isComponentPage = computed(() => {
     return new RegExp(`^${basePath}/.+`).test(path) // Has component name slug
 })
 
+const isBlocksPage = computed(() => {
+    const path = cleanPath.value
+    const basePath = `/${DocsAppSlug.DOCS}/${DocsAppSlug.BLOCKS}`
+
+    if (!path) return false
+
+    return new RegExp(`^${basePath}/.+`).test(path) // Has block name slug
+})
+
 const isUtilsRootPage = computed(() => {
     const path = cleanPath.value
     return !!path && path === `/${DocsAppSlug.DOCS}/${DocsAppSlug.UTILS}`
@@ -123,6 +132,30 @@ const isUtilsChildPage = computed(() => {
 
 const isUtilsPage = computed(() => {
     return isUtilsRootPage.value || isUtilsChildPage.value
+})
+
+const goBackLink = computed(() => {
+    if (isComponentPage.value) {
+        return `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}`
+    } else if (isBlocksPage.value) {
+        return `/${DocsAppSlug.DOCS}/${DocsAppSlug.BLOCKS}`
+    } else if (isUtilsChildPage.value) {
+        return `/${DocsAppSlug.DOCS}/${DocsAppSlug.UTILS}`
+    } else {
+        return undefined
+    }
+})
+
+const goBackText = computed(() => {
+    if (isComponentPage.value) {
+        return 'Back to components'
+    } else if (isBlocksPage.value) {
+        return 'Back to blocks'
+    } else if (isUtilsChildPage.value) {
+        return 'Back to utils'
+    } else {
+        return undefined
+    }
 })
 
 const expandedSidebarWidth = computed(() => {
@@ -139,6 +172,9 @@ const sidebarMenu = computed<SidebarMenuItem[]>(() => {
         case path.startsWith(`/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}`):
             return sidebarComponentsMenu
         
+        case path.startsWith(`/${DocsAppSlug.DOCS}/${DocsAppSlug.BLOCKS}`):
+            return sidebarBlocksMenu
+
         case path.startsWith(`/${DocsAppSlug.DOCS}/${DocsAppSlug.UTILS}`):
             return sidebarUtilsMenu
 
