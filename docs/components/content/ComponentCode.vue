@@ -31,15 +31,29 @@
             />
         </div>
         
-        <!-- Main wrapper -->
-        <div 
+        <!-- Main container wrapper -->
+        <div
+            ref="resizeHostRef"
             :class="[
-                'flex flex-col',
                 'w-full',
-                'border border-border-neutral-subtle',
-                'rounded'
+                'flex',
+                'relative',
+                'items-stretch',
             ]"
         >
+            <!-- Main wrapper -->
+            <div
+                ref="mainWrapperRef"
+                :class="[
+                    'flex flex-col',
+                    'w-full',
+                    'border border-border-neutral-subtle',
+                    hasActiveResizeHandle
+                        ? 'rounded-l rounded-r-none border-r-0'
+                        : 'rounded',
+                ]"
+                :style="mainWrapperStyle"
+            >
             <div 
                 v-if="showPlayground && options.length && isPlaygroundEnabled"
                 :class="[
@@ -98,17 +112,83 @@
                 v-if="!showCode"
                 :class="[
                     'flex',
+                    'relative',
                     'items-center',
                     'w-full',
                     'items-center justify-center',
-                    !showCode ? 'py-20 px-8' : 'p-8',
+                    !showCode ? (hasPreviewContainerPadding ? 'py-20 px-8' : 'p-0') : 'p-8',
                     'border-b border-border-neutral-subtle',
                     componentPreviewClass,
                     'rounded',
                 ]"
             >
-                <!-- Preview inner container -->
+                <template v-if="props.hasResizeHandler">
+                    <iframe
+                        ref="previewIframeRef"
+                        :srcdoc="previewIframeSrcDoc"
+                        class="w-full border-0 bg-transparent"
+                        :style="previewIframeStyle"
+                        title="Component preview"
+                        @load="onPreviewIframeLoad"
+                    />
+
+                    <!-- Hidden source node moved into iframe document -->
+                    <div class="hidden" aria-hidden="true">
+                        <div
+                            ref="iframePreviewContentRef"
+                            :class="[
+                                'flex',
+                                'items-center',
+                                'w-full',
+                                'items-center justify-center',
+                                isPreviewContentBoxed && 'p-4 md:p-8 border border-border-neutral-subtle rounded bg-background-container-surface',
+                            ]"
+                            :style="previewContentStyle"
+                        >
+                            <component 
+                                :is="component" 
+                                v-bind="{
+                                    ...componentProps,
+                                    ...componentEvents
+                                }"
+                            >
+                                <template
+                                    v-for="slotName in Object.keys(slots || {})"
+                                    :key="slotName"
+                                    v-slot:[slotName]="slotProps"
+                                >
+                                    <template v-if="slotComponentMap[slotName]">
+                                        <!-- If multiple slots components -->
+                                        <template v-if="Array.isArray(slotComponents?.[slotName]?.props) && slotComponents?.[slotName]?.multiple">
+                                            <component
+                                                :is="slotComponentMap[slotName]"
+                                                v-for="(itemProps, idx) in slotComponents?.[slotName]?.props"
+                                                :key="idx"
+                                                v-bind="{
+                                                    ...itemProps,
+                                                    ...mapSlotBindings(slotComponents?.[slotName]?.slotProps || {}, slotProps),
+                                                }"
+                                            />
+                                        </template>
+                                        
+                                        <!-- If single slot component  -->
+                                        <component
+                                            :is="slotComponentMap[slotName]"
+                                            v-else
+                                            v-bind="{
+                                                ...slotComponents?.[slotName]?.props,
+                                                ...mapSlotBindings(slotComponents?.[slotName]?.slotProps || {}, slotProps),
+                                            }"
+                                        />
+                                    </template>
+                                </template>
+                            </component>
+                        </div>
+                    </div>
+                </template>
+
                 <div
+                    v-else
                     :class="[
                         'flex',
                         'items-center',
@@ -187,7 +267,48 @@
                     <div v-html="code" />
                 </div>
             </div>
-        
+
+            </div>
+
+            <!-- Resize handler (preview only) -->
+            <div
+                v-if="hasActiveResizeHandle"
+                ref="resizeHandleRef"
+                :class="[
+                    'w-6',
+                    'shrink-0',
+                    'border border-border-neutral-subtle',
+                    'rounded-r',
+                    'cursor-col-resize',
+                    'select-none',
+                    'flex items-center justify-center',
+                    'bg-background-container-surface',
+                    isResizing && 'bg-background-neutral-subtlest',
+                ]"
+                @mousedown="startResize"
+                @touchstart="startResize"
+            >
+                <div 
+                    :class="[
+                        'w-1.5',
+                        'h-16',
+                        'rounded-full',
+                        'bg-background-neutral-subtle',
+                    ]" />
+            </div>
+
+            <!-- Drag shield prevents iframe from stealing pointer events while resizing -->
+            <div
+                v-if="hasActiveResizeHandle && isResizing"
+                :class="[
+                    'absolute inset-0 z-30',
+                    'cursor-col-resize',
+                    'touch-none select-none',
+                ]"
+                @mouseup="stopResize"
+                @touchend="stopResize"
+            />
+
         </div>
     </div>
 </template>
@@ -222,6 +343,10 @@ const props = defineProps({
         type: Boolean as PropType<boolean>,
         default: false,
     },
+    hasPreviewContainerPadding: {
+        type: Boolean as PropType<boolean>,
+        default: true,
+    },
     propsSettingsExcludedProps: {
         type: Array as PropType<string[]>,
         default: () => [],
@@ -246,6 +371,14 @@ const props = defineProps({
         type: String as PropType<'docs' | 'design-system'>,
         default: 'design-system',
     },
+    renderOriginalCode: {
+        type: String as PropType<'false' | 'full' | 'template' | 'script'>,
+        default: 'false',
+    },
+    hasResizeHandler: {
+        type: Boolean as PropType<boolean>,
+        default: false,
+    },
     enums: {
         type: Object as PropType<Record<string, string>>,
         default: () => ({}),
@@ -257,6 +390,304 @@ const code = ref('')
 const rawCode = ref('')
 const showCode = ref(false)
 const showPlayground = ref(false)
+const isResizing = ref(false)
+const resizeHostRef = ref<HTMLElement | null>(null)
+const resizeHandleRef = ref<HTMLElement | null>(null)
+const mainWrapperRef = ref<HTMLElement | null>(null)
+const mainWrapperWidth = ref<number | null>(null)
+const resizeOriginX = ref(0)
+const resizeOriginWidth = ref(0)
+const previewIframeRef = ref<HTMLIFrameElement | null>(null)
+const iframePreviewContentRef = ref<HTMLElement | null>(null)
+const previewIframeHeight = ref<number | null>(null)
+
+const RESIZE_HANDLER_WIDTH = 32
+const MIN_RESIZABLE_WIDTH = 320
+
+const previewIframeSrcDoc = `<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            background: transparent;
+        }
+
+        #component-code-iframe-root {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="component-code-iframe-root"></div>
+</body>
+</html>`
+
+let iframeContentObserver: MutationObserver | null = null
+let iframeResizeObserver: ResizeObserver | null = null
+let previewHeightRafId: number | null = null
+
+const schedulePreviewIframeHeightUpdate = () => {
+    if (!hasActiveResizeHandle.value) {
+        return
+    }
+
+    if (previewHeightRafId !== null) {
+        cancelAnimationFrame(previewHeightRafId)
+    }
+
+    previewHeightRafId = requestAnimationFrame(() => {
+        previewHeightRafId = null
+        updatePreviewIframeHeight()
+    })
+}
+
+const getClientX = (event: MouseEvent | TouchEvent) => {
+    if ('touches' in event) {
+        return event.touches[0]?.clientX ?? event.changedTouches[0]?.clientX ?? 0
+    }
+
+    return event.clientX
+}
+
+const clamp = (value: number, min: number, max: number) => {
+    return Math.min(Math.max(value, min), max)
+}
+
+const stopResize = () => {
+    if (!isResizing.value) {
+        return
+    }
+
+    isResizing.value = false
+
+    globalThis.removeEventListener('mousemove', onResizeMove)
+    globalThis.removeEventListener('mouseup', stopResize)
+    globalThis.removeEventListener('touchmove', onResizeMove)
+    globalThis.removeEventListener('touchend', stopResize)
+
+    document.body.style.removeProperty('user-select')
+    document.body.style.removeProperty('cursor')
+}
+
+const onResizeMove = (event: MouseEvent | TouchEvent) => {
+    if (!isResizing.value) {
+        return
+    }
+
+    if ('buttons' in event && event.buttons === 0) {
+        stopResize()
+        return
+    }
+
+    if ('touches' in event) {
+        event.preventDefault()
+    }
+
+    const hostWidth = resizeHostRef.value?.getBoundingClientRect().width ?? resizeOriginWidth.value
+    const handleWidth = resizeHandleRef.value?.getBoundingClientRect().width ?? RESIZE_HANDLER_WIDTH
+    const maxWidth = Math.max(hostWidth - handleWidth, MIN_RESIZABLE_WIDTH)
+
+    const deltaX = getClientX(event) - resizeOriginX.value
+    const nextWidth = clamp(resizeOriginWidth.value + deltaX, MIN_RESIZABLE_WIDTH, maxWidth)
+
+    // Return to fluid full width when reaching the available max.
+    if (nextWidth >= maxWidth - 1) {
+        mainWrapperWidth.value = null
+    } else {
+        mainWrapperWidth.value = nextWidth
+    }
+
+    if (hasActiveResizeHandle.value) {
+        schedulePreviewIframeHeightUpdate()
+    }
+}
+
+const startResize = (event: MouseEvent | TouchEvent) => {
+    if (!hasActiveResizeHandle.value) {
+        return
+    }
+
+    if ('button' in event && event.button !== 0) {
+        return
+    }
+
+    event.preventDefault()
+
+    const currentWidth = mainWrapperRef.value?.getBoundingClientRect().width ?? 0
+
+    if (!currentWidth) {
+        return
+    }
+
+    const hostWidth = resizeHostRef.value?.getBoundingClientRect().width ?? currentWidth
+    const handleWidth = resizeHandleRef.value?.getBoundingClientRect().width ?? RESIZE_HANDLER_WIDTH
+
+    resizeOriginX.value = getClientX(event)
+    resizeOriginWidth.value = mainWrapperWidth.value ?? currentWidth
+    isResizing.value = true
+
+    // Clamp start width if layout changed before dragging.
+    resizeOriginWidth.value = clamp(
+        resizeOriginWidth.value,
+        MIN_RESIZABLE_WIDTH,
+        Math.max(hostWidth - handleWidth, MIN_RESIZABLE_WIDTH),
+    )
+
+    document.body.style.userSelect = 'none'
+    document.body.style.cursor = 'col-resize'
+
+    globalThis.addEventListener('mousemove', onResizeMove)
+    globalThis.addEventListener('mouseup', stopResize)
+    globalThis.addEventListener('touchmove', onResizeMove, { passive: false })
+    globalThis.addEventListener('touchend', stopResize)
+}
+
+const disconnectIframeObservers = () => {
+    iframeContentObserver?.disconnect()
+    iframeContentObserver = null
+
+    iframeResizeObserver?.disconnect()
+    iframeResizeObserver = null
+
+    if (previewHeightRafId !== null) {
+        cancelAnimationFrame(previewHeightRafId)
+        previewHeightRafId = null
+    }
+}
+
+const copyPreviewStylesToIframe = (iframeDocument: Document) => {
+    if (iframeDocument.head.querySelector('meta[data-component-code-styles="true"]')) {
+        return
+    }
+
+    const marker = iframeDocument.createElement('meta')
+    marker.dataset.componentCodeStyles = 'true'
+    iframeDocument.head.appendChild(marker)
+
+    const styleNodes = document.querySelectorAll('link[rel="stylesheet"], style')
+
+    styleNodes.forEach(node => {
+        iframeDocument.head.appendChild(node.cloneNode(true))
+    })
+}
+
+const syncIframeTheme = (iframeDocument: Document) => {
+    iframeDocument.documentElement.classList.toggle('dark', isDark.value)
+    iframeDocument.body.classList.toggle('dark', isDark.value)
+    iframeDocument.documentElement.style.colorScheme = isDark.value ? 'dark' : 'light'
+
+    const dataTheme = document.documentElement.dataset.theme
+
+    if (dataTheme) {
+        iframeDocument.documentElement.dataset.theme = dataTheme
+    } else {
+        delete iframeDocument.documentElement.dataset.theme
+    }
+}
+
+const updatePreviewIframeHeight = () => {
+    if (!hasActiveResizeHandle.value) {
+        return
+    }
+
+    const iframe = previewIframeRef.value
+    const iframeDocument = iframe?.contentDocument
+
+    if (!iframe || !iframeDocument) {
+        return
+    }
+
+    const root = iframeDocument.getElementById('component-code-iframe-root')
+
+    if (!root) {
+        return
+    }
+
+    // Measure only the content wrapper. body/documentElement scrollHeight
+    // report the iframe's viewport height (which we set ourselves), so they
+    // would pin the height to its previous larger value when widening.
+    previewIframeHeight.value = Math.max(
+        Math.ceil(root.getBoundingClientRect().height),
+        root.scrollHeight,
+    )
+}
+
+const observePreviewIframeContent = () => {
+    const iframe = previewIframeRef.value
+    const iframeDocument = iframe?.contentDocument
+    const root = iframeDocument?.getElementById('component-code-iframe-root')
+
+    if (!iframe || !iframeDocument || !root) {
+        return
+    }
+
+    if (!iframeContentObserver && typeof MutationObserver !== 'undefined') {
+        iframeContentObserver = new MutationObserver(() => {
+            schedulePreviewIframeHeightUpdate()
+        })
+
+        iframeContentObserver.observe(root, {
+            subtree: true,
+            childList: true,
+            attributes: true,
+            characterData: true,
+        })
+    }
+
+    if (!iframeResizeObserver && typeof ResizeObserver !== 'undefined') {
+        iframeResizeObserver = new ResizeObserver(() => {
+            schedulePreviewIframeHeightUpdate()
+        })
+    }
+
+    // Observe only the content wrapper — observing body/documentElement would
+    // fire on every iframe viewport resize (which we trigger ourselves) and
+    // can mask real content shrink events.
+    iframeResizeObserver?.observe(root)
+}
+
+const syncPreviewToIframe = async () => {
+    if (!hasActiveResizeHandle.value) {
+        return
+    }
+
+    const iframeDocument = previewIframeRef.value?.contentDocument
+    const previewContent = iframePreviewContentRef.value
+
+    if (!iframeDocument || !previewContent) {
+        return
+    }
+
+    const root = iframeDocument.getElementById('component-code-iframe-root')
+
+    if (!root) {
+        return
+    }
+
+    copyPreviewStylesToIframe(iframeDocument)
+    syncIframeTheme(iframeDocument)
+
+    if (previewContent.parentNode !== root) {
+        root.appendChild(previewContent)
+    }
+
+    await nextTick()
+    schedulePreviewIframeHeightUpdate()
+    observePreviewIframeContent()
+}
+
+const onPreviewIframeLoad = () => {
+    void syncPreviewToIframe()
+}
+
+onBeforeUnmount(() => {
+    stopResize()
+    disconnectIframeObservers()
+})
 
 // Dynamic component
 const designSystemComponents = import.meta.glob<{ default: Component }>(
@@ -267,10 +698,26 @@ const docsComponents = import.meta.glob<{ default: Component }>(
     '/components/**/*.vue'
 )
 
+const designSystemComponentsRaw = import.meta.glob('@air-ui/components/**/*.vue', {
+    query: '?raw',
+    import: 'default',
+}) as Record<string, () => Promise<string>>
+
+const docsComponentsRaw = import.meta.glob('/components/**/*.vue', {
+    query: '?raw',
+    import: 'default',
+}) as Record<string, () => Promise<string>>
+
 const componentsMap = computed(() => {
     return props.componentSource === 'design-system'
         ? designSystemComponents
         : docsComponents
+})
+
+const componentsRawMap = computed(() => {
+    return props.componentSource === 'design-system'
+        ? designSystemComponentsRaw
+        : docsComponentsRaw
 })
 
 // Dynamic component resolver
@@ -450,6 +897,63 @@ const escapeHtml = (str: string) =>
         .replace(/"/g, '&quot;')
         .replace(/'/g, '&#39;')
 
+type OriginalCodeRenderMode = 'false' | 'full' | 'template' | 'script'
+
+const normalizeOriginalCodeRenderMode = (mode: unknown): OriginalCodeRenderMode => {
+    const normalizedMode = String(mode ?? 'false').toLowerCase()
+
+    if (normalizedMode === 'full' || normalizedMode === 'template' || normalizedMode === 'script') {
+        return normalizedMode
+    }
+
+    return 'false'
+}
+
+const getOriginalSource = async () => {
+    const normalizedPath = props.srcDir?.replace(/^\/+/, '')
+
+    if (!normalizedPath) {
+        return ''
+    }
+
+    const matchedPath = Object.keys(componentsRawMap.value).find(path =>
+        path.endsWith(normalizedPath)
+    )
+
+    const loader = matchedPath ? componentsRawMap.value[matchedPath] : null
+
+    if (!loader) {
+        console.warn(`[component previewer] Raw component source not found: ${props.srcDir}`)
+        return ''
+    }
+
+    return await loader()
+}
+
+const getOriginalCodeBlock = async (mode: OriginalCodeRenderMode) => {
+    if (mode === 'false') {
+        return ''
+    }
+
+    const source = await getOriginalSource()
+
+    if (!source) {
+        return ''
+    }
+
+    if (mode === 'full') {
+        return source.trim()
+    }
+
+    if (mode === 'template') {
+        const templateMatch = source.match(/<template\b[\s\S]*?<\/template>/i)
+        return templateMatch?.[0]?.trim() || ''
+    }
+
+    const scriptMatches = source.match(/<script\b[\s\S]*?<\/script>/gi)
+    return scriptMatches?.map(block => block.trim()).join('\n\n') || ''
+}
+
 // Sets the correct enum value based on the provided enums mapping
 const toEnumKey = (value: unknown) => {
     return String(value)
@@ -461,6 +965,29 @@ const toEnumKey = (value: unknown) => {
 
 // Code generation for <pre>
 const generateCode = async () => {
+    const originalCodeMode = normalizeOriginalCodeRenderMode(props.renderOriginalCode)
+    const originalCodeBlock = await getOriginalCodeBlock(originalCodeMode)
+
+    if (originalCodeBlock) {
+        const formattedOriginalSource = await $prettier.format(originalCodeBlock, {
+            singleAttributePerLine: true,
+            parser: 'vue',
+            htmlWhitespaceSensitivity: 'ignore',
+            tabWidth: 4,
+            useTabs: false,
+            semi: false,
+        })
+
+        rawCode.value = formattedOriginalSource
+
+        code.value = highlighter.codeToHtml(formattedOriginalSource, {
+            lang: 'vue',
+            theme: 'github-dark',
+        })
+
+        return
+    }
+
     const componentName = props.srcDir?.split('/').pop()?.replace('.vue', '') || 'Component'
 
     // Props that should be externalized into <script setup> variables
@@ -564,116 +1091,115 @@ ${scriptLines.join('\n')}
     let templateBlock = ''
 
     // If component uses slots, use an open tag with children instead of self-closing
-    if (props.slots && Object.keys(props.slots).length > 0) {
-    // Opening tag
-    templateBlock += `<template>
+    if (!templateBlock && props.slots && Object.keys(props.slots).length > 0) {
+        // Opening tag
+        templateBlock += `<template>
   <${componentName}
 ${allLines.join('\n')}
   >`
 
-    // Slots - Renders the slot component with possible bindings as code
-    for (const slotName of Object.keys(props.slots || {})) {
-        const hasSlotComponent = props.slotComponents?.[slotName]
+        // Slots - Renders the slot component with possible bindings as code
+        for (const slotName of Object.keys(props.slots || {})) {
+            const hasSlotComponent = props.slotComponents?.[slotName]
 
-        if (slotName === 'default') {
-            if (hasSlotComponent) {
-                const slotComp = props.slotComponents[slotName]
-                if (!slotComp) return
-                const compName = slotComp.srcDir.split('/').pop()?.replace('.vue', '')
+            if (slotName === 'default') {
+                if (hasSlotComponent) {
+                    const slotComp = props.slotComponents[slotName]
+                    if (!slotComp) return
+                    const compName = slotComp.srcDir.split('/').pop()?.replace('.vue', '')
 
-                // If multiple slot components: render with v-for
-                if (Array.isArray(slotComp.props) && slotComp.multiple) {
-                    const varName = String(slotName) === 'items' ? 'items' : `${slotName}Data`
+                    // If multiple slot components: render with v-for
+                    if (Array.isArray(slotComp.props) && slotComp.multiple) {
+                        const varName = String(slotName) === 'items' ? 'items' : `${slotName}Data`
 
-                    // Register variable as external for <script setup>
-                    externalProps.push(varName)
-                    externalTypes.push('any[]')
+                        // Register variable as external for <script setup>
+                        externalProps.push(varName)
+                        externalTypes.push('any[]')
 
-                    templateBlock += `\n        <${compName}
+                        templateBlock += `\n        <${compName}
                             v-for="(item, index) in ${varName}"
                             :key="index"
                             v-bind="item"
                         />`
-                }
-                else {
-                    // Single slot component: bind static + dynamic props
-                    const staticProps = Object.entries(slotComp.props || {})
-                    const boundSlotProps = Object.entries(slotComp.slotProps || {})
+                    } else {
+                        // Single slot component: bind static + dynamic props
+                        const staticProps = Object.entries(slotComp.props || {})
+                        const boundSlotProps = Object.entries(slotComp.slotProps || {})
 
-                    const propsString = [
-                        ...staticProps.map(([k, v]) =>
-                            typeof v === 'string' ? `${k}="${v}"` : `:${k}='${JSON.stringify(v)}'`
-                        ),
-                        ...boundSlotProps.map(([slotKey, directive]) => `${directive}="${slotKey}"`),
-                    ].join(' ')
+                        const propsString = [
+                            ...staticProps.map(([k, v]) =>
+                                typeof v === 'string' ? `${k}="${v}"` : `:${k}='${JSON.stringify(v)}'`
+                            ),
+                            ...boundSlotProps.map(([slotKey, directive]) => `${directive}="${slotKey}"`),
+                        ].join(' ')
 
-                    templateBlock += `\n        <${compName} ${propsString} />`
+                        templateBlock += `\n        <${compName} ${propsString} />`
+                    }
+                } else {
+                    // If no slot component provided, use raw slot content (string fallback)
+                    templateBlock += `\n    ${props.slots[slotName]}`
                 }
             } else {
-                // If no slot component provided, use raw slot content (string fallback)
-                templateBlock += `\n    ${props.slots[slotName]}`
-            }
-        } else {
-            const slotComp = props.slotComponents?.[slotName]
-            const compName = slotComp?.srcDir.split('/').pop()?.replace('.vue', '')
+                const slotComp = props.slotComponents?.[slotName]
+                const compName = slotComp?.srcDir.split('/').pop()?.replace('.vue', '')
 
-            // Extract scoped slot bindings
-            const slotPropsBindings = slotComp?.slotProps || {}
-            const scopedSlotKeys = Object.keys(slotPropsBindings)
+                // Extract scoped slot bindings
+                const slotPropsBindings = slotComp?.slotProps || {}
+                const scopedSlotKeys = Object.keys(slotPropsBindings)
 
-            // Begin <template #slotName> with optional slot prop destructure
-            if (scopedSlotKeys.length > 0) {
-                templateBlock += `\n    <template #${slotName}="{ ${scopedSlotKeys.join(', ')} }">`
-            } else {
-                templateBlock += `\n    <template #${slotName}>`
-            }
+                // Begin <template #slotName> with optional slot prop destructure
+                if (scopedSlotKeys.length > 0) {
+                    templateBlock += `\n    <template #${slotName}="{ ${scopedSlotKeys.join(', ')} }">`
+                } else {
+                    templateBlock += `\n    <template #${slotName}>`
+                }
 
-            // If it's an array of slot components
-            if (Array.isArray(slotComp?.props) && slotComp?.multiple) {
-                const varName = slotName === 'items' ? 'items' : `${slotName}Data`
-                externalProps.push(varName)
-                externalTypes.push('any[]')
+                // If it's an array of slot components
+                if (Array.isArray(slotComp?.props) && slotComp?.multiple) {
+                    const varName = slotName === 'items' ? 'items' : `${slotName}Data`
+                    externalProps.push(varName)
+                    externalTypes.push('any[]')
 
-                templateBlock += `\n        <${compName}
+                    templateBlock += `\n        <${compName}
                         v-for="(item, index) in ${varName}"
                         :key="index"
                         v-bind="item"
                     />`
-            } 
-            
-            // Single slot component with bindings
-            else if (slotComp) {
-                const staticProps = Object.entries(slotComp.props || {})
-                const boundSlotProps = Object.entries(slotPropsBindings)
+                }
 
-                const propsString = [
-                    ...staticProps.map(([k, v]) =>
-                        typeof v === 'string'
-                            ? `${k}="${v}"`
-                            : `:${k}='${JSON.stringify(v)}'`
-                    ),
-                    ...boundSlotProps.map(([slotKey, binding]) => {
-                        return `${binding}="${slotKey}"`
-                    }),
-                ].join(' ')
+                // Single slot component with bindings
+                else if (slotComp) {
+                    const staticProps = Object.entries(slotComp.props || {})
+                    const boundSlotProps = Object.entries(slotPropsBindings)
 
-                templateBlock += `\n        <${compName} ${propsString} />`
-            } else {
-                // If no component, use raw fallback string content
-                templateBlock += `\n        ${props.slots[slotName]}`
+                    const propsString = [
+                        ...staticProps.map(([k, v]) =>
+                            typeof v === 'string'
+                                ? `${k}="${v}"`
+                                : `:${k}='${JSON.stringify(v)}'`
+                        ),
+                        ...boundSlotProps.map(([slotKey, binding]) => {
+                            return `${binding}="${slotKey}"`
+                        }),
+                    ].join(' ')
+
+                    templateBlock += `\n        <${compName} ${propsString} />`
+                } else {
+                    // If no component, use raw fallback string content
+                    templateBlock += `\n        ${props.slots[slotName]}`
+                }
+
+                templateBlock += `\n    </template>`
             }
-
-            templateBlock += `\n    </template>`
         }
-    }
 
-    // Closing tag
-    templateBlock += `
+        // Closing tag
+        templateBlock += `
   </${componentName}>
 </template>`
-    } else {
-    // Self-closing version if no slots
-    templateBlock += `<template>
+    } else if (!templateBlock) {
+        // Self-closing version if no slots
+        templateBlock += `<template>
   <${componentName}
 ${allLines.join('\n')}
   />
@@ -725,5 +1251,48 @@ const previewContentStyle = computed(() => {
     return {
         maxWidth: `${props.previewContentMaxWidth}px`,
     }
+})
+
+const hasActiveResizeHandle = computed(() => {
+    return props.hasResizeHandler && !showCode.value
+})
+
+const previewIframeStyle = computed(() => {
+    if (!hasActiveResizeHandle.value) {
+        return undefined
+    }
+
+    return {
+        height: `${previewIframeHeight.value ?? 1}px`,
+    }
+})
+
+const mainWrapperStyle = computed(() => {
+    if (!hasActiveResizeHandle.value || !mainWrapperWidth.value) {
+        return undefined
+    }
+
+    return {
+        width: `${mainWrapperWidth.value}px`,
+    }
+})
+
+watch(hasActiveResizeHandle, async isActive => {
+    if (!isActive) {
+        disconnectIframeObservers()
+        previewIframeHeight.value = null
+        return
+    }
+
+    await nextTick()
+    await syncPreviewToIframe()
+})
+
+watch(isDark, async () => {
+    if (!hasActiveResizeHandle.value) {
+        return
+    }
+
+    await syncPreviewToIframe()
 })
 </script>

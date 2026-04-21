@@ -13,6 +13,10 @@ export interface GroupedComponentPortfolioItem {
     items: ComponentPortfolioItem[]
 }
 
+export type BlockPortfolioItem = ComponentPortfolioItem
+
+export type GroupedBlockPortfolioItem = GroupedComponentPortfolioItem
+
 export interface GroupedUtilPortfolioItem {
     title: string
     sectionIcon?: string

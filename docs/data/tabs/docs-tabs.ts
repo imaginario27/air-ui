@@ -10,6 +10,11 @@ export const docTabs: TabItem[] = [
         icon: 'mdi:cube-outline',
     },
     {
+        text: 'Blocks',
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.BLOCKS}`,
+        icon: 'mdi:application-parentheses-outline',
+    },
+    {
         text: 'Utils',
         to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.UTILS}`,
         icon: 'mdi:tools',
