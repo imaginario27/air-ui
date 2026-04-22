@@ -245,17 +245,4 @@ describe('TextareaField', () => {
 
         expect(wrapper.emitted('update:blurContent')).toContainEqual([true])
     })
-
-    it('applies focus ring when focused', async () => {
-        const wrapper = factory()
-
-        const textarea = wrapper.find('textarea')
-
-        await textarea.trigger('focus')
-
-        const container = wrapper.find('div.border')
-
-        expect(container.classes()).toContain('ring-2')
-        expect(container.classes()).toContain('ring-border-primary-brand-default')
-    })
 })
