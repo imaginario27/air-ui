@@ -28,7 +28,7 @@
                 minHeightClass,
                 autoResize && maxHeightClass,
                 hasError ? 'border-border-error text-text-error' : 'border-border-default',
-                isFocused && 'ring-2 ring-border-primary-brand-default',
+                isFocused && 'ring-2 focus-within:ring-inset focus-within:ring-border-primary-brand-default',
                 textareaClass,
             ]"
         >

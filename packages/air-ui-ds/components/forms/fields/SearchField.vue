@@ -32,7 +32,7 @@
                 'text-text-default',
                 'border-border-default',
                 inputCustomClass,
-                isFocused && 'ring-2 ring-border-primary-brand-default',
+                isFocused && 'ring-2 ring-inset ring-border-primary-brand-default',
                 disabled ? 'bg-background-neutral-disabled cursor-not-allowed' : 'bg-neutral-white',
             ]"
         >
