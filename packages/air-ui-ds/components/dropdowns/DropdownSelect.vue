@@ -129,7 +129,7 @@
                             'sticky',
                             'top-0', 
                             'bg-background-container-surface', 
-                            'z-10'
+                            'z-10',
                         ]"
                     >
                         <input
@@ -144,8 +144,12 @@
                                 'border-border-default', 
                                 'rounded-sm', 
                                 'text-sm', 
-                                searchQuery ? 'text-text-default' : 'text-text-neutral-subtle'
+                                'outline-none',
+                                searchQuery ? 'text-text-default' : 'text-text-neutral-subtle',
+                                isSearchFieldFocused && 'ring-2 focus-within:ring-inset focus-within:ring-border-primary-brand-default',
                             ]"
+                            @focus="isSearchFieldFocused = true"
+                            @blur="isSearchFieldFocused = false"
                         >
                     </div>
 
@@ -320,6 +324,7 @@ const dropdownClass = computed(() => {
 const isImageLoaded = ref(true)
 const selected = ref<SelectOption[] | SelectOption | null>(props.multiple ? [] : null)
 const searchQuery = ref('')
+const isSearchFieldFocused = ref(false)
 
 // Handlers for image load and error
 const handleImageLoad = () => {

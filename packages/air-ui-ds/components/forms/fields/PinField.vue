@@ -43,7 +43,7 @@
                     hasError
                         ? 'border-border-error'
                         : 'border-border-default',
-                    focusedIndex === index && 'ring-2 ring-border-primary-brand-default',
+                    focusedIndex === index && 'ring-2 focus-within:ring-inset focus-within:ring-border-primary-brand-default',
                     disabled
                         ? 'bg-background-neutral-disabled cursor-not-allowed'
                         : 'bg-neutral-white',

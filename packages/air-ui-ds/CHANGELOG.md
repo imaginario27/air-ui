@@ -5,6 +5,17 @@ All notable changes to this package are documented in this file.
 Historical releases were reconstructed from git history (GitHub repository) and npm publish dates.
 Future releases will include detailed entries generated with Changesets.
 
+## 1.12.2 - 2026-04-22
+
+Release type: patch.
+Commits found in range: 1.
+
+### Fixed
+
+1. fix focus ring in form fields and icon span rendering when icon is not set ([4b0d548](https://github.com/imaginario27/air-ui/commit/4b0d5484271d25db6902eb1888a532291830fa4d))
+
+- Package: @imaginario27/air-ui-ds.
+
 ## 1.12.1 - 2026-04-16
 
 Release type: patch.
