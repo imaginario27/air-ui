@@ -6,7 +6,7 @@ import DropdownMenuContextItem from '@/components/dropdowns/DropdownMenuContextI
 import DropdownMenuContextItemsTree from '@/components/dropdowns/DropdownMenuContextItemsTree.vue'
 import DropdownSectionItem from '@/components/dropdowns/DropdownSectionItem.vue'
 import Divider from '@/components/dividers/Divider.vue'
-import Kbd from '@/components/content/Kbd.vue'
+import Kbd from '@/components/kbds/Kbd.vue'
 
 const wrappers: Array<ReturnType<typeof mount>> = []
 

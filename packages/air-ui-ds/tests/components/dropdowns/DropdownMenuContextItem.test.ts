@@ -1,7 +1,7 @@
 import { mount } from '@vue/test-utils'
 import { NuxtLink } from '#components'
 import DropdownMenuContextItem from '@/components/dropdowns/DropdownMenuContextItem.vue'
-import Kbd from '@/components/content/Kbd.vue'
+import Kbd from '@/components/kbds/Kbd.vue'
 import { DropdownActionType, DropdownItemType } from '~/models/enums/dropdowns'
 import { PrefetchOn } from '@/models/enums/prefetch'
 
