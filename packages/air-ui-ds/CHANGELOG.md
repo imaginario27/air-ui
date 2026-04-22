@@ -5,6 +5,17 @@ All notable changes to this package are documented in this file.
 Historical releases were reconstructed from git history (GitHub repository) and npm publish dates.
 Future releases will include detailed entries generated with Changesets.
 
+## 1.13.0 - 2026-04-22
+
+Release type: minor.
+Commits found in range: 1.
+
+### Added
+
+1. update MetricCard with new props ([4841cb3](https://github.com/imaginario27/air-ui/commit/4841cb3e6c0a8385825ff91f505b9e5ca732ca44))
+
+- Package: @imaginario27/air-ui-ds.
+
 ## 1.12.2 - 2026-04-22
 
 Release type: patch.
