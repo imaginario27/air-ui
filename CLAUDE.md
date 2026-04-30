@@ -33,6 +33,16 @@ Commits: Conventional Commits enforced by commitlint + husky. Scope must be `ds`
 - **Shared enums + types** live in [packages/air-ui-ds/models/](packages/air-ui-ds/models/) (`enums/`, `types/`). Utils-only types live in [packages/air-ui-utils/models/types/](packages/air-ui-utils/models/types/). Both are globally available via `imports.dirs: ["models/**"]`.
 - **Design tokens** flow: [packages/air-ui-ds/assets/css/theme/](packages/air-ui-ds/assets/css/theme/) (primitives.css → colors.css → ui-theme.css CSS vars) → declared under `@theme { … }` in [packages/air-ui-ds/assets/css/main.css](packages/air-ui-ds/assets/css/main.css) (Tailwind v4, no `tailwind.config.*`) → consumed as `bg-background-*`, `text-text-*`, `border-border-*`, `text-icon-*` utilities. Never introduce a new raw color; extend the theme tokens instead.
 
+## Reuse before creating (no duplicates, no overengineering)
+
+Before writing any new util, composable, store, component, enum, or type, **search the workspace for an existing equivalent and reuse/extend it**. Duplicates are easy to introduce here because Nuxt auto-import spans `air-ui-utils` → `air-ui-ds` → `docs`.
+
+- **Utils / composables / stores** — grep [packages/air-ui-utils/utils/](packages/air-ui-utils/utils/), [packages/air-ui-utils/composables/](packages/air-ui-utils/composables/), and any `stores/` dir before adding a new file. Search by name *and* by behavior (e.g. before adding `formatDate`, also look for `toDate`, `dateString`, `humanizeDate`).
+- **Components** — check the relevant [packages/air-ui-ds/components/](packages/air-ui-ds/components/) `<category>/` dir before adding a new component. Prefer extending an existing component with a prop/slot over forking a near-duplicate.
+- **Enums / types** — check [packages/air-ui-ds/models/enums/](packages/air-ui-ds/models/enums/), [packages/air-ui-ds/models/types/](packages/air-ui-ds/models/types/), and [packages/air-ui-utils/models/types/](packages/air-ui-utils/models/types/) before declaring a new one.
+- **Smallest viable change** — don't add abstractions, options, wrappers, or generic helpers the task didn't ask for. Three similar lines is fine; a premature abstraction is not.
+- **If a new piece of code is genuinely needed**, briefly state what was searched and why no existing one fit before writing it.
+
 ## Adding a new component (checklist)
 
 1. Create `packages/air-ui-ds/components/<category>/<ComponentName>.vue` (PascalCase filename = auto-imported name). Category dirs already exist (alerts, badges, buttons, modals, …).
