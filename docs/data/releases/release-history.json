@@ -1,12 +1,43 @@
 {
-  "generatedAt": "2026-04-22T12:25:35.685Z",
+  "generatedAt": "2026-05-19T12:27:03.921Z",
   "source": "github-git-history+npm-publish-dates",
   "githubBaseUrl": "https://github.com/imaginario27/air-ui",
   "packages": [
     {
       "packageName": "@imaginario27/air-ui-ds",
-      "latestVersion": "1.13.0",
+      "latestVersion": "1.13.1",
       "entries": [
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.13.1",
+          "publishedAt": "2026-05-19",
+          "releaseType": "patch",
+          "notes": [
+            "make mobile breakpoint behavior configurable"
+          ],
+          "metadata": {
+            "commitCount": 1,
+            "commits": [
+              {
+                "sha": "8cd4eb6047046ba64f96177f284e0ee2db910cc3",
+                "shortSha": "8cd4eb6",
+                "date": "2026-05-19",
+                "subject": "feat(ds): make mobile breakpoint behavior configurable",
+                "normalizedSubject": "make mobile breakpoint behavior configurable",
+                "type": "added",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/8cd4eb6047046ba64f96177f284e0ee2db910cc3",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 1,
+              "fixed": 0,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
         {
           "packageName": "@imaginario27/air-ui-ds",
           "version": "1.13.0",
