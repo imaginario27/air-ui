@@ -3,6 +3,10 @@
 .cache
 dist
 
+# Nuxt
+.nuxt
+.nuxtrc
+
 # Node dependencies
 node_modules
 
