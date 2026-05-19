@@ -2,8 +2,14 @@ import { mount } from '@vue/test-utils'
 import { ref } from 'vue'
 import ButtonPagination from '@/components/pagination/ButtonPagination.vue'
 
+const { useIsMobileSpy } = vi.hoisted(() => ({
+    useIsMobileSpy: vi.fn()
+}))
 vi.mock('@/composables/useIsMobile', () => ({
-    useIsMobile: () => ({ isMobile: ref(false) })
+    useIsMobile: (breakpoint?: unknown) => {
+        useIsMobileSpy(breakpoint)
+        return { isMobile: ref(false) }
+    }
 }))
 
 const defaultRowsPerPageOptions = [
@@ -27,6 +33,22 @@ const factory = (props = {}) => {
 }
 
 describe('ButtonPagination', () => {
+    it('forwards mobileBreakpoint to useIsMobile (default 1024)', () => {
+        useIsMobileSpy.mockClear()
+        factory()
+        const breakpointArg = useIsMobileSpy.mock.calls.at(-1)?.[0]
+        expect(typeof breakpointArg).toBe('function')
+        expect(breakpointArg()).toBe(1024)
+    })
+
+    it('forwards a custom mobileBreakpoint to useIsMobile', () => {
+        useIsMobileSpy.mockClear()
+        factory({ mobileBreakpoint: 1280 })
+        const breakpointArg = useIsMobileSpy.mock.calls.at(-1)?.[0]
+        expect(typeof breakpointArg).toBe('function')
+        expect(breakpointArg()).toBe(1280)
+    })
+
     it('renders default multiple-page text if no custom text is provided', () => {
         const wrapper = factory()
         expect(wrapper.text()).toContain('Showing 11 to 20')
@@ -143,24 +165,24 @@ describe('ButtonPagination', () => {
         expect(wrapper.emitted('update:itemsPerPage')).toContainEqual([25])
     })
 
-    it('renders mobile and desktop RowsPerPage based on layout', () => {
+    it('hides the mobile-position RowsPerPage and shows the desktop one when not mobile', () => {
         const wrapper = factory()
 
         const rows = wrapper.findAllComponents({ name: 'RowsPerPage' })
 
-        const mobile = rows.find(r => r.classes().includes('lg:hidden'))
-        const desktop = rows.find(r => r.classes().includes('lg:flex'))
-
-        expect(mobile).toBeDefined()
-        expect(desktop).toBeDefined()
+        expect(rows.length).toBe(2)
+        // First in template = mobile-position, hidden on desktop
+        expect(rows[0].classes()).toContain('hidden')
+        // Second = desktop-position, visible on desktop
+        expect(rows[1].classes()).not.toContain('hidden')
     })
 
     it('does not render desktop RowsPerPage if showRowsPerPage is false', () => {
         const wrapper = factory({ showRowsPerPage: false })
         const rows = wrapper.findAllComponents({ name: 'RowsPerPage' })
-        const desktop = rows.find(r => r.classes().includes('lg:flex'))
 
-        expect(desktop).toBeUndefined()
+        // Only the always-rendered mobile-position RowsPerPage remains
+        expect(rows.length).toBe(1)
     })
 })
 

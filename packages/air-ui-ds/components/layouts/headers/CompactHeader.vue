@@ -34,12 +34,12 @@
                         && sidebarTogglePosition === SidebarTogglePosition.LOGO_LEFT_SIDE
                     "
                 >
-                    <ActionIconButton 
+                    <ActionIconButton
                         :icon="isMobileSidebarOpen ? 'mdi:menu-open' : 'mdi:menu-close'"
-                        class="lg:hidden shadow-sm"
+                        :class="['shadow-sm', !isMobile && 'hidden']"
                         @click="toggleMobileSidebar"
                     />
-                </template>  
+                </template>
 
                 <slot name="header-logo" />
 
@@ -49,20 +49,20 @@
                         && sidebarTogglePosition === SidebarTogglePosition.LOGO_RIGHT_SIDE
                     "
                 >
-                    <ActionIconButton 
+                    <ActionIconButton
                         :icon="isMobileSidebarOpen ? 'mdi:menu-open' : 'mdi:menu-close'"
-                        class="lg:hidden shadow-sm"
+                        :class="['shadow-sm', !isMobile && 'hidden']"
                         @click="toggleMobileSidebar"
                     />
-                </template> 
+                </template>
             </div>
 
             <!-- Navigation -->
             <div class="flex gap-3 items-center xs:w-auto">
                 <!-- Horizontal menu -->
-                <NavMenu 
-                    v-if="navMenuItems.length"
-                    :menuItems="navMenuItems" 
+                <NavMenu
+                    v-if="navMenuItems.length && !isMobile"
+                    :menuItems="navMenuItems"
                     :detectActive="detectActiveMenuItem"
                     :submenuYOffset
                     :submenuDropdownClass
@@ -74,7 +74,7 @@
                 <!-- Header actions -->
                 <div 
                     v-if="$slots['header-actions']"
-                    class="gap-3 items-center hidden lg:flex"
+                    :class="['gap-3 items-center', isMobile ? 'hidden' : 'flex']"
                 >
                     <slot name="header-actions" />
                 </div>
@@ -117,9 +117,9 @@
                         :positionYOffset="submenuYOffset"
                     >
                         <template #activator>
-                            <ActionIconButton 
+                            <ActionIconButton
                                 icon="mdi:menu"
-                                class="lg:hidden shadow-sm"
+                                class="shadow-sm"
                             />
                         </template>
                         <template #items>
@@ -197,6 +197,10 @@ const props = defineProps({
         type: Array as PropType<DropdownMenuItem[]>,
         default: () => [],
     },
+    mobileBreakpoint: {
+        type: Number as PropType<number>,
+        default: 1024,
+    },
     showMobileMenuToggle: {
         type: Boolean as PropType<boolean>,
         default: true,
@@ -232,18 +236,18 @@ const props = defineProps({
     },
     navMenuClass: {
         type: String as PropType<string>,
-        default: 'hidden lg:flex'
+        default: ''
     },
     navMobileMenuClass: {
         type: String as PropType<string>,
-        default: 'lg:hidden min-w-[280px]'
+        default: 'min-w-[280px]'
     },
     headerClass: String as PropType<string>,
 })
 
 // Composables
 const { isMobileSidebarOpen, toggleMobileSidebar } = useMobileSidebar()
-const { isMobile } = useIsMobile()
+const { isMobile } = useIsMobile(() => props.mobileBreakpoint)
 
 const getSubmenuItems = (item: MenuItem): NonNullable<MenuItem['children']> => {
     return item.children ?? []

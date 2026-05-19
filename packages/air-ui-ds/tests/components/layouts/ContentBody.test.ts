@@ -8,15 +8,17 @@ vi.mock('@/composables/useMobileSidebar', () => ({
     })
 }))
 
+const { useIsMobileSpy } = vi.hoisted(() => ({
+    useIsMobileSpy: vi.fn(() => ({ isMobile: { value: false } }))
+}))
 vi.mock('@/composables/useIsMobile', () => ({
-    useIsMobile: () => ({
-        isMobile: { value: false }
-    })
+    useIsMobile: useIsMobileSpy
 }))
 
 type Props = {
     hasSidebar?: boolean
     sidebarWidth?: number
+    mobileBreakpoint?: number
 }
 
 const mountComponent = (props: Props = {}, options: MountingOptions<any> = {}) => {
@@ -40,6 +42,22 @@ describe('ContentBody.vue', () => {
         })
 
         expect(wrapper.find('.slot-test').text()).toBe('Slot content')
+    })
+
+    it('forwards mobileBreakpoint to useIsMobile (default 1024)', () => {
+        useIsMobileSpy.mockClear()
+        mountComponent()
+        const breakpointArg = useIsMobileSpy.mock.calls.at(-1)?.[0]
+        expect(typeof breakpointArg).toBe('function')
+        expect(breakpointArg()).toBe(1024)
+    })
+
+    it('forwards a custom mobileBreakpoint to useIsMobile', () => {
+        useIsMobileSpy.mockClear()
+        mountComponent({ mobileBreakpoint: 1280 })
+        const breakpointArg = useIsMobileSpy.mock.calls.at(-1)?.[0]
+        expect(typeof breakpointArg).toBe('function')
+        expect(breakpointArg()).toBe(1280)
     })
 
     it('has no transform or margin style when hasSidebar is false', () => {

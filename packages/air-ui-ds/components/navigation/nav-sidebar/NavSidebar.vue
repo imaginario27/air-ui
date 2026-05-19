@@ -14,8 +14,7 @@
             'py-4',
             'border-r border-border-default',
             'transition-all duration-300 ease-in-out',
-            isMobileSidebarOpen ? 'translate-x-0' : '-translate-x-full',
-            'lg:translate-x-0', // Always visible on large screens
+            (!isMobile || isMobileSidebarOpen) ? 'translate-x-0' : '-translate-x-full',
         ]"
     >
         <!-- Collapse & Close Buttons -->
@@ -32,7 +31,7 @@
                 <ActionIconButton 
                     v-if="showMobileSidebarClose && isMobile && !isCollapsed"
                     :icon="mobileSidebarCloseIcon"
-                    class="flex sm:hidden"
+                    class="flex"
                     :size="ButtonSize.SM"
                     @click="toggleMobileSidebar()"
                 />
@@ -294,6 +293,10 @@ const props = defineProps({
         type: String as PropType<string>,
         default: 'mdi:close-circle',
     },
+    mobileBreakpoint: {
+        type: Number as PropType<number>,
+        default: 1024,
+    },
     isFixed: {
         type: Boolean as PropType<boolean>,
         default: true,
@@ -354,7 +357,7 @@ const {
     setSidebarCollapsed,
     toggleSidebarState,
 } = useSidebar()
-const { isMobile } = useIsMobile()
+const { isMobile } = useIsMobile(() => props.mobileBreakpoint)
 
 const MAX_NESTING_LEVEL = 3
 
