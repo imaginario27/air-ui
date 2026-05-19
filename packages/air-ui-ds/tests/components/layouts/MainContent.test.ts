@@ -2,10 +2,11 @@ import { mount } from '@vue/test-utils'
 import MainContent from '@/components/layouts/MainContent.vue'
 
 // Default: desktop mode
+const { useIsMobileSpy } = vi.hoisted(() => ({
+    useIsMobileSpy: vi.fn(() => ({ isMobile: false }))
+}))
 vi.mock('@/composables/useIsMobile', () => ({
-    useIsMobile: () => ({
-        isMobile: false
-    })
+    useIsMobile: useIsMobileSpy
 }))
 
 const factory = (props = {}, slots = {}) => {
@@ -36,6 +37,22 @@ describe('MainContent.vue', () => {
 
         expect(wrapper.find('.slot-test').exists()).toBe(true)
         expect(wrapper.text()).toContain('Main Content')
+    })
+
+    it('forwards mobileBreakpoint to useIsMobile (default 1024)', () => {
+        useIsMobileSpy.mockClear()
+        factory()
+        const breakpointArg = useIsMobileSpy.mock.calls.at(-1)?.[0]
+        expect(typeof breakpointArg).toBe('function')
+        expect(breakpointArg()).toBe(1024)
+    })
+
+    it('forwards a custom mobileBreakpoint to useIsMobile', () => {
+        useIsMobileSpy.mockClear()
+        factory({ mobileBreakpoint: 1280 })
+        const breakpointArg = useIsMobileSpy.mock.calls.at(-1)?.[0]
+        expect(typeof breakpointArg).toBe('function')
+        expect(breakpointArg()).toBe(1280)
     })
 
     it('applies inline style for max-width when not mobile', () => {

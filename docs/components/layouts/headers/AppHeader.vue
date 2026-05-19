@@ -8,7 +8,7 @@
         isSticky
         headerClass="border-border-neutral-subtle"
         class="backdrop-blur-lg bg-background-surface/90"
-        navMobileMenuClass="lg:hidden min-w-[300px]"
+        navMobileMenuClass="min-w-[300px]"
     >
         <template #header-logo>
             <div :class="['flex gap-3', isMobile && 'mt-1.5']">

@@ -28,10 +28,11 @@ vi.mock('@/composables/useSidebar', () => ({
     })
 }))
 
+const { useIsMobileSpy } = vi.hoisted(() => ({
+    useIsMobileSpy: vi.fn(() => ({ isMobile: false }))
+}))
 vi.mock('@/composables/useIsMobile', () => ({
-    useIsMobile: () => ({
-        isMobile: false
-    })
+    useIsMobile: useIsMobileSpy
 }))
 
 const defaultMenuItems = [
@@ -85,6 +86,20 @@ beforeEach(() => {
 })
 
 describe('NavSidebar.vue', () => {
+    it('forwards mobileBreakpoint to useIsMobile (default 1024)', () => {
+        factory()
+        const breakpointArg = useIsMobileSpy.mock.calls.at(-1)?.[0]
+        expect(typeof breakpointArg).toBe('function')
+        expect(breakpointArg()).toBe(1024)
+    })
+
+    it('forwards a custom mobileBreakpoint to useIsMobile', () => {
+        factory({ props: { mobileBreakpoint: 1280 } })
+        const breakpointArg = useIsMobileSpy.mock.calls.at(-1)?.[0]
+        expect(typeof breakpointArg).toBe('function')
+        expect(breakpointArg()).toBe(1280)
+    })
+
     it('renders menu items and section titles', () => {
         const wrapper = factory()
         expect(wrapper.findComponent(NavSidebarMenu).exists()).toBe(true)
@@ -187,12 +202,21 @@ describe('NavSidebar.vue', () => {
         expect(wrapper.find('.footer-slot').exists()).toBe(true)
     })
 
-    it('applies responsive translate-x classes based on screen size', () => {
+    it('keeps the sidebar visible (translate-x-0) when not mobile', () => {
         const wrapper = factory()
         const aside = wrapper.find('aside')
 
         expect(aside.classes()).toContain('translate-x-0')
-        expect(aside.classes()).toContain('lg:translate-x-0')
+        expect(aside.classes()).not.toContain('-translate-x-full')
+        expect(aside.classes()).not.toContain('lg:translate-x-0')
+    })
+
+    it('does not gate visibility on a static lg: breakpoint', () => {
+        const wrapper = factory()
+        const aside = wrapper.find('aside')
+
+        // Visibility is driven by mobileBreakpoint/isMobile, not Tailwind's lg:
+        expect(aside.classes()).not.toContain('lg:translate-x-0')
     })
 
     it('renders DropdownMenu when collapsed and item has children', async () => {

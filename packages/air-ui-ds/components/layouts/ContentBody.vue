@@ -20,11 +20,15 @@ const props = defineProps({
         type: Number as PropType<number>,
         default: 240,
     },
+    mobileBreakpoint: {
+        type: Number as PropType<number>,
+        default: 1024,
+    },
 })
 
 // Composables
 const { isMobileSidebarOpen } = useMobileSidebar()
-const { isMobile } = useIsMobile()
+const { isMobile } = useIsMobile(() => props.mobileBreakpoint)
 
 // Computed dynamic style
 const containerStyle = computed(() => {

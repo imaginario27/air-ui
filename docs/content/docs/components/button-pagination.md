@@ -24,6 +24,7 @@ props:
     resultTextMultiplePages: "Showing {from} to {to} of {total} results"
     resultTextSinglePage: "Showing {total} results"
     resultTextSingleItem: "Showing {total} result"
+    mobileBreakpoint: 1024
 items:
     styleType: 
         - value: button
@@ -152,6 +153,11 @@ props: [
         "name": "resultTextSingleItem",
         "default": "'Showing {total} result'",
         "type": "string"
+    },
+    {
+        "name": "mobileBreakpoint",
+        "default": "1024",
+        "type": "number"
     },
 ]
 ---
@@ -356,3 +362,18 @@ Sets the result text for a single item.
 ```
 
 - **Type:** `string`
+
+### mobileBreakpoint
+
+Sets the viewport width (in pixels) below which the pagination switches to its mobile layout (stacked controls and a reduced page list). It is the single source of truth for responsive switching and is reactive — changing it updates the layout immediately.
+
+```vue
+<template>
+    <ButtonPagination 
+        :mobileBreakpoint="1024"
+    />
+</template>
+```
+
+- **Type:** `number`
+- **Default:** `1024`

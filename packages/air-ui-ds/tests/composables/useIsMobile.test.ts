@@ -1,4 +1,5 @@
 import { mount } from '@vue/test-utils'
+import { ref } from 'vue'
 import { useIsMobile } from '~/composables/useIsMobile'
 
 describe('useIsMobile', () => {
@@ -66,6 +67,46 @@ describe('useIsMobile', () => {
         await wrapper.vm.$nextTick()
         window.dispatchEvent(new Event('resize'))
 
+        await wrapper.vm.$nextTick()
+        expect(wrapper.vm.isMobile).toBe(true)
+    })
+
+    it('reacts when a reactive breakpoint changes', async () => {
+        window.innerWidth = 800
+        const breakpoint = ref(700)
+
+        const wrapper = mount(defineComponent({
+            setup() {
+                const { isMobile } = useIsMobile(breakpoint)
+                return { isMobile }
+            },
+            template: '<div />',
+        }))
+
+        await wrapper.vm.$nextTick()
+        expect(wrapper.vm.isMobile).toBe(false) // 800 >= 700
+
+        breakpoint.value = 900
+        await wrapper.vm.$nextTick()
+        expect(wrapper.vm.isMobile).toBe(true) // 800 < 900, no resize event needed
+    })
+
+    it('supports a getter breakpoint', async () => {
+        window.innerWidth = 800
+        const breakpoint = ref(700)
+
+        const wrapper = mount(defineComponent({
+            setup() {
+                const { isMobile } = useIsMobile(() => breakpoint.value)
+                return { isMobile }
+            },
+            template: '<div />',
+        }))
+
+        await wrapper.vm.$nextTick()
+        expect(wrapper.vm.isMobile).toBe(false)
+
+        breakpoint.value = 1000
         await wrapper.vm.$nextTick()
         expect(wrapper.vm.isMobile).toBe(true)
     })

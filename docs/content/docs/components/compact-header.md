@@ -29,6 +29,7 @@ props:
           to: ""
         - text: "Logout"
           to: ""
+    mobileBreakpoint: 1024
     showMobileMenuToggle: true
     showMobileSidebarToggle: true
     sidebarTogglePosition: "right-side"
@@ -37,8 +38,8 @@ props:
     hasGlassEffect: false
     detectActiveMenuItem: true
     prefetchOn: "visibility"
-    navMenuClass: "hidden lg:flex"
-    navMobileMenuClass: "lg:hidden min-w-[280px]"
+    navMenuClass: ""
+    navMobileMenuClass: "min-w-[280px]"
     headerClass: ""
     class: "w-full border border-border-default"
 slots:
@@ -129,6 +130,11 @@ props: [
         "type": "DropdownMenuItem[]"
     },
     {
+        "name": "mobileBreakpoint",
+        "default": "1024",
+        "type": "number"
+    },
+    {
         "name": "showMobileMenuToggle",
         "default": "true",
         "type": "boolean"
@@ -170,12 +176,12 @@ props: [
     },
     {
         "name": "navMenuClass",
-        "default": "'hidden lg:flex'",
+        "default": "''",
         "type": "string"
     },
     {
         "name": "navMobileMenuClass",
-        "default": "'lg:hidden min-w-[280px]'",
+        "default": "'min-w-[280px]'",
         "type": "string"
     },
     {
@@ -500,6 +506,21 @@ interface DropdownMenuItem {
 }
 ```
 
+### mobileBreakpoint
+
+The `mobileBreakpoint` prop sets the viewport width (in pixels) below which the compact header switches to its mobile layout. It is the single source of truth for responsive switching: below it the horizontal nav menu, header actions, and desktop content are hidden and the mobile menu and sidebar toggles appear; at or above it the desktop layout is shown.
+
+```vue
+<template>
+    <CompactHeader
+        :mobileBreakpoint="1024"
+    />
+</template>
+```
+
+- **Type:** `number`
+- **Default:** `1024`
+
 ### showMobileMenuToggle
 
 The `showMobileMenuToggle` prop allows you to control the visibility of the mobile menu toggle button in the compact header.
@@ -684,33 +705,33 @@ You can also pass an object strategy:
 
 ### navMenuClass
 
-The `navMenuClass` prop allows you to add custom CSS classes to the navigation menu container in the compact header.
+The `navMenuClass` prop allows you to add custom CSS classes to the navigation menu container in the compact header. Show/hide is controlled by `mobileBreakpoint` — these classes are additive styling, not visibility.
 
 ```vue
 <template>
     <CompactHeader
-        navMenuClass="hidden lg:flex custom-nav-class"
+        navMenuClass="custom-nav-class"
     />
 </template>
 ```
 
 - **Type:** `string`
-- **Default:** `'hidden lg:flex'`
+- **Default:** `''`
 
 ### navMobileMenuClass
 
-The `navMobileMenuClass` prop allows you to add custom CSS classes to the mobile navigation menu container in the compact header.
+The `navMobileMenuClass` prop allows you to add custom CSS classes to the mobile navigation menu container in the compact header. Show/hide is controlled by `mobileBreakpoint` — these classes are additive styling, not visibility.
 
 ```vue
 <template>
     <CompactHeader
-        navMobileMenuClass="lg:hidden min-w-[280px] custom-mobile-nav-class"
+        navMobileMenuClass="min-w-[280px] custom-mobile-nav-class"
     />
 </template>
 ```
 
 - **Type:** `string`
-- **Default:** `'lg:hidden min-w-[280px]'`
+- **Default:** `'min-w-[280px]'`
 
 ### headerClass
 

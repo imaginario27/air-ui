@@ -5,6 +5,17 @@ All notable changes to this package are documented in this file.
 Historical releases were reconstructed from git history (GitHub repository) and npm publish dates.
 Future releases will include detailed entries generated with Changesets.
 
+## 1.13.1 - 2026-05-19
+
+Release type: patch.
+Commits found in range: 1.
+
+### Added
+
+1. make mobile breakpoint behavior configurable ([8cd4eb6](https://github.com/imaginario27/air-ui/commit/8cd4eb6047046ba64f96177f284e0ee2db910cc3))
+
+- Package: @imaginario27/air-ui-ds.
+
 ## 1.13.0 - 2026-04-22
 
 Release type: minor.

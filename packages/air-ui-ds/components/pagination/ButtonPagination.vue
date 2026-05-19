@@ -5,8 +5,7 @@
             'justify-between',
             'items-center',
             'gap-3',
-            'flex-col-reverse',
-            'lg:flex-row',
+            isMobile ? 'flex-col-reverse' : 'flex-row',
             'w-full'
         ]"
     >
@@ -26,7 +25,7 @@
                 v-model="itemsPerPage" 
                 :rowsLabel="rowsPerPageLabel"
                 :rowsOptions="rowsPerPageOptions"
-                class="flex lg:hidden" 
+                :class="[isMobile ? 'flex' : 'hidden']"
             /> <!-- Mobile position -->
         </div>
 
@@ -35,10 +34,7 @@
             :class="[
                 'flex',
                 'gap-6',
-                'flex-col',
-                'w-full',
-                'lg:flex-row',
-                'lg:w-auto'
+                isMobile ? 'flex-col w-full' : 'flex-row w-auto'
             ]"
         >
             <RowsPerPage 
@@ -46,7 +42,7 @@
                 v-model="itemsPerPage"
                 :rowsLabel="rowsPerPageLabel"
                 :rowsOptions="rowsPerPageOptions"
-                class="hidden lg:flex" 
+                :class="[isMobile ? 'hidden' : 'flex']"
             />
             <nav 
                 v-if="totalItems > itemsPerPage"
@@ -168,10 +164,14 @@ const props = defineProps({
         type: String as PropType<string>,
         default: 'Showing {total} result',
     },
+    mobileBreakpoint: {
+        type: Number as PropType<number>,
+        default: 1024,
+    },
 })
 
 // Composables
-const { isMobile } = useIsMobile()
+const { isMobile } = useIsMobile(() => props.mobileBreakpoint)
 
 // States
 const itemsPerPage = ref(props.itemsPerPage)

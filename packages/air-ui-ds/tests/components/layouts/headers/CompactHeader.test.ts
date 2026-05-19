@@ -11,10 +11,11 @@ vi.mock('@/composables/useMobileSidebar', () => ({
     })
 }))
 
+const { useIsMobileSpy } = vi.hoisted(() => ({
+    useIsMobileSpy: vi.fn(() => ({ isMobile: false }))
+}))
 vi.mock('@/composables/useIsMobile', () => ({
-    useIsMobile: () => ({
-        isMobile: false
-    })
+    useIsMobile: useIsMobileSpy
 }))
 
 vi.mock('vue-router', () => ({
@@ -53,6 +54,20 @@ const factory = (props = {}, slots = {}) => {
 describe('CompactHeader.vue', () => {
     beforeEach(() => {
         vi.clearAllMocks()
+    })
+
+    it('forwards mobileBreakpoint to useIsMobile (default 1024)', () => {
+        factory()
+        const breakpointArg = useIsMobileSpy.mock.calls.at(-1)?.[0]
+        expect(typeof breakpointArg).toBe('function')
+        expect(breakpointArg()).toBe(1024)
+    })
+
+    it('forwards a custom mobileBreakpoint to useIsMobile', () => {
+        factory({ mobileBreakpoint: 1280 })
+        const breakpointArg = useIsMobileSpy.mock.calls.at(-1)?.[0]
+        expect(typeof breakpointArg).toBe('function')
+        expect(breakpointArg()).toBe(1280)
     })
 
     it('renders top, header, and bottom slots', () => {
@@ -112,6 +127,27 @@ describe('CompactHeader.vue', () => {
         })
 
         expect(wrapper.findComponent({ name: 'ActionIconButton' }).exists()).toBe(true)
+    })
+
+    it('shows the horizontal NavMenu when not mobile', () => {
+        const wrapper = factory({ navMenuItems: [{ text: 'Home', to: '/' }] })
+
+        const navMenu = wrapper.findComponent({ name: 'NavMenu' })
+        expect(navMenu.exists()).toBe(true)
+    })
+
+    it('hides the horizontal NavMenu when isMobile is true', async () => {
+        vi.resetModules()
+        vi.doMock('@/composables/useIsMobile', () => ({
+            useIsMobile: () => ({ isMobile: true })
+        }))
+
+        const { default: MobileHeader } = await import('@/components/layouts/headers/CompactHeader.vue')
+        const wrapper = mount(MobileHeader, {
+            props: { navMenuItems: [{ text: 'Home', to: '/' }] }
+        })
+
+        expect(wrapper.findComponent({ name: 'NavMenu' }).exists()).toBe(false)
     })
 
     it('renders mobile menu toggle if isMobile is true', async () => {

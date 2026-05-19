@@ -15,13 +15,17 @@
 
 <script setup lang="ts">
 // Props
-defineProps({
+const props = defineProps({
     tocSidebarWidth: {
         type: Number as PropType<number>,
         default: 240
-    }
+    },
+    mobileBreakpoint: {
+        type: Number as PropType<number>,
+        default: 1024,
+    },
 })
 
 // Composable
-const { isMobile } = useIsMobile()
+const { isMobile } = useIsMobile(() => props.mobileBreakpoint)
 </script>

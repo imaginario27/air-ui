@@ -58,6 +58,7 @@ props:
     expandedStateIcon: "mdi:menu-open"
     showMobileSidebarClose: false
     mobileSidebarCloseIcon: "mdi:close"
+    mobileBreakpoint: 1024
     isFixed: true
     stickOnScroll: false
     stickyScrollHeight: 0
@@ -207,6 +208,11 @@ props: [
         "name": "mobileSidebarCloseIcon",
         "default": "mdi:close",
         "type": "string",
+    },
+    {
+        "name": "mobileBreakpoint",
+        "default": "1024",
+        "type": "number",
     },
     {
         "name": "isFixed",
@@ -746,6 +752,21 @@ The `mobileSidebarCloseIcon` prop allows you to set a custom icon for the close 
 
 - **Type:** `string`
 - **Default:** `mdi:close-circle`
+
+### mobileBreakpoint
+
+The `mobileBreakpoint` prop sets the viewport width (in pixels) below which the sidebar switches to its mobile layout. It is the single source of truth for responsive switching: below it the sidebar behaves as a slide-in drawer (toggled by the mobile sidebar control); at or above it the sidebar is always visible. The value is reactive — changing it updates the layout immediately.
+
+```vue
+<template>
+    <NavSidebar
+        :mobileBreakpoint="1024"
+    />
+</template>
+```
+
+- **Type:** `number`
+- **Default:** `1024`
 
 ### isFixed
 
