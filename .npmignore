@@ -8,6 +8,4 @@ tests/.coverage
 # Claude Code / AI agent context files
 CLAUDE.md
 **/CLAUDE.md
-ARCHITECTURE.md
-GUARDRAILS.md
-STYLE.md
+guidelines/

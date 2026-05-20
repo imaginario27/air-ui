@@ -2,7 +2,9 @@
 
 ## Project
 
-AirUI is a Vue 3 + Nuxt 4 + Tailwind CSS v4 design system published as two npm packages (`@imaginario27/air-ui-ds`, `@imaginario27/air-ui-utils`) with a Nuxt Content documentation site. It is a mature, actively-released library (DS at v1.12.1) using npm workspaces, Conventional Commits with scope validation (`ds` / `utils` / `docs` / `root`), Changesets, Vitest + `@vue/test-utils`, and ESLint via Nuxt. Vue 3.5.30, Nuxt 4.4.2, Tailwind 4.2.2, TypeScript 5.9.3.
+AirUI is a Vue 3 + Nuxt 4 + Tailwind CSS v4 design system published as two npm packages (`@imaginario27/air-ui-ds`, `@imaginario27/air-ui-utils`) with a Nuxt Content documentation site. It is a mature, actively-released library (DS at v1.13.1, utils at v1.2.3) using npm workspaces, Conventional Commits with scope validation (`ds` / `utils` / `docs` / `root`), Changesets, Vitest + `@vue/test-utils`, and ESLint via Nuxt. Vue 3.5.34, Nuxt 4.4.6, Tailwind 4.3.0, TypeScript 6.0.3.
+
+Companion docs live in [guidelines/](guidelines/): [ARCHITECTURE.md](guidelines/ARCHITECTURE.md), [GUARDRAILS.md](guidelines/GUARDRAILS.md), [STYLE.md](guidelines/STYLE.md).
 
 ## Workspace map
 
