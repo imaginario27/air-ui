@@ -1,12 +1,43 @@
 {
-  "generatedAt": "2026-05-20T15:36:49.217Z",
+  "generatedAt": "2026-05-21T12:36:04.147Z",
   "source": "github-git-history+npm-publish-dates",
   "githubBaseUrl": "https://github.com/imaginario27/air-ui",
   "packages": [
     {
       "packageName": "@imaginario27/air-ui-ds",
-      "latestVersion": "1.13.2",
+      "latestVersion": "1.13.3",
       "entries": [
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.13.3",
+          "publishedAt": "2026-05-21",
+          "releaseType": "patch",
+          "notes": [
+            "merge InteractiveRating into Rating and add disabled option to DropdownSelect"
+          ],
+          "metadata": {
+            "commitCount": 1,
+            "commits": [
+              {
+                "sha": "15a4b1c8bdec9f54d5e733c0ab834aba40a1c50b",
+                "shortSha": "15a4b1c",
+                "date": "2026-05-21",
+                "subject": "feat(ds): merge InteractiveRating into Rating and add disabled option to DropdownSelect",
+                "normalizedSubject": "merge InteractiveRating into Rating and add disabled option to DropdownSelect",
+                "type": "added",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/15a4b1c8bdec9f54d5e733c0ab834aba40a1c50b",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 1,
+              "fixed": 0,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
         {
           "packageName": "@imaginario27/air-ui-ds",
           "version": "1.13.2",
