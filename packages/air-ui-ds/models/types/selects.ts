@@ -18,6 +18,7 @@ export interface SelectOption {
     helpText?: string
     to?: string
     isExternal?: boolean
+    disabled?: boolean
 }
 
 export interface SelectableCardOption {

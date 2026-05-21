@@ -39,7 +39,8 @@ const factory = (props: Record<string, any> = {}) => {
                         'activeStyle',
                         'to',
                         'isExternal',
-                        'type'
+                        'type',
+                        'disabled'
                     ]
                 },
                 DropdownSectionItem: {
@@ -250,6 +251,21 @@ describe('DropdownSelect.vue', () => {
         await option.trigger('click')
 
         expect(wrapper.emitted('update:modelValue')?.[0]).toEqual([null])
+    })
+
+    it('does not emit update:modelValue when a disabled option is clicked', async () => {
+        const wrapper = factory({
+            options: [
+                { text: 'Option 1', value: '1' },
+                { text: 'Option 2', value: '2', disabled: true },
+            ],
+        })
+
+        await wrapper.find('.select-box').trigger('click')
+        const disabledOption = wrapper.findAll('.stubbed-item')[1]
+        await disabledOption!.trigger('click')
+
+        expect(wrapper.emitted('update:modelValue')).toBeFalsy()
     })
 
     it('renders section title options using DropdownSectionItem', async () => {

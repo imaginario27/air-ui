@@ -1,8 +1,8 @@
 <template>
     <Card class="px-0 py-5 shadow-xl">
         <CardBody class="px-5">
-            <Rating 
-                :value="ratingValue" 
+            <Rating
+                :modelValue="ratingValue"
                 :color="ratingStarColor"
             />
             <p class="text-sm">

@@ -23,7 +23,7 @@ describe('TestimonialCard.vue', () => {
 
         const rating = wrapper.findComponent({ name: 'Rating' })
         expect(rating.exists()).toBe(true)
-        expect(rating.props('value')).toBe(0)
+        expect(rating.props('modelValue')).toBe(0)
         expect(rating.props('color')).toBe(RatingItemColor.GOLD)
 
         const author = wrapper.findComponent({ name: 'Author' })
@@ -43,7 +43,7 @@ describe('TestimonialCard.vue', () => {
 
         const rating = wrapper.findComponent({ name: 'Rating' })
         expect(rating.props()).toMatchObject({
-            value: 5,
+            modelValue: 5,
             color: RatingItemColor.PRIMARY_BRAND
         })
     })

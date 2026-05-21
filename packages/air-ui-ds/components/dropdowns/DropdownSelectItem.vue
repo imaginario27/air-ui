@@ -6,12 +6,14 @@
             'flex flex-col',
             'px-3',
             'text-sm',
-            'hover:cursor-pointer',
             'w-full',
             sizeClass,
-            isSelected && activeStyle === SelectActiveStyle.FILL ? 
+            disabled
+                ? 'cursor-not-allowed opacity-disabled'
+                : 'hover:cursor-pointer',
+            !disabled && (isSelected && activeStyle === SelectActiveStyle.FILL ?
                 'bg-background-primary-brand-active hover:background-primary-brand-active hover:text-text-neutral-on-filled'
-                : 'hover:bg-background-neutral-hover-subtle',
+                : 'hover:bg-background-neutral-hover-subtle'),
         ]"
         @click="emitClick"
     >
@@ -126,6 +128,10 @@ const props = defineProps({
         type: Boolean as PropType<boolean>,
         default: false,
     },
+    disabled: {
+        type: Boolean as PropType<boolean>,
+        default: false,
+    },
 })
 
 // States
@@ -133,7 +139,12 @@ const isImageLoaded = ref(true)
 
 // Emits
 const emit = defineEmits(['click'])
-const emitClick = () => {
+const emitClick = (event: MouseEvent) => {
+    if (props.disabled) {
+        event.preventDefault()
+        event.stopPropagation()
+        return
+    }
     emit('click')
 }
 
