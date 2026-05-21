@@ -5,6 +5,17 @@ All notable changes to this package are documented in this file.
 Historical releases were reconstructed from git history (GitHub repository) and npm publish dates.
 Future releases will include detailed entries generated with Changesets.
 
+## 1.13.3 - 2026-05-21
+
+Release type: patch.
+Commits found in range: 1.
+
+### Added
+
+1. merge InteractiveRating into Rating and add disabled option to DropdownSelect ([15a4b1c](https://github.com/imaginario27/air-ui/commit/15a4b1c8bdec9f54d5e733c0ab834aba40a1c50b))
+
+- Package: @imaginario27/air-ui-ds.
+
 ## 1.13.2 - 2026-05-20
 
 Release type: patch.

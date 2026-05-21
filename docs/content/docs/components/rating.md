@@ -3,15 +3,17 @@
 ::component-code
 ---
 srcDir: 'rating/Rating.vue'
-props: 
-    value: 5
+props:
+    modelValue: 5
     size: "md"
     color: "gold"
     emptyIndicatorIcon: "mdi:star-outline"
     halfIndicatorIcon: "mdi:star-half-full"
     fullIndicatorIcon: "mdi:star"
+    isInteractive: false
+    hoverPreview: true
 items:
-    size: 
+    size:
         - value: sm
           text: SM
         - value: md
@@ -22,11 +24,13 @@ items:
           text: XL
         - value: xxl
           text: XXL
-    color: 
+    color:
         - value: gold
           text: GOLD
         - value: primary-brand
           text: PRIMARY_BRAND
+external:
+  - modelValue
 enums:
     size: "RatingItemSize"
     color: "RatingItemColor"
@@ -41,7 +45,7 @@ previewBackground: 'white'
 ---
 props: [
     {
-        "name": "value",
+        "name": "modelValue",
         "default": "0",
         "type": "number",
     },
@@ -70,18 +74,28 @@ props: [
         "default": "'mdi:star'",
         "type": "string",
     },
+    {
+        "name": "isInteractive",
+        "default": "false",
+        "type": "boolean",
+    },
+    {
+        "name": "hoverPreview",
+        "default": "true",
+        "type": "boolean",
+    },
 ]
 ---
 ::
 
 ## Usage
-### value
+### modelValue
 
-Sets the value of the rating. Must be between `0` and `5`.
+Sets the value of the rating. Must be between `0` and `5`. Supports `v-model` when `isInteractive` is enabled.
 
 ```vue
 <template>
-    <Rating :value="4" />
+    <Rating :modelValue="4" />
 </template>
 ```
 
@@ -173,7 +187,7 @@ Sets the icon of the empty rating indicator.
 
 ### halfIndicatorIcon
 
-Sets the icon of the half rating indicator. 
+Sets the icon of the half rating indicator.
 
 ```vue
 <template>
@@ -197,19 +211,45 @@ Sets the icon of the full rating indicator.
 - **Type:** `string`
 - **Default:** `'mdi:star'`
 
+### isInteractive
+
+When set to `true`, the rating becomes interactive: items show a hand cursor, clicking sets the value (clicking the current value resets it to `0`), and `v-model` updates are emitted.
+
+```vue
+<template>
+    <Rating v-model="rating" isInteractive />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `false`
+
+### hoverPreview
+
+When `isInteractive` is enabled, sets whether the rating should show a preview when hovered.
+
+```vue
+<template>
+    <Rating v-model="rating" isInteractive hoverPreview />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `true`
+
 ## RatingItem
-The `<RatingItem />` component is used to render a single rating indicator. It used by the `<Rating />` and `<InteractiveRating />` component.
+The `<RatingItem />` component is used to render a single rating indicator. It is used by the `<Rating />` component.
 
 ::component-code
 ---
 srcDir: 'rating/RatingItem.vue'
-props: 
+props:
     icon: "mdi:star-outline"
     size: "md"
     color: "gold"
     isInteractive: false
 items:
-    size: 
+    size:
         - value: sm
           text: SM
         - value: md
@@ -220,7 +260,7 @@ items:
           text: XL
         - value: xxl
           text: XXL
-    color: 
+    color:
         - value: gold
           text: GOLD
         - value: primary-brand
@@ -263,7 +303,7 @@ props: [
 
 ### icon
 
-Sets the icon of the rating indicator. 
+Sets the icon of the rating indicator.
 
 ```vue
 <template>
@@ -280,8 +320,8 @@ The use of `size` and `color` props is exactly the same as in the `Rating` compo
 
 ```vue
 <template>
-    <RatingItem 
-        :color="RatingItemColor.GOLD" 
+    <RatingItem
+        :color="RatingItemColor.GOLD"
         :size="RatingItemSize.SM"
     />
 </template>

@@ -23,6 +23,11 @@ props:
           text: "Item 3"
           value: "item-3"
           icon: "mdi:gift-outline"
+        - id: "item-4"
+          text: "Item 4 (disabled)"
+          value: "item-4"
+          icon: "mdi:lock-outline"
+          disabled: true
     placeholder: "Select an option"
     type: "text"
     size: "md"
@@ -243,6 +248,7 @@ interface SelectOption {
     helpText?: string
     to?: string
     isExternal?: boolean
+    disabled?: boolean
 }
 ```
 

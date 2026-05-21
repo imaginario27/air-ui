@@ -179,6 +179,7 @@
                                 :activeStyle="activeStyle"
                                 :to="option.to"
                                 :isExternal="option.isExternal"
+                                :disabled="option.disabled"
                                 :class="[
                                     hasSeparator && index !== filteredOptions.length - 1 
                                         ? 'border-b border-border-default' 
@@ -453,7 +454,7 @@ watch(() => props.modelValue, (newValue) => {
 
 // Method
 const handleOptionClick = (option: SelectOption) => {
-    if (props.disabled || props.isLoading) return
+    if (props.disabled || props.isLoading || option.disabled) return
 
     const optionValue = option.value
 
