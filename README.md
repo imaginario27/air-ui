@@ -1,15 +1,45 @@
 # AirUI
 
-A comprehensive Vue 3 + Nuxt 4 + Tailwind CSS v4 design system and utilities library for air-institute projects, published as two npm packages.
+**A lightweight, flexible component library for Nuxt — built with Tailwind CSS and TypeScript.**
 
-| | |
-|---|---|
-| **`@imaginario27/air-ui-ds`** | v1.13.3 |
-| **`@imaginario27/air-ui-utils`** | v1.2.4 |
+AirUI was designed and built from scratch as a personal project to solve a real problem: 
+the lack of a production-ready, fully typed UI framework optimized for Nuxt with 
+first-class Figma integration and semantic theming.
 
-### Tech Stack
+It is currently in production use and under active development.
 
-Vue 3.5.34 · Nuxt 4.4.6 · Tailwind CSS 4.3.0 · TypeScript 6.0.3 · Vitest · npm workspaces
+> Designed in Figma. Built in Nuxt. Maintained by [@imaginario27](https://github.com/imaginario27).
+
+## Why AirUI?
+
+Most UI libraries are framework-agnostic or React-first. AirUI is built specifically 
+for Nuxt — with auto-imported components, composables, and stores, zero config needed, 
+and a design token system that syncs directly from Figma via script.
+
+- **Figma-first** — Design tokens sync from Figma to code without rebuilding
+- **Nuxt-optimized** — Auto-imports, SSR-ready, zero config
+- **Fully typed** — TypeScript API surface throughout
+- **Semantic theming** — Light/dark mode with meaningful color names
+- **i18n ready** — Internationalization built in from the start
+
+## Packages
+
+| Package | Version | Description |
+|---|---|---|
+| `@imaginario27/air-ui-ds` | v1.13.3 | Component library |
+| `@imaginario27/air-ui-utils` | v1.2.4 | Utilities + composables |
+
+## Quick start
+
+```bash
+npm create air-ui-app@latest <project_name>
+```
+
+📖 [Full documentation](https://air-ui.netlify.app) · 
+🎨 [Figma design system](#) · 
+📦 [npm](https://www.npmjs.com/package/@imaginario27/air-ui-ds)
+
+---
 
 ## Project Structure
 
