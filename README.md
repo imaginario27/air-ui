@@ -183,6 +183,7 @@ npm run publish:utils:major
 
 ### Important Notes
 
+- **Publishing is restricted**: Only maintainers with npm publish access can release packages. External contributors should open a pull request and a maintainer will handle the release.
 - **Git must be clean**: All changes must be committed before publishing. The script will prevent publishing with uncommitted changes.
 - **Push after releases**: Push to GitHub after publishing so release commits and generated changelogs stay synchronized with the remote branch.
 - **Commits are filtered**: 
