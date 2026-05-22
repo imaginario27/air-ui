@@ -1,18 +1,30 @@
 # AirUI
 
-A comprehensive UI design system and utilities library for air-institute projects.
+A comprehensive Vue 3 + Nuxt 4 + Tailwind CSS v4 design system and utilities library for air-institute projects, published as two npm packages.
+
+| | |
+|---|---|
+| **`@imaginario27/air-ui-ds`** | v1.13.3 |
+| **`@imaginario27/air-ui-utils`** | v1.2.4 |
+
+### Tech Stack
+
+Vue 3.5.34 · Nuxt 4.4.6 · Tailwind CSS 4.3.0 · TypeScript 6.0.3 · Vitest · npm workspaces
 
 ## Project Structure
 
 ```
 air-ui/
-├── docs/                      # Documentation site (Nuxt)
+├── docs/                      # Documentation site (Nuxt Content + MDC)
+├── guidelines/                # Architecture, guardrails, and style guides
 ├── packages/
 │   ├── air-ui-ds/            # Design System component library
-│   └── air-ui-utils/         # Utilities library
+│   └── air-ui-utils/         # Utilities + composables library
 ├── scripts/
 │   ├── rebuild-release-history.mjs    # Generate changelog from git history
 │   ├── check-git-clean.mjs            # Verify clean git working tree
+│   ├── check-single-area-commit.mjs   # Validate single-area commits
+│   ├── check-single-publish.mjs       # Validate single-package publish
 │   └── finalize-release.mjs           # Interactive commit for releases
 └── package.json              # Root workspace configuration
 ```
@@ -77,6 +89,14 @@ Husky automatically validates commits using commitlint. Invalid commits will be 
 
 **Tip:** Keep each commit focused when possible. If changes span multiple packages or folders, use the scope that best represents the change you want to describe.
 
+### Environment Variables
+
+The docs site requires environment variables for GitHub, Cloudflare Turnstile, and Cloudinary integrations. Copy the example and fill in your values:
+
+```bash
+cp docs/.env.example docs/.env
+```
+
 ### Development Servers
 
 Run individual workspaces:
@@ -136,7 +156,7 @@ The publishing process is automated with checks and confirmation steps:
       docs/data/releases/release-history.json
       packages/air-ui-ds/CHANGELOG.md
    
-   ✅ Commit message: "chore(ds): release @imaginario27/air-ui-ds v1.4.3"
+   ✅ Commit message: "chore(ds): release @imaginario27/air-ui-ds v1.13.3"
    Proceed? (y/n): y
    ```
 
@@ -201,35 +221,14 @@ Utility functions and helpers.
 - **Registry**: [npm](https://www.npmjs.com/package/@imaginario27/air-ui-utils)
 - **Changelog**: `packages/air-ui-utils/CHANGELOG.md`
 
-## Commit Conventions
+## Release History
 
-This project uses [Conventional Commits](https://www.conventionalcommits.org/):
+Release history and changelogs are automatically generated from git commit history, npm publish dates, and conventional commit messages. Commits are classified into changelog sections:
 
-```
-type(scope): subject
-
-type: feat, fix, docs, style, refactor, perf, test, chore
-scope: ds, utils, docs, root, etc.
-
-Examples:
-- feat(ds): add button component
-- fix(utils): resolve array sorting bug
-- docs(docs): update readme
-- chore(root): update dependencies
-```
-
-Commits are automatically classified into changelog sections:
 - **Added**: `feat:` commits
 - **Fixed**: `fix:` commits
 - **Changed**: other commits
 - **Breaking**: commits with `!:` or "breaking"
-
-## Release History
-
-Release history and changelogs are automatically generated from:
-- Git commit history
-- npm publish dates
-- Conventional commit messages
 
 See `docs/data/releases/release-history.json` for the full data structure.
 
@@ -242,6 +241,10 @@ When making changes:
 3. Commit and push to your branch
 4. Create a pull request
 5. After merge, follow the Publishing workflow to create a release
+
+## License
+
+This project is licensed under the [MIT License](./LICENSE).
 
 ## Links
 
