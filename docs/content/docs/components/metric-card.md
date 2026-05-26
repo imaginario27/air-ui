@@ -13,7 +13,7 @@ props:
     amount: "1327"
     unit: "month"
     featuredDescription: "+120 vs last period"
-    description: "Metric description"
+    description: "Last 30 days"
     trend: "+12%"
     trendDirection: "up"
     customFilledColorClass: "bg-background-neutral-bold"
@@ -127,7 +127,6 @@ props: [
     },
     {
         "name": "description",
-        "default": "'Metric description'",
         "type": "string",
     },
     {
@@ -389,7 +388,7 @@ Sets an optional highlighted description rendered above the regular description 
 - **Type:** `string`
 
 ### description
-Sets the description of the metric.
+Sets an optional description rendered below the featured description. It is only displayed when provided.
 
 ```vue
 <template>
@@ -400,7 +399,6 @@ Sets the description of the metric.
 ```
 
 - **Type:** `string`
-- **Default:** `'Metric description'`
 
 ### trend
 Sets an optional trend label rendered next to a directional icon. The trend row is only displayed when this prop is provided.

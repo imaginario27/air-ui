@@ -50,7 +50,10 @@
                     {{ featuredDescription }}
                 </p>
 
-                <p :class="['text-sm', styleType === DashboardMetricCardStyle.DEFAULT ? 'text-text-neutral-subtle' : textColorClass]">
+                <p
+                    v-if="description"
+                    :class="['text-sm', styleType === DashboardMetricCardStyle.DEFAULT ? 'text-text-neutral-subtle' : textColorClass]"
+                >
                     {{ description }}
                 </p>
             </div>
@@ -106,10 +109,7 @@ const props = defineProps({
     },
     unit: String as PropType<string>,
     featuredDescription: String as PropType<string>,
-    description: {
-        type: String as PropType<string>,
-        default: "Metric description",
-    },
+    description: String as PropType<string>,
     trend: String as PropType<string>,
     trendDirection: {
         type: String as PropType<DashboardMetricTrendDirection>,
