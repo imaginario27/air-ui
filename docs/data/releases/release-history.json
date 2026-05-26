@@ -1,12 +1,43 @@
 {
-  "generatedAt": "2026-05-21T12:36:04.147Z",
+  "generatedAt": "2026-05-26T07:31:03.885Z",
   "source": "github-git-history+npm-publish-dates",
   "githubBaseUrl": "https://github.com/imaginario27/air-ui",
   "packages": [
     {
       "packageName": "@imaginario27/air-ui-ds",
-      "latestVersion": "1.13.3",
+      "latestVersion": "1.13.4",
       "entries": [
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.13.4",
+          "publishedAt": "2026-05-26",
+          "releaseType": "patch",
+          "notes": [
+            "make MetricCard description prop optional"
+          ],
+          "metadata": {
+            "commitCount": 1,
+            "commits": [
+              {
+                "sha": "53937fbca5cb1e3f350effdcb36a6a20bc9c50c5",
+                "shortSha": "53937fb",
+                "date": "2026-05-26",
+                "subject": "feat(ds): make MetricCard description prop optional",
+                "normalizedSubject": "make MetricCard description prop optional",
+                "type": "added",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/53937fbca5cb1e3f350effdcb36a6a20bc9c50c5",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 1,
+              "fixed": 0,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
         {
           "packageName": "@imaginario27/air-ui-ds",
           "version": "1.13.3",
