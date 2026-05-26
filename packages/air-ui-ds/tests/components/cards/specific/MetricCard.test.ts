@@ -26,11 +26,22 @@ describe('MetricCard.vue', () => {
         expect(wrapper.exists()).toBe(true)
     })
 
-    it('renders default title, amount and description', () => {
+    it('renders default title and amount', () => {
         const wrapper = factory()
         expect(wrapper.text()).toContain('Metric title')
         expect(wrapper.text()).toContain('0')
-        expect(wrapper.text()).toContain('Metric description')
+    })
+
+    it('does not render description when not provided', () => {
+        const wrapper = factory()
+        const paragraphs = wrapper.findAll('p')
+        const descriptionParagraph = paragraphs.find((p) => p.classes().includes('text-sm') && !p.classes().includes('font-semibold'))
+        expect(descriptionParagraph).toBeUndefined()
+    })
+
+    it('renders description when provided', () => {
+        const wrapper = factory({ description: 'Last 30 days' })
+        expect(wrapper.text()).toContain('Last 30 days')
     })
 
     it('renders a custom title, amount and description', () => {

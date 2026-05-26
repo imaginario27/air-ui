@@ -5,6 +5,17 @@ All notable changes to this package are documented in this file.
 Historical releases were reconstructed from git history (GitHub repository) and npm publish dates.
 Future releases will include detailed entries generated with Changesets.
 
+## 1.13.4 - 2026-05-26
+
+Release type: patch.
+Commits found in range: 1.
+
+### Added
+
+1. make MetricCard description prop optional ([53937fb](https://github.com/imaginario27/air-ui/commit/53937fbca5cb1e3f350effdcb36a6a20bc9c50c5))
+
+- Package: @imaginario27/air-ui-ds.
+
 ## 1.13.3 - 2026-05-21
 
 Release type: patch.
