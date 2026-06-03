@@ -15,6 +15,7 @@ props:
     to: "/"
     isExternal: false
     id: "my-action-icon-button"
+    ariaLabel: "Add item"
 items:
     actionType: 
         - value: action
@@ -132,6 +133,10 @@ props: [
     },
     {
         "name": "id",
+        "type": "string"
+    },
+    {
+        "name": "ariaLabel",
         "type": "string"
     }
 ]
@@ -411,6 +416,21 @@ Provides an HTML ID to the button element.
 ```vue
 <template>
     <ActionIconButton id="my-action-button" />
+</template>
+```
+
+- **Type:** `string`
+
+### ariaLabel
+
+Sets the `aria-label` attribute for screen readers. Required for accessibility since the button contains only an icon with no visible text.
+
+```vue
+<template>
+    <ActionIconButton 
+        icon="mdi:close" 
+        ariaLabel="Close dialog" 
+    />
 </template>
 ```
 

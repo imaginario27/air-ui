@@ -18,6 +18,7 @@ props:
     loadingText: "Loading..."
     progressClass: ""
     progressLabelClass: ""
+    ariaLabel: "Progress"
 items:
     size:
         - value: xs
@@ -132,6 +133,11 @@ props: [
     },
     {
         "name": "progressLabelClass",
+        "type": "string",
+    },
+    {
+        "name": "ariaLabel",
+        "default": "'Progress'",
         "type": "string",
     },
 ]
@@ -405,3 +411,16 @@ Allows you to add custom classes to the progress label element.
 ```
 
 - **Type:** `string`
+
+### ariaLabel
+
+Sets the `aria-label` attribute on the progress bar for screen readers.
+
+```vue
+<template>
+    <ProgressBar ariaLabel="Upload progress" :progress="45" />
+</template>
+```
+
+- **Type:** `string`
+- **Default:** `'Progress'`
