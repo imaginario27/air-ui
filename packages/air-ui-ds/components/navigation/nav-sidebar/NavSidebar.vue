@@ -33,6 +33,7 @@
                     :icon="mobileSidebarCloseIcon"
                     class="flex"
                     :size="ButtonSize.SM"
+                    aria-label="Close sidebar"
                     @click="toggleMobileSidebar()"
                 />
     
@@ -41,6 +42,7 @@
                     v-if="showCollapseToggle && collapseTogglePosition === Position.TOP && !isCollapsed"
                     :icon="expandedStateIcon"
                     :size="ButtonSize.SM"
+                    aria-label="Collapse sidebar"
                     @click="toggleSidebarState(sidebarId)"
                 />
             </div>
@@ -66,6 +68,7 @@
                 :icon="collapsedStateIcon"
                 :size="ButtonSize.SM"
                 class="mb-2"
+                aria-label="Expand sidebar"
                 @click="toggleSidebarState(sidebarId)"
             />
 
@@ -155,6 +158,7 @@
             :class="[
                 isCollapsed ? '' : 'absolute right-3 bottom-3'
             ]"
+            :aria-label="isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'"
             @click="toggleSidebarState(sidebarId)"
         />
 
