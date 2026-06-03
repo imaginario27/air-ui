@@ -7,6 +7,7 @@ srcDir: 'forms/fields/DataField.vue'
 props: 
     id: "field-id"
     label: "Sample label"
+    ariaLabel: "Copy account value"
     text: "Example data"
     emptyText: "Not defined"
     helpText: "Example help text"
@@ -29,6 +30,10 @@ props: [
     },
     {
         "name": "label",
+        "type": "string",
+    },
+    {
+        "name": "ariaLabel",
         "type": "string",
     },
     {
@@ -105,6 +110,22 @@ Sets the label of the field.
 ```vue
 <template>
     <DataField label="Sample label" />
+</template>
+```
+
+- **Type:** `string`
+
+### ariaLabel
+
+Sets the accessible name used by the copy-to-clipboard icon button.
+
+```vue
+<template>
+    <DataField
+        text="12345"
+        :hasCopyToClipboardButton="true"
+        ariaLabel="Copy account value"
+    />
 </template>
 ```
 

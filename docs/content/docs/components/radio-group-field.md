@@ -165,12 +165,30 @@ const exampleOptions: RadioOption[] = [
 interface RadioOption {
     id: string | number
     value: string | number | boolean
-    label: string
+    label?: string
+    ariaLabel?: string
     helpText?: string
     disabled?: boolean
     type?: ColorAccent.INFO | ColorAccent.SUCCESS | ColorAccent.DANGER | ColorAccent.PRIMARY_BRAND | ColorAccent.SECONDARY_BRAND
     icon?: string
 }
+```
+
+::content-alert
+---
+props:
+    title: "Accessibility"
+    description: "If an option hides its visual label (for example, `label: ''`), provide `ariaLabel` so screen readers still announce an accessible name."
+---
+::
+
+```vue
+<script setup lang="ts">
+const exampleOptions: RadioOption[] = [
+    { id: 'icon-only', value: 'icon-only', label: '', ariaLabel: 'Icon only option' },
+    { id: 'with-label', value: 'with-label', label: 'Option with label' },
+]
+</script>
 ```
 
 ### modelValue

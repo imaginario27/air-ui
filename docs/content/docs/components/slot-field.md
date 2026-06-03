@@ -6,6 +6,7 @@ srcDir: 'forms/fields/SlotField.vue'
 props: 
     id: "field-id"
     label: "Custom field label"
+    ariaLabel: "Custom control label"
     helpText: "Help text shown below the slot content"
     error: ""
     disabled: false
@@ -34,6 +35,10 @@ props: [
     },
     {
         "name": "label",
+        "type": "string",
+    },
+    {
+        "name": "ariaLabel",
         "type": "string",
     },
     {
@@ -86,10 +91,11 @@ Use the default slot to render your custom control while reusing SlotField label
         helpText="Write a short bio"
         :required="true"
         error=""
-        v-slot="{ id, hasError, error, helpText, disabled, required }"
+        v-slot="{ id, ariaLabel, hasError, error, helpText, disabled, required }"
     >
         <YourComponent
             :id="id"
+            :aria-label="ariaLabel"
             :hasError="hasError"
             :error="error"
             :helpText="helpText"
@@ -100,7 +106,26 @@ Use the default slot to render your custom control while reusing SlotField label
 </template>
 ```
 
-The slot exposes: `id`, `error`, `hasError`, `helpText`, `disabled`, `required`.
+The slot exposes: `id`, `ariaLabel`, `error`, `hasError`, `helpText`, `disabled`, `required`.
+
+### ariaLabel
+
+Provides an accessibility label that can be consumed by your slotted control when visual labels are hidden.
+
+```vue
+<template>
+    <SlotField
+        id="custom-slot-field"
+        label=""
+        ariaLabel="Custom control label"
+        v-slot="{ id, ariaLabel }"
+    >
+        <YourComponent :id="id" :aria-label="ariaLabel" />
+    </SlotField>
+</template>
+```
+
+- **Type:** `string`
 
 ## Usage
 
