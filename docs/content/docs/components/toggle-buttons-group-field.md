@@ -11,8 +11,10 @@ props:
     buttons: 
         - text: "Option 1"
           value: "option1"
+          ariaLabel: "Select option 1"
         - text: "Option 2"
           value: "option2"
+          ariaLabel: "Select option 2"
     modelValue: "option1"
     onlyIcon: false
     groupStyle: "grouped"
@@ -26,7 +28,7 @@ items:
 external:
   - buttons
 externalTypes:
-  - ToggleButton[]
+  - ToggleButton[] | ToggleIconButton[]
 enums:
     groupStyle: "ToggleButtonGroupStyle"
 isPreviewContentBoxed: true
@@ -152,9 +154,9 @@ const exampleButtons = ref<ToggleButton[]>([
 </template> 
 <script setup lang="ts">
 const exampleIconButtons = ref<ToggleIconButton[]>([ 
-    { icon: 'mdi:arrow-up', value: 'Newest' }, 
-    { icon: 'mdi:arrow-down', value: 'Oldest' }, 
-    ]) 
+    { icon: 'mdi:arrow-up', value: 'Newest', ariaLabel: 'Sort by newest' }, 
+    { icon: 'mdi:arrow-down', value: 'Oldest', ariaLabel: 'Sort by oldest' }, 
+]) 
 </script> 
 ```
 
@@ -163,6 +165,7 @@ const exampleIconButtons = ref<ToggleIconButton[]>([
 ```ts
 export interface BaseToggleButton {
     value: string
+    ariaLabel?: string
     active?: boolean
     action?: () => void
     size?: ButtonSize
@@ -178,6 +181,8 @@ export type ToggleIconButton = BaseToggleButton
 
 export type ToggleButtonItem = ToggleButton | ToggleIconButton
 ```
+
+For icon-only buttons (`ToggleIconButton[]`), set `ariaLabel` on each item so every button has an accessible name.
 
 ### modelValue
 

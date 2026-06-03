@@ -1,7 +1,7 @@
 import { mount } from '@vue/test-utils'
 import ActionButton from '@/components/buttons/ActionButton.vue'
 import Icon from '@/components/icons/Icon.vue'
-import { ButtonActionType, ButtonStyleType, ButtonSize } from '@/models/enums/buttons'
+import { ButtonActionType } from '@/models/enums/buttons'
 import { IconPosition } from '@/models/enums/icons'
 
 const factory = (props = {}) => {
@@ -180,5 +180,26 @@ describe('ActionButton.vue', () => {
         })
 
         expect(wrapper.find('a').attributes('type')).toBeUndefined()
+    })
+
+    it('applies optional aria-label when provided as a native attribute', () => {
+        const wrapper = mount(ActionButton, {
+            attrs: {
+                'aria-label': 'Submit form'
+            },
+            global: {
+                components: {
+                    Icon
+                },
+                stubs: {
+                    NuxtLink: {
+                        template: '<a :href="to" :target="target" :rel="rel"><slot /></a>',
+                        props: ['to', 'target', 'rel']
+                    }
+                }
+            }
+        })
+
+        expect(wrapper.find('button').attributes('aria-label')).toBe('Submit form')
     })
 })

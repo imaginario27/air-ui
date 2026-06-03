@@ -7,6 +7,7 @@ srcDir: 'forms/fields/FileUploadField.vue'
 props: 
     id: "field-id"
     label: "Sample label"
+    ariaLabel: "Upload contract files"
     title: "Field title"
     helpText: "Example help text"
     icon: "mdi:file-document-outline"
@@ -95,6 +96,10 @@ props: [
     },
     {
         "name": "label",
+        "type": "string",
+    },
+    {
+        "name": "ariaLabel",
         "type": "string",
     },
     {
@@ -400,6 +405,22 @@ Sets the label of the field.
 ```vue
 <template>
     <FileUploadField label="Sample label" />
+</template>
+```
+
+- **Type:** `string`
+
+### ariaLabel
+
+Sets the accessible name passed to the dropzone area when the visual `label` is hidden.
+It is also used as preview image alt fallback.
+
+```vue
+<template>
+    <FileUploadField
+        label=""
+        ariaLabel="Upload contract files"
+    />
 </template>
 ```
 

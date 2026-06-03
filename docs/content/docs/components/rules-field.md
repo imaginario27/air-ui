@@ -6,6 +6,11 @@ srcDir: 'forms/fields/RulesField.vue'
 props:
     id: "rules-field-id"
     label: "Rules"
+    itemFieldAriaLabel: "Rule item"
+    operatorFieldAriaLabel: "Rule operator"
+    valueFieldAriaLabel: "Rule value"
+    addRuleAriaLabel: "Add rule"
+    removeRuleAriaLabel: "Remove rule"
     helpText: "Build rule conditions to filter results"
     itemOptions:
         - value: "status"
@@ -74,6 +79,31 @@ props: [
     },
     {
         "name": "label",
+        "type": "string",
+    },
+    {
+        "name": "itemFieldAriaLabel",
+        "default": "'Rule item'",
+        "type": "string",
+    },
+    {
+        "name": "operatorFieldAriaLabel",
+        "default": "'Rule operator'",
+        "type": "string",
+    },
+    {
+        "name": "valueFieldAriaLabel",
+        "default": "'Rule value'",
+        "type": "string",
+    },
+    {
+        "name": "addRuleAriaLabel",
+        "default": "'Add rule'",
+        "type": "string",
+    },
+    {
+        "name": "removeRuleAriaLabel",
+        "default": "'Remove rule'",
         "type": "string",
     },
     {
@@ -183,6 +213,41 @@ Sets the field label displayed above the rules rows.
 ```
 
 - **Type:** `string`
+
+### itemFieldAriaLabel
+
+Sets the base accessible label for the item select of each row.
+
+- **Type:** `string`
+- **Default:** `'Rule item'`
+
+### operatorFieldAriaLabel
+
+Sets the base accessible label for the operator select of each row.
+
+- **Type:** `string`
+- **Default:** `'Rule operator'`
+
+### valueFieldAriaLabel
+
+Sets the base accessible label for the value input of each row.
+
+- **Type:** `string`
+- **Default:** `'Rule value'`
+
+### addRuleAriaLabel
+
+Sets the accessible label for the add-rule icon button.
+
+- **Type:** `string`
+- **Default:** `'Add rule'`
+
+### removeRuleAriaLabel
+
+Sets the accessible label for the remove-rule icon button.
+
+- **Type:** `string`
+- **Default:** `'Remove rule'`
 
 ### helpText
 

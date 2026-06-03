@@ -20,6 +20,8 @@
         </label>
 
         <ToggleButtonGroup 
+            :id
+            :ariaLabel="!label ? ariaLabel : label"
             :buttons
             :modelValue
             :groupStyle
@@ -49,6 +51,7 @@ defineProps({
         required: true,
     },
     label: String as PropType<string>,
+    ariaLabel: String as PropType<string>,
     helpText: String as PropType<string>,
     buttons: Array as PropType<ToggleButton[] | ToggleIconButton[]>,
     onlyIcon: {

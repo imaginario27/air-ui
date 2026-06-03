@@ -49,7 +49,7 @@ items:
 external:
   - buttons
 externalTypes:
-  - ToggleButton[]
+    - OptionButton[]
 enums:
     buttonStyle: "ButtonStyleType"
     buttonSize: "ButtonSize"
@@ -81,7 +81,7 @@ props: [
     {
         "name": "buttons",
         "type": "array",
-        "default": "ToggleButton[]",
+        "default": "OptionButton[]",
     },
     {
         "name": "modelValue",
@@ -195,7 +195,7 @@ Sets the buttons options of the field.
     <OptionButtonsGroupField :buttons="exampleButtons" />
 </template>
 <script setup lang="ts">
-const exampleButtons = ref<ToggleButton[]>([
+const exampleButtons = ref<OptionButton[]>([
     { text: 'Option 1', value: 'option1' },
     { text: 'Option 2', value: 'option2' },
     { text: 'Option 3', value: 'option3' }
@@ -203,12 +203,13 @@ const exampleButtons = ref<ToggleButton[]>([
 </script>
 ```
 
-- **Type:** `ToggleButton[]`
+- **Type:** `OptionButton[]`
 
 ```ts
 export interface ActionButton {
     text: string
     value: string
+    ariaLabel?: string
     active?: boolean
     action?: () => void
     size?: ButtonSize
@@ -217,8 +218,12 @@ export interface ActionButton {
     disabled?: boolean
 }
 
-export type ToggleButton = ActionButton
+export interface OptionButton extends ActionButton {
+    styleType?: ButtonStyleType
+}
 ```
+
+`ariaLabel` is optional for text buttons. Use it when you need a custom accessible name.
 
 ### modelValue
 

@@ -73,6 +73,7 @@
 
         <Slider
             :modelValue="modelValue"
+            :ariaLabel="!label ? ariaLabel : label"
             :type="type"
             :color="color"
             :size="size"
@@ -155,6 +156,7 @@ const props = defineProps({
         required: true,
     },
     label: String as PropType<string>,
+    ariaLabel: String as PropType<string>,
     helpText: String as PropType<string>,
     required: {
         type: Boolean as PropType<boolean>,

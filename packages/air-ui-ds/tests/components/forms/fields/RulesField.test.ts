@@ -337,4 +337,24 @@ describe('RulesField.vue', () => {
         expect(validator).toHaveBeenCalledWith([{ item: 'age', operator: 'eq', value: '18' }])
         expect(wrapper.emitted('update:error')).toEqual([['Invalid rules']])
     })
+
+    it('forwards aria labels to row fields and action buttons', () => {
+        const wrapper = factory({
+            modelValue: [
+                { item: 'age', operator: 'eq', value: '10' },
+                { item: 'status', operator: 'eq', value: 'active' },
+            ],
+        })
+
+        const selects = wrapper.findAllComponents(SelectField)
+        const input = wrapper.findComponent(InputField)
+        const rowButtons = wrapper.findAllComponents(ActionIconButton)
+
+        expect(selects[0]?.props('ariaLabel')).toBe('Rule item 1')
+        expect(selects[1]?.props('ariaLabel')).toBe('Rule operator 1')
+        expect(input.props('ariaLabel')).toBe('Rule value 1')
+
+        expect(rowButtons[0]?.props('ariaLabel')).toBe('Remove rule')
+        expect(rowButtons[1]?.props('ariaLabel')).toBe('Add rule')
+    })
 })

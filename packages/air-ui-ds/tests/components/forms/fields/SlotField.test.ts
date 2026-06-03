@@ -15,6 +15,7 @@ const factory = (
             ? {
                 default: (slotProps: Record<string, unknown>) =>
                     h('div', { class: 'slot-props' }, [
+                        h('span', { class: 'slot-aria-label' }, String(slotProps.ariaLabel)),
                         h('span', { class: 'slot-error' }, String(slotProps.error)),
                         h('span', { class: 'slot-has-error' }, String(slotProps.hasError)),
                         h('span', { class: 'slot-help-text' }, String(slotProps.helpText)),
@@ -81,5 +82,16 @@ describe('SlotField.vue', () => {
         expect(wrapper.find('.slot-help-text').text()).toBe('Slot help text')
         expect(wrapper.find('.slot-disabled').text()).toBe('true')
         expect(wrapper.find('.slot-required').text()).toBe('true')
+    })
+
+    it('passes ariaLabel through scoped slot props', () => {
+        const wrapper = factory(
+            {
+                ariaLabel: 'Custom control label',
+            },
+            true
+        )
+
+        expect(wrapper.find('.slot-aria-label').text()).toBe('Custom control label')
     })
 })

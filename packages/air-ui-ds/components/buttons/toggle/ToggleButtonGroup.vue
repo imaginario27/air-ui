@@ -1,7 +1,8 @@
 <template>
     <div
+        :id="id"
         role="group"
-        aria-label="Toggle options"
+        :aria-label="ariaLabel || 'Toggle options'"
         :class="[
             'flex',
             groupStyle === ToggleButtonGroupStyle.GROUPED ? 'border border-border-default' : 'flex-wrap gap-3',
@@ -14,6 +15,7 @@
                 v-for="(button, index) in buttons"
                 :key="index"
                 :active="button.value === modelValue"
+                :ariaLabel="button.ariaLabel"
                 :text="!onlyIcon && 'text' in button ? button.text : undefined"
                 :size="button.size"
                 :icon="button.icon"
@@ -32,6 +34,7 @@
                 v-for="(button, index) in buttons"
                 :key="index"
                 :active="button.value === modelValue"
+                :ariaLabel="button.ariaLabel"
                 :size="button.size"
                 :icon="button.icon"
                 :disabled
@@ -49,6 +52,8 @@
 <script setup lang="ts">
 // Props
 defineProps({
+    id: String as PropType<string>,
+    ariaLabel: String as PropType<string>,
     modelValue: {
         type: String as PropType<string>,
         default: 'button-1',

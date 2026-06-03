@@ -52,6 +52,7 @@
             <input
                 :id
                 :type="props.type === 'password' ? passwordInputType : props.type"
+                :aria-label="!label ? ariaLabel : undefined"
                 :placeholder
                 :value="modelValue"
                 :maxlength="maxLength"
@@ -88,6 +89,7 @@
             <button
                 v-if="suffixIcon"
                 type="button"
+                aria-label="Suffix action"
                 :class="[
                     'text-icon-default',
                     'hover:text-icon-neutral-subtle',
@@ -108,6 +110,7 @@
             <button
                 v-if="!suffixIcon && type === 'password' && hasShowPasswordButton"
                 type="button"
+                aria-label="Toggle password visibility"
                 :class="[
                     'text-icon-default',
                     'hover:text-icon-neutral-subtle',
@@ -152,6 +155,7 @@ const props = defineProps({
         required: true,
     },
     label: String as PropType<string>,
+    ariaLabel: String as PropType<string>,
     type: {
         type: String as PropType<AllowedInputType>,
         default: 'text',

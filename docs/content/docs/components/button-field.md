@@ -7,6 +7,7 @@ srcDir: 'forms/fields/ButtonField.vue'
 props: 
     id: "field-id"
     label: "Sample label"
+    ariaLabel: "Submit action"
     actionType: "action"
     styleType: "neutral-filled"
     text: "Button text"
@@ -94,6 +95,10 @@ props: [
     },
     {
         "name": "label",
+        "type": "string",
+    },
+    {
+        "name": "ariaLabel",
         "type": "string",
     },
     {
@@ -191,6 +196,18 @@ Sets the label of the field.
 ```vue
 <template>
     <ButtonField label="Sample label" />
+</template>
+```
+
+- **Type:** `string`
+
+### ariaLabel
+
+Sets the accessible name for the internal button when the visual `label` is hidden.
+
+```vue
+<template>
+    <ButtonField ariaLabel="Submit action" />
 </template>
 ```
 

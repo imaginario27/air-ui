@@ -10,7 +10,7 @@
         >
             <!-- Label (inverted position) -->
             <label 
-                v-if="inverse"
+                v-if="inverse && label"
                 :for="id" 
                 :class="[ 
                     disabled && 'text-text-neutral-disabled',
@@ -26,7 +26,8 @@
                 :name="name"
                 :value="value"
                 :checked="modelValue === value" 
-                class="hidden" 
+                class="sr-only"
+                :aria-label="!label ? ariaLabel : undefined"
                 :disabled="disabled"
                 @change="selectRadio"
             >
@@ -58,7 +59,7 @@
             
             <!-- Label (natural position) -->
             <label 
-                v-if="!inverse"
+                v-if="!inverse && label"
                 :for="id" 
                 :class="[ 
                     disabled ? 'text-text-neutral-disabled' : undefined,
@@ -97,10 +98,8 @@ const props = defineProps({
         type: [String, Number, Boolean] as PropType<string | number | boolean>,
         required: true,
     },
-    label: { 
-        type: String as PropType<string>, 
-        default: 'Text',
-    },
+    label: String as PropType<string>,
+    ariaLabel: String as PropType<string>,
     helpText: String as PropType<string>,
     required: { 
         type: Boolean as PropType<boolean>, 

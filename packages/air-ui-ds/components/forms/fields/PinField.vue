@@ -27,6 +27,7 @@
                 :key="index"
                 :ref="el => setInputRef(el, index)"
                 type="text"
+                :aria-label="getInputAriaLabel(index)"
                 :inputmode="type === 'number' ? 'numeric' : 'text'"
                 maxlength="1"
                 :value="displayValue(value)"
@@ -93,6 +94,7 @@ const props = defineProps({
         validator: (value: InputSize) => Object.values(InputSize).includes(value),
     },
     label: String as PropType<string>,
+    ariaLabel: String as PropType<string>,
     placeholder: String as PropType<string>,
     helpText: String as PropType<string>,
     mask: {
@@ -278,6 +280,11 @@ const displayValue = (value: string) => {
     }
 
     return value
+}
+
+const getInputAriaLabel = (index: number) => {
+    const baseLabel = props.label || props.ariaLabel || 'PIN code'
+    return `${baseLabel} ${index + 1}`
 }
 
 const setInputRef = (el: Element | ComponentPublicInstance | null, index: number) => {

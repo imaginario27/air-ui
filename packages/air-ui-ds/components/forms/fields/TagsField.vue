@@ -64,6 +64,7 @@
                     :id
                     ref="inputRef"
                     type="text"
+                    :aria-label="!label ? ariaLabel : undefined"
                     :value="inputValue"
                     :placeholder="computedPlaceholder"
                     :autofocus
@@ -116,6 +117,7 @@ const props = defineProps({
         required: true,
     },
     label: String as PropType<string>,
+    ariaLabel: String as PropType<string>,
     placeholder: {
         type: String as PropType<string>,
         default: 'Enter values separated by commas',

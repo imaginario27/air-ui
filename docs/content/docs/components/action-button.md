@@ -581,6 +581,21 @@ Sets a custom class for the button label.
 
 - **Type:** `string`
 
+## Accessibility
+
+`ActionButton` already exposes an accessible name from its visible `text`, so `aria-label` is not required in the common case.
+
+Use a native `aria-label` only when the visible label is not descriptive enough for screen readers.
+
+```vue
+<template>
+    <ActionButton
+        text="Go"
+        aria-label="Go to dashboard"
+    />
+</template>
+```
+
 ## Emits
 ::options-table
 ---

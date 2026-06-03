@@ -245,4 +245,16 @@ describe('TextareaField', () => {
 
         expect(wrapper.emitted('update:blurContent')).toContainEqual([true])
     })
+
+    it('uses aria-label when visual label is hidden', () => {
+        const wrapper = factory({
+            label: '',
+            ariaLabel: 'Accessible message',
+        })
+
+        const textarea = wrapper.find('textarea')
+
+        expect(wrapper.find('label').exists()).toBe(false)
+        expect(textarea.attributes('aria-label')).toBe('Accessible message')
+    })
 })

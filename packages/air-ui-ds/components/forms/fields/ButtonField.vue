@@ -13,6 +13,7 @@
             {{ label }}
         </label>
         <ActionButton 
+            :aria-label="!label ? ariaLabel : undefined"
             :text
             :size
             :icon
@@ -40,6 +41,7 @@ const props = defineProps({
         required: true,
     },
     label: String as PropType<string>,
+    ariaLabel: String as PropType<string>,
     actionType: {
         type: String as PropType<ButtonActionType>,
         default: ButtonActionType.ACTION,

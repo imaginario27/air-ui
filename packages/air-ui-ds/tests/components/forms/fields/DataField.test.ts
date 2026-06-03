@@ -102,4 +102,16 @@ describe('DataField.vue', () => {
         const copyBtn = wrapper.findComponent({ name: 'ActionIconButton' })
         expect(copyBtn.exists()).toBe(false)
     })
+
+    it('passes ariaLabel to copy button when provided', () => {
+        const wrapper = factory({
+            text: 'Copy this text',
+            hasCopyToClipboardButton: true,
+            ariaLabel: 'Copy account value',
+        })
+
+        const copyBtn = wrapper.findComponent({ name: 'ActionIconButton' })
+        expect(copyBtn.exists()).toBe(true)
+        expect(copyBtn.props('ariaLabel')).toBe('Copy account value')
+    })
 })

@@ -176,4 +176,19 @@ describe('SwitchField', () => {
         expect(switchEl.exists()).toBe(true)
         expect(switchEl.attributes('aria-checked')).toBe('true')
     })
+
+    it('uses ariaLabel fallback when visual label is hidden', () => {
+        const wrapper = factory({
+            label: '',
+            legend: '',
+            ariaLabel: 'Enable notifications switch',
+        })
+
+        const switchEl = wrapper.find('[role="switch"]')
+        const input = wrapper.find('input[type="checkbox"]')
+
+        expect(wrapper.find('label').exists()).toBe(false)
+        expect(switchEl.attributes('aria-label')).toBe('Enable notifications switch')
+        expect(input.attributes('aria-label')).toBe('Enable notifications switch')
+    })
 })

@@ -154,4 +154,16 @@ describe('TagsField.vue', () => {
         expect(validator).toHaveBeenCalledWith(['Nuxt', 'Vue'])
         expect(wrapper.emitted('update:error')).toEqual([['Invalid tags']])
     })
+
+    it('uses aria-label when visual label is hidden', () => {
+        const wrapper = factory({
+            label: '',
+            ariaLabel: 'Tag input field',
+        })
+
+        const input = wrapper.find('input')
+
+        expect(wrapper.find('label').exists()).toBe(false)
+        expect(input.attributes('aria-label')).toBe('Tag input field')
+    })
 })

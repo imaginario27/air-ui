@@ -21,6 +21,7 @@
                     :styleType="ButtonStyleType.NEUTRAL_OUTLINED"
                     icon="mdi:plus-circle-outline"
                     :size="ButtonSize.SM"
+                    :ariaLabel="addItemAriaLabel"
                     @click="addItem"
                 />
 
@@ -30,6 +31,7 @@
                     :styleType="ButtonStyleType.DELETE_SOFT"
                     icon="mdi:minus-circle-outline"
                     :size="ButtonSize.SM"
+                    :ariaLabel="removeItemAriaLabel"
                     @click="removeItem(index)"
                 />
             </div>
@@ -46,6 +48,14 @@ const props = defineProps({
     defaultValue: {
         type: Object,
         default: () => ({}),
+    },
+    addItemAriaLabel: {
+        type: String as PropType<string>,
+        default: 'Add item',
+    },
+    removeItemAriaLabel: {
+        type: String as PropType<string>,
+        default: 'Remove item',
     },
 })
 

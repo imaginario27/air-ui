@@ -96,4 +96,19 @@ describe('ToggleButtonsGroupField', () => {
 
         expect(wrapper.emitted('update:modelValue')).toEqual([['option2']])
     })
+
+    it('forwards ariaLabel when visual label is hidden', () => {
+        const wrapper = mount(ToggleButtonsGroupField, {
+            props: {
+                ...defaultProps,
+                label: '',
+                ariaLabel: 'Accessible toggle group',
+            }
+        })
+
+        const group = wrapper.findComponent(ToggleButtonGroup)
+
+        expect(wrapper.find('label').exists()).toBe(false)
+        expect(group.props('ariaLabel')).toBe('Accessible toggle group')
+    })
 })

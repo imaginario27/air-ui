@@ -21,6 +21,8 @@
         </label>
 
         <OptionButtonGroup 
+            :id
+            :ariaLabel="!label ? ariaLabel : label"
             :buttons
             :modelValue
             :disabled
@@ -55,8 +57,9 @@ const props = defineProps({
         required: true,
     },
     label: String as PropType<string>,
+    ariaLabel: String as PropType<string>,
     helpText: String as PropType<string>,
-    buttons: Array as PropType<ToggleButton[]>,
+    buttons: Array as PropType<OptionButton[]>,
     modelValue: {
         type: [String, Array] as PropType<string | string[]>,
         required: true,

@@ -107,4 +107,16 @@ describe('RadioButtonField', () => {
         expect(icon.exists()).toBe(true)
         expect(icon.props('name')).toBe('mdi:account')
     })
+
+    it('uses aria-label when visual label is hidden', () => {
+        const wrapper = factory({
+            label: undefined,
+            ariaLabel: 'Accessible radio button option',
+        })
+
+        const input = wrapper.find('input[type="radio"]')
+
+        expect(wrapper.find('label').exists()).toBe(false)
+        expect(input.attributes('aria-label')).toBe('Accessible radio button option')
+    })
 })

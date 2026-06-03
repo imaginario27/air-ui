@@ -1,7 +1,8 @@
 <template>
     <div
+        :id="id"
         role="group"
-        aria-label="Options"
+        :aria-label="ariaLabel || 'Options'"
         :class="[
             'flex',
             'flex-wrap gap-2',
@@ -11,6 +12,7 @@
             v-for="(button, index) in displayButtons"
             :key="index"
             :aria-pressed="isButtonActive(button)"
+            :ariaLabel="button.ariaLabel"
             :active="isButtonActive(button)"
             :text="button.text"
             :size
@@ -27,6 +29,8 @@
 
 <script setup lang="ts">
 const props = defineProps({
+    id: String as PropType<string>,
+    ariaLabel: String as PropType<string>,
     modelValue: {
         type: [String, Number, Array] as PropType<string | number | string[]>,
         default: 'button-1',

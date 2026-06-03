@@ -143,4 +143,16 @@ describe('CheckboxField.vue', () => {
         expect(emitted).toBeTruthy()
         expect(emitted?.[0]?.[0]).toBe('Error from watcher')
     })
+
+    it('uses ariaLabel fallback when visual label is hidden', () => {
+        const wrapper = factory({
+            label: '',
+            ariaLabel: 'Accept terms checkbox',
+        })
+
+        const checkbox = wrapper.findComponent(Checkbox)
+
+        expect(wrapper.find('label').exists()).toBe(false)
+        expect(checkbox.props('ariaLabel')).toBe('Accept terms checkbox')
+    })
 })

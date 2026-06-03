@@ -143,4 +143,19 @@ describe('OptionButtonsGroupField', () => {
 
         expect(wrapper.emitted('update:error')).toEqual([['']])
     })
+
+    it('forwards ariaLabel when visual label is hidden', () => {
+        const wrapper = mount(OptionButtonsGroupField, {
+            props: {
+                ...defaultProps,
+                label: '',
+                ariaLabel: 'Accessible options group',
+            }
+        })
+
+        const optionGroup = wrapper.findComponent(OptionButtonGroup)
+
+        expect(wrapper.find('label').exists()).toBe(false)
+        expect(optionGroup.props('ariaLabel')).toBe('Accessible options group')
+    })
 })

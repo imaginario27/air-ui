@@ -1,6 +1,7 @@
 export interface ActionButton {
     text: string
     value: string
+    ariaLabel?: string
     active?: boolean
     action?: () => void
     size?: ButtonSize
@@ -11,6 +12,7 @@ export interface ActionButton {
 
 export interface BaseToggleButton {
     value: string
+    ariaLabel?: string
     active?: boolean
     action?: () => void
     size?: ButtonSize

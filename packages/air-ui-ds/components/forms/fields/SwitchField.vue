@@ -60,6 +60,7 @@
                 type="checkbox"
                 :checked="modelValue"
                 class="sr-only"
+                :aria-label="ariaLabel || label || legend || 'Toggle'"
                 :disabled="disabled"
                 @change="handleChange"
                 @keydown.space.prevent="toggleCheckbox"
@@ -69,7 +70,7 @@
             <div
                 role="switch"
                 :aria-checked="modelValue"
-                :aria-label="label || legend || 'Toggle'"
+                :aria-label="ariaLabel || label || legend || 'Toggle'"
                 :class="[
                     'relative flex items-center',
                     controlFieldSizeClass,
@@ -114,6 +115,7 @@ const props = defineProps({
         required: true,
     },
     label: String as PropType<string>,
+    ariaLabel: String as PropType<string>,
     legend: String as PropType<string>,
     helpText: String as PropType<string>,
     

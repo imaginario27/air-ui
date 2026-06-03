@@ -76,7 +76,8 @@
             :name="name"
             :value="value"
             :checked="modelValue === value" 
-            class="hidden" 
+            class="sr-only"
+            :aria-label="!label ? ariaLabel : undefined"
             :disabled
             @change="selectRadio"
         >
@@ -120,6 +121,7 @@ const props = defineProps({
         required: true,
     },
     label: String as PropType<string>,
+    ariaLabel: String as PropType<string>,
     helpText: String as PropType<string>,
     value: { // Value of the radio button
         type: [String, Number, Boolean] as PropType<string | number | boolean>,
