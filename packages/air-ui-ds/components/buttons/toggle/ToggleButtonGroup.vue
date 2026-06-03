@@ -14,6 +14,7 @@
                 v-for="(button, index) in buttons"
                 :key="index"
                 :active="button.value === modelValue"
+                :ariaLabel="button.ariaLabel"
                 :text="!onlyIcon && 'text' in button ? button.text : undefined"
                 :size="button.size"
                 :icon="button.icon"
@@ -32,6 +33,7 @@
                 v-for="(button, index) in buttons"
                 :key="index"
                 :active="button.value === modelValue"
+                :ariaLabel="button.ariaLabel"
                 :size="button.size"
                 :icon="button.icon"
                 :disabled

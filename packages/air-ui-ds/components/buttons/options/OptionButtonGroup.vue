@@ -11,6 +11,7 @@
             v-for="(button, index) in displayButtons"
             :key="index"
             :aria-pressed="isButtonActive(button)"
+            :ariaLabel="button.ariaLabel"
             :active="isButtonActive(button)"
             :text="button.text"
             :size

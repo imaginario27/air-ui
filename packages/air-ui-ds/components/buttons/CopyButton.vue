@@ -6,6 +6,7 @@
         :icon="currentCopyButtonIcon"
         :iconClass="currentIconClass"
         :disabled
+        :ariaLabel="currentCopyButtonText"
         @click="handleCopy"
     />
     <ActionButton 
@@ -98,7 +99,7 @@ const props = defineProps({
 })
 
 // States
-const currentCopyButtonIcon = ref<any>(props.icon)
+const currentCopyButtonIcon = ref<string>(props.icon)
 const currentCopyButtonText = ref<string>(props.text)
 const currentIconClass = ref<string | undefined>(undefined)
 

@@ -1,6 +1,7 @@
 <template>
     <ActionButton 
         :text
+        :aria-label="ariaLabel"
         :size
         :iconPosition
         :icon
@@ -49,6 +50,7 @@ const props = defineProps({
         type: Boolean as PropType<boolean>,
         default: true,
     },
+    ariaLabel: String as PropType<string>,
 })
 
 // Emits

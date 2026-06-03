@@ -56,7 +56,7 @@ const props = defineProps({
     },
     label: String as PropType<string>,
     helpText: String as PropType<string>,
-    buttons: Array as PropType<ToggleButton[]>,
+    buttons: Array as PropType<OptionButton[]>,
     modelValue: {
         type: [String, Array] as PropType<string | string[]>,
         required: true,

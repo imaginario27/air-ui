@@ -9,6 +9,7 @@ const createButtons = () => [
     {
         text: 'First',
         value: 'first',
+        ariaLabel: 'First option',
         size: ButtonSize.MD,
         icon: 'mdi:one',
         iconPosition: IconPosition.LEFT,
@@ -17,6 +18,7 @@ const createButtons = () => [
     {
         text: 'Second',
         value: 'second',
+        ariaLabel: 'Second option',
         size: ButtonSize.MD,
         icon: 'mdi:two',
         iconPosition: IconPosition.RIGHT,
@@ -118,6 +120,24 @@ describe('ToggleButtonGroup', () => {
 
         expect(toggleButtons[0].props('active')).toBe(false)
         expect(toggleButtons[1].props('active')).toBe(true)
+    })
+
+    it('passes ariaLabel to ToggleButton from the buttons array', () => {
+        const { wrapper } = factory()
+
+        const toggleButtons = wrapper.findAllComponents(ToggleButton)
+
+        expect(toggleButtons[0].props('ariaLabel')).toBe('First option')
+        expect(toggleButtons[1].props('ariaLabel')).toBe('Second option')
+    })
+
+    it('passes ariaLabel to ToggleIconButton from the buttons array', () => {
+        const { wrapper } = factory({ onlyIcon: true })
+
+        const toggleIconButtons = wrapper.findAllComponents(ToggleIconButton)
+
+        expect(toggleIconButtons[0].props('ariaLabel')).toBe('First option')
+        expect(toggleIconButtons[1].props('ariaLabel')).toBe('Second option')
     })
 
     it('calls button action and emits update:modelValue when clicked', async () => {

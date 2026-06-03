@@ -2,6 +2,7 @@
     <button
         type="button"
         :aria-pressed="active"
+        :aria-label="ariaLabel"
         :disabled
         :class="[
             'flex items-center justify-center',
@@ -61,6 +62,7 @@ const props = defineProps({
         type: Boolean as PropType<boolean>,
         default: false,
     },
+    ariaLabel: String as PropType<string>,
 })
 
 // Emits
