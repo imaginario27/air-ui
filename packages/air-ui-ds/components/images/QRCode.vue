@@ -1,5 +1,7 @@
 <template>
     <div
+        role="img"
+        :aria-label="ariaLabel || `QR code: ${modelValue}`"
         :class="[
             'relative flex items-center justify-center',
             hasBorder && 'border border-border-default rounded-md p-2',
@@ -98,6 +100,7 @@ const props = defineProps({
         default: false,
     },
     containerClass: String as PropType<string>,
+    ariaLabel: String as PropType<string>,
 })
 
 // Computed

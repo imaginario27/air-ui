@@ -104,4 +104,14 @@ describe('ToggleButton', () => {
             expect(button.classes()).toContain(expectedHeight)
         })
     })
+
+    it('sets aria-pressed matching active state', () => {
+        const wrapper = factory({ active: true })
+        expect(wrapper.find('button').attributes('aria-pressed')).toBe('true')
+    })
+
+    it('sets aria-pressed="false" when not active', () => {
+        const wrapper = factory({ active: false })
+        expect(wrapper.find('button').attributes('aria-pressed')).toBe('false')
+    })
 })

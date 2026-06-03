@@ -121,4 +121,14 @@ describe('ActionIconButton.vue', () => {
 
         expect(wrapper.find('a').attributes('type')).toBeUndefined()
     })
+
+    it('renders aria-label when ariaLabel prop is provided', () => {
+        const wrapper = factory({ ariaLabel: 'Close dialog' })
+        expect(wrapper.find('button').attributes('aria-label')).toBe('Close dialog')
+    })
+
+    it('does not render aria-label when ariaLabel prop is not provided', () => {
+        const wrapper = factory()
+        expect(wrapper.find('button').attributes('aria-label')).toBeUndefined()
+    })
 })

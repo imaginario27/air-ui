@@ -54,19 +54,23 @@
                 />
             </div>
 
-            <!-- Hidden native checkbox -->
-            <input 
-                :id="id" 
-                type="checkbox" 
-                :checked="modelValue" 
-                class="hidden" 
+            <!-- Visually hidden native checkbox (remains accessible to screen readers) -->
+            <input
+                :id="id"
+                type="checkbox"
+                :checked="modelValue"
+                class="sr-only"
                 :disabled="disabled"
-                @change="handleChange" 
+                @change="handleChange"
+                @keydown.space.prevent="toggleCheckbox"
             >
 
             <!-- Custom Switch -->
-            <div 
-                :class="[ 
+            <div
+                role="switch"
+                :aria-checked="modelValue"
+                :aria-label="label || legend || 'Toggle'"
+                :class="[
                     'relative flex items-center',
                     controlFieldSizeClass,
                     'rounded-full transition-colors',

@@ -1,5 +1,7 @@
 <template>
-    <div 
+    <div
+        role="group"
+        aria-label="Toggle options"
         :class="[
             'flex',
             groupStyle === ToggleButtonGroupStyle.GROUPED ? 'border border-border-default' : 'flex-wrap gap-3',

@@ -181,4 +181,30 @@ describe('ProgressBar', () => {
 
         expect(hasClassInAnyDiv(wrapper, expectedClass)).toBe(true)
     })
+
+    it('has role="progressbar" with correct ARIA attributes', () => {
+        const wrapper = factory({ progress: 60, min: 0, max: 100 })
+        const bar = wrapper.find('[role="progressbar"]')
+
+        expect(bar.exists()).toBe(true)
+        expect(bar.attributes('aria-valuenow')).toBe('60')
+        expect(bar.attributes('aria-valuemin')).toBe('0')
+        expect(bar.attributes('aria-valuemax')).toBe('100')
+        expect(bar.attributes('aria-label')).toBe('Progress')
+    })
+
+    it('uses aria-valuetext instead of aria-valuenow when indeterminate', () => {
+        const wrapper = factory({ isIndeterminate: true, loadingText: 'Please wait...' })
+        const bar = wrapper.find('[role="progressbar"]')
+
+        expect(bar.attributes('aria-valuenow')).toBeUndefined()
+        expect(bar.attributes('aria-valuetext')).toBe('Please wait...')
+    })
+
+    it('applies custom ariaLabel prop', () => {
+        const wrapper = factory({ ariaLabel: 'Upload progress' })
+        const bar = wrapper.find('[role="progressbar"]')
+
+        expect(bar.attributes('aria-label')).toBe('Upload progress')
+    })
 })

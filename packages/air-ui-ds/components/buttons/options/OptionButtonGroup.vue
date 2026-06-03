@@ -1,5 +1,7 @@
 <template>
-    <div 
+    <div
+        role="group"
+        aria-label="Options"
         :class="[
             'flex',
             'flex-wrap gap-2',
@@ -8,6 +10,7 @@
         <OptionButton
             v-for="(button, index) in displayButtons"
             :key="index"
+            :aria-pressed="isButtonActive(button)"
             :active="isButtonActive(button)"
             :text="button.text"
             :size

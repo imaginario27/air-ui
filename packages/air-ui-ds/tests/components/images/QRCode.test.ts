@@ -177,4 +177,25 @@ describe('QRCode', () => {
         const qr = wrapper.findComponent(QrcodeVue)
         expect(qr.props('size')).toBe(356)
     })
+
+    it('has role="img" with default aria-label from modelValue', () => {
+        const wrapper = mount(QRCode, {
+            props: defaultProps
+        })
+
+        const container = wrapper.find('[role="img"]')
+        expect(container.exists()).toBe(true)
+        expect(container.attributes('aria-label')).toBe('QR code: https://example.com')
+    })
+
+    it('uses custom ariaLabel when provided', () => {
+        const wrapper = mount(QRCode, {
+            props: {
+                ...defaultProps,
+                ariaLabel: 'Scan to visit site'
+            }
+        })
+
+        expect(wrapper.find('[role="img"]').attributes('aria-label')).toBe('Scan to visit site')
+    })
 })

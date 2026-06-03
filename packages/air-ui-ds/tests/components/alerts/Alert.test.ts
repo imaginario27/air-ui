@@ -119,4 +119,12 @@ describe('Alert.vue', () => {
         const icon = wrapper.findComponent(Icon)
         expect(icon.props('name')).toBe(expectedIcon)
     })
+
+    it('has role="alert" for screen reader announcement', () => {
+        const wrapper = mount(Alert, {
+            props: { title: 'A11y Test' }
+        })
+
+        expect(wrapper.find('[role="alert"]').exists()).toBe(true)
+    })
 })

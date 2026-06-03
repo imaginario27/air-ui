@@ -185,4 +185,17 @@ describe('SearchField', () => {
         await input.trigger('blur')
         expect(wrapper.html()).not.toContain('ring-2')
     })
+
+    it('clear button has ariaLabel when field has value', () => {
+        const wrapper = mount(SearchField, {
+            props: {
+                ...defaultProps,
+                modelValue: 'test',
+            }
+        })
+
+        const clearBtn = wrapper.findComponent(ActionIconButton)
+        expect(clearBtn.exists()).toBe(true)
+        expect(clearBtn.props('ariaLabel')).toBe('Clear search')
+    })
 })

@@ -15,4 +15,12 @@ describe('Spinner', () => {
         expect(spinner.classes()).toContain('border-border-primary-brand-default')
         expect(spinner.classes()).toContain('border-t-transparent')
     })
+
+    it('has role="status" and aria-label for screen readers', () => {
+        const wrapper = mount(Spinner)
+        const spinner = wrapper.find('div')
+
+        expect(spinner.attributes('role')).toBe('status')
+        expect(spinner.attributes('aria-label')).toBe('Loading')
+    })
 })

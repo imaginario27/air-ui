@@ -78,4 +78,11 @@ describe('Loading.vue', () => {
         expect(spinner.classes()).toContain('border-3')
     })
 
+    it('has role="status" and aria-live="polite" for screen readers', () => {
+        const wrapper = factory({ isLoading: true })
+        const container = wrapper.find('[role="status"]')
+
+        expect(container.exists()).toBe(true)
+        expect(container.attributes('aria-live')).toBe('polite')
+    })
 })

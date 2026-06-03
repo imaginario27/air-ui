@@ -66,11 +66,12 @@
             >
 
             <!-- Clear button -->
-            <ActionIconButton 
+            <ActionIconButton
                 v-if="filled"
                 :size="ButtonSize.SM"
                 :styleType="ButtonStyleType.NEUTRAL_TRANSPARENT_SUBTLE"
                 icon="mdi:close-circle"
+                ariaLabel="Clear search"
                 @click="clearField"
             />
         </div>

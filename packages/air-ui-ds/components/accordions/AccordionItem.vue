@@ -1,20 +1,28 @@
 <template>
     <div class="w-full flex flex-col gap-2 py-3">
-        <div class="accordion-header flex justify-between gap-4 hover:cursor-pointer" @click="toggle">
+        <button
+            type="button"
+            :id="headerId"
+            class="accordion-header w-full flex justify-between gap-4 hover:cursor-pointer text-left"
+            :aria-expanded="isOpen"
+            :aria-controls="panelId"
+            @click="toggle"
+        >
             <span class="font-semibold mt-1">
                 {{ title }}
             </span>
-            
-            <!-- This button does not have click event because the toggle is being controlled by the accordeon header div-->
-            <ActionIconButton 
+
+            <ActionIconButton
                 :icon="isOpen ? 'mdi:minus' : 'mdi:plus'"
                 :styleType="ButtonStyleType.NEUTRAL_TRANSPARENT"
-                :size="ButtonSize.MD" 
+                :size="ButtonSize.MD"
+                tabindex="-1"
+                aria-hidden="true"
             />
-        </div>
+        </button>
 
         <VerticalExpansionTransition v-show="isOpen">
-            <p class="text-sm">
+            <p :id="panelId" role="region" :aria-labelledby="headerId" class="text-sm">
                 {{ content }}
             </p>
         </VerticalExpansionTransition>
@@ -33,6 +41,10 @@ defineProps({
         default: 'Item content'
     }
 })
+
+// IDs
+const headerId = useId()
+const panelId = useId()
 
 // Composables
 const { isOpen, toggle } = useAccordion()

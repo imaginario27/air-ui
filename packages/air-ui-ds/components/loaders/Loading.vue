@@ -1,6 +1,8 @@
 <template>
-    <div 
-        v-if="isLoading" 
+    <div
+        v-if="isLoading"
+        role="status"
+        aria-live="polite"
         class="flex flex-col items-center gap-4"
     >
         <Spinner :class="[spinnerSizeClass, spinnerClass]" />

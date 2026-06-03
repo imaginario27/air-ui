@@ -198,4 +198,21 @@ describe('ModalDialog', () => {
         factory({ hasCornerCloseButton: false })
         expect(document.querySelector('[data-test="close-btn"]')).toBeNull()
     })
+
+    it('has role="dialog" and aria-modal="true"', async () => {
+        factory()
+        await nextTick()
+
+        const dialog = document.querySelector('[role="dialog"]')
+        expect(dialog).not.toBeNull()
+        expect(dialog?.getAttribute('aria-modal')).toBe('true')
+    })
+
+    it('applies aria-labelledby when provided', async () => {
+        factory({ ariaLabelledby: 'modal-title' })
+        await nextTick()
+
+        const dialog = document.querySelector('[role="dialog"]')
+        expect(dialog?.getAttribute('aria-labelledby')).toBe('modal-title')
+    })
 })

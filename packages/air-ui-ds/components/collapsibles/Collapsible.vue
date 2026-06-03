@@ -1,27 +1,39 @@
 <template>
     <div class="w-full flex flex-col gap-2 py-3">
-        <div
-            class="collapsible-header flex justify-between gap-4 hover:cursor-pointer"
+        <button
+            type="button"
+            :id="headerId"
+            class="collapsible-header w-full flex justify-between gap-4 hover:cursor-pointer text-left"
+            :aria-expanded="isOpen"
+            :aria-controls="panelId"
             @click="toggle"
         >
             <span class="font-semibold mt-1">
                 {{ title }}
             </span>
 
-            <ActionIconButton 
+            <ActionIconButton
                 :icon="isOpen ? 'mdi:unfold-less-horizontal' : 'mdi:unfold-more-horizontal'"
                 :styleType="ButtonStyleType.NEUTRAL_OUTLINED"
-                :size="ButtonSize.MD" 
+                :size="ButtonSize.MD"
+                tabindex="-1"
+                aria-hidden="true"
             />
-        </div>
+        </button>
 
         <VerticalExpansionTransition v-show="isOpen">
-            <slot />
+            <div :id="panelId" role="region" :aria-labelledby="headerId">
+                <slot />
+            </div>
         </VerticalExpansionTransition>
     </div>
 </template>
 
 <script setup lang="ts">
+// IDs
+const headerId = useId()
+const panelId = useId()
+
 // Props
 const props = defineProps({
     title: {

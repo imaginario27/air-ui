@@ -179,4 +179,22 @@ describe('SelectableCard', () => {
         const buttons = wrapper.findAllComponents(ActionButton)
         expect(buttons).toHaveLength(2)
     })
+
+    it('has role="checkbox" and aria-checked in CARD selection mode', () => {
+        const wrapper = factory({
+            selectMode: CardSelectionMode.CARD,
+            modelValue: true,
+        })
+
+        expect(wrapper.find('[role="checkbox"]').exists()).toBe(true)
+        expect(wrapper.find('[role="checkbox"]').attributes('aria-checked')).toBe('true')
+    })
+
+    it('does not have role="checkbox" in BUTTON selection mode', () => {
+        const wrapper = factory({
+            selectMode: CardSelectionMode.BUTTON,
+        })
+
+        expect(wrapper.find('[role="checkbox"]').exists()).toBe(false)
+    })
 })

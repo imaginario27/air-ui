@@ -14,6 +14,12 @@
         </div>
 
         <div
+            role="progressbar"
+            :aria-valuenow="isIndeterminate ? undefined : normalizedProgress"
+            :aria-valuemin="min"
+            :aria-valuemax="max"
+            :aria-valuetext="isIndeterminate ? loadingText : undefined"
+            :aria-label="ariaLabel"
             :class="[
                 'w-full',
                 'overflow-hidden',
@@ -114,6 +120,10 @@ const props = defineProps({
     },
     progressClass: String as PropType<string>,
     progressLabelClass: String as PropType<string>,
+    ariaLabel: {
+        type: String as PropType<string>,
+        default: 'Progress',
+    },
 })
 
 // Computed

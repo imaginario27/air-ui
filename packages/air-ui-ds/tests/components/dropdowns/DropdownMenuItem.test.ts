@@ -173,4 +173,16 @@ describe('DropdownMenuItem.vue', () => {
 
         expect(chevronIcon).toBeTruthy()
     })
+
+    it('has role="menuitem" and tabindex="0"', () => {
+        const wrapper = factory()
+
+        expect(wrapper.attributes('role')).toBe('menuitem')
+        expect(wrapper.attributes('tabindex')).toBe('0')
+    })
+
+    it('sets tabindex="-1" when disabled', () => {
+        const wrapper = factory({ disabled: true })
+        expect(wrapper.attributes('tabindex')).toBe('-1')
+    })
 })
