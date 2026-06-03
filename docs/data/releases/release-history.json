@@ -1,12 +1,43 @@
 {
-  "generatedAt": "2026-06-03T15:16:07.495Z",
+  "generatedAt": "2026-06-03T16:05:41.781Z",
   "source": "github-git-history+npm-publish-dates",
   "githubBaseUrl": "https://github.com/imaginario27/air-ui",
   "packages": [
     {
       "packageName": "@imaginario27/air-ui-ds",
-      "latestVersion": "1.13.6",
+      "latestVersion": "1.13.7",
       "entries": [
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.13.7",
+          "publishedAt": "2026-06-03",
+          "releaseType": "patch",
+          "notes": [
+            "add aria labels to interactive icon buttons"
+          ],
+          "metadata": {
+            "commitCount": 1,
+            "commits": [
+              {
+                "sha": "44e05f79f26ebf75ba30dc1e8d3b38cb3889b36b",
+                "shortSha": "44e05f7",
+                "date": "2026-06-03",
+                "subject": "fix(ds): add aria labels to interactive icon buttons",
+                "normalizedSubject": "add aria labels to interactive icon buttons",
+                "type": "fixed",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/44e05f79f26ebf75ba30dc1e8d3b38cb3889b36b",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 0,
+              "fixed": 1,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
         {
           "packageName": "@imaginario27/air-ui-ds",
           "version": "1.13.6",

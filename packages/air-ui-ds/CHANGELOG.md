@@ -5,6 +5,17 @@ All notable changes to this package are documented in this file.
 Historical releases were reconstructed from git history (GitHub repository) and npm publish dates.
 Future releases will include detailed entries generated with Changesets.
 
+## 1.13.7 - 2026-06-03
+
+Release type: patch.
+Commits found in range: 1.
+
+### Fixed
+
+1. add aria labels to interactive icon buttons ([44e05f7](https://github.com/imaginario27/air-ui/commit/44e05f79f26ebf75ba30dc1e8d3b38cb3889b36b))
+
+- Package: @imaginario27/air-ui-ds.
+
 ## 1.13.6 - 2026-06-03
 
 Release type: patch.
