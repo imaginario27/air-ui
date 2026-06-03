@@ -151,4 +151,14 @@ describe('PinField.vue', () => {
         await nextTick()
         expect(focusMock).toHaveBeenCalled()
     })
+
+    it('uses aria-label when visual label is hidden', () => {
+        const wrapper = factory({
+            label: '',
+            ariaLabel: 'Access code digit',
+        })
+
+        const firstInput = wrapper.findAll('input')[0]
+        expect(firstInput?.attributes('aria-label')).toBe('Access code digit 1')
+    })
 })

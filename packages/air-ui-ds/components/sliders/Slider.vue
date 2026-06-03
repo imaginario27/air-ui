@@ -49,7 +49,7 @@
                 ]"
                 :style="[thumbStyle(index, value), radiusStyle]"
                 :disabled
-                :aria-label="isRange ? `Slider thumb ${index + 1}` : 'Slider thumb'"
+                :aria-label="getThumbAriaLabel(index)"
                 :aria-orientation="orientation"
                 :data-testid="`slider-thumb-${index}`"
                 @pointerdown.stop.prevent="startThumbDrag(index, $event)"
@@ -75,6 +75,7 @@
 <script setup lang="ts">
 // Props
 const props = defineProps({
+    ariaLabel: String as PropType<string>,
     modelValue: {
         type: [Number, Array] as PropType<number | [number, number]>,
         default: 0,
@@ -140,6 +141,16 @@ const activeThumbIndex = ref<number | null>(null)
 const isRange = computed(() => {
     return props.type === SliderType.RANGE || props.multiple || Array.isArray(props.modelValue)
 })
+
+const getThumbAriaLabel = (index: number) => {
+    const baseLabel = props.ariaLabel || 'Slider'
+
+    if (!isRange.value) {
+        return `${baseLabel} thumb`
+    }
+
+    return `${baseLabel} thumb ${index + 1}`
+}
 
 const safeMax = computed(() => {
     if (props.max <= props.min) {

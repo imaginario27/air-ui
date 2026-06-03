@@ -21,6 +21,7 @@
         >
             <slot 
                 :id
+                :ariaLabel
                 :error
                 :hasError 
                 :helpText
@@ -50,6 +51,7 @@ const props = defineProps({
         required: true,
     },
     label: String as PropType<string>,
+    ariaLabel: String as PropType<string>,
     helpText: String as PropType<string>,
     error: {
         type: String as PropType<string>,

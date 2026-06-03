@@ -1,7 +1,8 @@
 <template>
     <div
+        :id="id"
         role="group"
-        aria-label="Toggle options"
+        :aria-label="ariaLabel || 'Toggle options'"
         :class="[
             'flex',
             groupStyle === ToggleButtonGroupStyle.GROUPED ? 'border border-border-default' : 'flex-wrap gap-3',
@@ -51,6 +52,8 @@
 <script setup lang="ts">
 // Props
 defineProps({
+    id: String as PropType<string>,
+    ariaLabel: String as PropType<string>,
     modelValue: {
         type: String as PropType<string>,
         default: 'button-1',

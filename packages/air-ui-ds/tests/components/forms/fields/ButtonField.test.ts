@@ -95,4 +95,15 @@ describe('ButtonField.vue', () => {
         })
     })
 
+    it('applies aria-label to ActionButton when visual label is hidden', () => {
+        const wrapper = factory({
+            label: '',
+            ariaLabel: 'Submit form action',
+        })
+
+        const button = wrapper.findComponent(ActionButton)
+        expect(wrapper.find('label').exists()).toBe(false)
+        expect(button.attributes('aria-label')).toBe('Submit form action')
+    })
+
 })

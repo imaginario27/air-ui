@@ -25,7 +25,7 @@
             >
                 <img
                     :src="previewImageUrl"
-                    :alt="label || 'Preview'"
+                    :alt="label || ariaLabel || 'Preview'"
                     class="w-full h-full object-cover rounded-md"
                     @error="handlePreviewError"
                 >
@@ -43,6 +43,7 @@
                     v-model="selectedFiles"
                     v-model:total-progress="localTotalProgress"
                     :title="computedTitleText"
+                    :aria-label="!label ? ariaLabel : undefined"
                     :description="computedDescriptionText"
                     :singleFileTitleText
                     :icon
@@ -124,6 +125,7 @@ const props = defineProps({
         required: true,
     },
     label: String as PropType<string>,
+    ariaLabel: String as PropType<string>,
     title: {
         type: String as PropType<string>,
         default: 'Drag and drop files here',

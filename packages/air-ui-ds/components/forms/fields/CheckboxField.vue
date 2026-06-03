@@ -21,7 +21,7 @@
         >
             <!-- Label (inverted)-->
             <label 
-                v-if="inverse"
+                v-if="inverse && label"
                 :for="id" 
                 :class="[
                     disabled && 'text-text-neutral-disabled',
@@ -32,6 +32,7 @@
 
             <Checkbox
                 :id="id"
+                :ariaLabel="!label ? (ariaLabel || legend) : undefined"
                 :modelValue="modelValue"
                 :disabled="disabled"
                 :size="size"
@@ -40,7 +41,7 @@
             
             <!-- Label (natural position) -->
             <label 
-                v-if="!inverse"
+                v-if="!inverse && label"
                 :for="id" 
                 :class="[
                     disabled && 'text-text-neutral-disabled',
@@ -75,6 +76,7 @@ const props = defineProps({
         type: String as PropType<string>, 
         default: 'Text',
     },
+    ariaLabel: String as PropType<string>,
     legend: String as PropType<string>,
     helpText: String as PropType<string>,
     modelValue: { 

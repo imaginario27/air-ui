@@ -28,6 +28,7 @@
             >
                 <SelectField
                     :id="`${id}-item-${index}`"
+                    :ariaLabel="`${itemFieldAriaLabel} ${index + 1}`"
                     :modelValue="rule.item"
                     :options="itemOptions"
                     :placeholder="itemPlaceholder"
@@ -37,6 +38,7 @@
 
                 <SelectField
                     :id="`${id}-operator-${index}`"
+                    :ariaLabel="`${operatorFieldAriaLabel} ${index + 1}`"
                     :modelValue="rule.operator"
                     :options="getFilteredOperators(getRuleInputType(rule))"
                     :placeholder="operatorPlaceholder"
@@ -46,6 +48,7 @@
 
                 <InputField
                     :id="`${id}-value-${index}`"
+                    :ariaLabel="`${valueFieldAriaLabel} ${index + 1}`"
                     :modelValue="rule.value"
                     :type="getRuleInputType(rule)"
                     :placeholder="valuePlaceholder"
@@ -57,6 +60,7 @@
                 <ActionIconButton
                     :id="`${id}-action-${index}`"
                     :icon="getRowActionIcon(index)"
+                    :ariaLabel="index === rules.length - 1 ? addRuleAriaLabel : removeRuleAriaLabel"
                     :styleType="getActionButtonStyle(index)"
                     :size="ButtonSize.MD"
                     :disabled="isActionDisabled(index)"
@@ -100,6 +104,26 @@ const props = defineProps({
         required: true,
     },
     label: String as PropType<string>,
+    itemFieldAriaLabel: {
+        type: String as PropType<string>,
+        default: 'Rule item',
+    },
+    operatorFieldAriaLabel: {
+        type: String as PropType<string>,
+        default: 'Rule operator',
+    },
+    valueFieldAriaLabel: {
+        type: String as PropType<string>,
+        default: 'Rule value',
+    },
+    addRuleAriaLabel: {
+        type: String as PropType<string>,
+        default: 'Add rule',
+    },
+    removeRuleAriaLabel: {
+        type: String as PropType<string>,
+        default: 'Remove rule',
+    },
     helpText: String as PropType<string>,
     itemOptions: {
         type: Array as PropType<SelectOption[]>,

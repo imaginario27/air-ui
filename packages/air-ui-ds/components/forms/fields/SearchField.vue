@@ -45,6 +45,7 @@
             <!-- Input -->
             <input 
                 :id 
+                :aria-label="!label ? ariaLabel : undefined"
                 :placeholder 
                 :value="modelValue" 
                 :maxlength="maxLength"
@@ -93,6 +94,7 @@ const props = defineProps({
         required: true, 
     },
     label: String as PropType<string>,
+    ariaLabel: String as PropType<string>,
     placeholder: { 
         type: String as PropType<string>, 
         default: 'Search', 

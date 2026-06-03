@@ -198,4 +198,19 @@ describe('SearchField', () => {
         expect(clearBtn.exists()).toBe(true)
         expect(clearBtn.props('ariaLabel')).toBe('Clear search')
     })
+
+    it('uses aria-label when visual label is hidden', () => {
+        const wrapper = mount(SearchField, {
+            props: {
+                ...defaultProps,
+                label: '',
+                ariaLabel: 'Accessible search',
+            }
+        })
+
+        const input = wrapper.find('input')
+
+        expect(wrapper.find('label').exists()).toBe(false)
+        expect(input.attributes('aria-label')).toBe('Accessible search')
+    })
 })

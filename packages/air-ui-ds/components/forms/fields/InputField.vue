@@ -52,6 +52,7 @@
             <input
                 :id
                 :type="props.type === 'password' ? passwordInputType : props.type"
+                :aria-label="!label ? ariaLabel : undefined"
                 :placeholder
                 :value="modelValue"
                 :maxlength="maxLength"
@@ -154,6 +155,7 @@ const props = defineProps({
         required: true,
     },
     label: String as PropType<string>,
+    ariaLabel: String as PropType<string>,
     type: {
         type: String as PropType<AllowedInputType>,
         default: 'text',

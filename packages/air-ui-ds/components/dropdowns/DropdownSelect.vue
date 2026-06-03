@@ -17,10 +17,11 @@
             <template #activator="{ isOpen }">
                 <!-- Select Box -->
                 <div
+                    :id="id"
                     role="combobox"
                     :aria-expanded="isOpen"
                     aria-haspopup="listbox"
-                    :aria-label="placeholder"
+                    :aria-label="ariaLabel || placeholder"
                     :tabindex="disabled ? -1 : 0"
                     :class="[
                         'select-box',
@@ -221,6 +222,7 @@ import missingImagePlaceholder from '@/assets/images/placeholders/missing-image-
 // Props
 const props = defineProps({
     id: String as PropType<string>,
+    ariaLabel: String as PropType<string>,
     options: {
         type: Array as PropType<SelectOption[]>,
         default: () => [

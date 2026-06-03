@@ -131,4 +131,18 @@ describe('RadioGroupField', () => {
         expect(container?.classes()).toContain('grid-cols-1')
         expect(container?.classes()).toContain('sm:grid-cols-2')
     })
+
+    it('forwards option ariaLabel when visual label is omitted', () => {
+        const wrapper = factory({
+            options: [
+                { id: 1, value: 'a', ariaLabel: 'Accessible option A' },
+                { id: 2, value: 'b', label: 'Option B' },
+            ],
+        })
+
+        const fields = wrapper.findAllComponents(RadioField)
+
+        expect(fields[0]?.props('label')).toBeUndefined()
+        expect(fields[0]?.props('ariaLabel')).toBe('Accessible option A')
+    })
 })

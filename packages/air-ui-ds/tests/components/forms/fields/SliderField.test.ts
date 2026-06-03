@@ -163,4 +163,16 @@ describe('SliderField.vue', () => {
 
         expect(slider.props('borderRadius')).toBe(12)
     })
+
+    it('forwards ariaLabel when visual label is hidden', () => {
+        const wrapper = factory({
+            label: '',
+            ariaLabel: 'Price range slider',
+        })
+
+        const slider = wrapper.findComponent(Slider)
+
+        expect(wrapper.find('label').exists()).toBe(false)
+        expect(slider.props('ariaLabel')).toBe('Price range slider')
+    })
 })

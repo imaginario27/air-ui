@@ -115,4 +115,16 @@ describe('RadioField', () => {
 
         expect(wrapper.find('p').exists()).toBe(false)
     })
+
+    it('uses aria-label when visual label is hidden', () => {
+        const wrapper = factory({
+            label: '',
+            ariaLabel: 'Accessible radio option',
+        })
+
+        const input = wrapper.find('input[type="radio"]')
+
+        expect(wrapper.find('label').exists()).toBe(false)
+        expect(input.attributes('aria-label')).toBe('Accessible radio option')
+    })
 })

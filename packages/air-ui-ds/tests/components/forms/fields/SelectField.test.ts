@@ -221,4 +221,19 @@ describe('SelectField', () => {
 
         expect(wrapper.emitted('update:error')).toEqual([['']])
     })
+
+    it('forwards ariaLabel when visual label is hidden', () => {
+        const wrapper = mount(SelectField, {
+            props: {
+                ...defaultProps,
+                label: '',
+                ariaLabel: 'Accessible select field',
+            }
+        })
+
+        const dropdown = wrapper.findComponent(DropdownSelect)
+
+        expect(wrapper.find('label').exists()).toBe(false)
+        expect(dropdown.props('ariaLabel')).toBe('Accessible select field')
+    })
 })

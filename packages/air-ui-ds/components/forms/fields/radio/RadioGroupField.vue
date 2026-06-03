@@ -33,6 +33,7 @@
                     :name
                     :value="option.value"
                     :label="option.label"
+                    :ariaLabel="option.ariaLabel"
                     :required
                     :disabled="option.disabled ? option.disabled : disabled"
                     :helpText="option.helpText"
@@ -49,6 +50,7 @@
                     :name
                     :value="option.value"
                     :label="option.label"
+                    :ariaLabel="option.ariaLabel"
                     :required
                     :helpText="option.helpText"
                     :disabled="option.disabled ? option.disabled : disabled"
@@ -83,7 +85,7 @@ const props = defineProps({
         type: Array as PropType<RadioOption[]>,
         required: true,
         validator: (value: RadioOption[]) =>
-            value.every((option) => option.id !== undefined && option.value !== undefined && option.label !== undefined),
+            value.every((option) => option.id !== undefined && option.value !== undefined && (option.label !== undefined || option.ariaLabel !== undefined)),
     },
     modelValue: {
         type: [String, Number, Boolean, null] as PropType<string | number | boolean | null>,

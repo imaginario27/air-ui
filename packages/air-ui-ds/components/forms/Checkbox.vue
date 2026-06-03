@@ -5,6 +5,7 @@
             type="checkbox"
             :checked="modelValue"
             class="sr-only"
+            :aria-label="ariaLabel || id"
             :disabled="disabled"
             @change="handleNativeChange"
             @keydown.space.prevent="toggleCheckbox"
@@ -13,7 +14,7 @@
         <div
             role="checkbox"
             :aria-checked="modelValue"
-            :aria-label="id"
+            :aria-label="ariaLabel || id"
             :class="[
                 'flex items-center justify-center',
                 controlFieldSizeClass,
@@ -43,6 +44,7 @@ const props = defineProps({
         type: String as PropType<string>,
         required: true,
     },
+    ariaLabel: String as PropType<string>,
     modelValue: {
         type: Boolean as PropType<boolean>,
         default: false,

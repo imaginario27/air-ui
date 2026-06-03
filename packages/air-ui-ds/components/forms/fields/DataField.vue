@@ -37,6 +37,7 @@
                         v-if="hasCopyToClipboardButton"
                         icon="mdi:content-copy"
                         :size="ButtonSize.XS"
+                        :ariaLabel="copyButtonAriaLabel"
                         @click="handleCopyToClipboard"
                     />
                 </div>
@@ -76,6 +77,7 @@ const props = defineProps({
         required: true, 
     },
     label: String as PropType<string>,
+    ariaLabel: String as PropType<string>,
     text: [String, Number] as PropType<string | number>,
     emptyText: {
         type: String as PropType<string>,
@@ -99,6 +101,18 @@ const props = defineProps({
 // Computed
 const isEmpty = computed(() => {
     return props.text === '' || props.text === null || props.text === undefined || props.text === 0
+})
+
+const copyButtonAriaLabel = computed(() => {
+    if (props.ariaLabel) {
+        return props.ariaLabel
+    }
+
+    if (props.label) {
+        return `Copy ${props.label}`
+    }
+
+    return 'Copy value'
 })
 
 // Toast

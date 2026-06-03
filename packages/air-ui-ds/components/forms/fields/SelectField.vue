@@ -30,6 +30,7 @@
         <DropdownSelect 
             :id
             :key="computedPlaceholder"
+            :ariaLabel="!label ? ariaLabel : undefined"
             :modelValue 
             :options 
             :type 
@@ -71,6 +72,7 @@ const props = defineProps({
         required: true,
     },
     label: String as PropType<string>,
+    ariaLabel: String as PropType<string>,
     helpText: String as PropType<string>,
     required: { 
         type: Boolean as PropType<boolean>, 

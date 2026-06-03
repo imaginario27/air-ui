@@ -181,4 +181,16 @@ describe('InputField.vue', () => {
         await nextTick()
         expect(input.attributes('type')).toBe('text')
     })
+
+    it('uses aria-label when visual label is hidden', () => {
+        const wrapper = factory({
+            label: '',
+            ariaLabel: 'Accessible input',
+        })
+
+        const input = wrapper.find('input')
+
+        expect(wrapper.find('label').exists()).toBe(false)
+        expect(input.attributes('aria-label')).toBe('Accessible input')
+    })
 })

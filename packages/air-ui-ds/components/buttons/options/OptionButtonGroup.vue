@@ -1,7 +1,8 @@
 <template>
     <div
+        :id="id"
         role="group"
-        aria-label="Options"
+        :aria-label="ariaLabel || 'Options'"
         :class="[
             'flex',
             'flex-wrap gap-2',
@@ -28,6 +29,8 @@
 
 <script setup lang="ts">
 const props = defineProps({
+    id: String as PropType<string>,
+    ariaLabel: String as PropType<string>,
     modelValue: {
         type: [String, Number, Array] as PropType<string | number | string[]>,
         default: 'button-1',

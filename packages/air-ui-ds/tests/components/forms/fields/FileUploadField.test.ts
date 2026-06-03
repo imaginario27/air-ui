@@ -26,8 +26,8 @@ const DropzoneStub = defineComponent({
         'file-removed',
         'clear-all',
     ],
-    setup(_, { slots }) {
-        return () => h('div', { 'data-test': 'dropzone' }, slots.default?.())
+    setup(_, { slots, attrs }) {
+        return () => h('div', { 'data-test': 'dropzone', ...attrs }, slots.default?.())
     },
 })
 
@@ -134,5 +134,29 @@ describe('FileUploadField.vue', () => {
 
         expect(validator).toHaveBeenCalled()
         expect(wrapper.emitted('update:error')).toBeTruthy()
+    })
+
+    it('forwards aria-label to Dropzone when visual label is hidden', () => {
+        const wrapper = factory({
+            label: '',
+            ariaLabel: 'Upload contract files',
+        })
+
+        const dropzone = wrapper.find('[data-test="dropzone"]')
+        expect(dropzone.attributes('aria-label')).toBe('Upload contract files')
+    })
+
+    it('uses ariaLabel as preview image alt when label is hidden', () => {
+        const wrapper = factory({
+            label: '',
+            ariaLabel: 'Company logo uploader',
+            showPreview: true,
+            previewImageUrl: 'https://example.com/logo.jpg',
+            modelValue: [],
+        })
+
+        const image = wrapper.find('img')
+        expect(image.exists()).toBe(true)
+        expect(image.attributes('alt')).toBe('Company logo uploader')
     })
 })
