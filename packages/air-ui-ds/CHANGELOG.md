@@ -5,6 +5,21 @@ All notable changes to this package are documented in this file.
 Historical releases were reconstructed from git history (GitHub repository) and npm publish dates.
 Future releases will include detailed entries generated with Changesets.
 
+## 1.13.5 - 2026-06-03
+
+Release type: patch.
+Commits found in range: 2.
+
+### Added
+
+1. add accessibility attributes across components ([766675d](https://github.com/imaginario27/air-ui/commit/766675db2deaa85576ed5799e9de62a5ea112c89))
+
+### Fixed
+
+1. resolve typescript errors in DropdownMenuItem and ModalDialog ([02e229b](https://github.com/imaginario27/air-ui/commit/02e229b9d6ddfa945f2817c726e3f555e079c6d4))
+
+- Package: @imaginario27/air-ui-ds.
+
 ## 1.13.4 - 2026-05-26
 
 Release type: patch.

@@ -1,12 +1,55 @@
 {
-  "generatedAt": "2026-05-26T07:31:03.885Z",
+  "generatedAt": "2026-06-03T13:22:14.075Z",
   "source": "github-git-history+npm-publish-dates",
   "githubBaseUrl": "https://github.com/imaginario27/air-ui",
   "packages": [
     {
       "packageName": "@imaginario27/air-ui-ds",
-      "latestVersion": "1.13.4",
+      "latestVersion": "1.13.5",
       "entries": [
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.13.5",
+          "publishedAt": "2026-06-03",
+          "releaseType": "patch",
+          "notes": [
+            "add accessibility attributes across components",
+            "resolve typescript errors in DropdownMenuItem and ModalDialog"
+          ],
+          "metadata": {
+            "commitCount": 2,
+            "commits": [
+              {
+                "sha": "02e229b9d6ddfa945f2817c726e3f555e079c6d4",
+                "shortSha": "02e229b",
+                "date": "2026-06-03",
+                "subject": "fix(ds): resolve typescript errors in DropdownMenuItem and ModalDialog",
+                "normalizedSubject": "resolve typescript errors in DropdownMenuItem and ModalDialog",
+                "type": "fixed",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/02e229b9d6ddfa945f2817c726e3f555e079c6d4",
+                "prUrl": null
+              },
+              {
+                "sha": "766675db2deaa85576ed5799e9de62a5ea112c89",
+                "shortSha": "766675d",
+                "date": "2026-06-03",
+                "subject": "feat(ds): add accessibility attributes across components",
+                "normalizedSubject": "add accessibility attributes across components",
+                "type": "added",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/766675db2deaa85576ed5799e9de62a5ea112c89",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 1,
+              "fixed": 1,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
         {
           "packageName": "@imaginario27/air-ui-ds",
           "version": "1.13.4",
