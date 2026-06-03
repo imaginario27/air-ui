@@ -22,7 +22,7 @@
             helpText ? 'py-2' : undefined,
             disabled && 'opacity-disabled cursor-not-allowed pointer-events-none',
         ]"
-        @keydown.enter.prevent="actionType === DropdownActionType.ACTION && emitClick($event as any)"
+        @keydown.enter.prevent="actionType === DropdownActionType.ACTION && emitClick()"
     >
         <div class="flex items-center gap-3 w-full">
             <Icon 

@@ -136,8 +136,8 @@ const handleFocusTrap = (event: KeyboardEvent) => {
     )
     if (focusableElements.length === 0) return
 
-    const first = focusableElements[0]
-    const last = focusableElements[focusableElements.length - 1]
+    const first = focusableElements[0]!
+    const last = focusableElements[focusableElements.length - 1]!
 
     if (event.shiftKey) {
         if (document.activeElement === first) {
