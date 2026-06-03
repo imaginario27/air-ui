@@ -4,12 +4,16 @@
             :id="id"
             type="checkbox"
             :checked="modelValue"
-            class="hidden"
+            class="sr-only"
             :disabled="disabled"
             @change="handleNativeChange"
+            @keydown.space.prevent="toggleCheckbox"
         >
 
         <div
+            role="checkbox"
+            :aria-checked="modelValue"
+            :aria-label="id"
             :class="[
                 'flex items-center justify-center',
                 controlFieldSizeClass,

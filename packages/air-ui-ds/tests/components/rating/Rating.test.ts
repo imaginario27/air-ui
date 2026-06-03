@@ -31,6 +31,7 @@ const factory = (props?: RatingProps): VueWrapper => {
 }
 
 const getItems = (wrapper: VueWrapper) => wrapper.findAllComponents(RatingItem)
+const getItemWrappers = (wrapper: VueWrapper) => wrapper.findAll('[role="radio"], .inline-flex')
 
 describe('Rating.vue', () => {
     it('renders 5 RatingItem components for NaN value', () => {
@@ -112,7 +113,7 @@ describe('Rating.vue', () => {
         it('emits updated modelValue when a new item is clicked', async () => {
             const wrapper = factory({ modelValue: 2, isInteractive: true })
 
-            await getItems(wrapper)[3].trigger('click') // index 3 = value 4
+            await getItemWrappers(wrapper)[3].trigger('click') // index 3 = value 4
 
             expect(wrapper.emitted('update:modelValue')).toBeTruthy()
             expect(wrapper.emitted('update:modelValue')![0]).toEqual([4])
@@ -121,35 +122,33 @@ describe('Rating.vue', () => {
         it('resets modelValue to 0 if clicked item is already selected', async () => {
             const wrapper = factory({ modelValue: 4, isInteractive: true })
 
-            await getItems(wrapper)[3].trigger('click') // index 3 = value 4
+            await getItemWrappers(wrapper)[3].trigger('click') // index 3 = value 4
             expect(wrapper.emitted('update:modelValue')![0]).toEqual([0])
         })
 
         it('updates displayValue based on hover when hoverPreview is enabled', async () => {
             const wrapper = factory({ modelValue: 2.5, isInteractive: true })
-            const items = getItems(wrapper)
 
-            await items[4].trigger('mouseenter') // index 4 = value 5
-            const icons = items.map(i => i.props('icon'))
+            await getItemWrappers(wrapper)[4].trigger('mouseenter') // index 4 = value 5
+            const icons = getItems(wrapper).map(i => i.props('icon'))
 
             expect(icons).toEqual(['mdi:star', 'mdi:star', 'mdi:star', 'mdi:star', 'mdi:star'])
         })
 
         it('ignores hover when hoverPreview is disabled', async () => {
             const wrapper = factory({ modelValue: 2.5, isInteractive: true, hoverPreview: false })
-            const items = getItems(wrapper)
 
-            await items[4].trigger('mouseenter')
-            const icons = items.map(i => i.props('icon'))
+            await getItemWrappers(wrapper)[4].trigger('mouseenter')
+            const icons = getItems(wrapper).map(i => i.props('icon'))
 
             expect(icons).toEqual(['mdi:star', 'mdi:star', 'mdi:star-half-full', 'mdi:star-outline', 'mdi:star-outline'])
         })
 
         it('clears hover on container mouseleave', async () => {
             const wrapper = factory({ modelValue: 2.5, isInteractive: true })
-            const container = wrapper.find('div')
+            const container = wrapper.find('[role="radiogroup"]')
 
-            await getItems(wrapper)[4].trigger('mouseenter')
+            await getItemWrappers(wrapper)[4].trigger('mouseenter')
             let icons = getItems(wrapper).map(i => i.props('icon'))
             expect(icons).toEqual(['mdi:star', 'mdi:star', 'mdi:star', 'mdi:star', 'mdi:star'])
 
@@ -160,12 +159,27 @@ describe('Rating.vue', () => {
 
         it('ignores hover when not interactive', async () => {
             const wrapper = factory({ modelValue: 2.5, isInteractive: false })
-            const items = getItems(wrapper)
 
-            await items[4].trigger('mouseenter')
-            const icons = items.map(i => i.props('icon'))
+            await getItemWrappers(wrapper)[4].trigger('mouseenter')
+            const icons = getItems(wrapper).map(i => i.props('icon'))
 
             expect(icons).toEqual(['mdi:star', 'mdi:star', 'mdi:star-half-full', 'mdi:star-outline', 'mdi:star-outline'])
+        })
+    })
+
+    describe('accessibility', () => {
+        it('has role="img" with aria-label when not interactive', () => {
+            const wrapper = factory({ modelValue: 2.5, isInteractive: false })
+
+            expect(wrapper.attributes('role')).toBe('img')
+            expect(wrapper.attributes('aria-label')).toBe('Rating: 2.5 out of 5')
+        })
+
+        it('has role="radiogroup" when interactive', () => {
+            const wrapper = factory({ isInteractive: true })
+
+            expect(wrapper.attributes('role')).toBe('radiogroup')
+            expect(wrapper.attributes('aria-label')).toBe('Rating')
         })
     })
 })

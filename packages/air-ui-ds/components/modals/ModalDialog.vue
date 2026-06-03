@@ -42,6 +42,10 @@
                     >
                         <div
                             v-show="modelValue"
+                            ref="dialogRef"
+                            role="dialog"
+                            aria-modal="true"
+                            :aria-labelledby="ariaLabelledby"
                             :class="[
                                 'bg-background-surface rounded-lg shadow-xl',
                                 'relative w-full my-8',
@@ -54,6 +58,7 @@
                                 :styleType="ButtonStyleType.NEUTRAL_TRANSPARENT"
                                 :size="ButtonSize.MD"
                                 icon="mdi:close"
+                                ariaLabel="Close"
                                 class="absolute top-4 right-4 z-10"
                                 @click="closeModal"
                             />
@@ -70,6 +75,10 @@
 </template>
 
 <script setup lang="ts">
+// Refs
+const dialogRef = ref<HTMLElement | null>(null)
+const previouslyFocusedElement = ref<HTMLElement | null>(null)
+
 // State
 const previousBodyOverflow = ref<string | null>(null)
 const previousBodyPaddingRight = ref<string | null>(null)
@@ -95,6 +104,7 @@ const props = defineProps({
         default: 'max-w-[600px]',
     },
     id: String as PropType<string>,
+    ariaLabelledby: String as PropType<string>,
 })
 
 // Emits
@@ -118,13 +128,39 @@ const handleEscKey = (event: KeyboardEvent) => {
     }
 }
 
+const handleFocusTrap = (event: KeyboardEvent) => {
+    if (event.key !== 'Tab' || !dialogRef.value) return
+
+    const focusableElements = dialogRef.value.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+    )
+    if (focusableElements.length === 0) return
+
+    const first = focusableElements[0]!
+    const last = focusableElements[focusableElements.length - 1]!
+
+    if (event.shiftKey) {
+        if (document.activeElement === first) {
+            event.preventDefault()
+            last.focus()
+        }
+    } else {
+        if (document.activeElement === last) {
+            event.preventDefault()
+            first.focus()
+        }
+    }
+}
+
 // Event listeners
 const addEscListener = () => {
     globalThis.addEventListener('keydown', handleEscKey)
+    globalThis.addEventListener('keydown', handleFocusTrap)
 }
 
 const removeEscListener = () => {
     globalThis.removeEventListener('keydown', handleEscKey)
+    globalThis.removeEventListener('keydown', handleFocusTrap)
 }
 
 const lockScroll = () => {
@@ -162,11 +198,19 @@ watch(
     () => props.modelValue,
     newValue => {
         if (newValue) {
-            addEscListener() // Add Esc key listener
+            previouslyFocusedElement.value = document.activeElement as HTMLElement
+            addEscListener()
             lockScroll()
+            nextTick(() => {
+                const firstFocusable = dialogRef.value?.querySelector<HTMLElement>(
+                    'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+                )
+                firstFocusable?.focus()
+            })
         } else {
-            removeEscListener() // Remove Esc key listener
+            removeEscListener()
             unlockScroll()
+            previouslyFocusedElement.value?.focus()
         }
     },
     { immediate: true },

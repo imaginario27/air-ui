@@ -1,18 +1,33 @@
 <template>
     <div
+        :role="isInteractive ? 'radiogroup' : 'img'"
+        :aria-label="isInteractive ? 'Rating' : `Rating: ${displayValue} out of 5`"
         class="flex gap-1"
         @mouseleave="hoverIndex = null"
+        @keydown="isInteractive && handleKeydown($event)"
     >
-        <RatingItem
+        <div
             v-for="(icon, index) in items"
             :key="index"
-            :icon
-            :size
-            :color
-            :isInteractive
+            v-bind="isInteractive ? {
+                role: 'radio',
+                'aria-checked': modelValue === index + 1,
+                'aria-label': `${index + 1} star${index + 1 > 1 ? 's' : ''}`,
+                tabindex: modelValue === index + 1 || (modelValue === 0 && index === 0) ? 0 : -1,
+            } : {
+                'aria-hidden': 'true',
+            }"
+            class="inline-flex"
             @click="isInteractive && handleClick(index)"
             @mouseenter="isInteractive && onMouseEnter(index)"
-        />
+        >
+            <RatingItem
+                :icon
+                :size
+                :color
+                :isInteractive
+            />
+        </div>
     </div>
 </template>
 
@@ -66,6 +81,22 @@ const onMouseEnter = (index: number) => {
     if (props.hoverPreview) {
         hoverIndex.value = index
     }
+}
+
+const handleKeydown = (event: KeyboardEvent) => {
+    let newValue = props.modelValue
+
+    if (event.key === 'ArrowRight' || event.key === 'ArrowUp') {
+        event.preventDefault()
+        newValue = Math.min(5, props.modelValue + 1)
+    } else if (event.key === 'ArrowLeft' || event.key === 'ArrowDown') {
+        event.preventDefault()
+        newValue = Math.max(0, props.modelValue - 1)
+    } else {
+        return
+    }
+
+    emit('update:modelValue', newValue)
 }
 
 const handleClick = (index: number) => {

@@ -1,6 +1,8 @@
 <template>
     <component
         :is="dynamicComponent"
+        role="menuitem"
+        :tabindex="disabled ? -1 : 0"
         v-bind="{
             ...componentProps,
             ...$attrs,
@@ -12,12 +14,15 @@
             'text-sm',
             'hover:bg-background-neutral-hover-subtle hover:cursor-pointer',
             'w-full',
+            'outline-none',
+            'focus-visible:bg-background-neutral-hover-subtle',
             sizeClass,
             typeClass,
             hasSeparator ? 'border-b border-border-default' : undefined,
             helpText ? 'py-2' : undefined,
             disabled && 'opacity-disabled cursor-not-allowed pointer-events-none',
         ]"
+        @keydown.enter.prevent="actionType === DropdownActionType.ACTION && emitClick()"
     >
         <div class="flex items-center gap-3 w-full">
             <Icon 

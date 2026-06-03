@@ -17,7 +17,7 @@
             ...(actionType === ButtonActionType.ACTION ? { onClick: emitClick } : {})
         }"
         :disabled="disabled"
-        
+        :aria-label="ariaLabel"
     >
         <Icon 
             :name="icon"
@@ -84,6 +84,7 @@ const props = defineProps({
         default: false
     },
     id: String as PropType<string>,
+    ariaLabel: String as PropType<string>,
 })
 
 // Emits

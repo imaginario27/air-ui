@@ -49,4 +49,27 @@ describe('Collapsible', () => {
         await wrapper.find('.collapsible-header').trigger('click')
         expect(iconButton.props('icon')).toBe('mdi:unfold-less-horizontal')
     })
+
+    it('uses a button element for the header', () => {
+        const wrapper = factory()
+        expect(wrapper.find('button.collapsible-header').exists()).toBe(true)
+    })
+
+    it('sets aria-expanded to match open state', async () => {
+        const wrapper = factory()
+        const header = wrapper.find('button.collapsible-header')
+
+        expect(header.attributes('aria-expanded')).toBe('false')
+
+        await header.trigger('click')
+        expect(header.attributes('aria-expanded')).toBe('true')
+    })
+
+    it('links header to panel via aria-controls', () => {
+        const wrapper = factory()
+        const header = wrapper.find('button.collapsible-header')
+        const panel = wrapper.find('[role="region"]')
+
+        expect(header.attributes('aria-controls')).toBe(panel.attributes('id'))
+    })
 })

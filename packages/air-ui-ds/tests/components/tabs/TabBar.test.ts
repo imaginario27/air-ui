@@ -185,4 +185,18 @@ describe('TabBar.vue', () => {
         expect(shouldPrefetchOn?.(PrefetchOn.VISIBILITY)).toBe(true)
         expect(shouldPrefetchOn?.(PrefetchOn.INTERACTION)).toBe(true)
     })
+
+    it('has role="tablist" on the container', () => {
+        const wrapper = factory()
+        expect(wrapper.attributes('role')).toBe('tablist')
+    })
+
+    it('sets tabindex="0" on active tab and tabindex="-1" on others', () => {
+        const wrapper = factory({ modelValue: 1 })
+        const tabComponents = wrapper.findAllComponents(Tab)
+
+        expect(tabComponents[0].props('tabindex')).toBe(-1)
+        expect(tabComponents[1].props('tabindex')).toBe(0)
+        expect(tabComponents[2].props('tabindex')).toBe(-1)
+    })
 })

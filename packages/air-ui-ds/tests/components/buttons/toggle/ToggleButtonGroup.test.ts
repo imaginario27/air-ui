@@ -189,4 +189,10 @@ describe('ToggleButtonGroup', () => {
         expect(wrapper.findAllComponents(ToggleButton)).toHaveLength(0)
         expect(wrapper.findAllComponents(ToggleIconButton)).toHaveLength(0)
     })
+
+    it('has role="group" with aria-label', () => {
+        const wrapper = mount(ToggleButtonGroup)
+        expect(wrapper.attributes('role')).toBe('group')
+        expect(wrapper.attributes('aria-label')).toBe('Toggle options')
+    })
 })

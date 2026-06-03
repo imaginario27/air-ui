@@ -107,11 +107,11 @@ export default defineNuxtConfig({
                 {
                     name: "viewport",
                     content:
-                        "width=device-width, initial-scale=1.0, user-scalable=no",
+                        "width=device-width, initial-scale=1.0",
                 },
             ],
 
-            title: 'Loading...',
+            title: 'Build modern Nuxt apps',
 
             // $s is replaced by the page title
             titleTemplate: `%s | ${process.env.APP_NAME || 'AirUI'}`,
@@ -193,8 +193,8 @@ export default defineNuxtConfig({
     },
 
     hooks: { // Workaround for Nuxt 4.4.2 bug:
-        'nitro:config'(nitroConfig) {
-            const imports = (nitroConfig as { imports?: { imports?: Array<{ name?: string }> } }).imports;
+        'nitro:config'(nitroConfig: { imports?: { imports?: Array<{ name?: string }> } }) {
+            const imports = nitroConfig.imports;
             if (!imports?.imports) {
                 return;
             }

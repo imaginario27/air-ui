@@ -44,4 +44,27 @@ describe('Checkbox.vue', () => {
         expect(box.classes()).toContain('w-[32px]')
         expect(box.classes()).toContain('h-[32px]')
     })
+
+    it('uses sr-only instead of hidden on native input', () => {
+        const wrapper = factory()
+        const input = wrapper.find('input[type="checkbox"]')
+
+        expect(input.classes()).toContain('sr-only')
+        expect(input.classes()).not.toContain('hidden')
+    })
+
+    it('has role="checkbox" and aria-checked on custom element', () => {
+        const wrapper = factory({ modelValue: true })
+        const box = wrapper.find('[role="checkbox"]')
+
+        expect(box.exists()).toBe(true)
+        expect(box.attributes('aria-checked')).toBe('true')
+    })
+
+    it('sets aria-checked="false" when unchecked', () => {
+        const wrapper = factory({ modelValue: false })
+        const box = wrapper.find('[role="checkbox"]')
+
+        expect(box.attributes('aria-checked')).toBe('false')
+    })
 })

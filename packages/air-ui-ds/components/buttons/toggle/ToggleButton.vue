@@ -1,6 +1,7 @@
 <template>
     <button
         type="button"
+        :aria-pressed="active"
         :disabled
         :class="[
             'flex items-center justify-center',

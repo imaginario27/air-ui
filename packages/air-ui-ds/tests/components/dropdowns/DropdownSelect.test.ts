@@ -282,4 +282,22 @@ describe('DropdownSelect.vue', () => {
         expect(wrapper.find('.stubbed-section-item').exists()).toBe(true)
         expect(wrapper.find('.stubbed-section-item').text()).toContain('Section A')
     })
+
+    it('has role="combobox" with aria-haspopup on the select trigger', () => {
+        const wrapper = factory()
+        const selectBox = wrapper.find('.select-box')
+
+        expect(selectBox.attributes('role')).toBe('combobox')
+        expect(selectBox.attributes('aria-haspopup')).toBe('listbox')
+    })
+
+    it('sets tabindex="0" on trigger when not disabled', () => {
+        const wrapper = factory()
+        expect(wrapper.find('.select-box').attributes('tabindex')).toBe('0')
+    })
+
+    it('sets tabindex="-1" on trigger when disabled', () => {
+        const wrapper = factory({ disabled: true })
+        expect(wrapper.find('.select-box').attributes('tabindex')).toBe('-1')
+    })
 })

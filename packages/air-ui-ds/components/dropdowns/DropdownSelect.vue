@@ -17,8 +17,13 @@
             <template #activator="{ isOpen }">
                 <!-- Select Box -->
                 <div
-                    :class="[ 
-                        'select-box', // Class identifier for unit test
+                    role="combobox"
+                    :aria-expanded="isOpen"
+                    aria-haspopup="listbox"
+                    :aria-label="placeholder"
+                    :tabindex="disabled ? -1 : 0"
+                    :class="[
+                        'select-box',
                         'flex items-center justify-between',
                         'w-full',
                         'px-3',
@@ -28,10 +33,14 @@
                         'border border-border-default',
                         'text-sm',
                         disabled ? 'text-text-neutral-disabled' : 'text-text-default',
+                        'outline-none',
+                        'focus-visible:ring-2 focus-visible:ring-border-primary-brand-default',
                         sizeClass,
                         selectBoxClass,
                     ]"
                     @click="handleSelectBoxClick"
+                    @keydown.enter.prevent="handleSelectBoxClick($event as any)"
+                    @keydown.space.prevent="handleSelectBoxClick($event as any)"
                 >
                     <div v-if="multiple">
                         <template v-if="Array.isArray(selected) && selected.length">
@@ -96,11 +105,12 @@
 
                     <div class="flex gap-2 items-center">
                         <!-- Clear button -->
-                        <ActionIconButton 
+                        <ActionIconButton
                             v-if="multiple && Array.isArray(selected) && selected.length"
                             :size="ButtonSize.SM"
                             :styleType="ButtonStyleType.NEUTRAL_TRANSPARENT_SUBTLE"
                             icon="mdi:close-circle"
+                            ariaLabel="Clear selection"
                             @click="selected = []"
                         />
 
@@ -135,6 +145,7 @@
                         <input
                             v-model="searchQuery"
                             type="text"
+                            :aria-label="searchFieldPlaceholder"
                             :placeholder="searchFieldPlaceholder"
                             :class="[ 
                                 'w-full', 

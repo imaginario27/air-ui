@@ -1,5 +1,6 @@
 <template>
-    <div 
+    <div
+        role="alert"
         :class="[
             'w-full',
             'flex gap-3',

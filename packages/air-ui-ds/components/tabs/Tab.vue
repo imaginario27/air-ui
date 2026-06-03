@@ -1,5 +1,8 @@
 <template>
-    <div 
+    <div
+        role="tab"
+        :aria-selected="active"
+        :tabindex="tabindex"
         :class="[
             'flex',
             'items-center',
@@ -7,6 +10,8 @@
             'px-3',
             'hover:cursor-pointer',
             'group',
+            'outline-none',
+            'focus-visible:ring-2 focus-visible:ring-border-primary-brand-default',
             disabled && 'opacity-disabled cursor-not-allowed pointer-events-none',
             styleClass,
         ]"
@@ -93,6 +98,10 @@ const props = defineProps({
     disabled: {
         type: Boolean as PropType<boolean>,
         default: false,
+    },
+    tabindex: {
+        type: Number as PropType<number>,
+        default: 0,
     },
 })
 

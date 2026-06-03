@@ -46,4 +46,35 @@ describe('AccordionItem', () => {
         await wrapper.find('.accordion-header').trigger('click')
         expect(iconButton.props('icon')).toBe('mdi:minus')
     })
+
+    it('uses a button element for the header', () => {
+        const wrapper = factory()
+        expect(wrapper.find('button.accordion-header').exists()).toBe(true)
+    })
+
+    it('sets aria-expanded to match open state', async () => {
+        const wrapper = factory()
+        const header = wrapper.find('button.accordion-header')
+
+        expect(header.attributes('aria-expanded')).toBe('false')
+
+        await header.trigger('click')
+        expect(header.attributes('aria-expanded')).toBe('true')
+    })
+
+    it('links header to panel via aria-controls', () => {
+        const wrapper = factory()
+        const header = wrapper.find('button.accordion-header')
+        const panel = wrapper.find('[role="region"]')
+
+        expect(header.attributes('aria-controls')).toBe(panel.attributes('id'))
+    })
+
+    it('makes inner ActionIconButton decorative', () => {
+        const wrapper = factory()
+        const iconButton = wrapper.findComponent(ActionIconButton)
+
+        expect(iconButton.attributes('tabindex')).toBe('-1')
+        expect(iconButton.attributes('aria-hidden')).toBe('true')
+    })
 })

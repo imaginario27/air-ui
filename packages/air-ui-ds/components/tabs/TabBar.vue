@@ -1,5 +1,6 @@
 <template>
-    <div 
+    <div
+        role="tablist"
         :class="[
             'flex flex-wrap',
             hasContainer && 'border border-border-default',
@@ -7,19 +8,22 @@
             hasContainer && isContainerFullWidth && 'w-full',
             disabled && 'opacity-disabled cursor-not-allowed pointer-events-none',
         ]"
+        @keydown="handleKeydown"
     >
-        <Tab 
-            v-for="(tab, index) in tabs" 
-            :key="index" 
-            :text="tab.text" 
+        <Tab
+            v-for="(tab, index) in tabs"
+            :key="index"
+            ref="tabRefs"
+            :text="tab.text"
             :icon="tab.icon"
-            :imgUrl="tab.imgUrl" 
+            :imgUrl="tab.imgUrl"
             :badgeValue="tab.badgeValue"
-            :active="index === activeIndex" 
+            :active="index === activeIndex"
             :disabled="disabled || tab.disabled"
             :tabStyle
             :size="tabSize"
             :decoration
+            :tabindex="index === activeIndex ? 0 : -1"
             @click="handleTabClick(index, tab.to)"
             @pointerenter="handleTabPrefetch(tab.to)"
             @focus="handleTabPrefetch(tab.to)"
@@ -73,6 +77,9 @@ const props = defineProps({
     },
 })
 
+// Refs
+const tabRefs = ref<ComponentPublicInstance[]>([])
+
 // Local
 const activeIndex = ref(props.modelValue)
 
@@ -112,6 +119,40 @@ const handleTabPrefetch = (to?: string) => {
     // fire and forget - do not await to avoid blocking
     preloadRouteComponents(to)
 }
+const handleKeydown = (event: KeyboardEvent) => {
+    const tabCount = props.tabs.length
+    let newIndex = activeIndex.value
+
+    if (event.key === 'ArrowRight' || event.key === 'ArrowDown') {
+        event.preventDefault()
+        newIndex = (activeIndex.value + 1) % tabCount
+    } else if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
+        event.preventDefault()
+        newIndex = (activeIndex.value - 1 + tabCount) % tabCount
+    } else if (event.key === 'Home') {
+        event.preventDefault()
+        newIndex = 0
+    } else if (event.key === 'End') {
+        event.preventDefault()
+        newIndex = tabCount - 1
+    } else {
+        return
+    }
+
+    while (props.tabs[newIndex]?.disabled && newIndex !== activeIndex.value) {
+        if (event.key === 'ArrowRight' || event.key === 'ArrowDown' || event.key === 'End') {
+            newIndex = (newIndex + 1) % tabCount
+        } else {
+            newIndex = (newIndex - 1 + tabCount) % tabCount
+        }
+    }
+
+    handleTabClick(newIndex, props.tabs[newIndex]?.to)
+    nextTick(() => {
+        (tabRefs.value[newIndex]?.$el as HTMLElement)?.focus()
+    })
+}
+
 // Watchers
 watch(() => props.modelValue, (newVal) => {
     activeIndex.value = newVal

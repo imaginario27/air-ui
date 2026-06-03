@@ -34,4 +34,11 @@ describe('Badge.vue', () => {
         await button.trigger('click')
         expect(wrapper.emitted('close')).toBeTruthy()
     })
+
+    it('close button has aria-label="Remove"', () => {
+        const wrapper = factory({ closeable: true })
+        const button = wrapper.find('button')
+
+        expect(button.attributes('aria-label')).toBe('Remove')
+    })
 })

@@ -1,14 +1,22 @@
 <template>
-    <Card 
+    <Card
         :hasShadow
+        v-bind="selectMode === CardSelectionMode.CARD ? {
+            role: 'checkbox',
+            'aria-checked': modelValue,
+            tabindex: disabled ? -1 : 0,
+        } : {}"
         :class="[
             'lg:p-5',
-            selectMode === CardSelectionMode.CARD && isHoverable && 
+            selectMode === CardSelectionMode.CARD && isHoverable &&
                 'hover:border-border-neutral-hover cursor-pointer transition-shadow duration-300',
+            selectMode === CardSelectionMode.CARD && 'outline-none focus-visible:ring-2 focus-visible:ring-border-primary-brand-default',
             modelValue && '!border-border-primary-brand-active',
             disabled && 'opacity-disabled cursor-not-allowed',
         ]"
         @click="handleCardClick"
+        @keydown.enter.prevent="handleCardClick($event as any)"
+        @keydown.space.prevent="handleCardClick($event as any)"
     >
         <CardHeader 
             :class="[
@@ -221,15 +229,16 @@ const props = defineProps({
 const emit = defineEmits(['update:modelValue', 'buttonClick'])
 
 // Methods
-const handleCardClick = (event: MouseEvent) => {
+const handleCardClick = (event: MouseEvent | KeyboardEvent) => {
     if (props.selectMode !== CardSelectionMode.CARD) return
 
-    const path = event.composedPath?.()
-    const isInsideButton = path?.some((el: any) => el?.tagName === 'BUTTON')
-
-    if (!isInsideButton) {
-        emit('update:modelValue', !props.modelValue)
+    if (event instanceof MouseEvent) {
+        const path = event.composedPath?.()
+        const isInsideButton = path?.some((el: any) => el?.tagName === 'BUTTON')
+        if (isInsideButton) return
     }
+
+    emit('update:modelValue', !props.modelValue)
 }
 
 const handleButtonClick = (event: Event | undefined) => {

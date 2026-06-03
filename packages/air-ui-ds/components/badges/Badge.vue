@@ -49,6 +49,7 @@
             class="ml-1 h-[24px] flex items-center"
         >
             <button
+                aria-label="Remove"
                 class="flex items-center justify-center h-full w-[20px]"
                 :class="[
                     textClass,

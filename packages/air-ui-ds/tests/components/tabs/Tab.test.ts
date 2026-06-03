@@ -167,4 +167,16 @@ describe('Tab.vue', () => {
         expect(classes).toContain('cursor-not-allowed')
         expect(classes).toContain('pointer-events-none')
     })
+
+    it('has role="tab" and aria-selected matching active state', () => {
+        const wrapper = factory({ active: true })
+
+        expect(wrapper.attributes('role')).toBe('tab')
+        expect(wrapper.attributes('aria-selected')).toBe('true')
+    })
+
+    it('sets aria-selected="false" when not active', () => {
+        const wrapper = factory({ active: false })
+        expect(wrapper.attributes('aria-selected')).toBe('false')
+    })
 })

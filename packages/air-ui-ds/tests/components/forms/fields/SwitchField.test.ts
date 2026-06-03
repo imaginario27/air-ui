@@ -160,4 +160,20 @@ describe('SwitchField', () => {
         expect(mainWrapper!.classes()).toContain('w-max')
         expect(mainWrapper!.classes()).toContain('gap-3')
     })
+
+    it('uses sr-only instead of hidden on native input', () => {
+        const wrapper = factory()
+        const input = wrapper.find('input[type="checkbox"]')
+
+        expect(input.classes()).toContain('sr-only')
+        expect(input.classes()).not.toContain('hidden')
+    })
+
+    it('has role="switch" and aria-checked on custom switch element', () => {
+        const wrapper = factory({ modelValue: true })
+        const switchEl = wrapper.find('[role="switch"]')
+
+        expect(switchEl.exists()).toBe(true)
+        expect(switchEl.attributes('aria-checked')).toBe('true')
+    })
 })
