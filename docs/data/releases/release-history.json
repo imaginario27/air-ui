@@ -1,74 +1,12 @@
 {
-  "generatedAt": "2026-06-03T16:05:41.781Z",
+  "generatedAt": "2026-06-03T13:22:14.075Z",
   "source": "github-git-history+npm-publish-dates",
   "githubBaseUrl": "https://github.com/imaginario27/air-ui",
   "packages": [
     {
       "packageName": "@imaginario27/air-ui-ds",
-      "latestVersion": "1.13.7",
+      "latestVersion": "1.13.5",
       "entries": [
-        {
-          "packageName": "@imaginario27/air-ui-ds",
-          "version": "1.13.7",
-          "publishedAt": "2026-06-03",
-          "releaseType": "patch",
-          "notes": [
-            "add aria labels to interactive icon buttons"
-          ],
-          "metadata": {
-            "commitCount": 1,
-            "commits": [
-              {
-                "sha": "44e05f79f26ebf75ba30dc1e8d3b38cb3889b36b",
-                "shortSha": "44e05f7",
-                "date": "2026-06-03",
-                "subject": "fix(ds): add aria labels to interactive icon buttons",
-                "normalizedSubject": "add aria labels to interactive icon buttons",
-                "type": "fixed",
-                "prNumber": null,
-                "url": "https://github.com/imaginario27/air-ui/commit/44e05f79f26ebf75ba30dc1e8d3b38cb3889b36b",
-                "prUrl": null
-              }
-            ],
-            "groups": {
-              "added": 0,
-              "fixed": 1,
-              "changed": 0,
-              "breaking": 0
-            }
-          }
-        },
-        {
-          "packageName": "@imaginario27/air-ui-ds",
-          "version": "1.13.6",
-          "publishedAt": "2026-06-03",
-          "releaseType": "patch",
-          "notes": [
-            "fix missing buttons aria labels"
-          ],
-          "metadata": {
-            "commitCount": 1,
-            "commits": [
-              {
-                "sha": "bc608ad6db69062f28a67eeeed6c00b50529c3bd",
-                "shortSha": "bc608ad",
-                "date": "2026-06-03",
-                "subject": "fix(ds): fix missing buttons aria labels",
-                "normalizedSubject": "fix missing buttons aria labels",
-                "type": "fixed",
-                "prNumber": null,
-                "url": "https://github.com/imaginario27/air-ui/commit/bc608ad6db69062f28a67eeeed6c00b50529c3bd",
-                "prUrl": null
-              }
-            ],
-            "groups": {
-              "added": 0,
-              "fixed": 1,
-              "changed": 0,
-              "breaking": 0
-            }
-          }
-        },
         {
           "packageName": "@imaginario27/air-ui-ds",
           "version": "1.13.5",
@@ -76,11 +14,10 @@
           "releaseType": "patch",
           "notes": [
             "add accessibility attributes across components",
-            "make MetricCard description optional and rewrite README (#113)",
             "resolve typescript errors in DropdownMenuItem and ModalDialog"
           ],
           "metadata": {
-            "commitCount": 3,
+            "commitCount": 2,
             "commits": [
               {
                 "sha": "02e229b9d6ddfa945f2817c726e3f555e079c6d4",
@@ -103,21 +40,10 @@
                 "prNumber": null,
                 "url": "https://github.com/imaginario27/air-ui/commit/766675db2deaa85576ed5799e9de62a5ea112c89",
                 "prUrl": null
-              },
-              {
-                "sha": "fe0e88a59be6171a15d1bf7cb894f12319c3fd23",
-                "shortSha": "fe0e88a",
-                "date": "2026-05-26",
-                "subject": "feat(root): make MetricCard description optional and rewrite README (#113)",
-                "normalizedSubject": "make MetricCard description optional and rewrite README (#113)",
-                "type": "added",
-                "prNumber": "113",
-                "url": "https://github.com/imaginario27/air-ui/commit/fe0e88a59be6171a15d1bf7cb894f12319c3fd23",
-                "prUrl": "https://github.com/imaginario27/air-ui/pull/113"
               }
             ],
             "groups": {
-              "added": 2,
+              "added": 1,
               "fixed": 1,
               "changed": 0,
               "breaking": 0

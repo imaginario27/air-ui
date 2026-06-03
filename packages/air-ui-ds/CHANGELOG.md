@@ -5,43 +5,21 @@ All notable changes to this package are documented in this file.
 Historical releases were reconstructed from git history (GitHub repository) and npm publish dates.
 Future releases will include detailed entries generated with Changesets.
 
-## 1.13.7 - 2026-06-03
-
-Release type: patch.
-Commits found in range: 1.
-
-### Fixed
-
-1. add aria labels to interactive icon buttons ([44e05f7](https://github.com/imaginario27/air-ui/commit/44e05f79f26ebf75ba30dc1e8d3b38cb3889b36b))
-
-- Package: @imaginario27/air-ui-ds.
-
-## 1.13.6 - 2026-06-03
-
-Release type: patch.
-Commits found in range: 1.
-
-### Fixed
-
-1. fix missing buttons aria labels ([bc608ad](https://github.com/imaginario27/air-ui/commit/bc608ad6db69062f28a67eeeed6c00b50529c3bd))
-
-- Package: @imaginario27/air-ui-ds.
-
 ## 1.13.5 - 2026-06-03
 
 Release type: patch.
-Commits found in range: 3.
+Commits found in range: 2.
 
 ### Added
 
 1. add accessibility attributes across components ([766675d](https://github.com/imaginario27/air-ui/commit/766675db2deaa85576ed5799e9de62a5ea112c89))
-2. make MetricCard description optional and rewrite README (#113) ([fe0e88a](https://github.com/imaginario27/air-ui/commit/fe0e88a59be6171a15d1bf7cb894f12319c3fd23) (PR [#113](https://github.com/imaginario27/air-ui/pull/113)))
 
 ### Fixed
 
 1. resolve typescript errors in DropdownMenuItem and ModalDialog ([02e229b](https://github.com/imaginario27/air-ui/commit/02e229b9d6ddfa945f2817c726e3f555e079c6d4))
 
 - Package: @imaginario27/air-ui-ds.
+
 
 ## 1.13.4 - 2026-05-26
 
