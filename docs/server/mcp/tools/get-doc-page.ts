@@ -1,4 +1,5 @@
 import { z } from 'zod'
+import { extractMinimarkText } from '../utils/extract-minimark-text'
 
 export default defineMcpTool({
     name: 'get_doc_page',
@@ -10,7 +11,7 @@ export default defineMcpTool({
             .max(200),
     },
 
-    async handler(input) {
+    async handler(input: { path: string }) {
         const event = useEvent()
 
         const doc = await queryCollection(event, 'content')
@@ -31,11 +32,20 @@ export default defineMcpTool({
             }
         }
 
+        const bodyText = doc.body?.value
+            ? extractMinimarkText(doc.body.value)
+            : ''
+
         return {
             content: [
                 {
                     type: 'text',
-                    text: JSON.stringify(doc, null, 2),
+                    text: JSON.stringify({
+                        title: doc.title,
+                        path: doc.path,
+                        description: doc.description,
+                        body: bodyText,
+                    }, null, 2),
                 },
             ],
         }

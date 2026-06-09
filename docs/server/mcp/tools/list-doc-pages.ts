@@ -11,7 +11,6 @@ export default defineMcpTool({
             .all()
 
         const results = allDocs
-            .slice(0, 20) // Limit pages returned to the LLM
             .map(doc => ({
                 title: doc.title,
                 path: doc.path,
