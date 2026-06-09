@@ -29,7 +29,7 @@ const props =defineProps({
     },
     titleClass: String as PropType<string>,
     headingTag: {
-        type: String as PropType<'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'>,
+        type: String as PropType<HeadingTag>,
         default: 'h3',
         validator: (value: string ) => ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'].includes(value as string)
     },

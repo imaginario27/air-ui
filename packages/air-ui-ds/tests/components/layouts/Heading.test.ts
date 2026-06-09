@@ -9,7 +9,7 @@ const factory = (
     slots: Record<string, string> = {}
 ): VueWrapper => {
     return mount(Heading, {
-        props,
+        props: { headingTag: 'h1', ...props },
         slots
     })
 }
