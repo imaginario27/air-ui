@@ -18,9 +18,9 @@
                     ]"
                 >
                     <Heading 
-                        headingTag="h3"
                         :size="HeadingSize.XS"
                         title="Help improve the product"
+                        headingTag="h3"
                     />
  
                     <p

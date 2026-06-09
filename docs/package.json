@@ -12,7 +12,8 @@
         "postinstall": "nuxt prepare",
         "test": "vitest",
         "generate-theme": "ts-node scripts/generate-theme.ts",
-        "update-theme-colors": "ts-node scripts/update-ui-theme-colors.ts"
+        "update-theme-colors": "ts-node scripts/update-ui-theme-colors.ts",
+        "typecheck": "vue-tsc --noEmit -p tsconfig.typecheck.json"
     },
     "dependencies": {
         "@nuxt/content": "3.14.0",

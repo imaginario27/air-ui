@@ -1,4 +1,4 @@
-<template>
+﻿<template>
     <Section>
         <SectionBody>
             <ContentRenderer
@@ -19,7 +19,7 @@ definePageMeta({
 })
 
 const route = useRoute()
-const cleanPath = computed(() => route.path.split('?')[0].split('#')[0])
+const cleanPath = computed(() => route.path.split('?')[0]!.split('#')[0]!)
 
 const { data } = await useAsyncData(() => queryCollection('content').path(cleanPath.value).first())
 </script>

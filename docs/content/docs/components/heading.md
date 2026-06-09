@@ -103,8 +103,8 @@ props: [
     },
     {
         "name": "headingTag",
-        "default": "'h1'",
-        "type": "'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'"
+        "required": true,
+        "type": "HeadingTag"
     },
     {
         "name": "isMobileCentered",
@@ -151,6 +151,7 @@ slots: [
 <template>
     <Heading
         :size="HeadingSize.XL"
+        headingTag="h1"
     >
         <template #overtitle>
             Overtitle
@@ -191,6 +192,7 @@ The `isOverTitleUppercase` prop allows you to display the overtitle in uppercase
     <Heading
         overtitle="Section"
         :isOverTitleUppercase="true"
+        headingTag="h1"
     />
 </template>
 ```
@@ -206,6 +208,7 @@ The `title` prop allows you to set the main title of the heading component.
 <template>
     <Heading
         title="Main Heading"
+        headingTag="h1"
     />
 </template>
 ```
@@ -221,6 +224,7 @@ You can add a description below the title to provide additional context or infor
 <template>
     <Heading
         description="This is a description for the heading."
+        headingTag="h1"
     />
 </template>
 ```
@@ -270,6 +274,7 @@ You can adjust the size of the heading using the `size` prop. It uses the `Headi
 <template>
     <Heading
         :size="HeadingSize.XL"
+        headingTag="h1"
     />
 </template>
 ```
@@ -352,8 +357,8 @@ You can specify the HTML tag to be used for the heading title using the `heading
 </template>
 ```
 
-- **Type:** `'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'`
-- **Default:** `'h1'`
+- **Type:** `HeadingTag`
+- **Required:** `true`
 
 ### isMobileCentered
 
@@ -379,6 +384,7 @@ You can apply custom CSS classes to the overtitle using the `overtitleClass` pro
     <Heading
         overtitle="Section"
         overtitleClass="text-gray-500"
+        headingTag="h1"
     />
 </template>
 ```
@@ -394,6 +400,7 @@ You can apply custom CSS classes to the title using the `titleClass` prop.
     <Heading
         title="Main Heading"
         titleClass="font-bold"
+        headingTag="h1"
     />
 </template>
 ```
@@ -409,6 +416,7 @@ You can apply custom CSS classes to the description using the `descriptionClass`
     <Heading
         description="This is a description for the heading."
         descriptionClass="text-gray-600"
+        headingTag="h1"
     />
 </template>
 ```

@@ -1,50 +1,107 @@
 {
-  "generatedAt": "2026-06-03T13:22:14.075Z",
+  "generatedAt": "2026-06-09T07:56:23.469Z",
   "source": "github-git-history+npm-publish-dates",
   "githubBaseUrl": "https://github.com/imaginario27/air-ui",
   "packages": [
     {
       "packageName": "@imaginario27/air-ui-ds",
-      "latestVersion": "1.13.5",
+      "latestVersion": "1.13.8",
       "entries": [
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.13.8",
+          "publishedAt": "2026-06-03",
+          "releaseType": "patch",
+          "notes": [
+            "Historical release reconstructed from npm publish metadata (no package commits found in this publish window)."
+          ],
+          "metadata": {
+            "commitCount": 0,
+            "commits": [],
+            "groups": {
+              "added": 0,
+              "fixed": 0,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.13.7",
+          "publishedAt": "2026-06-03",
+          "releaseType": "patch",
+          "notes": [
+            "Historical release reconstructed from npm publish metadata (no package commits found in this publish window)."
+          ],
+          "metadata": {
+            "commitCount": 0,
+            "commits": [],
+            "groups": {
+              "added": 0,
+              "fixed": 0,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.13.6",
+          "publishedAt": "2026-06-03",
+          "releaseType": "patch",
+          "notes": [
+            "add accessibility attributes and fix typescript errors (#114)"
+          ],
+          "metadata": {
+            "commitCount": 1,
+            "commits": [
+              {
+                "sha": "0b7bedb6f9ae921a3422f8a0cbca471faadd7d42",
+                "shortSha": "0b7bedb",
+                "date": "2026-06-03",
+                "subject": "feat(root): add accessibility attributes and fix typescript errors (#114)",
+                "normalizedSubject": "add accessibility attributes and fix typescript errors (#114)",
+                "type": "added",
+                "prNumber": "114",
+                "url": "https://github.com/imaginario27/air-ui/commit/0b7bedb6f9ae921a3422f8a0cbca471faadd7d42",
+                "prUrl": "https://github.com/imaginario27/air-ui/pull/114"
+              }
+            ],
+            "groups": {
+              "added": 1,
+              "fixed": 0,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
         {
           "packageName": "@imaginario27/air-ui-ds",
           "version": "1.13.5",
           "publishedAt": "2026-06-03",
           "releaseType": "patch",
           "notes": [
-            "add accessibility attributes across components",
-            "resolve typescript errors in DropdownMenuItem and ModalDialog"
+            "make MetricCard description optional and rewrite README (#113)"
           ],
           "metadata": {
-            "commitCount": 2,
+            "commitCount": 1,
             "commits": [
               {
-                "sha": "02e229b9d6ddfa945f2817c726e3f555e079c6d4",
-                "shortSha": "02e229b",
-                "date": "2026-06-03",
-                "subject": "fix(ds): resolve typescript errors in DropdownMenuItem and ModalDialog",
-                "normalizedSubject": "resolve typescript errors in DropdownMenuItem and ModalDialog",
-                "type": "fixed",
-                "prNumber": null,
-                "url": "https://github.com/imaginario27/air-ui/commit/02e229b9d6ddfa945f2817c726e3f555e079c6d4",
-                "prUrl": null
-              },
-              {
-                "sha": "766675db2deaa85576ed5799e9de62a5ea112c89",
-                "shortSha": "766675d",
-                "date": "2026-06-03",
-                "subject": "feat(ds): add accessibility attributes across components",
-                "normalizedSubject": "add accessibility attributes across components",
+                "sha": "fe0e88a59be6171a15d1bf7cb894f12319c3fd23",
+                "shortSha": "fe0e88a",
+                "date": "2026-05-26",
+                "subject": "feat(root): make MetricCard description optional and rewrite README (#113)",
+                "normalizedSubject": "make MetricCard description optional and rewrite README (#113)",
                 "type": "added",
-                "prNumber": null,
-                "url": "https://github.com/imaginario27/air-ui/commit/766675db2deaa85576ed5799e9de62a5ea112c89",
-                "prUrl": null
+                "prNumber": "113",
+                "url": "https://github.com/imaginario27/air-ui/commit/fe0e88a59be6171a15d1bf7cb894f12319c3fd23",
+                "prUrl": "https://github.com/imaginario27/air-ui/pull/113"
               }
             ],
             "groups": {
               "added": 1,
-              "fixed": 1,
+              "fixed": 0,
               "changed": 0,
               "breaking": 0
             }
@@ -56,25 +113,13 @@
           "publishedAt": "2026-05-26",
           "releaseType": "patch",
           "notes": [
-            "make MetricCard description prop optional"
+            "Historical release reconstructed from npm publish metadata (no package commits found in this publish window)."
           ],
           "metadata": {
-            "commitCount": 1,
-            "commits": [
-              {
-                "sha": "53937fbca5cb1e3f350effdcb36a6a20bc9c50c5",
-                "shortSha": "53937fb",
-                "date": "2026-05-26",
-                "subject": "feat(ds): make MetricCard description prop optional",
-                "normalizedSubject": "make MetricCard description prop optional",
-                "type": "added",
-                "prNumber": null,
-                "url": "https://github.com/imaginario27/air-ui/commit/53937fbca5cb1e3f350effdcb36a6a20bc9c50c5",
-                "prUrl": null
-              }
-            ],
+            "commitCount": 0,
+            "commits": [],
             "groups": {
-              "added": 1,
+              "added": 0,
               "fixed": 0,
               "changed": 0,
               "breaking": 0

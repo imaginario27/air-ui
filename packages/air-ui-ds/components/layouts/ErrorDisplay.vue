@@ -50,6 +50,7 @@
                     :align="alignContent"
                     :size="HeadingSize.MD"
                     :isMobileCentered
+                    headingTag="h1"
                 />
 
                 <p
