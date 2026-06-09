@@ -5,30 +5,58 @@ All notable changes to this package are documented in this file.
 Historical releases were reconstructed from git history (GitHub repository) and npm publish dates.
 Future releases will include detailed entries generated with Changesets.
 
-## 1.13.5 - 2026-06-03
+## 1.13.8 - 2026-06-03
 
 Release type: patch.
-Commits found in range: 2.
+Commits found in range: 0.
 
-### Added
+### Changed
 
-1. add accessibility attributes across components ([766675d](https://github.com/imaginario27/air-ui/commit/766675db2deaa85576ed5799e9de62a5ea112c89))
-
-### Fixed
-
-1. resolve typescript errors in DropdownMenuItem and ModalDialog ([02e229b](https://github.com/imaginario27/air-ui/commit/02e229b9d6ddfa945f2817c726e3f555e079c6d4))
+1. Historical release reconstructed from npm publish metadata (no package commits found in this publish window).
 
 - Package: @imaginario27/air-ui-ds.
 
+## 1.13.7 - 2026-06-03
 
-## 1.13.4 - 2026-05-26
+Release type: patch.
+Commits found in range: 0.
+
+### Changed
+
+1. Historical release reconstructed from npm publish metadata (no package commits found in this publish window).
+
+- Package: @imaginario27/air-ui-ds.
+
+## 1.13.6 - 2026-06-03
 
 Release type: patch.
 Commits found in range: 1.
 
 ### Added
 
-1. make MetricCard description prop optional ([53937fb](https://github.com/imaginario27/air-ui/commit/53937fbca5cb1e3f350effdcb36a6a20bc9c50c5))
+1. add accessibility attributes and fix typescript errors (#114) ([0b7bedb](https://github.com/imaginario27/air-ui/commit/0b7bedb6f9ae921a3422f8a0cbca471faadd7d42) (PR [#114](https://github.com/imaginario27/air-ui/pull/114)))
+
+- Package: @imaginario27/air-ui-ds.
+
+## 1.13.5 - 2026-06-03
+
+Release type: patch.
+Commits found in range: 1.
+
+### Added
+
+1. make MetricCard description optional and rewrite README (#113) ([fe0e88a](https://github.com/imaginario27/air-ui/commit/fe0e88a59be6171a15d1bf7cb894f12319c3fd23) (PR [#113](https://github.com/imaginario27/air-ui/pull/113)))
+
+- Package: @imaginario27/air-ui-ds.
+
+## 1.13.4 - 2026-05-26
+
+Release type: patch.
+Commits found in range: 0.
+
+### Changed
+
+1. Historical release reconstructed from npm publish metadata (no package commits found in this publish window).
 
 - Package: @imaginario27/air-ui-ds.
 
