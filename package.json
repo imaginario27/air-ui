@@ -26,7 +26,8 @@
         "publish:utils:major": "node scripts/check-git-clean.mjs && npm run typecheck:utils && npm version major --workspace=@imaginario27/air-ui-utils --no-git-tag-version && npm publish --workspace=@imaginario27/air-ui-utils --access public && npm run rebuild-release-history -- @imaginario27/air-ui-utils && npm run finalize-release -- @imaginario27/air-ui-utils",
         "typecheck:ds": "npm run typecheck --workspace=@imaginario27/air-ui-ds",
         "typecheck:utils": "npm run typecheck --workspace=@imaginario27/air-ui-utils",
-        "typecheck:all": "npm run typecheck:ds && npm run typecheck:utils"
+        "typecheck:docs": "npm run typecheck --workspace=@imaginario27/air-ui-docs",
+        "typecheck:all": "npm run typecheck:ds && npm run typecheck:utils && npm run typecheck:docs"
     },
     "dependencies": {
         "better-sqlite3": "^12.10.0"
@@ -37,6 +38,6 @@
         "baseline-browser-mapping": "2.10.31",
         "commitlint": "21.0.1",
         "husky": "9.1.7",
-        "vue-tsc": "^3.3.1"
+        "vue-tsc": "3.3.1"
     }
 }
