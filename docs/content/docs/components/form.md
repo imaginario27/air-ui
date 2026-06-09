@@ -229,8 +229,8 @@ props: [
     },
     {
         "name": "headingTag",
-        "default": "'h1'",
-        "type": "'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'"
+        "default": "'h3'",
+        "type": "HeadingTag"
     },
 ]
 ---

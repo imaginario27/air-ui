@@ -193,8 +193,8 @@ export default defineNuxtConfig({
     },
 
     hooks: { // Workaround for Nuxt 4.4.2 bug:
-        'nitro:config'(nitroConfig: { imports?: { imports?: Array<{ name?: string }> } }) {
-            const imports = nitroConfig.imports;
+        'nitro:config'(nitroConfig) {
+            const imports = nitroConfig.imports as { imports?: Array<{ name?: string }> } | undefined;
             if (!imports?.imports) {
                 return;
             }
@@ -208,10 +208,11 @@ export default defineNuxtConfig({
         plugins: [tailwindcss() as any],
         optimizeDeps: {
             include: [
-                'prettier',
-                'vue3-toastify',
                 'fuse.js',
+                'prettier',
+                'qrcode.vue',
                 'shiki',
+                'vue3-toastify',
             ]
         }
     },

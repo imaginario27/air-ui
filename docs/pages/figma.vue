@@ -8,6 +8,7 @@
                 :title
                 description="Explore the official AirUI design system in Figma — including components, tokens, and layout guidelines."
                 :align="Align.CENTER"
+                headingTag="h1"
             />
         </SectionBody>
     </Section>

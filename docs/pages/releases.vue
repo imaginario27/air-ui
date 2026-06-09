@@ -8,6 +8,7 @@
                 :title
                 description="Stay up to date with the latest AirUI releases, improvements, and breaking changes."
                 :align="Align.CENTER"
+                headingTag="h1"
             />
         </SectionBody>
     </Section>
@@ -41,6 +42,7 @@
                     <Heading
                         title="Version range"
                         :size="HeadingSize.XS"
+                        headingTag="h1"
                     />
 
                     <Form class="max-w-3xl w-full">
