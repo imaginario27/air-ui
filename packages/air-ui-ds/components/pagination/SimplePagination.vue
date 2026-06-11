@@ -1,9 +1,10 @@
 <template>
     <nav class="flex items-center justify-center gap-2">
-        <ActionIconButton 
+        <ActionIconButton
             icon="mdi:chevron-left"
             :styleType="ButtonStyleType.NEUTRAL_TRANSPARENT"
             :disabled="modelValue === 1"
+            :ariaLabel="previousPageAriaLabel"
             :class="[
                 'bg-transparent',
                 modelValue > 1 && 'hover:border border-border-default',
@@ -13,10 +14,11 @@
         <p class="text-sm">
             {{ computedResultsText }}
         </p>
-        <ActionIconButton 
+        <ActionIconButton
             icon="mdi:chevron-right"
             :styleType="ButtonStyleType.NEUTRAL_TRANSPARENT"
             :disabled="modelValue === totalPages"
+            :ariaLabel="nextPageAriaLabel"
             :class="[
                 'bg-transparent',
                 modelValue < totalPages && 'hover:border border-border-default',
@@ -53,6 +55,14 @@ const props = defineProps({
     resultTextSingleItem: {
         type: String as PropType<string>,
         default: 'Showing {total} result',
+    },
+    previousPageAriaLabel: {
+        type: String as PropType<string>,
+        default: 'Previous page',
+    },
+    nextPageAriaLabel: {
+        type: String as PropType<string>,
+        default: 'Next page',
     },
 })
 

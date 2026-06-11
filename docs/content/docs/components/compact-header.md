@@ -41,6 +41,9 @@ props:
     navMenuClass: ""
     navMobileMenuClass: "min-w-[280px]"
     headerClass: ""
+    sidebarOpenAriaLabel: "Open sidebar"
+    sidebarCloseAriaLabel: "Close sidebar"
+    mobileMenuAriaLabel: "Open mobile menu"
     class: "w-full border border-border-default"
 slots:
     header-logo: ""
@@ -186,6 +189,21 @@ props: [
     },
     {
         "name": "headerClass",
+        "type": "string"
+    },
+    {
+        "name": "sidebarOpenAriaLabel",
+        "default": "'Open sidebar'",
+        "type": "string"
+    },
+    {
+        "name": "sidebarCloseAriaLabel",
+        "default": "'Close sidebar'",
+        "type": "string"
+    },
+    {
+        "name": "mobileMenuAriaLabel",
+        "default": "'Open mobile menu'",
         "type": "string"
     },
 ]
@@ -744,3 +762,48 @@ The `headerClass` prop allows you to add custom CSS classes to the header.
     />
 </template>
 ```
+
+### sidebarOpenAriaLabel
+
+The `sidebarOpenAriaLabel` prop sets the accessible label for the sidebar toggle button when the sidebar is closed. Override it for i18n.
+
+```vue
+<template>
+    <CompactHeader
+        sidebarOpenAriaLabel="Abrir barra lateral"
+    />
+</template>
+```
+
+- **Type:** `string`
+- **Default:** `'Open sidebar'`
+
+### sidebarCloseAriaLabel
+
+The `sidebarCloseAriaLabel` prop sets the accessible label for the sidebar toggle button when the sidebar is open. Override it for i18n.
+
+```vue
+<template>
+    <CompactHeader
+        sidebarCloseAriaLabel="Cerrar barra lateral"
+    />
+</template>
+```
+
+- **Type:** `string`
+- **Default:** `'Close sidebar'`
+
+### mobileMenuAriaLabel
+
+The `mobileMenuAriaLabel` prop sets the accessible label for the mobile menu toggle button. Override it for i18n.
+
+```vue
+<template>
+    <CompactHeader
+        mobileMenuAriaLabel="Abrir menú móvil"
+    />
+</template>
+```
+
+- **Type:** `string`
+- **Default:** `'Open mobile menu'`

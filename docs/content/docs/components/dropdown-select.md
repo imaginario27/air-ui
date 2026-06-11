@@ -44,6 +44,7 @@ props:
     allowDeselect: false
     isLoading: false
     loadingText: "Loading options..."
+    clearSelectionAriaLabel: "Clear selection"
 items:
     size:
         - value: lg
@@ -174,6 +175,11 @@ props: [
     {
         "name": "loadingText",
         "default": "'Loading options...'",
+        "type": "string",
+    },
+    {
+        "name": "clearSelectionAriaLabel",
+        "default": "'Clear selection'",
         "type": "string",
     },
 ]
@@ -548,4 +554,18 @@ Sets the text to display while the select box is loading. It requires the `isLoa
 
 - **Type:** `string`
 - **Default:** `'Loading options...'`
+
+### clearSelectionAriaLabel
+The `clearSelectionAriaLabel` prop sets the accessible label for the clear selection button. Override it for i18n.
+
+```vue
+<template>
+    <DropdownSelect
+        clearSelectionAriaLabel="Borrar seleccion"
+    />
+</template>
+```
+
+- **Type:** `string`
+- **Default:** `'Clear selection'`
 

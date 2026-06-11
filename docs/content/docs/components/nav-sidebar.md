@@ -75,6 +75,9 @@ props:
     thirdLevelItemsCustomClass: ""
     showNestedSectionLevelGuide: true
     prefetchOn: "visibility"
+    closeSidebarAriaLabel: "Close sidebar"
+    collapseSidebarAriaLabel: "Collapse sidebar"
+    expandSidebarAriaLabel: "Expand sidebar"
     class: "relative !h-[500px] translate-x-0"
 items:
     itemsStyleType:
@@ -285,6 +288,21 @@ props: [
         "name": "prefetchOn",
         "default": "PrefetchOn.VISIBILITY",
         "type": "PrefetchOnStrategy",
+    },
+    {
+        "name": "closeSidebarAriaLabel",
+        "default": "'Close sidebar'",
+        "type": "string",
+    },
+    {
+        "name": "collapseSidebarAriaLabel",
+        "default": "'Collapse sidebar'",
+        "type": "string",
+    },
+    {
+        "name": "expandSidebarAriaLabel",
+        "default": "'Expand sidebar'",
+        "type": "string",
     },
 ]
 ---
@@ -1026,6 +1044,51 @@ options: [
 ]
 ---
 ::
+
+### closeSidebarAriaLabel
+
+The `closeSidebarAriaLabel` prop sets the accessible label for the mobile close sidebar button. Override it for i18n.
+
+```vue
+<template>
+    <NavSidebar
+        closeSidebarAriaLabel="Cerrar barra lateral"
+    />
+</template>
+```
+
+- **Type:** `string`
+- **Default:** `'Close sidebar'`
+
+### collapseSidebarAriaLabel
+
+The `collapseSidebarAriaLabel` prop sets the accessible label for the collapse sidebar toggle button. Override it for i18n.
+
+```vue
+<template>
+    <NavSidebar
+        collapseSidebarAriaLabel="Contraer barra lateral"
+    />
+</template>
+```
+
+- **Type:** `string`
+- **Default:** `'Collapse sidebar'`
+
+### expandSidebarAriaLabel
+
+The `expandSidebarAriaLabel` prop sets the accessible label for the expand sidebar toggle button. Override it for i18n.
+
+```vue
+<template>
+    <NavSidebar
+        expandSidebarAriaLabel="Expandir barra lateral"
+    />
+</template>
+```
+
+- **Type:** `string`
+- **Default:** `'Expand sidebar'`
 
 </br>
 

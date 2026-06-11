@@ -28,21 +28,21 @@
         >
             <div class="flex gap-2">
                 <!-- Mobile sidebar toggler -->
-                <ActionIconButton 
+                <ActionIconButton
                     v-if="showMobileSidebarClose && isMobile && !isCollapsed"
                     :icon="mobileSidebarCloseIcon"
                     class="flex"
                     :size="ButtonSize.SM"
-                    aria-label="Close sidebar"
+                    :ariaLabel="closeSidebarAriaLabel"
                     @click="toggleMobileSidebar()"
                 />
     
                 <!-- Collapse toggle button -->
-                <ActionIconButton 
+                <ActionIconButton
                     v-if="showCollapseToggle && collapseTogglePosition === Position.TOP && !isCollapsed"
                     :icon="expandedStateIcon"
                     :size="ButtonSize.SM"
-                    aria-label="Collapse sidebar"
+                    :ariaLabel="collapseSidebarAriaLabel"
                     @click="toggleSidebarState(sidebarId)"
                 />
             </div>
@@ -63,12 +63,12 @@
             }"
         >
              <!-- Collapse toggle item shown only in collapsed state -->
-            <ActionIconButton 
+            <ActionIconButton
                 v-if="showCollapseToggle && collapseTogglePosition === Position.TOP && isCollapsed"
                 :icon="collapsedStateIcon"
                 :size="ButtonSize.SM"
                 class="mb-2"
-                aria-label="Expand sidebar"
+                :ariaLabel="expandSidebarAriaLabel"
                 @click="toggleSidebarState(sidebarId)"
             />
 
@@ -151,14 +151,14 @@
         </NavSidebarMenu>
 
         <!-- Collapse toggle button at bottom -->
-        <ActionIconButton 
+        <ActionIconButton
             v-if="showCollapseToggle && collapseTogglePosition === Position.BOTTOM"
             :icon="isCollapsed ? collapsedStateIcon : expandedStateIcon"
             :size="ButtonSize.SM"
             :class="[
                 isCollapsed ? '' : 'absolute right-3 bottom-3'
             ]"
-            :aria-label="isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'"
+            :ariaLabel="isCollapsed ? expandSidebarAriaLabel : collapseSidebarAriaLabel"
             @click="toggleSidebarState(sidebarId)"
         />
 
@@ -341,6 +341,18 @@ const props = defineProps({
     prefetchOn: {
         type: [String, Object] as PropType<PrefetchOnStrategy>,
         default: PrefetchOn.VISIBILITY,
+    },
+    closeSidebarAriaLabel: {
+        type: String as PropType<string>,
+        default: 'Close sidebar',
+    },
+    collapseSidebarAriaLabel: {
+        type: String as PropType<string>,
+        default: 'Collapse sidebar',
+    },
+    expandSidebarAriaLabel: {
+        type: String as PropType<string>,
+        default: 'Expand sidebar',
     },
 })
 

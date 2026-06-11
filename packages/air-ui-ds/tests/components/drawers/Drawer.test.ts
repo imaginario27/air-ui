@@ -18,8 +18,9 @@ describe('Drawer.vue', () => {
                     Transition: false,
                     Teleport: true,
                     ActionIconButton: {
+                        props: ['ariaLabel'],
                         template:
-                            '<button data-test="close-btn" @click="$emit(\'click\')" />',
+                            '<button data-test="close-btn" :aria-label="ariaLabel" @click="$emit(\'click\')" />',
                     },
                 },
             },
@@ -182,6 +183,18 @@ describe('Drawer.vue', () => {
         expect(classes).not.toContain('border-r')
         expect(classes).not.toContain('border-t')
         expect(classes).not.toContain('border-b')
+    })
+
+    it('uses default closeAriaLabel on close button', () => {
+        const wrapper = factory()
+        const btn = wrapper.find('[data-test="close-btn"]')
+        expect(btn.attributes('aria-label')).toBe('Close')
+    })
+
+    it('forwards custom closeAriaLabel to close button', () => {
+        const wrapper = factory({ closeAriaLabel: 'Cerrar' })
+        const btn = wrapper.find('[data-test="close-btn"]')
+        expect(btn.attributes('aria-label')).toBe('Cerrar')
     })
 
     it('applies custom drawerClass and overlayClass', () => {

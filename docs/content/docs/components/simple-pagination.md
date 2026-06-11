@@ -10,6 +10,8 @@ props:
     resultTextMultiplePages: "Showing {from} to {to} of {total} results"
     resultTextSinglePage: "Showing {total} results"
     resultTextSingleItem: "Showing {total} result"
+    previousPageAriaLabel: "Previous page"
+    nextPageAriaLabel: "Next page"
 external:
   - modelValue
   - totalItems
@@ -109,6 +111,16 @@ props: [
     {
         "name": "resultTextSingleItem",
         "default": "'Showing {total} result'",
+        "type": "string"
+    },
+    {
+        "name": "previousPageAriaLabel",
+        "default": "'Previous page'",
+        "type": "string"
+    },
+    {
+        "name": "nextPageAriaLabel",
+        "default": "'Next page'",
         "type": "string"
     },
 ]
@@ -212,3 +224,33 @@ Sets the result text for a single item.
 ```
 
 - **Type:** `string`
+
+### previousPageAriaLabel
+
+The `previousPageAriaLabel` prop sets the accessible label for the previous page button. Override it for i18n.
+
+```vue
+<template>
+    <SimplePagination 
+        previousPageAriaLabel="Pagina anterior"
+    />
+</template>
+```
+
+- **Type:** `string`
+- **Default:** `'Previous page'`
+
+### nextPageAriaLabel
+
+The `nextPageAriaLabel` prop sets the accessible label for the next page button. Override it for i18n.
+
+```vue
+<template>
+    <SimplePagination 
+        nextPageAriaLabel="Pagina siguiente"
+    />
+</template>
+```
+
+- **Type:** `string`
+- **Default:** `'Next page'`

@@ -58,7 +58,7 @@
                                 :styleType="ButtonStyleType.NEUTRAL_TRANSPARENT"
                                 :size="ButtonSize.MD"
                                 icon="mdi:close"
-                                ariaLabel="Close"
+                                :ariaLabel="closeAriaLabel"
                                 class="absolute top-4 right-4 z-10"
                                 @click="closeModal"
                             />
@@ -105,6 +105,10 @@ const props = defineProps({
     },
     id: String as PropType<string>,
     ariaLabelledby: String as PropType<string>,
+    closeAriaLabel: {
+        type: String as PropType<string>,
+        default: 'Close',
+    },
 })
 
 // Emits

@@ -124,6 +124,11 @@ props: [
         "name": "titleClass",
         "type": "string",
     },
+    {
+        "name": "closeAriaLabel",
+        "default": "'Close'",
+        "type": "string",
+    },
 ]
 ---
 ::
@@ -361,3 +366,17 @@ Allows you to pass custom CSS classes to the drawer title for additional styling
 ```
 
 - **Type:** `string`
+
+### closeAriaLabel
+The `closeAriaLabel` prop sets the accessible label for the close button. Override it for i18n.
+
+```vue
+<template>
+    <Drawer closeAriaLabel="Cerrar">
+        ...
+    </Drawer>
+</template>
+```
+
+- **Type:** `string`
+- **Default:** `'Close'`

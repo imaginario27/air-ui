@@ -20,6 +20,7 @@ props:
     autofocus: false
     disabled: false
     inputCustomClass: ""
+    clearAriaLabel: "Clear search"
 items:
     size: 
         - value: lg
@@ -102,6 +103,11 @@ props: [
     },  
     {
         "name": "inputCustomClass",
+        "type": "string",
+    },
+    {
+        "name": "clearAriaLabel",
+        "default": "'Clear search'",
         "type": "string",
     },
 ]
@@ -307,3 +313,16 @@ Sets a custom class for the input element.
 ```
 
 - **Type:** `string`
+
+### clearAriaLabel
+
+The `clearAriaLabel` prop sets the accessible label for the clear search button. Override it for i18n.
+
+```vue
+<template>
+    <SearchField clearAriaLabel="Borrar busqueda" />
+</template>
+```
+
+- **Type:** `string`
+- **Default:** `'Clear search'`
