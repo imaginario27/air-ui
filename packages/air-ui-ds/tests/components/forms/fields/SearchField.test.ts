@@ -186,7 +186,7 @@ describe('SearchField', () => {
         expect(wrapper.html()).not.toContain('ring-2')
     })
 
-    it('clear button has ariaLabel when field has value', () => {
+    it('clear button has default ariaLabel when field has value', () => {
         const wrapper = mount(SearchField, {
             props: {
                 ...defaultProps,
@@ -197,6 +197,19 @@ describe('SearchField', () => {
         const clearBtn = wrapper.findComponent(ActionIconButton)
         expect(clearBtn.exists()).toBe(true)
         expect(clearBtn.props('ariaLabel')).toBe('Clear search')
+    })
+
+    it('forwards custom clearAriaLabel to clear button', () => {
+        const wrapper = mount(SearchField, {
+            props: {
+                ...defaultProps,
+                modelValue: 'test',
+                clearAriaLabel: 'Limpiar búsqueda',
+            }
+        })
+
+        const clearBtn = wrapper.findComponent(ActionIconButton)
+        expect(clearBtn.props('ariaLabel')).toBe('Limpiar búsqueda')
     })
 
     it('uses aria-label when visual label is hidden', () => {

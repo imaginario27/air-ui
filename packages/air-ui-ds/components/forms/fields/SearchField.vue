@@ -72,7 +72,7 @@
                 :size="ButtonSize.SM"
                 :styleType="ButtonStyleType.NEUTRAL_TRANSPARENT_SUBTLE"
                 icon="mdi:close-circle"
-                ariaLabel="Clear search"
+                :ariaLabel="clearAriaLabel"
                 @click="clearField"
             />
         </div>
@@ -138,6 +138,10 @@ const props = defineProps({
         default: false,
     },
     inputCustomClass: String as PropType<string>,
+    clearAriaLabel: {
+        type: String as PropType<string>,
+        default: 'Clear search',
+    },
 })
 
 // States

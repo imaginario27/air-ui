@@ -120,6 +120,11 @@ props: [
         "name": "id",
         "type": "string",
     },
+    {
+        "name": "closeAriaLabel",
+        "default": "'Close'",
+        "type": "string",
+    },
 ]
 ---
 ::
@@ -219,6 +224,20 @@ Sets the id of the modal.
 ```
 
 - **Type:** `string`
+
+### closeAriaLabel
+The `closeAriaLabel` prop sets the accessible label for the close button. Override it for i18n.
+
+```vue
+<template>
+    <ModalDialog closeAriaLabel="Cerrar">
+        ...
+    </ModalDialog>
+</template>
+```
+
+- **Type:** `string`
+- **Default:** `'Close'`
 
 ## Prop-based Components
 Some of the components listed in the table above accept specific props to customize their behavior or appearance.

@@ -194,6 +194,47 @@ describe('CompactHeader.vue', () => {
         expect(rightWrapper.findAllComponents({ name: 'ActionIconButton' }).length).toBeGreaterThan(0)
     })
 
+    it('uses default aria labels on sidebar toggle buttons', () => {
+        const wrapper = factory({
+            showMobileSidebarToggle: true,
+            sidebarTogglePosition: SidebarTogglePosition.LOGO_LEFT_SIDE,
+        })
+
+        const btn = wrapper.findComponent({ name: 'ActionIconButton' })
+        expect(btn.props('ariaLabel')).toBe('Open sidebar')
+    })
+
+    it('forwards custom sidebar aria labels to ActionIconButton', () => {
+        const wrapper = factory({
+            showMobileSidebarToggle: true,
+            sidebarTogglePosition: SidebarTogglePosition.LOGO_LEFT_SIDE,
+            sidebarOpenAriaLabel: 'Abrir barra lateral',
+            sidebarCloseAriaLabel: 'Cerrar barra lateral',
+        })
+
+        const btn = wrapper.findComponent({ name: 'ActionIconButton' })
+        expect(btn.props('ariaLabel')).toBe('Abrir barra lateral')
+    })
+
+    it('forwards custom mobileMenuAriaLabel to the mobile menu toggle', async () => {
+        vi.resetModules()
+        vi.doMock('@/composables/useIsMobile', () => ({
+            useIsMobile: () => ({ isMobile: true })
+        }))
+
+        const { default: MobileHeader } = await import('@/components/layouts/headers/CompactHeader.vue')
+        const wrapper = mount(MobileHeader, {
+            props: {
+                navMenuItems: [{ text: 'Home', to: '/' }],
+                showMobileMenuToggle: true,
+                mobileMenuAriaLabel: 'Abrir menú móvil',
+            }
+        })
+
+        const btn = wrapper.findComponent({ name: 'ActionIconButton' })
+        expect(btn.props('ariaLabel')).toBe('Abrir menú móvil')
+    })
+
     it('forwards prefetchOn to NavMenu', () => {
         const wrapper = factory({
             navMenuItems: [{ text: 'Home', to: '/' }],

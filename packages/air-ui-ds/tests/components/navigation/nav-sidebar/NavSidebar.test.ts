@@ -337,6 +337,31 @@ describe('NavSidebar.vue', () => {
         expect(sectionTitles).toHaveLength(3)
     })
 
+    it('uses default aria labels on collapse toggle button', () => {
+        const wrapper = factory({
+            props: {
+                showCollapseToggle: true,
+                collapseTogglePosition: Position.TOP,
+            }
+        })
+
+        const btn = wrapper.findComponent(ActionIconButton)
+        expect(btn.props('ariaLabel')).toBe('Collapse sidebar')
+    })
+
+    it('forwards custom aria labels to collapse toggle button', () => {
+        const wrapper = factory({
+            props: {
+                showCollapseToggle: true,
+                collapseTogglePosition: Position.TOP,
+                collapseSidebarAriaLabel: 'Contraer barra lateral',
+            }
+        })
+
+        const btn = wrapper.findComponent(ActionIconButton)
+        expect(btn.props('ariaLabel')).toBe('Contraer barra lateral')
+    })
+
     it('forwards custom text and icon classes for items and subitems', async () => {
         const wrapper = factory({
             props: {

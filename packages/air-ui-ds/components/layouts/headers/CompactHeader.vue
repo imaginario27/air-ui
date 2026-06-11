@@ -36,6 +36,7 @@
                 >
                     <ActionIconButton
                         :icon="isMobileSidebarOpen ? 'mdi:menu-open' : 'mdi:menu-close'"
+                        :ariaLabel="isMobileSidebarOpen ? sidebarCloseAriaLabel : sidebarOpenAriaLabel"
                         :class="['shadow-sm', !isMobile && 'hidden']"
                         @click="toggleMobileSidebar"
                     />
@@ -43,7 +44,7 @@
 
                 <slot name="header-logo" />
 
-                <template 
+                <template
                     v-if="
                         showMobileSidebarToggle
                         && sidebarTogglePosition === SidebarTogglePosition.LOGO_RIGHT_SIDE
@@ -51,6 +52,7 @@
                 >
                     <ActionIconButton
                         :icon="isMobileSidebarOpen ? 'mdi:menu-open' : 'mdi:menu-close'"
+                        :ariaLabel="isMobileSidebarOpen ? sidebarCloseAriaLabel : sidebarOpenAriaLabel"
                         :class="['shadow-sm', !isMobile && 'hidden']"
                         @click="toggleMobileSidebar"
                     />
@@ -119,6 +121,7 @@
                         <template #activator>
                             <ActionIconButton
                                 icon="mdi:menu"
+                                :ariaLabel="mobileMenuAriaLabel"
                                 class="shadow-sm"
                             />
                         </template>
@@ -154,8 +157,9 @@
                         && sidebarTogglePosition === SidebarTogglePosition.RIGHT_SIDE
                     "
                 >
-                    <ActionIconButton 
+                    <ActionIconButton
                         :icon="isMobileSidebarOpen ? 'mdi:menu-open' : 'mdi:menu-close'"
+                        :ariaLabel="isMobileSidebarOpen ? sidebarCloseAriaLabel : sidebarOpenAriaLabel"
                         class="lg:hidden shadow-sm"
                         @click="toggleMobileSidebar"
                     />
@@ -243,6 +247,18 @@ const props = defineProps({
         default: 'min-w-[280px]'
     },
     headerClass: String as PropType<string>,
+    sidebarOpenAriaLabel: {
+        type: String as PropType<string>,
+        default: 'Open sidebar',
+    },
+    sidebarCloseAriaLabel: {
+        type: String as PropType<string>,
+        default: 'Close sidebar',
+    },
+    mobileMenuAriaLabel: {
+        type: String as PropType<string>,
+        default: 'Open mobile menu',
+    },
 })
 
 // Composables

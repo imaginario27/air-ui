@@ -93,4 +93,21 @@ describe('SimplePagination', () => {
         await next.trigger('click')
         expect(wrapper.emitted('update:modelValue')).toBeUndefined()
     })
+
+    it('uses default aria labels on pagination buttons', () => {
+        const wrapper = factory()
+        const [prev, next] = wrapper.findAllComponents({ name: 'ActionIconButton' })
+        expect(prev.props('ariaLabel')).toBe('Previous page')
+        expect(next.props('ariaLabel')).toBe('Next page')
+    })
+
+    it('forwards custom aria labels to pagination buttons', () => {
+        const wrapper = factory({
+            previousPageAriaLabel: 'Página anterior',
+            nextPageAriaLabel: 'Página siguiente',
+        })
+        const [prev, next] = wrapper.findAllComponents({ name: 'ActionIconButton' })
+        expect(prev.props('ariaLabel')).toBe('Página anterior')
+        expect(next.props('ariaLabel')).toBe('Página siguiente')
+    })
 })
