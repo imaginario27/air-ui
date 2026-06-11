@@ -1,8 +1,9 @@
 <template>
-    <ModalDialog 
-        :modelValue 
+    <ModalDialog
+        :modelValue
         :closeOnClickOutside
         :hasCornerCloseButton
+        :closeAriaLabel
         :cardClass
         @update:modelValue="updateModelValue"
     >
@@ -69,6 +70,10 @@ defineProps({
     showModalActions: {
         type: Boolean as PropType<boolean>,
         default: true,
+    },
+    closeAriaLabel: {
+        type: String as PropType<string>,
+        default: 'Close',
     },
 })
 

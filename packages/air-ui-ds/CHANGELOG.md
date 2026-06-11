@@ -5,6 +5,40 @@ All notable changes to this package are documented in this file.
 Historical releases were reconstructed from git history (GitHub repository) and npm publish dates.
 Future releases will include detailed entries generated with Changesets.
 
+## 1.13.11 - 2026-06-11
+
+Release type: patch.
+Commits found in range: 1.
+
+### Added
+
+1. propagate aria-label props to compound components ([c1b13e6](https://github.com/imaginario27/air-ui/commit/c1b13e619a8285ee1c7fc564b4c1b4286d2bc937))
+
+- Package: @imaginario27/air-ui-ds.
+
+## 1.13.10 - 2026-06-11
+
+Release type: patch.
+Commits found in range: 1.
+
+### Added
+
+1. add customizable aria-label props for i18n support ([faed17c](https://github.com/imaginario27/air-ui/commit/faed17c29dff732de56d798e7914215cf514fe6a))
+
+- Package: @imaginario27/air-ui-ds.
+
+## 1.13.9 - 2026-06-09
+
+Release type: patch.
+Commits found in range: 2.
+
+### Added
+
+1. make Heading headingTag prop required with HeadingTag type ([82248a2](https://github.com/imaginario27/air-ui/commit/82248a2043ca30916adac5154e8c3743d8a2fe2b))
+2. improve accessibility across ds components and docs (#115) ([f5b5278](https://github.com/imaginario27/air-ui/commit/f5b5278a7bba94fec6fbb4345baa45576eb6f867) (PR [#115](https://github.com/imaginario27/air-ui/pull/115)))
+
+- Package: @imaginario27/air-ui-ds.
+
 ## 1.13.8 - 2026-06-03
 
 Release type: patch.

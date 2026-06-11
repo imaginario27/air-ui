@@ -18,7 +18,8 @@ const factory = (
         global: {
             stubs: {
                 ActionIconButton: {
-                    template: '<button data-test="close-btn" @click="$emit(\'click\')" />'
+                    props: ['ariaLabel'],
+                    template: '<button data-test="close-btn" :aria-label="ariaLabel" @click="$emit(\'click\')" />'
                 }
             }
         }
@@ -214,5 +215,21 @@ describe('ModalDialog', () => {
 
         const dialog = document.querySelector('[role="dialog"]')
         expect(dialog?.getAttribute('aria-labelledby')).toBe('modal-title')
+    })
+
+    it('uses default closeAriaLabel on close button', async () => {
+        factory()
+        await nextTick()
+
+        const btn = document.querySelector('[data-test="close-btn"]')
+        expect(btn?.getAttribute('aria-label')).toBe('Close')
+    })
+
+    it('forwards custom closeAriaLabel to close button', async () => {
+        factory({ closeAriaLabel: 'Cerrar' })
+        await nextTick()
+
+        const btn = document.querySelector('[data-test="close-btn"]')
+        expect(btn?.getAttribute('aria-label')).toBe('Cerrar')
     })
 })

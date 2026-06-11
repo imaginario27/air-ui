@@ -111,7 +111,7 @@
                             :size="ButtonSize.SM"
                             :styleType="ButtonStyleType.NEUTRAL_TRANSPARENT_SUBTLE"
                             icon="mdi:close-circle"
-                            ariaLabel="Clear selection"
+                            :ariaLabel="clearSelectionAriaLabel"
                             @click="selected = []"
                         />
 
@@ -304,6 +304,10 @@ const props = defineProps({
     loadingText: {
         type: String as PropType<string>,
         default: 'Loading options...',
+    },
+    clearSelectionAriaLabel: {
+        type: String as PropType<string>,
+        default: 'Clear selection',
     },
 })
 

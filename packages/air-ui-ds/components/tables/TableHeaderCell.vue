@@ -9,11 +9,12 @@
         <div class="w-full flex items-center gap-2">
             <slot />
 
-            <ActionIconButton 
+            <ActionIconButton
                 v-if="sorteable && scope === TableHeaderCellScope.COL"
                 :size="ButtonSize.XS"
                 :icon="sortAsc ? 'mdi:arrow-up' : 'mdi:arrow-down'"
                 :styleType="sortKey === columnKey ? ButtonStyleType.NEUTRAL_FILLED : ButtonStyleType.NEUTRAL_OUTLINED"
+                :ariaLabel="sortAriaLabel"
                 @click="onToggleSort && onToggleSort()"
             />
         </div>
@@ -52,6 +53,10 @@ const props = defineProps({
         default: false,
     },
     to: String as PropType<string>,
+    sortAriaLabel: {
+        type: String as PropType<string>,
+        default: 'Toggle sort',
+    },
 })
 
 // Computed classes

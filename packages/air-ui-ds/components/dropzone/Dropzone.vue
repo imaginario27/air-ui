@@ -176,6 +176,7 @@
                                     :styleType="retryButtonStyleType"
                                     :class="retryButtonClass"
                                     :iconClass="normalizedRetryIconClass"
+                                    :ariaLabel="retryAriaLabel"
                                     @click.stop="retryUpload(file)"
                                 />
 
@@ -186,6 +187,7 @@
                                     :styleType="removeButtonStyleType"
                                     :class="removeButtonClass"
                                     :iconClass="normalizedRemoveIconClass"
+                                    :ariaLabel="removeAriaLabel"
                                     @click.stop="removeFile(file)"
                                 />
                             </div>
@@ -447,6 +449,14 @@ const props = defineProps({
     fileItemClass: String as PropType<string>,
     fileNameClass: String as PropType<string>,
     fileMetaClass: String as PropType<string>,
+    retryAriaLabel: {
+        type: String as PropType<string>,
+        default: 'Retry upload',
+    },
+    removeAriaLabel: {
+        type: String as PropType<string>,
+        default: 'Remove file',
+    },
 })
 
 const emit = defineEmits([

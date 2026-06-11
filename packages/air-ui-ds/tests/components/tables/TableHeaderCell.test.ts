@@ -207,4 +207,16 @@ describe('TableHeaderCell.vue', () => {
 
         expect(navigateTo).not.toHaveBeenCalled()
     })
+
+    it('uses default sortAriaLabel on sort button', () => {
+        const wrapper = factory({ sorteable: true })
+        const button = wrapper.findComponent(ActionIconButton)
+        expect(button.props('ariaLabel')).toBe('Toggle sort')
+    })
+
+    it('forwards custom sortAriaLabel to sort button', () => {
+        const wrapper = factory({ sorteable: true, sortAriaLabel: 'Alternar orden' })
+        const button = wrapper.findComponent(ActionIconButton)
+        expect(button.props('ariaLabel')).toBe('Alternar orden')
+    })
 })

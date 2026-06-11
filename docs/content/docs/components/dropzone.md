@@ -40,6 +40,8 @@ props:
     pendingStatusText: "Pending"
     retryIcon: "mdi:refresh"
     removeIcon: "mdi:close"
+    retryAriaLabel: "Retry upload"
+    removeAriaLabel: "Remove file"
     maxItemsContainerHeight: 260
     totalProgress: 0
 external:
@@ -258,6 +260,16 @@ props: [
         "name": "totalProgress",
         "type": "number",
         "default": "0",
+    },
+    {
+        "name": "retryAriaLabel",
+        "type": "string",
+        "default": "'Retry upload'",
+    },
+    {
+        "name": "removeAriaLabel",
+        "type": "string",
+        "default": "'Remove file'",
     }
 ]
 ---
@@ -552,6 +564,32 @@ Sets icon names for remove actions.
 
 - **Type:** `string`
 - **Default:** `'mdi:close'`
+
+### retryAriaLabel
+
+The `retryAriaLabel` prop sets the accessible label for the retry button on failed uploads. Override it for i18n.
+
+```vue
+<template>
+    <Dropzone retryAriaLabel="Reintentar subida" />
+</template>
+```
+
+- **Type:** `string`
+- **Default:** `'Retry upload'`
+
+### removeAriaLabel
+
+The `removeAriaLabel` prop sets the accessible label for the remove file button. Override it for i18n.
+
+```vue
+<template>
+    <Dropzone removeAriaLabel="Eliminar archivo" />
+</template>
+```
+
+- **Type:** `string`
+- **Default:** `'Remove file'`
 
 ## Example
 

@@ -85,6 +85,11 @@ props: [
         "default": "false",
         "type": "boolean",
     },
+    {
+        "name": "closeAriaLabel",
+        "default": "'Close'",
+        "type": "string",
+    },
 ]
 ---
 ::
@@ -209,3 +214,15 @@ Sets the close button to have a corner button. If set to `false`, the close butt
 
 - **Type:** `boolean`
 - **Default:** `false`
+
+### closeAriaLabel
+Sets the accessible label for the corner close button. Useful for i18n.
+
+```vue
+<template>
+    <SuccessModalDialog closeAriaLabel="Cerrar" />
+</template>
+```
+
+- **Type:** `string`
+- **Default:** `'Close'`

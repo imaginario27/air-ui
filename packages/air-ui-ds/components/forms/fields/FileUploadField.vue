@@ -94,6 +94,8 @@
                     :fileItemClass
                     :fileNameClass
                     :fileMetaClass
+                    :retryAriaLabel
+                    :removeAriaLabel
                     @error="handleDropzoneError"
                     @file-added="(file: File) => emit('file-added', file)"
                     @file-removed="(file: File) => emit('file-removed', file)"
@@ -313,6 +315,14 @@ const props = defineProps({
     fileItemClass: String as PropType<string>,
     fileNameClass: String as PropType<string>,
     fileMetaClass: String as PropType<string>,
+    retryAriaLabel: {
+        type: String as PropType<string>,
+        default: 'Retry upload',
+    },
+    removeAriaLabel: {
+        type: String as PropType<string>,
+        default: 'Remove file',
+    },
 })
 
 // Emits

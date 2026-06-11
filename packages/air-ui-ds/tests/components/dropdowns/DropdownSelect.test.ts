@@ -300,4 +300,30 @@ describe('DropdownSelect.vue', () => {
         const wrapper = factory({ disabled: true })
         expect(wrapper.find('.select-box').attributes('tabindex')).toBe('-1')
     })
+
+    it('uses default clearSelectionAriaLabel on clear button', async () => {
+        const wrapper = factory({
+            multiple: true,
+            modelValue: ['1', '2'],
+        })
+
+        await wrapper.find('.select-box').trigger('click')
+
+        const clearBtn = wrapper.findComponent(ActionIconButton)
+        expect(clearBtn.exists()).toBe(true)
+        expect(clearBtn.props('ariaLabel')).toBe('Clear selection')
+    })
+
+    it('forwards custom clearSelectionAriaLabel to clear button', async () => {
+        const wrapper = factory({
+            multiple: true,
+            modelValue: ['1', '2'],
+            clearSelectionAriaLabel: 'Limpiar selección',
+        })
+
+        await wrapper.find('.select-box').trigger('click')
+
+        const clearBtn = wrapper.findComponent(ActionIconButton)
+        expect(clearBtn.props('ariaLabel')).toBe('Limpiar selección')
+    })
 })

@@ -72,6 +72,7 @@
                         v-if="hasCloseButton"
                         :icon="buttonCloseIcon"
                         :styleType="ButtonStyleType.NEUTRAL_TRANSPARENT"
+                        :ariaLabel="closeAriaLabel"
                         @click="close"
                     />
                 </div>
@@ -142,6 +143,10 @@ const props = defineProps({
     overlayClass: String as PropType<string>,
     headerClass: String as PropType<string>,
     titleClass: String as PropType<string>,
+    closeAriaLabel: {
+        type: String as PropType<string>,
+        default: 'Close',
+    },
 })
 
 // Emits

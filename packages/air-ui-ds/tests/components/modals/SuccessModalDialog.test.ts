@@ -137,4 +137,12 @@ describe('SuccessModalDialog.vue', () => {
         const modalDialog = wrapper.findComponent(ModalDialog)
         expect(modalDialog.props('modelValue')).toBe(false)
     })
+
+    it('forwards closeAriaLabel to ModalDialog', async () => {
+        const wrapper = factory({ closeAriaLabel: 'Cerrar' })
+        await nextTick()
+
+        const modalDialog = wrapper.findComponent(ModalDialog)
+        expect(modalDialog.props('closeAriaLabel')).toBe('Cerrar')
+    })
 })

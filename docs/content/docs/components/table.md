@@ -300,7 +300,12 @@ props: [
     {
         "name": "to",
         "type": "string"
-    },  
+    },
+    {
+        "name": "sortAriaLabel",
+        "type": "string",
+        "default": "'Toggle sort'"
+    },
 ]
 ---
 ::
@@ -387,6 +392,24 @@ The `onToggleSort` prop is used to set the function that will be called when the
 
 #### fitToContent / to
 These props have the same behavior as in the `TableCell` component, but in this case they will be applied to the header cell.
+
+#### sortAriaLabel
+The `sortAriaLabel` prop sets the accessible label for the sort toggle button. Override it for i18n.
+
+```vue
+<template>
+    <TableHeaderCell
+        sorteable
+        columnKey="col1"
+        sortAriaLabel="Alternar orden"
+    >
+        Column 1
+    </TableHeaderCell>
+</template>
+```
+
+- **Type:** `string`
+- **Default:** `'Toggle sort'`
 
 ### TableRow
 
