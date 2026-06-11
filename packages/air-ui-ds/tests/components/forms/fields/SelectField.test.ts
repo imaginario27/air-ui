@@ -236,4 +236,16 @@ describe('SelectField', () => {
         expect(wrapper.find('label').exists()).toBe(false)
         expect(dropdown.props('ariaLabel')).toBe('Accessible select field')
     })
+
+    it('forwards clearSelectionAriaLabel to DropdownSelect', () => {
+        const wrapper = mount(SelectField, {
+            props: {
+                ...defaultProps,
+                clearSelectionAriaLabel: 'Limpiar selección',
+            }
+        })
+
+        const dropdown = wrapper.findComponent(DropdownSelect)
+        expect(dropdown.props('clearSelectionAriaLabel')).toBe('Limpiar selección')
+    })
 })

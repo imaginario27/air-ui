@@ -206,6 +206,11 @@ props: [
         "name": "selectBoxClass",
         "type": "string",
     },
+    {
+        "name": "clearSelectionAriaLabel",
+        "default": "'Clear selection'",
+        "type": "string",
+    },
 ]
 ---
 ::
@@ -675,6 +680,18 @@ Allows passing custom classes to the select box for additional styling.
 ```
 
 - **Type:** `string`
+
+### clearSelectionAriaLabel
+Sets the accessible label for the clear selection button in multi-select mode. Useful for i18n.
+
+```vue
+<template>
+    <SelectField clearSelectionAriaLabel="Limpiar selección" />
+</template>
+```
+
+- **Type:** `string`
+- **Default:** `'Clear selection'`
 
 
 
