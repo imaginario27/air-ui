@@ -47,6 +47,7 @@
             :allowDeselect
             :isLoading="isLoadingOptions"
             :loadingText
+            :clearSelectionAriaLabel
             :selectBoxClass="computedSelectBoxClass"
             @update:modelValue="handleValueUpdate"
         />
@@ -161,6 +162,10 @@ const props = defineProps({
         default: 'Options are being loaded',
     },
     selectBoxClass: String as PropType<string>,
+    clearSelectionAriaLabel: {
+        type: String as PropType<string>,
+        default: 'Clear selection',
+    },
 })
 
 // Emits

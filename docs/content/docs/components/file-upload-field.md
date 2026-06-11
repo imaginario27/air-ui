@@ -379,6 +379,16 @@ props: [
         "name": "fileMetaClass",
         "type": "string",
     },
+    {
+        "name": "retryAriaLabel",
+        "default": "'Retry upload'",
+        "type": "string",
+    },
+    {
+        "name": "removeAriaLabel",
+        "default": "'Remove file'",
+        "type": "string",
+    },
 ]
 ---
 ::
@@ -1200,6 +1210,30 @@ Custom class for file metadata text.
 ```
 
 - **Type:** `string`
+
+### retryAriaLabel
+Sets the accessible label for the retry action button on each file item. Useful for i18n.
+
+```vue
+<template>
+    <FileUploadField retryAriaLabel="Reintentar subida" />
+</template>
+```
+
+- **Type:** `string`
+- **Default:** `'Retry upload'`
+
+### removeAriaLabel
+Sets the accessible label for the remove action button on each file item. Useful for i18n.
+
+```vue
+<template>
+    <FileUploadField removeAriaLabel="Eliminar archivo" />
+</template>
+```
+
+- **Type:** `string`
+- **Default:** `'Remove file'`
 
 ## Emits
 

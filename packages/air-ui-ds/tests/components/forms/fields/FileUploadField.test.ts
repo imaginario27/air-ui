@@ -159,4 +159,16 @@ describe('FileUploadField.vue', () => {
         expect(image.exists()).toBe(true)
         expect(image.attributes('alt')).toBe('Company logo uploader')
     })
+
+    it('forwards retryAriaLabel to Dropzone', () => {
+        const wrapper = factory({ retryAriaLabel: 'Reintentar' })
+        const dropzone = wrapper.find('[data-test="dropzone"]')
+        expect(dropzone.attributes('retryarialabel')).toBe('Reintentar')
+    })
+
+    it('forwards removeAriaLabel to Dropzone', () => {
+        const wrapper = factory({ removeAriaLabel: 'Eliminar' })
+        const dropzone = wrapper.find('[data-test="dropzone"]')
+        expect(dropzone.attributes('removearialabel')).toBe('Eliminar')
+    })
 })
