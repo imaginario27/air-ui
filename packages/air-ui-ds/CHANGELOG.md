@@ -5,6 +5,17 @@ All notable changes to this package are documented in this file.
 Historical releases were reconstructed from git history (GitHub repository) and npm publish dates.
 Future releases will include detailed entries generated with Changesets.
 
+## 1.13.11 - 2026-06-11
+
+Release type: patch.
+Commits found in range: 1.
+
+### Added
+
+1. propagate aria-label props to compound components ([c1b13e6](https://github.com/imaginario27/air-ui/commit/c1b13e619a8285ee1c7fc564b4c1b4286d2bc937))
+
+- Package: @imaginario27/air-ui-ds.
+
 ## 1.13.10 - 2026-06-11
 
 Release type: patch.
