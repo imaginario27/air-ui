@@ -5,6 +5,17 @@ All notable changes to this package are documented in this file.
 Historical releases were reconstructed from git history (GitHub repository) and npm publish dates.
 Future releases will include detailed entries generated with Changesets.
 
+## 1.2.5 - 2026-06-15
+
+Release type: patch.
+Commits found in range: 0.
+
+### Changed
+
+1. Historical release reconstructed from npm publish metadata (no package commits found in this publish window).
+
+- Package: @imaginario27/air-ui-utils.
+
 ## 1.2.4 - 2026-05-20
 
 Release type: patch.

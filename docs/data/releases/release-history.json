@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-15T06:49:38.115Z",
+  "generatedAt": "2026-06-15T06:54:03.554Z",
   "source": "github-git-history+npm-publish-dates",
   "githubBaseUrl": "https://github.com/imaginario27/air-ui",
   "packages": [
@@ -2810,8 +2810,27 @@
     },
     {
       "packageName": "@imaginario27/air-ui-utils",
-      "latestVersion": "1.2.4",
+      "latestVersion": "1.2.5",
       "entries": [
+        {
+          "packageName": "@imaginario27/air-ui-utils",
+          "version": "1.2.5",
+          "publishedAt": "2026-06-15",
+          "releaseType": "patch",
+          "notes": [
+            "Historical release reconstructed from npm publish metadata (no package commits found in this publish window)."
+          ],
+          "metadata": {
+            "commitCount": 0,
+            "commits": [],
+            "groups": {
+              "added": 0,
+              "fixed": 0,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
         {
           "packageName": "@imaginario27/air-ui-utils",
           "version": "1.2.4",
