@@ -24,6 +24,7 @@ props:
     required: false
     disabled: false
     helpText: "Help text example"
+    helpTextPosition: "bottom"
     showLoadingState: false
     isLoading: false
     loadingText: "Loading"
@@ -171,6 +172,11 @@ items:
           text: CENTER
         - value: right
           text: RIGHT
+    helpTextPosition:
+        - value: top
+          text: TOP
+        - value: bottom
+          text: BOTTOM
 enums:
     containedIconShape: "IconContainerShape"
     containedIconStyleType: "IconContainerStyleType"
@@ -183,6 +189,7 @@ enums:
     selectBtnIconPosition: "IconPosition"
     buttonSize: "ButtonSize"
     footerContentAlign: "Align"
+    helpTextPosition: "Position"
 propsSettingsExcludedProps: ['options', 'validator', 'modelValue']
 isPreviewContentBoxed: true
 ---
@@ -244,6 +251,11 @@ props: [
     {
         "name": "helpText",
         "type": "string",
+    },
+    {
+        "name": "helpTextPosition",
+        "default": "Position.BOTTOM",
+        "type": "Position",
     },
     {
         "name": "showLoadingState",
@@ -589,6 +601,35 @@ Sets the help text.
 ```
 
 - **Type:** `string`
+
+### helpTextPosition
+
+Sets the position of the help text relative to the field. It uses the `Position` enum.
+
+```vue
+<template>
+    <SelectableCardField helpTextPosition="top" helpText="Appears above the field" />
+</template>
+```
+
+- **Type:** `Position`
+- **Default:** `Position.BOTTOM`
+
+#### Options
+::options-table
+---
+options: [
+    {
+        value: "TOP",
+        description: "top",
+    },
+    {
+        value: "BOTTOM",
+        description: "bottom",
+    },
+]
+---
+::
 
 ### showLoadingState
 Toggles the loading state of the field.

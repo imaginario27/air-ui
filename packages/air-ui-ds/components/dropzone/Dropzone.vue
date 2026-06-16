@@ -438,6 +438,11 @@ const props = defineProps({
 
     maxItemsContainerHeight: Number as PropType<number>,
 
+    transparent: {
+        type: Boolean as PropType<boolean>,
+        default: false,
+    },
+
     containerClass: String as PropType<string>,
     dropzoneClass: String as PropType<string>,
     titleClass: String as PropType<string>,
@@ -565,14 +570,24 @@ const itemsContainerStyle = computed(() => {
 })
 
 const dropzoneStateClass = computed(() => {
-    const variants = {
-        [DropzoneState.DEFAULT]: 'border-border-default bg-background-neutral-default',
-        [DropzoneState.INDETERMINATE]: 'border-border-default bg-background-neutral-subtlest',
-        [DropzoneState.SUCCESS]: 'border-border-success bg-background-success-subtlest',
-        [DropzoneState.ERROR]: 'border-border-error bg-background-delete-soft',
+    const borderVariants = {
+        [DropzoneState.DEFAULT]: 'border-border-default',
+        [DropzoneState.INDETERMINATE]: 'border-border-default',
+        [DropzoneState.SUCCESS]: 'border-border-success',
+        [DropzoneState.ERROR]: 'border-border-error',
     }
 
-    return variants[props.state] || variants[DropzoneState.DEFAULT]
+    const bgVariants = {
+        [DropzoneState.DEFAULT]: 'bg-background-neutral-default',
+        [DropzoneState.INDETERMINATE]: 'bg-background-neutral-subtlest',
+        [DropzoneState.SUCCESS]: 'bg-background-success-subtlest',
+        [DropzoneState.ERROR]: 'bg-background-delete-soft',
+    }
+
+    const borderClass = borderVariants[props.state] || borderVariants[DropzoneState.DEFAULT]
+    const bgClass = props.transparent ? '' : (bgVariants[props.state] || bgVariants[DropzoneState.DEFAULT])
+
+    return [borderClass, bgClass].filter(Boolean).join(' ')
 })
 
 const totalProgressComputed = computed(() => {

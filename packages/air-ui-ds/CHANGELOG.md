@@ -5,6 +5,29 @@ All notable changes to this package are documented in this file.
 Historical releases were reconstructed from git history (GitHub repository) and npm publish dates.
 Future releases will include detailed entries generated with Changesets.
 
+## 1.13.13 - 2026-06-16
+
+Release type: patch.
+Commits found in range: 1.
+
+### Added
+
+1. add HelpText component and helpTextPosition prop to field components ([9ad36a5](https://github.com/imaginario27/air-ui/commit/9ad36a5a283884fbfcbfd4227384c0082928e7dc))
+
+- Package: @imaginario27/air-ui-ds.
+
+## 1.13.12 - 2026-06-15
+
+Release type: patch.
+Commits found in range: 2.
+
+### Added
+
+1. propagate aria-label props to compound components ([3bd194a](https://github.com/imaginario27/air-ui/commit/3bd194ad760ebdf2da5e5c833752c4b06eced913))
+2. add customizable aria-label props for i18n support ([3b432b0](https://github.com/imaginario27/air-ui/commit/3b432b07690fa63933bdd866aaf3e834a900dd11))
+
+- Package: @imaginario27/air-ui-ds.
+
 ## 1.13.11 - 2026-06-11
 
 Release type: patch.

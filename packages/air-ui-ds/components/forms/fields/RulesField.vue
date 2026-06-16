@@ -14,6 +14,13 @@
             {{ label }}
         </label>
 
+        <!-- Help Text (top) -->
+        <HelpText
+            v-if="helpTextPosition === Position.TOP"
+            :text="helpText"
+            :error="error"
+        />
+
         <!-- Rules rows -->
         <div class="flex flex-col gap-2">
             <div
@@ -33,6 +40,7 @@
                     :options="itemOptions"
                     :placeholder="itemPlaceholder"
                     :disabled
+                    :transparent="transparentInputs"
                     @update:model-value="value => updateRule(index, 'item', value)"
                 />
 
@@ -43,6 +51,7 @@
                     :options="getFilteredOperators(getRuleInputType(rule))"
                     :placeholder="operatorPlaceholder"
                     :disabled
+                    :transparent="transparentInputs"
                     @update:model-value="value => updateRule(index, 'operator', value)"
                 />
 
@@ -53,6 +62,7 @@
                     :type="getRuleInputType(rule)"
                     :placeholder="valuePlaceholder"
                     :disabled
+                    :transparent="transparentInputs"
                     @update:model-value="value => updateRule(index, 'value', value)"
                     @keydown.enter.prevent="handleValueEnterKey(index)"
                 />
@@ -83,16 +93,12 @@
             </div>
         </div>
 
-        <!-- Help Text -->
-        <p
-            v-if="hasError || helpText"
-            :class="[
-                'text-xs text-left',
-                hasError ? 'text-text-error' : 'text-text-neutral-subtle',
-            ]"
-        >
-            {{ hasError ? error : helpText }}
-        </p>
+        <!-- Help Text (bottom) -->
+        <HelpText
+            v-if="helpTextPosition === Position.BOTTOM"
+            :text="helpText"
+            :error="error"
+        />
     </div>
 </template>
 
@@ -125,6 +131,11 @@ const props = defineProps({
         default: 'Remove rule',
     },
     helpText: String as PropType<string>,
+    helpTextPosition: {
+        type: String as PropType<Position>,
+        default: Position.BOTTOM,
+        validator: (value: Position) => Object.values(Position).includes(value),
+    },
     itemOptions: {
         type: Array as PropType<SelectOption[]>,
         default: () => [],
@@ -183,6 +194,10 @@ const props = defineProps({
     },
     maxRules: Number as PropType<number | undefined>,
     rowGridClass: String as PropType<string>,
+    transparentInputs: {
+        type: Boolean as PropType<boolean>,
+        default: false,
+    },
 })
 
 // Emits

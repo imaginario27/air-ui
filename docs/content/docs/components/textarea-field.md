@@ -9,6 +9,7 @@ props:
     label: "Label"
     placeholder: "Placeholder"
     helpText: "Help text example"
+    helpTextPosition: "bottom"
     modelValue: "Sample text"
     validator: null
     error: ""
@@ -23,10 +24,19 @@ props:
     blurContent: false
     revealBlurOnFocus: true
     disabled: false
+    transparent: false
     required: false  
     minHeightClass: "min-h-[150px]"
     maxHeightClass: "max-h-[300px]"
     textareaClass: ""
+items:
+    helpTextPosition:
+        - value: top
+          text: TOP
+        - value: bottom
+          text: BOTTOM
+enums:
+    helpTextPosition: "Position"
 isPreviewContentBoxed: true
 previewContentMaxWidth: 600
 propsSettingsExcludedProps: ['validator']
@@ -56,6 +66,11 @@ props: [
     {
         "name": "helpText",
         "type": "string",
+    },
+    {
+        "name": "helpTextPosition",
+        "default": "Position.BOTTOM",
+        "type": "Position",
     },
     {
         "name": "modelValue",
@@ -144,7 +159,12 @@ props: [
     {
         "name": "textareaClass",
         "type": "string",
-    }
+    },
+    {
+        "name": "transparent",
+        "default": "false",
+        "type": "boolean",
+    },
 ]
 ---
 ::
@@ -200,6 +220,35 @@ Sets the help text displayed below the input field.
 ```
 
 - **Type:** `string`
+
+### helpTextPosition
+
+Sets the position of the help text relative to the field. It uses the `Position` enum.
+
+```vue
+<template>
+    <TextareaField helpTextPosition="top" helpText="Appears above the field" />
+</template>
+```
+
+- **Type:** `Position`
+- **Default:** `Position.BOTTOM`
+
+#### Options
+::options-table
+---
+options: [
+    {
+        value: "TOP",
+        description: "top",
+    },
+    {
+        value: "BOTTOM",
+        description: "bottom",
+    },
+]
+---
+::
 
 ### modelValue
 
@@ -482,3 +531,16 @@ Sets the custom CSS class for the textarea.
 ```
 
 - **Type:** `string`
+
+### transparent
+
+When `true`, removes the default `bg-background-container-surface` background from the textarea container, making it transparent.
+
+```vue
+<template>
+    <TextareaField transparent />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `false`

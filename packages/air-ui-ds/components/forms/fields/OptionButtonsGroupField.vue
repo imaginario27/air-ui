@@ -20,7 +20,14 @@
             {{ label }}
         </label>
 
-        <OptionButtonGroup 
+        <!-- Help Text (top) -->
+        <HelpText
+            v-if="helpTextPosition === Position.TOP"
+            :text="helpText"
+            :error="error"
+        />
+
+        <OptionButtonGroup
             :id
             :ariaLabel="!label ? ariaLabel : label"
             :buttons
@@ -36,16 +43,12 @@
             @update:modelValue="emit('update:modelValue', $event)"
         />
 
-        <!-- Help Text -->
-        <p
-            v-if="hasError || helpText"
-            :class="[
-                'text-xs text-left',
-                hasError ? 'text-text-error' : 'text-text-neutral-subtle',
-            ]"
-        >
-            {{ hasError ? error : helpText }}
-        </p>
+        <!-- Help Text (bottom) -->
+        <HelpText
+            v-if="helpTextPosition === Position.BOTTOM"
+            :text="helpText"
+            :error="error"
+        />
     </div>
 </template>
 
@@ -59,6 +62,11 @@ const props = defineProps({
     label: String as PropType<string>,
     ariaLabel: String as PropType<string>,
     helpText: String as PropType<string>,
+    helpTextPosition: {
+        type: String as PropType<Position>,
+        default: Position.BOTTOM,
+        validator: (value: Position) => Object.values(Position).includes(value),
+    },
     buttons: Array as PropType<OptionButton[]>,
     modelValue: {
         type: [String, Array] as PropType<string | string[]>,

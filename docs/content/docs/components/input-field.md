@@ -10,6 +10,7 @@ props:
     type: "text"
     placeholder: "Placeholder"
     helpText: "Help text example"
+    helpTextPosition: "bottom"
     icon: null
     suffixIcon: null
     linkText: null
@@ -30,15 +31,23 @@ props:
     autocomplete: "off"
     autofocus: false
     disabled: false
+    transparent: false
     required: false
+    inputClass: null
 items:
     size: 
         - value: lg
           text: LG
         - value: md
           text: MD
+    helpTextPosition:
+        - value: top
+          text: TOP
+        - value: bottom
+          text: BOTTOM
 enums:
     size: "InputSize"
+    helpTextPosition: "Position"
 isPreviewContentBoxed: true
 previewContentMaxWidth: 400
 propsSettingsExcludedProps: ['validator']
@@ -73,6 +82,11 @@ props: [
     {
         "name": "helpText",
         "type": "string",
+    },
+    {
+        "name": "helpTextPosition",
+        "default": "Position.BOTTOM",
+        "type": "Position",
     },
     {
         "name": "icon",
@@ -164,7 +178,16 @@ props: [
         "name": "required",
         "default": "false",
         "type": "boolean",
-    },    
+    },
+    {
+        "name": "transparent",
+        "default": "false",
+        "type": "boolean",
+    },
+    {
+        "name": "inputClass",
+        "type": "string",
+    },
 ]
 ---
 ::
@@ -251,6 +274,35 @@ Sets the help text displayed below the input field.
 ```
 
 - **Type:** `string`
+
+### helpTextPosition
+
+Sets the position of the help text relative to the input field. It uses the `Position` enum.
+
+```vue
+<template>
+    <InputField helpTextPosition="top" helpText="Appears above the field" />
+</template>
+```
+
+- **Type:** `Position`
+- **Default:** `Position.BOTTOM`
+
+#### Options
+::options-table
+---
+options: [
+    {
+        value: "TOP",
+        description: "top",
+    },
+    {
+        value: "BOTTOM",
+        description: "bottom",
+    },
+]
+---
+::
 
 ### icon
 
@@ -536,3 +588,28 @@ Sets the required state of the field.
 
 - **Type:** `boolean`
 - **Default:** `false`
+
+### transparent
+
+When `true`, removes the default `bg-background-container-surface` background from the input container, making it transparent.
+
+```vue
+<template>
+    <InputField transparent />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `false`
+
+### inputClass
+
+Applies additional CSS classes directly to the `<input>` element, appended last so they can override other classes.
+
+```vue
+<template>
+    <InputField inputClass="text-right font-mono" />
+</template>
+```
+
+- **Type:** `string`

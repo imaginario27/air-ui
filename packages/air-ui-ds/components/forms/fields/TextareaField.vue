@@ -14,6 +14,13 @@
             {{ label }}
         </label>
 
+        <!-- Help Text (top) -->
+        <HelpText
+            v-if="helpTextPosition === Position.TOP"
+            :text="helpText"
+            :error="error"
+        />
+
         <!-- Textarea Container -->
         <div 
             :class="[ 
@@ -29,6 +36,7 @@
                 autoResize && maxHeightClass,
                 hasError ? 'border-border-error text-text-error' : 'border-border-default',
                 isFocused && 'ring-2 focus-within:ring-inset focus-within:ring-border-primary-brand-default',
+                disabled ? 'bg-background-neutral-disabled' : (!transparent && 'bg-background-container-surface'),
                 textareaClass,
             ]"
         >
@@ -79,16 +87,12 @@
             </span>
         </div>
 
-        <!-- Help Text -->
-        <p 
-            v-if="hasError || helpText"
-            :class="[ 
-                'text-xs text-left',
-                hasError ? 'text-text-error' : 'text-text-neutral-subtle'
-            ]" 
-        >
-            {{ hasError ? error : helpText }}
-        </p>
+        <!-- Help Text (bottom) -->
+        <HelpText
+            v-if="helpTextPosition === Position.BOTTOM"
+            :text="helpText"
+            :error="error"
+        />
 
         <!-- Character Counter -->
         <p v-if="hasCharCounter && maxLength" class="text-xs text-right text-text-neutral-subtle">
@@ -111,6 +115,11 @@ const props = defineProps({
         default: 'Placeholder', 
     },
     helpText: String as PropType<string>,
+    helpTextPosition: {
+        type: String as PropType<Position>,
+        default: Position.BOTTOM,
+        validator: (value: Position) => Object.values(Position).includes(value),
+    },
     modelValue: { 
         type: String as PropType<string>, 
         default: '', 
@@ -167,8 +176,12 @@ const props = defineProps({
         type: Boolean as PropType<boolean>,
         default: false,
     },
-    required: { 
-        type: Boolean as PropType<boolean>, 
+    required: {
+        type: Boolean as PropType<boolean>,
+        default: false,
+    },
+    transparent: {
+        type: Boolean as PropType<boolean>,
         default: false,
     },
     minHeightClass: {

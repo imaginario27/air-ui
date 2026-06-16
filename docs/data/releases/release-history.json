@@ -1,12 +1,86 @@
 {
-  "generatedAt": "2026-06-11T12:05:58.294Z",
+  "generatedAt": "2026-06-16T08:15:08.107Z",
   "source": "github-git-history+npm-publish-dates",
   "githubBaseUrl": "https://github.com/imaginario27/air-ui",
   "packages": [
     {
       "packageName": "@imaginario27/air-ui-ds",
-      "latestVersion": "1.13.11",
+      "latestVersion": "1.13.13",
       "entries": [
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.13.13",
+          "publishedAt": "2026-06-16",
+          "releaseType": "patch",
+          "notes": [
+            "add HelpText component and helpTextPosition prop to field components"
+          ],
+          "metadata": {
+            "commitCount": 1,
+            "commits": [
+              {
+                "sha": "9ad36a5a283884fbfcbfd4227384c0082928e7dc",
+                "shortSha": "9ad36a5",
+                "date": "2026-06-16",
+                "subject": "feat(ds): add HelpText component and helpTextPosition prop to field components",
+                "normalizedSubject": "add HelpText component and helpTextPosition prop to field components",
+                "type": "added",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/9ad36a5a283884fbfcbfd4227384c0082928e7dc",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 1,
+              "fixed": 0,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.13.12",
+          "publishedAt": "2026-06-15",
+          "releaseType": "patch",
+          "notes": [
+            "propagate aria-label props to compound components",
+            "add customizable aria-label props for i18n support"
+          ],
+          "metadata": {
+            "commitCount": 2,
+            "commits": [
+              {
+                "sha": "3bd194ad760ebdf2da5e5c833752c4b06eced913",
+                "shortSha": "3bd194a",
+                "date": "2026-06-11",
+                "subject": "feat(ds): propagate aria-label props to compound components",
+                "normalizedSubject": "propagate aria-label props to compound components",
+                "type": "added",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/3bd194ad760ebdf2da5e5c833752c4b06eced913",
+                "prUrl": null
+              },
+              {
+                "sha": "3b432b07690fa63933bdd866aaf3e834a900dd11",
+                "shortSha": "3b432b0",
+                "date": "2026-06-11",
+                "subject": "feat(ds): add customizable aria-label props for i18n support",
+                "normalizedSubject": "add customizable aria-label props for i18n support",
+                "type": "added",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/3b432b07690fa63933bdd866aaf3e834a900dd11",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 2,
+              "fixed": 0,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
         {
           "packageName": "@imaginario27/air-ui-ds",
           "version": "1.13.11",
@@ -2767,8 +2841,27 @@
     },
     {
       "packageName": "@imaginario27/air-ui-utils",
-      "latestVersion": "1.2.4",
+      "latestVersion": "1.2.5",
       "entries": [
+        {
+          "packageName": "@imaginario27/air-ui-utils",
+          "version": "1.2.5",
+          "publishedAt": "2026-06-15",
+          "releaseType": "patch",
+          "notes": [
+            "Historical release reconstructed from npm publish metadata (no package commits found in this publish window)."
+          ],
+          "metadata": {
+            "commitCount": 0,
+            "commits": [],
+            "groups": {
+              "added": 0,
+              "fixed": 0,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
         {
           "packageName": "@imaginario27/air-ui-utils",
           "version": "1.2.4",

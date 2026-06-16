@@ -1,6 +1,7 @@
 import { mount } from '@vue/test-utils'
 import { h } from 'vue'
 import SlotField from '~/components/forms/fields/SlotField.vue'
+import { Position } from '@/models/enums/positions'
 
 const factory = (
     props: Record<string, unknown> = {},
@@ -43,6 +44,18 @@ describe('SlotField.vue', () => {
         expect(helpText.exists()).toBe(true)
         expect(helpText.text()).toBe('Helpful text')
         expect(helpText.classes()).toContain('text-text-neutral-subtle')
+    })
+
+    it('renders help text before the slot container when helpTextPosition is top', () => {
+        const wrapper = factory({ label: 'Custom', helpText: 'Slot hint', helpTextPosition: Position.TOP })
+        const help = wrapper.find('p.text-xs')
+        expect(help.exists()).toBe(true)
+        expect(help.text()).toBe('Slot hint')
+        const children = Array.from(wrapper.element.children)
+        const helpIdx = children.findIndex(el => el.classList.contains('text-xs'))
+        const labelIdx = children.findIndex(el => el.tagName === 'LABEL')
+        expect(helpIdx).toBeGreaterThan(labelIdx)
+        expect(helpIdx).toBeLessThan(children.length - 1)
     })
 
     it('renders error text with error class and updates label color', () => {

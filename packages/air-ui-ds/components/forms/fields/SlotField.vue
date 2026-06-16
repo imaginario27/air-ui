@@ -14,8 +14,15 @@
             {{ label }}
         </label>
 
+        <!-- Help Text (top) -->
+        <HelpText
+            v-if="helpTextPosition === Position.TOP"
+            :text="helpText"
+            :error="error"
+        />
+
         <!-- Slot container -->
-        <div 
+        <div
             :id
             :class="[disabled && 'cursor-not-allowed opacity-disabled']"
         >
@@ -30,16 +37,12 @@
             />
         </div>
 
-        <!-- Help / Error -->
-        <p 
-            v-if="hasError || helpText" 
-            :class="[
-                'text-xs text-left',
-                hasError ? 'text-text-error' : 'text-text-neutral-subtle',
-            ]"
-        >
-            {{ hasError ? error : helpText }}
-        </p>
+        <!-- Help Text (bottom) -->
+        <HelpText
+            v-if="helpTextPosition === Position.BOTTOM"
+            :text="helpText"
+            :error="error"
+        />
     </div>
 </template>
 
@@ -53,6 +56,11 @@ const props = defineProps({
     label: String as PropType<string>,
     ariaLabel: String as PropType<string>,
     helpText: String as PropType<string>,
+    helpTextPosition: {
+        type: String as PropType<Position>,
+        default: Position.BOTTOM,
+        validator: (value: Position) => Object.values(Position).includes(value),
+    },
     error: {
         type: String as PropType<string>,
         default: '',

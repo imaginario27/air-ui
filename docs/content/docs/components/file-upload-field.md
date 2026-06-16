@@ -10,6 +10,7 @@ props:
     ariaLabel: "Upload contract files"
     title: "Field title"
     helpText: "Example help text"
+    helpTextPosition: "bottom"
     icon: "mdi:file-document-outline"
     buttonText: "Upload file"
     singleFileTitleText: "Drag and drop a file here"
@@ -22,6 +23,7 @@ props:
     validator: null
     error: ""
     disabled: false
+    transparent: false
     required: false
     multiple: false
     accept: 
@@ -75,6 +77,14 @@ props:
     fileItemClass: ""
     fileNameClass: ""
     fileMetaClass: ""
+items:
+    helpTextPosition:
+        - value: top
+          text: TOP
+        - value: bottom
+          text: BOTTOM
+enums:
+    helpTextPosition: "Position"
 external:
   - modelValue
 externalTypes:
@@ -109,6 +119,11 @@ props: [
     {
         "name": "helpText",
         "type": "string",
+    },
+    {
+        "name": "helpTextPosition",
+        "default": "Position.BOTTOM",
+        "type": "Position",
     },
     {
         "name": "icon",
@@ -389,6 +404,11 @@ props: [
         "default": "'Remove file'",
         "type": "string",
     },
+    {
+        "name": "transparent",
+        "default": "false",
+        "type": "boolean",
+    },
 ]
 ---
 ::
@@ -459,6 +479,35 @@ Sets the help text of the field.
 ```
 
 - **Type:** `string`
+
+### helpTextPosition
+
+Sets the position of the help text relative to the field. It uses the `Position` enum.
+
+```vue
+<template>
+    <FileUploadField helpTextPosition="top" helpText="Appears above the field" />
+</template>
+```
+
+- **Type:** `Position`
+- **Default:** `Position.BOTTOM`
+
+#### Options
+::options-table
+---
+options: [
+    {
+        value: "TOP",
+        description: "top",
+    },
+    {
+        value: "BOTTOM",
+        description: "bottom",
+    },
+]
+---
+::
 
 ### icon
 
@@ -1234,6 +1283,19 @@ Sets the accessible label for the remove action button on each file item. Useful
 
 - **Type:** `string`
 - **Default:** `'Remove file'`
+
+### transparent
+
+When `true`, passes `transparent` to the child `Dropzone`, removing its state background and showing only the border.
+
+```vue
+<template>
+    <FileUploadField transparent />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `false`
 
 ## Emits
 

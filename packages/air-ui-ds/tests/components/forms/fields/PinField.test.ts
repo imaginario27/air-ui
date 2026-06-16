@@ -1,6 +1,7 @@
 import { mount } from '@vue/test-utils'
 import { ref, nextTick } from 'vue'
 import PinField from '~/components/forms/fields/PinField.vue'
+import { Position } from '@/models/enums/positions'
 
 const defaultProps = {
     id: 'pin-input',
@@ -59,6 +60,19 @@ describe('PinField.vue', () => {
         const help = wrapper.find('p')
         expect(help.exists()).toBe(true)
         expect(help.text()).toBe('Enter your 4-digit code')
+    })
+
+    it('renders help text before the inputs when helpTextPosition is top', () => {
+        const wrapper = factory({ label: 'PIN', helpText: 'Enter your code', helpTextPosition: Position.TOP })
+        const help = wrapper.find('p.text-xs')
+        expect(help.exists()).toBe(true)
+        expect(help.text()).toBe('Enter your code')
+        // help text appears before the inputs container
+        const children = Array.from(wrapper.element.children)
+        const helpIdx = children.findIndex(el => el.classList.contains('text-xs'))
+        const inputsIdx = children.findIndex(el => el.classList.contains('flex') && Array.from(el.querySelectorAll('input')).length > 0)
+        expect(helpIdx).toBeGreaterThan(-1)
+        expect(helpIdx).toBeLessThan(inputsIdx)
     })
 
     it('masks input when mask is true', async () => {
@@ -160,5 +174,33 @@ describe('PinField.vue', () => {
 
         const firstInput = wrapper.findAll('input')[0]
         expect(firstInput?.attributes('aria-label')).toBe('Access code digit 1')
+    })
+
+    it('applies bg-background-container-surface when transparent is false', () => {
+        const wrapper = factory({ transparent: false })
+        wrapper.findAll('input').forEach(input => {
+            expect(input.classes()).toContain('bg-background-container-surface')
+        })
+    })
+
+    it('does not apply background when transparent is true', () => {
+        const wrapper = factory({ transparent: true })
+        wrapper.findAll('input').forEach(input => {
+            expect(input.classes()).not.toContain('bg-background-container-surface')
+        })
+    })
+
+    it('applies inputClass to each input element', () => {
+        const wrapper = factory({ inputClass: 'custom-pin-class' })
+        wrapper.findAll('input').forEach(input => {
+            expect(input.classes()).toContain('custom-pin-class')
+        })
+    })
+
+    it('does not apply inputClass when not provided', () => {
+        const wrapper = factory()
+        wrapper.findAll('input').forEach(input => {
+            expect(input.classes()).not.toContain('custom-pin-class')
+        })
     })
 })

@@ -13,12 +13,14 @@ props:
     label: "Enter PIN"
     placeholder: "•"
     helpText: "Your PIN should be 4 digits."
+    helpTextPosition: "bottom"
     mask: false
     maskCharacter: "•"
     uppercase: false
     validator: null
     error: ""
     disabled: false
+    transparent: false
     required: false
     autofocus: false
     otp: false
@@ -33,8 +35,14 @@ items:
           text: String
         - value: number
           text: Number
+    helpTextPosition:
+        - value: top
+          text: TOP
+        - value: bottom
+          text: BOTTOM
 enums:
     size: "InputSize"
+    helpTextPosition: "Position"
 isPreviewContentBoxed: true
 previewContentMaxWidth: 400
 propsSettingsExcludedProps: ['validator']
@@ -84,6 +92,11 @@ props: [
         "type": "string",
     },
     {
+        "name": "helpTextPosition",
+        "default": "Position.BOTTOM",
+        "type": "Position",
+    },
+    {
         "name": "mask",
         "default": "false",
         "type": "boolean",
@@ -126,6 +139,15 @@ props: [
         "name": "otp",
         "default": "false",
         "type": "boolean",
+    },
+    {
+        "name": "transparent",
+        "default": "false",
+        "type": "boolean",
+    },
+    {
+        "name": "inputClass",
+        "type": "string",
     },
 ]
 ---
@@ -242,6 +264,35 @@ Sets the help text of the field.
 
 - **Type:** `string`
 
+### helpTextPosition
+
+Sets the position of the help text relative to the field. It uses the `Position` enum.
+
+```vue
+<template>
+    <PinField helpTextPosition="top" helpText="Appears above the field" />
+</template>
+```
+
+- **Type:** `Position`
+- **Default:** `Position.BOTTOM`
+
+#### Options
+::options-table
+---
+options: [
+    {
+        value: "TOP",
+        description: "top",
+    },
+    {
+        value: "BOTTOM",
+        description: "bottom",
+    },
+]
+---
+::
+
 ### mask
 If `true`, the input will be masked.
 
@@ -353,3 +404,28 @@ If `true`, the field will be optimized for one-time password (OTP) input, which 
 
 - **Type:** `boolean`
 - **Default:** `false`
+
+### transparent
+
+When `true`, removes the default `bg-background-container-surface` background from each pin input, making them transparent.
+
+```vue
+<template>
+    <PinField transparent />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `false`
+
+### inputClass
+
+Applies additional CSS classes directly to each `<input>` element, appended last so they can override other classes.
+
+```vue
+<template>
+    <PinField inputClass="font-mono text-lg" />
+</template>
+```
+
+- **Type:** `string`

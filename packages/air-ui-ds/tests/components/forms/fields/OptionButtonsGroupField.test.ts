@@ -2,6 +2,7 @@ import { mount } from '@vue/test-utils'
 import OptionButtonsGroupField from '~/components/forms/fields/OptionButtonsGroupField.vue'
 import OptionButtonGroup from '~/components/buttons/options/OptionButtonGroup.vue'
 import { FormValidationMode } from '~/models/enums/formValidations'
+import { Position } from '@/models/enums/positions'
 
 vi.mock('~/composables/useFormValidationMode', () => ({
     useInjectedValidationMode: () => ref(FormValidationMode.BLUR)
@@ -81,6 +82,26 @@ describe('OptionButtonsGroupField', () => {
         expect(helpText.exists()).toBe(true)
         expect(helpText.text()).toBe('Helpful tip here')
         expect(helpText.classes()).toContain('text-text-neutral-subtle')
+    })
+
+    it('renders help text before the button group when helpTextPosition is top', () => {
+        const wrapper = mount(OptionButtonsGroupField, {
+            props: {
+                ...defaultProps,
+                label: 'Options',
+                helpText: 'Pick one',
+                helpTextPosition: Position.TOP,
+            }
+        })
+
+        const help = wrapper.find('p.text-xs')
+        expect(help.exists()).toBe(true)
+        expect(help.text()).toBe('Pick one')
+        const children = Array.from(wrapper.element.children)
+        const helpIdx = children.findIndex(el => el.classList.contains('text-xs'))
+        const labelIdx = children.findIndex(el => el.tagName === 'LABEL')
+        expect(helpIdx).toBeGreaterThan(labelIdx)
+        expect(helpIdx).toBeLessThan(children.length - 1)
     })
 
     it('renders nothing if both helpText and error are empty', () => {

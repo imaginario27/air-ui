@@ -1,6 +1,7 @@
 import { mount } from '@vue/test-utils'
 import { defineComponent, h, ref } from 'vue'
 import FileUploadField from '~/components/forms/fields/FileUploadField.vue'
+import { Position } from '@/models/enums/positions'
 
 vi.mock('~/composables/useFormValidationMode', () => ({
     useInjectedValidationMode: () => ref('blur')
@@ -16,6 +17,10 @@ const DropzoneStub = defineComponent({
         totalProgress: {
             type: Number,
             default: 0,
+        },
+        transparent: {
+            type: Boolean,
+            default: false,
         },
     },
     emits: [
@@ -61,6 +66,19 @@ describe('FileUploadField.vue', () => {
         })
 
         expect(wrapper.text()).toContain('PDF or DOC only')
+    })
+
+    it('renders help text at top position when helpTextPosition is top', () => {
+        const wrapper = factory({ label: 'Upload', helpText: 'PDF only', helpTextPosition: Position.TOP })
+        const help = wrapper.find('p.text-xs')
+        expect(help.exists()).toBe(true)
+        expect(help.text()).toBe('PDF only')
+        // help text appears before the dropzone container
+        const children = Array.from(wrapper.element.children)
+        const helpIdx = children.findIndex(el => el.classList.contains('text-xs'))
+        const dropzoneContainerIdx = children.findIndex(el => el.classList.contains('flex') && el.classList.contains('w-full'))
+        expect(helpIdx).toBeGreaterThan(-1)
+        expect(helpIdx).toBeLessThan(dropzoneContainerIdx)
     })
 
     it('renders error message when error prop is set', () => {
@@ -170,5 +188,17 @@ describe('FileUploadField.vue', () => {
         const wrapper = factory({ removeAriaLabel: 'Eliminar' })
         const dropzone = wrapper.find('[data-test="dropzone"]')
         expect(dropzone.attributes('removearialabel')).toBe('Eliminar')
+    })
+
+    it('forwards transparent prop to Dropzone', () => {
+        const wrapper = factory({ transparent: true })
+        const dropzone = wrapper.findComponent({ name: 'Dropzone' })
+        expect(dropzone.props('transparent')).toBe(true)
+    })
+
+    it('passes transparent false by default to Dropzone', () => {
+        const wrapper = factory()
+        const dropzone = wrapper.findComponent({ name: 'Dropzone' })
+        expect(dropzone.props('transparent')).toBe(false)
     })
 })

@@ -8,6 +8,7 @@ props:
     id: "field-id"
     label: "Label"
     helpText: "Help text example"
+    helpTextPosition: "bottom"
     buttons: 
         - text: "Option 1"
           value: "option1"
@@ -46,6 +47,11 @@ items:
           text: SM
         - value: xs
           text: XS
+    helpTextPosition:
+        - value: top
+          text: TOP
+        - value: bottom
+          text: BOTTOM
 external:
   - buttons
 externalTypes:
@@ -53,6 +59,7 @@ externalTypes:
 enums:
     buttonStyle: "ButtonStyleType"
     buttonSize: "ButtonSize"
+    helpTextPosition: "Position"
 isPreviewContentBoxed: true
 previewContentMaxWidth: 800
 propsSettingsExcludedProps: ['validator', 'buttons']
@@ -77,6 +84,11 @@ props: [
     {
         "name": "helpText",
         "type": "string",
+    },
+    {
+        "name": "helpTextPosition",
+        "default": "Position.BOTTOM",
+        "type": "Position",
     },
     {
         "name": "buttons",
@@ -185,6 +197,35 @@ Sets the help text of the field.
 
 - **Type:** `string`
 - **Default:** `''`
+
+### helpTextPosition
+
+Sets the position of the help text relative to the field. It uses the `Position` enum.
+
+```vue
+<template>
+    <OptionButtonsGroupField helpTextPosition="top" helpText="Appears above the field" />
+</template>
+```
+
+- **Type:** `Position`
+- **Default:** `Position.BOTTOM`
+
+#### Options
+::options-table
+---
+options: [
+    {
+        value: "TOP",
+        description: "top",
+    },
+    {
+        value: "BOTTOM",
+        description: "bottom",
+    },
+]
+---
+::
 
 ### buttons
 

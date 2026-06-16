@@ -61,15 +61,7 @@
         </div>
 
         <!-- Help Text or Error Message -->
-        <p
-            v-if="hasError || helpText"
-            :class="[ 
-                'text-xs text-left', 
-                hasError ? 'text-text-error' : 'text-text-neutral-subtle' 
-            ]" 
-        >
-            {{ hasError ? error : helpText }}
-        </p>
+        <HelpText :text="helpText" :error="error" />
     </div>
 </template>
 

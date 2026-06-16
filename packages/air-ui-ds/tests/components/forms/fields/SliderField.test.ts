@@ -67,6 +67,18 @@ describe('SliderField.vue', () => {
         expect(paragraph.text()).toBe('Required field')
     })
 
+    it('renders help text before the slider when helpTextPosition is top', () => {
+        const wrapper = factory({ label: 'Price', helpText: 'Drag to set', helpTextPosition: Position.TOP })
+        const help = wrapper.find('p.text-xs')
+        expect(help.exists()).toBe(true)
+        expect(help.text()).toBe('Drag to set')
+        const children = Array.from(wrapper.element.children)
+        const helpIdx = children.findIndex(el => el.classList.contains('text-xs'))
+        const labelIdx = children.findIndex(el => el.tagName === 'DIV' && el.querySelector('label'))
+        expect(helpIdx).toBeGreaterThan(labelIdx)
+        expect(helpIdx).toBeLessThan(children.length - 1)
+    })
+
     it('runs validation and emits update:error on value changes', async () => {
         const validator = vi.fn().mockReturnValue('Invalid value')
         const wrapper = factory({
@@ -174,5 +186,26 @@ describe('SliderField.vue', () => {
 
         expect(wrapper.find('label').exists()).toBe(false)
         expect(slider.props('ariaLabel')).toBe('Price range slider')
+    })
+
+    it('passes transparentInputs to InputField children as transparent when showInputs is enabled', () => {
+        const wrapper = factory({
+            showInputs: true,
+            transparentInputs: true,
+        })
+
+        const inputFields = wrapper.findAllComponents({ name: 'InputField' })
+        inputFields.forEach(field => {
+            expect(field.props('transparent')).toBe(true)
+        })
+    })
+
+    it('passes transparent false by default to InputField children', () => {
+        const wrapper = factory({ showInputs: true })
+
+        const inputFields = wrapper.findAllComponents({ name: 'InputField' })
+        inputFields.forEach(field => {
+            expect(field.props('transparent')).toBe(false)
+        })
     })
 })

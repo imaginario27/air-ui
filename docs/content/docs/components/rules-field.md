@@ -12,6 +12,7 @@ props:
     addRuleAriaLabel: "Add rule"
     removeRuleAriaLabel: "Remove rule"
     helpText: "Build rule conditions to filter results"
+    helpTextPosition: "bottom"
     itemOptions:
         - value: "status"
           text: "Status"
@@ -52,7 +53,16 @@ props:
     maxRules: 5
     error: ""
     disabled: false
+    transparentInputs: false
     required: false
+items:
+    helpTextPosition:
+        - value: top
+          text: TOP
+        - value: bottom
+          text: BOTTOM
+enums:
+    helpTextPosition: "Position"
 external:
   - itemOptions
   - operatorOptions
@@ -109,6 +119,11 @@ props: [
     {
         "name": "helpText",
         "type": "string",
+    },
+    {
+        "name": "helpTextPosition",
+        "default": "Position.BOTTOM",
+        "type": "Position",
     },
     {
         "name": "itemOptions",
@@ -180,6 +195,11 @@ props: [
     },
     {
         "name": "required",
+        "default": "false",
+        "type": "boolean",
+    },
+    {
+        "name": "transparentInputs",
         "default": "false",
         "type": "boolean",
     },
@@ -263,6 +283,35 @@ Shows helper text below the field when there is no error.
 ```
 
 - **Type:** `string`
+
+### helpTextPosition
+
+Sets the position of the help text relative to the field. It uses the `Position` enum.
+
+```vue
+<template>
+    <RulesField id="rules" helpTextPosition="top" helpText="Appears above the field" />
+</template>
+```
+
+- **Type:** `Position`
+- **Default:** `Position.BOTTOM`
+
+#### Options
+::options-table
+---
+options: [
+    {
+        value: "TOP",
+        description: "top",
+    },
+    {
+        value: "BOTTOM",
+        description: "bottom",
+    },
+]
+---
+::
 
 ### itemOptions
 
@@ -589,6 +638,19 @@ Enables validation execution together with `validator`.
         :required="true"
         :validator="validateRules"
     />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `false`
+
+### transparentInputs
+
+When `true`, passes `transparent` to all child `SelectField` and `InputField` components in each row, removing their default background.
+
+```vue
+<template>
+    <RulesField id="rules" transparentInputs />
 </template>
 ```
 

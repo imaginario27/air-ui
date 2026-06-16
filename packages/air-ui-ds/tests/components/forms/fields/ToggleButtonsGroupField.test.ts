@@ -2,6 +2,7 @@ import { mount } from '@vue/test-utils'
 import ToggleButtonsGroupField from '~/components/forms/fields/ToggleButtonsGroupField.vue'
 import ToggleButtonGroup from '~/components/buttons/toggle/ToggleButtonGroup.vue'
 import { ToggleButtonGroupStyle } from '#imports'
+import { Position } from '@/models/enums/positions'
 
 const defaultProps = {
     id: 'toggle-id',
@@ -50,7 +51,27 @@ describe('ToggleButtonsGroupField', () => {
         const help = wrapper.find('p')
         expect(help.exists()).toBe(true)
         expect(help.text()).toBe('Helpful hint')
-        expect(help.classes()).toContain('text-text-neutral-subtler')
+        expect(help.classes()).toContain('text-text-neutral-subtle')
+    })
+
+    it('renders help text before the toggle group when helpTextPosition is top', () => {
+        const wrapper = mount(ToggleButtonsGroupField, {
+            props: {
+                ...defaultProps,
+                label: 'View',
+                helpText: 'Select layout',
+                helpTextPosition: Position.TOP,
+            }
+        })
+
+        const help = wrapper.find('p.text-xs')
+        expect(help.exists()).toBe(true)
+        expect(help.text()).toBe('Select layout')
+        const children = Array.from(wrapper.element.children)
+        const helpIdx = children.findIndex(el => el.classList.contains('text-xs'))
+        const labelIdx = children.findIndex(el => el.tagName === 'LABEL')
+        expect(helpIdx).toBeGreaterThan(labelIdx)
+        expect(helpIdx).toBeLessThan(children.length - 1)
     })
 
     it('passes props correctly to ToggleButtonGroup', () => {
