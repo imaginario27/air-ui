@@ -37,6 +37,7 @@
         "vue3-toastify": "0.2.9"
     },
     "devDependencies": {
+        "@modelcontextprotocol/sdk": "^1.29.0",
         "@nuxt/test-utils": "4.0.3",
         "@nuxtjs/mcp-toolkit": "0.17.2",
         "@vitest/coverage-v8": "4.1.8",
