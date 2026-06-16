@@ -1,5 +1,6 @@
 import { mount } from '@vue/test-utils'
 import InputField from '~/components/forms/fields/InputField.vue'
+import { Position } from '@/models/enums/positions'
 import { nextTick, ref } from 'vue'
 
 vi.mock('~/composables/useFormValidationMode', () => ({
@@ -31,6 +32,19 @@ describe('InputField.vue', () => {
         const help = wrapper.find('p.text-xs')
         expect(help.exists()).toBe(true)
         expect(help.text()).toBe('This is help text')
+    })
+
+    it('renders help text before the input when helpTextPosition is top', () => {
+        const wrapper = factory({ label: 'Name', helpText: 'Hint', helpTextPosition: Position.TOP })
+        const help = wrapper.find('p.text-xs')
+        expect(help.exists()).toBe(true)
+        expect(help.text()).toBe('Hint')
+        // help text is a direct child of the wrapper and appears before the input container
+        const children = Array.from(wrapper.element.children)
+        const helpIdx = children.findIndex(el => el.classList.contains('text-xs'))
+        const inputContainerIdx = children.findIndex(el => el.classList.contains('border'))
+        expect(helpIdx).toBeGreaterThan(-1)
+        expect(helpIdx).toBeLessThan(inputContainerIdx)
     })
 
     it('displays error message when error exists', async () => {
@@ -192,5 +206,29 @@ describe('InputField.vue', () => {
 
         expect(wrapper.find('label').exists()).toBe(false)
         expect(input.attributes('aria-label')).toBe('Accessible input')
+    })
+
+    it('applies bg-background-container-surface when transparent is false', () => {
+        const wrapper = factory({ transparent: false })
+        const container = wrapper.find('div.border')
+        expect(container.classes()).toContain('bg-background-container-surface')
+    })
+
+    it('does not apply background when transparent is true', () => {
+        const wrapper = factory({ transparent: true })
+        const container = wrapper.find('div.border')
+        expect(container.classes()).not.toContain('bg-background-container-surface')
+    })
+
+    it('applies inputClass to the input element', () => {
+        const wrapper = factory({ inputClass: 'custom-input-class' })
+        const input = wrapper.find('input')
+        expect(input.classes()).toContain('custom-input-class')
+    })
+
+    it('does not apply inputClass when not provided', () => {
+        const wrapper = factory()
+        const input = wrapper.find('input')
+        expect(input.classes()).not.toContain('custom-input-class')
     })
 })

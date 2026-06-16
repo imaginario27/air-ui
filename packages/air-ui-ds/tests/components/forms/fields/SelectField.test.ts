@@ -3,6 +3,7 @@ import SelectField from '~/components/forms/fields/SelectField.vue'
 import DropdownSelect from '~/components/dropdowns/DropdownSelect.vue'
 import BadgeStack from '~/components/badges/BadgeStack.vue'
 import { FormValidationMode } from '~/models/enums/formValidations'
+import { Position } from '@/models/enums/positions'
 
 vi.mock('~/composables/useFormValidationMode', () => ({
     useInjectedValidationMode: () => ref(FormValidationMode.BLUR)
@@ -56,6 +57,26 @@ describe('SelectField', () => {
         expect(help.exists()).toBe(true)
         expect(help.text()).toBe('Helpful')
         expect(help.classes()).toContain('text-text-neutral-subtle')
+    })
+
+    it('renders help text before the dropdown when helpTextPosition is top', () => {
+        const wrapper = mount(SelectField, {
+            props: {
+                ...defaultProps,
+                label: 'Choose',
+                helpText: 'Pick one',
+                helpTextPosition: Position.TOP,
+            }
+        })
+
+        const help = wrapper.find('p.text-xs')
+        expect(help.exists()).toBe(true)
+        expect(help.text()).toBe('Pick one')
+        const children = Array.from(wrapper.element.children)
+        const helpIdx = children.findIndex(el => el.classList.contains('text-xs'))
+        const labelIdx = children.findIndex(el => el.tagName === 'LABEL')
+        expect(helpIdx).toBeGreaterThan(labelIdx)
+        expect(helpIdx).toBeLessThan(children.length - 1)
     })
 
     it('renders error if present', () => {
@@ -247,5 +268,21 @@ describe('SelectField', () => {
 
         const dropdown = wrapper.findComponent(DropdownSelect)
         expect(dropdown.props('clearSelectionAriaLabel')).toBe('Limpiar selección')
+    })
+
+    it('forwards transparent prop to DropdownSelect', () => {
+        const wrapper = mount(SelectField, {
+            props: { ...defaultProps, transparent: true }
+        })
+
+        const dropdown = wrapper.findComponent(DropdownSelect)
+        expect(dropdown.props('transparent')).toBe(true)
+    })
+
+    it('passes transparent false by default to DropdownSelect', () => {
+        const wrapper = mount(SelectField, { props: { ...defaultProps } })
+
+        const dropdown = wrapper.findComponent(DropdownSelect)
+        expect(dropdown.props('transparent')).toBe(false)
     })
 })

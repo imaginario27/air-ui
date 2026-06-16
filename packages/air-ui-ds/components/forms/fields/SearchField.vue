@@ -7,17 +7,23 @@
         ]"
     >
         <!-- Label -->
-        <label 
+        <label
             v-if="label"
-            :for="id" 
-            :class="[ 
-                'text-sm', 
-                'font-semibold', 
+            :for="id"
+            :class="[
+                'text-sm',
+                'font-semibold',
                 'text-left',
             ]"
         >
             {{ label }}
         </label>
+
+        <!-- Help Text (top) -->
+        <HelpText
+            v-if="helpTextPosition === Position.TOP"
+            :text="helpText"
+        />
 
         <!-- Input Container -->
         <div 
@@ -33,7 +39,7 @@
                 'border-border-default',
                 inputCustomClass,
                 isFocused && 'ring-2 ring-inset ring-border-primary-brand-default',
-                disabled ? 'bg-background-neutral-disabled cursor-not-allowed' : 'bg-neutral-white',
+                disabled ? 'bg-background-neutral-disabled cursor-not-allowed' : (!transparent && 'bg-background-container-surface'),
             ]"
         >
             <!-- Icon -->
@@ -60,6 +66,7 @@
                     'placeholder-text-neutral-subtler',
                     'text-sm',
                     disabled ? 'cursor-not-allowed' : undefined,
+                inputClass,
                 ]"
                 @focus="handleFocus" 
                 @blur="handleBlur"
@@ -77,13 +84,11 @@
             />
         </div>
 
-         <!-- Help Text -->
-        <p 
-            v-if="helpText"
-            class="text-xs text-left text-text-neutral-subtle" 
-        >
-            {{ helpText }}
-        </p>
+        <!-- Help Text (bottom) -->
+        <HelpText
+            v-if="helpTextPosition === Position.BOTTOM"
+            :text="helpText"
+        />
     </div>
 </template>
 
@@ -100,6 +105,11 @@ const props = defineProps({
         default: 'Search', 
     },
     helpText: String as PropType<string>,
+    helpTextPosition: {
+        type: String as PropType<Position>,
+        default: Position.BOTTOM,
+        validator: (value: Position) => Object.values(Position).includes(value),
+    },
     icon: {
         type: String as PropType<string>,
         default: 'mdi:magnify',
@@ -142,6 +152,11 @@ const props = defineProps({
         type: String as PropType<string>,
         default: 'Clear search',
     },
+    transparent: {
+        type: Boolean as PropType<boolean>,
+        default: false,
+    },
+    inputClass: String as PropType<string>,
 })
 
 // States

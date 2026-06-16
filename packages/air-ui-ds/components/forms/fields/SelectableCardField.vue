@@ -14,7 +14,14 @@
             {{ label }}
         </label>
         
-        <Loading 
+        <!-- Help Text (top) -->
+        <HelpText
+            v-if="helpTextPosition === Position.TOP"
+            :text="helpText"
+            :error="error"
+        />
+
+        <Loading
             v-if="showLoadingState && isLoading" 
             :isLoading
             :loadingText
@@ -65,16 +72,12 @@
                 />
             </Grid>
     
-            <!-- Help / Error -->
-            <p
-                v-if="hasError || helpText"
-                :class="[
-                    'text-xs text-left',
-                    hasError ? 'text-text-error' : 'text-text-neutral-subtle',
-                ]"
-            >
-                {{ hasError ? error : helpText }}
-            </p>
+            <!-- Help Text (bottom) -->
+            <HelpText
+                v-if="helpTextPosition === Position.BOTTOM"
+                :text="helpText"
+                :error="error"
+            />
         </template>
     </div>
 </template>
@@ -125,6 +128,11 @@ const props = defineProps({
         default: false,
     },
     helpText: String as PropType<string>,
+    helpTextPosition: {
+        type: String as PropType<Position>,
+        default: Position.BOTTOM,
+        validator: (value: Position) => Object.values(Position).includes(value),
+    },
     showLoadingState: {
         type: Boolean as PropType<boolean>,
         default: false,

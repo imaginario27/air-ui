@@ -9,6 +9,7 @@ props:
     placeholder: "Enter values separated by commas"
     clearText: "Clear"
     helpText: "Press Enter or comma to add a tag"
+    helpTextPosition: "bottom"
     icon: null
     modelValue: 
         - "Nuxt"
@@ -18,7 +19,17 @@ props:
     maxTags: 6
     autofocus: false
     disabled: false
+    transparent: false
     required: false
+    inputClass: null
+items:
+    helpTextPosition:
+        - value: top
+          text: TOP
+        - value: bottom
+          text: BOTTOM
+enums:
+    helpTextPosition: "Position"
 external:
   - modelValue
 propsSettingsExcludedProps: ['validator', 'modelValue']
@@ -56,6 +67,11 @@ props: [
         "type": "string",
     },
     {
+        "name": "helpTextPosition",
+        "default": "Position.BOTTOM",
+        "type": "Position",
+    },
+    {
         "name": "icon",
         "type": "string",
     },
@@ -91,6 +107,15 @@ props: [
         "name": "required",
         "default": "false",
         "type": "boolean",
+    },
+    {
+        "name": "transparent",
+        "default": "false",
+        "type": "boolean",
+    },
+    {
+        "name": "inputClass",
+        "type": "string",
     },
 ]
 ---
@@ -213,6 +238,60 @@ Marks the field as required when used with a validator.
 
 - **Type:** `boolean`
 - **Default:** `false`
+
+### transparent
+
+When `true`, removes the default `bg-background-container-surface` background from the tags input container, making it transparent.
+
+```vue
+<template>
+    <TagsField transparent />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `false`
+
+### inputClass
+
+Applies additional CSS classes directly to the `<input>` element, appended last so they can override other classes.
+
+```vue
+<template>
+    <TagsField inputClass="font-mono" />
+</template>
+```
+
+- **Type:** `string`
+
+### helpTextPosition
+
+Sets the position of the help text relative to the field. It uses the `Position` enum.
+
+```vue
+<template>
+    <TagsField helpTextPosition="top" helpText="Appears above the field" />
+</template>
+```
+
+- **Type:** `Position`
+- **Default:** `Position.BOTTOM`
+
+#### Options
+::options-table
+---
+options: [
+    {
+        value: "TOP",
+        description: "top",
+    },
+    {
+        value: "BOTTOM",
+        description: "bottom",
+    },
+]
+---
+::
 
 ## Field behavior
 

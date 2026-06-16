@@ -9,6 +9,7 @@ props:
     label: "Label"
     placeholder: "Select an option"
     helpText: "Help text example"
+    helpTextPosition: "bottom"
     required: false
     options: 
         - value: 1
@@ -37,6 +38,7 @@ props:
     loadingText: "Loading options..."
     loadingOptionsPlaceholder: "Options are being loaded"
     selectBoxClass: ""
+    transparent: false
 items:
     size: 
         - value: lg
@@ -62,11 +64,17 @@ items:
           text: TOP
         - value: bottom
           text: BOTTOM
+    helpTextPosition:
+        - value: top
+          text: TOP
+        - value: bottom
+          text: BOTTOM
 enums:
     size: "InputSize"
     type: "SelectType"
     activeStyle: "SelectActiveStyle"
     dropdownPosition: "Position"
+    helpTextPosition: "Position"
 isPreviewContentBoxed: true
 previewContentMaxWidth: 400
 propsSettingsExcludedProps: ['validator','options']
@@ -92,6 +100,11 @@ props: [
         "name": "helpText",
         "default": "'Text'",
         "type": "string",
+    },
+    {
+        "name": "helpTextPosition",
+        "default": "Position.BOTTOM",
+        "type": "Position",
     },
     {
         "name": "required",
@@ -211,6 +224,11 @@ props: [
         "default": "'Clear selection'",
         "type": "string",
     },
+    {
+        "name": "transparent",
+        "default": "false",
+        "type": "boolean",
+    },
 ]
 ---
 ::
@@ -253,6 +271,35 @@ Sets the help text of the field.
 ```
 
 - **Type:** `string`
+
+### helpTextPosition
+
+Sets the position of the help text relative to the field. It uses the `Position` enum.
+
+```vue
+<template>
+    <SelectField helpTextPosition="top" helpText="Appears above the field" />
+</template>
+```
+
+- **Type:** `Position`
+- **Default:** `Position.BOTTOM`
+
+#### Options
+::options-table
+---
+options: [
+    {
+        value: "TOP",
+        description: "top",
+    },
+    {
+        value: "BOTTOM",
+        description: "bottom",
+    },
+]
+---
+::
 
 ### required 
 
@@ -691,6 +738,19 @@ Sets the accessible label for the clear selection button in multi-select mode. U
 ```
 
 - **Type:** `string`
+
+### transparent
+
+When `true`, removes the default `bg-background-container-surface` background from the select box, making it transparent.
+
+```vue
+<template>
+    <SelectField transparent />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `false`
 - **Default:** `'Clear selection'`
 
 

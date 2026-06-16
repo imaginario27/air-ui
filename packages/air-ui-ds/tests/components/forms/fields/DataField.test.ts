@@ -1,5 +1,6 @@
 import { mount } from '@vue/test-utils'
 import DataField from '~/components/forms/fields/DataField.vue'
+import { Position } from '@/models/enums/positions'
 
 const factory = (props: Record<string, any> = {}, slots?: Record<string, any>) => {
     return mount(DataField, {
@@ -69,6 +70,18 @@ describe('DataField.vue', () => {
         const help = wrapper.find('p.text-xs.text-text-neutral-subtle')
         expect(help.exists()).toBe(true)
         expect(help.text()).toBe('Helpful info here')
+    })
+
+    it('renders help text before the value when helpTextPosition is top', () => {
+        const wrapper = factory({ label: 'Email', text: 'user@example.com', helpText: 'Read-only', helpTextPosition: Position.TOP })
+        const help = wrapper.find('p.text-xs')
+        expect(help.exists()).toBe(true)
+        expect(help.text()).toBe('Read-only')
+        const children = Array.from(wrapper.element.children)
+        const helpIdx = children.findIndex(el => el.classList.contains('text-xs'))
+        const labelIdx = children.findIndex(el => el.tagName === 'LABEL')
+        expect(helpIdx).toBeGreaterThan(labelIdx)
+        expect(helpIdx).toBeLessThan(children.length - 1)
     })
 
     it('renders copy button when hasCopyToClipboardButton is true and text is present', () => {

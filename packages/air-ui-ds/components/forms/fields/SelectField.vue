@@ -20,20 +20,27 @@
             {{ label }}
         </label>
 
-        <BadgeStack 
+        <!-- Help Text (top) -->
+        <HelpText
+            v-if="helpTextPosition === Position.TOP"
+            :text="helpText"
+            :error="error"
+        />
+
+        <BadgeStack
             v-if="multiple && hasBadgeStack && badgesSelectedOptions.length > 0"
             :items="badgesSelectedOptions"
             closeable
             @close="handleBadgeRemove"
         />
         
-        <DropdownSelect 
+        <DropdownSelect
             :id
             :key="computedPlaceholder"
             :ariaLabel="!label ? ariaLabel : undefined"
-            :modelValue 
-            :options 
-            :type 
+            :modelValue
+            :options
+            :type
             :placeholder="computedPlaceholder"
             :size
             :activeStyle
@@ -47,21 +54,18 @@
             :allowDeselect
             :isLoading="isLoadingOptions"
             :loadingText
+            :transparent
             :clearSelectionAriaLabel
             :selectBoxClass="computedSelectBoxClass"
             @update:modelValue="handleValueUpdate"
         />
 
-        <!-- Help Text -->
-        <p 
-            v-if="hasError || helpText"
-            :class="[ 
-                'text-xs text-left', 
-                hasError ? 'text-text-error' : 'text-text-neutral-subtle' 
-            ]" 
-        >
-            {{ hasError ? error : helpText }}
-        </p>
+        <!-- Help Text (bottom) -->
+        <HelpText
+            v-if="helpTextPosition === Position.BOTTOM"
+            :text="helpText"
+            :error="error"
+        />
     </div>
 </template>
 
@@ -75,6 +79,11 @@ const props = defineProps({
     label: String as PropType<string>,
     ariaLabel: String as PropType<string>,
     helpText: String as PropType<string>,
+    helpTextPosition: {
+        type: String as PropType<Position>,
+        default: Position.BOTTOM,
+        validator: (value: Position) => Object.values(Position).includes(value),
+    },
     required: { 
         type: Boolean as PropType<boolean>, 
         default: false,
@@ -162,6 +171,10 @@ const props = defineProps({
         default: 'Options are being loaded',
     },
     selectBoxClass: String as PropType<string>,
+    transparent: {
+        type: Boolean as PropType<boolean>,
+        default: false,
+    },
     clearSelectionAriaLabel: {
         type: String as PropType<string>,
         default: 'Clear selection',

@@ -19,6 +19,12 @@
             {{ label }}
         </label>
 
+        <!-- Help Text (top) -->
+        <HelpText
+            v-if="helpTextPosition === Position.TOP"
+            :text="helpText"
+        />
+
         <template v-if="!$slots.default">
             <template v-if="!isEmpty">
                 <div 
@@ -56,16 +62,11 @@
         <!-- Slot for other type of items -->
         <slot />
        
-        <!-- Help Text -->
-        <p 
-            v-if="helpText"
-            :class="[ 
-                'text-xs text-left', 
-                'text-text-neutral-subtle',
-            ]" 
-        >
-            {{ helpText }}
-        </p>
+        <!-- Help Text (bottom) -->
+        <HelpText
+            v-if="helpTextPosition === Position.BOTTOM"
+            :text="helpText"
+        />
     </div>
 </template>
 
@@ -84,6 +85,11 @@ const props = defineProps({
         default: 'Not defined'
     },
     helpText: String as PropType<string>,
+    helpTextPosition: {
+        type: String as PropType<Position>,
+        default: Position.BOTTOM,
+        validator: (value: Position) => Object.values(Position).includes(value),
+    },
     hasCopyToClipboardButton: {
         type: Boolean as PropType<boolean>,
         default: false

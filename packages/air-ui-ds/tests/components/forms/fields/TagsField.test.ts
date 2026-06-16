@@ -2,6 +2,7 @@ import { mount } from '@vue/test-utils'
 import TagsField from '~/components/forms/fields/TagsField.vue'
 import Badge from '~/components/badges/Badge.vue'
 import { FormValidationMode } from '~/models/enums/formValidations'
+import { Position } from '@/models/enums/positions'
 
 vi.mock('~/composables/useFormValidationMode', () => ({
     useInjectedValidationMode: () => ref(FormValidationMode.BLUR)
@@ -34,6 +35,18 @@ describe('TagsField.vue', () => {
 
         expect(helpText.exists()).toBe(true)
         expect(helpText.text()).toBe('Press Enter to add a tag')
+    })
+
+    it('renders help text before the input when helpTextPosition is top', () => {
+        const wrapper = factory({ label: 'Tags', helpText: 'Press Enter to add', helpTextPosition: Position.TOP })
+        const help = wrapper.find('p.text-xs')
+        expect(help.exists()).toBe(true)
+        expect(help.text()).toBe('Press Enter to add')
+        const children = Array.from(wrapper.element.children)
+        const helpIdx = children.findIndex(el => el.classList.contains('text-xs'))
+        const inputContainerIdx = children.findIndex(el => el.classList.contains('border'))
+        expect(helpIdx).toBeGreaterThan(-1)
+        expect(helpIdx).toBeLessThan(inputContainerIdx)
     })
 
     it('renders existing tags as badges', () => {
@@ -165,5 +178,29 @@ describe('TagsField.vue', () => {
 
         expect(wrapper.find('label').exists()).toBe(false)
         expect(input.attributes('aria-label')).toBe('Tag input field')
+    })
+
+    it('applies bg-background-container-surface when transparent is false', () => {
+        const wrapper = factory({ transparent: false })
+        const container = wrapper.find('div.border')
+        expect(container.classes()).toContain('bg-background-container-surface')
+    })
+
+    it('does not apply background when transparent is true', () => {
+        const wrapper = factory({ transparent: true })
+        const container = wrapper.find('div.border')
+        expect(container.classes()).not.toContain('bg-background-container-surface')
+    })
+
+    it('applies inputClass to the input element', () => {
+        const wrapper = factory({ inputClass: 'custom-tags-class' })
+        const input = wrapper.find('input')
+        expect(input.classes()).toContain('custom-tags-class')
+    })
+
+    it('does not apply inputClass when not provided', () => {
+        const wrapper = factory()
+        const input = wrapper.find('input')
+        expect(input.classes()).not.toContain('custom-tags-class')
     })
 })

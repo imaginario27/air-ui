@@ -2,6 +2,7 @@ import { mount } from '@vue/test-utils'
 import SearchField from '~/components/forms/fields/SearchField.vue'
 import ActionIconButton from '~/components/buttons/ActionIconButton.vue'
 import { InputSize } from '#imports'
+import { Position } from '@/models/enums/positions'
 
 const defaultProps = {
     id: 'search-input',
@@ -73,6 +74,26 @@ describe('SearchField', () => {
         const help = wrapper.find('p')
         expect(help.exists()).toBe(true)
         expect(help.text()).toBe('Helpful text here')
+    })
+
+    it('renders help text before the input when helpTextPosition is top', () => {
+        const wrapper = mount(SearchField, {
+            props: {
+                ...defaultProps,
+                label: 'Search',
+                helpText: 'Type to filter',
+                helpTextPosition: Position.TOP,
+            }
+        })
+
+        const help = wrapper.find('p.text-xs')
+        expect(help.exists()).toBe(true)
+        expect(help.text()).toBe('Type to filter')
+        const children = Array.from(wrapper.element.children)
+        const helpIdx = children.findIndex(el => el.classList.contains('text-xs'))
+        const inputContainerIdx = children.findIndex(el => el.classList.contains('rounded-full'))
+        expect(helpIdx).toBeGreaterThan(-1)
+        expect(helpIdx).toBeLessThan(inputContainerIdx)
     })
 
     it('applies readonly, autofocus, and autocomplete attributes', () => {
@@ -225,5 +246,35 @@ describe('SearchField', () => {
 
         expect(wrapper.find('label').exists()).toBe(false)
         expect(input.attributes('aria-label')).toBe('Accessible search')
+    })
+
+    it('applies bg-background-container-surface when transparent is false', () => {
+        const wrapper = mount(SearchField, {
+            props: { ...defaultProps, transparent: false }
+        })
+        const container = wrapper.find('div.border')
+        expect(container.classes()).toContain('bg-background-container-surface')
+    })
+
+    it('does not apply background when transparent is true', () => {
+        const wrapper = mount(SearchField, {
+            props: { ...defaultProps, transparent: true }
+        })
+        const container = wrapper.find('div.border')
+        expect(container.classes()).not.toContain('bg-background-container-surface')
+    })
+
+    it('applies inputClass to the input element', () => {
+        const wrapper = mount(SearchField, {
+            props: { ...defaultProps, inputClass: 'custom-input-class' }
+        })
+        const input = wrapper.find('input')
+        expect(input.classes()).toContain('custom-input-class')
+    })
+
+    it('does not apply inputClass when not provided', () => {
+        const wrapper = mount(SearchField, { props: { ...defaultProps } })
+        const input = wrapper.find('input')
+        expect(input.classes()).not.toContain('custom-input-class')
     })
 })

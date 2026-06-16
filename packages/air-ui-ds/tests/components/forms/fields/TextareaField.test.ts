@@ -1,6 +1,7 @@
 import { mount } from '@vue/test-utils'
 import TextareaField from '~/components/forms/fields/TextareaField.vue'
 import { FormValidationMode } from '~/models/enums/formValidations'
+import { Position } from '@/models/enums/positions'
 
 vi.mock('~/composables/useFormValidationMode', () => ({
     useInjectedValidationMode: () => ref(FormValidationMode.BLUR)
@@ -93,6 +94,18 @@ describe('TextareaField', () => {
 
         expect(helpText.exists()).toBe(true)
         expect(helpText.text()).toBe('Helper text')
+    })
+
+    it('renders help text before the textarea when helpTextPosition is top', () => {
+        const wrapper = factory({ label: 'Message', helpText: 'Max 100 chars', helpTextPosition: Position.TOP })
+        const help = wrapper.find('p.text-xs')
+        expect(help.exists()).toBe(true)
+        expect(help.text()).toBe('Max 100 chars')
+        const children = Array.from(wrapper.element.children)
+        const helpIdx = children.findIndex(el => el.classList.contains('text-xs') && !el.classList.contains('text-right'))
+        const textareaContainerIdx = children.findIndex(el => el.classList.contains('border'))
+        expect(helpIdx).toBeGreaterThan(-1)
+        expect(helpIdx).toBeLessThan(textareaContainerIdx)
     })
 
     it.concurrent('renders character counter when enabled', () => {
@@ -256,5 +269,17 @@ describe('TextareaField', () => {
 
         expect(wrapper.find('label').exists()).toBe(false)
         expect(textarea.attributes('aria-label')).toBe('Accessible message')
+    })
+
+    it('applies bg-background-container-surface when transparent is false', () => {
+        const wrapper = factory({ transparent: false })
+        const container = wrapper.find('div.border')
+        expect(container.classes()).toContain('bg-background-container-surface')
+    })
+
+    it('does not apply background when transparent is true', () => {
+        const wrapper = factory({ transparent: true })
+        const container = wrapper.find('div.border')
+        expect(container.classes()).not.toContain('bg-background-container-surface')
     })
 })

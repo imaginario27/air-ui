@@ -4,6 +4,7 @@ import SelectableCard from '@/components/cards/specific/SelectableCard.vue'
 import Loading from '@/components/loaders/Loading.vue'
 import { CardSelectionMode } from '@/models/enums/selects'
 import { FormValidationMode } from '@/models/enums/formValidations'
+import { Position } from '@/models/enums/positions'
 
 vi.mock('@/composables/useValidationMode', () => ({
     useInjectedValidationMode: () => ref(FormValidationMode.BLUR),
@@ -131,6 +132,18 @@ describe('SelectableCardField', () => {
         const help = wrapper.find('p.text-xs')
         expect(help.text()).toBe('Helpful tip here.')
         expect(help.classes()).toContain('text-text-neutral-subtle')
+    })
+
+    it('renders help text before the cards when helpTextPosition is top', () => {
+        const wrapper = factory({ label: 'Options', helpText: 'Choose one', helpTextPosition: Position.TOP })
+        const help = wrapper.find('p.text-xs')
+        expect(help.exists()).toBe(true)
+        expect(help.text()).toBe('Choose one')
+        const children = Array.from(wrapper.element.children)
+        const helpIdx = children.findIndex(el => el.classList.contains('text-xs'))
+        const labelIdx = children.findIndex(el => el.tagName === 'LABEL')
+        expect(helpIdx).toBeGreaterThan(labelIdx)
+        expect(helpIdx).toBeLessThan(children.length - 1)
     })
 
     it('displays error message when hasError is true', () => {

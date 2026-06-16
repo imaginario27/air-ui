@@ -4,14 +4,21 @@
             v-if="label"
             :for="id"
             :class="[
-                'text-sm', 
-                'font-semibold', 
-                'text-left', 
+                'text-sm',
+                'font-semibold',
+                'text-left',
                 hasError && 'text-text-error'
             ]"
         >
             {{ label }}
         </label>
+
+        <!-- Help Text (top) -->
+        <HelpText
+            v-if="helpTextPosition === Position.TOP"
+            :text="helpText"
+            :error="error"
+        />
 
         <div class="flex w-full gap-4">
             <div
@@ -96,21 +103,19 @@
                     :fileMetaClass
                     :retryAriaLabel
                     :removeAriaLabel
+                    :transparent
                     @error="handleDropzoneError"
                     @file-added="(file: File) => emit('file-added', file)"
                     @file-removed="(file: File) => emit('file-removed', file)"
                     @clear-all="(files: File[]) => emit('clear-all', files)"
                 />
 
-                <p
-                    v-if="hasError || helpText"
-                    :class="[
-                        'text-xs text-left',
-                        hasError ? 'text-text-error' : 'text-text-neutral-subtle',
-                    ]"
-                >
-                    {{ hasError ? error : helpText }}
-                </p>
+                <!-- Help Text (bottom) -->
+                <HelpText
+                    v-if="helpTextPosition === Position.BOTTOM"
+                    :text="helpText"
+                    :error="error"
+                />
             </div>
         </div>
     </div>
@@ -133,6 +138,11 @@ const props = defineProps({
         default: 'Drag and drop files here',
     },
     helpText: String as PropType<string>,
+    helpTextPosition: {
+        type: String as PropType<Position>,
+        default: Position.BOTTOM,
+        validator: (value: Position) => Object.values(Position).includes(value),
+    },
     icon: {
         type: String as PropType<string>,
         default: 'mdi:cloud-upload-outline',
@@ -322,6 +332,10 @@ const props = defineProps({
     removeAriaLabel: {
         type: String as PropType<string>,
         default: 'Remove file',
+    },
+    transparent: {
+        type: Boolean as PropType<boolean>,
+        default: false,
     },
 })
 

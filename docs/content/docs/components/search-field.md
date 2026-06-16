@@ -10,6 +10,7 @@ props:
     type: "text"
     placeholder: "Placeholder"
     helpText: "Help text example"
+    helpTextPosition: "bottom"
     icon: "mdi:magnify"
     size: "md"
     modelValue: ""
@@ -21,14 +22,22 @@ props:
     disabled: false
     inputCustomClass: ""
     clearAriaLabel: "Clear search"
+    transparent: false
+    inputClass: null
 items:
     size: 
         - value: lg
           text: LG
         - value: md
           text: MD
+    helpTextPosition:
+        - value: top
+          text: TOP
+        - value: bottom
+          text: BOTTOM
 enums:
     size: "InputSize"
+    helpTextPosition: "Position"
 isPreviewContentBoxed: true
 previewContentMaxWidth: 400
 ---
@@ -57,6 +66,11 @@ props: [
     {
         "name": "helpText",
         "type": "string",
+    },
+    {
+        "name": "helpTextPosition",
+        "default": "Position.BOTTOM",
+        "type": "Position",
     },
     {
         "name": "icon",
@@ -108,6 +122,15 @@ props: [
     {
         "name": "clearAriaLabel",
         "default": "'Clear search'",
+        "type": "string",
+    },
+    {
+        "name": "transparent",
+        "default": "false",
+        "type": "boolean",
+    },
+    {
+        "name": "inputClass",
         "type": "string",
     },
 ]
@@ -165,6 +188,35 @@ Sets the help text displayed below the search field.
 ```
 
 - **Type:** `string`
+
+### helpTextPosition
+
+Sets the position of the help text relative to the field. It uses the `Position` enum.
+
+```vue
+<template>
+    <SearchField helpTextPosition="top" helpText="Appears above the field" />
+</template>
+```
+
+- **Type:** `Position`
+- **Default:** `Position.BOTTOM`
+
+#### Options
+::options-table
+---
+options: [
+    {
+        value: "TOP",
+        description: "top",
+    },
+    {
+        value: "BOTTOM",
+        description: "bottom",
+    },
+]
+---
+::
 
 ### icon
 
@@ -326,3 +378,28 @@ The `clearAriaLabel` prop sets the accessible label for the clear search button.
 
 - **Type:** `string`
 - **Default:** `'Clear search'`
+
+### transparent
+
+When `true`, removes the default `bg-background-container-surface` background from the search input container, making it transparent.
+
+```vue
+<template>
+    <SearchField transparent />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `false`
+
+### inputClass
+
+Applies additional CSS classes directly to the `<input>` element, appended last so they can override other classes.
+
+```vue
+<template>
+    <SearchField inputClass="text-right" />
+</template>
+```
+
+- **Type:** `string`

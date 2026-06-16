@@ -8,6 +8,7 @@ props:
     label: "Custom field label"
     ariaLabel: "Custom control label"
     helpText: "Help text shown below the slot content"
+    helpTextPosition: "bottom"
     error: ""
     disabled: false
     required: false
@@ -18,6 +19,14 @@ slotComponents:
     srcDir: 'placeholders/ContentPlaceholder.vue'
     props:
         text: "Insert slot content here"
+items:
+    helpTextPosition:
+        - value: top
+          text: TOP
+        - value: bottom
+          text: BOTTOM
+enums:
+    helpTextPosition: "Position"
 isPreviewContentBoxed: true
 previewContentMaxWidth: 500
 ---
@@ -44,6 +53,11 @@ props: [
     {
         "name": "helpText",
         "type": "string",
+    },
+    {
+        "name": "helpTextPosition",
+        "default": "Position.BOTTOM",
+        "type": "Position",
     },
     {
         "name": "error",
@@ -171,6 +185,37 @@ Sets helper text displayed below the field when there is no error.
 ```
 
 - **Type:** `string`
+
+### helpTextPosition
+
+Sets the position of the help text relative to the field. It uses the `Position` enum.
+
+```vue
+<template>
+    <SlotField id="field-id" helpTextPosition="top" helpText="Appears above the field" v-slot="{ id }">
+        <YourComponent :id="id" />
+    </SlotField>
+</template>
+```
+
+- **Type:** `Position`
+- **Default:** `Position.BOTTOM`
+
+#### Options
+::options-table
+---
+options: [
+    {
+        value: "TOP",
+        description: "top",
+    },
+    {
+        value: "BOTTOM",
+        description: "bottom",
+    },
+]
+---
+::
 
 ### error
 

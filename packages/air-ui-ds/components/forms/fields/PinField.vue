@@ -13,6 +13,13 @@
             {{ label }}
         </label>
 
+        <!-- Help Text (top) -->
+        <HelpText
+            v-if="helpTextPosition === Position.TOP"
+            :text="helpText"
+            :error="error"
+        />
+
         <!-- Inputs -->
         <div
             :id
@@ -47,7 +54,8 @@
                     focusedIndex === index && 'ring-2 focus-within:ring-inset focus-within:ring-border-primary-brand-default',
                     disabled
                         ? 'bg-background-neutral-disabled cursor-not-allowed'
-                        : 'bg-neutral-white',
+                        : (!transparent && 'bg-background-container-surface'),
+                    inputClass,
                 ]"
                 @focus="handleFocus(index)"
                 @blur="handleBlur"
@@ -56,16 +64,12 @@
             >
         </div>
 
-        <!-- Help / Error -->
-        <p
-            v-if="hasError || helpText"
-            :class="[
-                'text-xs',
-                hasError ? 'text-text-error' : 'text-text-neutral-subtle',
-            ]"
-        >
-            {{ hasError ? error : helpText }}
-        </p>
+        <!-- Help Text (bottom) -->
+        <HelpText
+            v-if="helpTextPosition === Position.BOTTOM"
+            :text="helpText"
+            :error="error"
+        />
     </div>
 </template>
 
@@ -97,6 +101,11 @@ const props = defineProps({
     ariaLabel: String as PropType<string>,
     placeholder: String as PropType<string>,
     helpText: String as PropType<string>,
+    helpTextPosition: {
+        type: String as PropType<Position>,
+        default: Position.BOTTOM,
+        validator: (value: Position) => Object.values(Position).includes(value),
+    },
     mask: {
         type: Boolean as PropType<boolean>,
         default: false,
@@ -133,6 +142,11 @@ const props = defineProps({
         type: Boolean as PropType<boolean>,
         default: false,
     },
+    transparent: {
+        type: Boolean as PropType<boolean>,
+        default: false,
+    },
+    inputClass: String as PropType<string>,
 })
 
 // Emits

@@ -94,16 +94,7 @@
         </div>
 
         <!-- Help Text -->
-        <p 
-            v-if="helpText || hasError" 
-            :class="[ 
-                'text-xs',
-                'text-left',
-                hasError ? 'text-text-error' : 'text-text-neutral-subtle'
-            ]"
-        >
-            {{ hasError ? error : helpText }}
-        </p>
+        <HelpText :text="helpText" :error="error" />
     </div>
 </template>
 
@@ -118,7 +109,6 @@ const props = defineProps({
     ariaLabel: String as PropType<string>,
     legend: String as PropType<string>,
     helpText: String as PropType<string>,
-    
     modelValue: {
         type: Boolean as PropType<boolean>,
         default: false,

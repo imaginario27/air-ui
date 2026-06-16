@@ -27,6 +27,13 @@
             </span>
         </div>
 
+        <!-- Help Text (top) -->
+        <HelpText
+            v-if="helpTextPosition === Position.TOP"
+            :text="helpText"
+            :error="error"
+        />
+
         <div
             v-if="showInputs && inputPosition === Position.TOP"
             class="grid grid-cols-1 gap-2 sm:grid-cols-2"
@@ -40,6 +47,7 @@
                 :min="minString"
                 :max="maxString"
                 :disabled="disabled"
+                :transparent="transparentInputs"
                 :label="showInputsLabel ? (minText.trim() || 'Min') : ''"
                 @update:model-value="value => handleRangeInputChange(0, value)"
             />
@@ -53,6 +61,7 @@
                 :min="minString"
                 :max="maxString"
                 :disabled="disabled"
+                :transparent="transparentInputs"
                 :label="showInputsLabel ? (maxText.trim() || 'Max') : ''"
                 @update:model-value="value => handleRangeInputChange(1, value)"
             />
@@ -66,6 +75,7 @@
                 :min="minString"
                 :max="maxString"
                 :disabled="disabled"
+                :transparent="transparentInputs"
                 :label="showInputsLabel ? (label || 'Value') : ''"
                 @update:model-value="handleSingleInputChange"
             />
@@ -101,6 +111,7 @@
                 :min="minString"
                 :max="maxString"
                 :disabled="disabled"
+                :transparent="transparentInputs"
                 :label="showInputsLabel ? (minText.trim() || 'Min') : ''"
                 @update:model-value="value => handleRangeInputChange(0, value)"
             />
@@ -114,6 +125,7 @@
                 :min="minString"
                 :max="maxString"
                 :disabled="disabled"
+                :transparent="transparentInputs"
                 :label="showInputsLabel ? (maxText.trim() || 'Max') : ''"
                 @update:model-value="value => handleRangeInputChange(1, value)"
             />
@@ -127,6 +139,7 @@
                 :min="minString"
                 :max="maxString"
                 :disabled="disabled"
+                :transparent="transparentInputs"
                 :label="showInputsLabel ? (label || 'Value') : ''"
                 @update:model-value="handleSingleInputChange"
             />
@@ -137,15 +150,12 @@
             <span>{{ maxText }}{{ formatValue(max) }}</span>
         </div>
 
-        <p
-            v-if="hasError || helpText"
-            :class="[
-                'text-xs text-left',
-                hasError ? 'text-text-error' : 'text-text-neutral-subtle',
-            ]"
-        >
-            {{ hasError ? error : helpText }}
-        </p>
+        <!-- Help Text (bottom) -->
+        <HelpText
+            v-if="helpTextPosition === Position.BOTTOM"
+            :text="helpText"
+            :error="error"
+        />
     </div>
 </template>
 
@@ -158,6 +168,11 @@ const props = defineProps({
     label: String as PropType<string>,
     ariaLabel: String as PropType<string>,
     helpText: String as PropType<string>,
+    helpTextPosition: {
+        type: String as PropType<Position>,
+        default: Position.BOTTOM,
+        validator: (value: Position) => Object.values(Position).includes(value),
+    },
     required: {
         type: Boolean as PropType<boolean>,
         default: false,
@@ -241,6 +256,10 @@ const props = defineProps({
     error: {
         type: String as PropType<string>,
         default: '',
+    },
+    transparentInputs: {
+        type: Boolean as PropType<boolean>,
+        default: false,
     },
 })
 

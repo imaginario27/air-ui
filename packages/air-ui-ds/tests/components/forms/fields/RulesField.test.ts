@@ -3,6 +3,7 @@ import RulesField from '~/components/forms/fields/RulesField.vue'
 import SelectField from '~/components/forms/fields/SelectField.vue'
 import InputField from '~/components/forms/fields/InputField.vue'
 import ActionIconButton from '~/components/buttons/ActionIconButton.vue'
+import { Position } from '@/models/enums/positions'
 import ActionButton from '~/components/buttons/ActionButton.vue'
 import { FormValidationMode } from '~/models/enums/formValidations'
 import { ButtonStyleType } from '~/models/enums/buttons'
@@ -47,6 +48,23 @@ describe('RulesField.vue', () => {
         expect(label.text()).toBe('Rules')
         expect(helpText.exists()).toBe(true)
         expect(helpText.text()).toBe('Use conditions to filter data')
+    })
+
+    it('renders help text before the rules rows when helpTextPosition is top', () => {
+        const wrapper = factory({
+            label: 'Conditions',
+            helpText: 'Add filters',
+            helpTextPosition: Position.TOP,
+        })
+
+        const help = wrapper.find('p.text-xs')
+        expect(help.exists()).toBe(true)
+        expect(help.text()).toBe('Add filters')
+        const children = Array.from(wrapper.element.children)
+        const helpIdx = children.findIndex(el => el.classList.contains('text-xs'))
+        const labelIdx = children.findIndex(el => el.tagName === 'LABEL')
+        expect(helpIdx).toBeGreaterThan(labelIdx)
+        expect(helpIdx).toBeLessThan(children.length - 1)
     })
 
     it('renders a default single row when modelValue is empty', () => {
@@ -356,5 +374,27 @@ describe('RulesField.vue', () => {
 
         expect(rowButtons[0]?.props('ariaLabel')).toBe('Remove rule')
         expect(rowButtons[1]?.props('ariaLabel')).toBe('Add rule')
+    })
+
+    it('passes transparentInputs to SelectField and InputField children as transparent', () => {
+        const wrapper = factory({ transparentInputs: true })
+
+        wrapper.findAllComponents(SelectField).forEach(field => {
+            expect(field.props('transparent')).toBe(true)
+        })
+        wrapper.findAllComponents(InputField).forEach(field => {
+            expect(field.props('transparent')).toBe(true)
+        })
+    })
+
+    it('passes transparent false by default to child fields', () => {
+        const wrapper = factory()
+
+        wrapper.findAllComponents(SelectField).forEach(field => {
+            expect(field.props('transparent')).toBe(false)
+        })
+        wrapper.findAllComponents(InputField).forEach(field => {
+            expect(field.props('transparent')).toBe(false)
+        })
     })
 })

@@ -28,7 +28,7 @@
                         'flex items-center justify-between',
                         'w-full',
                         'px-3',
-                        disabled && 'bg-background-neutral-disabled',
+                        disabled ? 'bg-background-neutral-disabled' : (!transparent && 'bg-background-container-surface'),
                         'rounded',
                         disabled ? 'cursor-not-allowed' : 'cursor-pointer',
                         'border border-border-default',
@@ -308,6 +308,10 @@ const props = defineProps({
     clearSelectionAriaLabel: {
         type: String as PropType<string>,
         default: 'Clear selection',
+    },
+    transparent: {
+        type: Boolean as PropType<boolean>,
+        default: false,
     },
 })
 

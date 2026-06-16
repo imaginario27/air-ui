@@ -19,7 +19,13 @@
             {{ label }}
         </label>
 
-        <ToggleButtonGroup 
+        <!-- Help Text (top) -->
+        <HelpText
+            v-if="helpTextPosition === Position.TOP"
+            :text="helpText"
+        />
+
+        <ToggleButtonGroup
             :id
             :ariaLabel="!label ? ariaLabel : label"
             :buttons
@@ -30,16 +36,11 @@
             @update:modelValue="emit('update:modelValue', $event)"
         />
 
-        <!-- Help Text -->
-        <p 
-            v-if="helpText"
-            :class="[ 
-                'text-xs text-left', 
-                'text-text-neutral-subtler' 
-            ]" 
-        >
-            {{ helpText }}
-        </p>
+        <!-- Help Text (bottom) -->
+        <HelpText
+            v-if="helpTextPosition === Position.BOTTOM"
+            :text="helpText"
+        />
     </div>
 </template>
 
@@ -53,6 +54,11 @@ defineProps({
     label: String as PropType<string>,
     ariaLabel: String as PropType<string>,
     helpText: String as PropType<string>,
+    helpTextPosition: {
+        type: String as PropType<Position>,
+        default: Position.BOTTOM,
+        validator: (value: Position) => Object.values(Position).includes(value),
+    },
     buttons: Array as PropType<ToggleButton[] | ToggleIconButton[]>,
     onlyIcon: {
         type: Boolean as PropType<boolean>, 

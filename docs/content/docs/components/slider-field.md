@@ -7,6 +7,7 @@ props:
     id: slider-field-id
     label: Price range
     helpText: Pick your preferred range
+    helpTextPosition: bottom
     required: false
     modelValue:
         - 20
@@ -24,6 +25,7 @@ props:
     showInputsLabel: false
     inputPosition: bottom
     disabled: false
+    transparentInputs: false
     borderRadius: undefined
     minText: "Min: "
     maxText: "Max: "
@@ -70,12 +72,18 @@ items:
           text: TOP
         - value: bottom
           text: BOTTOM
+    helpTextPosition:
+        - value: top
+          text: TOP
+        - value: bottom
+          text: BOTTOM
 enums:
     type: "SliderType"
     color: "ColorAccent"
     size: "SliderSize"
     orientation: "Orientation"
     inputPosition: "Position"
+    helpTextPosition: "Position"
 external:
   - modelValue
   - error
@@ -105,6 +113,11 @@ props: [
     {
         "name": "helpText",
         "type": "string",
+    },
+    {
+        "name": "helpTextPosition",
+        "default": "Position.BOTTOM",
+        "type": "Position",
     },
     {
         "name": "required",
@@ -212,7 +225,12 @@ props: [
         "name": "error",
         "default": "''",
         "type": "string",
-    }
+    },
+    {
+        "name": "transparentInputs",
+        "default": "false",
+        "type": "boolean",
+    },
 ]
 ---
 ::
@@ -254,6 +272,35 @@ Sets helper text below the field.
 ```
 
 - **Type:** `string`
+
+### helpTextPosition
+
+Sets the position of the help text relative to the field. It uses the `Position` enum.
+
+```vue
+<template>
+    <SliderField id="price-range" helpTextPosition="top" helpText="Appears above the field" />
+</template>
+```
+
+- **Type:** `Position`
+- **Default:** `Position.BOTTOM`
+
+#### Options
+::options-table
+---
+options: [
+    {
+        value: "TOP",
+        description: "top",
+    },
+    {
+        value: "BOTTOM",
+        description: "bottom",
+    },
+]
+---
+::
 
 ### required
 
@@ -559,3 +606,16 @@ const error = ref('')
 
 - **Type:** `string`
 - **Default:** `''`
+
+### transparentInputs
+
+When `true`, passes `transparent` to all child `InputField` components, removing their default background.
+
+```vue
+<template>
+    <SliderField id="price-range" showInputs transparentInputs />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `false`

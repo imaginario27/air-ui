@@ -56,16 +56,7 @@
                     v-html="label"
                 />
                 <!-- Help Text -->
-                <p 
-                    v-if="helpText" 
-                    :class="[ 
-                        'text-xs',
-                        'text-left', 
-                        'text-text-neutral-subtle' 
-                    ]"
-                >
-                    {{ helpText }}
-                </p>
+                <HelpText :text="helpText" />
             </div>
         </div>
 

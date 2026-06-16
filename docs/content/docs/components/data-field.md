@@ -11,9 +11,18 @@ props:
     text: "Example data"
     emptyText: "Not defined"
     helpText: "Example help text"
+    helpTextPosition: "bottom"
     hasCopyToClipboardButton: false
     copyToClipboardMessage: "Copied to clipboard"
     copyToClipboardErrorMessage: "Failed to copy to clipboard"
+items:
+    helpTextPosition:
+        - value: top
+          text: TOP
+        - value: bottom
+          text: BOTTOM
+enums:
+    helpTextPosition: "Position"
 isPreviewContentBoxed: true
 previewContentMaxWidth: 400
 ---
@@ -48,6 +57,11 @@ props: [
     {
         "name": "helpText",
         "type": "string",
+    },
+    {
+        "name": "helpTextPosition",
+        "default": "Position.BOTTOM",
+        "type": "Position",
     },
     {
         "name": "hasCopyToClipboardButton",
@@ -168,6 +182,35 @@ Sets the help text for the field.
 ```
 
 - **Type:** `string`
+
+### helpTextPosition
+
+Sets the position of the help text relative to the field. It uses the `Position` enum.
+
+```vue
+<template>
+    <DataField helpTextPosition="top" helpText="Appears above the field" />
+</template>
+```
+
+- **Type:** `Position`
+- **Default:** `Position.BOTTOM`
+
+#### Options
+::options-table
+---
+options: [
+    {
+        value: "TOP",
+        description: "top",
+    },
+    {
+        value: "BOTTOM",
+        description: "bottom",
+    },
+]
+---
+::
 
 ### hasCopyToClipboardButton
 
