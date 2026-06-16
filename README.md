@@ -113,8 +113,8 @@ Husky automatically validates commits using commitlint. Invalid commits will be 
 ❌ git commit -m "feat: new feature"            # Missing scope
 ❌ git commit -m "feat(invalid): feature"       # Invalid scope
 
-✅ git commit -m "feat(ds): new button"         # Valid
-✅ git commit -m "fix(utils): type issue"       # Valid  
+✅ git commit -m "feat(ds): new button"         # Valid commit
+✅ git commit -m "fix(utils): type issue"       # Valid commit
 ```
 
 **Tip:** Keep each commit focused when possible. If changes span multiple packages or folders, use the scope that best represents the change you want to describe.
