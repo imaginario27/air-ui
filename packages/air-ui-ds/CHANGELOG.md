@@ -5,6 +5,17 @@ All notable changes to this package are documented in this file.
 Historical releases were reconstructed from git history (GitHub repository) and npm publish dates.
 Future releases will include detailed entries generated with Changesets.
 
+## 1.13.13 - 2026-06-16
+
+Release type: patch.
+Commits found in range: 1.
+
+### Added
+
+1. add HelpText component and helpTextPosition prop to field components ([9ad36a5](https://github.com/imaginario27/air-ui/commit/9ad36a5a283884fbfcbfd4227384c0082928e7dc))
+
+- Package: @imaginario27/air-ui-ds.
+
 ## 1.13.12 - 2026-06-15
 
 Release type: patch.
