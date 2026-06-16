@@ -3,7 +3,7 @@
 
 ::component-code
 ---
-srcDir: 'forms/Checkbox.vue'
+srcDir: 'forms/fields/checkbox/Checkbox.vue'
 props: 
     id: "checkbox-id"
     modelValue: false

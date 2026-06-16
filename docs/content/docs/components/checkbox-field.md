@@ -3,7 +3,7 @@
 
 ::component-code
 ---
-srcDir: 'forms/fields/CheckboxField.vue'
+srcDir: 'forms/fields/checkbox/CheckboxField.vue'
 props: 
     id: "field-id"
     label: "Checkbox label text"

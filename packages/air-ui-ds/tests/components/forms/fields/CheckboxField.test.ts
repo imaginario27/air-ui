@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils'
-import CheckboxField from '~/components/forms/fields/CheckboxField.vue'
-import Checkbox from '~/components/forms/Checkbox.vue'
+import CheckboxField from '~/components/forms/fields/checkbox/CheckboxField.vue'
+import Checkbox from '~/components/forms/fields/checkbox/Checkbox.vue'
 import { ref } from 'vue'
 
 vi.mock('~/composables/useFormValidationMode', () => ({

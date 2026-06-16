@@ -56,7 +56,6 @@ props: [
     },
     {
         "name": "label",
-        "default": "'Text'",
         "type": "string",
     },
     {
@@ -121,7 +120,6 @@ Sets the label of the field.
 ```
 
 - **Type:** `string`
-- **Default:** `'Text'`
 
 ### helpText
 
