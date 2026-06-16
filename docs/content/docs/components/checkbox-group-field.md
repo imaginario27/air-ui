@@ -3,11 +3,10 @@
 
 ::component-code
 ---
-srcDir: 'forms/fields/radio/RadioGroupField.vue'
-props: 
+srcDir: 'forms/fields/checkbox/CheckboxGroupField.vue'
+props:
     label: "Label"
-    name: "radio-group"
-    options: 
+    options:
         - id: "option1"
           value: "option1"
           label: "Option 1"
@@ -17,22 +16,17 @@ props:
         - id: "option3"
           value: "option3"
           label: "Option 3"
-    modelValue: "option2"
+    modelValue:
+        - "option2"
     validator: null
     error: ""
-    type: "default"
     required: false
     disabled: false
-    helpText: "Select one of the options."
+    helpText: "Select one or more options."
     helpTextPosition: "bottom"
     inverse: false
     orientation: "vertical"
 items:
-    type: 
-        - value: default
-          text: DEFAULT
-        - value: button
-          text: BUTTON
     orientation:
         - value: vertical
           text: VERTICAL
@@ -44,7 +38,6 @@ items:
         - value: bottom
           text: BOTTOM
 enums:
-    type: "RadioType"
     orientation: "Orientation"
     helpTextPosition: "Position"
 isPreviewContentBoxed: true
@@ -59,23 +52,18 @@ propsSettingsExcludedProps: ['validator', 'options']
 ---
 props: [
     {
-        "name": "name",
-        "required": "true",
-        "type": "string",
-    },
-    {
         "name": "label",
         "type": "string",
     },
     {
         "name": "options",
         "required": "true",
-        "type": "RadioOption[]",
+        "type": "CheckboxOption[]",
     },
     {
         "name": "modelValue",
         "required": "true",
-        "type": "string | number | boolean | null",
+        "type": "(string | number | boolean)[]",
     },
     {
         "name": "validator",
@@ -86,11 +74,6 @@ props: [
         "name": "error",
         "default": "''",
         "type": "string",
-    },
-    {
-        "name": "type",
-        "default": "'default'",
-        "type": "RadioType",
     },
     {
         "name": "required",
@@ -120,46 +103,34 @@ props: [
         "name": "orientation",
         "default": "'vertical'",
         "type": "Orientation",
-    }    
+    }
 ]
 ---
 ::
 
 ## Usage
-### name
+### label
 
-Sets the name of the radio button group.
-
-```vue
-<template>
-    <RadioGroupField name="radio-group" />
-</template>
-```
-
-### label 
-
-Sets the label of the field.
+Sets the label of the field group.
 
 ```vue
 <template>
-    <RadioGroupField label="Label text" />
+    <CheckboxGroupField label="Choose options" />
 </template>
 ```
 
 - **Type:** `string`
 
-### Options
+### options
 
-Sets the options for the radio buttons.
+Sets the options for the checkboxes.
 
 ```vue
 <template>
-    <RadioGroupField 
-        :options="exampleOptions" 
-    />
+    <CheckboxGroupField :options="exampleOptions" />
 </template>
 <script setup lang="ts">
-const exampleOptions: RadioOption[] = [
+const exampleOptions: CheckboxOption[] = [
     { id: 'option1', value: 'option1', label: 'Option 1' },
     { id: 'option2', value: 'option2', label: 'Option 2' },
     { id: 'option3', value: 'option3', label: 'Option 3' },
@@ -167,20 +138,18 @@ const exampleOptions: RadioOption[] = [
 </script>
 ```
 
-- **Type:** `RadioOption[]`
+- **Type:** `CheckboxOption[]`
 - **Required:** `true`
 
 #### TypeScript interface
 ```ts
-interface RadioOption {
+interface CheckboxOption {
     id: string | number
     value: string | number | boolean
     label?: string
     ariaLabel?: string
     helpText?: string
     disabled?: boolean
-    type?: ColorAccent.INFO | ColorAccent.SUCCESS | ColorAccent.DANGER | ColorAccent.PRIMARY_BRAND | ColorAccent.SECONDARY_BRAND
-    icon?: string
 }
 ```
 
@@ -192,29 +161,20 @@ props:
 ---
 ::
 
-```vue
-<script setup lang="ts">
-const exampleOptions: RadioOption[] = [
-    { id: 'icon-only', value: 'icon-only', label: '', ariaLabel: 'Icon only option' },
-    { id: 'with-label', value: 'with-label', label: 'Option with label' },
-]
-</script>
-```
-
 ### modelValue
 
-Sets the selected value of the radio button group.
+Sets the array of currently selected values.
 
 ```vue
 <template>
-    <RadioGroupField 
-        v-model="selectedValue" 
-        :options="exampleOptions" 
+    <CheckboxGroupField
+        v-model="selectedValues"
+        :options="exampleOptions"
     />
 </template>
 <script setup lang="ts">
-const selectedValue = ref<string | number | boolean | null>(null)
-const exampleOptions: RadioOption[] = [
+const selectedValues = ref<(string | number | boolean)[]>([])
+const exampleOptions: CheckboxOption[] = [
     { id: 'option1', value: 'option1', label: 'Option 1' },
     { id: 'option2', value: 'option2', label: 'Option 2' },
     { id: 'option3', value: 'option3', label: 'Option 3' },
@@ -222,20 +182,20 @@ const exampleOptions: RadioOption[] = [
 </script>
 ```
 
-- **Type:** `string | number | boolean | null`
+- **Type:** `(string | number | boolean)[]`
 - **Required:** `true`
 
 ### validator
 
 Sets the validator function for the field, which controls its internal validation state.
 
-It can use the following validations utilities:
+It can use the following validation utilities:
 - `validateField`
 - `validateBooleanField`
 
 ```vue
 <template>
-    <RadioGroupField :validator="validateField" />
+    <CheckboxGroupField :validator="validateField" />
 </template>
 ```
 
@@ -248,41 +208,12 @@ Sets the error message of the field. This prop is bindable via `v-model:error`, 
 
 ```vue
 <template>
-    <RadioGroupField v-model:error="errorMessage" />
+    <CheckboxGroupField v-model:error="errorMessage" />
 </template>
 ```
 
 - **Type:** `string`
 - **Default:** `''`
-
-### type
-
-Sets the style type of the radio buttons.
-
-```vue
-<template>
-    <RadioGroupField :type="RadioType.BUTTON" />
-</template>
-```
-
-- **Type:** `RadioType`
-- **Default:** `RadioType.DEFAULT`
-
-#### Options
-::options-table
----
-options: [
-    {
-        value: "DEFAULT",
-        description: "Uses the default radio button style.",
-    },
-    {
-        value: "BUTTON",
-        description: "Uses the button type for radio buttons with icons and boxed style.",
-    },
-]
----
-::
 
 ### required
 
@@ -290,7 +221,7 @@ Sets whether the field is required.
 
 ```vue
 <template>
-    <RadioGroupField required />
+    <CheckboxGroupField required />
 </template>
 ```
 
@@ -305,13 +236,13 @@ Sets whether the field is disabled.
 ---
 props:
     title: "Important"
-    description: "Each radio option can also be individually disabled by setting the `disabled` property on the option object. If the `disabled` prop is set on the `RadioGroupField`, it will override the individual option settings and disable all options."
+    description: "Each checkbox option can also be individually disabled by setting the `disabled` property on the option object. If the `disabled` prop is set on the `CheckboxGroupField`, it will override the individual option settings and disable all options."
 ---
 ::
 
 ```vue
 <template>
-    <RadioGroupField disabled />
+    <CheckboxGroupField disabled />
 </template>
 ```
 
@@ -323,9 +254,8 @@ props:
 Sets the help text of the field.
 
 ```vue
-
 <template>
-    <RadioGroupField helpText="This is some help text." />
+    <CheckboxGroupField helpText="This is some help text." />
 </template>
 ```
 
@@ -333,19 +263,11 @@ Sets the help text of the field.
 
 ### inverse
 
-Sets whether the radio button is displayed on the right side of the text.
-
-::content-alert
----
-props:
-    title: "Important"
-    description: "This prop is only applicable when the `type` prop is set to `RadioType.DEFAULT`."
----
-::
+Sets whether the checkbox is displayed on the right side of the text.
 
 ```vue
 <template>
-    <RadioGroupField inverse />
+    <CheckboxGroupField inverse />
 </template>
 ```
 
@@ -354,11 +276,11 @@ props:
 
 ### orientation
 
-Sets the orientation of the radio buttons.
+Sets the orientation of the checkboxes.
 
 ```vue
 <template>
-    <RadioGroupField orientation="Orientation.VERTICAL" />
+    <CheckboxGroupField orientation="Orientation.HORIZONTAL" />
 </template>
 ```
 
@@ -371,11 +293,11 @@ Sets the orientation of the radio buttons.
 options: [
     {
         value: "VERTICAL",
-        description: "Radio options are displayed vertically.",
+        description: "Checkbox options are displayed vertically.",
     },
     {
         value: "HORIZONTAL",
-        description: "Radio options are displayed in a two-column grid.",
+        description: "Checkbox options are displayed in a two-column grid.",
     },
 ]
 ---
@@ -387,7 +309,7 @@ Sets the position of the help text relative to the field group.
 
 ```vue
 <template>
-    <RadioGroupField helpTextPosition="top" helpText="Appears above the options" />
+    <CheckboxGroupField helpTextPosition="top" helpText="Appears above the options" />
 </template>
 ```
 

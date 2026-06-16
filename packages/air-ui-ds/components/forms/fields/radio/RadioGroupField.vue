@@ -1,18 +1,26 @@
 <template>
     <div class="w-full flex flex-col gap-2">
         <!-- Label -->
-        <div 
+        <div
             v-if="label"
-            :class="[ 
-                'text-sm', 
-                'font-semibold', 
+            :class="[
+                'text-sm',
+                'font-semibold',
                 'text-left',
-                hasError ? 'text-text-error' : undefined  
+                hasError ? 'text-text-error' : undefined
             ]"
         >
             {{ label }}
         </div>
-        <div 
+
+        <!-- Help Text or Error Message (top) -->
+        <HelpText
+            v-if="helpTextPosition === Position.TOP"
+            :text="helpText"
+            :error="error"
+        />
+
+        <div
             :class="[
                 orientation === Orientation.VERTICAL 
                     ? 'flex flex-col gap-4' 
@@ -60,15 +68,19 @@
             </template>
         </div>
 
-        <!-- Help Text or Error Message -->
-        <HelpText :text="helpText" :error="error" />
+        <!-- Help Text or Error Message (bottom) -->
+        <HelpText
+            v-if="helpTextPosition === Position.BOTTOM"
+            :text="helpText"
+            :error="error"
+        />
     </div>
 </template>
 
 <script setup lang="ts">
 // Props
 const props = defineProps({
-    label: String,
+    label: String as PropType<string>,
     name: {
         type: String as PropType<string>,
         required: true,
@@ -105,6 +117,11 @@ const props = defineProps({
         default: false,
     },
     helpText: String as PropType<string>,
+    helpTextPosition: {
+        type: String as PropType<Position>,
+        default: Position.BOTTOM,
+        validator: (value: Position) => Object.values(Position).includes(value),
+    },
     inverse: { // Sets the radio button on the right side of the text
         type: Boolean as PropType<boolean>,
         default: false,

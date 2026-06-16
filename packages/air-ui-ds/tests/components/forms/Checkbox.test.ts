@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import Checkbox from '~/components/forms/Checkbox.vue'
+import Checkbox from '~/components/forms/fields/checkbox/Checkbox.vue'
 
 describe('Checkbox.vue', () => {
     const factory = (props: Record<string, any> = {}) => {
