@@ -5,6 +5,17 @@ All notable changes to this package are documented in this file.
 Historical releases were reconstructed from git history (GitHub repository) and npm publish dates.
 Future releases will include detailed entries generated with Changesets.
 
+## 1.14.0 - 2026-06-16
+
+Release type: minor.
+Commits found in range: 1.
+
+### Added
+
+1. add CheckboxGroupField and refactor checkbox components ([da239fc](https://github.com/imaginario27/air-ui/commit/da239fcfb515038233a56089fcee4924081826f5))
+
+- Package: @imaginario27/air-ui-ds.
+
 ## 1.13.13 - 2026-06-16
 
 Release type: patch.
