@@ -5,7 +5,7 @@
         :aria-label="ariaLabel || 'Toggle options'"
         :class="[
             'flex',
-            groupStyle === ToggleButtonGroupStyle.GROUPED ? 'border border-border-default' : 'flex-wrap gap-3',
+            groupStyle === ToggleButtonGroupStyle.GROUPED ? '' : 'flex-wrap gap-3',
             'w-fit',
             'rounded-button'
         ]"
@@ -21,11 +21,8 @@
                 :icon="button.icon"
                 :iconPosition="'iconPosition' in button ? button.iconPosition : undefined"
                 :disabled
-                :class="[
-                    groupStyle === ToggleButtonGroupStyle.SEGMENTED && hasButtonBorder && 'border border-border-default rounded-button',
-                    groupStyle === ToggleButtonGroupStyle.SEGMENTED && button.active && '!border-border-primary-brand-active',
-                    !hasButtonBorder && 'rounded-button',
-                ]"
+                :transparent
+                :class="buttonItemClass(button)"
                 @click="!disabled && handleButtonClick(button)"
             />
         </template>
@@ -38,11 +35,8 @@
                 :size="button.size"
                 :icon="button.icon"
                 :disabled
-                :class="[
-                    groupStyle === ToggleButtonGroupStyle.SEGMENTED && hasButtonBorder && 'border border-border-default rounded-button',
-                    groupStyle === ToggleButtonGroupStyle.SEGMENTED && button.active && '!border-border-primary-brand-active',
-                    !hasButtonBorder && 'rounded-button',
-                ]"
+                :transparent
+                :class="buttonItemClass(button)"
                 @click="!disabled && handleButtonClick(button)"
             />
         </template>
@@ -51,7 +45,7 @@
 
 <script setup lang="ts">
 // Props
-defineProps({
+const props = defineProps({
     id: String as PropType<string>,
     ariaLabel: String as PropType<string>,
     modelValue: {
@@ -90,10 +84,34 @@ defineProps({
         type: Boolean as PropType<boolean>,
         default: false,
     },
+    transparent: {
+        type: Boolean as PropType<boolean>,
+        default: false,
+    },
 })
 
 // Emits
 const emit = defineEmits(['update:modelValue'])
+
+// Computed classes
+const groupedButtonClass = computed(() =>
+    props.groupStyle === ToggleButtonGroupStyle.GROUPED
+        ? 'border-y border-r border-border-default rounded-none first:border-l first:rounded-l-button last:rounded-r-button'
+        : false
+)
+
+const segmentedButtonClass = computed(() =>
+    props.groupStyle === ToggleButtonGroupStyle.SEGMENTED && props.hasButtonBorder
+        ? 'border border-border-default rounded-button'
+        : false
+)
+
+const buttonItemClass = (button: ToggleButtonItem) => [
+    groupedButtonClass.value,
+    segmentedButtonClass.value,
+    props.groupStyle === ToggleButtonGroupStyle.SEGMENTED && button.active && '!border-border-primary-brand-active',
+    !props.hasButtonBorder && 'rounded-button',
+]
 
 // Handlers
 const handleButtonClick = (button: ToggleButtonItem) => {

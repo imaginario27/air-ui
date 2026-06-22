@@ -129,17 +129,50 @@ describe('CheckboxGroupField', () => {
         expect(wrapper.emitted('update:error')![0]).toEqual(['Error message'])
     })
 
-    it('applies vertical orientation classes by default', () => {
+    it('applies vertical flex layout by default', () => {
         const wrapper = factory()
         const container = wrapper.findAll('div').find(div => div.classes().includes('flex-col'))
         expect(container?.classes()).toContain('flex-col')
     })
 
-    it('applies grid layout when orientation is horizontal', () => {
-        const wrapper = factory({ orientation: 'horizontal' })
-        const container = wrapper.findAll('div').find(div => div.classes().includes('grid'))
-        expect(container?.classes()).toContain('grid-cols-1')
-        expect(container?.classes()).toContain('sm:grid-cols-2')
+    it('applies flex-wrap layout when orientation is horizontal and layout is list', () => {
+        const wrapper = factory({ orientation: 'horizontal', layout: 'list' })
+        const container = wrapper.findAll('div').find(div => div.classes().includes('flex-wrap'))
+        expect(container?.classes()).toContain('flex-wrap')
+    })
+
+    it('applies w-fit wrapper to each item when orientation is horizontal and layout is list', () => {
+        const wrapper = factory({ orientation: 'horizontal', layout: 'list' })
+        const fields = wrapper.findAllComponents(CheckboxField)
+        for (const field of fields) {
+            expect(field.element.parentElement?.classList).toContain('w-fit')
+        }
+    })
+
+    it('renders Grid component when layout is grid', () => {
+        const wrapper = factory({ layout: 'grid' })
+        const grid = wrapper.findComponent({ name: 'Grid' })
+        expect(grid.exists()).toBe(true)
+    })
+
+    it('passes gridCols, gridTabletCols, gridMobileCols to Grid when layout is grid', () => {
+        const wrapper = factory({ layout: 'grid', gridCols: 4, gridTabletCols: 3, gridMobileCols: 2 })
+        const grid = wrapper.findComponent({ name: 'Grid' })
+        expect(grid.props('cols')).toBe(4)
+        expect(grid.props('tabletCols')).toBe(3)
+        expect(grid.props('mobileCols')).toBe(2)
+    })
+
+    it('passes gridGapClass to Grid gapClass when layout is grid', () => {
+        const wrapper = factory({ layout: 'grid', gridGapClass: 'gap-8' })
+        const grid = wrapper.findComponent({ name: 'Grid' })
+        expect(grid.props('gapClass')).toBe('gap-8')
+    })
+
+    it('applies listClass to the list container', () => {
+        const wrapper = factory({ listClass: 'custom-class' })
+        const container = wrapper.findAll('div').find(div => div.classes().includes('custom-class'))
+        expect(container).toBeTruthy()
     })
 
     it('forwards option ariaLabel when visual label is omitted', () => {

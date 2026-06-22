@@ -45,7 +45,7 @@
                         ]"
                         :style="{ 
                             ...computedTeleportStyle, 
-                            zIndex: props.zIndex 
+                            zIndex: zIndex 
                         }"
                         @mouseenter="onDropdownMouseEnter"
                         @mouseleave="onDropdownMouseLeave"
@@ -151,7 +151,7 @@
                     ]"
                     :style="{ 
                         ...(!positionClass ? positionOffsetStyle : {}), 
-                        zIndex: props.zIndex 
+                        zIndex: zIndex 
                     }"
                     @mouseenter="onDropdownMouseEnter"
                     @mouseleave="onDropdownMouseLeave"
@@ -303,6 +303,10 @@ const props = defineProps({
     prefetchOn: {
         type: [String, Object] as PropType<PrefetchOnStrategy>,
         default: PrefetchOn.VISIBILITY,
+    },
+    isSticky: {
+        type: Boolean as PropType<boolean>,
+        default: false,
     },
 })
 
@@ -491,14 +495,23 @@ const computedTeleportStyle = computed<CSSProperties>(() => {
     if (secondary === 'top') top = a.top
     if (secondary === 'bottom') top = a.bottom - d.height
 
-    return {
-        position: 'absolute',
-        top: `${top + window.scrollY}px`,
-        left: `${left + window.scrollX}px`,
-        width: `${a.width}px`,
-        visibility: 'visible',
-        zIndex: props.zIndex,
-    }
+    return props.isSticky
+        ? {
+            position: 'fixed',
+            top: `${top}px`,
+            left: `${left}px`,
+            width: `${a.width}px`,
+            visibility: 'visible',
+            zIndex: props.zIndex,
+        }
+        : {
+            position: 'absolute',
+            top: `${top + window.scrollY}px`,
+            left: `${left + window.scrollX}px`,
+            width: `${a.width}px`,
+            visibility: 'visible',
+            zIndex: props.zIndex,
+        }
 })
 
 // Styles for non-teleported dropdown

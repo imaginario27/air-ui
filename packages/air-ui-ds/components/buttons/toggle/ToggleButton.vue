@@ -13,6 +13,7 @@
             gapClass,
             disabled ? 'opacity-disabled cursor-not-allowed' : '',
             'self-start',
+            !transparent && 'bg-background-container-surface',
         ]"
         @click="emitClick"
     >
@@ -63,6 +64,10 @@ const props = defineProps({
         default: false,
     },
     ariaLabel: String as PropType<string>,
+    transparent: {
+        type: Boolean as PropType<boolean>,
+        default: false,
+    },
 })
 
 // Emits

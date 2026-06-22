@@ -33,6 +33,7 @@
             :groupStyle
             :disabled
             :onlyIcon
+            :transparent
             @update:modelValue="emit('update:modelValue', $event)"
         />
 
@@ -70,6 +71,10 @@ defineProps({
     },
     groupStyle: String as PropType<ToggleButtonGroupStyle>,
     disabled: {
+        type: Boolean as PropType<boolean>,
+        default: false,
+    },
+    transparent: {
         type: Boolean as PropType<boolean>,
         default: false,
     },
