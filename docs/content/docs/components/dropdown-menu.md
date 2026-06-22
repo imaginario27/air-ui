@@ -32,6 +32,7 @@ props:
     shouldTeleport: true
     nestedMenuGap: 8
     zIndex: "50"
+    isSticky: false
     class: "min-w-[200px]"
 items:
     position:
@@ -154,6 +155,11 @@ props: [
         "name": "zIndex",
         "default": "'50'",
         "type": "string",
+    },
+    {
+        "name": "isSticky",
+        "default": "false",
+        "type": "boolean",
     },
 ]
 ---
@@ -654,6 +660,23 @@ Sets the CSS z-index property for the dropdown menu, controlling its stacking or
 
 - **Type:** `string`
 - **Default:** `'50'`
+
+### isSticky
+
+When `true`, the teleported dropdown panel uses `position: fixed` instead of `position: absolute`, anchoring it to the viewport rather than the document. Use this when the activator lives inside a sticky container (e.g. a sticky header) so the panel stays correctly positioned as the user scrolls.
+
+```vue
+<template>
+    <DropdownMenu
+        isSticky
+    >
+        ....
+    </DropdownMenu>
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `false`
 
 ## DropdownMenuItem
 `<DropdownMenuItem>` represents an individual item within the dropdown menu. It supports multiple visual and functional types—such as text, icons, user profiles, and images—making it flexible for various use cases like navigation, actions, or exporting data.

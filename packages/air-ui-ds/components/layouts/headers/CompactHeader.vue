@@ -1,7 +1,7 @@
 <template>
     <header 
         :class="[
-            isSticky && 'sticky top-0 z-50',
+            isSticky && 'sticky top-0 z-40',
         ]"
     >
         <slot name="top-header" />
@@ -82,10 +82,11 @@
                 </div>
 
                 <!-- User Menu -->
-                <DropdownMenu 
+                <DropdownMenu
                     v-if="userMenuItems.length && userFullname"
                     class="min-w-[200px]"
                     :positionYOffset="submenuYOffset"
+                    :isSticky
                 >
                     <template #activator>
                         <Avatar 
@@ -114,9 +115,10 @@
 
                 <!-- Mobile menu -->
                 <template v-if="isMobile && showMobileMenuToggle">
-                    <DropdownMenu 
+                    <DropdownMenu
                         :class="navMobileMenuClass"
                         :positionYOffset="submenuYOffset"
+                        :isSticky
                     >
                         <template #activator>
                             <ActionIconButton

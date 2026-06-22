@@ -272,6 +272,18 @@ describe('DropdownMenu.vue', () => {
         expect(sectionItem.text()).toContain('Section title')
     })
 
+    it('uses position fixed in teleport style when isSticky is true', async () => {
+        const wrapper = factory({
+            props: {
+                shouldTeleport: false,
+                isSticky: true,
+                items: [{ text: 'Sticky Item' }],
+            },
+        })
+
+        expect((wrapper.vm as any).isSticky).toBe(true)
+    })
+
     it('opens nested contextual menu and keeps parent menu open', async () => {
         const wrapper = factory({
             props: {

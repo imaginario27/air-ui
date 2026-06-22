@@ -70,9 +70,46 @@ describe('ToggleButtonGroup', () => {
             groupStyle: ToggleButtonGroupStyle.GROUPED,
         })
 
-        expect(wrapper.classes()).toContain('border')
-        expect(wrapper.classes()).toContain('border-border-default')
+        expect(wrapper.classes()).not.toContain('border')
         expect(wrapper.classes()).not.toContain('flex-wrap')
+    })
+
+    it('applies per-button border classes in GROUPED mode', () => {
+        const { wrapper } = factory({
+            groupStyle: ToggleButtonGroupStyle.GROUPED,
+        })
+
+        const toggleButtons = wrapper.findAllComponents(ToggleButton)
+
+        toggleButtons.forEach(btn => {
+            expect(btn.classes()).toContain('border-y')
+            expect(btn.classes()).toContain('border-r')
+            expect(btn.classes()).toContain('border-border-default')
+            expect(btn.classes()).toContain('rounded-none')
+            expect(btn.classes()).toContain('first:border-l')
+            expect(btn.classes()).toContain('first:rounded-l-button')
+            expect(btn.classes()).toContain('last:rounded-r-button')
+        })
+    })
+
+    it('passes transparent prop to ToggleButton', () => {
+        const { wrapper } = factory({ transparent: true })
+
+        const toggleButtons = wrapper.findAllComponents(ToggleButton)
+
+        toggleButtons.forEach(btn => {
+            expect(btn.props('transparent')).toBe(true)
+        })
+    })
+
+    it('passes transparent prop to ToggleIconButton', () => {
+        const { wrapper } = factory({ onlyIcon: true, transparent: true })
+
+        const toggleIconButtons = wrapper.findAllComponents(ToggleIconButton)
+
+        toggleIconButtons.forEach(btn => {
+            expect(btn.props('transparent')).toBe(true)
+        })
     })
 
     it('applies segmented container classes when groupStyle is SEGMENTED', () => {

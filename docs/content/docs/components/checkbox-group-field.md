@@ -26,6 +26,12 @@ props:
     helpTextPosition: "bottom"
     inverse: false
     orientation: "vertical"
+    layout: "list"
+    gridCols: 3
+    gridTabletCols: 2
+    gridMobileCols: 1
+    gridGapClass: "gap-4"
+    listClass: ""
 items:
     orientation:
         - value: vertical
@@ -37,9 +43,15 @@ items:
           text: TOP
         - value: bottom
           text: BOTTOM
+    layout:
+        - value: list
+          text: LIST
+        - value: grid
+          text: GRID
 enums:
     orientation: "Orientation"
     helpTextPosition: "Position"
+    layout: "ListLayout"
 isPreviewContentBoxed: true
 previewContentMaxWidth: 400
 propsSettingsExcludedProps: ['validator', 'options']
@@ -103,7 +115,36 @@ props: [
         "name": "orientation",
         "default": "'vertical'",
         "type": "Orientation",
-    }
+    },
+    {
+        "name": "layout",
+        "default": "ListLayout.LIST",
+        "type": "ListLayout",
+    },
+    {
+        "name": "gridCols",
+        "default": "3",
+        "type": "number",
+    },
+    {
+        "name": "gridTabletCols",
+        "default": "2",
+        "type": "number",
+    },
+    {
+        "name": "gridMobileCols",
+        "default": "1",
+        "type": "number",
+    },
+    {
+        "name": "gridGapClass",
+        "default": "'gap-4'",
+        "type": "string",
+    },
+    {
+        "name": "listClass",
+        "type": "string",
+    },
 ]
 ---
 ::
@@ -261,48 +302,6 @@ Sets the help text of the field.
 
 - **Type:** `string`
 
-### inverse
-
-Sets whether the checkbox is displayed on the right side of the text.
-
-```vue
-<template>
-    <CheckboxGroupField inverse />
-</template>
-```
-
-- **Type:** `boolean`
-- **Default:** `false`
-
-### orientation
-
-Sets the orientation of the checkboxes.
-
-```vue
-<template>
-    <CheckboxGroupField orientation="Orientation.HORIZONTAL" />
-</template>
-```
-
-- **Type:** `Orientation`
-- **Default:** `Orientation.VERTICAL`
-
-#### Options
-::options-table
----
-options: [
-    {
-        value: "VERTICAL",
-        description: "Checkbox options are displayed vertically.",
-    },
-    {
-        value: "HORIZONTAL",
-        description: "Checkbox options are displayed in a two-column grid.",
-    },
-]
----
-::
-
 ### helpTextPosition
 
 Sets the position of the help text relative to the field group.
@@ -331,3 +330,138 @@ options: [
 ]
 ---
 ::
+
+### inverse
+
+Sets whether the checkbox is displayed on the right side of the text.
+
+```vue
+<template>
+    <CheckboxGroupField inverse />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `false`
+
+### orientation
+
+Sets the orientation of the checkboxes. When `layout` is `list`, vertical stacks items in a column and horizontal wraps them in a row.
+
+```vue
+<template>
+    <CheckboxGroupField orientation="Orientation.HORIZONTAL" />
+</template>
+```
+
+- **Type:** `Orientation`
+- **Default:** `Orientation.VERTICAL`
+
+#### Options
+::options-table
+---
+options: [
+    {
+        value: "VERTICAL",
+        description: "Checkbox options are stacked vertically.",
+    },
+    {
+        value: "HORIZONTAL",
+        description: "Checkbox options are wrapped horizontally (list layout) or placed in a grid (grid layout).",
+    },
+]
+---
+::
+
+### layout
+
+Sets the layout mode for the options container.
+
+```vue
+<template>
+    <CheckboxGroupField layout="ListLayout.GRID" :gridCols="3" :gridTabletCols="2" :gridMobileCols="1" />
+</template>
+```
+
+- **Type:** `ListLayout`
+- **Default:** `ListLayout.LIST`
+
+#### Options
+::options-table
+---
+options: [
+    {
+        value: "LIST",
+        description: "Options are arranged with flexbox — vertically stacked or horizontally wrapped depending on the orientation prop.",
+    },
+    {
+        value: "GRID",
+        description: "Options are arranged in a CSS grid using the cols, tabletCols, and mobileCols props.",
+    },
+]
+---
+::
+
+### gridCols
+
+Sets the number of grid columns on desktop. Only applies when `layout` is `ListLayout.GRID`.
+
+```vue
+<template>
+    <CheckboxGroupField layout="grid" :gridCols="4" />
+</template>
+```
+
+- **Type:** `number`
+- **Default:** `3`
+
+### gridTabletCols
+
+Sets the number of grid columns on tablet. Only applies when `layout` is `ListLayout.GRID`.
+
+```vue
+<template>
+    <CheckboxGroupField layout="grid" :gridTabletCols="2" />
+</template>
+```
+
+- **Type:** `number`
+- **Default:** `2`
+
+### gridMobileCols
+
+Sets the number of grid columns on mobile. Only applies when `layout` is `ListLayout.GRID`.
+
+```vue
+<template>
+    <CheckboxGroupField layout="grid" :gridMobileCols="1" />
+</template>
+```
+
+- **Type:** `number`
+- **Default:** `1`
+
+### gridGapClass
+
+Sets the Tailwind gap utility passed to the grid container. Only applies when `layout` is `ListLayout.GRID`.
+
+```vue
+<template>
+    <CheckboxGroupField layout="grid" gridGapClass="gap-8" />
+</template>
+```
+
+- **Type:** `string`
+- **Default:** `'gap-4'`
+
+### listClass
+
+Appends extra classes to the list container. Only applies when `layout` is `ListLayout.LIST`. Useful for overriding spacing or adding custom layout utilities.
+
+```vue
+<template>
+    <CheckboxGroupField listClass="mt-2 px-4" />
+</template>
+```
+
+- **Type:** `string`

@@ -20,17 +20,12 @@
             :error="error"
         />
 
-        <div
-            :class="[
-                orientation === Orientation.VERTICAL
-                    ? 'flex flex-col gap-4'
-                    : [
-                        'w-full',
-                        'grid gap-4',
-                        'grid-cols-1',
-                        'sm:grid-cols-2',
-                    ]
-            ]"
+        <Grid
+            v-if="layout === ListLayout.GRID"
+            :cols="gridCols"
+            :tabletCols="gridTabletCols"
+            :mobileCols="gridMobileCols"
+            :gapClass="gridGapClass"
         >
             <CheckboxField
                 v-for="option in options"
@@ -43,8 +38,35 @@
                 :disabled="option.disabled ? option.disabled : disabled"
                 :helpText="option.helpText"
                 :inverse="inverse"
-                @update:modelValue="handleChange(option.value, $event)"
+                @update:model-value="handleChange(option.value, $event)"
             />
+        </Grid>
+
+        <div
+            v-else
+            :class="[
+                orientation === Orientation.VERTICAL
+                    ? ['flex flex-col gap-4', listClass]
+                    : ['flex flex-wrap gap-6', listClass]
+            ]"
+        >
+            <div
+                v-for="option in options"
+                :key="option.id"
+                :class="orientation === Orientation.HORIZONTAL ? 'w-fit' : 'w-full'"
+            >
+                <CheckboxField
+                    :id="option.id.toString()"
+                    :modelValue="isChecked(option.value)"
+                    :label="option.label"
+                    :ariaLabel="option.ariaLabel"
+                    :required
+                    :disabled="option.disabled ? option.disabled : disabled"
+                    :helpText="option.helpText"
+                    :inverse="inverse"
+                    @update:model-value="handleChange(option.value, $event)"
+                />
+            </div>
         </div>
 
         <!-- Help Text or Error Message (bottom) -->
@@ -101,6 +123,28 @@ const props = defineProps({
         default: Orientation.VERTICAL,
         validator: (value: Orientation) => Object.values(Orientation).includes(value),
     },
+    layout: {
+        type: String as PropType<ListLayout>,
+        default: ListLayout.LIST,
+        validator: (value: ListLayout) => Object.values(ListLayout).includes(value),
+    },
+    gridCols: {
+        type: Number as PropType<number>,
+        default: 3,
+    },
+    gridTabletCols: {
+        type: Number as PropType<number>,
+        default: 2,
+    },
+    gridMobileCols: {
+        type: Number as PropType<number>,
+        default: 1,
+    },
+    gridGapClass: {
+        type: String as PropType<string>,
+        default: 'gap-4',
+    },
+    listClass: String as PropType<string>,
 })
 
 // Emits

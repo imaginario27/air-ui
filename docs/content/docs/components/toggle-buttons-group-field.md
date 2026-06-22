@@ -20,6 +20,7 @@ props:
     onlyIcon: false
     groupStyle: "grouped"
     disabled: false
+    transparent: false
 items:
     groupStyle: 
         - value: grouped
@@ -88,6 +89,11 @@ props: [
     },   
     {
         "name": "disabled",
+        "default": "false",
+        "type": "boolean",
+    },
+    {
+        "name": "transparent",
         "default": "false",
         "type": "boolean",
     },    
@@ -293,7 +299,20 @@ Sets the disabled state of the field.
 
 ```vue
 <template>
-    <OptionButtonsGroupField disabled />
+    <ToggleButtonsGroupField disabled />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `false`
+
+### transparent
+
+Removes the background fill from each toggle button, making them transparent.
+
+```vue
+<template>
+    <ToggleButtonsGroupField transparent />
 </template>
 ```
 
