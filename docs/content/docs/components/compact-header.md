@@ -38,6 +38,7 @@ props:
     hasGlassEffect: false
     detectActiveMenuItem: true
     prefetchOn: "visibility"
+    zIndex: "50"
     navMenuClass: ""
     navMobileMenuClass: "min-w-[280px]"
     headerClass: ""
@@ -185,6 +186,11 @@ props: [
     {
         "name": "navMobileMenuClass",
         "default": "'min-w-[280px]'",
+        "type": "string"
+    },
+    {
+        "name": "zIndex",
+        "default": "'50'",
         "type": "string"
     },
     {
@@ -750,6 +756,22 @@ The `navMobileMenuClass` prop allows you to add custom CSS classes to the mobile
 
 - **Type:** `string`
 - **Default:** `'min-w-[280px]'`
+
+### zIndex
+
+The `zIndex` prop sets the CSS `z-index` for all dropdowns rendered by the compact header: the nav menu submenu, the user menu, and the mobile menu. Use it to ensure consistent stacking and to avoid conflicts with other fixed or sticky elements on the page.
+
+```vue
+<template>
+    <CompactHeader
+        :isSticky="true"
+        zIndex="100"
+    />
+</template>
+```
+
+- **Type:** `string`
+- **Default:** `'50'`
 
 ### headerClass
 

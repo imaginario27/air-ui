@@ -9,6 +9,7 @@
         headerClass="border-border-neutral-subtle"
         class="backdrop-blur-lg bg-background-surface/90"
         navMobileMenuClass="min-w-[300px]"
+        zIndex="60"
     >
         <template #header-logo>
             <div :class="['flex gap-3', isMobile && 'mt-1.5']">

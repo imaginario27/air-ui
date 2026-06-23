@@ -32,7 +32,7 @@ describe('NavMenu.vue', () => {
                     DropdownMenu: {
                         name: 'DropdownMenu',
                         template: '<div class="dropdown-menu-stub"><slot name="activator" :isOpen="false" /><slot name="items" /></div>',
-                        props: ['positionYOffset', 'trigger', 'dropdownClass'],
+                        props: ['positionYOffset', 'trigger', 'dropdownClass', 'isSticky', 'zIndex'],
                     },
                     DropdownMenuItem: {
                         name: 'DropdownMenuItem',
@@ -80,5 +80,33 @@ describe('NavMenu.vue', () => {
         const wrapper = factory()
 
         expect(wrapper.findComponent({ name: 'DropdownMenu' }).exists()).toBe(true)
+    })
+
+    it('passes isSticky false to DropdownMenu by default', () => {
+        const wrapper = factory()
+        const dropdown = wrapper.findComponent({ name: 'DropdownMenu' })
+
+        expect(dropdown.props('isSticky')).toBe(false)
+    })
+
+    it('forwards isSticky true to DropdownMenu', () => {
+        const wrapper = factory({ isSticky: true })
+        const dropdown = wrapper.findComponent({ name: 'DropdownMenu' })
+
+        expect(dropdown.props('isSticky')).toBe(true)
+    })
+
+    it('passes default dropdownZIndex to DropdownMenu', () => {
+        const wrapper = factory()
+        const dropdown = wrapper.findComponent({ name: 'DropdownMenu' })
+
+        expect(dropdown.props('zIndex')).toBe('50')
+    })
+
+    it('forwards custom dropdownZIndex to DropdownMenu', () => {
+        const wrapper = factory({ dropdownZIndex: '100' })
+        const dropdown = wrapper.findComponent({ name: 'DropdownMenu' })
+
+        expect(dropdown.props('zIndex')).toBe('100')
     })
 })
