@@ -6,6 +6,8 @@
                 :positionYOffset="submenuYOffset"
                 :trigger="submenuTrigger"
                 :dropdownClass="getDropdownClass(item)"
+                :isSticky
+                :zIndex="dropdownZIndex"
             >
                 <template #activator="{ isOpen }">
                     <button
@@ -88,6 +90,14 @@ const props = defineProps({
     prefetchOn: {
         type: [String, Object] as PropType<PrefetchOnStrategy>,
         default: PrefetchOn.VISIBILITY,
+    },
+    isSticky: {
+        type: Boolean as PropType<boolean>,
+        default: false,
+    },
+    dropdownZIndex: {
+        type: String as PropType<string>,
+        default: '50',
     },
 })
 

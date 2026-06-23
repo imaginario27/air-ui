@@ -1,8 +1,9 @@
 <template>
-    <header 
+    <header
         :class="[
-            isSticky && 'sticky top-0 z-40',
+            isSticky && `sticky top-0`,
         ]"
+        :style="isSticky ? { zIndex } : {}"
     >
         <slot name="top-header" />
 
@@ -70,6 +71,8 @@
                     :submenuDropdownClass
                     :submenuTrigger
                     :prefetchOn
+                    :isSticky
+                    :dropdownZIndex="zIndex"
                     :class="navMenuClass"
                 />
 
@@ -87,6 +90,7 @@
                     class="min-w-[200px]"
                     :positionYOffset="submenuYOffset"
                     :isSticky
+                    :zIndex="zIndex"
                 >
                     <template #activator>
                         <Avatar 
@@ -119,6 +123,7 @@
                         :class="navMobileMenuClass"
                         :positionYOffset="submenuYOffset"
                         :isSticky
+                        :zIndex="zIndex"
                     >
                         <template #activator>
                             <ActionIconButton
@@ -247,6 +252,10 @@ const props = defineProps({
     navMobileMenuClass: {
         type: String as PropType<string>,
         default: 'min-w-[280px]'
+    },
+    zIndex: {
+        type: String as PropType<string>,
+        default: '50',
     },
     headerClass: String as PropType<string>,
     sidebarOpenAriaLabel: {

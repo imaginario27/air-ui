@@ -245,6 +245,27 @@ describe('CompactHeader.vue', () => {
         expect(navMenu.props('prefetchOn')).toBe(PrefetchOn.INTERACTION)
     })
 
+    it('forwards zIndex to NavMenu', () => {
+        const wrapper = factory({
+            navMenuItems: [{ text: 'Home', to: '/' }],
+            zIndex: '100',
+        })
+
+        const navMenu = wrapper.findComponent({ name: 'NavMenu' })
+        expect(navMenu.props('zIndex')).toBe('100')
+    })
+
+    it('forwards zIndex to the user DropdownMenu', () => {
+        const wrapper = factory({
+            userFullname: 'Jane Doe',
+            userMenuItems: [{ text: 'Profile', to: '/profile' }],
+            zIndex: '100',
+        })
+
+        const dropdown = wrapper.findComponent({ name: 'DropdownMenu' })
+        expect(dropdown.props('zIndex')).toBe('100')
+    })
+
     it('forwards prefetchOn to user DropdownMenuItem entries', () => {
         const wrapper = mount(CompactHeader, {
             props: {
