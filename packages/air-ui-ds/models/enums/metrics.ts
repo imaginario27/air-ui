@@ -1,4 +1,4 @@
-export enum DashboardMetricCardStyle {
+export enum MetricCardStyle {
     DEFAULT = "default",
     PRIMARY_BRAND_FILLED = "primary-brand-filled",
     PRIMARY_BRAND_SOFT = "primary-brand-soft",
@@ -9,8 +9,19 @@ export enum DashboardMetricCardStyle {
     CUSTOM_FILLED = "custom-filled",
 }
 
-export enum DashboardMetricTrendDirection {
+export enum MetricTrendDirection {
     UP = "up",
     DOWN = "down",
     NEUTRAL = "neutral",
+}
+
+export enum MetricCardIconPosition {
+    LEFT = "left",
+    RIGHT = "right",
+}
+
+export enum MetricCardBackgroundIconPosition {
+    TOP = "top",
+    MIDDLE = "middle",
+    BOTTOM = "bottom",
 }

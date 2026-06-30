@@ -65,7 +65,7 @@ const props = defineProps({
         validator: (value: Trigger) => Object.values(Trigger).includes(value),
     },
     popoverClass: {
-        type: String as PropType<string>,
+        type: [String, Array] as PropType<string | string[]>,
         default: 'min-w-[300px]'
     }
 })

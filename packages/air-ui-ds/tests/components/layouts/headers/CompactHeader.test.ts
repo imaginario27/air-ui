@@ -252,7 +252,7 @@ describe('CompactHeader.vue', () => {
         })
 
         const navMenu = wrapper.findComponent({ name: 'NavMenu' })
-        expect(navMenu.props('zIndex')).toBe('100')
+        expect(navMenu.props('dropdownZIndex')).toBe('100')
     })
 
     it('forwards zIndex to the user DropdownMenu', () => {
