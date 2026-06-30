@@ -51,6 +51,10 @@ items:
           text: XL
         - value: lg
           text: LG
+        - value: md
+          text: MD
+        - value: sm
+          text: SM
     iconSize:
         - value: xs
           text: XS
@@ -383,6 +387,14 @@ options: [
     {
         value: "LG",
         description: "LG",
+    },
+    {
+        value: "MD",
+        description: "MD",
+    },
+    {
+        value: "SM",
+        description: "SM",
     },
 ]
 ---

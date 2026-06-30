@@ -309,6 +309,11 @@ export const componentList: ComponentPortfolioItem[] = [
         imgUrl: `/images/thumbnails/components/modal-dialog.png`,
     },
     {
+        title: 'Notifications popover',
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/notifications-popover`,
+        imgUrl: `/images/thumbnails/components/notifications-popover.png`,
+    },
+    {
         title: 'Popover',
         to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/popover`,
         imgUrl: `/images/thumbnails/components/popover.png`,

@@ -54,6 +54,10 @@ items:
           text: XL
         - value: lg
           text: LG
+        - value: md
+          text: MD
+        - value: sm
+          text: SM
     buttonSize: 
         - value: 2xl
           text: XXL
@@ -538,6 +542,14 @@ Sets the size of the icon container. It uses the `IconContainerSize` enum.
 ::options-table
 ---
 options: [
+    {
+        value: "SM",
+        description: "sm",
+    },
+    {
+        value: "MD",
+        description: "md",
+    },
     {
         value: "LG",
         description: "lg",
