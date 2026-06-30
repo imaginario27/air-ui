@@ -109,6 +109,14 @@ describe('ContainedIcon.vue', () => {
 
     it('applies correct size classes for container and icon', () => {
         const sizeMap = {
+            [IconContainerSize.SM]: {
+                container: ['w-[24px]', 'h-[24px]'],
+                icon: 'w-[16px]'
+            },
+            [IconContainerSize.MD]: {
+                container: ['w-[32px]', 'h-[32px]'],
+                icon: 'w-[20px]'
+            },
             [IconContainerSize.LG]: {
                 container: ['w-[40px]', 'h-[40px]'],
                 icon: 'w-[24px]'

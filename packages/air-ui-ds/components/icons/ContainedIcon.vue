@@ -116,6 +116,8 @@ const iconColorClass = computed(() => {
 
 const iconContainerSizeClass = computed(() => {
     const sizeVariants = {
+        [IconContainerSize.SM]: 'w-[24px] h-[24px]',
+        [IconContainerSize.MD]: 'w-[32px] h-[32px]',
         [IconContainerSize.LG]: 'w-[40px] h-[40px]',
         [IconContainerSize.XL]: 'w-[48px] h-[48px]',
         [IconContainerSize.XXL]: 'w-[56px] h-[56px]',
@@ -127,6 +129,8 @@ const iconContainerSizeClass = computed(() => {
 
 const iconSizeClass = computed(() => {
     const sizeVariants = {
+        [IconContainerSize.SM]: 'w-[16px] h-[16px] min-w-[16px] min-h-[16px]',
+        [IconContainerSize.MD]: 'w-[20px] h-[20px] min-w-[20px] min-h-[20px]',
         [IconContainerSize.LG]: 'w-[24px] h-[24px] min-w-[24px] min-h-[24px]',
         [IconContainerSize.XL]: 'w-[24px] h-[24px] min-w-[24px] min-h-[24px]',
         [IconContainerSize.XXL]: 'w-[40px] h-[40px] min-w-[40px] min-h-[40px]',

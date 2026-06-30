@@ -5,6 +5,17 @@ All notable changes to this package are documented in this file.
 Historical releases were reconstructed from git history (GitHub repository) and npm publish dates.
 Future releases will include detailed entries generated with Changesets.
 
+## 1.15.0 - 2026-06-30
+
+Release type: minor.
+Commits found in range: 1.
+
+### Added
+
+1. add NotificationsPopover; enhance MetricCard, ContainedIcon, SectionTitle, and Popover ([352e809](https://github.com/imaginario27/air-ui/commit/352e809a77a63b6ef70d3877ad5d8c4b20a4e65e))
+
+- Package: @imaginario27/air-ui-ds.
+
 ## 1.14.2 - 2026-06-23
 
 Release type: patch.

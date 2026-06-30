@@ -66,7 +66,7 @@ props: [
     {
         "name": "popoverClass",
         "default": "min-w-[300px]",
-        "type": "string",
+        "type": "string | string[]",
     },
 ]
 ---
@@ -209,5 +209,5 @@ Can be used to override the popover's card class.
 </template>
 ```
 
-- **Type:** `string`
+- **Type:** `string | string[]`
 - **Default:** `'min-w-[300px]'`

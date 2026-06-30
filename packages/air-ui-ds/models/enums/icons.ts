@@ -15,6 +15,8 @@ export enum IconContainerStyleType {
 }
 
 export enum IconContainerSize {
+    SM = 'sm',
+    MD = 'md',
     LG = 'lg',
     XL = 'xl',
     XXL = '2xl',
