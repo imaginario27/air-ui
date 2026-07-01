@@ -134,41 +134,11 @@
 const props = defineProps({
     list: {
         type: Array as PropType<NotificationItem[]>,
-        default: () => [
-                       {
-                id: '1',
-                read: false,
-                icon: 'mdi:bell-outline',
-                iconColor: ColorAccent.NEUTRAL,
-                title: 'New Notification',
-                description: 'This is a sample notification description.',
-                timeAgo: '5 minutes ago',
-                author: 'John Doe',
-                link: '',
-            },
-            {
-                id: '2',
-                read: true,
-                icon: 'mdi:bell-outline',
-                iconColor: ColorAccent.SECONDARY_BRAND,
-                title: 'Another Notification',
-                description: 'This is another sample notification description.',
-                timeAgo: '10 minutes ago',
-                author: 'Jane Doe',
-                link: '',
-            },
-            {
-                id: '3',
-                read: false,
-                icon: 'mdi:bell-outline',
-                iconColor: ColorAccent.PRIMARY_BRAND,
-                title: 'Third Notification',
-                description: 'This is the third sample notification description.',
-                timeAgo: '15 minutes ago',
-                author: 'Jim Doe',
-                link: '',
-            }
-        ],
+        default: () => [],
+    },
+    limit: {
+        type: Number as PropType<number>,
+        default: 10,
     },
     isListIconContained: {
         type: Boolean as PropType<boolean>,
@@ -331,10 +301,11 @@ const hasError = computed(() => props.errorText.trim().length > 0)
 const unreadCount = computed(() => internalList.value.filter(notification => !notification.read).length)
 
 const filteredList = computed(() => {
-    if (selectedFilterValue.value === 'unread') {
-        return internalList.value.filter(notification => !notification.read)
-    }
-    return internalList.value
+    const source = selectedFilterValue.value === 'unread'
+        ? internalList.value.filter(notification => !notification.read)
+        : internalList.value
+
+    return source.slice(0, props.limit)
 })
 
 // Handlers

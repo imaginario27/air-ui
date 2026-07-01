@@ -71,7 +71,7 @@
                     v-if="unit"
                     :class="['text-lg', 'font-semibold', unitClass]"
                 >
-                    /{{ unit }}
+                    {{ unit }}
                 </span>
             </div>
 

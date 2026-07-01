@@ -51,6 +51,26 @@ describe('NotificationsPopover.vue', () => {
         })
     })
 
+    describe('limit', () => {
+        it('renders all items by default when under the default limit', () => {
+            const wrapper = factory()
+            expect(wrapper.findAllComponents(NotificationListItem)).toHaveLength(3)
+        })
+
+        it('caps the rendered items to the limit prop', () => {
+            const wrapper = factory({ limit: 2 })
+            expect(wrapper.findAllComponents(NotificationListItem)).toHaveLength(2)
+        })
+
+        it('applies the limit after filtering to unread items', async () => {
+            const wrapper = factory({ limit: 1 })
+            const toggle = wrapper.findComponent({ name: 'ToggleButtonsGroupField' })
+            await toggle.vm.$emit('update:modelValue', 'unread')
+            await nextTick()
+            expect(wrapper.findAllComponents(NotificationListItem)).toHaveLength(1)
+        })
+    })
+
     describe('filtering', () => {
         it('shows only unread items when filter changes to unread', async () => {
             const wrapper = factory()

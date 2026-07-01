@@ -32,6 +32,7 @@ props:
           link: "/posts/3"
           icon: "mdi:comment-outline"
           iconColor: "secondary-brand"
+    limit: 10
     position: "bottom"
     align: "center"
     trigger: "click"
@@ -182,8 +183,13 @@ propsSettingsExcludedProps: ['list']
 props: [
     {
         "name": "list",
-        "default": "'An example array'",
+        "default": "[]",
         "type": "NotificationItem[]",
+    },
+    {
+        "name": "limit",
+        "default": "10",
+        "type": "number",
     },
     {
         "name": "title",
@@ -429,7 +435,7 @@ const notifications: NotificationItem[] = [
 ```
 
 - **Type:** `NotificationItem[]`
-- **Default:** `'An example array'`
+- **Default:** `[]`
 
 #### TypeScript interface
 ```ts
@@ -445,6 +451,23 @@ interface NotificationItem {
     iconColor?: ColorAccent;
 }
 ```
+
+### limit
+
+Caps the number of notifications rendered in the list, applied after the read/unread filter. The unread count badge always reflects the full list, regardless of the limit.
+
+```vue
+<template>
+    <NotificationsPopover :list="notifications" :limit="5">
+        <template #activator>
+            <ActionButton text="Show notifications" />
+        </template>
+    </NotificationsPopover>
+</template>
+```
+
+- **Type:** `number`
+- **Default:** `10`
 
 ### title
 
