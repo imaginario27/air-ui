@@ -57,12 +57,12 @@ describe('MetricCard.vue', () => {
 
     it('renders the unit when provided', () => {
         const wrapper = factory({ amount: 80, unit: 'month' })
-        expect(wrapper.text()).toContain('/month')
+        expect(wrapper.text()).toContain('month')
     })
 
     it('does not render the unit when not provided', () => {
         const wrapper = factory()
-        expect(wrapper.text()).not.toContain('/')
+        expect(wrapper.text()).not.toContain('month')
     })
 
     it('renders the featured description when provided', () => {
@@ -344,7 +344,7 @@ describe('MetricCard.vue', () => {
 
     it('applies unitClass to unit span', () => {
         const wrapper = factory({ unit: 'month', unitClass: 'text-base' })
-        const unitSpan = wrapper.findAll('span').find((s) => s.text().includes('/month'))
+        const unitSpan = wrapper.findAll('span').find((s) => s.text().includes('month'))
         expect(unitSpan?.classes()).toContain('text-base')
     })
 

@@ -18,7 +18,7 @@ props:
     defaultStyleIconColor: "neutral"
     defaultStyleIconContainerType: "filled"
     amount: "1327"
-    unit: "month"
+    unit: "/month"
     featuredDescription: "+120 vs last period"
     description: "Last 30 days"
     trend: "+12%"
@@ -677,7 +677,7 @@ Sets an optional unit shown next to the amount (e.g. `/month`). It is only rende
 <template>
     <MetricCard
         :amount="80"
-        unit="month"
+        unit="/month"
     />
 </template>
 ```
