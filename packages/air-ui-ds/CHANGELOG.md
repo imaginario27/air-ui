@@ -5,6 +5,28 @@ All notable changes to this package are documented in this file.
 Historical releases were reconstructed from git history (GitHub repository) and npm publish dates.
 Future releases will include detailed entries generated with Changesets.
 
+## 1.15.2 - 2026-07-02
+
+Release type: patch.
+Commits found in range: 1.
+
+### Fixed
+
+1. close notifications popover on view-all and item click ([9c1c041](https://github.com/imaginario27/air-ui/commit/9c1c04193f63767785504892dc2e19c2efec07e2))
+
+- Package: @imaginario27/air-ui-ds.
+
+## 1.15.1 - 2026-07-01
+
+Release type: patch.
+Commits found in range: 1.
+
+### Added
+
+1. pass unit prop verbatim and add limit prop to NotificationsPopover ([3fe78ba](https://github.com/imaginario27/air-ui/commit/3fe78ba2f4b2d42a16205e08b9669bddc2eabdeb))
+
+- Package: @imaginario27/air-ui-ds.
+
 ## 1.15.0 - 2026-06-30
 
 Release type: minor.
