@@ -11,7 +11,7 @@ props:
           description: "You have a new message from Alice."
           timeAgo: "2 minutes ago"
           author: "Alice"
-          link: "/messages/1"
+          link: ""
           icon: "mdi:bell-outline"
           iconColor: "primary-brand"
         - id: "2"
@@ -20,7 +20,7 @@ props:
           description: "Your application was deployed successfully."
           timeAgo: "15 minutes ago"
           author: "CI System"
-          link: "/deployments/2"
+          link: ""
           icon: "mdi:check-circle-outline"
           iconColor: "success"
         - id: "3"
@@ -29,7 +29,7 @@ props:
           description: "Bob left a comment on your post."
           timeAgo: "1 hour ago"
           author: "Bob"
-          link: "/posts/3"
+          link: ""
           icon: "mdi:comment-outline"
           iconColor: "secondary-brand"
     limit: 10
@@ -793,7 +793,7 @@ Label of the "view all" link displayed in the header.
 
 ### viewAllLink
 
-Route passed to the "view all" link in the header. When empty the link is not rendered.
+Route passed to the "view all" link in the header. Clicking the link always closes the popover; when this prop is empty, no navigation is triggered.
 
 ```vue
 <template>

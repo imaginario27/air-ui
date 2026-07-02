@@ -1,12 +1,74 @@
 {
-  "generatedAt": "2026-07-01T14:08:53.174Z",
+  "generatedAt": "2026-07-02T09:30:06.265Z",
   "source": "github-git-history+npm-publish-dates",
   "githubBaseUrl": "https://github.com/imaginario27/air-ui",
   "packages": [
     {
       "packageName": "@imaginario27/air-ui-ds",
-      "latestVersion": "1.15.0",
+      "latestVersion": "1.15.2",
       "entries": [
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.15.2",
+          "publishedAt": "2026-07-02",
+          "releaseType": "patch",
+          "notes": [
+            "close notifications popover on view-all and item click"
+          ],
+          "metadata": {
+            "commitCount": 1,
+            "commits": [
+              {
+                "sha": "9c1c04193f63767785504892dc2e19c2efec07e2",
+                "shortSha": "9c1c041",
+                "date": "2026-07-02",
+                "subject": "fix(ds): close notifications popover on view-all and item click",
+                "normalizedSubject": "close notifications popover on view-all and item click",
+                "type": "fixed",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/9c1c04193f63767785504892dc2e19c2efec07e2",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 0,
+              "fixed": 1,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.15.1",
+          "publishedAt": "2026-07-01",
+          "releaseType": "patch",
+          "notes": [
+            "pass unit prop verbatim and add limit prop to NotificationsPopover"
+          ],
+          "metadata": {
+            "commitCount": 1,
+            "commits": [
+              {
+                "sha": "3fe78ba2f4b2d42a16205e08b9669bddc2eabdeb",
+                "shortSha": "3fe78ba",
+                "date": "2026-07-01",
+                "subject": "feat(ds): pass unit prop verbatim and add limit prop to NotificationsPopover",
+                "normalizedSubject": "pass unit prop verbatim and add limit prop to NotificationsPopover",
+                "type": "added",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/3fe78ba2f4b2d42a16205e08b9669bddc2eabdeb",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 1,
+              "fixed": 0,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
         {
           "packageName": "@imaginario27/air-ui-ds",
           "version": "1.15.0",

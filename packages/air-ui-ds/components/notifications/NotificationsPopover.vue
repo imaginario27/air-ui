@@ -5,9 +5,9 @@
         :trigger
         :popoverClass="['px-0 py-3', popoverClass]"
     >
-        <template #content>
+        <template #content="{ onClose }">
             <div
-                v-if="isLoading && !hasError" 
+                v-if="isLoading && !hasError"
                 class="w-full flex justify-center py-3"
             >
                 <Loading 
@@ -52,6 +52,7 @@
                             :text="viewAllText"
                             :to="viewAllLink"
                             textClass="text-text-default text-sm! hover:text-text-primary-brand-hover font-normal"
+                            @click="onViewAllClick($event, onClose)"
                         />
                     </div>
 
@@ -92,6 +93,7 @@
                             :removeAriaLabel="listRemoveItemAriaLabel"
                             @update:model-value="onReadStatusChange(notification.id, $event)"
                             @remove="onRemoveNotification(notification.id)"
+                            @itemClick="onClose"
                         />
                     </template>
 
@@ -309,6 +311,11 @@ const filteredList = computed(() => {
 })
 
 // Handlers
+const onViewAllClick = (event: MouseEvent, onClose: () => void) => {
+    if (!props.viewAllLink) event.preventDefault()
+    onClose()
+}
+
 const onRemoveNotification = (id: string) => {
     internalList.value = internalList.value.filter(notification => notification.id !== id)
     emit('remove', { id })
