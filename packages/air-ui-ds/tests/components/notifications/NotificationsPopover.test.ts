@@ -3,6 +3,7 @@ import { nextTick } from 'vue'
 import NotificationsPopover from '@/components/notifications/NotificationsPopover.vue'
 import NotificationListItem from '@/components/notifications/NotificationListItem.vue'
 import ActionButton from '@/components/buttons/ActionButton.vue'
+import NavLink from '@/components/navigation/links/NavLink.vue'
 
 const makeSampleList = () => [
     { id: '1', read: false, title: 'Unread A', description: 'Desc A', timeAgo: '1m ago', author: 'Alice', link: '' },
@@ -10,12 +11,16 @@ const makeSampleList = () => [
     { id: '3', read: false, title: 'Unread C', description: 'Desc C', timeAgo: '3m ago', author: 'Carol', link: '' },
 ]
 
-const factory = (props: Record<string, unknown> = {}) =>
-    mount(NotificationsPopover, {
+const factory = (props: Record<string, unknown> = {}) => {
+    const onClose = vi.fn()
+    const wrapper = mount(NotificationsPopover, {
         props: { list: makeSampleList(), ...props },
         global: {
             stubs: {
-                Popover: { template: '<div><slot name="content" /></div>' },
+                Popover: {
+                    template: '<div><slot name="content" :onClose="onClose" /></div>',
+                    setup: () => ({ onClose }),
+                },
                 ToggleButtonsGroupField: {
                     name: 'ToggleButtonsGroupField',
                     template: '<div />',
@@ -26,11 +31,14 @@ const factory = (props: Record<string, unknown> = {}) =>
                     name: 'NotificationListItem',
                     template: '<div />',
                     props: ['modelValue', 'title', 'icon', 'to'],
-                    emits: ['update:modelValue', 'remove'],
+                    emits: ['update:modelValue', 'remove', 'itemClick'],
                 },
             },
         },
     })
+
+    return Object.assign(wrapper, { onClose })
+}
 
 describe('NotificationsPopover.vue', () => {
     describe('list rendering', () => {
@@ -177,6 +185,28 @@ describe('NotificationsPopover.vue', () => {
             const wrapper = factory({ errorText: 'Something went wrong' })
             expect(wrapper.text()).toContain('Something went wrong')
             expect(wrapper.findAllComponents(NotificationListItem)).toHaveLength(0)
+        })
+    })
+
+    describe('view all link', () => {
+        it('closes the popover when clicked without a viewAllLink', async () => {
+            const wrapper = factory()
+            await wrapper.findComponent(NavLink).trigger('click')
+            expect(wrapper.onClose).toHaveBeenCalled()
+        })
+
+        it('closes the popover when clicked with a viewAllLink provided', async () => {
+            const wrapper = factory({ viewAllLink: '/notifications' })
+            await wrapper.findComponent(NavLink).trigger('click')
+            expect(wrapper.onClose).toHaveBeenCalled()
+        })
+    })
+
+    describe('list item click', () => {
+        it('closes the popover when itemClick is emitted from a list item', async () => {
+            const wrapper = factory()
+            await wrapper.findAllComponents(NotificationListItem)[0]?.vm.$emit('itemClick')
+            expect(wrapper.onClose).toHaveBeenCalled()
         })
     })
 })

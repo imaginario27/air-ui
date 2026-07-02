@@ -41,9 +41,11 @@
                     {{ title }}
                 </span>
 
-                <slot name="description" />
+                <div v-if="$slots.description" class="max-w-[800px]">
+                    <slot name="description" />
+                </div>
 
-                <p v-if="!$slots.description" class="text-sm text-text-default">
+                <p v-if="!$slots.description" class="text-sm text-text-default max-w-[800px]">
                     {{ description }}
                 </p>
             </div>
@@ -53,8 +55,9 @@
                     <Icon
                         :name="timeAgoIcon"
                         :size="IconSize.XS"
+                        iconClass="text-icon-neutral-subtle"
                     />
-                    <span class="text-xs text-text-neutral-subtle">
+                    <span class="text-xs text-text-neutral-subtle whitespace-nowrap select-none">
                         {{ timeAgo }}
                     </span>
                 </div>
@@ -62,8 +65,9 @@
                     <Icon
                         :name="authorIcon"
                         :size="IconSize.XS"
+                        iconClass="text-icon-neutral-subtle"
                     />
-                    <span class="text-xs text-text-neutral-subtle">
+                    <span class="text-xs text-text-neutral-subtle whitespace-nowrap select-none">
                         {{ author }}
                     </span>
                 </div>
@@ -152,11 +156,12 @@ const props = defineProps({
     },
 })
 
-const emit = defineEmits(['update:modelValue', 'remove'])
+const emit = defineEmits(['update:modelValue', 'remove', 'itemClick'])
 
-function onItemClick() {
+const onItemClick = () => {
     if (!props.modelValue) {
         emit('update:modelValue', true)
     }
+    emit('itemClick')
 }
 </script>
