@@ -87,4 +87,20 @@ describe('PaginationButton', () => {
         const button = wrapper.get('button')
         expect(button.classes()).toContain('hover:cursor-pointer')
     })
+
+    it('uses default aria-label when not provided', () => {
+        const wrapper = mount(PaginationButton)
+
+        expect(wrapper.get('button').attributes('aria-label')).toBe('Navigation button')
+    })
+
+    it('applies custom aria-label when provided', () => {
+        const wrapper = mount(PaginationButton, {
+            props: {
+                ariaLabel: 'Page 3'
+            }
+        })
+
+        expect(wrapper.get('button').attributes('aria-label')).toBe('Page 3')
+    })
 })

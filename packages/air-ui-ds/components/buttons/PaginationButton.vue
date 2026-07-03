@@ -15,6 +15,7 @@
             props.disabled ? 'opacity-50 hover:cursor-not-allowed hover:bg-transparent' : 'hover:cursor-pointer'
         ]"
         :disabled="props.disabled"
+        :aria-label="ariaLabel"
         @click="emitClick"
     >
         <slot />
@@ -32,6 +33,10 @@ const props = defineProps({
     disabled: {
         type: Boolean as PropType<boolean>,
         default: false,
+    },
+    ariaLabel: {
+        type: String as PropType<string>,
+        default: 'Navigation button',
     },
 })
 

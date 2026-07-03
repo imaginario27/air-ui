@@ -53,9 +53,10 @@
                 ]"
             >
                 <!-- Previous Button -->
-                <PaginationButton 
+                <PaginationButton
                     :styleType
-                    :disabled="modelValue === 1" 
+                    :disabled="modelValue === 1"
+                    :ariaLabel="ariaLabelPrevious"
                     @click="goToPreviousPage"
                 >
                     <Icon
@@ -69,6 +70,8 @@
                     v-for="page in visiblePages"
                     :key="page"
                     :styleType
+                    :ariaLabel="pageAriaLabel(page)"
+                    :aria-current="page === modelValue ? 'page' : undefined"
                     :class="[
                         styleType === ButtonPaginationStyle.BUTTON && 'border border-border-default',
                         page === modelValue ? [
@@ -111,9 +114,10 @@
                 </PaginationButton>
 
                 <!-- Next Button -->
-                <PaginationButton 
+                <PaginationButton
                     :styleType
                     :disabled="modelValue === totalPages"
+                    :ariaLabel="ariaLabelNext"
                     @click="goToNextPage"
                 >
                     <Icon 
@@ -167,6 +171,18 @@ const props = defineProps({
     mobileBreakpoint: {
         type: Number as PropType<number>,
         default: 1024,
+    },
+    ariaLabelPrevious: {
+        type: String as PropType<string>,
+        default: 'Previous page',
+    },
+    ariaLabelNext: {
+        type: String as PropType<string>,
+        default: 'Next page',
+    },
+    ariaLabelPage: {
+        type: String as PropType<string>,
+        default: 'Page {page}',
     },
 })
 
@@ -260,6 +276,11 @@ const goToNextPage = () => {
 const handlePageClick = (page: string | number) => {
     if (page === '...') return
     emit("update:modelValue", page)
+}
+
+const pageAriaLabel = (page: string | number) => {
+    if (page === '...') return undefined
+    return props.ariaLabelPage.replace('{page}', page.toString())
 }
 
 // Watchers
