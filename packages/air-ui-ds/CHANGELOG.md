@@ -5,6 +5,17 @@ All notable changes to this package are documented in this file.
 Historical releases were reconstructed from git history (GitHub repository) and npm publish dates.
 Future releases will include detailed entries generated with Changesets.
 
+## 1.15.3 - 2026-07-03
+
+Release type: patch.
+Commits found in range: 1.
+
+### Fixed
+
+1. add accessible aria-labels to pagination buttons ([58b1770](https://github.com/imaginario27/air-ui/commit/58b1770522a70786df5a02e7ad32ed8646b363a9))
+
+- Package: @imaginario27/air-ui-ds.
+
 ## 1.15.2 - 2026-07-02
 
 Release type: patch.

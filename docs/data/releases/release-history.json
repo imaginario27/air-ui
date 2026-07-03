@@ -1,12 +1,43 @@
 {
-  "generatedAt": "2026-07-02T09:30:06.265Z",
+  "generatedAt": "2026-07-03T08:10:20.807Z",
   "source": "github-git-history+npm-publish-dates",
   "githubBaseUrl": "https://github.com/imaginario27/air-ui",
   "packages": [
     {
       "packageName": "@imaginario27/air-ui-ds",
-      "latestVersion": "1.15.2",
+      "latestVersion": "1.15.3",
       "entries": [
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.15.3",
+          "publishedAt": "2026-07-03",
+          "releaseType": "patch",
+          "notes": [
+            "add accessible aria-labels to pagination buttons"
+          ],
+          "metadata": {
+            "commitCount": 1,
+            "commits": [
+              {
+                "sha": "58b1770522a70786df5a02e7ad32ed8646b363a9",
+                "shortSha": "58b1770",
+                "date": "2026-07-03",
+                "subject": "fix(ds): add accessible aria-labels to pagination buttons",
+                "normalizedSubject": "add accessible aria-labels to pagination buttons",
+                "type": "fixed",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/58b1770522a70786df5a02e7ad32ed8646b363a9",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 0,
+              "fixed": 1,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
         {
           "packageName": "@imaginario27/air-ui-ds",
           "version": "1.15.2",
