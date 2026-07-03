@@ -184,6 +184,55 @@ describe('ButtonPagination', () => {
         // Only the always-rendered mobile-position RowsPerPage remains
         expect(rows.length).toBe(1)
     })
+
+    it('applies default aria-labels to previous, next and page buttons', () => {
+        const wrapper = factory({ modelValue: 3 })
+        const buttons = wrapper.findAllComponents({ name: 'PaginationButton' })
+
+        const prev = buttons[0]
+        const next = buttons[buttons.length - 1]
+        const pageThree = buttons.find(btn => btn.text() === '3')
+
+        expect(prev.props('ariaLabel')).toBe('Previous page')
+        expect(next.props('ariaLabel')).toBe('Next page')
+        expect(pageThree?.props('ariaLabel')).toBe('Page 3')
+    })
+
+    it('applies custom aria-labels when provided', () => {
+        const wrapper = factory({
+            modelValue: 3,
+            ariaLabelPrevious: 'Go back',
+            ariaLabelNext: 'Go forward',
+            ariaLabelPage: 'Go to page {page}'
+        })
+        const buttons = wrapper.findAllComponents({ name: 'PaginationButton' })
+
+        const prev = buttons[0]
+        const next = buttons[buttons.length - 1]
+        const pageThree = buttons.find(btn => btn.text() === '3')
+
+        expect(prev.props('ariaLabel')).toBe('Go back')
+        expect(next.props('ariaLabel')).toBe('Go forward')
+        expect(pageThree?.props('ariaLabel')).toBe('Go to page 3')
+    })
+
+    it('sets aria-current="page" only on the active page button', () => {
+        const wrapper = factory({ modelValue: 3 })
+        const buttons = wrapper.findAllComponents({ name: 'PaginationButton' })
+
+        const activePage = buttons.find(btn => btn.text() === '3')
+        const inactivePage = buttons.find(btn => btn.text() === '2')
+
+        expect(activePage?.attributes('aria-current')).toBe('page')
+        expect(inactivePage?.attributes('aria-current')).toBeUndefined()
+    })
+
+    it('falls back to the default aria-label on the ellipsis button', () => {
+        const wrapper = factory({ modelValue: 5, totalItems: 200 })
+        const ellipsis = wrapper.findAllComponents({ name: 'PaginationButton' }).find(btn => btn.text() === '...')
+
+        expect(ellipsis?.props('ariaLabel')).toBe('Navigation button')
+    })
 })
 
 describe('ButtonPagination - mobile behavior', () => {

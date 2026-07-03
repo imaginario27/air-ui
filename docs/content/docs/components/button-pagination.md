@@ -25,6 +25,9 @@ props:
     resultTextSinglePage: "Showing {total} results"
     resultTextSingleItem: "Showing {total} result"
     mobileBreakpoint: 1024
+    ariaLabelPrevious: "Previous page"
+    ariaLabelNext: "Next page"
+    ariaLabelPage: "Page {page}"
 items:
     styleType: 
         - value: button
@@ -158,6 +161,21 @@ props: [
         "name": "mobileBreakpoint",
         "default": "1024",
         "type": "number"
+    },
+    {
+        "name": "ariaLabelPrevious",
+        "default": "'Previous page'",
+        "type": "string"
+    },
+    {
+        "name": "ariaLabelNext",
+        "default": "'Next page'",
+        "type": "string"
+    },
+    {
+        "name": "ariaLabelPage",
+        "default": "'Page {page}'",
+        "type": "string"
     },
 ]
 ---
@@ -377,3 +395,48 @@ Sets the viewport width (in pixels) below which the pagination switches to its m
 
 - **Type:** `number`
 - **Default:** `1024`
+
+### ariaLabelPrevious
+
+Sets the `aria-label` for the previous page button.
+
+```vue
+<template>
+    <ButtonPagination 
+        ariaLabelPrevious="Previous page"
+    />
+</template>
+```
+
+- **Type:** `string`
+- **Default:** `'Previous page'`
+
+### ariaLabelNext
+
+Sets the `aria-label` for the next page button.
+
+```vue
+<template>
+    <ButtonPagination 
+        ariaLabelNext="Next page"
+    />
+</template>
+```
+
+- **Type:** `string`
+- **Default:** `'Next page'`
+
+### ariaLabelPage
+
+Sets the `aria-label` template for each page number button. The `{page}` placeholder is replaced with the button's page number.
+
+```vue
+<template>
+    <ButtonPagination 
+        ariaLabelPage="Page {page}"
+    />
+</template>
+```
+
+- **Type:** `string`
+- **Default:** `'Page {page}'`
