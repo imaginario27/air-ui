@@ -103,8 +103,22 @@ describe('NavSidebar.vue', () => {
     it('renders menu items and section titles', () => {
         const wrapper = factory()
         expect(wrapper.findComponent(NavSidebarMenu).exists()).toBe(true)
-        expect(wrapper.findAllComponents(NavSidebarMenuItem)).toHaveLength(3)
-        expect(wrapper.findAllComponents(NavSidebarMenuSectionTitle)).toHaveLength(1)
+
+        // Children of collapsed branches stay mounted (hidden via v-show) so their
+        // expand/collapse can animate, so assert on visibility rather than presence.
+        const isVisible = (element: Element) => {
+            let el: HTMLElement | null = element as HTMLElement
+            while (el) {
+                if (el.style?.display === 'none') return false
+                el = el.parentElement
+            }
+            return true
+        }
+        const visibleItems = wrapper.findAllComponents(NavSidebarMenuItem).filter(item => isVisible(item.element))
+        const visibleSectionTitles = wrapper.findAllComponents(NavSidebarMenuSectionTitle).filter(title => isVisible(title.element))
+
+        expect(visibleItems).toHaveLength(3)
+        expect(visibleSectionTitles).toHaveLength(1)
     })
 
     it('renders collapse toggle button when showCollapseToggle is true and position is TOP (expanded)', () => {

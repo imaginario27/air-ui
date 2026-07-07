@@ -7,6 +7,7 @@
             'rounded-full',
             'select-none',
             'text-center',
+            'transition-colors duration-200 ease-out',
             containerBackgroundClass,
             containerSizeClass,
             containerBorderClass,
@@ -18,6 +19,7 @@
             :class="[
                 'flex items-center justify-center',
                 'font-bold',
+                'transition-colors duration-200 ease-out',
                 stepNumberSizeClass,
                 textColorClass,
             ]"
@@ -39,6 +41,7 @@
             :class="[
                 'flex items-center justify-center',
                 'font-bold',
+                'transition-colors duration-200 ease-out',
                 stepNumberSizeClass,
                 textColorClass,
             ]"
@@ -60,6 +63,7 @@
             :class="[
                 'flex items-center justify-center',
                 'font-bold text-text-primary-brand-default',
+                'transition-colors duration-200 ease-out',
                 stepNumberSizeClass,
                 textColorClass,
             ]"
@@ -75,11 +79,12 @@
             </template>
             <template v-else-if="type === StepIndicatorType.EMPTY">
                 <!-- Circle -->
-                <div 
+                <div
                     :class="[
                         'w-[10px] h-[10px] rounded-full bg-icon-primary-brand-default',
+                        'transition-colors duration-200 ease-out',
                         circleColorClass,
-                    ]" 
+                    ]"
                 />
             </template>
         </span>

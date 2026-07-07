@@ -7,6 +7,7 @@
             'flex items-center justify-center rounded-button',
             isRounded ? 'rounded-full' : 'rounded-button',
             'aspect-square',
+            'transition-colors duration-200 ease-out',
             ...buttonStyleClass,
             buttonSizeClass,
             disabled && 'opacity-disabled cursor-not-allowed pointer-events-none',

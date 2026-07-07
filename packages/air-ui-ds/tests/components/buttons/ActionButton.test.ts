@@ -1,7 +1,8 @@
 import { mount } from '@vue/test-utils'
 import ActionButton from '@/components/buttons/ActionButton.vue'
 import Icon from '@/components/icons/Icon.vue'
-import { ButtonActionType } from '@/models/enums/buttons'
+import Spinner from '@/components/spinners/Spinner.vue'
+import { ButtonActionType, ButtonStyleType } from '@/models/enums/buttons'
 import { IconPosition } from '@/models/enums/icons'
 
 const factory = (props = {}) => {
@@ -133,11 +134,23 @@ describe('ActionButton.vue', () => {
     it('shows loading state when isLoading is true', () => {
         const wrapper = factory({ isLoading: true })
         expect(wrapper.text()).toContain('Processing...')
-        expect(wrapper.find('.animate-spin').exists()).toBe(true)
 
-        const icon = wrapper.findComponent(Icon)
-        expect(icon.exists()).toBe(true)
-        expect(icon.props('name')).toBe('mdi:loading')
+        const spinner = wrapper.findComponent(Spinner)
+        expect(spinner.exists()).toBe(true)
+    })
+
+    it.each([
+        [ButtonStyleType.PRIMARY_BRAND_FILLED, 'border-x-border-neutral-on-filled!', 'border-b-border-neutral-on-filled!'],
+        [ButtonStyleType.PRIMARY_BRAND_SOFT, 'border-x-border-primary-brand-default!', 'border-b-border-primary-brand-default!'],
+        [ButtonStyleType.NEUTRAL_OUTLINED, 'border-x-border-primary-brand-default!', 'border-b-border-primary-brand-default!'],
+        [ButtonStyleType.DELETE_FILLED, 'border-x-border-neutral-on-filled!', 'border-b-border-neutral-on-filled!'],
+    ])('keeps the spinner top border transparent for %s so it renders as a 3/4 circle, not a full one', (styleType, xClass, bClass) => {
+        const wrapper = factory({ isLoading: true, styleType })
+        const spinner = wrapper.findComponent(Spinner)
+
+        expect(spinner.classes()).toContain(xClass)
+        expect(spinner.classes()).toContain(bClass)
+        expect(spinner.classes()).toContain('border-t-transparent')
     })
 
     it('shows custom loading text when loadingText is provided', () => {

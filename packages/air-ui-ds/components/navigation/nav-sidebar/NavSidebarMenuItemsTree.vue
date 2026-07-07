@@ -41,25 +41,26 @@
                     @click="handleItemClick(item, getNodePath(index))"
                 />
 
-                <NavSidebarMenuItemsTree
-                    v-if="canRenderChildren(item) && isNodeOpen(getNodePath(index))"
-                    :items="item.children ?? []"
-                    :level="level + 1"
-                    :isCollapsed
-                    :openItems
-                    :itemsStyleType
-                    :itemsTextClass
-                    :itemsIconClass
-                    :subItemsCustomClass
-                    :subItemsTextClass
-                    :subItemsIconClass
-                    :thirdLevelItemsCustomClass
-                    :prefetchOn
-                    :showCollapseDivider
-                    :showNestedLevelGuide
-                    :pathPrefix="getNodePath(index)"
-                    @toggle="emit('toggle', $event)"
-                />
+                <VerticalExpansionTransition v-if="canRenderChildren(item)" v-show="isNodeOpen(getNodePath(index))">
+                    <NavSidebarMenuItemsTree
+                        :items="item.children ?? []"
+                        :level="level + 1"
+                        :isCollapsed
+                        :openItems
+                        :itemsStyleType
+                        :itemsTextClass
+                        :itemsIconClass
+                        :subItemsCustomClass
+                        :subItemsTextClass
+                        :subItemsIconClass
+                        :thirdLevelItemsCustomClass
+                        :prefetchOn
+                        :showCollapseDivider
+                        :showNestedLevelGuide
+                        :pathPrefix="getNodePath(index)"
+                        @toggle="emit('toggle', $event)"
+                    />
+                </VerticalExpansionTransition>
             </template>
         </template>
     </div>

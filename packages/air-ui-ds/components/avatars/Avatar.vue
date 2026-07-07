@@ -13,7 +13,7 @@
             ],
             isInteractive && [
                 hoverBorderSizeClass,
-                'border-border-primary-brand-hover cursor-pointer'
+                'border-border-primary-brand-hover cursor-pointer transition-[border-width] duration-200 ease-out'
             ],
         ]"
     >

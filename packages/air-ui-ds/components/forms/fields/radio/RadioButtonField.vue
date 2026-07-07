@@ -11,6 +11,7 @@
             'py-4',
             'rounded-lg',
             'hover:cursor-pointer',
+            'transition-colors duration-200 ease-out',
             modelValue === value && selectedBackgroundColorClass,
             disabled && 'opacity-disabled'
         ]"
@@ -81,7 +82,7 @@
                 'border', 
                 'rounded-full', 
                 'flex items-center justify-center',
-                'transition-colors',
+                'transition-colors duration-200 ease-out',
                 modelValue === value ? selectedCheckboxBackgroundColorClass : 'bg-neutral-white border-border-default',
                 modelValue === value && 'border-0',
                 disabled ? 'cursor-not-allowed' : 'cursor-pointer'

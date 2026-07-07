@@ -7,6 +7,7 @@
         :class="[
             'flex items-center justify-center',
             'text-nowrap',
+            'transition-colors duration-200 ease-out',
             ...buttonStyleClass,
             buttonSizeClass,
             horizontalPaddingClass,

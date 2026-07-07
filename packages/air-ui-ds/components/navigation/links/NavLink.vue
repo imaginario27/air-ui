@@ -10,6 +10,7 @@
             :class="[
             'group flex items-center justify-center',
             'text-text-primary-brand-default',
+            'transition-colors duration-200 ease-out',
             !props.disabled ? 'hover:text-text-primary-brand-hover' : 'opacity-disabled cursor-not-allowed',
             gapClass,
         ]">

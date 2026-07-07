@@ -7,6 +7,7 @@
             'flex items-center justify-center',
             isRounded ? 'rounded-full' : 'rounded-button',
             'text-nowrap',
+            'transition-colors duration-200 ease-out',
             ...buttonStyleClass,
             buttonSizeClass,
             horizontalPaddingClass,
@@ -26,12 +27,7 @@
     >
         <!-- Loading State -->
         <template v-if="isLoading">
-            <div class="animate-spin">
-                <Icon 
-                    name="mdi:loading"
-                    :iconClass="[iconSizeClass, iconColorClass]"
-                />
-            </div>
+            <Spinner :class="[iconSizeClass, spinnerColorClass]" />
             
             <span :class="['font-semibold', 'leading-none', 'select-none', textSizeClass, textClass]">
                 {{ loadingText }}
@@ -328,6 +324,24 @@ const iconColorClass = computed(() => {
         [ButtonStyleType.DELETE_TRANSPARENT]: '!text-text-delete',
     }
     return variant[props.styleType as ButtonStyleType] || '!text-text-default'
+})
+
+const spinnerColorClass = computed(() => {
+    const variant = {
+        [ButtonStyleType.PRIMARY_BRAND_FILLED]: 'border-x-border-neutral-on-filled! border-b-border-neutral-on-filled!',
+        [ButtonStyleType.PRIMARY_BRAND_SOFT]: 'border-x-border-primary-brand-default! border-b-border-primary-brand-default!',
+        [ButtonStyleType.PRIMARY_BRAND_TRANSPARENT]: 'border-x-border-primary-brand-default! border-b-border-primary-brand-default!',
+        [ButtonStyleType.SECONDARY_BRAND_FILLED]: 'border-x-border-neutral-on-filled! border-b-border-neutral-on-filled!',
+        [ButtonStyleType.NEUTRAL_FILLED]: 'border-x-border-neutral-on-filled! border-b-border-neutral-on-filled!',
+        [ButtonStyleType.NEUTRAL_OUTLINED]: 'border-x-border-primary-brand-default! border-b-border-primary-brand-default!',
+        [ButtonStyleType.NEUTRAL_TRANSPARENT]: 'border-x-border-primary-brand-default! border-b-border-primary-brand-default!',
+        [ButtonStyleType.NEUTRAL_TRANSPARENT_SUBTLE]: 'border-x-border-primary-brand-default! border-b-border-primary-brand-default!',
+        [ButtonStyleType.DELETE_FILLED]: 'border-x-border-neutral-on-filled! border-b-border-neutral-on-filled!',
+        [ButtonStyleType.DELETE_SOFT]: 'border-x-border-delete-default! border-b-border-delete-default!',
+        [ButtonStyleType.DELETE_OUTLINED]: 'border-x-border-delete-default! border-b-border-delete-default!',
+        [ButtonStyleType.DELETE_TRANSPARENT]: 'border-x-border-delete-default! border-b-border-delete-default!',
+    }
+    return variant[props.styleType as ButtonStyleType] || 'border-border-primary-brand-default'
 })
 
 const horizontalPaddingClass = computed(() => {

@@ -14,6 +14,7 @@
                 :stepIcon="item.icon"
                 :completedIcon
                 :isHovered="isInteractive && hoveredIndex === index"
+                :class="isInteractive && 'cursor-pointer'"
                 @click="handleStepClick(index)"
                 @mouseenter="handleMouseEnter(index)"
                 @mouseleave="handleMouseLeave"
