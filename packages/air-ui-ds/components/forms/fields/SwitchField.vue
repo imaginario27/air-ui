@@ -54,43 +54,15 @@
                 />
             </div>
 
-            <!-- Visually hidden native checkbox (remains accessible to screen readers) -->
-            <input
-                :id="id"
-                type="checkbox"
-                :checked="modelValue"
-                class="sr-only"
-                :aria-label="ariaLabel || label || legend || 'Toggle'"
-                :disabled="disabled"
-                @change="handleChange"
-                @keydown.space.prevent="toggleCheckbox"
-            >
-
-            <!-- Custom Switch -->
-            <div
-                role="switch"
-                :aria-checked="modelValue"
-                :aria-label="ariaLabel || label || legend || 'Toggle'"
-                :class="[
-                    'relative flex items-center',
-                    controlFieldSizeClass,
-                    'rounded-full transition-colors',
-                    'border border-border-default',
-                    modelValue ? checkedBackgroundClass : 'bg-background-neutral-subtle',
-                    disabled ? 'bg-background-neutral-disabled cursor-not-allowed opacity-disabled' : 'cursor-pointer'
-                ]"
-                @click="toggleCheckbox"
-            >
-                <div 
-                    :class="[ 
-                        'absolute bg-icon-on-filled rounded-full shadow-md transform transition-transform',
-                        'aspect-square',
-                        controlFieldHandlerSizeClass,
-                        modelValue ? 'translate-x-6' : 'translate-x-1',
-                        'bg-icon-neutral-on-filled-bg'
-                    ]" 
-                />
-            </div>
+            <Switch
+                :id
+                :ariaLabel="ariaLabel || label || legend || 'Toggle'"
+                :modelValue
+                :disabled
+                :size
+                :styleType
+                @update:modelValue="handleSwitchUpdate"
+            />
         </div>
 
         <!-- Help Text -->
@@ -158,26 +130,6 @@ const validationMode = useInjectedValidationMode()
 const hasError = computed(() => props.error !== '')
 
 // Computed classes
-const controlFieldSizeClass = computed(() => {
-    const sizeVariant = {
-        [ControlFieldSize.XS]: 'w-[32px] h-[16px] min-w-[32px] min-h-[16px]',
-        [ControlFieldSize.SM]: 'w-[40px] h-[20px] min-w-[40px] min-h-[20px]',
-        [ControlFieldSize.MD]: 'w-[44px] h-[24px] min-w-[44px] min-h-[24px]',
-        [ControlFieldSize.LG]: 'w-[56px] h-[32px] min-w-[56px] min-h-[32px]',
-    }
-    return sizeVariant[props.size as ControlFieldSize] || 'w-[44px] h-[24px] min-w-[44px] min-h-[24px]'
-})
-
-const controlFieldHandlerSizeClass = computed(() => {
-    const sizeVariant = {
-        [ControlFieldSize.XS]: 'w-[12px] h-[12px]',
-        [ControlFieldSize.SM]: 'w-[16px] h-[16px]',
-        [ControlFieldSize.MD]: 'w-[16px] h-[16px]',
-        [ControlFieldSize.LG]: 'w-[24px] h-[24px]',
-    }
-    return sizeVariant[props.size as ControlFieldSize] || 'w-[16px] h-[16px]'
-})
-
 const labelSizeClass = computed(() => {
     const sizeVariant = {
         [ControlFieldSize.XS]: 'text-xs',
@@ -198,29 +150,15 @@ const iconSizeClass = computed(() => {
     return sizeVariant[props.size as ControlFieldSize] || 'w-[20px] h-[20px] min-w-[20px] min-h-[20px]'
 })
 
-const checkedBackgroundClass = computed(() => {
-    const backgroundVariant = {
-        [SwitchStyle.BRAND]: 'bg-background-primary-brand-checked',
-        [SwitchStyle.SUCCESS]: 'bg-background-success-bold',
-    }
-    return backgroundVariant[props.styleType as SwitchStyle] || 'bg-background-primary-brand-checked'
-})
-
 // Handlers
-const handleChange = () => {
-    if (validationMode.value === FormValidationMode.BLUR) {
-        runValidation()
-    }
-}
-
-const toggleCheckbox = () => {
+const handleSwitchUpdate = (value: boolean) => {
     if (props.disabled) return
 
     if (validationMode.value === FormValidationMode.BLUR) {
         runValidation()
     }
 
-    emit('update:modelValue', !props.modelValue)
+    emit('update:modelValue', value)
 }
 
 const runValidation = () => {

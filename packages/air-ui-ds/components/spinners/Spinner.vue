@@ -1,6 +1,5 @@
 <template>
-    <div
-        role="status"
+    <output
         aria-label="Loading"
         :class="[
             'animate-spin',

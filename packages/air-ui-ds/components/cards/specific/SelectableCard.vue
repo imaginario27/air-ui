@@ -9,7 +9,7 @@
         :class="[
             'lg:p-5',
             selectMode === CardSelectionMode.CARD && isHoverable &&
-                'hover:border-border-neutral-hover cursor-pointer transition-shadow duration-300',
+                'hover:border-border-neutral-hover cursor-pointer transition-[box-shadow,border-color] duration-300 ease-out',
             selectMode === CardSelectionMode.CARD && 'outline-none focus-visible:ring-2 focus-visible:ring-border-primary-brand-default',
             modelValue && '!border-border-primary-brand-active',
             disabled && 'opacity-disabled cursor-not-allowed',

@@ -11,6 +11,7 @@
             'text-sm',
             'text-text-default',
             'font-semibold',
+            'transition-colors duration-200 ease-out',
             'hover:bg-background-neutral-hover',
             props.disabled ? 'opacity-50 hover:cursor-not-allowed hover:bg-transparent' : 'hover:cursor-pointer'
         ]"

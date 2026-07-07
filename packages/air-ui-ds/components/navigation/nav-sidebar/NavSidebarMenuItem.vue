@@ -8,6 +8,7 @@
             'items-center',
             'text-left',
             'rounded-lg',
+            'transition-colors duration-200 ease-out',
             'hover:bg-background-neutral-hover',
             'justify-between',
             levelTextClass,

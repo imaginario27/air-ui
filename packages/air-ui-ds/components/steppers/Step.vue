@@ -23,6 +23,7 @@
             <span
                 :class="[
                     'font-semibold',
+                    'transition-colors duration-200 ease-out',
                     titleClass,
                 ]"
             >

@@ -6,7 +6,7 @@
             :disabled="modelValue === 1"
             :ariaLabel="previousPageAriaLabel"
             :class="[
-                'bg-transparent',
+                'bg-transparent transition-colors duration-200 ease-out',
                 modelValue > 1 && 'hover:border border-border-default',
             ]"
             @click="goToPreviousPage"
@@ -20,7 +20,7 @@
             :disabled="modelValue === totalPages"
             :ariaLabel="nextPageAriaLabel"
             :class="[
-                'bg-transparent',
+                'bg-transparent transition-colors duration-200 ease-out',
                 modelValue < totalPages && 'hover:border border-border-default',
             ]"
             @click="goToNextPage"

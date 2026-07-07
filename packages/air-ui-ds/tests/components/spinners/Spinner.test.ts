@@ -4,7 +4,7 @@ import Spinner from '@/components/spinners/Spinner.vue'
 describe('Spinner', () => {
     it('renders with correct classes', () => {
         const wrapper = mount(Spinner)
-        const spinner = wrapper.find('div')
+        const spinner = wrapper.find('output')
 
         expect(spinner.exists()).toBe(true)
         expect(spinner.classes()).toContain('animate-spin')
@@ -16,11 +16,11 @@ describe('Spinner', () => {
         expect(spinner.classes()).toContain('border-t-transparent')
     })
 
-    it('has role="status" and aria-label for screen readers', () => {
+    it('renders as an <output> element with aria-label for screen readers', () => {
         const wrapper = mount(Spinner)
-        const spinner = wrapper.find('div')
+        const spinner = wrapper.find('output')
 
-        expect(spinner.attributes('role')).toBe('status')
+        expect(spinner.element.tagName).toBe('OUTPUT')
         expect(spinner.attributes('aria-label')).toBe('Loading')
     })
 })

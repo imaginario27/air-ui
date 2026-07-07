@@ -4,7 +4,7 @@
         :class="[
             iconSizeClass,
             colorClass,
-            isInteractive && 'hover:cursor-pointer'
+            isInteractive && 'hover:cursor-pointer hover:scale-110 transition-transform duration-150 ease-out'
         ]"
     />
 </template>
