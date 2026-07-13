@@ -11,6 +11,16 @@ props:
     valueFieldAriaLabel: "Rule value"
     addRuleAriaLabel: "Add rule"
     removeRuleAriaLabel: "Remove rule"
+    sortingType: "none"
+    moveUpAriaLabel: "Move rule up"
+    moveDownAriaLabel: "Move rule down"
+    dragHandleAriaLabel: "Drag to reorder rule"
+    moveUpIcon: "mdi:arrow-up"
+    moveDownIcon: "mdi:arrow-down"
+    dragHandleIcon: "mdi:drag-vertical"
+    dragPlaceholderText: "Drop here"
+    showDragPlaceholderText: true
+    dragPlaceholderClass: ""
     helpText: "Build rule conditions to filter results"
     helpTextPosition: "bottom"
     itemOptions:
@@ -42,6 +52,10 @@ props:
           operator: "gt"
           value: 21
           type: "number"
+        - item: null
+          operator: null
+          value: ""
+          type: "text"
     itemPlaceholder: "Select item"
     operatorPlaceholder: "Select operator"
     valuePlaceholder: "Enter value"
@@ -61,8 +75,16 @@ items:
           text: TOP
         - value: bottom
           text: BOTTOM
+    sortingType:
+        - value: none
+          text: NONE
+        - value: buttons
+          text: BUTTONS
+        - value: drag
+          text: DRAG
 enums:
     helpTextPosition: "Position"
+    sortingType: "RulesFieldSortingType"
 external:
   - itemOptions
   - operatorOptions
@@ -114,6 +136,55 @@ props: [
     {
         "name": "removeRuleAriaLabel",
         "default": "'Remove rule'",
+        "type": "string",
+    },
+    {
+        "name": "sortingType",
+        "default": "RulesFieldSortingType.NONE",
+        "type": "RulesFieldSortingType",
+    },
+    {
+        "name": "moveUpAriaLabel",
+        "default": "'Move rule up'",
+        "type": "string",
+    },
+    {
+        "name": "moveDownAriaLabel",
+        "default": "'Move rule down'",
+        "type": "string",
+    },
+    {
+        "name": "dragHandleAriaLabel",
+        "default": "'Drag to reorder rule'",
+        "type": "string",
+    },
+    {
+        "name": "moveUpIcon",
+        "default": "'mdi:arrow-up'",
+        "type": "string",
+    },
+    {
+        "name": "moveDownIcon",
+        "default": "'mdi:arrow-down'",
+        "type": "string",
+    },
+    {
+        "name": "dragHandleIcon",
+        "default": "'mdi:drag-vertical'",
+        "type": "string",
+    },
+    {
+        "name": "dragPlaceholderText",
+        "default": "'Drop here'",
+        "type": "string",
+    },
+    {
+        "name": "showDragPlaceholderText",
+        "default": "true",
+        "type": "boolean",
+    },
+    {
+        "name": "dragPlaceholderClass",
         "type": "string",
     },
     {
@@ -268,6 +339,124 @@ Sets the accessible label for the remove-rule icon button.
 
 - **Type:** `string`
 - **Default:** `'Remove rule'`
+
+### sortingType
+
+Controls how users can reorder rules. `none` disables reordering, `buttons` shows up/down icon buttons in each row's action column, and `drag` shows a drag handle for native drag-and-drop reordering with a dashed placeholder marking the drop position. It uses the `RulesFieldSortingType` enum.
+
+```vue
+<template>
+    <RulesField id="rules" sortingType="buttons" />
+</template>
+```
+
+- **Type:** `RulesFieldSortingType`
+- **Default:** `RulesFieldSortingType.NONE`
+
+#### Options
+::options-table
+---
+options: [
+    {
+        value: "NONE",
+        description: "none",
+    },
+    {
+        value: "BUTTONS",
+        description: "buttons",
+    },
+    {
+        value: "DRAG",
+        description: "drag",
+    },
+]
+---
+::
+
+### moveUpAriaLabel
+
+Sets the accessible label for the move-rule-up icon button, shown when `sortingType` is `buttons`.
+
+- **Type:** `string`
+- **Default:** `'Move rule up'`
+
+### moveDownAriaLabel
+
+Sets the accessible label for the move-rule-down icon button, shown when `sortingType` is `buttons`.
+
+- **Type:** `string`
+- **Default:** `'Move rule down'`
+
+### dragHandleAriaLabel
+
+Sets the accessible label for the drag handle, shown when `sortingType` is `drag`.
+
+- **Type:** `string`
+- **Default:** `'Drag to reorder rule'`
+
+### moveUpIcon
+
+Sets the icon used on the move-rule-up button.
+
+- **Type:** `string`
+- **Default:** `'mdi:arrow-up'`
+
+### moveDownIcon
+
+Sets the icon used on the move-rule-down button.
+
+- **Type:** `string`
+- **Default:** `'mdi:arrow-down'`
+
+### dragHandleIcon
+
+Sets the icon used on the drag handle.
+
+- **Type:** `string`
+- **Default:** `'mdi:drag-vertical'`
+
+### dragPlaceholderText
+
+Sets the text passed to the underlying `DragPlaceholder`'s `text` prop, shown in the dashed drop-position placeholder when `showDragPlaceholderText` is `true`.
+
+```vue
+<template>
+    <RulesField id="rules" sortingType="drag" dragPlaceholderText="Drop rule here" />
+</template>
+```
+
+- **Type:** `string`
+- **Default:** `'Drop here'`
+
+### showDragPlaceholderText
+
+Sets the `DragPlaceholder`'s `showText` prop, controlling whether `dragPlaceholderText` is rendered inside the drop-position placeholder shown when `sortingType` is `drag`.
+
+```vue
+<template>
+    <RulesField id="rules" sortingType="drag" :showDragPlaceholderText="true" />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `true`
+
+### dragPlaceholderClass
+
+Sets the `DragPlaceholder`'s `textClass` prop, letting you override the default styling of `dragPlaceholderText` when `showDragPlaceholderText` is `true`.
+
+```vue
+<template>
+    <RulesField
+        id="rules"
+        sortingType="drag"
+        :showDragPlaceholderText="true"
+        dragPlaceholderClass="text-sm font-semibold"
+    />
+</template>
+```
+
+- **Type:** `string`
 
 ### helpText
 
@@ -678,6 +867,9 @@ When `true`, passes `transparent` to all child `SelectField` and `InputField` co
                 removeIcon="mdi:minus-circle-outline"
                 mobileBtnAddText="Add condition"
                 mobileBtnRemoveText="Remove condition"
+                sortingType="buttons"
+                moveUpAriaLabel="Move condition up"
+                moveDownAriaLabel="Move condition down"
                 :maxRules="10"
                 :required="true"
                 :validator="validateRules"
@@ -794,3 +986,6 @@ const handleSubmit = () => {
 - Use `mobileBtnAddText` and `mobileBtnRemoveText` props to customize mobile row action button labels.
 - Operator options are automatically filtered based on the selected item's input type. For example, if the item has `inputType: 'number'`, only operators with `applicableTypes` containing `'number'` will be displayed.
 - When the item selection changes, the value field is automatically cleared, and the input type updates to match the new item's type.
+- Set `sortingType` to `buttons` or `drag` to allow reordering rules; the trailing add-row is never reorderable, and the boundary move buttons are disabled at the first and last sortable row.
+- In `drag` mode, drag the handle icon at the start of a row to reorder it; a dashed placeholder shows the drop position while dragging. The handle is a focusable button — press `ArrowUp`/`ArrowDown` while it's focused to reorder without a mouse.
+- The drop-position placeholder is a `DragPlaceholder`; use `dragPlaceholderText` and `showDragPlaceholderText` to label it, or leave `showDragPlaceholderText` at its default `false` for a plain dashed slot.

@@ -71,6 +71,11 @@ export const componentList: ComponentPortfolioItem[] = [
         imgUrl: `/images/thumbnails/components/divider.png`,
     },
     {
+        title: 'Drag placeholder',
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/drag-placeholder`,
+        imgUrl: `/images/thumbnails/components/drag-placeholder.png`,
+    },
+    {
         title: 'Dropzone',
         to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/dropzone`,
         imgUrl: `/images/thumbnails/components/dropzone.png`,

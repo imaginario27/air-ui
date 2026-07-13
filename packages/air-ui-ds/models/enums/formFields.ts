@@ -36,3 +36,9 @@ export enum FileSelectStrategy {
     MERGE = 'merge',
     REPLACE = 'replace',
 }
+
+export enum RulesFieldSortingType {
+    NONE = 'none',
+    BUTTONS = 'buttons',
+    DRAG = 'drag'
+}

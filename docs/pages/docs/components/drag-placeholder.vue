@@ -1,4 +1,4 @@
-﻿<template>
+<template>
     <Section>
         <SectionBody>
             <ContentRenderer
@@ -12,10 +12,10 @@
 
 <script setup lang="ts">
 definePageMeta({
-    title: 'RulesField',
+    title: 'Drag placeholder',
     layout: 'docs',
     overtitle: 'Components',
-    description: 'Form field component for building conditional rule rows with customizable placeholders, actions, and optional row reordering.',
+    description: 'A dashed drop-zone placeholder used to mark the drop position while reordering rows via drag-and-drop.',
 })
 
 const route = useRoute()
