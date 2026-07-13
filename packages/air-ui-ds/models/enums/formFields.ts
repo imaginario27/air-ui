@@ -37,7 +37,7 @@ export enum FileSelectStrategy {
     REPLACE = 'replace',
 }
 
-export enum RulesFieldSortingType {
+export enum RepeatingFieldSortingType {
     NONE = 'none',
     BUTTONS = 'buttons',
     DRAG = 'drag'

@@ -7,7 +7,7 @@ import { Position } from '@/models/enums/positions'
 import ActionButton from '~/components/buttons/ActionButton.vue'
 import { FormValidationMode } from '~/models/enums/formValidations'
 import { ButtonStyleType } from '~/models/enums/buttons'
-import { RulesFieldSortingType } from '~/models/enums/formFields'
+import { RepeatingFieldSortingType } from '~/models/enums/formFields'
 import type { SelectOption } from '~/models/types/selects'
 
 vi.mock('~/composables/useFormValidationMode', () => ({
@@ -459,7 +459,7 @@ describe('RulesField.vue', () => {
 
         it('renders up/down buttons only for sortable rows when sortingType is buttons', () => {
             const wrapper = factory({
-                sortingType: RulesFieldSortingType.BUTTONS,
+                sortingType: RepeatingFieldSortingType.BUTTONS,
                 modelValue: threeRowsModelValue,
             })
 
@@ -470,7 +470,7 @@ describe('RulesField.vue', () => {
 
         it('does not render sorting controls for the trailing add-row', () => {
             const wrapper = factory({
-                sortingType: RulesFieldSortingType.BUTTONS,
+                sortingType: RepeatingFieldSortingType.BUTTONS,
                 modelValue: [{ item: 'age', operator: 'eq', value: '10' }],
             })
 
@@ -480,7 +480,7 @@ describe('RulesField.vue', () => {
 
         it('disables move-up on the first sortable row and move-down on the last sortable row', () => {
             const wrapper = factory({
-                sortingType: RulesFieldSortingType.BUTTONS,
+                sortingType: RepeatingFieldSortingType.BUTTONS,
                 modelValue: threeRowsModelValue,
             })
 
@@ -495,7 +495,7 @@ describe('RulesField.vue', () => {
 
         it('emits update:modelValue with reordered rules when clicking move down', async () => {
             const wrapper = factory({
-                sortingType: RulesFieldSortingType.BUTTONS,
+                sortingType: RepeatingFieldSortingType.BUTTONS,
                 modelValue: threeRowsModelValue,
             })
 
@@ -513,7 +513,7 @@ describe('RulesField.vue', () => {
 
         it('emits update:modelValue with reordered rules when clicking move up', async () => {
             const wrapper = factory({
-                sortingType: RulesFieldSortingType.BUTTONS,
+                sortingType: RepeatingFieldSortingType.BUTTONS,
                 modelValue: threeRowsModelValue,
             })
 
@@ -532,7 +532,7 @@ describe('RulesField.vue', () => {
 
         it('disables move up/down buttons when field is disabled', () => {
             const wrapper = factory({
-                sortingType: RulesFieldSortingType.BUTTONS,
+                sortingType: RepeatingFieldSortingType.BUTTONS,
                 disabled: true,
                 modelValue: threeRowsModelValue,
             })
@@ -548,7 +548,7 @@ describe('RulesField.vue', () => {
 
         it('renders a draggable handle only on sortable rows when sortingType is drag', () => {
             const wrapper = factory({
-                sortingType: RulesFieldSortingType.DRAG,
+                sortingType: RepeatingFieldSortingType.DRAG,
                 modelValue: [
                     { item: 'age', operator: 'eq', value: '10' },
                     { item: 'status', operator: 'eq', value: 'active' },
@@ -562,7 +562,7 @@ describe('RulesField.vue', () => {
 
         it('does not allow dragging the handle when field is disabled', () => {
             const wrapper = factory({
-                sortingType: RulesFieldSortingType.DRAG,
+                sortingType: RepeatingFieldSortingType.DRAG,
                 disabled: true,
                 modelValue: [
                     { item: 'age', operator: 'eq', value: '10' },
@@ -576,7 +576,7 @@ describe('RulesField.vue', () => {
 
         it('does not render a placeholder row without an active drag', () => {
             const wrapper = factory({
-                sortingType: RulesFieldSortingType.DRAG,
+                sortingType: RepeatingFieldSortingType.DRAG,
                 modelValue: threeRowsModelValue,
             })
 
@@ -585,7 +585,7 @@ describe('RulesField.vue', () => {
 
         it('renders a dashed placeholder row at the drag-over position', async () => {
             const wrapper = factory({
-                sortingType: RulesFieldSortingType.DRAG,
+                sortingType: RepeatingFieldSortingType.DRAG,
                 modelValue: threeRowsModelValue,
             })
 
@@ -599,9 +599,56 @@ describe('RulesField.vue', () => {
             expect(wrapper.find('.border-dashed').exists()).toBe(true)
         })
 
+        it('applies dragPlaceholderClass to the placeholder root and dragPlaceholderTextClass to its text', async () => {
+            const wrapper = factory({
+                sortingType: RepeatingFieldSortingType.DRAG,
+                modelValue: threeRowsModelValue,
+                dragPlaceholderClass: 'custom-placeholder-root',
+                dragPlaceholderTextClass: 'custom-placeholder-text',
+            })
+
+            const handles = wrapper.findAll('button[aria-label="Drag to reorder rule"]')
+            const rows = wrapper.findAll('.grid')
+            const dataTransfer = { setData: vi.fn(), effectAllowed: '' }
+
+            await handles[0]?.trigger('dragstart', { dataTransfer })
+            await rows[1]?.trigger('dragover', { dataTransfer })
+
+            const placeholder = wrapper.find('.border-dashed')
+            expect(placeholder.classes()).toContain('custom-placeholder-root')
+
+            const placeholderText = placeholder.find('span')
+            expect(placeholderText.classes()).toContain('custom-placeholder-text')
+        })
+
+        it('hides the drag handle on mobile, showing it only from the md breakpoint up', () => {
+            const wrapper = factory({
+                sortingType: RepeatingFieldSortingType.DRAG,
+                modelValue: [
+                    { item: 'age', operator: 'eq', value: '10' },
+                    { item: 'status', operator: 'eq', value: 'active' },
+                ],
+            })
+
+            const handle = wrapper.find('button[aria-label="Drag to reorder rule"]')
+            expect(handle.classes()).toContain('hidden')
+            expect(handle.classes()).toContain('md:flex')
+        })
+
+        it('falls back to move up/down buttons on mobile when sortingType is drag', () => {
+            const wrapper = factory({
+                sortingType: RepeatingFieldSortingType.DRAG,
+                modelValue: threeRowsModelValue,
+            })
+
+            // 2 sortable rows (trailing add-row excluded), mobile-only buttons
+            expect(findMoveButtons(wrapper, 'Move rule up')).toHaveLength(2)
+            expect(findMoveButtons(wrapper, 'Move rule down')).toHaveLength(2)
+        })
+
         it('reorders when dragging a row down across multiple rows and dropping on a later row', async () => {
             const wrapper = factory({
-                sortingType: RulesFieldSortingType.DRAG,
+                sortingType: RepeatingFieldSortingType.DRAG,
                 modelValue: fourRowsModelValue,
             })
 
@@ -626,7 +673,7 @@ describe('RulesField.vue', () => {
 
         it('reorders when dragging a row up across multiple rows and dropping on an earlier row', async () => {
             const wrapper = factory({
-                sortingType: RulesFieldSortingType.DRAG,
+                sortingType: RepeatingFieldSortingType.DRAG,
                 modelValue: fourRowsModelValue,
             })
 
@@ -651,7 +698,7 @@ describe('RulesField.vue', () => {
 
         it('reorders when the drop lands on the placeholder itself, not just the row', async () => {
             const wrapper = factory({
-                sortingType: RulesFieldSortingType.DRAG,
+                sortingType: RepeatingFieldSortingType.DRAG,
                 modelValue: fourRowsModelValue,
             })
 
@@ -683,7 +730,7 @@ describe('RulesField.vue', () => {
 
         it('reorders via ArrowUp/ArrowDown when the drag handle is focused', async () => {
             const wrapper = factory({
-                sortingType: RulesFieldSortingType.DRAG,
+                sortingType: RepeatingFieldSortingType.DRAG,
                 modelValue: threeRowsModelValue,
             })
 
@@ -702,7 +749,7 @@ describe('RulesField.vue', () => {
 
         it('does not reorder via keyboard when the field is disabled', async () => {
             const wrapper = factory({
-                sortingType: RulesFieldSortingType.DRAG,
+                sortingType: RepeatingFieldSortingType.DRAG,
                 disabled: true,
                 modelValue: threeRowsModelValue,
             })

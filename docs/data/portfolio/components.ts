@@ -238,6 +238,11 @@ export const componentList: ComponentPortfolioItem[] = [
         imgUrl: `/images/thumbnails/components/radio-group-field.png`,
     },
     {
+        title: 'RepeaterField',
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/repeater-field`,
+        imgUrl: `/images/thumbnails/components/repeater-field.png`,
+    },
+    {
         title: 'RulesField',
         to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/rules-field`,
         imgUrl: `/images/thumbnails/components/rules-field.png`,

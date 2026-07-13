@@ -26,12 +26,12 @@
             <template v-for="(rule, index) in rules" :key="`rule-${index}`">
                 <!-- Drop placeholder -->
                 <DragPlaceholder
-                    v-if="sortingType === RulesFieldSortingType.DRAG && draggedIndex !== null && dragOverIndex === index && draggedIndex !== index"
+                    v-if="sortingType === RepeatingFieldSortingType.DRAG && draggedIndex !== null && dragOverIndex === index && draggedIndex !== index"
                     aria-hidden="true"
                     :text="dragPlaceholderText"
                     :showText="showDragPlaceholderText"
-                    :textClass="dragPlaceholderClass"
-                    class="hidden md:grid h-10 mb-4 md:mb-0"
+                    :textClass="dragPlaceholderTextClass"
+                    :class="['hidden md:grid h-10 mb-4 md:mb-0', dragPlaceholderClass]"
                     @dragover.prevent="handleDragOver(index, $event)"
                     @drop.prevent="handleDrop(index, $event)"
                 />
@@ -39,7 +39,7 @@
                 <div
                     :class="[
                         'grid grid-cols-1',
-                        sortingType === RulesFieldSortingType.DRAG
+                        sortingType === RepeatingFieldSortingType.DRAG
                             ? 'md:grid-cols-[auto_1fr_1fr_1fr_auto]'
                             : 'md:grid-cols-[1fr_1fr_1fr_auto]',
                         'gap-2 items-center',
@@ -51,7 +51,7 @@
                 >
                     <!-- Drag handle -->
                     <button
-                        v-if="sortingType === RulesFieldSortingType.DRAG && isSortableRow(index)"
+                        v-if="sortingType === RepeatingFieldSortingType.DRAG && isSortableRow(index)"
                         type="button"
                         :draggable="!disabled"
                         :aria-label="dragHandleAriaLabel"
@@ -60,7 +60,7 @@
                             'hidden md:flex',
                             'items-center justify-center',
                             'bg-transparent border-0 p-0',
-                            'cursor-grab active:cursor-grabbing',
+                            'cursor-move! active:cursor-grabbing!',
                             'text-icon-neutral-default',
                             'disabled:cursor-not-allowed',
                         ]"
@@ -70,7 +70,7 @@
                     >
                         <Icon :name="dragHandleIcon" iconClass="w-[16px] h-[16px]" />
                     </button>
-                    <div v-else-if="sortingType === RulesFieldSortingType.DRAG" class="hidden md:block" />
+                    <div v-else-if="sortingType === RepeatingFieldSortingType.DRAG" class="hidden md:block" />
 
                     <SelectField
                         :id="`${id}-item-${index}`"
@@ -108,7 +108,7 @@
 
                     <div class="hidden md:flex items-center gap-1">
                         <ActionIconButton
-                            v-if="sortingType === RulesFieldSortingType.BUTTONS && isSortableRow(index)"
+                            v-if="sortingType === RepeatingFieldSortingType.BUTTONS && isSortableRow(index)"
                             :id="`${id}-move-up-${index}`"
                             :icon="moveUpIcon"
                             :ariaLabel="moveUpAriaLabel"
@@ -119,7 +119,7 @@
                         />
 
                         <ActionIconButton
-                            v-if="sortingType === RulesFieldSortingType.BUTTONS && isSortableRow(index)"
+                            v-if="sortingType === RepeatingFieldSortingType.BUTTONS && isSortableRow(index)"
                             :id="`${id}-move-down-${index}`"
                             :icon="moveDownIcon"
                             :ariaLabel="moveDownAriaLabel"
@@ -143,7 +143,7 @@
                     <!-- Mobile action buttons -->
                     <div class="flex md:hidden items-center gap-1">
                         <ActionIconButton
-                            v-if="(sortingType === RulesFieldSortingType.BUTTONS || sortingType === RulesFieldSortingType.DRAG) && isSortableRow(index)"
+                            v-if="(sortingType === RepeatingFieldSortingType.BUTTONS || sortingType === RepeatingFieldSortingType.DRAG) && isSortableRow(index)"
                             :id="`${id}-move-up-mobile-${index}`"
                             :icon="moveUpIcon"
                             :ariaLabel="moveUpAriaLabel"
@@ -154,7 +154,7 @@
                         />
 
                         <ActionIconButton
-                            v-if="(sortingType === RulesFieldSortingType.BUTTONS || sortingType === RulesFieldSortingType.DRAG) && isSortableRow(index)"
+                            v-if="(sortingType === RepeatingFieldSortingType.BUTTONS || sortingType === RepeatingFieldSortingType.DRAG) && isSortableRow(index)"
                             :id="`${id}-move-down-mobile-${index}`"
                             :icon="moveDownIcon"
                             :ariaLabel="moveDownAriaLabel"
@@ -218,9 +218,9 @@ const props = defineProps({
         default: 'Remove rule',
     },
     sortingType: {
-        type: String as PropType<RulesFieldSortingType>,
-        default: RulesFieldSortingType.NONE,
-        validator: (value: RulesFieldSortingType) => Object.values(RulesFieldSortingType).includes(value),
+        type: String as PropType<RepeatingFieldSortingType>,
+        default: RepeatingFieldSortingType.NONE,
+        validator: (value: RepeatingFieldSortingType) => Object.values(RepeatingFieldSortingType).includes(value),
     },
     moveUpAriaLabel: {
         type: String as PropType<string>,
@@ -255,6 +255,7 @@ const props = defineProps({
         default: true,
     },
     dragPlaceholderClass: String as PropType<string>,
+    dragPlaceholderTextClass: String as PropType<string>,
     helpText: String as PropType<string>,
     helpTextPosition: {
         type: String as PropType<Position>,
@@ -564,7 +565,7 @@ const handleDragStart = (index: number, event: DragEvent) => {
 }
 
 const handleDragOver = (index: number, event: DragEvent) => {
-    if (props.sortingType !== RulesFieldSortingType.DRAG || draggedIndex.value === null) {
+    if (props.sortingType !== RepeatingFieldSortingType.DRAG || draggedIndex.value === null) {
         return
     }
 
@@ -578,7 +579,7 @@ const handleDragOver = (index: number, event: DragEvent) => {
 }
 
 const handleDrop = (index: number, event: DragEvent) => {
-    if (props.sortingType !== RulesFieldSortingType.DRAG || draggedIndex.value === null) {
+    if (props.sortingType !== RepeatingFieldSortingType.DRAG || draggedIndex.value === null) {
         return
     }
 
