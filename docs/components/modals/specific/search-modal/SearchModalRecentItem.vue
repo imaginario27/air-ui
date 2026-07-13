@@ -1,6 +1,6 @@
 <template>
     <div 
-        :class="[ 
+        :class="[
             'py-4',
             'px-6',
             'border-border-neutral-subtle',
@@ -10,14 +10,12 @@
             'cursor-pointer',
             'hover:bg-background-neutral-hover',
         ]"
+        @click="handleClick"
     >
-        <NuxtLink 
-            :to="to"
-            class="flex flex-col gap-2 w-full"
-        >
-            <Badge 
-                :text="badgeText" 
-                :color="badgeColor" 
+        <div class="flex flex-col gap-2 w-full">
+            <Badge
+                :text="badgeText"
+                :color="badgeColor"
                 :style="badgeStyle"
             />
             <span v-if="breadcrumbs" class="text-sm text-text-neutral-subtle">
@@ -26,7 +24,7 @@
             <h3 class="text-base font-semibold">
                 {{ text }}
             </h3>
-        </NuxtLink>
+        </div>
         <div @click.stop="handleRemoveItem">
             <ActionIconButton
                 icon="mdi:close"
@@ -40,7 +38,7 @@
 
 <script setup lang="ts">
 // Props
-defineProps({
+const props = defineProps({
     text: {
         type: String as PropType<string>,
         default: 'Result text',
@@ -64,10 +62,19 @@ defineProps({
 })
 
 // Emits
-const emit = defineEmits(['remove-item'])
+const emit = defineEmits(['remove-item', 'item-clicked'])
 
 // Handlers
 const handleRemoveItem = () => {
     emit('remove-item')
+}
+
+const handleClick = () => {
+    emit('item-clicked', {
+        text: props.text,
+        breadcrumbs: props.breadcrumbs,
+        badgeText: props.badgeText,
+        to: props.to,
+    })
 }
 </script>

@@ -36,6 +36,7 @@
                     :badgeText="item.badgeText"
                     :to="item.to"
                     @remove-item="removeRecentSearchItem(index)"
+                    @item-clicked="handleResultClick(item)"
                 />
             </div>
 
