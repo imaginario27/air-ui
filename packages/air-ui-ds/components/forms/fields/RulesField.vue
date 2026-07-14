@@ -348,8 +348,6 @@ const normalizeRules = (list: RuleItem[]): RuleItem[] => {
     return list.length ? cloneRules(list) : [createEmptyRule()]
 }
 
-// Local draft state: edits to item/operator/value only sync to the parent
-// via emit on add, remove, or Enter — not on every keystroke/selection.
 const localRules = ref<RuleItem[]>(normalizeRules(props.modelValue))
 
 watch(
@@ -454,7 +452,7 @@ const resolveRuleTypeFromItem = (itemValue: RuleValue): AllowedInputType => {
 }
 
 const updateRule = (index: number, field: keyof RuleItem, value: RuleValue) => {
-    localRules.value = localRules.value.map((rule, currentIndex) => {
+    const nextRules = localRules.value.map((rule, currentIndex) => {
         if (currentIndex !== index) return rule
 
         if (field === 'item') {
@@ -471,6 +469,14 @@ const updateRule = (index: number, field: keyof RuleItem, value: RuleValue) => {
             [field]: value,
         }
     })
+
+    localRules.value = nextRules
+
+    // The trailing row is the not-yet-added draft rule; only commit to the
+    // model once it's confirmed via the add action (button, +, or Enter).
+    if (index !== nextRules.length - 1) {
+        emit('update:modelValue', nextRules)
+    }
 }
 
 const addRule = () => {
@@ -571,7 +577,9 @@ const handleDragOver = (index: number, event: DragEvent) => {
 
     event.preventDefault()
 
-    if (!isSortableRow(index)) {
+    // The add-row (last index) isn't itself sortable, but hovering it means
+    // "drop after the last sortable rule" — allow that position through.
+    if (!isSortableRow(index) && index !== rules.value.length - 1) {
         return
     }
 

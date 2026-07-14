@@ -525,6 +525,48 @@ describe('RepeaterField.vue', () => {
             ])
         })
 
+        it('drops an item into the last position via the trailing drop zone', async () => {
+            const wrapper = factory({
+                sortingType: RepeatingFieldSortingType.DRAG,
+                modelValue: threeItemsModelValue,
+            })
+
+            const handles = wrapper.findAll('button[aria-label="Drag to reorder item"]')
+            const dataTransfer = { setData: vi.fn(), effectAllowed: '' }
+
+            await handles[0]?.trigger('dragstart', { dataTransfer })
+
+            const trailingDropZone = wrapper.findAll('.w-full.flex.flex-col.gap-4 > div').at(-1)
+            await trailingDropZone?.trigger('dragover', { dataTransfer })
+            await trailingDropZone?.trigger('drop', { dataTransfer })
+
+            expect(wrapper.emitted('update:modelValue')).toEqual([
+                [[{ name: 'B' }, { name: 'C' }, { name: 'A' }]],
+            ])
+        })
+
+        it('swaps two items via drag, including into the last position', async () => {
+            const wrapper = factory({
+                sortingType: RepeatingFieldSortingType.DRAG,
+                modelValue: [{ name: 'A' }, { name: 'B' }],
+            })
+
+            const handles = wrapper.findAll('button[aria-label="Drag to reorder item"]')
+            const rowContainers = wrapper.findAll('.flex.items-start.gap-4')
+            const dataTransfer = { setData: vi.fn(), effectAllowed: '' }
+
+            await handles[0]?.trigger('dragstart', { dataTransfer })
+
+            const trailingDropZone = wrapper.findAll('.w-full.flex.flex-col.gap-4 > div').at(-1)
+            await rowContainers[1]?.trigger('dragover', { dataTransfer })
+            await trailingDropZone?.trigger('dragover', { dataTransfer })
+            await trailingDropZone?.trigger('drop', { dataTransfer })
+
+            expect(wrapper.emitted('update:modelValue')).toEqual([
+                [[{ name: 'B' }, { name: 'A' }]],
+            ])
+        })
+
         it('reorders via ArrowUp/ArrowDown when the drag handle is focused', async () => {
             const wrapper = factory({
                 sortingType: RepeatingFieldSortingType.DRAG,

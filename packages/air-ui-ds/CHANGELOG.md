@@ -5,6 +5,18 @@ All notable changes to this package are documented in this file.
 Historical releases were reconstructed from git history (GitHub repository) and npm publish dates.
 Future releases will include detailed entries generated with Changesets.
 
+## 1.17.0 - 2026-07-14
+
+Release type: minor.
+Commits found in range: 2.
+
+### Added
+
+1. expand RepeaterField into a full-featured form field ([0380511](https://github.com/imaginario27/air-ui/commit/038051135acd113e040f3183db7cc542e2e00bf9))
+2. add row reordering to RulesField via new DragPlaceholder ([a966db6](https://github.com/imaginario27/air-ui/commit/a966db6c30346d5912bc1fa037a20239c07c6af9))
+
+- Package: @imaginario27/air-ui-ds.
+
 ## 1.16.0 - 2026-07-07
 
 Release type: minor.
