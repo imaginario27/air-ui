@@ -175,53 +175,89 @@ describe('RulesField.vue', () => {
         expect(mobileButtons[1]?.props('text')).toBe('Add condition')
     })
 
-    it('does not emit update:modelValue when changing item, operator, or value directly', async () => {
+    it('emits update:modelValue when changing item, operator, or value on an already-added row', async () => {
         const wrapper = factory({
-            modelValue: [{ item: null, operator: null, value: '' }],
+            modelValue: [
+                { item: null, operator: null, value: '' },
+                { item: null, operator: null, value: '' },
+            ],
         })
 
         const selects = wrapper.findAllComponents(SelectField)
-        const input = wrapper.findComponent(InputField)
+        const inputs = wrapper.findAllComponents(InputField)
 
+        // Row 0 is a real, already-added row; row 1 is the trailing add-row.
         await selects[0]?.vm.$emit('update:modelValue', 'age')
         await selects[1]?.vm.$emit('update:modelValue', 'eq')
-        await input.vm.$emit('update:modelValue', '18')
-
-        expect(wrapper.emitted('update:modelValue')).toBeUndefined()
-    })
-
-    it('commits accumulated local changes to update:modelValue on Enter', async () => {
-        const wrapper = factory({
-            modelValue: [{ item: null, operator: null, value: '' }],
-        })
-
-        const selects = wrapper.findAllComponents(SelectField)
-        await selects[0]?.vm.$emit('update:modelValue', 'age')
-        await selects[1]?.vm.$emit('update:modelValue', 'eq')
-
-        const input = wrapper.findComponent(InputField)
-        await input.vm.$emit('update:modelValue', '18')
-        await input.trigger('keydown.enter')
+        await inputs[0]?.vm.$emit('update:modelValue', '18')
 
         expect(wrapper.emitted('update:modelValue')).toEqual([
-            [[
-                { item: 'age', operator: 'eq', value: '18', type: 'number' },
-                { item: null, operator: null, value: '', type: 'text' },
-            ]],
+            [[{ item: 'age', operator: null, value: '', type: 'number' }, { item: null, operator: null, value: '' }]],
+            [[{ item: 'age', operator: 'eq', value: '', type: 'number' }, { item: null, operator: null, value: '' }]],
+            [[{ item: 'age', operator: 'eq', value: '18', type: 'number' }, { item: null, operator: null, value: '' }]],
         ])
     })
 
-    it('updates row input type locally when item changes, without emitting', async () => {
+    it('does not emit update:modelValue when editing the trailing add-row (not yet confirmed)', async () => {
         const wrapper = factory({
-            modelValue: [{ item: null, operator: null, value: '' }],
+            modelValue: [
+                { item: 'age', operator: 'eq', value: '10' },
+                { item: null, operator: null, value: '' },
+            ],
+        })
+
+        const selects = wrapper.findAllComponents(SelectField)
+        const inputs = wrapper.findAllComponents(InputField)
+
+        // Row 1 is the trailing add-row - editing it is a draft, not committed.
+        await selects[2]?.vm.$emit('update:modelValue', 'status')
+        await selects[3]?.vm.$emit('update:modelValue', 'eq')
+        await inputs[1]?.vm.$emit('update:modelValue', 'active')
+
+        expect(wrapper.emitted('update:modelValue')).toBeUndefined()
+    })
+
+    it('also emits accumulated local changes to update:modelValue on Enter', async () => {
+        const wrapper = factory({
+            modelValue: [
+                { item: null, operator: null, value: '' },
+                { item: null, operator: null, value: '' },
+            ],
+        })
+
+        const selects = wrapper.findAllComponents(SelectField)
+        await selects[0]?.vm.$emit('update:modelValue', 'age')
+        await selects[1]?.vm.$emit('update:modelValue', 'eq')
+
+        const input = wrapper.findAllComponents(InputField)[0]
+        await input?.vm.$emit('update:modelValue', '18')
+        await input?.trigger('keydown.enter')
+
+        const emitted = wrapper.emitted('update:modelValue')
+        expect(emitted?.at(-1)).toEqual([
+            [
+                { item: 'age', operator: 'eq', value: '18', type: 'number' },
+                { item: null, operator: null, value: '' },
+            ],
+        ])
+    })
+
+    it('updates row input type locally and emits when item changes on an already-added row', async () => {
+        const wrapper = factory({
+            modelValue: [
+                { item: null, operator: null, value: '' },
+                { item: null, operator: null, value: '' },
+            ],
         })
 
         const selects = wrapper.findAllComponents(SelectField)
         await selects[0]?.vm.$emit('update:modelValue', 'age')
 
-        const input = wrapper.findComponent(InputField)
-        expect(input.props('type')).toBe('number')
-        expect(wrapper.emitted('update:modelValue')).toBeUndefined()
+        const input = wrapper.findAllComponents(InputField)[0]
+        expect(input?.props('type')).toBe('number')
+        expect(wrapper.emitted('update:modelValue')).toEqual([
+            [[{ item: 'age', operator: null, value: '', type: 'number' }, { item: null, operator: null, value: '' }]],
+        ])
     })
 
     it('filters operators based on input type', () => {
@@ -666,6 +702,31 @@ describe('RulesField.vue', () => {
                     { item: 'status', operator: 'eq', value: 'active' },
                     { item: 'age', operator: 'eq', value: '10' },
                     { item: 'city', operator: 'eq', value: 'ny' },
+                    { item: null, operator: null, value: '' },
+                ]],
+            ])
+        })
+
+        it('drops a row into the last sortable position by dropping on the trailing add-row', async () => {
+            const wrapper = factory({
+                sortingType: RepeatingFieldSortingType.DRAG,
+                modelValue: fourRowsModelValue,
+            })
+
+            const handles = wrapper.findAll('button[aria-label="Drag to reorder rule"]')
+            const rows = wrapper.findAll('.grid')
+            const dataTransfer = { setData: vi.fn(), effectAllowed: '' }
+
+            // Drag row 0 (age) down onto the trailing add-row (index 3).
+            await handles[0]?.trigger('dragstart', { dataTransfer })
+            await rows[3]?.trigger('dragover', { dataTransfer })
+            await rows[3]?.trigger('drop', { dataTransfer })
+
+            expect(wrapper.emitted('update:modelValue')).toEqual([
+                [[
+                    { item: 'status', operator: 'eq', value: 'active' },
+                    { item: 'city', operator: 'eq', value: 'ny' },
+                    { item: 'age', operator: 'eq', value: '10' },
                     { item: null, operator: null, value: '' },
                 ]],
             ])

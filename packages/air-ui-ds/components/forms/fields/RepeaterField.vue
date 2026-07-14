@@ -184,6 +184,23 @@
                     </div>
                 </div>
             </template>
+
+            <!-- Trailing drop zone: lets an item be dragged into the last position -->
+            <div
+                v-if="sortingType === RepeatingFieldSortingType.DRAG && draggedIndex !== null && draggedIndex !== items.length - 1"
+                @dragover.prevent="handleDragOver(items.length, $event)"
+                @drop.prevent="handleDrop(items.length, $event)"
+            >
+                <DragPlaceholder
+                    v-if="dragOverIndex === items.length"
+                    aria-hidden="true"
+                    :text="dragPlaceholderText"
+                    :showText="showDragPlaceholderText"
+                    :textClass="dragPlaceholderTextClass"
+                    :class="['h-10', dragPlaceholderClass]"
+                />
+                <div v-else class="h-4" />
+            </div>
         </div>
 
         <!-- Help Text (bottom) -->
