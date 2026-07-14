@@ -8,7 +8,7 @@
             'rounded-lg',
             hasShadow ? 'shadow-sm' : undefined,
             'w-full',
-            hasBackgroundHover && 'hover:bg-background-neutral-subtlest/40',
+            hasBackgroundHover && 'transition-colors duration-200 hover:bg-background-neutral-subtlest/40',
         ]"
     >
         <slot />

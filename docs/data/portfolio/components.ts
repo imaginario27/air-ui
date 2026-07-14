@@ -71,6 +71,11 @@ export const componentList: ComponentPortfolioItem[] = [
         imgUrl: `/images/thumbnails/components/divider.png`,
     },
     {
+        title: 'Drag placeholder',
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/drag-placeholder`,
+        imgUrl: `/images/thumbnails/components/drag-placeholder.png`,
+    },
+    {
         title: 'Dropzone',
         to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/dropzone`,
         imgUrl: `/images/thumbnails/components/dropzone.png`,
@@ -231,6 +236,11 @@ export const componentList: ComponentPortfolioItem[] = [
         title: 'RadioGroupField',
         to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/radio-group-field`,
         imgUrl: `/images/thumbnails/components/radio-group-field.png`,
+    },
+    {
+        title: 'RepeaterField',
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/repeater-field`,
+        imgUrl: `/images/thumbnails/components/repeater-field.png`,
     },
     {
         title: 'RulesField',

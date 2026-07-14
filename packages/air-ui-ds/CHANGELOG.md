@@ -5,6 +5,17 @@ All notable changes to this package are documented in this file.
 Historical releases were reconstructed from git history (GitHub repository) and npm publish dates.
 Future releases will include detailed entries generated with Changesets.
 
+## 1.16.0 - 2026-07-07
+
+Release type: minor.
+Commits found in range: 1.
+
+### Added
+
+1. extract standalone Switch component and polish interaction transitions ([4c28c2d](https://github.com/imaginario27/air-ui/commit/4c28c2d34dc07f299f100e3badc491d67ebf8ca4))
+
+- Package: @imaginario27/air-ui-ds.
+
 ## 1.15.3 - 2026-07-03
 
 Release type: patch.

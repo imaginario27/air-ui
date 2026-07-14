@@ -1,12 +1,43 @@
 {
-  "generatedAt": "2026-07-07T15:09:18.323Z",
+  "generatedAt": "2026-07-14T06:07:28.401Z",
   "source": "github-git-history+npm-publish-dates",
   "githubBaseUrl": "https://github.com/imaginario27/air-ui",
   "packages": [
     {
       "packageName": "@imaginario27/air-ui-ds",
-      "latestVersion": "1.15.3",
+      "latestVersion": "1.16.0",
       "entries": [
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.16.0",
+          "publishedAt": "2026-07-07",
+          "releaseType": "minor",
+          "notes": [
+            "extract standalone Switch component and polish interaction transitions"
+          ],
+          "metadata": {
+            "commitCount": 1,
+            "commits": [
+              {
+                "sha": "4c28c2d34dc07f299f100e3badc491d67ebf8ca4",
+                "shortSha": "4c28c2d",
+                "date": "2026-07-07",
+                "subject": "feat(ds): extract standalone Switch component and polish interaction transitions",
+                "normalizedSubject": "extract standalone Switch component and polish interaction transitions",
+                "type": "added",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/4c28c2d34dc07f299f100e3badc491d67ebf8ca4",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 1,
+              "fixed": 0,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
         {
           "packageName": "@imaginario27/air-ui-ds",
           "version": "1.15.3",

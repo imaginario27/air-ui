@@ -1,4 +1,4 @@
-﻿<template>
+<template>
     <Section>
         <SectionBody>
             <ContentRenderer
@@ -12,10 +12,10 @@
 
 <script setup lang="ts">
 definePageMeta({
-    title: 'RulesField',
+    title: 'RepeaterField',
     layout: 'docs',
     overtitle: 'Components',
-    description: 'Form field component for building conditional rule rows with customizable placeholders, actions, and optional row reordering.',
+    description: 'Form field component for repeating an arbitrary slot template over a list, with add, remove, and optional row reordering.',
 })
 
 const route = useRoute()

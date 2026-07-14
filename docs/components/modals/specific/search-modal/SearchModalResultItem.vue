@@ -62,15 +62,12 @@ const emit = defineEmits(['item-clicked'])
 
 // Handlers
 const handleClick = () => {
-    // Emit the item data to the parent
+    // Emit the item data to the parent, which handles navigation
     emit('item-clicked', {
         text: props.text,
         breadcrumbs: props.breadcrumbs,
         badgeText: props.badgeText,
         to: props.to,
     })
-
-    // Navigate programmatically to the provided link
-    navigateTo(props.to)
 }
 </script>

@@ -66,14 +66,18 @@ describe('Card.vue', () => {
         expect(wrapper.classes()).not.toContain('border-border-default')
     })
 
-    it('applies hover background class when hasBackgroundHover is true', () => {
+    it('applies hover background and transition classes when hasBackgroundHover is true', () => {
         const wrapper = factory({ props: { hasBackgroundHover: true } })
         expect(wrapper.classes()).toContain('hover:bg-background-neutral-subtlest/40')
+        expect(wrapper.classes()).toContain('transition-colors')
+        expect(wrapper.classes()).toContain('duration-200')
     })
 
-    it('does not apply hover background class when hasBackgroundHover is false', () => {
+    it('does not apply hover background and transition classes when hasBackgroundHover is false', () => {
         const wrapper = factory({ props: { hasBackgroundHover: false } })
         expect(wrapper.classes()).not.toContain('hover:bg-background-neutral-subtlest/40')
+        expect(wrapper.classes()).not.toContain('transition-colors')
+        expect(wrapper.classes()).not.toContain('duration-200')
     })
 
     it('uses default prop values when none are provided', () => {
