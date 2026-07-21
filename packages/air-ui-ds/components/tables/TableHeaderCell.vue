@@ -77,6 +77,7 @@ const headerClass = computed(() => {
             'border-t',
             'border-border-neutral-subtle',
             'text-sm',
+            'text-left',
             props.fitToContent ? 'w-[1%]' : 'w-auto',
             props.to ? 'hover:cursor-pointer' : undefined
         ],

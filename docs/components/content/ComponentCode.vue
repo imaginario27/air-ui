@@ -79,15 +79,16 @@
                         v-for="option in options.filter(option => !props.propsSettingsExcludedProps.includes(option.name))" 
                         :key="option.name"
                     >
-                        <InputField 
+                        <InputField
                             v-if="option.type === 'string' || option.type === 'number'"
                             :id="option.name"
-                            v-model="componentProps[option.name]"
+                            :modelValue="componentProps[option.name]"
                             :label="option.name"
                             placeholder="Write something"
                             :type="option.inputType"
                             :maxLength="50"
                             permitNegativeNumber
+                            @update:model-value="(value: string) => componentProps[option.name] = option.type === 'number' ? Number(value) : value"
                         />
                         <SelectField 
                             v-else-if="option.type === 'array'"
@@ -1232,8 +1233,12 @@ ${allLines.join('\n')}
     })
 }
 
-// Run once and when theme changes
-watchEffect(generateCode)
+// Run once and whenever playground props or theme change.
+// generateCode is async, and watchEffect only tracks reactive reads that
+// happen synchronously before its first await - the componentProps reads
+// used to build the output all happen after that await, so they'd never
+// be tracked. Watch them explicitly instead.
+watch([componentProps, isDark], generateCode, { deep: true, immediate: true })
 
 // Computed classes
 const componentPreviewClass = computed(() => {

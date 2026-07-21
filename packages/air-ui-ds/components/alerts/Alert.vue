@@ -4,13 +4,14 @@
         :class="[
             'w-full',
             'flex gap-3',
-            description === undefined || description === '' ? 'px-4 py-2' : 'p-4',
+            description || $slots.description ? 'p-4' : 'px-4 py-2',
             'rounded-lg',
             'border',
             containerClass,
+            'relative',
         ]"
     >
-        <template v-if="description">
+        <template v-if="description || $slots.description">
             <Icon 
                 :name="iconType" 
                 :iconClass="iconColorClass" 
@@ -26,10 +27,17 @@
                 >
                     {{ title }}
                 </span>
-                <p v-html="description" class="text-sm" />
+
+                <slot name="description" />
+
+                <p 
+                    v-if="!$slots.description && description"
+                    v-html="description" 
+                    class="text-sm" 
+                />
     
                 <div
-                    v-if="buttons?.length"
+                    v-if="hasActionButtons && buttons?.length"
                     class="flex gap-6"
                 >
                     <AlertButton 
@@ -45,11 +53,26 @@
                     />
                 </div>
             </div>
+
+            <AlertIconButton 
+                v-if="hasCloseButton"
+                :type
+                icon="mdi:close"
+                class="absolute right-2 top-2"
+                @click="$emit('close')"
+            />
         </template>
 
         <template v-else>
             <div class="w-full flex gap-3">
-                <div class="w-full flex gap-3 pt-1.5">
+                <div 
+                    :class="[
+                        'w-full',
+                        'flex',
+                        'gap-3',
+                        hasCloseButton || (hasActionButtons && buttons?.length) && 'pt-1.5',
+                    ]"
+                >
                     <Icon 
                         :name="iconType" 
                         :iconClass="iconColorClass" 
@@ -61,7 +84,7 @@
 
                 <div class="flex gap-3">
                     <div
-                        v-if="buttons?.length"
+                        v-if="hasActionButtons && buttons?.length"
                         class="flex gap-4"
                     >
                         <AlertButton 
@@ -103,10 +126,14 @@ const props = defineProps({
         default: 'Title',
     },
     description: String as PropType<string>,
+    hasActionButtons: {
+        type: Boolean as PropType<boolean>,
+        default: false
+    },
     buttons: Array as PropType<AlertButton[]>,
     hasCloseButton: {
         type: Boolean as PropType<boolean>,
-        default: true,
+        default: false,
     },
 })
 
@@ -153,5 +180,4 @@ const iconType = computed(() => {
     }
     return variant[props.type as AlertType] as string || 'mdi:alert-outline'
 })
-
 </script>

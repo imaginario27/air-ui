@@ -60,6 +60,10 @@
                     :shape="containedIconShape"
                 />
             </template>
+
+            <template v-if="iconPosition === MetricCardIconPosition.LEFT && $slots.rightTop">
+                <slot name="rightTop" />
+            </template>
         </CardHeader>
         <CardBody :class="['flex', 'gap-2!', cardBodyClass]">
             <div :class="['flex', 'items-end', 'gap-1', textColorClass]">
@@ -103,6 +107,13 @@
                 <span :class="['text-sm', 'mt-0.5', trendTextClass]">
                     {{ trend }}
                 </span>
+            </div>
+
+            <div 
+                v-if="$slots.footer"
+                class="w-full flex gap-2 mt-2"
+            >
+                <slot name="footer" />
             </div>
         </CardBody>
     </Card>
