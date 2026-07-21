@@ -5,6 +5,17 @@ All notable changes to this package are documented in this file.
 Historical releases were reconstructed from git history (GitHub repository) and npm publish dates.
 Future releases will include detailed entries generated with Changesets.
 
+## 1.17.1 - 2026-07-14
+
+Release type: patch.
+Commits found in range: 1.
+
+### Fixed
+
+1. support dragging items into the last position in RepeaterField and RulesField ([f956083](https://github.com/imaginario27/air-ui/commit/f9560831c4df10e8d9a2278792d9327d1ee07f97))
+
+- Package: @imaginario27/air-ui-ds.
+
 ## 1.17.0 - 2026-07-14
 
 Release type: minor.

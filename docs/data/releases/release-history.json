@@ -1,12 +1,43 @@
 {
-  "generatedAt": "2026-07-14T11:16:50.825Z",
+  "generatedAt": "2026-07-21T08:29:34.931Z",
   "source": "github-git-history+npm-publish-dates",
   "githubBaseUrl": "https://github.com/imaginario27/air-ui",
   "packages": [
     {
       "packageName": "@imaginario27/air-ui-ds",
-      "latestVersion": "1.17.0",
+      "latestVersion": "1.17.1",
       "entries": [
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.17.1",
+          "publishedAt": "2026-07-14",
+          "releaseType": "patch",
+          "notes": [
+            "support dragging items into the last position in RepeaterField and RulesField"
+          ],
+          "metadata": {
+            "commitCount": 1,
+            "commits": [
+              {
+                "sha": "f9560831c4df10e8d9a2278792d9327d1ee07f97",
+                "shortSha": "f956083",
+                "date": "2026-07-14",
+                "subject": "fix(ds): support dragging items into the last position in RepeaterField and RulesField",
+                "normalizedSubject": "support dragging items into the last position in RepeaterField and RulesField",
+                "type": "fixed",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/f9560831c4df10e8d9a2278792d9327d1ee07f97",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 0,
+              "fixed": 1,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
         {
           "packageName": "@imaginario27/air-ui-ds",
           "version": "1.17.0",
