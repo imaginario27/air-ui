@@ -8,7 +8,8 @@ props:
     type: "info"
     title: "Title"
     description: "Description"
-    hasCloseButton: true
+    hasCloseButton: false
+    hasActionButtons: false
     buttons:
         - text: "View details"
           actionType: "link"
@@ -61,18 +62,48 @@ props: [
         "type": "string",
     },
     {
+        "name": "hasActionButtons",
+        "default": "false",
+        "type": "boolean",
+    },
+    {
         "name": "buttons",
         "type": "AlertButton[]",
     },
     {
         "name": "hasCloseButton",
-        "default": "true",
+        "default": "false",
         "type": "boolean",
     },
     
 ]
 ---
 ::
+
+## Slots
+
+::slots-table
+---
+slots: [
+    {
+        name: "description",
+        description: "Overrides the description prop with custom content. When provided, the alert renders as if a description was set, even if the description prop is empty.",
+    },
+]
+---
+::
+
+```vue
+<template>
+    <Alert title="Title">
+        <template #description>
+            <p class="text-sm">
+                Custom description with a <a href="/">link</a>.
+            </p>
+        </template>
+    </Alert>
+</template>
+```
 
 ## Usage
 ### type
@@ -159,9 +190,26 @@ Sets the description of the alert.
 
 - **Type:** `string`
 
+### hasActionButtons
+
+Sets whether the alert renders the `buttons` array when no `description` is provided.
+
+```vue
+<template>
+    <Alert 
+        title="Title"
+        hasActionButtons
+        :buttons="exampleButtons"
+    />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `false`
+
 ### buttons
 
-Sets the buttons of the alert. 
+Sets the buttons of the alert. When no `description` is provided, also set `hasActionButtons` to `true` to render them.
 
 ```vue
 <template>
@@ -243,7 +291,7 @@ Sets whether the alert has a icon close button.
 ---
 props:
     title: "Important"
-    description: "This close button only appears if the description is provided. Otherwise you can pass dismiss button through the <strong>buttons</strong> array prop."
+    description: "This close button appears regardless of whether a description is provided."
 ---
 ::
 
@@ -251,10 +299,13 @@ props:
 <template>
     <Alert 
         description="Some description"
-        hasCloseButton="false"
+        hasCloseButton="true"
     />
 </template>
 ```
+
+- **Type:** `boolean`
+- **Default:** `false`
 
 ## Emits
 ::options-table
@@ -262,7 +313,7 @@ props:
 options: [
     {
         value: "@close",
-        description: "Triggers a callback function when the close button is clicked. Remember to provide a description in order to use this emitter.",
+        description: "Triggers a callback function when the close button is clicked.",
     },
 ]
 ---
@@ -275,7 +326,7 @@ options: [
     <Alert 
         v-if="showAlert"
         description="Some description"
-        hasCloseButton="false"
+        hasCloseButton="true"
         @close="handleClose"
     />
 </template>

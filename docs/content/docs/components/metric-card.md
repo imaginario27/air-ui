@@ -298,6 +298,45 @@ props: [
 ---
 ::
 
+## Slots
+::slots-table
+---
+slots: [
+    {
+        name: "rightTop",
+        description: "Slot to render custom content on the right side of the card header, aligned with the title. Only rendered when `iconPosition` is `LEFT`.",
+    },
+    {
+        name: "footer",
+        description: "Slot to render custom content below the trend row, such as actions or supplementary details.",
+    }
+]
+---
+::
+
+```vue
+<template>
+    <MetricCard
+        title="Revenue"
+        :amount="1327"
+    >
+        <template #rightTop>
+            <Badge text="Live" />
+        </template>
+
+        <template #footer>
+            <ActionButton
+                text="View Details"
+                :iconPosition="IconPosition.RIGHT"
+                icon="mdi:arrow-right"
+                :actionType="ButtonActionType.LINK"
+                to="link"
+            />
+        </template>
+    </MetricCard>
+</template>
+```
+
 ## Usage
 
 ### styleType
