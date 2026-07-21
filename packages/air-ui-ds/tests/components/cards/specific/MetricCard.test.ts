@@ -392,4 +392,35 @@ describe('MetricCard.vue', () => {
         })
         expect(wrapper.findComponent(ContainedIcon).props('size')).toBe(IconContainerSize.SM)
     })
+
+    it('renders the rightTop slot when iconPosition is LEFT', () => {
+        const wrapper = factory({ iconPosition: MetricCardIconPosition.LEFT }, {
+            slots: { rightTop: '<span class="right-top-content">Badge</span>' }
+        })
+        expect(wrapper.find('.right-top-content').exists()).toBe(true)
+    })
+
+    it('does not render the rightTop slot when iconPosition is RIGHT', () => {
+        const wrapper = factory({ iconPosition: MetricCardIconPosition.RIGHT }, {
+            slots: { rightTop: '<span class="right-top-content">Badge</span>' }
+        })
+        expect(wrapper.find('.right-top-content').exists()).toBe(false)
+    })
+
+    it('does not render the rightTop slot content when not provided', () => {
+        const wrapper = factory({ iconPosition: MetricCardIconPosition.LEFT })
+        expect(wrapper.find('.right-top-content').exists()).toBe(false)
+    })
+
+    it('renders the footer slot when provided', () => {
+        const wrapper = factory({}, {
+            slots: { footer: '<span class="footer-content">Footer</span>' }
+        })
+        expect(wrapper.find('.footer-content').exists()).toBe(true)
+    })
+
+    it('does not render the footer wrapper when footer slot is not provided', () => {
+        const wrapper = factory()
+        expect(wrapper.find('.footer-content').exists()).toBe(false)
+    })
 })
