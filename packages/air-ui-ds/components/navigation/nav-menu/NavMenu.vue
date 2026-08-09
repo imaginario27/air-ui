@@ -30,13 +30,17 @@
                     </button>
                 </template>
 
-                <template #items>
-                    <DropdownMenuItem
-                        v-for="submenuItem in getSubmenuItems(item)"
-                        :key="`${item.text}-${submenuItem.text}`"
-                        :text="submenuItem.text"
-                        :to="submenuItem.to"
-                    />
+                <template #items="{ onClose }">
+                    <!-- Native click listener: closes on any child item click, since link items
+                         never emit Vue's `click` event -->
+                    <div @click="onClose">
+                        <DropdownMenuItem
+                            v-for="submenuItem in getSubmenuItems(item)"
+                            :key="`${item.text}-${submenuItem.text}`"
+                            :text="submenuItem.text"
+                            :to="submenuItem.to"
+                        />
+                    </div>
                 </template>
             </DropdownMenu>
 

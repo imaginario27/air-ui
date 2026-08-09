@@ -77,11 +77,11 @@
                 />
 
                 <!-- Header actions -->
-                <div 
+                <div
                     v-if="$slots['header-actions']"
                     :class="['gap-3 items-center', isMobile ? 'hidden' : 'flex']"
                 >
-                    <slot name="header-actions" />
+                    <slot name="header-actions" :onClose="noop" />
                 </div>
 
                 <!-- User Menu -->
@@ -100,20 +100,24 @@
                             :imgUrl="userAvatarUrl"
                         />
                     </template>
-                    <template #items>
-                        <DropdownMenuItem 
-                            v-for="item in userMenuItems" :key="item.text"
-                            :text="item.text"
-                            :icon="item.icon"
-                            :type="item.type"
-                            :imgUrl="item.imgUrl"
-                            :alt="item.imgUrl"
-                            :to="item.to"
-                            :isExternal="item.isExternal"
-                            :actionType="item.actionType"
-                            :prefetchOn
-                            @click="item.callback"
-                        />
+                    <template #items="{ onClose }">
+                        <!-- Native click listener: closes on any item click, including link items
+                             whose click never reaches Vue's `click` emit -->
+                        <div @click="onClose">
+                            <DropdownMenuItem
+                                v-for="item in userMenuItems" :key="item.text"
+                                :text="item.text"
+                                :icon="item.icon"
+                                :type="item.type"
+                                :imgUrl="item.imgUrl"
+                                :alt="item.imgUrl"
+                                :to="item.to"
+                                :isExternal="item.isExternal"
+                                :actionType="item.actionType"
+                                :prefetchOn
+                                @click="item.callback"
+                            />
+                        </div>
                     </template>
                 </DropdownMenu>
 
@@ -132,27 +136,31 @@
                                 class="shadow-sm"
                             />
                         </template>
-                        <template #items>
-                            <template v-for="item in navMenuItems" :key="item.text">
-                                <DropdownMenuItem 
-                                    v-if="!getSubmenuItems(item).length"
-                                    :text="item.text"
-                                    :to="item.to"
-                                />
-
-                                <template v-else>
+                        <template #items="{ onClose }">
+                            <!-- Native click listener: closes on any item click, including link items
+                                 whose click never reaches Vue's `click` emit -->
+                            <div @click="onClose">
+                                <template v-for="item in navMenuItems" :key="item.text">
                                     <DropdownMenuItem
-                                        v-for="submenuItem in getSubmenuItems(item)"
-                                        :key="`${item.text}-${submenuItem.text}`"
-                                        :text="`- ${submenuItem.text}`"
-                                        :to="submenuItem.to"
-                                        class="pl-5"
+                                        v-if="!getSubmenuItems(item).length"
+                                        :text="item.text"
+                                        :to="item.to"
                                     />
+
+                                    <template v-else>
+                                        <DropdownMenuItem
+                                            v-for="submenuItem in getSubmenuItems(item)"
+                                            :key="`${item.text}-${submenuItem.text}`"
+                                            :text="`- ${submenuItem.text}`"
+                                            :to="submenuItem.to"
+                                            class="pl-5"
+                                        />
+                                    </template>
                                 </template>
-                            </template>
-                            
+                            </div>
+
                             <DropdownMenuActions v-if="$slots['header-actions']">
-                                <slot name="header-actions" />
+                                <slot name="header-actions" :onClose="onClose" />
                             </DropdownMenuActions>
                         </template>
                     </DropdownMenu>
@@ -287,6 +295,9 @@ const { isMobile } = useIsMobile(() => props.mobileBreakpoint)
 const getSubmenuItems = (item: MenuItem): NonNullable<MenuItem['children']> => {
     return item.children ?? []
 }
+
+// No-op close for the desktop header-actions slot, which isn't nested in a dropdown menu
+const noop = () => {}
 
 // Page title
 if (props.setAutoTitle) {
