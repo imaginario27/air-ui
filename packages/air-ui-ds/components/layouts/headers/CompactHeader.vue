@@ -181,6 +181,14 @@
 <script setup lang="ts">
 // Props
 const props = defineProps({
+    setAutoTitle: {
+        type: Boolean as PropType<boolean>,
+        default: true,
+    },
+    fallbackTitle: {
+        type: String as PropType<string>,
+        default: 'Page title',
+    },
     pageTitleFormat: {
         type: String as PropType<PageTitleFormat>,
         default: PageTitleFormat.SIMPLE,
@@ -281,16 +289,18 @@ const getSubmenuItems = (item: MenuItem): NonNullable<MenuItem['children']> => {
 }
 
 // Page title
-const route = useRoute()
-const currentPageTitle = computed<string>(() => 
-    (route.meta.title as string) ?? 'Page title'
-)
+if (props.setAutoTitle) {
+    const route = useRoute()
+    const currentPageTitle = computed<string>(() =>
+        (route.meta.title as string) ?? props.fallbackTitle
+    )
 
-const config = useRuntimeConfig()
-const { public: { appName } } = config
+    const config = useRuntimeConfig()
+    const { public: { appName } } = config
 
-// Dynamically set the page title
-useHead(() => ({
-    title: pageTitle(currentPageTitle.value, appName as string, props.pageTitleFormat),
-}))
+    // Dynamically set the page title
+    useHead(() => ({
+        title: pageTitle(currentPageTitle.value, appName as string, props.pageTitleFormat),
+    }))
+}
 </script>
