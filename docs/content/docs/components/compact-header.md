@@ -242,7 +242,7 @@ slots: [
     },
     {
         name: "header-actions",
-        description: "Slot to customize the header actions area.",
+        description: "Slot to customize the header actions area. Exposes an `onClose` scoped prop — call it to close the enclosing dropdown menu (relevant on mobile, where header actions render inside the mobile menu dropdown).",
     },
     {
         name: "bottom-header",
@@ -272,8 +272,14 @@ slots: [
             />
         </template>
 
-        <template #header-actions>
-            <!-- Custom actions here -->
+        <template #header-actions="{ onClose }">
+            <!-- Custom actions here. Call onClose() to close the enclosing
+                 mobile menu dropdown after an action completes. -->
+            <ActionButton
+                text="New item"
+                styleType="neutral-filled"
+                @click="onClose"
+            />
         </template>
 
         <template #bottom-header>
