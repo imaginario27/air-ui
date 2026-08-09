@@ -5,6 +5,28 @@ All notable changes to this package are documented in this file.
 Historical releases were reconstructed from git history (GitHub repository) and npm publish dates.
 Future releases will include detailed entries generated with Changesets.
 
+## 1.17.3 - 2026-08-09
+
+Release type: patch.
+Commits found in range: 1.
+
+### Fixed
+
+1. honor setAutoTitle in CompactHeader ([eb79a35](https://github.com/imaginario27/air-ui/commit/eb79a3594e3a60458f2351af79b483e5e225ea5e))
+
+- Package: @imaginario27/air-ui-ds.
+
+## 1.17.2 - 2026-07-21
+
+Release type: patch.
+Commits found in range: 1.
+
+### Added
+
+1. add Alert description slot, action button gating, and MetricCard slots ([c8384f1](https://github.com/imaginario27/air-ui/commit/c8384f1ab4e8e7664c60727bd48b27aecf4eec14))
+
+- Package: @imaginario27/air-ui-ds.
+
 ## 1.17.1 - 2026-07-14
 
 Release type: patch.
