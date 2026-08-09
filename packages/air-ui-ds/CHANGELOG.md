@@ -5,6 +5,17 @@ All notable changes to this package are documented in this file.
 Historical releases were reconstructed from git history (GitHub repository) and npm publish dates.
 Future releases will include detailed entries generated with Changesets.
 
+## 1.17.4 - 2026-08-09
+
+Release type: patch.
+Commits found in range: 1.
+
+### Fixed
+
+1. close dropdown menus on child item click in CompactHeader ([d908fe7](https://github.com/imaginario27/air-ui/commit/d908fe7c468fef5d5d776607aad35ffe20bcd56b))
+
+- Package: @imaginario27/air-ui-ds.
+
 ## 1.17.3 - 2026-08-09
 
 Release type: patch.
