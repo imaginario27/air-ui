@@ -2,6 +2,7 @@ import { mount } from '@vue/test-utils'
 import CompactHeader from '@/components/layouts/headers/CompactHeader.vue'
 import { SidebarTogglePosition } from '@/models/enums/positions'
 import { PrefetchOn } from '@/models/enums/prefetch'
+import { PageTitleFormat } from '@/models/enums/pages'
 
 // Mock before component import
 vi.mock('@/composables/useMobileSidebar', () => ({
@@ -26,12 +27,15 @@ vi.mock('vue-router', () => ({
     })
 }))
 
-vi.mock('../../../../../air-ui-utils/utils/pages', () => ({
-    pageTitle: vi.fn((pageTitle, appName, format) => {
+const { pageTitleSpy } = vi.hoisted(() => ({
+    pageTitleSpy: vi.fn((pageTitle: string, appName: string, format: string) => {
         return format === 'full'
             ? `${pageTitle} | ${appName}`
             : pageTitle
     })
+}))
+vi.mock('../../../../../air-ui-utils/utils/pages', () => ({
+    pageTitle: pageTitleSpy
 }))
 
 const defaultProps = {
@@ -54,6 +58,42 @@ const factory = (props = {}, slots = {}) => {
 describe('CompactHeader.vue', () => {
     beforeEach(() => {
         vi.clearAllMocks()
+    })
+
+    it('sets the page title when setAutoTitle is true (default)', async () => {
+        factory()
+        await nextTick()
+
+        expect(pageTitleSpy).toHaveBeenCalled()
+        expect(pageTitleSpy.mock.calls.at(-1)?.[2]).toBe('simple')
+    })
+
+    it('does not set the page title when setAutoTitle is false', async () => {
+        factory({ setAutoTitle: false })
+        await nextTick()
+
+        expect(pageTitleSpy).not.toHaveBeenCalled()
+    })
+
+    it('forwards pageTitleFormat when setting the page title', async () => {
+        factory({ pageTitleFormat: PageTitleFormat.FULL })
+        await nextTick()
+
+        expect(pageTitleSpy.mock.calls.at(-1)?.[2]).toBe('full')
+    })
+
+    it('uses the default fallbackTitle when the route has no title meta', async () => {
+        factory()
+        await nextTick()
+
+        expect(pageTitleSpy.mock.calls.at(-1)?.[0]).toBe('Page title')
+    })
+
+    it('uses a custom fallbackTitle when the route has no title meta', async () => {
+        factory({ fallbackTitle: 'Untitled page' })
+        await nextTick()
+
+        expect(pageTitleSpy.mock.calls.at(-1)?.[0]).toBe('Untitled page')
     })
 
     it('forwards mobileBreakpoint to useIsMobile (default 1024)', () => {

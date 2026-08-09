@@ -1,12 +1,74 @@
 {
-  "generatedAt": "2026-07-21T08:29:34.931Z",
+  "generatedAt": "2026-08-09T09:07:54.420Z",
   "source": "github-git-history+npm-publish-dates",
   "githubBaseUrl": "https://github.com/imaginario27/air-ui",
   "packages": [
     {
       "packageName": "@imaginario27/air-ui-ds",
-      "latestVersion": "1.17.1",
+      "latestVersion": "1.17.3",
       "entries": [
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.17.3",
+          "publishedAt": "2026-08-09",
+          "releaseType": "patch",
+          "notes": [
+            "honor setAutoTitle in CompactHeader"
+          ],
+          "metadata": {
+            "commitCount": 1,
+            "commits": [
+              {
+                "sha": "eb79a3594e3a60458f2351af79b483e5e225ea5e",
+                "shortSha": "eb79a35",
+                "date": "2026-08-09",
+                "subject": "fix(ds): honor setAutoTitle in CompactHeader",
+                "normalizedSubject": "honor setAutoTitle in CompactHeader",
+                "type": "fixed",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/eb79a3594e3a60458f2351af79b483e5e225ea5e",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 0,
+              "fixed": 1,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.17.2",
+          "publishedAt": "2026-07-21",
+          "releaseType": "patch",
+          "notes": [
+            "add Alert description slot, action button gating, and MetricCard slots"
+          ],
+          "metadata": {
+            "commitCount": 1,
+            "commits": [
+              {
+                "sha": "c8384f1ab4e8e7664c60727bd48b27aecf4eec14",
+                "shortSha": "c8384f1",
+                "date": "2026-07-21",
+                "subject": "feat(ds): add Alert description slot, action button gating, and MetricCard slots",
+                "normalizedSubject": "add Alert description slot, action button gating, and MetricCard slots",
+                "type": "added",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/c8384f1ab4e8e7664c60727bd48b27aecf4eec14",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 1,
+              "fixed": 0,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
         {
           "packageName": "@imaginario27/air-ui-ds",
           "version": "1.17.1",

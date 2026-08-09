@@ -4,6 +4,8 @@
 ---
 srcDir: 'layouts/headers/CompactHeader.vue'
 props: 
+    setAutoTitle: true
+    fallbackTitle: "Page title"
     pageTitleFormat: "simple"
     navMenuItems:
         - text: "Home"
@@ -95,6 +97,16 @@ propsSettingsExcludedProps: ['navMenuItems', 'userMenuItems', 'class']
 ::props-table
 ---
 props: [
+    {
+        "name": "setAutoTitle",
+        "default": "true",
+        "type": "boolean"
+    },
+    {
+        "name": "fallbackTitle",
+        "default": "'Page title'",
+        "type": "string"
+    },
     {
         "name": "pageTitleFormat",
         "default": "PageTitleFormat.SIMPLE",
@@ -303,9 +315,39 @@ const userDropdownMenu = ref<DropdownMenuItem[]>([
 ```
 
 ## Usage
+### setAutoTitle
+
+The `setAutoTitle` prop controls whether the compact header sets the page title. When it is `true`, the header calls `useHead` under the hood with the current route's `title` meta. Set it to `false` when the page title is managed elsewhere — the header then never calls `useHead`, so it cannot override your own title.
+
+```vue
+<template>
+    <CompactHeader
+        :setAutoTitle="false"
+    />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `true`
+
+### fallbackTitle
+
+The `fallbackTitle` prop sets the page title used when the current route has no `title` meta. It only applies when `setAutoTitle` is `true`.
+
+```vue
+<template>
+    <CompactHeader
+        fallbackTitle="My app"
+    />
+</template>
+```
+
+- **Type:** `string`
+- **Default:** `'Page title'`
+
 ### pageTitleFormat
 
-The compact header component uses `useHead` under the hood to set the page title based on the selected format as a fallback. 
+The compact header component uses `useHead` under the hood to set the page title based on the selected format as a fallback. It only applies when `setAutoTitle` is `true`.
 
 By using the `PageTitleFormat` enum, you can choose between the available formats for the page title.
 
