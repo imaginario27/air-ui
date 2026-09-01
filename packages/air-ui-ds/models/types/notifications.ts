@@ -1,4 +1,4 @@
-export interface NotificationItem {
+export interface AppNotificationItem {
     id: string;
     read: boolean;
     title: string;
