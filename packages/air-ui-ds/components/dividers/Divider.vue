@@ -9,11 +9,13 @@
                     'border-none',
                     'bg-border-default',
                     'mx-2',
+                    dividerClass
                   ]
                 : [
                     'w-full',
                     'border-xs',
                     'border-border-default',
+                    dividerClass
                   ],
             hideOnMobile && 'hidden md:block',
         ]"
@@ -30,6 +32,7 @@ defineProps({
     hideOnMobile: {
         type: Boolean as PropType<boolean>,
         default: false,
-    },  
+    },
+    dividerClass: String as PropType<string>,
 })
 </script>

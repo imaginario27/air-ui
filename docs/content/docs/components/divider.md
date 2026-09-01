@@ -34,6 +34,10 @@ props: [
         "default": "false",
         "type": "boolean",
     },
+    {
+        "name": "dividerClass",
+        "type": "string",
+    },
 ]
 ---
 ::
@@ -80,6 +84,19 @@ Hides the divider on mobile devices.
 
 - **Type:** `boolean`
 - **Default:** `false`
+
+### dividerClass
+
+Overrides the divider's line class (color and thickness). Falls back to `border-border-default` (horizontal) / `bg-border-default` (vertical) when not set.
+
+```vue
+<template>
+    <Divider dividerClass="border-border-neutral-subtle" />
+</template>
+```
+
+- **Type:** `string`
+- **Default:** `undefined`
 
 ## Custom styles
 

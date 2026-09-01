@@ -76,8 +76,14 @@
 
             <template v-if="isCollapsed">
                 <template v-for="(item, index) in menuItems" :key="`${item.text}-${index}`">
-                    <NavSidebarMenuSectionTitle 
-                        v-if="item.isSectionTitle"
+                    <Divider
+                        v-if="item.isDivider"
+                        class="my-2"
+                        :dividerClass="dividerClass"
+                    />
+
+                    <NavSidebarMenuSectionTitle
+                        v-else-if="item.isSectionTitle"
                         :text="item.text"
                         :icon="item.icon"
                         :styleType="itemsStyleType"
@@ -115,6 +121,7 @@
                             :icon="item.icon"
                             :to="item.to"
                             :disabled="item.disabled"
+                            :detectActive="item.detectActive"
                             :prefetchOn
                             :styleType="itemsStyleType"
                             :textClass="itemsTextClass"
@@ -131,6 +138,7 @@
                 <NavSidebarMenuItemsTree
                     :items="menuItems"
                     :isCollapsed
+                    :dividerClass
                     :openItems
                     :itemsStyleType
                     :itemsCustomClass
@@ -202,6 +210,9 @@ const props = defineProps({
                 to: '/',
             },
             {
+                isDivider: true,
+            },
+            {
                 text: 'Item 3',
                 icon: 'mdi:help',
                 children: [
@@ -254,6 +265,10 @@ const props = defineProps({
     showCollapseDivider: {
         type: Boolean as PropType<boolean>,
         default: false,
+    },
+    dividerClass: {
+        type: String as PropType<string>,
+        default: 'border-border-neutral-subtle',
     },
     collapsedSubmenuOffset: {
         type: Number as PropType<number>,
@@ -454,11 +469,24 @@ const getCollapsedDropdownItems = (
         return []
     }
 
-    return items.flatMap((item) => {
+    return items.reduce<CollapsedDropdownItem[]>((acc, item) => {
+        // Dividers are not standalone entries in the collapsed dropdown —
+        // they mark a separator after the previous item.
+        if (item.isDivider) {
+            const previous = acc[acc.length - 1]
+
+            if (previous) {
+                previous.hasSeparator = true
+            }
+
+            return acc
+        }
+
         const hasItemChildren = hasChildren(item)
-        const dropdownItem: CollapsedDropdownItem = {
+
+        acc.push({
             sectionTitle: item.isSectionTitle,
-            text: item.text,
+            text: item.text ?? '',
             to: item.to,
             icon: item.icon,
             type: item.icon ? DropdownItemType.ICON : DropdownItemType.TEXT,
@@ -469,10 +497,10 @@ const getCollapsedDropdownItems = (
             children: hasItemChildren && level < MAX_NESTING_LEVEL
                 ? getCollapsedDropdownItems(item.children ?? [], level + 1)
                 : undefined,
-        }
+        })
 
-        return [dropdownItem]
-    })
+        return acc
+    }, [])
 }
 
 // Computed

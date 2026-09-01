@@ -7,6 +7,7 @@ import NavSidebarMenuSectionTitle from '@/components/navigation/nav-sidebar/NavS
 import DropdownMenu from '~/components/dropdowns/DropdownMenu.vue'
 import DropdownMenuItem from '~/components/dropdowns/DropdownMenuItem.vue'
 import ActionIconButton from '@/components/buttons/ActionIconButton.vue'
+import Divider from '~/components/dividers/Divider.vue'
 import { Position } from '@/models/enums/positions'
 
 // Shared reactive ref for collapsed state
@@ -402,6 +403,50 @@ describe('NavSidebar.vue', () => {
             expect(item.props('textClass')).toBe('!text-text-danger')
             expect(item.props('iconClass')).toBe('!text-icon-danger')
         })
+    })
+
+    it('renders a Divider for menu items flagged with isDivider', () => {
+        const wrapper = factory({
+            props: {
+                menuItems: [
+                    { text: 'Item 1', icon: 'mdi:help', to: '/' },
+                    { isDivider: true },
+                    { text: 'Item 2', icon: 'mdi:help', to: '/other' },
+                ],
+            },
+        })
+
+        expect(wrapper.findComponent(Divider).exists()).toBe(true)
+        expect(wrapper.findAllComponents(NavSidebarMenuItem)).toHaveLength(2)
+    })
+
+    it('defaults divider items to border-border-neutral-subtle and forwards a custom dividerClass', () => {
+        const menuItems = [
+            { text: 'Item 1', icon: 'mdi:help', to: '/' },
+            { isDivider: true },
+            { text: 'Item 2', icon: 'mdi:help', to: '/other' },
+        ]
+
+        const defaultWrapper = factory({ props: { menuItems } })
+        expect(defaultWrapper.findComponent(Divider).props('dividerClass')).toBe('border-border-neutral-subtle')
+
+        const customWrapper = factory({ props: { menuItems, dividerClass: 'border-border-default' } })
+        expect(customWrapper.findComponent(Divider).props('dividerClass')).toBe('border-border-default')
+    })
+
+    it('forwards detectActive: false from a menu item to NavSidebarMenuItem', () => {
+        const wrapper = factory({
+            props: {
+                menuItems: [
+                    { text: 'Item 1', icon: 'mdi:help', to: '/' },
+                    { text: 'Item 2', icon: 'mdi:help', to: '/other', detectActive: false },
+                ],
+            },
+        })
+
+        const items = wrapper.findAllComponents(NavSidebarMenuItem)
+        expect(items[0]!.props('detectActive')).toBe(true)
+        expect(items[1]!.props('detectActive')).toBe(false)
     })
 
 })

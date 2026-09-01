@@ -17,6 +17,7 @@ props:
         - text: 'Item 2'
           icon: 'mdi:help'
           to: null
+        - isDivider: true
         - text: 'Item 3'
           icon: 'mdi:help'
           to: null
@@ -48,6 +49,7 @@ props:
     multipleSubmenusOpen: false
     isCollapsed: false
     showCollapseDivider: false
+    dividerClass: ""
     collapsedSubmenuOffset: 20
     collapsedSubmenuWidth: 200
     collapsedSubmenuTrigger: "click"
@@ -161,6 +163,11 @@ props: [
         "name": "showCollapseDivider",
         "default": "false",
         "type": "boolean",
+    },
+    {
+        "name": "dividerClass",
+        "default": "border-border-neutral-subtle",
+        "type": "string",
     },
     {
         "name": "collapsedSubmenuOffset",
@@ -406,6 +413,9 @@ const routeItems: SidebarMenuItem[] = [
         to: '/',
     },
     {
+        isDivider: true,
+    },
+    {
         text: 'Item 3',
         icon: 'mdi:help',
         children: [
@@ -448,15 +458,21 @@ const routeItems: SidebarMenuItem[] = [
 
 When the sidebar is collapsed, submenu labels are rendered as plain text labels without prefix markers.
 
+Set `isDivider: true` on an item to render a horizontal `Divider` between entries instead of a link. Divider items need no other fields. They work at any nesting level and, when the sidebar is collapsed, become a separator line inside the submenu dropdown.
+
+Set `detectActive: false` on an item to opt it out of route-based active highlighting. By default every item with a `to` highlights itself when the current route matches.
+
 #### TypeScript interface
 ```ts
 interface SidebarMenuItem {
-    text: string
+    text?: string
     icon?: string
     to?: string
     isSectionTitle?: boolean
+    isDivider?: boolean
     children?: SidebarMenuItem[]
     disabled?: boolean
+    detectActive?: boolean
 }
 ```
 
@@ -571,6 +587,21 @@ A boolean value that determines whether to render the section title as a divider
 
 - **Type:** `boolean`
 - **Default:** `false` 
+
+### dividerClass
+
+Sets the border class applied to divider items (`{ isDivider: true }`) in the menu. Use it to change the divider color or thickness.
+
+```vue
+<template>
+    <NavSidebar
+        dividerClass="border-border-default"
+    />
+</template>
+```
+
+- **Type:** `string`
+- **Default:** `border-border-neutral-subtle`
 
 ### collapsedSubmenuOffset
 
