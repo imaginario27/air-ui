@@ -5,6 +5,17 @@ All notable changes to this package are documented in this file.
 Historical releases were reconstructed from git history (GitHub repository) and npm publish dates.
 Future releases will include detailed entries generated with Changesets.
 
+## 1.17.5 - 2026-09-01
+
+Release type: patch.
+Commits found in range: 1.
+
+### Changed
+
+1. rename NotificationItem interface to AppNotificationItem ([514b46b](https://github.com/imaginario27/air-ui/commit/514b46bf7a108f741f9be00b7278ebce7ff613e9))
+
+- Package: @imaginario27/air-ui-ds.
+
 ## 1.17.4 - 2026-08-09
 
 Release type: patch.
