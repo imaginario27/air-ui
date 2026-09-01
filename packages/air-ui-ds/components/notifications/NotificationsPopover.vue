@@ -135,7 +135,7 @@
 // Props
 const props = defineProps({
     list: {
-        type: Array as PropType<NotificationItem[]>,
+        type: Array as PropType<AppNotificationItem[]>,
         default: () => [],
     },
     limit: {
@@ -290,7 +290,7 @@ const toggleFilterButtons = ref<ToggleButton[]>([
     { text: props.filterUnreadButtonText, value: 'unread', size: ButtonSize.SM },
 ])
 
-const internalList = ref<NotificationItem[]>([...props.list])
+const internalList = ref<AppNotificationItem[]>([...props.list])
 
 // Watchers
 watch(() => props.list, (newList) => {

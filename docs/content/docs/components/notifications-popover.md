@@ -171,7 +171,7 @@ enums:
 external:
   - list
 externalTypes:
-  - NotificationItem[]
+  - AppNotificationItem[]
 propsSettingsExcludedProps: ['list']
 ---
 ::
@@ -184,7 +184,7 @@ props: [
     {
         "name": "list",
         "default": "[]",
-        "type": "NotificationItem[]",
+        "type": "AppNotificationItem[]",
     },
     {
         "name": "limit",
@@ -406,7 +406,7 @@ components: [
 
 ### list
 
-The array of notification items to display. Each item must conform to the `NotificationItem` interface: `id`, `read`, `title`, `description`, `timeAgo`, `author`, `link` (required), plus optional `icon` and `iconColor`.
+The array of notification items to display. Each item must conform to the `AppNotificationItem` interface: `id`, `read`, `title`, `description`, `timeAgo`, `author`, `link` (required), plus optional `icon` and `iconColor`.
 
 ```vue
 <template>
@@ -418,7 +418,7 @@ The array of notification items to display. Each item must conform to the `Notif
 </template>
 
 <script setup lang="ts">
-const notifications: NotificationItem[] = [
+const notifications: AppNotificationItem[] = [
     {
         id: '1',
         read: false,
@@ -434,12 +434,12 @@ const notifications: NotificationItem[] = [
 </script>
 ```
 
-- **Type:** `NotificationItem[]`
+- **Type:** `AppNotificationItem[]`
 - **Default:** `[]`
 
 #### TypeScript interface
 ```ts
-interface NotificationItem {
+interface AppNotificationItem {
     id: string;
     read: boolean;
     title: string;

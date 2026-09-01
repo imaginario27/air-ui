@@ -1,12 +1,43 @@
 {
-  "generatedAt": "2026-08-09T12:54:34.911Z",
+  "generatedAt": "2026-09-01T11:13:39.983Z",
   "source": "github-git-history+npm-publish-dates",
   "githubBaseUrl": "https://github.com/imaginario27/air-ui",
   "packages": [
     {
       "packageName": "@imaginario27/air-ui-ds",
-      "latestVersion": "1.17.4",
+      "latestVersion": "1.17.5",
       "entries": [
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.17.5",
+          "publishedAt": "2026-09-01",
+          "releaseType": "patch",
+          "notes": [
+            "rename NotificationItem interface to AppNotificationItem"
+          ],
+          "metadata": {
+            "commitCount": 1,
+            "commits": [
+              {
+                "sha": "514b46bf7a108f741f9be00b7278ebce7ff613e9",
+                "shortSha": "514b46b",
+                "date": "2026-09-01",
+                "subject": "refactor(root): rename NotificationItem interface to AppNotificationItem",
+                "normalizedSubject": "rename NotificationItem interface to AppNotificationItem",
+                "type": "changed",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/514b46bf7a108f741f9be00b7278ebce7ff613e9",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 0,
+              "fixed": 0,
+              "changed": 1,
+              "breaking": 0
+            }
+          }
+        },
         {
           "packageName": "@imaginario27/air-ui-ds",
           "version": "1.17.4",
