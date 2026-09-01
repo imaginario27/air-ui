@@ -17,10 +17,12 @@ export interface SocialNetwork {
 }
 
 export interface SidebarMenuItem {
-    text: string
+    text?: string
     icon?: string
     to?: string
     isSectionTitle?: boolean
+    isDivider?: boolean
     children?: SidebarMenuItem[]
     disabled?: boolean
+    detectActive?: boolean
 }

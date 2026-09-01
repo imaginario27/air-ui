@@ -6,7 +6,7 @@
             'gap-1',
             'w-full',
             'px-6',
-            !isCollapsed && 'overflow-y-auto',
+            !isCollapsed && 'overflow-y-auto scrollbar-gutter-stable',
         ]"
     >
         <slot />

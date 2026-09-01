@@ -27,4 +27,9 @@ describe('NavSidebarMenu.vue', () => {
         const wrapper = factory({ isCollapsed: true })
         expect(wrapper.find('nav').classes()).not.toContain('overflow-y-auto')
     })
+
+    it('reserves a stable scrollbar gutter on the scroll container when expanded', () => {
+        expect(factory({ isCollapsed: false }).find('nav').classes()).toContain('scrollbar-gutter-stable')
+        expect(factory({ isCollapsed: true }).find('nav').classes()).not.toContain('scrollbar-gutter-stable')
+    })
 })

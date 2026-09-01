@@ -6,8 +6,14 @@
         />
 
         <template v-for="(item, index) in items" :key="getNodeKey(getNodePath(index))">
+            <Divider
+                v-if="item.isDivider"
+                class="my-2"
+                :dividerClass
+            />
+
             <NavSidebarMenuSectionTitle
-                v-if="item.isSectionTitle"
+                v-else-if="item.isSectionTitle"
                 :text="item.text"
                 :icon="item.icon"
                 :styleType="itemsStyleType"
@@ -26,6 +32,7 @@
                     :icon="item.icon"
                     :to="item.to"
                     :disabled="item.disabled"
+                    :detectActive="item.detectActive"
                     :prefetchOn
                     :styleType="itemsStyleType"
                     :textClass="getTextClass(level)"
@@ -46,6 +53,7 @@
                         :items="item.children ?? []"
                         :level="level + 1"
                         :isCollapsed
+                        :dividerClass
                         :openItems
                         :itemsStyleType
                         :itemsTextClass
@@ -83,6 +91,7 @@ const props = defineProps({
         type: Boolean as PropType<boolean>,
         default: false,
     },
+    dividerClass: String as PropType<string>,
     openItems: {
         type: Object as PropType<Record<string, boolean>>,
         default: () => ({}),
