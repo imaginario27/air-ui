@@ -1,20 +1,28 @@
 /**
  * Trims a string to the specified maximum length and appends "..." if it exceeds the limit.
- * Optionally, appends a "Read more" link if `readMoreLink` is provided.
+ * In `link` mode (default), appends a "Read more" link when `readMoreLink` is provided.
+ * In `toggle` mode, `isExpanded` controls whether the full text or the trimmed text is returned,
+ * letting a caller-owned state (e.g. a ref bound to a "Read more"/"Show less" button) drive the output.
  *
  * @param {string} inputString - The text string to be trimmed.
  * @param {number} maxLength - The maximum allowed length of the string.
- * @param {string} [readMoreText='Read more'] - Optional text for the "Read more" link.
- * @param {string} [readMoreLink] - Optional URL for the "Read more" link. If omitted, only "..." is appended.
- * @returns {string} The trimmed string, with "..." or a "Read more" link if truncated.
+ * @param {string} [readMoreText='Read more'] - Optional text for the "Read more" link (`link` mode only).
+ * @param {string} [readMoreLink] - Optional URL for the "Read more" link (`link` mode only). If omitted, only "..." is appended.
+ * @param {'link' | 'toggle'} [readMoreType='link'] - Whether truncation is resolved via a link or via caller-driven `isExpanded` state.
+ * @param {boolean} [isExpanded=false] - In `toggle` mode, returns the full text when `true`. Ignored in `link` mode.
+ * @returns {string} The trimmed string, the full string (when expanded), or a string with a "Read more" link appended.
  * @throws {Error} If `inputString` is not a string.
  * @throws {Error} If `maxLength` is not a number or negative.
+ * @example
+ * trimText('Lorem ipsum dolor sit amet', 10, 'Read more', undefined, 'toggle', isExpanded.value)
  */
 export const trimText = (
-    inputString: string, 
-    maxLength: number, 
-    readMoreText: string = 'Read more', 
-    readMoreLink?: string
+    inputString: string,
+    maxLength: number,
+    readMoreText: string = 'Read more',
+    readMoreLink?: string,
+    readMoreType: 'link' | 'toggle' = 'link',
+    isExpanded: boolean = false
 ): string => {
     if (typeof inputString !== 'string') {
         throw new Error('The inputString parameter must be a text string')
@@ -28,12 +36,17 @@ export const trimText = (
         return inputString
     }
 
+    // In toggle mode, let the caller-owned isExpanded state decide the output
+    if (readMoreType === 'toggle' && isExpanded) {
+        return inputString
+    }
+
     // Trim text
     const trimmedText = inputString.substring(0, maxLength) + '...'
 
-    // Append "Read more" link only if readMoreLink is provided
-    return readMoreLink 
-        ? `${trimmedText} <a href="${readMoreLink}" target="_blank" rel="noopener noreferrer" class="text-text-primary hover:text-text-hover">(${readMoreText})</a>` 
+    // Append "Read more" link only in link mode when readMoreLink is provided
+    return readMoreType === 'link' && readMoreLink
+        ? `${trimmedText} <a href="${readMoreLink}" target="_blank" rel="noopener noreferrer" class="text-text-primary hover:text-text-hover">(${readMoreText})</a>`
         : trimmedText
 
 }
