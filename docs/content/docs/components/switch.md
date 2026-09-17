@@ -3,7 +3,7 @@
 
 ::component-code
 ---
-srcDir: 'forms/fields/Switch.vue'
+srcDir: 'forms/fields/switch/Switch.vue'
 props: 
     id: "switch-id"
     modelValue: false

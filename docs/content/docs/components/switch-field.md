@@ -3,7 +3,7 @@
 
 ::component-code
 ---
-srcDir: 'forms/fields/SwitchField.vue'
+srcDir: 'forms/fields/switch/SwitchField.vue'
 props: 
     id: "field-id"
     label: "Switch label text"
