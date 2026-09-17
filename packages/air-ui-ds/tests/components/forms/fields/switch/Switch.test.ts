@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import Switch from '~/components/forms/fields/Switch.vue'
+import Switch from '~/components/forms/fields/switch/Switch.vue'
 import { ControlFieldSize, SwitchStyle } from '#imports'
 
 describe('Switch.vue', () => {
