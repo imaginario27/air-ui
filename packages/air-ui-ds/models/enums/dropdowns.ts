@@ -5,6 +5,8 @@ export enum DropdownItemType {
     DANGER_ICON = 'danger-icon',
     USER = 'user',
     IMAGE = 'image',
+    CHECKBOX = 'checkbox',
+    SWITCH = 'switch',
 }
 
 export enum DropdownItemSize {

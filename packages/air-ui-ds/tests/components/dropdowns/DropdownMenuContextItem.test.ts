@@ -93,4 +93,58 @@ describe('DropdownMenuContextItem.vue', () => {
         expect(wrapper.emitted('click')).toBeFalsy()
         expect(wrapper.emitted('close')).toBeFalsy()
     })
+
+    describe('checkbox type', () => {
+        it('renders a Checkbox when type is CHECKBOX', () => {
+            const wrapper = factory({ type: DropdownItemType.CHECKBOX })
+            expect(wrapper.findComponent({ name: 'Checkbox' }).exists()).toBe(true)
+        })
+
+        it('reflects the checked prop on the Checkbox modelValue', () => {
+            const wrapper = factory({ type: DropdownItemType.CHECKBOX, checked: true })
+            expect(wrapper.findComponent({ name: 'Checkbox' }).props('modelValue')).toBe(true)
+        })
+
+        it('toggles checked and emits click/update:checked with the new value when clicked', async () => {
+            const wrapper = factory({ type: DropdownItemType.CHECKBOX, checked: false })
+            await wrapper.trigger('click')
+
+            expect(wrapper.emitted('click')).toEqual([[true]])
+            expect(wrapper.emitted('update:checked')).toEqual([[true]])
+        })
+
+        it('does not emit close when clicked', async () => {
+            const wrapper = factory({ type: DropdownItemType.CHECKBOX, checked: false })
+            await wrapper.trigger('click')
+
+            expect(wrapper.emitted('close')).toBeFalsy()
+        })
+    })
+
+    describe('switch type', () => {
+        it('renders a Switch when type is SWITCH', () => {
+            const wrapper = factory({ type: DropdownItemType.SWITCH })
+            expect(wrapper.findComponent({ name: 'Switch' }).exists()).toBe(true)
+        })
+
+        it('reflects the checked prop on the Switch modelValue', () => {
+            const wrapper = factory({ type: DropdownItemType.SWITCH, checked: true })
+            expect(wrapper.findComponent({ name: 'Switch' }).props('modelValue')).toBe(true)
+        })
+
+        it('toggles checked and emits click/update:checked with the new value when clicked', async () => {
+            const wrapper = factory({ type: DropdownItemType.SWITCH, checked: false })
+            await wrapper.trigger('click')
+
+            expect(wrapper.emitted('click')).toEqual([[true]])
+            expect(wrapper.emitted('update:checked')).toEqual([[true]])
+        })
+
+        it('does not emit close when clicked', async () => {
+            const wrapper = factory({ type: DropdownItemType.SWITCH, checked: false })
+            await wrapper.trigger('click')
+
+            expect(wrapper.emitted('close')).toBeFalsy()
+        })
+    })
 })

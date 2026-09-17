@@ -63,6 +63,7 @@
             :icon="item.icon"
             :size="item.size"
             :type="item.type"
+            :checked="item.checked"
             :userDisplayName="item.userDisplayName"
             :userProfileImg="item.userProfileImg"
             :imgUrl="item.imgUrl"
@@ -75,7 +76,7 @@
             :hasNestedLevels="hasNestedItems(item)"
             :kbd="item.kbd"
             :prefetchOn="prefetchOn"
-            @click="handleItemClick(item.callback)"
+            @click="handleItemClick(item.callback, $event)"
             @close="handleClose"
         />
     </template>
@@ -143,8 +144,8 @@ const resolveItemActionType = (item: ContextMenuItem) => {
     return item.actionType ?? DropdownActionType.ACTION
 }
 
-const handleItemClick = (callback?: () => void) => {
-    callback?.()
+const handleItemClick = (callback?: (checked?: boolean) => void, checked?: boolean) => {
+    callback?.(checked)
 }
 
 const handleClose = () => {

@@ -144,6 +144,93 @@ describe('DropdownMenuItem.vue', () => {
         })
     })
 
+    describe('checkbox type', () => {
+        it('renders a Checkbox when type is CHECKBOX', () => {
+            const wrapper = factory({ type: DropdownItemType.CHECKBOX })
+            const checkbox = wrapper.findComponent({ name: 'Checkbox' })
+
+            expect(checkbox.exists()).toBe(true)
+        })
+
+        it('reflects the checked prop on the Checkbox modelValue', () => {
+            const wrapper = factory({ type: DropdownItemType.CHECKBOX, checked: true })
+            const checkbox = wrapper.findComponent({ name: 'Checkbox' })
+
+            expect(checkbox.props('modelValue')).toBe(true)
+        })
+
+        it('defaults checked to false', () => {
+            const wrapper = factory({ type: DropdownItemType.CHECKBOX })
+            const checkbox = wrapper.findComponent({ name: 'Checkbox' })
+
+            expect(checkbox.props('modelValue')).toBe(false)
+        })
+
+        it('does not render a Switch when type is CHECKBOX', () => {
+            const wrapper = factory({ type: DropdownItemType.CHECKBOX })
+            expect(wrapper.findComponent({ name: 'Switch' }).exists()).toBe(false)
+        })
+
+        it('toggles checked and emits click/update:checked with the new value when clicked', async () => {
+            const wrapper = factory({ type: DropdownItemType.CHECKBOX, checked: false })
+            await wrapper.trigger('click')
+
+            expect(wrapper.emitted('click')).toEqual([[true]])
+            expect(wrapper.emitted('update:checked')).toEqual([[true]])
+        })
+
+        it('toggles to false when already checked', async () => {
+            const wrapper = factory({ type: DropdownItemType.CHECKBOX, checked: true })
+            await wrapper.trigger('click')
+
+            expect(wrapper.emitted('click')).toEqual([[false]])
+            expect(wrapper.emitted('update:checked')).toEqual([[false]])
+        })
+
+        it('does not emit close when clicked', async () => {
+            const wrapper = factory({ type: DropdownItemType.CHECKBOX, checked: false })
+            await wrapper.trigger('click')
+
+            expect(wrapper.emitted('close')).toBeFalsy()
+        })
+    })
+
+    describe('switch type', () => {
+        it('renders a Switch when type is SWITCH', () => {
+            const wrapper = factory({ type: DropdownItemType.SWITCH })
+            const switchControl = wrapper.findComponent({ name: 'Switch' })
+
+            expect(switchControl.exists()).toBe(true)
+        })
+
+        it('reflects the checked prop on the Switch modelValue', () => {
+            const wrapper = factory({ type: DropdownItemType.SWITCH, checked: true })
+            const switchControl = wrapper.findComponent({ name: 'Switch' })
+
+            expect(switchControl.props('modelValue')).toBe(true)
+        })
+
+        it('does not render a Checkbox when type is SWITCH', () => {
+            const wrapper = factory({ type: DropdownItemType.SWITCH })
+            expect(wrapper.findComponent({ name: 'Checkbox' }).exists()).toBe(false)
+        })
+
+        it('toggles checked and emits click/update:checked with the new value when clicked', async () => {
+            const wrapper = factory({ type: DropdownItemType.SWITCH, checked: false })
+            await wrapper.trigger('click')
+
+            expect(wrapper.emitted('click')).toEqual([[true]])
+            expect(wrapper.emitted('update:checked')).toEqual([[true]])
+        })
+
+        it('does not emit close when clicked', async () => {
+            const wrapper = factory({ type: DropdownItemType.SWITCH, checked: false })
+            await wrapper.trigger('click')
+
+            expect(wrapper.emitted('close')).toBeFalsy()
+        })
+    })
+
     describe('danger text type', () => {
         it('applies danger text style when type is DANGER_TEXT', () => {
             const wrapper = factory({

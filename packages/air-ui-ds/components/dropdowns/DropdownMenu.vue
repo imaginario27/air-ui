@@ -106,6 +106,7 @@
                                     :icon="item.icon"
                                     :size="item.size"
                                     :type="item.type"
+                                    :checked="item.checked"
                                     :userDisplayName="item.userDisplayName"
                                     :userProfileImg="item.userProfileImg"
                                     :imgUrl="item.imgUrl"
@@ -117,7 +118,7 @@
                                     :disabled="disabled || item.disabled"
                                     :hasNestedLevels="hasNestedItems(item)"
                                     :prefetchOn
-                                    @click="handleClick(item.callback)"
+                                    @click="handleClick(item, $event)"
                                 />
                             </template>
                         </template>
@@ -205,13 +206,14 @@
                                 </template>
                             </DropdownMenu>
 
-                            <DropdownMenuItem 
+                            <DropdownMenuItem
                                 v-else
                                 :actionType="resolveItemActionType(item)"
                                 :text="item.text"
                                 :icon="item.icon"
                                 :size="item.size"
                                 :type="item.type"
+                                :checked="item.checked"
                                 :userDisplayName="item.userDisplayName"
                                 :userProfileImg="item.userProfileImg"
                                 :imgUrl="item.imgUrl"
@@ -223,7 +225,7 @@
                                 :disabled="disabled || item.disabled"
                                 :hasNestedLevels="hasNestedItems(item)"
                                 :prefetchOn
-                                @click="handleClick(item.callback)"
+                                @click="handleClick(item, $event)"
                             />
                         </template>
                     </template>
@@ -427,9 +429,16 @@ const updateRects = () => {
     dropdownRect.value = dropdown.value.getBoundingClientRect()
 }
 
-const handleClick = (callback?: () => void) => {
-    if (callback) callback()
-    close()
+const isToggleItem = (item: DropdownMenuItem) => {
+    return item.type === DropdownItemType.CHECKBOX || item.type === DropdownItemType.SWITCH
+}
+
+const handleClick = (item: DropdownMenuItem, checked?: boolean) => {
+    item.callback?.(checked)
+
+    if (!isToggleItem(item)) {
+        close()
+    }
 }
 
 const shouldCloseFromTarget = (target: Node) => {
