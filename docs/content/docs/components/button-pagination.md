@@ -383,7 +383,7 @@ Sets the result text for a single item.
 
 ### mobileBreakpoint
 
-Sets the viewport width (in pixels) below which the pagination switches to its mobile layout (stacked controls and a reduced page list). It is the single source of truth for responsive switching and is reactive — changing it updates the layout immediately.
+Sets the viewport width (in pixels) below which the pagination switches to its mobile layout (stacked controls and a reduced page list). It is the single source of truth for responsive switching and is reactive: changing it updates the layout immediately.
 
 ```vue
 <template>
