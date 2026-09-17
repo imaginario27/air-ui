@@ -46,15 +46,16 @@
                     :disabled="option.disabled ? option.disabled : disabled"
                     :helpText="option.helpText"
                     :inverse="inverse"
+                    :size="size"
                 />
             </template>
-            
+
             <template v-if="type === RadioType.BUTTON">
                 <RadioButtonField
-                    v-for="option in options" 
+                    v-for="option in options"
                     :id="option.id.toString()"
                     :key="option.id"
-                    v-model="selectedOption" 
+                    v-model="selectedOption"
                     :name
                     :value="option.value"
                     :label="option.label"
@@ -64,6 +65,7 @@
                     :disabled="option.disabled ? option.disabled : disabled"
                     :type="option.type"
                     :icon="option.icon"
+                    :size="size"
                 />
             </template>
         </div>
@@ -125,6 +127,11 @@ const props = defineProps({
     inverse: { // Sets the radio button on the right side of the text
         type: Boolean as PropType<boolean>,
         default: false,
+    },
+    size: {
+        type: String as PropType<ControlFieldSize>,
+        default: ControlFieldSize.MD,
+        validator: (value: ControlFieldSize) => Object.values(ControlFieldSize).includes(value),
     },
     orientation: {
         type: String as PropType<Orientation>,

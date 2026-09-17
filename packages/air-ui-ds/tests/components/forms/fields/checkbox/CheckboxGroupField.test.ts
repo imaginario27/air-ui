@@ -205,4 +205,31 @@ describe('CheckboxGroupField', () => {
             expect(field.props('disabled')).toBe(true)
         }
     })
+
+    it('forwards size prop to CheckboxField options', () => {
+        const wrapper = factory({ size: ControlFieldSize.LG })
+        const fields = wrapper.findAllComponents(CheckboxField)
+
+        for (const field of fields) {
+            expect(field.props('size')).toBe(ControlFieldSize.LG)
+        }
+    })
+
+    it('forwards size prop to CheckboxField options in grid layout', () => {
+        const wrapper = factory({ layout: 'grid', size: ControlFieldSize.SM })
+        const fields = wrapper.findAllComponents(CheckboxField)
+
+        for (const field of fields) {
+            expect(field.props('size')).toBe(ControlFieldSize.SM)
+        }
+    })
+
+    it('defaults size prop to ControlFieldSize.MD', () => {
+        const wrapper = factory()
+        const fields = wrapper.findAllComponents(CheckboxField)
+
+        for (const field of fields) {
+            expect(field.props('size')).toBe(ControlFieldSize.MD)
+        }
+    })
 })

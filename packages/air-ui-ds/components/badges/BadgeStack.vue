@@ -2,17 +2,17 @@
     <div
         class="flex flex-wrap gap-2"
     >
-        <Badge 
-            v-for="(item, index) in visibleBadges" 
-            :key="item.text || index" 
+        <Badge
+            v-for="(item, index) in visibleBadges"
+            :key="item.text || index"
             :text="item.text"
-            :styleType
-            :shape
-            :color
-            :isTransparent
-            :showDot
-            :closeable
-            :showIcon
+            :styleType="item.styleType ?? styleType"
+            :shape="item.shape ?? shape"
+            :color="item.color ?? color"
+            :isTransparent="item.isTransparent ?? isTransparent"
+            :showDot="item.showDot ?? showDot"
+            :closeable="item.closeable ?? closeable"
+            :showIcon="item.showIcon ?? showIcon"
             :icon="item.icon"
             :class="badgeClass"
             @close="() => emit('close', item)"

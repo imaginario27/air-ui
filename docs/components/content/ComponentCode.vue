@@ -81,7 +81,7 @@
                     >
                         <InputField
                             v-if="option.type === 'string' || option.type === 'number'"
-                            :id="option.name"
+                            :id="`playground-${option.name}`"
                             :modelValue="componentProps[option.name]"
                             :label="option.name"
                             placeholder="Write something"
@@ -90,16 +90,16 @@
                             permitNegativeNumber
                             @update:model-value="(value: string) => componentProps[option.name] = option.type === 'number' ? Number(value) : value"
                         />
-                        <SelectField 
+                        <SelectField
                             v-else-if="option.type === 'array'"
-                            :id="option.name"
+                            :id="`playground-${option.name}`"
                             v-model="componentProps[option.name]"
                             :label="option.name"
                             :options="option.options"
                         />
-                        <SwitchField 
+                        <SwitchField
                             v-else-if="option.type === 'boolean'"
-                            :id="option.name"
+                            :id="`playground-${option.name}`"
                             v-model="componentProps[option.name]"
                             :legend="option.name"
                             checkboxWrapperClass="!justify-start"

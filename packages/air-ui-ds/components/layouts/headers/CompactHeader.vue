@@ -191,7 +191,7 @@
 const props = defineProps({
     setAutoTitle: {
         type: Boolean as PropType<boolean>,
-        default: true,
+        default: false,
     },
     fallbackTitle: {
         type: String as PropType<string>,

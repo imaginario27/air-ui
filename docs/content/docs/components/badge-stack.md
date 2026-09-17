@@ -138,9 +138,11 @@ props: [
 ### items
 The `items` prop defines the badges to be displayed.
 
+Each item can optionally override `styleType`, `shape`, `color`, `isTransparent`, `showDot`, `closeable` and `showIcon` individually. When an item does not set one of these, it falls back to the matching `BadgeStack` prop.
+
 ```vue
 <template>
-    <BadgeStack :items="items" />
+    <BadgeStack :items="items" :styleType="BadgeStyle.BORDER" />
 </template>
 <script setup lang="ts">
 const items = [
@@ -148,7 +150,8 @@ const items = [
     { text: "Badge 2" },
     { text: "Badge 3" },
     { text: "Badge 4" },
-    { text: "Badge 5" },
+    // This badge overrides the stack-level styleType and color.
+    { text: "Badge 5", styleType: BadgeStyle.FILLED, color: ColorAccent.DANGER },
 ]
 </script>
 ```
@@ -158,6 +161,13 @@ const items = [
 interface Badge {
     text: string 
     icon?: string 
+    styleType?: BadgeStyle
+    shape?: BadgeShape
+    color?: ColorAccent
+    isTransparent?: boolean
+    showDot?: boolean
+    closeable?: boolean
+    showIcon?: boolean
 }
 ```
 

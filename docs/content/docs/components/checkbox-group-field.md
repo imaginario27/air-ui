@@ -25,6 +25,7 @@ props:
     helpText: "Select one or more options."
     helpTextPosition: "bottom"
     inverse: false
+    size: "md"
     orientation: "vertical"
     layout: "list"
     gridCols: 3
@@ -48,10 +49,20 @@ items:
           text: LIST
         - value: grid
           text: GRID
+    size:
+        - value: xs
+          text: XS
+        - value: sm
+          text: SM
+        - value: md
+          text: MD
+        - value: lg
+          text: LG
 enums:
     orientation: "Orientation"
     helpTextPosition: "Position"
     layout: "ListLayout"
+    size: "ControlFieldSize"
 isPreviewContentBoxed: true
 previewContentMaxWidth: 400
 propsSettingsExcludedProps: ['validator', 'options']
@@ -105,6 +116,11 @@ props: [
         "name": "inverse",
         "default": "false",
         "type": "boolean",
+    },
+    {
+        "name": "size",
+        "default": "ControlFieldSize.MD",
+        "type": "ControlFieldSize",
     },
     {
         "name": "helpTextPosition",
@@ -344,6 +360,43 @@ Sets whether the checkbox is displayed on the right side of the text.
 - **Type:** `boolean`
 - **Default:** `false`
 
+### size
+
+Sets the size of the checkbox options in the group. It uses the `ControlFieldSize` enum.
+
+```vue
+<template>
+    <CheckboxGroupField :size="ControlFieldSize.LG" />
+</template>
+```
+
+- **Type:** `ControlFieldSize`
+- **Default:** `ControlFieldSize.MD`
+
+#### Options
+::options-table
+---
+options: [
+    {
+        value: "XS",
+        description: "Extra Small",
+    },
+    {
+        value: "SM",
+        description: "Small",
+    },
+    {
+        value: "MD",
+        description: "Medium",
+    },
+    {
+        value: "LG",
+        description: "Large",
+    },
+]
+---
+::
+
 ### orientation
 
 Sets the orientation of the checkboxes. When `layout` is `list`, vertical stacks items in a column and horizontal wraps them in a row.
@@ -392,7 +445,7 @@ Sets the layout mode for the options container.
 options: [
     {
         value: "LIST",
-        description: "Options are arranged with flexbox — vertically stacked or horizontally wrapped depending on the orientation prop.",
+        description: "Options are arranged with flexbox, vertically stacked or horizontally wrapped depending on the orientation prop.",
     },
     {
         value: "GRID",
