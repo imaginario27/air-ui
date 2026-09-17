@@ -804,7 +804,7 @@ The `mobileSidebarCloseIcon` prop allows you to set a custom icon for the close 
 
 ### mobileBreakpoint
 
-The `mobileBreakpoint` prop sets the viewport width (in pixels) below which the sidebar switches to its mobile layout. It is the single source of truth for responsive switching: below it the sidebar behaves as a slide-in drawer (toggled by the mobile sidebar control); at or above it the sidebar is always visible. The value is reactive — changing it updates the layout immediately.
+The `mobileBreakpoint` prop sets the viewport width (in pixels) below which the sidebar switches to its mobile layout. It is the single source of truth for responsive switching: below it the sidebar behaves as a slide-in drawer (toggled by the mobile sidebar control); at or above it the sidebar is always visible. The value is reactive: changing it updates the layout immediately.
 
 ```vue
 <template>
@@ -831,7 +831,7 @@ A boolean value that determines whether to render the sidebar as a fixed element
 
 ### stickOnScroll
 
-The `stickOnScroll` prop allows the sidebar to adjust its vertical position dynamically based on the user's scroll position. When enabled, it simulates a "sticky" behavior — the sidebar initially appears slightly offset from the top (defined by `stickyScrollHeight`), and as the user scrolls past that threshold, the sidebar sticks to the very top.
+The `stickOnScroll` prop allows the sidebar to adjust its vertical position dynamically based on the user's scroll position. When enabled, it simulates a "sticky" behavior: the sidebar initially appears slightly offset from the top (defined by `stickyScrollHeight`), and as the user scrolls past that threshold, the sidebar sticks to the very top.
 
 It requires `isFixed` to be true.
 

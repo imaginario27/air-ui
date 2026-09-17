@@ -89,4 +89,22 @@ describe('Section.vue', () => {
         expect(wrapper.findComponent(MaxWidthContainer).exists()).toBe(false)
         expect(wrapper.find('.slot-content').exists()).toBe(true)
     })
+
+    it('forwards passed class to MaxWidthContainer when hasContentMaxWidth is true', () => {
+        const wrapper = mount(Section, {
+            props: { hasContentMaxWidth: true },
+            attrs: { class: 'custom-class' },
+            global: {
+                stubs: {
+                    MaxWidthContainer: false
+                }
+            },
+            slots: {
+                default: '<p class="slot-content">Section Content</p>'
+            }
+        })
+
+        const container = wrapper.findComponent(MaxWidthContainer)
+        expect(container.classes()).toContain('custom-class')
+    })
 })

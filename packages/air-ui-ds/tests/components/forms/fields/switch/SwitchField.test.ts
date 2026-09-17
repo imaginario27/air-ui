@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import SwitchField from '~/components/forms/fields/SwitchField.vue'
+import SwitchField from '~/components/forms/fields/switch/SwitchField.vue'
 import { FormValidationMode } from '~/models/enums/formValidations'
 import { ControlFieldSize, SwitchStyle } from '#imports'
 

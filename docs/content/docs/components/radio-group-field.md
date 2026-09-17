@@ -26,6 +26,7 @@ props:
     helpText: "Select one of the options."
     helpTextPosition: "bottom"
     inverse: false
+    size: "md"
     orientation: "vertical"
 items:
     type: 
@@ -43,10 +44,20 @@ items:
           text: TOP
         - value: bottom
           text: BOTTOM
+    size:
+        - value: xs
+          text: XS
+        - value: sm
+          text: SM
+        - value: md
+          text: MD
+        - value: lg
+          text: LG
 enums:
     type: "RadioType"
     orientation: "Orientation"
     helpTextPosition: "Position"
+    size: "ControlFieldSize"
 isPreviewContentBoxed: true
 previewContentMaxWidth: 400
 propsSettingsExcludedProps: ['validator', 'options']
@@ -110,6 +121,11 @@ props: [
         "name": "inverse",
         "default": "false",
         "type": "boolean",
+    },
+    {
+        "name": "size",
+        "default": "ControlFieldSize.MD",
+        "type": "ControlFieldSize",
     },
     {
         "name": "helpTextPosition",
@@ -351,6 +367,43 @@ props:
 
 - **Type:** `boolean`
 - **Default:** `false`
+
+### size
+
+Sets the size of the radio options in the group. It uses the `ControlFieldSize` enum.
+
+```vue
+<template>
+    <RadioGroupField :size="ControlFieldSize.LG" />
+</template>
+```
+
+- **Type:** `ControlFieldSize`
+- **Default:** `ControlFieldSize.MD`
+
+#### Options
+::options-table
+---
+options: [
+    {
+        value: "XS",
+        description: "Extra Small",
+    },
+    {
+        value: "SM",
+        description: "Small",
+    },
+    {
+        value: "MD",
+        description: "Medium",
+    },
+    {
+        value: "LG",
+        description: "Large",
+    },
+]
+---
+::
 
 ### orientation
 

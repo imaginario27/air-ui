@@ -5,6 +5,7 @@ export interface DropdownMenuItem {
     icon?: string
     size?: DropdownItemSize
     type?: DropdownItemType
+    checked?: boolean
     userDisplayName?: string
     userProfileImg?: string
     imgUrl?: string
@@ -14,7 +15,7 @@ export interface DropdownMenuItem {
     isExternal?: boolean
     hasSeparator?: boolean
     disabled?: boolean
-    callback?: () => void
+    callback?: (checked?: boolean) => void
     children?: DropdownMenuItem[]
 }
 

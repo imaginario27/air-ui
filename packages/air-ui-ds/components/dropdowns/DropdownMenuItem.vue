@@ -59,6 +59,22 @@
                 :size="AvatarSize.XS"
             />
 
+            <Checkbox
+                v-if="type === DropdownItemType.CHECKBOX"
+                :id="`checkbox-${text}`"
+                :modelValue="checked"
+                :size="ControlFieldSize.SM"
+                class="ml-auto pointer-events-none"
+            />
+
+            <Switch
+                v-if="type === DropdownItemType.SWITCH"
+                :id="`switch-${text}`"
+                :modelValue="checked"
+                :size="ControlFieldSize.SM"
+                class="ml-auto pointer-events-none"
+            />
+
             <Icon
                 v-if="hasNestedLevels"
                 name="mdi:chevron-right"
@@ -109,6 +125,10 @@ const props = defineProps({
         default: DropdownItemType.TEXT,
         validator: (value: DropdownItemType) => Object.values(DropdownItemType).includes(value),
     },
+    checked: {
+        type: Boolean as PropType<boolean>,
+        default: false,
+    },
     userDisplayName: {
         type: String as PropType<string>,
         default: "Test user",
@@ -149,15 +169,24 @@ const props = defineProps({
 // States
 const isImageLoaded = ref(true)
 
+// Computed
+const isToggleType = computed(() => props.type === DropdownItemType.CHECKBOX || props.type === DropdownItemType.SWITCH)
+
 // Emits
-const emit = defineEmits(["click", "close"])
+const emit = defineEmits(["click", "close", "update:checked"])
 const emitClick = () => {
     if (props.disabled) return
+    if (props.actionType !== DropdownActionType.ACTION) return
 
-    if (props.actionType === DropdownActionType.ACTION) {
-        emit("click")
-        emit("close")
+    if (isToggleType.value) {
+        const nextChecked = !props.checked
+        emit("click", nextChecked)
+        emit("update:checked", nextChecked)
+        return
     }
+
+    emit("click")
+    emit("close")
 }
 
 // Handlers for image load and error
@@ -186,6 +215,8 @@ const typeClass = computed(() => {
         [DropdownItemType.ICON]: "text-text-default",
         [DropdownItemType.IMAGE]: "text-text-default",
         [DropdownItemType.USER]: "text-text-default",
+        [DropdownItemType.CHECKBOX]: "text-text-default",
+        [DropdownItemType.SWITCH]: "text-text-default",
     }
     return typeVariant[props.type as DropdownItemType] || "text-text-default"
 })
@@ -198,6 +229,8 @@ const iconColorClass = computed(() => {
         [DropdownItemType.ICON]: "text-icon-neutral-subtle",
         [DropdownItemType.IMAGE]: undefined,
         [DropdownItemType.USER]: undefined,
+        [DropdownItemType.CHECKBOX]: undefined,
+        [DropdownItemType.SWITCH]: undefined,
     }
     return colorVariant[props.type as DropdownItemType] || "text-icon-neutral-subtle"
 })

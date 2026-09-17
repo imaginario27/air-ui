@@ -3,13 +3,13 @@
 
 ::component-code
 ---
-srcDir: 'forms/fields/switch/SwitchField.vue'
+srcDir: 'forms/fields/switch/TriStateSwitchField.vue'
 props: 
     id: "field-id"
     label: "Switch label text"
     legend: "Example legend"
     helptText: "Example help text"
-    modelValue: false
+    modelValue: "unchecked"
     validator: null
     error: ""
     required: false
@@ -21,6 +21,13 @@ props:
     checkboxWrapperClass: ""
     labelClass: ""
 items:
+    modelValue:
+        - value: unchecked
+          text: UNCHECKED
+        - value: checked
+          text: CHECKED
+        - value: indeterminate
+          text: INDETERMINATE
     size: 
         - value: xs
           text: XS
@@ -39,9 +46,10 @@ external:
   - modelValue
   - error
 externalTypes:
-  - boolean
+  - TriStateValue
   - string
 enums:
+    modelValue: "TriStateValue"
     size: "ControlFieldSize"
     styleType: "SwitchStyle"
 isPreviewContentBoxed: true
@@ -74,7 +82,8 @@ props: [
     },
     {
         "name": "modelValue",
-        "type": "boolean",
+        "default": "TriStateValue.UNCHECKED",
+        "type": "TriStateValue",
     },
     {
         "name": "validator",
@@ -98,7 +107,7 @@ props: [
     },
     {
         "name": "size",
-        "default": "'md'",
+        "default": "ControlFieldSize.MD",
         "type": "ControlFieldSize",
     },
     {
@@ -134,7 +143,7 @@ Sets the id of the field.
 
 ```vue
 <template>
-    <SwitchField id="field-id" />
+    <TriStateSwitchField id="field-id" />
 </template>
 ```
 
@@ -147,7 +156,7 @@ Sets the label of the field.
 
 ```vue
 <template>
-    <SwitchField label="Switch label text" />
+    <TriStateSwitchField label="Switch label text" />
 </template>
 ```
 
@@ -159,7 +168,7 @@ Sets the legend text of the field.
 
 ```vue
 <template>
-    <SwitchField legend="Legend text" />
+    <TriStateSwitchField legend="Legend text" />
 </template>
 ```
 
@@ -171,7 +180,7 @@ Sets the help text of the field.
 
 ```vue
 <template>
-    <SwitchField helpText="Help text" />
+    <TriStateSwitchField helpText="Help text" />
 </template>
 ```
 
@@ -179,26 +188,49 @@ Sets the help text of the field.
 
 ### modelValue
 
-Sets the value of the field.
+Controls the state of the field. Use `v-model` for two-way binding. It uses the `TriStateValue` enum.
+
+Clicking or pressing space always resolves to `TriStateValue.CHECKED` or `TriStateValue.UNCHECKED`. `TriStateValue.INDETERMINATE` can only be set programmatically.
 
 ```vue
 <template>
-    <SwitchField v-model="isEnabled" />
+    <TriStateSwitchField v-model="state" />
 </template>
 <script setup lang="ts">
-const isEnabled = ref(false)
+const state = ref<TriStateValue>(TriStateValue.INDETERMINATE)
 </script>
 ```
+
+- **Type:** `TriStateValue`
+- **Default:** `TriStateValue.UNCHECKED`
+
+#### Options
+::options-table
+---
+options: [
+    {
+        value: "UNCHECKED",
+        description: "The switch is off.",
+    },
+    {
+        value: "CHECKED",
+        description: "The switch is on.",
+    },
+    {
+        value: "INDETERMINATE",
+        description: "The switch is in a partial/mixed state.",
+    },
+]
+---
+::
 
 ### validator
 
 Sets the validator function for the field, which controls its internal validation state.
 
-Since this field expects a boolean value, the `validateBooleanField` utility should be used to perform required field validation.
-
 ```vue
 <template>
-    <SwitchField :validator="validateBooleanField" />
+    <TriStateSwitchField :validator="myValidator" />
 </template>
 ```
 
@@ -211,7 +243,7 @@ Defines the error message displayed by the field. This prop is bindable via `v-m
 
 ```vue
 <template>
-    <SwitchField v-model:error="Error message" />
+    <TriStateSwitchField v-model:error="Error message" />
 </template>
 ```
 
@@ -224,7 +256,7 @@ Sets the required state of the field.
 
 ```vue
 <template>
-    <SwitchField required />
+    <TriStateSwitchField required />
 </template>
 ```
 
@@ -237,13 +269,12 @@ Sets the disabled state of the field.
 
 ```vue
 <template>
-    <SwitchField disabled />
+    <TriStateSwitchField disabled />
 </template>
 ```
 
 - **Type:** `boolean`
 - **Default:** `false`
-
 
 ### size
 
@@ -251,7 +282,7 @@ Sets the size of the field. It uses the `ControlFieldSize` enum.
 
 ```vue
 <template>
-    <SwitchField :size="ControlFieldSize.LG" />
+    <TriStateSwitchField :size="ControlFieldSize.LG" />
 </template>
 ```
 
@@ -264,19 +295,19 @@ Sets the size of the field. It uses the `ControlFieldSize` enum.
 options: [
     {
         value: "XS",
-        description: "xs",
+        description: "Extra Small",
     },
     {
         value: "SM",
-        description: "sm",
+        description: "Small",
     },
     {
         value: "MD",
-        description: "md",
+        description: "Medium",
     },
     {
         value: "LG",
-        description: "lg",
+        description: "Large",
     },
 ]
 ---
@@ -288,7 +319,7 @@ Sets the icon of the field.
 
 ```vue
 <template>
-    <SwitchField icon="mdi:check" />
+    <TriStateSwitchField icon="mdi:check" />
 </template>
 ```
 
@@ -300,7 +331,7 @@ Sets the style type of the field. It uses the `SwitchStyle` enum.
 
 ```vue
 <template>
-    <SwitchField :styleType="SwitchStyle.SUCCESS" />
+    <TriStateSwitchField :styleType="SwitchStyle.SUCCESS" />
 </template>
 ```
 
@@ -313,11 +344,11 @@ Sets the style type of the field. It uses the `SwitchStyle` enum.
 options: [
     {
         value: "BRAND",
-        description: "Uses the primary brand color for the background when the switch is on.",
+        description: "Uses the primary brand color for the background when the switch is on or indeterminate.",
     },
     {
         value: "SUCCESS",
-        description: "Uses the success color for the background when the switch is on.",
+        description: "Uses the success color for the background when the switch is on or indeterminate.",
     },
 ]
 ---
@@ -329,7 +360,7 @@ When set to `true`, the switch field will adjust its width to fit its content, r
 
 ```vue
 <template>
-    <SwitchField fitToContent />
+    <TriStateSwitchField fitToContent />
 </template>
 ```
 
@@ -342,7 +373,7 @@ Sets additional classes for the checkbox wrapper element.
 
 ```vue
 <template>
-    <SwitchField checkboxWrapperClass="custom-checkbox-wrapper" />
+    <TriStateSwitchField checkboxWrapperClass="custom-checkbox-wrapper" />
 </template>
 ```
 
@@ -354,7 +385,7 @@ Sets additional classes for the label element.
 
 ```vue
 <template>
-    <SwitchField labelClass="custom-label-class" />
+    <TriStateSwitchField labelClass="custom-label-class" />
 </template>
 ```
 

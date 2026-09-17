@@ -9,7 +9,7 @@ Air UI is a modern component and utility framework built on **Vue**, **Nuxt**, a
 
 ### Built on modular packages
 
-Air UI is composed of two focused, modular packages — each designed to serve a specific purpose in your application architecture:
+Air UI is composed of two focused, modular packages, each designed to serve a specific purpose in your application architecture:
 
 
 
@@ -119,7 +119,7 @@ containedIconStyleType: 'flat'
   - **PDF generation**
   - **User and password utilities**
 - Fully compatible with Nuxt's auto-import system
-- Modular by design — use only what you need
+- Modular by design: use only what you need
 
 
 ### Developer experience

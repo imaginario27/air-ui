@@ -267,7 +267,7 @@ Sets the field label displayed above the items.
 
 ### modelValue
 
-Controls the list of items rendered by the repeater via `v-model`. Each entry is passed as-is to the default slot, so items can be any shape — an object, a string, a number, or anything your slot content knows how to render.
+Controls the list of items rendered by the repeater via `v-model`. Each entry is passed as-is to the default slot, so items can be any shape: an object, a string, a number, or anything your slot content knows how to render.
 
 ```vue
 <template>
@@ -365,7 +365,7 @@ Sets the accessible label for the remove-item icon button, shown on every row wh
 
 ### addButtonText
 
-Sets the visible text on the add-item button rendered as a full-width `ActionButton` — shown at every breakpoint when `actionsOrientation` is `horizontal`, and as the mobile-only fallback when `actionsOrientation` is `vertical`.
+Sets the visible text on the add-item button rendered as a full-width `ActionButton`, shown at every breakpoint when `actionsOrientation` is `horizontal`, and as the mobile-only fallback when `actionsOrientation` is `vertical`.
 
 ```vue
 <template>
@@ -388,7 +388,7 @@ Sets the visible text on the add-item button rendered as a full-width `ActionBut
 
 ### removeButtonText
 
-Sets the visible text on the remove-item button rendered as a full-width `ActionButton` — shown at every breakpoint when `actionsOrientation` is `horizontal`, and as the mobile-only fallback when `actionsOrientation` is `vertical`.
+Sets the visible text on the remove-item button rendered as a full-width `ActionButton`, shown at every breakpoint when `actionsOrientation` is `horizontal`, and as the mobile-only fallback when `actionsOrientation` is `vertical`.
 
 ```vue
 <template>
@@ -411,7 +411,7 @@ Sets the visible text on the remove-item button rendered as a full-width `Action
 
 ### actionsOrientation
 
-Controls how the add/remove/move row actions are laid out. `vertical` (the default) places compact icon buttons in a column beside the slot content, which fits best when the slot content is short; on mobile it always falls back to a full-width `ActionButton` row below the content, stacked in a column, since a side column doesn't scale down well. `horizontal` always renders that same full-width button row below the content, at every breakpoint — a better fit when the slot content is tall or the row needs to stack regardless of screen size. It uses the `Orientation` enum.
+Controls how the add/remove/move row actions are laid out. `vertical` (the default) places compact icon buttons in a column beside the slot content, which fits best when the slot content is short; on mobile it always falls back to a full-width `ActionButton` row below the content, stacked in a column, since a side column doesn't scale down well. `horizontal` always renders that same full-width button row below the content, at every breakpoint: a better fit when the slot content is tall or the row needs to stack regardless of screen size. It uses the `Orientation` enum.
 
 ```vue
 <template>
@@ -1071,8 +1071,8 @@ const handleSubmit = () => {
 
 - Click the `plus` icon (or `addButtonText` button) on the last row to add a new item cloned from `defaultValue`.
 - Click the `minus` icon (or `removeButtonText` button) on any row to remove it; the button is hidden when only one item remains.
-- Set `actionsOrientation` to `horizontal` when the slot content is tall or otherwise doesn't fit well next to a compact icon column — it moves add/remove/move actions to a full-width `ActionButton` row below the content, at every breakpoint, stacked in a column on mobile. The default `vertical` keeps a compact icon column beside the content on desktop, and falls back to the same full-width row automatically on mobile.
+- Set `actionsOrientation` to `horizontal` when the slot content is tall or otherwise doesn't fit well next to a compact icon column. It moves add/remove/move actions to a full-width `ActionButton` row below the content, at every breakpoint, stacked in a column on mobile. The default `vertical` keeps a compact icon column beside the content on desktop, and falls back to the same full-width row automatically on mobile.
 - Set `sortingType` to `buttons` or `drag` to allow reordering items; unlike a fixed-column field, every row is reorderable since there is no trailing add-row.
-- In `drag` mode, drag the handle icon at the start of a row to reorder it; a dashed placeholder shows the drop position while dragging. The handle is a focusable button — press `ArrowUp`/`ArrowDown` while it's focused to reorder without a mouse.
+- In `drag` mode, drag the handle icon at the start of a row to reorder it; a dashed placeholder shows the drop position while dragging. The handle is a focusable button: press `ArrowUp`/`ArrowDown` while it's focused to reorder without a mouse.
 - The drop-position placeholder is a `DragPlaceholder`; use `dragPlaceholderClass` to restyle its root element, and `dragPlaceholderText` with `dragPlaceholderTextClass` to label and style the text shown when `showDragPlaceholderText` is `true`.
-- The default slot can render anything: a single control, a multi-field row, or a nested component — the repeater only manages add, remove, and reorder around it. Use the exposed `id` slot prop to build unique ids for each row's controls.
+- The default slot can render anything: a single control, a multi-field row, or a nested component. The repeater only manages add, remove, and reorder around it. Use the exposed `id` slot prop to build unique ids for each row's controls.

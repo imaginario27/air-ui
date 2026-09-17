@@ -38,6 +38,7 @@
                 :disabled="option.disabled ? option.disabled : disabled"
                 :helpText="option.helpText"
                 :inverse="inverse"
+                :size="size"
                 @update:model-value="handleChange(option.value, $event)"
             />
         </Grid>
@@ -64,6 +65,7 @@
                     :disabled="option.disabled ? option.disabled : disabled"
                     :helpText="option.helpText"
                     :inverse="inverse"
+                    :size="size"
                     @update:model-value="handleChange(option.value, $event)"
                 />
             </div>
@@ -117,6 +119,11 @@ const props = defineProps({
     inverse: {
         type: Boolean as PropType<boolean>,
         default: false,
+    },
+    size: {
+        type: String as PropType<ControlFieldSize>,
+        default: ControlFieldSize.MD,
+        validator: (value: ControlFieldSize) => Object.values(ControlFieldSize).includes(value),
     },
     orientation: {
         type: String as PropType<Orientation>,

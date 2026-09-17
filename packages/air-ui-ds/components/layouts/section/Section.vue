@@ -16,7 +16,7 @@
         ]"
     >
         <template v-if="hasContentMaxWidth">
-            <MaxWidthContainer>
+            <MaxWidthContainer :class="attrs.class">
                 <slot />
             </MaxWidthContainer>
         </template>
@@ -26,6 +26,9 @@
     </section>
 </template>
 <script setup lang="ts">
+// Attrs
+const attrs = useAttrs()
+
 // Props
 const props = defineProps({
     id: String as PropType<string | undefined>,

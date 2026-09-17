@@ -190,7 +190,7 @@ props: [
 ## Usage
 ### actionType
 
-The `actionType` prop defines the button’s behavior—whether it performs an action or navigates to a route. It uses the `ButtonActionType` enum.
+The `actionType` prop defines whether the button performs an action or navigates to a route. It uses the `ButtonActionType` enum.
 
 ```vue
 <template>

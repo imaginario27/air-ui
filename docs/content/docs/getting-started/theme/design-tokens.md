@@ -691,7 +691,7 @@ items: [
 
 ## Token usage
 
-Leverage design tokens in your code by applying the corresponding Tailwind classes, following the pattern: `category-name` (e.g., `bg-background-neutral-bold`, `text-text-default`, `border-border-default`, `opacity-disabled`).
+Use design tokens in your code by applying the corresponding Tailwind classes, following the pattern: `category-name` (e.g., `bg-background-neutral-bold`, `text-text-default`, `border-border-default`, `opacity-disabled`).
 
 ```vue
 <div 

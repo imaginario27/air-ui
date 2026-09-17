@@ -288,7 +288,7 @@ Specifies the icon to be used for the close button in the drawer header. It acce
 - **Default:** `'mdi:close'`
 
 ### hasBorder
-Determines whether the drawer should have a border. If set to `false`, the drawer will be rendered without a border, creating a more seamless look with the surrounding content.
+Determines whether the drawer should have a border. If set to `false`, the drawer will be rendered without a border, blending with the surrounding content.
 
 ```vue
 <template>

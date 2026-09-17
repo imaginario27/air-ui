@@ -95,4 +95,37 @@ describe('BadgeStack.vue', () => {
             expect(badge.classes()).not.toContain(ellipsisClass)
         })
     })
+
+    it('falls back to BadgeStack-level props when items do not override them', () => {
+        const wrapper = factory({ styleType: BadgeStyle.FILLED, color: ColorAccent.SUCCESS })
+        const badges = wrapper.findAllComponents(Badge)
+
+        badges.forEach((badge) => {
+            expect(badge.props('styleType')).toBe(BadgeStyle.FILLED)
+            expect(badge.props('color')).toBe(ColorAccent.SUCCESS)
+        })
+    })
+
+    it('lets individual items override BadgeStack-level props', () => {
+        const wrapper = factory({
+            styleType: BadgeStyle.BORDER,
+            color: ColorAccent.NEUTRAL,
+            items: [
+                { text: 'Badge 1' },
+                { text: 'Badge 2', styleType: BadgeStyle.FILLED, color: ColorAccent.DANGER, shape: BadgeShape.PILL, isTransparent: true, showDot: true, closeable: true, showIcon: true, icon: 'mdi:check' },
+            ]
+        })
+        const badges = wrapper.findAllComponents(Badge)
+
+        expect(badges[0].props('styleType')).toBe(BadgeStyle.BORDER)
+        expect(badges[0].props('color')).toBe(ColorAccent.NEUTRAL)
+
+        expect(badges[1].props('styleType')).toBe(BadgeStyle.FILLED)
+        expect(badges[1].props('color')).toBe(ColorAccent.DANGER)
+        expect(badges[1].props('shape')).toBe(BadgeShape.PILL)
+        expect(badges[1].props('isTransparent')).toBe(true)
+        expect(badges[1].props('showDot')).toBe(true)
+        expect(badges[1].props('closeable')).toBe(true)
+        expect(badges[1].props('showIcon')).toBe(true)
+    })
 })

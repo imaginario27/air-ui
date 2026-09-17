@@ -4,7 +4,7 @@
 ---
 srcDir: 'layouts/headers/CompactHeader.vue'
 props: 
-    setAutoTitle: true
+    setAutoTitle: false
     fallbackTitle: "Page title"
     pageTitleFormat: "simple"
     navMenuItems:
@@ -99,7 +99,7 @@ propsSettingsExcludedProps: ['navMenuItems', 'userMenuItems', 'class']
 props: [
     {
         "name": "setAutoTitle",
-        "default": "true",
+        "default": "false",
         "type": "boolean"
     },
     {
@@ -242,7 +242,7 @@ slots: [
     },
     {
         name: "header-actions",
-        description: "Slot to customize the header actions area. Exposes an `onClose` scoped prop — call it to close the enclosing dropdown menu (relevant on mobile, where header actions render inside the mobile menu dropdown).",
+        description: "Slot to customize the header actions area. Exposes an `onClose` scoped prop: call it to close the enclosing dropdown menu (relevant on mobile, where header actions render inside the mobile menu dropdown).",
     },
     {
         name: "bottom-header",
@@ -323,7 +323,7 @@ const userDropdownMenu = ref<DropdownMenuItem[]>([
 ## Usage
 ### setAutoTitle
 
-The `setAutoTitle` prop controls whether the compact header sets the page title. When it is `true`, the header calls `useHead` under the hood with the current route's `title` meta. Set it to `false` when the page title is managed elsewhere — the header then never calls `useHead`, so it cannot override your own title.
+The `setAutoTitle` prop controls whether the compact header sets the page title. When it is `true`, the header calls `useHead` under the hood with the current route's `title` meta. Set it to `false` when the page title is managed elsewhere: the header then never calls `useHead`, so it cannot override your own title.
 
 ```vue
 <template>
@@ -777,7 +777,7 @@ You can also pass an object strategy:
 
 ### navMenuClass
 
-The `navMenuClass` prop allows you to add custom CSS classes to the navigation menu container in the compact header. Show/hide is controlled by `mobileBreakpoint` — these classes are additive styling, not visibility.
+The `navMenuClass` prop allows you to add custom CSS classes to the navigation menu container in the compact header. Show/hide is controlled by `mobileBreakpoint`; these classes are additive styling, not visibility.
 
 ```vue
 <template>
@@ -792,7 +792,7 @@ The `navMenuClass` prop allows you to add custom CSS classes to the navigation m
 
 ### navMobileMenuClass
 
-The `navMobileMenuClass` prop allows you to add custom CSS classes to the mobile navigation menu container in the compact header. Show/hide is controlled by `mobileBreakpoint` — these classes are additive styling, not visibility.
+The `navMobileMenuClass` prop allows you to add custom CSS classes to the mobile navigation menu container in the compact header. Show/hide is controlled by `mobileBreakpoint`; these classes are additive styling, not visibility.
 
 ```vue
 <template>

@@ -6,6 +6,7 @@ import DropdownMenuItem from '@/components/dropdowns/DropdownMenuItem.vue'
 import DropdownSectionItem from '@/components/dropdowns/DropdownSectionItem.vue'
 import { DropdownPosition } from '@/models/enums/positions'
 import { PrefetchOn } from '@/models/enums/prefetch'
+import { DropdownItemType } from '@/models/enums/dropdowns'
 
 const factory = (options: {
     props?: Record<string, unknown>
@@ -106,6 +107,52 @@ describe('DropdownMenu.vue', () => {
 
         expect(mockCallback).toHaveBeenCalled()
         expect((wrapper.vm as any).isOpen).toBe(false)
+    })
+
+    it('calls callback with the toggled value and keeps the dropdown open for CHECKBOX items', async () => {
+        const mockCallback = vi.fn()
+
+        const wrapper = factory({
+            props: {
+                items: [{ text: 'Item', type: DropdownItemType.CHECKBOX, checked: false, callback: mockCallback }],
+            },
+        })
+
+        await wrapper.find('.dropdown-activator').trigger('click')
+        await wrapper.vm.$nextTick()
+        await wrapper.vm.$nextTick()
+
+        const item = wrapper.findComponent(DropdownMenuItem)
+        expect(item.exists()).toBe(true)
+
+        await item.vm.$emit('click', true)
+        await wrapper.vm.$nextTick()
+
+        expect(mockCallback).toHaveBeenCalledWith(true)
+        expect((wrapper.vm as any).isOpen).toBe(true)
+    })
+
+    it('calls callback with the toggled value and keeps the dropdown open for SWITCH items', async () => {
+        const mockCallback = vi.fn()
+
+        const wrapper = factory({
+            props: {
+                items: [{ text: 'Item', type: DropdownItemType.SWITCH, checked: true, callback: mockCallback }],
+            },
+        })
+
+        await wrapper.find('.dropdown-activator').trigger('click')
+        await wrapper.vm.$nextTick()
+        await wrapper.vm.$nextTick()
+
+        const item = wrapper.findComponent(DropdownMenuItem)
+        expect(item.exists()).toBe(true)
+
+        await item.vm.$emit('click', false)
+        await wrapper.vm.$nextTick()
+
+        expect(mockCallback).toHaveBeenCalledWith(false)
+        expect((wrapper.vm as any).isOpen).toBe(true)
     })
 
     it('renders dropdown with default positioning class when no positionClass is provided', async () => {

@@ -132,6 +132,33 @@ describe('RadioGroupField', () => {
         expect(container?.classes()).toContain('sm:grid-cols-2')
     })
 
+    it('forwards size prop to RadioField options', () => {
+        const wrapper = factory({ type: 'default', size: ControlFieldSize.LG })
+        const fields = wrapper.findAllComponents(RadioField)
+
+        for (const field of fields) {
+            expect(field.props('size')).toBe(ControlFieldSize.LG)
+        }
+    })
+
+    it('forwards size prop to RadioButtonField options', () => {
+        const wrapper = factory({ type: 'button', size: ControlFieldSize.SM })
+        const buttons = wrapper.findAllComponents(RadioButtonField)
+
+        for (const button of buttons) {
+            expect(button.props('size')).toBe(ControlFieldSize.SM)
+        }
+    })
+
+    it('defaults size prop to ControlFieldSize.MD', () => {
+        const wrapper = factory({ type: 'default' })
+        const fields = wrapper.findAllComponents(RadioField)
+
+        for (const field of fields) {
+            expect(field.props('size')).toBe(ControlFieldSize.MD)
+        }
+    })
+
     it('forwards option ariaLabel when visual label is omitted', () => {
         const wrapper = factory({
             options: [

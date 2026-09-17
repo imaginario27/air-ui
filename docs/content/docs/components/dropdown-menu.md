@@ -328,6 +328,7 @@ interface DropdownMenuItem {
     icon?: any
     size?: DropdownItemSize
     type?: DropdownItemType
+    checked?: boolean
     userDisplayName?: string
     userProfileImg?: string
     imgUrl?: string
@@ -337,7 +338,7 @@ interface DropdownMenuItem {
     isExternal?: boolean
     hasSeparator?: boolean
     disabled?: boolean
-    callback?: () => void
+    callback?: (checked?: boolean) => void
     children?: DropdownMenuItem[]
 }
 ```
@@ -679,17 +680,20 @@ When `true`, the teleported dropdown panel uses `position: fixed` instead of `po
 - **Default:** `false`
 
 ## DropdownMenuItem
-`<DropdownMenuItem>` represents an individual item within the dropdown menu. It supports multiple visual and functional types—such as text, icons, user profiles, and images—making it flexible for various use cases like navigation, actions, or exporting data.
+`<DropdownMenuItem>` represents an individual item within the dropdown menu. It supports multiple visual and functional types, such as text, icons, user profiles, and images, making it flexible for various use cases like navigation, actions, or exporting data.
 
 ::component-code
 ---
 srcDir: 'dropdowns/DropdownMenuItem.vue'
+model:
+    checked: update:checked
 props: 
-    actionType: "link"
+    actionType: "action"
     text: "Menu item text"
     icon: "mdi:help"
     size: "md"
     type: "text"
+    checked: false
     userDisplayName: "Test user"
     userProfileImg: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
     imgUrl: "https://www.wheeliebinstorage.co.uk/wp-content/uploads/2025/01/Small-Space-Garden-Ideas.jpg"
@@ -721,18 +725,22 @@ items:
           text: USER
         - value: image
           text: IMAGE
+        - value: checkbox
+          text: CHECKBOX
+        - value: switch
+          text: SWITCH
     actionType:
         - value: action
           text: ACTION
         - value: link
           text: LINK
-        prefetchOn:
-                - value: visibility
-                    text: VISIBILITY
-                - value: interaction
-                    text: INTERACTION
+    prefetchOn:
+        - value: visibility
+          text: VISIBILITY
+        - value: interaction
+          text: INTERACTION
 enums:
-        prefetchOn: "PrefetchOn"
+    prefetchOn: "PrefetchOn"
 propsSettingsExcludedProps: ['class']
 ---
 ::
@@ -766,6 +774,11 @@ props: [
         "name": "type",
         "default": "TEXT",
         "type": "DropdownItemType",
+    },
+    {
+        "name": "checked",
+        "default": "false",
+        "type": "boolean",
     },
     {
         "name": "userDisplayName",
@@ -902,6 +915,95 @@ Sets the type of the menu item. Uses the `DropdownItemType` enum.
 
 - **Type:** `DropdownItemType`
 - **Default:** `'TEXT'`
+
+#### Options
+::options-table
+---
+options: [
+    {
+        value: "TEXT",
+        description: "Displays plain text.",
+    },
+    {
+        value: "DANGER_TEXT",
+        description: "Displays text styled to indicate a destructive action.",
+    },
+    {
+        value: "ICON",
+        description: "Displays an icon alongside the text.",
+    },
+    {
+        value: "DANGER_ICON",
+        description: "Displays an icon styled to indicate a destructive action, alongside the text.",
+    },
+    {
+        value: "USER",
+        description: "Displays a user avatar and display name instead of plain text.",
+    },
+    {
+        value: "IMAGE",
+        description: "Displays an image alongside the text.",
+    },
+    {
+        value: "CHECKBOX",
+        description: "Displays a non-interactive Checkbox reflecting the checked prop, aligned to the end of the item.",
+    },
+    {
+        value: "SWITCH",
+        description: "Displays a non-interactive Switch reflecting the checked prop, aligned to the end of the item.",
+    },
+]
+---
+::
+
+### checked
+Sets the checked state of the control rendered when `type` is `DropdownItemType.CHECKBOX` or `DropdownItemType.SWITCH`. Has no effect for other types.
+
+Clicking anywhere on the menu item toggles the state automatically: it emits `click` and `update:checked` with the new boolean value, and, unlike other item types, does **not** close the dropdown, so multiple options can be toggled in the same session. Use `v-model:checked` for two-way binding, or handle `update:checked` manually.
+
+::content-alert
+---
+props:
+    title: "Important"
+    description: "Only a checked/unchecked boolean state is supported. An intermediate/indeterminate state is not considered for dropdown menu items."
+---
+::
+
+```vue
+<template>
+    <DropdownMenuItem
+        type="DropdownItemType.CHECKBOX"
+        text="Show hidden files"
+        v-model:checked="showHiddenFiles"
+    />
+</template>
+<script setup lang="ts">
+const showHiddenFiles = ref(false)
+</script>
+```
+
+When using the `items` prop instead, the toggled value is passed as the first argument to the item's `callback`:
+
+```vue
+<template>
+    <DropdownMenu :items="items" />
+</template>
+<script setup lang="ts">
+const showHiddenFiles = ref(false)
+
+const items = computed<DropdownMenuItem[]>(() => [
+    {
+        text: 'Show hidden files',
+        type: DropdownItemType.CHECKBOX,
+        checked: showHiddenFiles.value,
+        callback: (checked) => { showHiddenFiles.value = checked ?? false },
+    },
+])
+</script>
+```
+
+- **Type:** `boolean`
+- **Default:** `false`
 
 ### userDisplayName
 Sets the userDisplayName of the user profile.

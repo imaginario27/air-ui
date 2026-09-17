@@ -3,14 +3,21 @@
 
 ::component-code
 ---
-srcDir: 'forms/fields/switch/Switch.vue'
+srcDir: 'forms/fields/switch/TriStateSwitch.vue'
 props: 
-    id: "switch-id"
-    modelValue: false
+    id: "tri-state-switch-id"
+    modelValue: "unchecked"
     disabled: false
     size: "md"
     styleType: "brand"
 items:
+    modelValue:
+        - value: unchecked
+          text: UNCHECKED
+        - value: checked
+          text: CHECKED
+        - value: indeterminate
+          text: INDETERMINATE
     size: 
         - value: xs
           text: XS
@@ -28,8 +35,9 @@ items:
 external:
   - modelValue
 externalTypes:
-  - boolean
+  - TriStateValue
 enums:
+    modelValue: "TriStateValue"
     size: "ControlFieldSize"
     styleType: "SwitchStyle"
 isPreviewContentBoxed: true
@@ -49,8 +57,8 @@ props: [
     },
     {
         "name": "modelValue",
-        "default": "false",
-        "type": "boolean",
+        "default": "TriStateValue.UNCHECKED",
+        "type": "TriStateValue",
     },
     {
         "name": "disabled",
@@ -79,7 +87,7 @@ Sets the id of the underlying native checkbox input.
 
 ```vue
 <template>
-    <Switch id="my-switch" />
+    <TriStateSwitch id="my-switch" />
 </template>
 ```
 
@@ -88,19 +96,41 @@ Sets the id of the underlying native checkbox input.
 
 ### modelValue
 
-Controls the checked state of the switch. Use `v-model` for two-way binding.
+Controls the state of the switch. Use `v-model` for two-way binding. It uses the `TriStateValue` enum.
+
+Clicking or pressing space always resolves to `TriStateValue.CHECKED` or `TriStateValue.UNCHECKED`. `TriStateValue.INDETERMINATE` can only be set programmatically (for example, from a parent computing a partial-selection state), matching how tri-state checkboxes behave natively.
 
 ```vue
 <template>
-    <Switch id="my-switch" v-model="isEnabled" />
+    <TriStateSwitch id="my-switch" v-model="state" />
 </template>
 <script setup lang="ts">
-const isEnabled = ref(false)
+const state = ref<TriStateValue>(TriStateValue.INDETERMINATE)
 </script>
 ```
 
-- **Type:** `boolean`
-- **Default:** `false`
+- **Type:** `TriStateValue`
+- **Default:** `TriStateValue.UNCHECKED`
+
+#### Options
+::options-table
+---
+options: [
+    {
+        value: "UNCHECKED",
+        description: "The switch is off.",
+    },
+    {
+        value: "CHECKED",
+        description: "The switch is on.",
+    },
+    {
+        value: "INDETERMINATE",
+        description: "The switch is in a partial/mixed state. The handle rests in the middle and aria-checked is set to \"mixed\".",
+    },
+]
+---
+::
 
 ### disabled
 
@@ -108,7 +138,7 @@ Sets the disabled state of the switch. When disabled, clicks are ignored and the
 
 ```vue
 <template>
-    <Switch id="my-switch" disabled />
+    <TriStateSwitch id="my-switch" disabled />
 </template>
 ```
 
@@ -121,7 +151,7 @@ Sets the size of the switch. It uses the `ControlFieldSize` enum.
 
 ```vue
 <template>
-    <Switch id="my-switch" :size="ControlFieldSize.LG" />
+    <TriStateSwitch id="my-switch" :size="ControlFieldSize.LG" />
 </template>
 ```
 
@@ -158,7 +188,7 @@ Sets the style type of the switch. It uses the `SwitchStyle` enum.
 
 ```vue
 <template>
-    <Switch id="my-switch" :styleType="SwitchStyle.SUCCESS" />
+    <TriStateSwitch id="my-switch" :styleType="SwitchStyle.SUCCESS" />
 </template>
 ```
 
@@ -171,11 +201,11 @@ Sets the style type of the switch. It uses the `SwitchStyle` enum.
 options: [
     {
         value: "BRAND",
-        description: "Uses the primary brand color for the background when the switch is on.",
+        description: "Uses the primary brand color for the background when the switch is on or indeterminate.",
     },
     {
         value: "SUCCESS",
-        description: "Uses the success color for the background when the switch is on.",
+        description: "Uses the success color for the background when the switch is on or indeterminate.",
     },
 ]
 ---

@@ -60,37 +60,37 @@ describe('CompactHeader.vue', () => {
         vi.clearAllMocks()
     })
 
-    it('sets the page title when setAutoTitle is true (default)', async () => {
+    it('does not set the page title when setAutoTitle is false (default)', async () => {
         factory()
+        await nextTick()
+
+        expect(pageTitleSpy).not.toHaveBeenCalled()
+    })
+
+    it('sets the page title when setAutoTitle is true', async () => {
+        factory({ setAutoTitle: true })
         await nextTick()
 
         expect(pageTitleSpy).toHaveBeenCalled()
         expect(pageTitleSpy.mock.calls.at(-1)?.[2]).toBe('simple')
     })
 
-    it('does not set the page title when setAutoTitle is false', async () => {
-        factory({ setAutoTitle: false })
-        await nextTick()
-
-        expect(pageTitleSpy).not.toHaveBeenCalled()
-    })
-
     it('forwards pageTitleFormat when setting the page title', async () => {
-        factory({ pageTitleFormat: PageTitleFormat.FULL })
+        factory({ setAutoTitle: true, pageTitleFormat: PageTitleFormat.FULL })
         await nextTick()
 
         expect(pageTitleSpy.mock.calls.at(-1)?.[2]).toBe('full')
     })
 
     it('uses the default fallbackTitle when the route has no title meta', async () => {
-        factory()
+        factory({ setAutoTitle: true })
         await nextTick()
 
         expect(pageTitleSpy.mock.calls.at(-1)?.[0]).toBe('Page title')
     })
 
     it('uses a custom fallbackTitle when the route has no title meta', async () => {
-        factory({ fallbackTitle: 'Untitled page' })
+        factory({ setAutoTitle: true, fallbackTitle: 'Untitled page' })
         await nextTick()
 
         expect(pageTitleSpy.mock.calls.at(-1)?.[0]).toBe('Untitled page')
