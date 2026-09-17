@@ -5,6 +5,17 @@ All notable changes to this package are documented in this file.
 Historical releases were reconstructed from git history (GitHub repository) and npm publish dates.
 Future releases will include detailed entries generated with Changesets.
 
+## 1.17.6 - 2026-09-01
+
+Release type: patch.
+Commits found in range: 1.
+
+### Added
+
+1. add divider items and detectActive opt-out to NavSidebar ([3b5b894](https://github.com/imaginario27/air-ui/commit/3b5b8942ef8a354793e64ab7b7ae6a1fd6e3712c))
+
+- Package: @imaginario27/air-ui-ds.
+
 ## 1.17.5 - 2026-09-01
 
 Release type: patch.
