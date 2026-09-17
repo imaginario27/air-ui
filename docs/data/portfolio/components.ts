@@ -297,6 +297,26 @@ export const componentList: ComponentPortfolioItem[] = [
         to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/toggle-buttons-group-field`,
         imgUrl: `/images/thumbnails/components/toggle-buttons-group-field.png`,
     },
+    {
+        title: 'TriStateCheckbox',
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/tri-state-checkbox`,
+        imgUrl: `/images/thumbnails/components/checkbox.png`,
+    },
+    {
+        title: 'TriStateCheckboxField',
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/tri-state-checkbox-field`,
+        imgUrl: `/images/thumbnails/components/checkbox-field.png`,
+    },
+    {
+        title: 'TriStateSwitch',
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/tri-state-switch`,
+        imgUrl: `/images/thumbnails/components/switch.png`,
+    },
+    {
+        title: 'TriStateSwitchField',
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/tri-state-switch-field`,
+        imgUrl: `/images/thumbnails/components/switch-field.png`,
+    },
 
     // OVERLAY
     {

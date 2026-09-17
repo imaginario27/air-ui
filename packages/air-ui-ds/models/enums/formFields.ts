@@ -42,3 +42,9 @@ export enum RepeatingFieldSortingType {
     BUTTONS = 'buttons',
     DRAG = 'drag'
 }
+
+export enum TriStateValue {
+    UNCHECKED = 'unchecked',
+    CHECKED = 'checked',
+    INDETERMINATE = 'indeterminate',
+}
