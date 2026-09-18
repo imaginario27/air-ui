@@ -1,12 +1,55 @@
 {
-  "generatedAt": "2026-09-17T15:24:48.665Z",
+  "generatedAt": "2026-09-18T10:52:04.802Z",
   "source": "github-git-history+npm-publish-dates",
   "githubBaseUrl": "https://github.com/imaginario27/air-ui",
   "packages": [
     {
       "packageName": "@imaginario27/air-ui-ds",
-      "latestVersion": "1.18.0",
+      "latestVersion": "1.18.1",
       "entries": [
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.18.1",
+          "publishedAt": "2026-09-18",
+          "releaseType": "patch",
+          "notes": [
+            "add check type to DropdownMenuItem",
+            "support check type in DropdownMenuContextItem and DropdownMenu"
+          ],
+          "metadata": {
+            "commitCount": 2,
+            "commits": [
+              {
+                "sha": "ef6925adca8b627e3a6b0d5797f393cf88ee5bfe",
+                "shortSha": "ef6925a",
+                "date": "2026-09-18",
+                "subject": "fix(ds): support check type in DropdownMenuContextItem and DropdownMenu",
+                "normalizedSubject": "support check type in DropdownMenuContextItem and DropdownMenu",
+                "type": "fixed",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/ef6925adca8b627e3a6b0d5797f393cf88ee5bfe",
+                "prUrl": null
+              },
+              {
+                "sha": "0e834c3253f1b2e968668db1049b3eb2e44ccc98",
+                "shortSha": "0e834c3",
+                "date": "2026-09-18",
+                "subject": "feat(ds): add check type to DropdownMenuItem",
+                "normalizedSubject": "add check type to DropdownMenuItem",
+                "type": "added",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/0e834c3253f1b2e968668db1049b3eb2e44ccc98",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 1,
+              "fixed": 1,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
         {
           "packageName": "@imaginario27/air-ui-ds",
           "version": "1.18.0",
@@ -3397,8 +3440,39 @@
     },
     {
       "packageName": "@imaginario27/air-ui-utils",
-      "latestVersion": "1.2.5",
+      "latestVersion": "1.2.6",
       "entries": [
+        {
+          "packageName": "@imaginario27/air-ui-utils",
+          "version": "1.2.6",
+          "publishedAt": "2026-09-17",
+          "releaseType": "patch",
+          "notes": [
+            "add toggle mode to trimText"
+          ],
+          "metadata": {
+            "commitCount": 1,
+            "commits": [
+              {
+                "sha": "30f74d12281e070ca8fe78aacc6a59c3bf6c35d8",
+                "shortSha": "30f74d1",
+                "date": "2026-09-17",
+                "subject": "feat(utils): add toggle mode to trimText",
+                "normalizedSubject": "add toggle mode to trimText",
+                "type": "added",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/30f74d12281e070ca8fe78aacc6a59c3bf6c35d8",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 1,
+              "fixed": 0,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
         {
           "packageName": "@imaginario27/air-ui-utils",
           "version": "1.2.5",
