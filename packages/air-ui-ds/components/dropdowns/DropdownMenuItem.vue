@@ -76,6 +76,12 @@
             />
 
             <Icon
+                v-if="type === DropdownItemType.CHECK && checked"
+                name="mdi:check"
+                iconClass="!text-icon-primary-brand-active ml-auto"
+            />
+
+            <Icon
                 v-if="hasNestedLevels"
                 name="mdi:chevron-right"
                 iconClass="text-icon-neutral-subtle ml-auto"
@@ -170,7 +176,7 @@ const props = defineProps({
 const isImageLoaded = ref(true)
 
 // Computed
-const isToggleType = computed(() => props.type === DropdownItemType.CHECKBOX || props.type === DropdownItemType.SWITCH)
+const isToggleType = computed(() => props.type === DropdownItemType.CHECKBOX || props.type === DropdownItemType.SWITCH || props.type === DropdownItemType.CHECK)
 
 // Emits
 const emit = defineEmits(["click", "close", "update:checked"])
@@ -217,6 +223,7 @@ const typeClass = computed(() => {
         [DropdownItemType.USER]: "text-text-default",
         [DropdownItemType.CHECKBOX]: "text-text-default",
         [DropdownItemType.SWITCH]: "text-text-default",
+        [DropdownItemType.CHECK]: "text-text-default",
     }
     return typeVariant[props.type as DropdownItemType] || "text-text-default"
 })
@@ -231,6 +238,7 @@ const iconColorClass = computed(() => {
         [DropdownItemType.USER]: undefined,
         [DropdownItemType.CHECKBOX]: undefined,
         [DropdownItemType.SWITCH]: undefined,
+        [DropdownItemType.CHECK]: undefined,
     }
     return colorVariant[props.type as DropdownItemType] || "text-icon-neutral-subtle"
 })

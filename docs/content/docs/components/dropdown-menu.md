@@ -729,6 +729,8 @@ items:
           text: CHECKBOX
         - value: switch
           text: SWITCH
+        - value: check
+          text: CHECK
     actionType:
         - value: action
           text: ACTION
@@ -952,12 +954,16 @@ options: [
         value: "SWITCH",
         description: "Displays a non-interactive Switch reflecting the checked prop, aligned to the end of the item.",
     },
+    {
+        value: "CHECK",
+        description: "Displays a check icon reflecting the checked prop, aligned to the end of the item, when checked is true.",
+    },
 ]
 ---
 ::
 
 ### checked
-Sets the checked state of the control rendered when `type` is `DropdownItemType.CHECKBOX` or `DropdownItemType.SWITCH`. Has no effect for other types.
+Sets the checked state of the control rendered when `type` is `DropdownItemType.CHECKBOX`, `DropdownItemType.SWITCH`, or `DropdownItemType.CHECK`. Has no effect for other types.
 
 Clicking anywhere on the menu item toggles the state automatically: it emits `click` and `update:checked` with the new boolean value, and, unlike other item types, does **not** close the dropdown, so multiple options can be toggled in the same session. Use `v-model:checked` for two-way binding, or handle `update:checked` manually.
 

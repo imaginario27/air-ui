@@ -231,6 +231,47 @@ describe('DropdownMenuItem.vue', () => {
         })
     })
 
+    describe('check type', () => {
+        it('renders a check Icon when type is CHECK and checked is true', () => {
+            const wrapper = factory({ type: DropdownItemType.CHECK, checked: true })
+            const icons = wrapper.findAllComponents(Icon)
+            const checkIcon = icons.find(icon => icon.props('name') === 'mdi:check')
+
+            expect(checkIcon).toBeTruthy()
+        })
+
+        it('does not render a check Icon when type is CHECK and checked is false', () => {
+            const wrapper = factory({ type: DropdownItemType.CHECK, checked: false })
+            const icons = wrapper.findAllComponents(Icon)
+            const checkIcon = icons.find(icon => icon.props('name') === 'mdi:check')
+
+            expect(checkIcon).toBeFalsy()
+        })
+
+        it('toggles checked and emits click/update:checked with the new value when clicked', async () => {
+            const wrapper = factory({ type: DropdownItemType.CHECK, checked: false })
+            await wrapper.trigger('click')
+
+            expect(wrapper.emitted('click')).toEqual([[true]])
+            expect(wrapper.emitted('update:checked')).toEqual([[true]])
+        })
+
+        it('toggles to false when already checked', async () => {
+            const wrapper = factory({ type: DropdownItemType.CHECK, checked: true })
+            await wrapper.trigger('click')
+
+            expect(wrapper.emitted('click')).toEqual([[false]])
+            expect(wrapper.emitted('update:checked')).toEqual([[false]])
+        })
+
+        it('does not emit close when clicked', async () => {
+            const wrapper = factory({ type: DropdownItemType.CHECK, checked: false })
+            await wrapper.trigger('click')
+
+            expect(wrapper.emitted('close')).toBeFalsy()
+        })
+    })
+
     describe('danger text type', () => {
         it('applies danger text style when type is DANGER_TEXT', () => {
             const wrapper = factory({
