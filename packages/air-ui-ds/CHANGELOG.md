@@ -5,6 +5,42 @@ All notable changes to this package are documented in this file.
 Historical releases were reconstructed from git history (GitHub repository) and npm publish dates.
 Future releases will include detailed entries generated with Changesets.
 
+## 1.18.1 - 2026-09-18
+
+Release type: patch.
+Commits found in range: 2.
+
+### Added
+
+1. add check type to DropdownMenuItem ([0e834c3](https://github.com/imaginario27/air-ui/commit/0e834c3253f1b2e968668db1049b3eb2e44ccc98))
+
+### Fixed
+
+1. support check type in DropdownMenuContextItem and DropdownMenu ([ef6925a](https://github.com/imaginario27/air-ui/commit/ef6925adca8b627e3a6b0d5797f393cf88ee5bfe))
+
+- Package: @imaginario27/air-ui-ds.
+
+## 1.18.0 - 2026-09-17
+
+Release type: minor.
+Commits found in range: 5.
+
+### Added
+
+1. support checkbox and switch items in dropdown menu ([1731244](https://github.com/imaginario27/air-ui/commit/1731244b0bbab760dec6aae255440fefd2a87d80))
+2. add tri-state checkbox and switch components ([8bc99bd](https://github.com/imaginario27/air-ui/commit/8bc99bd4730ee247c247c2f1bc335c43475d50f4))
+
+### Fixed
+
+1. fix badge stack overrides, group field sizing, and layout components ([ad91d0b](https://github.com/imaginario27/air-ui/commit/ad91d0bce352a9649bdb99976f0f2f9d55cfbd34))
+
+### Changed
+
+1. update switch test imports to new subfolder path ([2cf9bd9](https://github.com/imaginario27/air-ui/commit/2cf9bd9ec019d79f6a75b117d2ea479fc1506a58))
+2. move switch field components into switch/ subfolder ([4392a0c](https://github.com/imaginario27/air-ui/commit/4392a0c53d2df7f22327f8c4d453e0f666c438b9))
+
+- Package: @imaginario27/air-ui-ds.
+
 ## 1.17.6 - 2026-09-01
 
 Release type: patch.
