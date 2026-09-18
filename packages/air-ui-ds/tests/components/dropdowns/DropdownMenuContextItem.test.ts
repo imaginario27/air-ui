@@ -147,4 +147,34 @@ describe('DropdownMenuContextItem.vue', () => {
             expect(wrapper.emitted('close')).toBeFalsy()
         })
     })
+
+    describe('check type', () => {
+        it('renders a check Icon when type is CHECK and checked is true', () => {
+            const wrapper = factory({ type: DropdownItemType.CHECK, checked: true })
+            const icon = wrapper.findComponent({ name: 'Icon' })
+
+            expect(icon.exists()).toBe(true)
+            expect(icon.props('name')).toBe('mdi:check')
+        })
+
+        it('does not render a check Icon when type is CHECK and checked is false', () => {
+            const wrapper = factory({ type: DropdownItemType.CHECK, checked: false })
+            expect(wrapper.findComponent({ name: 'Icon' }).exists()).toBe(false)
+        })
+
+        it('toggles checked and emits click/update:checked with the new value when clicked', async () => {
+            const wrapper = factory({ type: DropdownItemType.CHECK, checked: false })
+            await wrapper.trigger('click')
+
+            expect(wrapper.emitted('click')).toEqual([[true]])
+            expect(wrapper.emitted('update:checked')).toEqual([[true]])
+        })
+
+        it('does not emit close when clicked', async () => {
+            const wrapper = factory({ type: DropdownItemType.CHECK, checked: false })
+            await wrapper.trigger('click')
+
+            expect(wrapper.emitted('close')).toBeFalsy()
+        })
+    })
 })
