@@ -29,6 +29,7 @@ Creates a pull request via `gh pr create` that matches AirUI's commit/scope conv
 3. **Never** add `Co-Authored-By`, "Generated with Claude Code", or any tool-attribution trailer.
 4. **No "Summary" / "Test plan" / emoji sections** — only the bulleted list (or scoped groups).
 5. **Always show the full title + body to the user and wait for confirmation before running `gh pr create`.**
+6. **Always create a brand-new PR with `gh pr create`.** Never run `gh pr edit`, `gh pr close` + reopen, or otherwise update/override an existing PR — even if one already exists for the same branch. If `gh pr create` refuses because an open PR already exists for this head branch, tell the user instead of falling back to editing it.
 
 ## Procedure
 
@@ -37,7 +38,7 @@ Creates a pull request via `gh pr create` that matches AirUI's commit/scope conv
    - `git rev-parse --abbrev-ref HEAD` — current branch
    - `git log main..HEAD --oneline` — commits to include
    - `git diff main...HEAD --stat` — files touched (use to determine scope mix)
-   - `gh pr view --json number 2>$null` (PowerShell) or `gh pr view --json number 2>/dev/null` (bash) — check if PR already exists
+   - `gh pr view --json number,state 2>$null` (PowerShell) or `gh pr view --json number,state 2>/dev/null` (bash) — informational only, to warn the user if an open PR already exists for this branch. Never use its result to edit/update that PR — this skill only ever creates new PRs (see rule 6).
 2. Determine scope(s) from the touched paths:
    - `packages/air-ui-ds/**` → `ds`
    - `packages/air-ui-utils/**` → `utils`
