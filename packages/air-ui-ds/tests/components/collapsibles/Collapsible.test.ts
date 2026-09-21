@@ -1,8 +1,9 @@
 import { mount } from '@vue/test-utils'
 import Collapsible from '@/components/collapsibles/Collapsible.vue'
 import ActionIconButton from '@/components/buttons/ActionIconButton.vue'
+import { ButtonSize } from '@/models/enums/buttons'
 
-const factory = (props?: { title?: string }) => {
+const factory = (props?: { title?: string; titleClass?: string; buttonSize?: ButtonSize }) => {
     return mount(Collapsible, {
         props,
         slots: {
@@ -71,5 +72,27 @@ describe('Collapsible', () => {
         const panel = wrapper.find('[role="region"]')
 
         expect(header.attributes('aria-controls')).toBe(panel.attributes('id'))
+    })
+
+    it('applies titleClass to the title span', () => {
+        const wrapper = factory({ titleClass: 'text-lg' })
+        const title = wrapper.find('.collapsible-header span')
+
+        expect(title.classes()).toContain('text-lg')
+        expect(title.classes()).toContain('font-semibold')
+    })
+
+    it('passes buttonSize to the icon button', () => {
+        const wrapper = factory({ buttonSize: ButtonSize.XL })
+        const iconButton = wrapper.findComponent(ActionIconButton)
+
+        expect(iconButton.props('size')).toBe(ButtonSize.XL)
+    })
+
+    it('defaults buttonSize to ButtonSize.MD', () => {
+        const wrapper = factory()
+        const iconButton = wrapper.findComponent(ActionIconButton)
+
+        expect(iconButton.props('size')).toBe(ButtonSize.MD)
     })
 })

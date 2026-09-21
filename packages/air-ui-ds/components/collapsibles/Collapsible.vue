@@ -1,21 +1,21 @@
 <template>
     <div class="w-full flex flex-col gap-2 py-3">
         <button
-            type="button"
             :id="headerId"
+            type="button"
             class="collapsible-header w-full flex justify-between gap-4 hover:cursor-pointer text-left"
             :aria-expanded="isOpen"
             :aria-controls="panelId"
             @click="toggle"
         >
-            <span class="font-semibold mt-1">
+            <span :class="['font-semibold mt-1', titleClass]">
                 {{ title }}
             </span>
 
             <ActionIconButton
                 :icon="isOpen ? 'mdi:unfold-less-horizontal' : 'mdi:unfold-more-horizontal'"
                 :styleType="ButtonStyleType.NEUTRAL_OUTLINED"
-                :size="ButtonSize.MD"
+                :size="buttonSize"
                 tabindex="-1"
                 aria-hidden="true"
             />
@@ -43,6 +43,12 @@ const props = defineProps({
     modelValue: {
         type: Boolean as PropType<boolean>,
         default: false,
+    },
+    titleClass: String as PropType<string>,
+    buttonSize: {
+        type: String as PropType<ButtonSize>,
+        default: ButtonSize.MD,
+        validator: (value: ButtonSize) => Object.values(ButtonSize).includes(value),
     },
 })
 
