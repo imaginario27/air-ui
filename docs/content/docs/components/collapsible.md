@@ -6,6 +6,8 @@ srcDir: 'collapsibles/Collapsible.vue'
 props: 
     modelValue: false
     title: "Item title"
+    titleClass: ""
+    buttonSize: "md"
 slots:
     default: ""
 slotComponents:
@@ -13,6 +15,22 @@ slotComponents:
         srcDir: 'placeholders/ContentPlaceholder.vue'
         props:
             text: "Insert content here"
+items:
+    buttonSize: 
+        - value: 2xl
+          text: XXL
+        - value: xl
+          text: XL
+        - value: lg
+          text: LG
+        - value: md
+          text: MD
+        - value: sm
+          text: SM
+        - value: xs
+          text: XS
+enums:
+    buttonSize: "ButtonSize"
 external:
   - modelValue
 externalTypes:
@@ -34,6 +52,15 @@ props: [
         "name": "title",
         "default": "'Item title'",
         "type": "string",
+    },
+    {
+        "name": "titleClass",
+        "type": "string",
+    },
+    {
+        "name": "buttonSize",
+        "default": "ButtonSize.MD",
+        "type": "ButtonSize",
     },
 ]
 ---
@@ -97,3 +124,68 @@ Collapsible item title.
 
 - **Type:** `string`
 - **Default:** `'Item title'`
+
+### titleClass
+Adds extra classes to the title `<span>`, appended after the base styling.
+
+```vue
+<template>
+    <Collapsible
+        title="My collapsible title"
+        titleClass="text-lg"
+    >
+        <!-- Insert content here -->
+    </Collapsible>
+</template>
+```
+
+- **Type:** `string`
+
+### buttonSize
+Controls the size of the expand/collapse icon button via `ButtonSize` enum.
+
+```vue
+<template>
+    <Collapsible
+        title="My collapsible title"
+        :buttonSize="ButtonSize.LG"
+    >
+        <!-- Insert content here -->
+    </Collapsible>
+</template>
+```
+
+- **Type:** `ButtonSize`
+- **Default:** `ButtonSize.MD`
+
+#### Options
+::options-table
+---
+options: [
+    {
+        value: "XS",
+        description: "xs",
+    },
+    {
+        value: "SM",
+        description: "sm",
+    },
+    {
+        value: "MD",
+        description: "md",
+    },
+    {
+        value: "LG",
+        description: "lg",
+    },
+    {
+        value: "XL",
+        description: "xl",
+    },
+    {
+        value: "XXL",
+        description: "2xl",
+    },
+]
+---
+::
