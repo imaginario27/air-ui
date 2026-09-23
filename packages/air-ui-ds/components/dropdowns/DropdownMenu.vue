@@ -430,7 +430,14 @@ const updateRects = () => {
 }
 
 const isToggleItem = (item: DropdownMenuItem) => {
-    return item.type === DropdownItemType.CHECKBOX || item.type === DropdownItemType.SWITCH || item.type === DropdownItemType.CHECK
+    return [
+        DropdownItemType.CHECKBOX,
+        DropdownItemType.SWITCH,
+        DropdownItemType.CHECK,
+        DropdownItemType.ICON_CHECK,
+        DropdownItemType.ICON_SWITCH,
+        DropdownItemType.ICON_CHECKBOX,
+    ].includes(item.type as DropdownItemType)
 }
 
 const handleClick = (item: DropdownMenuItem, checked?: boolean) => {

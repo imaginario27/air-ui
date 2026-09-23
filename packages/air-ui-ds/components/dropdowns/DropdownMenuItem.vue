@@ -25,8 +25,8 @@
         @keydown.enter.prevent="actionType === DropdownActionType.ACTION && emitClick()"
     >
         <div class="flex items-center gap-3 w-full">
-            <Icon 
-                v-if="icon && (type === DropdownItemType.ICON || type === DropdownItemType.DANGER_ICON)"
+            <Icon
+                v-if="icon && (type === DropdownItemType.ICON || type === DropdownItemType.DANGER_ICON || type === DropdownItemType.ICON_CHECK || type === DropdownItemType.ICON_SWITCH || type === DropdownItemType.ICON_CHECKBOX)"
                 :name="icon"
                 :iconClass="iconColorClass"
             />
@@ -60,7 +60,7 @@
             />
 
             <Checkbox
-                v-if="type === DropdownItemType.CHECKBOX"
+                v-if="type === DropdownItemType.CHECKBOX || type === DropdownItemType.ICON_CHECKBOX"
                 :id="`checkbox-${text}`"
                 :modelValue="checked"
                 :size="ControlFieldSize.SM"
@@ -68,7 +68,7 @@
             />
 
             <Switch
-                v-if="type === DropdownItemType.SWITCH"
+                v-if="type === DropdownItemType.SWITCH || type === DropdownItemType.ICON_SWITCH"
                 :id="`switch-${text}`"
                 :modelValue="checked"
                 :size="ControlFieldSize.SM"
@@ -76,7 +76,7 @@
             />
 
             <Icon
-                v-if="type === DropdownItemType.CHECK && checked"
+                v-if="(type === DropdownItemType.CHECK || type === DropdownItemType.ICON_CHECK) && checked"
                 name="mdi:check"
                 iconClass="!text-icon-primary-brand-active ml-auto"
             />
@@ -176,7 +176,14 @@ const props = defineProps({
 const isImageLoaded = ref(true)
 
 // Computed
-const isToggleType = computed(() => props.type === DropdownItemType.CHECKBOX || props.type === DropdownItemType.SWITCH || props.type === DropdownItemType.CHECK)
+const isToggleType = computed(() => [
+    DropdownItemType.CHECKBOX,
+    DropdownItemType.SWITCH,
+    DropdownItemType.CHECK,
+    DropdownItemType.ICON_CHECK,
+    DropdownItemType.ICON_SWITCH,
+    DropdownItemType.ICON_CHECKBOX,
+].includes(props.type))
 
 // Emits
 const emit = defineEmits(["click", "close", "update:checked"])
@@ -224,6 +231,9 @@ const typeClass = computed(() => {
         [DropdownItemType.CHECKBOX]: "text-text-default",
         [DropdownItemType.SWITCH]: "text-text-default",
         [DropdownItemType.CHECK]: "text-text-default",
+        [DropdownItemType.ICON_CHECK]: "text-text-default",
+        [DropdownItemType.ICON_SWITCH]: "text-text-default",
+        [DropdownItemType.ICON_CHECKBOX]: "text-text-default",
     }
     return typeVariant[props.type as DropdownItemType] || "text-text-default"
 })
@@ -239,6 +249,9 @@ const iconColorClass = computed(() => {
         [DropdownItemType.CHECKBOX]: undefined,
         [DropdownItemType.SWITCH]: undefined,
         [DropdownItemType.CHECK]: undefined,
+        [DropdownItemType.ICON_CHECK]: "text-icon-neutral-subtle",
+        [DropdownItemType.ICON_SWITCH]: "text-icon-neutral-subtle",
+        [DropdownItemType.ICON_CHECKBOX]: "text-icon-neutral-subtle",
     }
     return colorVariant[props.type as DropdownItemType] || "text-icon-neutral-subtle"
 })

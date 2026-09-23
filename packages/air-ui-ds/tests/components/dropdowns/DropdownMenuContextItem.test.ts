@@ -177,4 +177,88 @@ describe('DropdownMenuContextItem.vue', () => {
             expect(wrapper.emitted('close')).toBeFalsy()
         })
     })
+
+    describe('icon-check type', () => {
+        it('renders the leading Icon when type is ICON_CHECK', () => {
+            const wrapper = factory({ type: DropdownItemType.ICON_CHECK, icon: 'mdi:star' })
+            const icons = wrapper.findAllComponents({ name: 'Icon' })
+            const leadingIcon = icons.find(icon => icon.props('name') === 'mdi:star')
+
+            expect(leadingIcon).toBeTruthy()
+        })
+
+        it('renders a check Icon when type is ICON_CHECK and checked is true', () => {
+            const wrapper = factory({ type: DropdownItemType.ICON_CHECK, icon: 'mdi:star', checked: true })
+            const icons = wrapper.findAllComponents({ name: 'Icon' })
+            const checkIcon = icons.find(icon => icon.props('name') === 'mdi:check')
+
+            expect(checkIcon).toBeTruthy()
+        })
+
+        it('does not render a check Icon when type is ICON_CHECK and checked is false', () => {
+            const wrapper = factory({ type: DropdownItemType.ICON_CHECK, icon: 'mdi:star', checked: false })
+            const icons = wrapper.findAllComponents({ name: 'Icon' })
+            const checkIcon = icons.find(icon => icon.props('name') === 'mdi:check')
+
+            expect(checkIcon).toBeFalsy()
+        })
+
+        it('toggles checked and emits click/update:checked with the new value when clicked', async () => {
+            const wrapper = factory({ type: DropdownItemType.ICON_CHECK, icon: 'mdi:star', checked: false })
+            await wrapper.trigger('click')
+
+            expect(wrapper.emitted('click')).toEqual([[true]])
+            expect(wrapper.emitted('update:checked')).toEqual([[true]])
+        })
+    })
+
+    describe('icon-switch type', () => {
+        it('renders the leading Icon when type is ICON_SWITCH', () => {
+            const wrapper = factory({ type: DropdownItemType.ICON_SWITCH, icon: 'mdi:star' })
+            const icons = wrapper.findAllComponents({ name: 'Icon' })
+            const leadingIcon = icons.find(icon => icon.props('name') === 'mdi:star')
+
+            expect(leadingIcon).toBeTruthy()
+        })
+
+        it('renders a Switch when type is ICON_SWITCH', () => {
+            const wrapper = factory({ type: DropdownItemType.ICON_SWITCH, icon: 'mdi:star' })
+            const switchControl = wrapper.findComponent({ name: 'Switch' })
+
+            expect(switchControl.exists()).toBe(true)
+        })
+
+        it('toggles checked and emits click/update:checked with the new value when clicked', async () => {
+            const wrapper = factory({ type: DropdownItemType.ICON_SWITCH, icon: 'mdi:star', checked: false })
+            await wrapper.trigger('click')
+
+            expect(wrapper.emitted('click')).toEqual([[true]])
+            expect(wrapper.emitted('update:checked')).toEqual([[true]])
+        })
+    })
+
+    describe('icon-checkbox type', () => {
+        it('renders the leading Icon when type is ICON_CHECKBOX', () => {
+            const wrapper = factory({ type: DropdownItemType.ICON_CHECKBOX, icon: 'mdi:star' })
+            const icons = wrapper.findAllComponents({ name: 'Icon' })
+            const leadingIcon = icons.find(icon => icon.props('name') === 'mdi:star')
+
+            expect(leadingIcon).toBeTruthy()
+        })
+
+        it('renders a Checkbox when type is ICON_CHECKBOX', () => {
+            const wrapper = factory({ type: DropdownItemType.ICON_CHECKBOX, icon: 'mdi:star' })
+            const checkbox = wrapper.findComponent({ name: 'Checkbox' })
+
+            expect(checkbox.exists()).toBe(true)
+        })
+
+        it('toggles checked and emits click/update:checked with the new value when clicked', async () => {
+            const wrapper = factory({ type: DropdownItemType.ICON_CHECKBOX, icon: 'mdi:star', checked: false })
+            await wrapper.trigger('click')
+
+            expect(wrapper.emitted('click')).toEqual([[true]])
+            expect(wrapper.emitted('update:checked')).toEqual([[true]])
+        })
+    })
 })
