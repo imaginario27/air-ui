@@ -57,6 +57,10 @@ const props = defineProps({
         type: String as PropType<string>,
         default: 'Toggle sort',
     },
+    noWrap: {
+        type: Boolean as PropType<boolean>,
+        default: false,
+    },
 })
 
 // Computed classes
@@ -79,7 +83,8 @@ const headerClass = computed(() => {
             'text-sm',
             'text-left',
             props.fitToContent ? 'w-[1%]' : 'w-auto',
-            props.to ? 'hover:cursor-pointer' : undefined
+            props.to ? 'hover:cursor-pointer' : undefined,
+            props.noWrap && 'whitespace-nowrap',
         ],
     }
     return variants[props.scope as TableHeaderCellScope] || 'rounded'
