@@ -306,12 +306,48 @@ props: [
         "type": "string",
         "default": "'Toggle sort'"
     },
+    {
+        "name": "noWrap",
+        "type": "boolean",
+        "default": "false"
+    },
 ]
 ---
 ::
 
 #### scope
 The `scope` prop is used to set the scope of the header cell. It uses the `TableHeaderCellScope` enum.
+
+With `TableHeaderCellScope.COL` (default), the header cell is placed inside `TableHeader`, as a column heading:
+
+```vue
+<template>
+    ...
+    <TableHeader>
+        <TableHeaderCell :scope="TableHeaderCellScope.COL">
+            Column 1
+        </TableHeaderCell>
+        ...
+    </TableHeader>
+    ...
+</template>
+```
+
+With `TableHeaderCellScope.ROW`, the header cell is placed inside `TableRow`, alongside `TableCell`, as a row heading:
+
+```vue
+<template>
+    ...
+    <TableRow>
+        <TableHeaderCell :scope="TableHeaderCellScope.ROW">
+            Row header
+        </TableHeaderCell>
+        <TableCell>...</TableCell>
+        ...
+    </TableRow>
+    ...
+</template>
+```
 
 - **Type:** `TableHeaderCellScope`
 - **Default:** `TableHeaderCellScope.COL`
@@ -369,11 +405,43 @@ It is recommended to use this prop together with `columnKey`, `sortKey`, `sortAs
 #### columnKey
 The `columnKey` prop is used to set the key of the column. It is useful when you want to sort the column.
 
+```vue
+<template>
+    ...
+    <TableHeaderCell
+        sorteable
+        columnKey="col1"
+        :sortKey
+        :sortAsc
+        :onToggleSort="() => toggleSort('col1')"
+    >
+        Column 1
+    </TableHeaderCell>
+    ...
+</template>
+```
+
 - **Type:** `string`
 - **Default:** `''`
 
 #### sortKey
 The `sortKey` prop is used to set the current sort key. It is useful when you want to sort the column.
+
+```vue
+<template>
+    ...
+    <TableHeaderCell
+        sorteable
+        columnKey="col1"
+        :sortKey
+        :sortAsc
+        :onToggleSort="() => toggleSort('col1')"
+    >
+        Column 1
+    </TableHeaderCell>
+    ...
+</template>
+```
 
 - **Type:** `string`
 - **Default:** `''`
@@ -381,17 +449,79 @@ The `sortKey` prop is used to set the current sort key. It is useful when you wa
 #### sortAsc
 The `sortAsc` prop is used to set the current sort direction. It is useful when you want to sort the column.
 
+```vue
+<template>
+    ...
+    <TableHeaderCell
+        sorteable
+        columnKey="col1"
+        :sortKey
+        :sortAsc
+        :onToggleSort="() => toggleSort('col1')"
+    >
+        Column 1
+    </TableHeaderCell>
+    ...
+</template>
+```
+
 - **Type:** `boolean`
 - **Default:** `true`
 
 #### onToggleSort
 The `onToggleSort` prop is used to set the function that will be called when the user clicks on the header cell to toggle the sort direction. It is useful when you want to sort the column.
 
+```vue
+<template>
+    ...
+    <TableHeaderCell
+        sorteable
+        columnKey="col1"
+        :sortKey
+        :sortAsc
+        :onToggleSort="() => toggleSort('col1')"
+    >
+        Column 1
+    </TableHeaderCell>
+    ...
+</template>
+```
+
 - **Type:** `() => void`
 - **Default:** `undefined`
 
 #### fitToContent / to
 These props have the same behavior as in the `TableCell` component, but in this case they will be applied to the header cell.
+
+```vue
+<template>
+    ...
+    <TableHeaderCell
+        :scope="TableHeaderCellScope.ROW"
+        fitToContent
+        to="/some-page"
+    >
+        Row header
+    </TableHeaderCell>
+    ...
+</template>
+```
+
+#### noWrap
+Prevents the header cell content from wrapping to a new line. Applies when `scope` is `ROW`; `COL` header cells already prevent wrapping by default.
+
+```vue
+<template>
+    ...
+    <TableHeaderCell :scope="TableHeaderCellScope.ROW" noWrap>
+        Row header
+    </TableHeaderCell>
+    ...
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `false`
 
 #### sortAriaLabel
 The `sortAriaLabel` prop sets the accessible label for the sort toggle button. Override it for i18n.

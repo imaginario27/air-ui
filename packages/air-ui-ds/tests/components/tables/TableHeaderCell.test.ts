@@ -18,6 +18,8 @@ type Props = {
     onToggleSort?: () => void
     fitToContent?: boolean
     to?: string
+    noWrap?: boolean
+    sortAriaLabel?: string
 }
 
 const factory = (
@@ -206,6 +208,24 @@ describe('TableHeaderCell.vue', () => {
         await wrapper.find('th').trigger('click')
 
         expect(navigateTo).not.toHaveBeenCalled()
+    })
+
+    it('does not apply whitespace-nowrap when scope is ROW and noWrap is false', () => {
+        const wrapper = factory({
+            scope: TableHeaderCellScope.ROW,
+            noWrap: false
+        })
+
+        expect(wrapper.find('th').classes()).not.toContain('whitespace-nowrap')
+    })
+
+    it('applies whitespace-nowrap when scope is ROW and noWrap is true', () => {
+        const wrapper = factory({
+            scope: TableHeaderCellScope.ROW,
+            noWrap: true
+        })
+
+        expect(wrapper.find('th').classes()).toContain('whitespace-nowrap')
     })
 
     it('uses default sortAriaLabel on sort button', () => {

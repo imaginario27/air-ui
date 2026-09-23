@@ -5,6 +5,17 @@ All notable changes to this package are documented in this file.
 Historical releases were reconstructed from git history (GitHub repository) and npm publish dates.
 Future releases will include detailed entries generated with Changesets.
 
+## 1.18.2 - 2026-09-21
+
+Release type: patch.
+Commits found in range: 1.
+
+### Added
+
+1. add titleClass and buttonSize props to Collapsible ([8c76a69](https://github.com/imaginario27/air-ui/commit/8c76a69938edc3ca46a8c560d28e0791e52f4ef3))
+
+- Package: @imaginario27/air-ui-ds.
+
 ## 1.18.1 - 2026-09-18
 
 Release type: patch.

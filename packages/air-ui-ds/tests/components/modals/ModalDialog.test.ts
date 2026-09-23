@@ -232,4 +232,25 @@ describe('ModalDialog', () => {
         const btn = document.querySelector('[data-test="close-btn"]')
         expect(btn?.getAttribute('aria-label')).toBe('Cerrar')
     })
+
+    it('focuses the first focusable element in the slot content, not the corner close button', async () => {
+        factory(
+            { hasCornerCloseButton: true },
+            { default: '<button data-test="confirm-btn">Confirm</button>' }
+        )
+        await nextTick()
+        await nextTick()
+
+        const confirmBtn = document.querySelector('[data-test="confirm-btn"]')
+        expect(document.activeElement).toBe(confirmBtn)
+    })
+
+    it('falls back to focusing the dialog when the slot has no focusable content', async () => {
+        factory({ hasCornerCloseButton: true }, { default: '<p>No focusable content</p>' })
+        await nextTick()
+        await nextTick()
+
+        const dialog = document.querySelector('[role="dialog"]')
+        expect(document.activeElement).toBe(dialog)
+    })
 })
