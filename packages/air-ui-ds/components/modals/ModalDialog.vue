@@ -45,6 +45,7 @@
                             ref="dialogRef"
                             role="dialog"
                             aria-modal="true"
+                            tabindex="-1"
                             :aria-labelledby="ariaLabelledby"
                             :class="[
                                 'bg-background-surface rounded-lg shadow-xl',
@@ -63,7 +64,7 @@
                                 @click="closeModal"
                             />
 
-                            <div :class="['p-4 md:p-6', cardClass]">
+                            <div ref="contentRef" :class="['p-4 md:p-6', cardClass]">
                                 <slot />
                             </div>
                         </div>
@@ -77,6 +78,7 @@
 <script setup lang="ts">
 // Refs
 const dialogRef = ref<HTMLElement | null>(null)
+const contentRef = ref<HTMLElement | null>(null)
 const previouslyFocusedElement = ref<HTMLElement | null>(null)
 
 // State
@@ -206,10 +208,14 @@ watch(
             addEscListener()
             lockScroll()
             nextTick(() => {
-                const firstFocusable = dialogRef.value?.querySelector<HTMLElement>(
+                const firstFocusable = contentRef.value?.querySelector<HTMLElement>(
                     'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
                 )
-                firstFocusable?.focus()
+                if (firstFocusable) {
+                    firstFocusable.focus()
+                } else {
+                    dialogRef.value?.focus()
+                }
             })
         } else {
             removeEscListener()
