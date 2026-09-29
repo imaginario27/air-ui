@@ -5,6 +5,22 @@ All notable changes to this package are documented in this file.
 Historical releases were reconstructed from git history (GitHub repository) and npm publish dates.
 Future releases will include detailed entries generated with Changesets.
 
+## 1.18.3 - 2026-09-23
+
+Release type: patch.
+Commits found in range: 3.
+
+### Added
+
+1. add icon variants for dropdown checkbox, switch, and check types ([1065080](https://github.com/imaginario27/air-ui/commit/1065080b9d86bdcd0c58dbe961d7d6a64f81d3d9))
+2. add noWrap prop to TableHeaderCell ([849a46e](https://github.com/imaginario27/air-ui/commit/849a46eb7b6bcd61a2e43d360b03b574661f1817))
+
+### Fixed
+
+1. focus first focusable slot content in ModalDialog, not the close button ([cc726c5](https://github.com/imaginario27/air-ui/commit/cc726c563b404688e4f87a56fbf73788d345eff0))
+
+- Package: @imaginario27/air-ui-ds.
+
 ## 1.18.2 - 2026-09-21
 
 Release type: patch.
