@@ -177,7 +177,7 @@ describe('NavSidebar.vue', () => {
             }
         })
 
-        window.scrollY = 200
+        vi.spyOn(window, 'scrollY', 'get').mockReturnValue(200)
         globalThis.dispatchEvent(new Event('scroll'))
         await nextTick()
 
@@ -193,7 +193,7 @@ describe('NavSidebar.vue', () => {
             }
         })
 
-        window.scrollY = 50
+        vi.spyOn(window, 'scrollY', 'get').mockReturnValue(50)
         globalThis.dispatchEvent(new Event('scroll'))
         await nextTick()
 
