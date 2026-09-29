@@ -18,6 +18,12 @@
             ]"
         >
             {{ label }}
+            <span
+                v-if="!required && showOptionalLabel"
+                class="font-normal text-text-neutral-subtler"
+            >
+                {{ optionalLabelText }}
+            </span>
         </label>
 
         <!-- Help Text (top) -->
@@ -56,6 +62,8 @@
             :loadingText
             :transparent
             :clearSelectionAriaLabel
+            :shouldTeleport
+            :teleportTo
             :selectBoxClass="computedSelectBoxClass"
             @update:modelValue="handleValueUpdate"
         />
@@ -84,9 +92,17 @@ const props = defineProps({
         default: Position.BOTTOM,
         validator: (value: Position) => Object.values(Position).includes(value),
     },
-    required: { 
-        type: Boolean as PropType<boolean>, 
+    required: {
+        type: Boolean as PropType<boolean>,
         default: false,
+    },
+    showOptionalLabel: {
+        type: Boolean as PropType<boolean>,
+        default: true,
+    },
+    optionalLabel: {
+        type: String as PropType<string>,
+        default: undefined,
     },
     options: {
         type: Array as PropType<SelectOption[]>,
@@ -179,6 +195,14 @@ const props = defineProps({
         type: String as PropType<string>,
         default: 'Clear selection',
     },
+    shouldTeleport: {
+        type: Boolean as PropType<boolean>,
+        default: false,
+    },
+    teleportTo: {
+        type: String as PropType<string>,
+        default: 'body',
+    },
 })
 
 // Emits
@@ -186,9 +210,11 @@ const emit = defineEmits(['update:modelValue', 'update:error'])
 
 // Composables
 const validationMode = useInjectedValidationMode()
+const dsConfig = useDSConfig()
 
 // Computed
 const hasError = computed(() => props.error !== '')
+const optionalLabelText = computed(() => props.optionalLabel ?? dsConfig.forms.optionalLabelText())
 const hasOptions = computed(() => Array.isArray(props.options) && props.options.length > 0)
 
 const isLoadingOptions = computed(() => {

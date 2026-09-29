@@ -487,7 +487,6 @@ const computedTeleportStyle = computed<CSSProperties>(() => {
             left: '0px',
             visibility: 'hidden',
             zIndex: props.zIndex,
-            width: '0px',
         }
     }
 

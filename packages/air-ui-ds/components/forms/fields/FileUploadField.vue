@@ -11,6 +11,12 @@
             ]"
         >
             {{ label }}
+            <span
+                v-if="!required && showOptionalLabel"
+                class="font-normal text-text-neutral-subtler"
+            >
+                {{ optionalLabelText }}
+            </span>
         </label>
 
         <!-- Help Text (top) -->
@@ -191,6 +197,14 @@ const props = defineProps({
         type: Boolean as PropType<boolean>,
         default: false,
     },
+    showOptionalLabel: {
+        type: Boolean as PropType<boolean>,
+        default: true,
+    },
+    optionalLabel: {
+        type: String as PropType<string>,
+        default: undefined,
+    },
     multiple: {
         type: Boolean as PropType<boolean>,
         default: false,
@@ -353,6 +367,9 @@ const emit = defineEmits([
 // Validation
 const validationMode = useInjectedValidationMode()
 
+// Composables
+const dsConfig = useDSConfig()
+
 // Toast
 const { $toast } = useNuxtApp()
 
@@ -361,6 +378,7 @@ const localTotalProgress = ref(props.totalProgress)
 
 // Computed
 const hasError = computed(() => props.error !== '')
+const optionalLabelText = computed(() => props.optionalLabel ?? dsConfig.forms.optionalLabelText())
 
 const acceptedFileTypes = computed(() => {
     const acceptList = Array.isArray(props.accept) ? props.accept : [props.accept]

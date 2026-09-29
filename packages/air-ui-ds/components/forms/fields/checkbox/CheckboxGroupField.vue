@@ -11,6 +11,12 @@
             ]"
         >
             {{ label }}
+            <span
+                v-if="!required && showOptionalLabel"
+                class="font-normal text-text-neutral-subtler"
+            >
+                {{ optionalLabelText }}
+            </span>
         </div>
 
         <!-- Help Text or Error Message (top) -->
@@ -106,6 +112,14 @@ const props = defineProps({
         type: Boolean as PropType<boolean>,
         default: false,
     },
+    showOptionalLabel: {
+        type: Boolean as PropType<boolean>,
+        default: true,
+    },
+    optionalLabel: {
+        type: String as PropType<string>,
+        default: undefined,
+    },
     disabled: {
         type: Boolean as PropType<boolean>,
         default: false,
@@ -159,9 +173,11 @@ const emit = defineEmits(['update:modelValue', 'update:error'])
 
 // Composables
 const validationMode = useInjectedValidationMode()
+const dsConfig = useDSConfig()
 
 // States
 const hasError = computed(() => props.error !== '')
+const optionalLabelText = computed(() => props.optionalLabel ?? dsConfig.forms.optionalLabelText())
 
 // Methods
 const isChecked = (value: string | number | boolean) => props.modelValue.includes(value)

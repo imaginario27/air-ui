@@ -24,6 +24,7 @@ describe('SliderField.vue', () => {
         const wrapper = factory({
             label: 'Price',
             helpText: 'Select a value',
+            required: true,
         })
 
         expect(wrapper.find('label').text()).toBe('Price')

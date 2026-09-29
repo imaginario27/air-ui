@@ -19,7 +19,7 @@ const factory = (props: Record<string, unknown> = {}) => {
 
 describe('TagsField.vue', () => {
     it('renders label and input', () => {
-        const wrapper = factory({ label: 'Tags' })
+        const wrapper = factory({ label: 'Tags', required: true })
 
         const label = wrapper.find('label')
         const input = wrapper.find('input')

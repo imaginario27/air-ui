@@ -33,7 +33,8 @@ describe('OptionButtonsGroupField', () => {
         const wrapper = mount(OptionButtonsGroupField, {
             props: {
                 ...defaultProps,
-                label: 'My Label'
+                label: 'My Label',
+                required: true
             }
         })
 

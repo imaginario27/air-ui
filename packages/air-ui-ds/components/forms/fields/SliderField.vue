@@ -20,6 +20,12 @@
                 ]"
             >
                 {{ label }}
+                <span
+                    v-if="!required && showOptionalLabel"
+                    class="font-normal text-text-neutral-subtler"
+                >
+                    {{ optionalLabelText }}
+                </span>
             </label>
 
             <span class="text-xs font-semibold text-text-neutral-subtle">
@@ -49,6 +55,7 @@
                 :disabled="disabled"
                 :transparent="transparentInputs"
                 :label="showInputsLabel ? (minText.trim() || 'Min') : ''"
+                :showOptionalLabel="false"
                 @update:model-value="value => handleRangeInputChange(0, value)"
             />
 
@@ -63,6 +70,7 @@
                 :disabled="disabled"
                 :transparent="transparentInputs"
                 :label="showInputsLabel ? (maxText.trim() || 'Max') : ''"
+                :showOptionalLabel="false"
                 @update:model-value="value => handleRangeInputChange(1, value)"
             />
 
@@ -77,6 +85,7 @@
                 :disabled="disabled"
                 :transparent="transparentInputs"
                 :label="showInputsLabel ? (label || 'Value') : ''"
+                :showOptionalLabel="false"
                 @update:model-value="handleSingleInputChange"
             />
         </div>
@@ -113,6 +122,7 @@
                 :disabled="disabled"
                 :transparent="transparentInputs"
                 :label="showInputsLabel ? (minText.trim() || 'Min') : ''"
+                :showOptionalLabel="false"
                 @update:model-value="value => handleRangeInputChange(0, value)"
             />
 
@@ -127,6 +137,7 @@
                 :disabled="disabled"
                 :transparent="transparentInputs"
                 :label="showInputsLabel ? (maxText.trim() || 'Max') : ''"
+                :showOptionalLabel="false"
                 @update:model-value="value => handleRangeInputChange(1, value)"
             />
 
@@ -141,6 +152,7 @@
                 :disabled="disabled"
                 :transparent="transparentInputs"
                 :label="showInputsLabel ? (label || 'Value') : ''"
+                :showOptionalLabel="false"
                 @update:model-value="handleSingleInputChange"
             />
         </div>
@@ -176,6 +188,14 @@ const props = defineProps({
     required: {
         type: Boolean as PropType<boolean>,
         default: false,
+    },
+    showOptionalLabel: {
+        type: Boolean as PropType<boolean>,
+        default: true,
+    },
+    optionalLabel: {
+        type: String as PropType<string>,
+        default: undefined,
     },
     modelValue: {
         type: [Number, Array] as PropType<number | [number, number]>,
@@ -266,8 +286,10 @@ const props = defineProps({
 const emit = defineEmits(['update:modelValue', 'update:error'])
 
 const validationMode = useInjectedValidationMode()
+const dsConfig = useDSConfig()
 
 const hasError = computed(() => props.error !== '')
+const optionalLabelText = computed(() => props.optionalLabel ?? dsConfig.forms.optionalLabelText())
 
 const isRange = computed(() => {
     return props.type === SliderType.RANGE || props.multiple || Array.isArray(props.modelValue)

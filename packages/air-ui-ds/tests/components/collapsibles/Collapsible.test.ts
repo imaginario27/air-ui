@@ -3,7 +3,13 @@ import Collapsible from '@/components/collapsibles/Collapsible.vue'
 import ActionIconButton from '@/components/buttons/ActionIconButton.vue'
 import { ButtonSize } from '@/models/enums/buttons'
 
-const factory = (props?: { title?: string; titleClass?: string; buttonSize?: ButtonSize }) => {
+const factory = (props?: {
+    title?: string
+    titleClass?: string
+    titleWrapperClass?: string
+    actionsWrapperClass?: string
+    buttonSize?: ButtonSize
+}) => {
     return mount(Collapsible, {
         props,
         slots: {
@@ -69,9 +75,15 @@ describe('Collapsible', () => {
     it('links header to panel via aria-controls', () => {
         const wrapper = factory()
         const header = wrapper.find('button.collapsible-header')
-        const panel = wrapper.find('[role="region"]')
+        const panel = wrapper.find('section')
 
         expect(header.attributes('aria-controls')).toBe(panel.attributes('id'))
+    })
+
+    it('renders the panel as a section element', () => {
+        const wrapper = factory()
+
+        expect(wrapper.find('section').exists()).toBe(true)
     })
 
     it('applies titleClass to the title span', () => {
@@ -80,6 +92,20 @@ describe('Collapsible', () => {
 
         expect(title.classes()).toContain('text-lg')
         expect(title.classes()).toContain('font-semibold')
+    })
+
+    it('applies titleWrapperClass to the title wrapper', () => {
+        const wrapper = factory({ titleWrapperClass: 'items-center' })
+        const wrapperDiv = wrapper.find('.collapsible-header > div')
+
+        expect(wrapperDiv.classes()).toContain('items-center')
+    })
+
+    it('applies actionsWrapperClass to the actions wrapper', () => {
+        const wrapper = factory({ actionsWrapperClass: 'items-center' })
+        const actionsDiv = wrapper.findAll('.collapsible-header > div')[1]
+
+        expect(actionsDiv.classes()).toContain('items-center')
     })
 
     it('passes buttonSize to the icon button', () => {

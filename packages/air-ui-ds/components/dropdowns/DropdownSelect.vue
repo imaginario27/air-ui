@@ -3,9 +3,12 @@
         <!-- Dropdown Menu -->
         <DropdownMenu
             ref="dropdownContainer"
-            :shouldTeleport="false"
+            :shouldTeleport
+            :teleportTo
+            :position="teleportPosition"
             :positionClass="`absolute ${dropdownPositionClass}`"
-            zIndex="10"
+            :positionYOffset="dropdownGap"
+            zIndex="10000"
             :dropdownClass
             :class="[ 
                 'max-h-[200px]', 
@@ -313,10 +316,21 @@ const props = defineProps({
         type: Boolean as PropType<boolean>,
         default: false,
     },
+    shouldTeleport: {
+        type: Boolean as PropType<boolean>,
+        default: false,
+    },
+    teleportTo: {
+        type: String as PropType<string>,
+        default: 'body',
+    },
 })
 
 // Emits
 const emit = defineEmits(['update:modelValue', 'onSelect'])
+
+// Constants
+const dropdownGap = 4
 
 // Computed classes
 const sizeClass = computed(() => {
@@ -334,6 +348,15 @@ const dropdownPositionClass = computed(() => {
     }
 
     return positionVariant[props.dropdownPosition as Position] || 'top-full mt-1'
+})
+
+const teleportPosition = computed(() => {
+    const positionVariant = {
+        [Position.TOP]: DropdownPosition.TOP_LEFT,
+        [Position.BOTTOM]: DropdownPosition.BOTTOM_LEFT,
+    }
+
+    return positionVariant[props.dropdownPosition as Position] || DropdownPosition.BOTTOM_LEFT
 })
 
 const dropdownClass = computed(() => {

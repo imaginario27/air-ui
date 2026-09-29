@@ -35,7 +35,8 @@ describe('SelectField', () => {
         const wrapper = mount(SelectField, {
             props: {
                 ...defaultProps,
-                label: 'Choose'
+                label: 'Choose',
+                required: true
             }
         })
 

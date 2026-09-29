@@ -42,7 +42,7 @@ describe('TriStateCheckboxField.vue', () => {
     })
 
     it('renders legend when provided', () => {
-        const wrapper = factory({ legend: 'Form Section' })
+        const wrapper = factory({ legend: 'Form Section', required: true })
 
         const legend = wrapper.find('legend')
         expect(legend.exists()).toBe(true)

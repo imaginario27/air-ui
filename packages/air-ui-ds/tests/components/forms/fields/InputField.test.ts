@@ -1,6 +1,7 @@
 import { mount } from '@vue/test-utils'
 import InputField from '~/components/forms/fields/InputField.vue'
 import { Position } from '@/models/enums/positions'
+import { useDSConfig } from '@/composables/useDSConfig'
 import { nextTick, ref } from 'vue'
 
 vi.mock('~/composables/useFormValidationMode', () => ({
@@ -18,7 +19,7 @@ const factory = (props: Record<string, any> = {}) => {
 
 describe('InputField.vue', () => {
     it('renders label and input', () => {
-        const wrapper = factory({ label: 'Name' })
+        const wrapper = factory({ label: 'Name', required: true })
         const label = wrapper.find('label')
         expect(label.exists()).toBe(true)
         expect(label.text()).toBe('Name')
@@ -194,6 +195,47 @@ describe('InputField.vue', () => {
 
         await nextTick()
         expect(input.attributes('type')).toBe('text')
+    })
+
+    it('shows "(optional)" hint next to the label when field is not required', () => {
+        const wrapper = factory({ label: 'Name', required: false })
+        const label = wrapper.find('label')
+        expect(label.text()).toContain('(optional)')
+    })
+
+    it('does not show "(optional)" hint when field is required', () => {
+        const wrapper = factory({ label: 'Name', required: true })
+        const label = wrapper.find('label')
+        expect(label.text()).not.toContain('(optional)')
+    })
+
+    it('hides the "(optional)" hint when showOptionalLabel is false', () => {
+        const wrapper = factory({ label: 'Name', required: false, showOptionalLabel: false })
+        const label = wrapper.find('label')
+        expect(label.text()).not.toContain('(optional)')
+    })
+
+    it('renders the optional hint text from the shared DS config resolver', () => {
+        const config = useDSConfig()
+        config.forms.optionalLabelText = () => '(opcional)'
+
+        const wrapper = factory({ label: 'Name', required: false })
+        const label = wrapper.find('label')
+        expect(label.text()).toContain('(opcional)')
+
+        config.forms.optionalLabelText = () => '(optional)'
+    })
+
+    it('uses the optionalLabel prop over the shared DS config when provided', () => {
+        const config = useDSConfig()
+        config.forms.optionalLabelText = () => '(opcional)'
+
+        const wrapper = factory({ label: 'Name', required: false, optionalLabel: '(not required)' })
+        const label = wrapper.find('label')
+        expect(label.text()).toContain('(not required)')
+        expect(label.text()).not.toContain('(opcional)')
+
+        config.forms.optionalLabelText = () => '(optional)'
     })
 
     it('uses aria-label when visual label is hidden', () => {

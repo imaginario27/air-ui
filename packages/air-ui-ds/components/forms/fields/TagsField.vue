@@ -13,6 +13,12 @@
                 ]"
             >
                 {{ label }}
+                <span
+                    v-if="!required && showOptionalLabel"
+                    class="font-normal text-text-neutral-subtler"
+                >
+                    {{ optionalLabelText }}
+                </span>
             </label>
             <button
                 v-if="showClearButton"
@@ -162,6 +168,14 @@ const props = defineProps({
         type: Boolean as PropType<boolean>,
         default: false,
     },
+    showOptionalLabel: {
+        type: Boolean as PropType<boolean>,
+        default: true,
+    },
+    optionalLabel: {
+        type: String as PropType<string>,
+        default: undefined,
+    },
     transparent: {
         type: Boolean as PropType<boolean>,
         default: false,
@@ -179,9 +193,11 @@ const inputRef = ref<HTMLInputElement | null>(null)
 
 // Composables
 const validationMode = useInjectedValidationMode()
+const dsConfig = useDSConfig()
 
 // Computed States
 const hasError = computed(() => props.error !== '')
+const optionalLabelText = computed(() => props.optionalLabel ?? dsConfig.forms.optionalLabelText())
 const isMaxTagsReached = computed(() => Number.isFinite(props.maxTags) && props.modelValue.length >= (props.maxTags as number))
 const showClearButton = computed(() => !props.disabled && (props.modelValue.length > 0 || inputValue.value.trim().length > 0))
 

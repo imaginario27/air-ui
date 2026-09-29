@@ -52,7 +52,7 @@ const factory = (props: Record<string, unknown> = {}) => {
 
 describe('FileUploadField.vue', () => {
     it('renders label when provided', () => {
-        const wrapper = factory({ label: 'Upload your file' })
+        const wrapper = factory({ label: 'Upload your file', required: true })
         const label = wrapper.find('label')
 
         expect(label.exists()).toBe(true)

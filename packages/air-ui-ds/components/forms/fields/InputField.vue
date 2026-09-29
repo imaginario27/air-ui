@@ -13,6 +13,12 @@
                 ]"
             >
                 {{ label }}
+                <span
+                    v-if="!required && showOptionalLabel"
+                    class="font-normal text-text-neutral-subtler"
+                >
+                    {{ optionalLabelText }}
+                </span>
             </label>
             <NavLink
                 v-if="linkText && linkUrl"
@@ -235,6 +241,11 @@ const props = defineProps({
         type: Boolean as PropType<boolean>,
         default: false,
     },
+    showOptionalLabel: {
+        type: Boolean as PropType<boolean>,
+        default: true,
+    },
+    optionalLabel: String as PropType<string>,
     transparent: {
         type: Boolean as PropType<boolean>,
         default: false,
@@ -251,9 +262,12 @@ const showPassword = ref(false)
 
 // Composables
 const validationMode = useInjectedValidationMode()
+const dsConfig = useDSConfig()
 
 // Computed States
 const hasError = computed(() => props.error !== '')
+
+const optionalLabelText = computed(() => props.optionalLabel ?? dsConfig.forms.optionalLabelText())
 
 const passwordInputType = computed(() => {
     if (props.type !== 'password') return props.type

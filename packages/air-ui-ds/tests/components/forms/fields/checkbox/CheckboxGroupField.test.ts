@@ -50,6 +50,7 @@ describe('CheckboxGroupField', () => {
         const wrapper = factory({
             label: 'My Label',
             error: 'Required field',
+            required: true,
         })
 
         const errorText = wrapper.find('p.text-text-error')

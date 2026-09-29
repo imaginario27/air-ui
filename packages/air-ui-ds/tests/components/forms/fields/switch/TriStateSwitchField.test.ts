@@ -22,7 +22,7 @@ const factory = (props: Record<string, unknown> = {}) => {
 
 describe('TriStateSwitchField', () => {
     it('renders legend when provided', () => {
-        const wrapper = factory({ legend: 'Settings' })
+        const wrapper = factory({ legend: 'Settings', required: true })
 
         const legend = wrapper.find('legend')
         expect(legend.exists()).toBe(true)
