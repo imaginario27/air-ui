@@ -69,7 +69,7 @@
 
                     <ActionButton
                         v-if="canShowClearAllButton"
-                        :text="clearAllButtonText"
+                        :text="resolvedClearAllButtonText"
                         :styleType="ButtonStyleType.NEUTRAL_TRANSPARENT"
                         :disabled="disabled"
                         @click.stop="clearAll"
@@ -187,7 +187,7 @@
                                     :styleType="removeButtonStyleType"
                                     :class="removeButtonClass"
                                     :iconClass="normalizedRemoveIconClass"
-                                    :ariaLabel="removeAriaLabel"
+                                    :ariaLabel="resolvedRemoveAriaLabel"
                                     @click.stop="removeFile(file)"
                                 />
                             </div>
@@ -288,10 +288,7 @@ const props = defineProps({
         type: Array as PropType<File[]>,
         default: () => [],
     },
-    title: {
-        type: String as PropType<string>,
-        default: 'Drag and drop files here',
-    },
+    title: String as PropType<string>,
     singleFileTitleText: {
         type: String as PropType<string>,
         default: 'Drag and drop a file here',
@@ -304,10 +301,7 @@ const props = defineProps({
         type: String as PropType<string>,
         default: 'mdi:cloud-upload-outline',
     },
-    buttonText: {
-        type: String as PropType<string>,
-        default: 'Select files',
-    },
+    buttonText: String as PropType<string>,
     singleFileButtonText: {
         type: String as PropType<string>,
         default: 'Select file',
@@ -367,10 +361,7 @@ const props = defineProps({
         type: Boolean as PropType<boolean>,
         default: true,
     },
-    clearAllButtonText: {
-        type: String as PropType<string>,
-        default: 'Clear all',
-    },
+    clearAllButtonText: String as PropType<string>,
     fileTypeIconMap: {
         type: Object as PropType<Record<string, string>>,
         default: () => ({}),
@@ -398,18 +389,9 @@ const props = defineProps({
         default: 0,
     },
 
-    uploadingStatusText: {
-        type: String as PropType<string>,
-        default: 'Uploading',
-    },
-    successStatusText: {
-        type: String as PropType<string>,
-        default: 'Uploaded',
-    },
-    errorStatusText: {
-        type: String as PropType<string>,
-        default: 'Upload failed',
-    },
+    uploadingStatusText: String as PropType<string>,
+    successStatusText: String as PropType<string>,
+    errorStatusText: String as PropType<string>,
     pendingStatusText: {
         type: String as PropType<string>,
         default: 'Pending',
@@ -458,10 +440,7 @@ const props = defineProps({
         type: String as PropType<string>,
         default: 'Retry upload',
     },
-    removeAriaLabel: {
-        type: String as PropType<string>,
-        default: 'Remove file',
-    },
+    removeAriaLabel: String as PropType<string>,
 })
 
 const emit = defineEmits([
@@ -482,6 +461,18 @@ const fileIdCounter = ref(0)
 const fileIdMap = new WeakMap<File, string>()
 const previewUrlMap = reactive<Record<string, string>>({})
 const uploadMetaMap = reactive<Record<string, UploadMeta>>({})
+
+// Composables
+const dsConfig = useDSConfig()
+
+// Computed: global-config-backed text (an explicit prop always wins)
+const resolvedDragDropText = computed(() => props.title ?? dsConfig.forms.fileUpload.dragDropText())
+const resolvedSelectFilesText = computed(() => props.buttonText ?? dsConfig.forms.fileUpload.selectFilesText())
+const resolvedUploadingStatusText = computed(() => props.uploadingStatusText ?? dsConfig.forms.fileUpload.uploadingText())
+const resolvedSuccessStatusText = computed(() => props.successStatusText ?? dsConfig.forms.fileUpload.uploadedText())
+const resolvedErrorStatusText = computed(() => props.errorStatusText ?? dsConfig.forms.fileUpload.uploadFailedText())
+const resolvedRemoveAriaLabel = computed(() => props.removeAriaLabel ?? dsConfig.forms.fileUpload.removeFileText())
+const resolvedClearAllButtonText = computed(() => props.clearAllButtonText ?? dsConfig.actions.clearAllText())
 
 const iconMap = computed<Record<string, string>>(() => ({
     ...DEFAULT_FILE_TYPE_ICON_MAP,
@@ -518,7 +509,7 @@ const acceptedTypeLabels = computed(() => {
 })
 
 const resolvedTitle = computed(() => {
-    if (props.multiple) return props.title
+    if (props.multiple) return resolvedDragDropText.value
     return props.singleFileTitleText
 })
 
@@ -528,7 +519,7 @@ const resolvedDescription = computed(() => {
 })
 
 const resolvedSelectButtonText = computed(() => {
-    if (props.multiple) return props.buttonText
+    if (props.multiple) return resolvedSelectFilesText.value
     return props.singleFileButtonText
 })
 
@@ -706,11 +697,11 @@ const getUploadStatusText = (file: File) => {
     const progress = getUploadProgress(file)
 
     if (status === 'uploading') {
-        return `${props.uploadingStatusText} ${progress}%`
+        return `${resolvedUploadingStatusText.value} ${progress}%`
     }
 
-    if (status === 'success') return props.successStatusText
-    if (status === 'error') return props.errorStatusText
+    if (status === 'success') return resolvedSuccessStatusText.value
+    if (status === 'error') return resolvedErrorStatusText.value
     return props.pendingStatusText
 }
 

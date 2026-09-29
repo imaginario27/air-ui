@@ -79,7 +79,7 @@
                 :size="ButtonSize.SM"
                 :styleType="ButtonStyleType.NEUTRAL_TRANSPARENT_SUBTLE"
                 icon="mdi:close-circle"
-                :ariaLabel="clearAriaLabel"
+                :ariaLabel="resolvedClearAriaLabel"
                 @click="clearField"
             />
         </div>
@@ -148,10 +148,7 @@ const props = defineProps({
         default: false,
     },
     inputCustomClass: String as PropType<string>,
-    clearAriaLabel: {
-        type: String as PropType<string>,
-        default: 'Clear search',
-    },
+    clearAriaLabel: String as PropType<string>,
     transparent: {
         type: Boolean as PropType<boolean>,
         default: false,
@@ -159,11 +156,17 @@ const props = defineProps({
     inputClass: String as PropType<string>,
 })
 
+// Composables
+const dsConfig = useDSConfig()
+
 // States
 const isFocused = ref(false)
 
 // Emits
 const emit = defineEmits(['update:modelValue'])
+
+// Computed
+const resolvedClearAriaLabel = computed(() => props.clearAriaLabel ?? dsConfig.forms.clearSearchText())
 
 // Computed classes
 const inputSizeClass = computed(() => {

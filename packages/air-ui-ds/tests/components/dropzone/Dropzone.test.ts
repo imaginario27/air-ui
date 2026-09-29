@@ -2,6 +2,7 @@ import { mount } from '@vue/test-utils'
 import { defineComponent, h } from 'vue'
 import Dropzone from '~/components/dropzone/Dropzone.vue'
 import { FileSelectStrategy } from '~/models/enums/formFields'
+import { useDSConfig } from '@/composables/useDSConfig'
 
 const ActionButtonStub = defineComponent({
     name: 'ActionButton',
@@ -175,5 +176,45 @@ describe('Dropzone.vue', () => {
 
         await wrapper.setProps({ useServerUpload: true })
         expect(wrapper.find('[data-test="action-button-Clear all"]').exists()).toBe(false)
+    })
+
+    describe('global config', () => {
+        afterEach(() => {
+            const config = useDSConfig()
+            config.forms.fileUpload.dragDropText = () => 'Drag and drop files here'
+            config.forms.fileUpload.selectFilesText = () => 'Select files'
+            config.actions.clearAllText = () => 'Clear all'
+        })
+
+        it('falls back to useDSConfig().forms.fileUpload.dragDropText() when multiple and title is unset', () => {
+            useDSConfig().forms.fileUpload.dragDropText = () => 'Suelta los archivos aquí'
+
+            const wrapper = factory({ multiple: true })
+            expect(wrapper.text()).toContain('Suelta los archivos aquí')
+        })
+
+        it('lets the title prop win over a global config override', () => {
+            useDSConfig().forms.fileUpload.dragDropText = () => 'Suelta los archivos aquí'
+
+            const wrapper = factory({ multiple: true, title: 'Upload files' })
+            expect(wrapper.text()).toContain('Upload files')
+            expect(wrapper.text()).not.toContain('Suelta los archivos aquí')
+        })
+
+        it('falls back to useDSConfig().forms.fileUpload.selectFilesText() when multiple and buttonText is unset', () => {
+            useDSConfig().forms.fileUpload.selectFilesText = () => 'Seleccionar archivos'
+
+            const wrapper = factory({ multiple: true })
+            expect(wrapper.find('[data-test="action-button-Seleccionar archivos"]').exists()).toBe(true)
+        })
+
+        it('falls back to useDSConfig().actions.clearAllText() for the clear-all button', () => {
+            useDSConfig().actions.clearAllText = () => 'Limpiar todo'
+
+            const file = createFile('clear.pdf', 'application/pdf')
+            const wrapper = factory({ modelValue: [file], showClearAllButton: true })
+
+            expect(wrapper.find('[data-test="action-button-Limpiar todo"]').exists()).toBe(true)
+        })
     })
 })

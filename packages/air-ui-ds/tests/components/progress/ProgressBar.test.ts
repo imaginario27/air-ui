@@ -3,6 +3,7 @@ import ProgressBar from '~/components/progress/ProgressBar.vue'
 import { ColorAccent } from '@/models/enums/colors'
 import { ProgressBarSize } from '@/models/enums/progress'
 import { Position, Align } from '@/models/enums/positions'
+import { useDSConfig } from '@/composables/useDSConfig'
 
 const factory = (props: Record<string, any> = {}) => {
     return mount(ProgressBar, {
@@ -206,5 +207,31 @@ describe('ProgressBar', () => {
         const bar = wrapper.find('[role="progressbar"]')
 
         expect(bar.attributes('aria-label')).toBe('Upload progress')
+    })
+
+    describe('global config', () => {
+        afterEach(() => {
+            useDSConfig().common.loadingText = () => 'Loading...'
+        })
+
+        it('falls back to useDSConfig().common.loadingText() when loadingText is unset', () => {
+            const wrapper = factory({ isIndeterminate: true, showProgressLabel: true })
+            expect(wrapper.text()).toContain('Loading...')
+        })
+
+        it('uses a global config override for the indeterminate loading text', () => {
+            useDSConfig().common.loadingText = () => 'Cargando...'
+
+            const wrapper = factory({ isIndeterminate: true, showProgressLabel: true })
+            expect(wrapper.text()).toContain('Cargando...')
+        })
+
+        it('lets the loadingText prop win over a global config override', () => {
+            useDSConfig().common.loadingText = () => 'Cargando...'
+
+            const wrapper = factory({ isIndeterminate: true, showProgressLabel: true, loadingText: 'Please wait...' })
+            expect(wrapper.text()).toContain('Please wait...')
+            expect(wrapper.text()).not.toContain('Cargando...')
+        })
     })
 })

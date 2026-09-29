@@ -4,6 +4,7 @@ import DropdownSelect from '~/components/dropdowns/DropdownSelect.vue'
 import BadgeStack from '~/components/badges/BadgeStack.vue'
 import { FormValidationMode } from '~/models/enums/formValidations'
 import { Position } from '@/models/enums/positions'
+import { useDSConfig } from '@/composables/useDSConfig'
 
 vi.mock('~/composables/useFormValidationMode', () => ({
     useInjectedValidationMode: () => ref(FormValidationMode.BLUR)
@@ -285,5 +286,60 @@ describe('SelectField', () => {
 
         const dropdown = wrapper.findComponent(DropdownSelect)
         expect(dropdown.props('transparent')).toBe(false)
+    })
+
+    describe('global config', () => {
+        afterEach(() => {
+            const config = useDSConfig()
+            config.forms.selectPlaceholderText = () => 'Select an option'
+            config.forms.searchText = () => 'Search...'
+            config.forms.noResultsText = () => 'No results found'
+            config.forms.loadingOptionsText = () => 'Loading options...'
+            config.forms.clearSelectionText = () => 'Clear selection'
+        })
+
+        it('falls back to useDSConfig().forms.selectPlaceholderText() when placeholder is unset', () => {
+            const wrapper = mount(SelectField, { props: { ...defaultProps } })
+
+            const dropdown = wrapper.findComponent(DropdownSelect)
+            expect(dropdown.props('placeholder')).toBe('Select an option')
+        })
+
+        it('lets a global config override change the default placeholder', () => {
+            useDSConfig().forms.selectPlaceholderText = () => 'Elige una opción'
+
+            const wrapper = mount(SelectField, { props: { ...defaultProps } })
+
+            const dropdown = wrapper.findComponent(DropdownSelect)
+            expect(dropdown.props('placeholder')).toBe('Elige una opción')
+        })
+
+        it('lets the placeholder prop win over a global config override', () => {
+            useDSConfig().forms.selectPlaceholderText = () => 'Elige una opción'
+
+            const wrapper = mount(SelectField, {
+                props: { ...defaultProps, placeholder: 'Pick one' },
+            })
+
+            const dropdown = wrapper.findComponent(DropdownSelect)
+            expect(dropdown.props('placeholder')).toBe('Pick one')
+        })
+
+        it('forwards searchFieldPlaceholder, noResultsFoundText, loadingText and clearSelectionAriaLabel from global config', () => {
+            useDSConfig().forms.searchText = () => 'Buscar...'
+            useDSConfig().forms.noResultsText = () => 'Sin resultados'
+            useDSConfig().forms.loadingOptionsText = () => 'Cargando opciones...'
+            useDSConfig().forms.clearSelectionText = () => 'Limpiar selección'
+
+            const wrapper = mount(SelectField, {
+                props: { ...defaultProps, isLoading: true },
+            })
+
+            const dropdown = wrapper.findComponent(DropdownSelect)
+            expect(dropdown.props('searchFieldPlaceholder')).toBe('Buscar...')
+            expect(dropdown.props('noResultsFoundText')).toBe('Sin resultados')
+            expect(dropdown.props('loadingText')).toBe('Cargando opciones...')
+            expect(dropdown.props('clearSelectionAriaLabel')).toBe('Limpiar selección')
+        })
     })
 })

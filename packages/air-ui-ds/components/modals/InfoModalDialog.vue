@@ -3,7 +3,7 @@
         :modelValue
         :closeOnClickOutside
         :hasCornerCloseButton
-        :closeAriaLabel
+        :closeAriaLabel="resolvedCloseAriaLabel"
         :cardClass
         @update:modelValue="updateModelValue"
     >
@@ -73,7 +73,7 @@
 
 <script setup lang="ts">
 // Props
-defineProps({
+const props = defineProps({
     modelValue: {
         type: Boolean as PropType<boolean>,
         default: false,
@@ -122,14 +122,17 @@ defineProps({
         type: Boolean as PropType<boolean>,
         default: true,
     },
-    closeAriaLabel: {
-        type: String as PropType<string>,
-        default: 'Close',
-    },
+    closeAriaLabel: String as PropType<string>,
 })
 
 // Emits
 const emit = defineEmits(['update:modelValue', 'close', 'action'])
+
+// Composables
+const dsConfig = useDSConfig()
+
+// Computed
+const resolvedCloseAriaLabel = computed(() => props.closeAriaLabel ?? dsConfig.actions.closeText())
 
 // Handlers
 const updateModelValue = (value: boolean) => {

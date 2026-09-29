@@ -5,6 +5,22 @@ describe('useDSConfig', () => {
         const config = useDSConfig()
 
         expect(config.forms.optionalLabelText()).toBe('(optional)')
+        expect(config.forms.selectPlaceholderText()).toBe('Select an option')
+        expect(config.forms.searchText()).toBe('Search...')
+        expect(config.forms.noResultsText()).toBe('No results found')
+        expect(config.forms.loadingOptionsText()).toBe('Loading options...')
+        expect(config.forms.clearSelectionText()).toBe('Clear selection')
+        expect(config.forms.clearSearchText()).toBe('Clear search')
+        expect(config.forms.fileUpload.dragDropText()).toBe('Drag and drop files here')
+        expect(config.forms.fileUpload.selectFilesText()).toBe('Select files')
+        expect(config.forms.fileUpload.uploadingText()).toBe('Uploading')
+        expect(config.forms.fileUpload.uploadedText()).toBe('Uploaded')
+        expect(config.forms.fileUpload.uploadFailedText()).toBe('Upload failed')
+        expect(config.forms.fileUpload.removeFileText()).toBe('Remove file')
+        expect(config.actions.cancelText()).toBe('Cancel')
+        expect(config.actions.clearAllText()).toBe('Clear all')
+        expect(config.actions.closeText()).toBe('Close')
+        expect(config.common.loadingText()).toBe('Loading...')
     })
 
     it('is reactive and allows overriding the resolver function', () => {
@@ -16,5 +32,25 @@ describe('useDSConfig', () => {
         expect(useDSConfig().forms.optionalLabelText()).toBe('(opcional)')
 
         config.forms.optionalLabelText = () => '(optional)'
+    })
+
+    it('shares overrides for nested groups across every call site', () => {
+        const config = useDSConfig()
+
+        config.forms.fileUpload.dragDropText = () => 'Suelta los archivos aquí'
+
+        expect(useDSConfig().forms.fileUpload.dragDropText()).toBe('Suelta los archivos aquí')
+
+        config.forms.fileUpload.dragDropText = () => 'Drag and drop files here'
+    })
+
+    it('shares overrides for the actions group across every call site', () => {
+        const config = useDSConfig()
+
+        config.actions.cancelText = () => 'Cancelar'
+
+        expect(useDSConfig().actions.cancelText()).toBe('Cancelar')
+
+        config.actions.cancelText = () => 'Cancel'
     })
 })

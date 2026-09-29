@@ -51,17 +51,17 @@
             :size
             :activeStyle
             :filterable
-            :searchFieldPlaceholder
-            :noResultsFoundText
+            :searchFieldPlaceholder="resolvedSearchFieldPlaceholder"
+            :noResultsFoundText="resolvedNoResultsFoundText"
             :disabled
             :dropdownPosition
             :hasSeparator
             :multiple
             :allowDeselect
             :isLoading="isLoadingOptions"
-            :loadingText
+            :loadingText="resolvedLoadingText"
             :transparent
-            :clearSelectionAriaLabel
+            :clearSelectionAriaLabel="resolvedClearSelectionAriaLabel"
             :shouldTeleport
             :teleportTo
             :selectBoxClass="computedSelectBoxClass"
@@ -108,10 +108,7 @@ const props = defineProps({
         type: Array as PropType<SelectOption[]>,
         default: () => [],
     },
-    placeholder: { 
-        type: String as PropType<string>,
-        default: 'Select an option',
-    },
+    placeholder: String as PropType<string>,
     modelValue: {
         type: [String, Number, Array] as PropType<string | number | (string | number)[] | null>, 
         default: null,
@@ -140,14 +137,8 @@ const props = defineProps({
         type: Boolean as PropType<boolean>,
         default: false,
     },
-    searchFieldPlaceholder: {
-        type: String as PropType<string>,
-        default: 'Search...',
-    },
-    noResultsFoundText: {
-        type: String as PropType<string>,
-        default: 'No results found',
-    },
+    searchFieldPlaceholder: String as PropType<string>,
+    noResultsFoundText: String as PropType<string>,
     disabled: {
         type: Boolean as PropType<boolean>,
         default: false,
@@ -178,10 +169,7 @@ const props = defineProps({
         type: Boolean as PropType<boolean>,
         default: true,
     },
-    loadingText: {
-        type: String as PropType<string>,
-        default: 'Loading options...'
-    },
+    loadingText: String as PropType<string>,
     loadingOptionsPlaceholder: { 
         type: String as PropType<string>,
         default: 'Options are being loaded',
@@ -191,10 +179,7 @@ const props = defineProps({
         type: Boolean as PropType<boolean>,
         default: false,
     },
-    clearSelectionAriaLabel: {
-        type: String as PropType<string>,
-        default: 'Clear selection',
-    },
+    clearSelectionAriaLabel: String as PropType<string>,
     shouldTeleport: {
         type: Boolean as PropType<boolean>,
         default: false,
@@ -215,6 +200,11 @@ const dsConfig = useDSConfig()
 // Computed
 const hasError = computed(() => props.error !== '')
 const optionalLabelText = computed(() => props.optionalLabel ?? dsConfig.forms.optionalLabelText())
+const resolvedPlaceholder = computed(() => props.placeholder ?? dsConfig.forms.selectPlaceholderText())
+const resolvedSearchFieldPlaceholder = computed(() => props.searchFieldPlaceholder ?? dsConfig.forms.searchText())
+const resolvedNoResultsFoundText = computed(() => props.noResultsFoundText ?? dsConfig.forms.noResultsText())
+const resolvedLoadingText = computed(() => props.loadingText ?? dsConfig.forms.loadingOptionsText())
+const resolvedClearSelectionAriaLabel = computed(() => props.clearSelectionAriaLabel ?? dsConfig.forms.clearSelectionText())
 const hasOptions = computed(() => Array.isArray(props.options) && props.options.length > 0)
 
 const isLoadingOptions = computed(() => {
@@ -228,7 +218,7 @@ const computedPlaceholder = computed(() => {
         return props.loadingOptionsPlaceholder
     }
 
-    return props.placeholder
+    return resolvedPlaceholder.value
 })
 
 const computedSelectBoxClass = computed(() => {

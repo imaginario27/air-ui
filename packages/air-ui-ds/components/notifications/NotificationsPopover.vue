@@ -118,7 +118,7 @@
                     <ActionButton
                         :icon="buttonClearAllIcon"
                         :iconPosition="IconPosition.LEFT"
-                        :text="buttonClearAllText"
+                        :text="resolvedButtonClearAllText"
                         :size="ButtonSize.XS"
                         isFullWidth
                         @click="onClearAll"
@@ -260,10 +260,7 @@ const props = defineProps({
         type: String as PropType<string>,
         default: 'mdi:close-circle-outline',
     },
-    buttonClearAllText: {
-        type: String as PropType<string>,
-        default: 'Clear all',
-    },
+    buttonClearAllText: String as PropType<string>,
     filterAllButtonText: {
         type: String as PropType<string>,
         default: 'All',
@@ -282,6 +279,9 @@ const props = defineProps({
 // Emits
 const emit = defineEmits(['markAllAsRead', 'clearAll', 'remove'])
 
+// Composables
+const dsConfig = useDSConfig()
+
 // States
 const selectedFilterValue = ref<string>('all')
 
@@ -299,6 +299,7 @@ watch(() => props.list, (newList) => {
 
 // Computed
 const hasError = computed(() => props.errorText.trim().length > 0)
+const resolvedButtonClearAllText = computed(() => props.buttonClearAllText ?? dsConfig.actions.clearAllText())
 
 const unreadCount = computed(() => internalList.value.filter(notification => !notification.read).length)
 

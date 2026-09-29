@@ -1,6 +1,7 @@
 import { mount } from '@vue/test-utils'
 import { nextTick } from 'vue'
 import ModalDialog from '@/components/modals/ModalDialog.vue'
+import { useDSConfig } from '@/composables/useDSConfig'
 
 const factory = (
     props?: Partial<InstanceType<typeof ModalDialog>['$props']>,
@@ -252,5 +253,39 @@ describe('ModalDialog', () => {
 
         const dialog = document.querySelector('[role="dialog"]')
         expect(document.activeElement).toBe(dialog)
+    })
+
+    describe('global config', () => {
+        afterEach(() => {
+            useDSConfig().actions.closeText = () => 'Close'
+        })
+
+        it('falls back to useDSConfig().actions.closeText() when closeAriaLabel is unset', async () => {
+            factory()
+            await nextTick()
+
+            const btn = document.querySelector('[data-test="close-btn"]')
+            expect(btn?.getAttribute('aria-label')).toBe('Close')
+        })
+
+        it('uses a global config override for the close button aria-label', async () => {
+            useDSConfig().actions.closeText = () => 'Cerrar'
+
+            factory()
+            await nextTick()
+
+            const btn = document.querySelector('[data-test="close-btn"]')
+            expect(btn?.getAttribute('aria-label')).toBe('Cerrar')
+        })
+
+        it('lets the closeAriaLabel prop win over a global config override', async () => {
+            useDSConfig().actions.closeText = () => 'Cerrar'
+
+            factory({ closeAriaLabel: 'Dismiss' })
+            await nextTick()
+
+            const btn = document.querySelector('[data-test="close-btn"]')
+            expect(btn?.getAttribute('aria-label')).toBe('Dismiss')
+        })
     })
 })

@@ -10,6 +10,7 @@ import ModalActions from '@/components/modals/ModalActions.vue'
 import ActionButton from '@/components/buttons/ActionButton.vue'
 import ContainedIcon from '@/components/icons/ContainedIcon.vue'
 import { Orientation } from '@/models/enums/orientations'
+import { useDSConfig } from '@/composables/useDSConfig'
 
 const factory = (
     props?: Partial<InstanceType<typeof DangerModalDialog>['$props']>,
@@ -184,5 +185,68 @@ describe('DangerModalDialog.vue', () => {
 
         const modal = wrapper.findComponent(ModalDialog)
         expect(modal.props('closeAriaLabel')).toBe('Cerrar')
+    })
+
+    describe('global config', () => {
+        afterEach(() => {
+            useDSConfig().actions.cancelText = () => 'Cancel'
+            useDSConfig().actions.closeText = () => 'Close'
+        })
+
+        it('falls back to useDSConfig().actions.cancelText() when buttonCloseText is unset', async () => {
+            const wrapper = factory()
+            await nextTick()
+
+            const buttons = wrapper.findAllComponents(ActionButton)
+            expect(buttons[0]?.props('text')).toBe('Cancel')
+        })
+
+        it('uses a global config override for the close button text', async () => {
+            useDSConfig().actions.cancelText = () => 'Cancelar'
+
+            const wrapper = factory()
+            await nextTick()
+
+            const buttons = wrapper.findAllComponents(ActionButton)
+            expect(buttons[0]?.props('text')).toBe('Cancelar')
+        })
+
+        it('lets the buttonCloseText prop win over a global config override', async () => {
+            useDSConfig().actions.cancelText = () => 'Cancelar'
+
+            const wrapper = factory({ buttonCloseText: 'Not now' })
+            await nextTick()
+
+            const buttons = wrapper.findAllComponents(ActionButton)
+            expect(buttons[0]?.props('text')).toBe('Not now')
+        })
+
+        it('falls back to useDSConfig().actions.closeText() when closeAriaLabel is unset', async () => {
+            const wrapper = factory()
+            await nextTick()
+
+            const modal = wrapper.findComponent(ModalDialog)
+            expect(modal.props('closeAriaLabel')).toBe('Close')
+        })
+
+        it('uses a global config override for closeAriaLabel', async () => {
+            useDSConfig().actions.closeText = () => 'Cerrar'
+
+            const wrapper = factory()
+            await nextTick()
+
+            const modal = wrapper.findComponent(ModalDialog)
+            expect(modal.props('closeAriaLabel')).toBe('Cerrar')
+        })
+
+        it('lets the closeAriaLabel prop win over a global config override', async () => {
+            useDSConfig().actions.closeText = () => 'Cerrar'
+
+            const wrapper = factory({ closeAriaLabel: 'Dismiss' })
+            await nextTick()
+
+            const modal = wrapper.findComponent(ModalDialog)
+            expect(modal.props('closeAriaLabel')).toBe('Dismiss')
+        })
     })
 })

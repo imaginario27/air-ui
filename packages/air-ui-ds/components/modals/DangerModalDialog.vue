@@ -3,7 +3,7 @@
         :modelValue
         :closeOnClickOutside
         :hasCornerCloseButton
-        :closeAriaLabel
+        :closeAriaLabel="resolvedCloseAriaLabel"
         :cardClass
         @update:modelValue="updateModelValue"
     >
@@ -47,8 +47,8 @@
                     orientation === Orientation.HORIZONTAL ? 'justify-end' : '',
                 ]"
             >
-                <ActionButton 
-                    :text="buttonCloseText"
+                <ActionButton
+                    :text="resolvedButtonCloseText"
                     :class="[
                         orientation === Orientation.HORIZONTAL ? 'w-full md:w-auto' : 'w-full'
                     ]" 
@@ -73,7 +73,7 @@
 
 <script setup lang="ts">
 // Props
-defineProps({
+const props = defineProps({
     modelValue: {
         type: Boolean as PropType<boolean>,
         default: false,
@@ -87,10 +87,7 @@ defineProps({
         default: 'Modal title',
     },
     description: String as PropType<string>,
-    buttonCloseText: {
-        type: String as PropType<string>,
-        default: 'Cancel',
-    },
+    buttonCloseText: String as PropType<string>,
     buttonActionText: {
         type: String as PropType<string>,
         default: 'Delete',
@@ -128,14 +125,18 @@ defineProps({
         type: Boolean as PropType<boolean>,
         default: true,
     },
-    closeAriaLabel: {
-        type: String as PropType<string>,
-        default: 'Close',
-    },
+    closeAriaLabel: String as PropType<string>,
 })
 
 // Emits
 const emit = defineEmits(['update:modelValue', 'close', 'action'])
+
+// Composables
+const dsConfig = useDSConfig()
+
+// Computed
+const resolvedButtonCloseText = computed(() => props.buttonCloseText ?? dsConfig.actions.cancelText())
+const resolvedCloseAriaLabel = computed(() => props.closeAriaLabel ?? dsConfig.actions.closeText())
 
 // Handlers
 const updateModelValue = (value: boolean) => {

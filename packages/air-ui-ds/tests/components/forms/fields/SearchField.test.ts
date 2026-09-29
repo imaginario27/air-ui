@@ -3,6 +3,7 @@ import SearchField from '~/components/forms/fields/SearchField.vue'
 import ActionIconButton from '~/components/buttons/ActionIconButton.vue'
 import { InputSize } from '#imports'
 import { Position } from '@/models/enums/positions'
+import { useDSConfig } from '@/composables/useDSConfig'
 
 const defaultProps = {
     id: 'search-input',
@@ -276,5 +277,33 @@ describe('SearchField', () => {
         const wrapper = mount(SearchField, { props: { ...defaultProps } })
         const input = wrapper.find('input')
         expect(input.classes()).not.toContain('custom-input-class')
+    })
+
+    describe('global config', () => {
+        afterEach(() => {
+            useDSConfig().forms.clearSearchText = () => 'Clear search'
+        })
+
+        it('falls back to useDSConfig().forms.clearSearchText() when clearAriaLabel is unset', () => {
+            useDSConfig().forms.clearSearchText = () => 'Limpiar búsqueda'
+
+            const wrapper = mount(SearchField, {
+                props: { ...defaultProps, modelValue: 'test' },
+            })
+
+            const clearBtn = wrapper.findComponent(ActionIconButton)
+            expect(clearBtn.props('ariaLabel')).toBe('Limpiar búsqueda')
+        })
+
+        it('lets the clearAriaLabel prop win over a global config override', () => {
+            useDSConfig().forms.clearSearchText = () => 'Limpiar búsqueda'
+
+            const wrapper = mount(SearchField, {
+                props: { ...defaultProps, modelValue: 'test', clearAriaLabel: 'Dismiss' },
+            })
+
+            const clearBtn = wrapper.findComponent(ActionIconButton)
+            expect(clearBtn.props('ariaLabel')).toBe('Dismiss')
+        })
     })
 })
