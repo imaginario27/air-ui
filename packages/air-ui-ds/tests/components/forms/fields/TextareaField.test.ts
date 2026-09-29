@@ -36,7 +36,8 @@ describe('TextareaField', () => {
 
     it('renders label when provided', () => {
         const wrapper = factory({
-            label: 'Message'
+            label: 'Message',
+            required: true
         })
 
         const label = wrapper.find('label')

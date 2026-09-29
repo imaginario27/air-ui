@@ -9,6 +9,7 @@ import ModalTitle from '@/components/modals/ModalTitle.vue'
 import ModalDescription from '@/components/modals/ModalDescription.vue'
 import ModalActions from '@/components/modals/ModalActions.vue'
 import ContainedIcon from '@/components/icons/ContainedIcon.vue'
+import { useDSConfig } from '@/composables/useDSConfig'
 
 const factory = (
     props?: Partial<InstanceType<typeof SuccessModalDialog>['$props']>,
@@ -144,5 +145,29 @@ describe('SuccessModalDialog.vue', () => {
 
         const modalDialog = wrapper.findComponent(ModalDialog)
         expect(modalDialog.props('closeAriaLabel')).toBe('Cerrar')
+    })
+
+    describe('global config', () => {
+        afterEach(() => {
+            useDSConfig().actions.closeText = () => 'Close'
+        })
+
+        it('falls back to useDSConfig().actions.closeText() when closeAriaLabel is unset', async () => {
+            const wrapper = factory()
+            await nextTick()
+
+            const modalDialog = wrapper.findComponent(ModalDialog)
+            expect(modalDialog.props('closeAriaLabel')).toBe('Close')
+        })
+
+        it('uses a global config override for closeAriaLabel', async () => {
+            useDSConfig().actions.closeText = () => 'Cerrar'
+
+            const wrapper = factory()
+            await nextTick()
+
+            const modalDialog = wrapper.findComponent(ModalDialog)
+            expect(modalDialog.props('closeAriaLabel')).toBe('Cerrar')
+        })
     })
 })

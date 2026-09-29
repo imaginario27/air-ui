@@ -12,6 +12,8 @@ props:
     error: ""
     disabled: false
     required: false
+    showOptionalLabel: true
+    optionalLabel: null
 slots:
   default: ""
 slotComponents:
@@ -73,6 +75,15 @@ props: [
         "name": "required",
         "default": "false",
         "type": "boolean",
+    },
+    {
+        "name": "showOptionalLabel",
+        "default": "true",
+        "type": "boolean",
+    },
+    {
+        "name": "optionalLabel",
+        "type": "string",
     },
 ]
 ---
@@ -270,3 +281,32 @@ Sets the required state passed to the slot props.
 
 - **Type:** `boolean`
 - **Default:** `false`
+
+### showOptionalLabel
+
+When the field is not `required`, shows an "(optional)" hint next to the label. Set to `false` to hide it. The hint text defaults to a global setting that can be overridden project-wide, and can also be overridden per field with the `optionalLabel` prop.
+
+```vue
+<template>
+    <SlotField id="field-id" label="Profile" :showOptionalLabel="false" v-slot="{ id }">
+        <YourComponent :id="id" />
+    </SlotField>
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `true`
+
+### optionalLabel
+
+Overrides the "(optional)" hint text for this specific field, taking priority over the global default.
+
+```vue
+<template>
+    <SlotField id="field-id" label="Profile" optionalLabel="(not required)" v-slot="{ id }">
+        <YourComponent :id="id" />
+    </SlotField>
+</template>
+```
+
+- **Type:** `string`

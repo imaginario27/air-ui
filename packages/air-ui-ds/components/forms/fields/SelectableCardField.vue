@@ -12,6 +12,12 @@
             ]"
         >
             {{ label }}
+            <span
+                v-if="!required && showOptionalLabel"
+                class="font-normal text-text-neutral-subtler"
+            >
+                {{ optionalLabelText }}
+            </span>
         </label>
         
         <!-- Help Text (top) -->
@@ -122,6 +128,14 @@ const props = defineProps({
     required: {
         type: Boolean as PropType<boolean>,
         default: false,
+    },
+    showOptionalLabel: {
+        type: Boolean as PropType<boolean>,
+        default: true,
+    },
+    optionalLabel: {
+        type: String as PropType<string>,
+        default: undefined,
     },
     disabled: {
         type: Boolean as PropType<boolean>,
@@ -255,9 +269,11 @@ const emit = defineEmits(['update:modelValue', 'update:error', 'buttonClick'])
 
 // Composables
 const validationMode = useInjectedValidationMode()
+const dsConfig = useDSConfig()
 
 // Computed
 const hasError = computed(() => props.error !== '')
+const optionalLabelText = computed(() => props.optionalLabel ?? dsConfig.forms.optionalLabelText())
 
 // Selection checker
 const isSelected = (value: SelectableCardValue) => {

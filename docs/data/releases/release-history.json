@@ -1,12 +1,67 @@
 {
-  "generatedAt": "2026-09-23T11:02:38.262Z",
+  "generatedAt": "2026-09-29T09:22:34.843Z",
   "source": "github-git-history+npm-publish-dates",
   "githubBaseUrl": "https://github.com/imaginario27/air-ui",
   "packages": [
     {
       "packageName": "@imaginario27/air-ui-ds",
-      "latestVersion": "1.18.2",
+      "latestVersion": "1.18.3",
       "entries": [
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.18.3",
+          "publishedAt": "2026-09-23",
+          "releaseType": "patch",
+          "notes": [
+            "add icon variants for dropdown checkbox, switch, and check types",
+            "add noWrap prop to TableHeaderCell",
+            "focus first focusable slot content in ModalDialog, not the close button"
+          ],
+          "metadata": {
+            "commitCount": 3,
+            "commits": [
+              {
+                "sha": "cc726c563b404688e4f87a56fbf73788d345eff0",
+                "shortSha": "cc726c5",
+                "date": "2026-09-23",
+                "subject": "fix(ds): focus first focusable slot content in ModalDialog, not the close button",
+                "normalizedSubject": "focus first focusable slot content in ModalDialog, not the close button",
+                "type": "fixed",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/cc726c563b404688e4f87a56fbf73788d345eff0",
+                "prUrl": null
+              },
+              {
+                "sha": "1065080b9d86bdcd0c58dbe961d7d6a64f81d3d9",
+                "shortSha": "1065080",
+                "date": "2026-09-23",
+                "subject": "feat(ds): add icon variants for dropdown checkbox, switch, and check types",
+                "normalizedSubject": "add icon variants for dropdown checkbox, switch, and check types",
+                "type": "added",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/1065080b9d86bdcd0c58dbe961d7d6a64f81d3d9",
+                "prUrl": null
+              },
+              {
+                "sha": "849a46eb7b6bcd61a2e43d360b03b574661f1817",
+                "shortSha": "849a46e",
+                "date": "2026-09-23",
+                "subject": "feat(ds): add noWrap prop to TableHeaderCell",
+                "normalizedSubject": "add noWrap prop to TableHeaderCell",
+                "type": "added",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/849a46eb7b6bcd61a2e43d360b03b574661f1817",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 2,
+              "fixed": 1,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
         {
           "packageName": "@imaginario27/air-ui-ds",
           "version": "1.18.2",

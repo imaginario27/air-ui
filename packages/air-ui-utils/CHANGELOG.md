@@ -5,6 +5,17 @@ All notable changes to this package are documented in this file.
 Historical releases were reconstructed from git history (GitHub repository) and npm publish dates.
 Future releases will include detailed entries generated with Changesets.
 
+## 1.2.6 - 2026-09-17
+
+Release type: patch.
+Commits found in range: 1.
+
+### Added
+
+1. add toggle mode to trimText ([30f74d1](https://github.com/imaginario27/air-ui/commit/30f74d12281e070ca8fe78aacc6a59c3bf6c35d8))
+
+- Package: @imaginario27/air-ui-utils.
+
 ## 1.2.5 - 2026-06-15
 
 Release type: patch.

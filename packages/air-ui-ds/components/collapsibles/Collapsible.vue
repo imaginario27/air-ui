@@ -8,23 +8,32 @@
             :aria-controls="panelId"
             @click="toggle"
         >
-            <span :class="['font-semibold mt-1', titleClass]">
-                {{ title }}
-            </span>
+            <div :class="['flex gap-3', titleWrapperClass]">
+                <span :class="['font-semibold mt-1', titleClass]">
+                    {{ title }}
+                </span>
 
-            <ActionIconButton
-                :icon="isOpen ? 'mdi:unfold-less-horizontal' : 'mdi:unfold-more-horizontal'"
-                :styleType="ButtonStyleType.NEUTRAL_OUTLINED"
-                :size="buttonSize"
-                tabindex="-1"
-                aria-hidden="true"
-            />
+                <slot name="title-suffix" />
+            </div>
+
+            <div :class="['flex gap-2', actionsWrapperClass]">
+                <slot name="header-suffix" />
+
+                <ActionIconButton
+                    :icon="isOpen ? 'mdi:unfold-less-horizontal' : 'mdi:unfold-more-horizontal'"
+                    :styleType="ButtonStyleType.NEUTRAL_OUTLINED"
+                    :size="buttonSize"
+                    tabindex="-1"
+                    aria-hidden="true"
+                />
+            </div>
+            
         </button>
 
         <VerticalExpansionTransition v-show="isOpen">
-            <div :id="panelId" role="region" :aria-labelledby="headerId">
+            <section :id="panelId" :aria-labelledby="headerId">
                 <slot />
-            </div>
+            </section>
         </VerticalExpansionTransition>
     </div>
 </template>
@@ -45,11 +54,13 @@ const props = defineProps({
         default: false,
     },
     titleClass: String as PropType<string>,
+    titleWrapperClass: String as PropType<string>,
     buttonSize: {
         type: String as PropType<ButtonSize>,
         default: ButtonSize.MD,
         validator: (value: ButtonSize) => Object.values(ButtonSize).includes(value),
     },
+    actionsWrapperClass: String as PropType<string>,
 })
 
 // Emits

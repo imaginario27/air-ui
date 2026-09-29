@@ -52,6 +52,7 @@ describe('RadioGroupField', () => {
         const wrapper = factory({
             label: 'My Label',
             error: 'Required field',
+            required: true,
         })
 
         // Assert error message

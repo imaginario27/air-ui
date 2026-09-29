@@ -9,15 +9,16 @@
             ]"
         >
             <!-- Label (inverted position) -->
-            <label 
-                v-if="inverse && label"
-                :for="id" 
-                :class="[ 
+            <label
+                v-if="inverse && ($slots.label || label)"
+                :for="id"
+                :class="[
                     disabled && 'text-text-neutral-disabled',
-                    labelSizeClass 
-                ]" 
-                v-html="label"
-            />
+                    labelSizeClass
+                ]"
+            >
+                <slot name="label">{{ label }}</slot>
+            </label>
 
             <!-- Hidden Native Radio Button -->
             <input 
@@ -58,15 +59,16 @@
             </div>
             
             <!-- Label (natural position) -->
-            <label 
-                v-if="!inverse && label"
-                :for="id" 
-                :class="[ 
+            <label
+                v-if="!inverse && ($slots.label || label)"
+                :for="id"
+                :class="[
                     disabled ? 'text-text-neutral-disabled' : undefined,
-                    labelSizeClass 
-                ]"  
-                v-html="label"
-            />
+                    labelSizeClass
+                ]"
+            >
+                <slot name="label">{{ label }}</slot>
+            </label>
         </div>
 
         <!-- Help Text -->

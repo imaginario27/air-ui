@@ -47,15 +47,16 @@
 
             <!-- Label with help text -->
             <div class="flex flex-col gap-1.5">
-                <label 
-                    v-if="label"
-                    :for="id" 
-                    :class="[ 
+                <label
+                    v-if="$slots.label || label"
+                    :for="id"
+                    :class="[
                         modelValue === value ? selectedIconColorClass : 'text-text-neutral-default',
-                        labelSizeClass, 
-                    ]" 
-                    v-html="label"
-                />
+                        labelSizeClass,
+                    ]"
+                >
+                    <slot name="label">{{ label }}</slot>
+                </label>
                 <!-- Help Text -->
                 <HelpText :text="helpText" />
             </div>

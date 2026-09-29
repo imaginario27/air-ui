@@ -19,6 +19,11 @@ const flush = async () => {
 const showCode = async (wrapper: Awaited<ReturnType<typeof mountSuspended>>) => {
     await wrapper.find('input#show-code').trigger('change')
     await flush()
+
+    await vi.waitFor(async () => {
+        await flushPromises()
+        expect(wrapper.find('.component-code-pre').text().length).toBeGreaterThan(0)
+    })
 }
 
 describe('ComponentCode.vue', () => {
@@ -54,7 +59,7 @@ describe('ComponentCode.vue', () => {
         await wrapper.find('input#show-playground').trigger('change')
         await flush()
 
-        await wrapper.find('input#text').setValue('Space')
+        await wrapper.find('input#playground-text').setValue('Space')
         await flush()
 
         expect(wrapper.text()).toContain('Space')

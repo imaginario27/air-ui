@@ -10,6 +10,7 @@ import ModalActions from '@/components/modals/ModalActions.vue'
 import ActionButton from '@/components/buttons/ActionButton.vue'
 import ContainedIcon from '@/components/icons/ContainedIcon.vue'
 import { Orientation } from '@/models/enums/orientations'
+import { useDSConfig } from '@/composables/useDSConfig'
 
 const factory = (
     props?: Partial<InstanceType<typeof InfoModalDialog>['$props']>,
@@ -176,5 +177,29 @@ describe('InfoModalDialog.vue', () => {
 
         const modal = wrapper.findComponent(ModalDialog)
         expect(modal.props('closeAriaLabel')).toBe('Cerrar')
+    })
+
+    describe('global config', () => {
+        afterEach(() => {
+            useDSConfig().actions.closeText = () => 'Close'
+        })
+
+        it('falls back to useDSConfig().actions.closeText() when closeAriaLabel is unset', async () => {
+            const wrapper = factory()
+            await nextTick()
+
+            const modal = wrapper.findComponent(ModalDialog)
+            expect(modal.props('closeAriaLabel')).toBe('Close')
+        })
+
+        it('uses a global config override for closeAriaLabel', async () => {
+            useDSConfig().actions.closeText = () => 'Cerrar'
+
+            const wrapper = factory()
+            await nextTick()
+
+            const modal = wrapper.findComponent(ModalDialog)
+            expect(modal.props('closeAriaLabel')).toBe('Cerrar')
+        })
     })
 })

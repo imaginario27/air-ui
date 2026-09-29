@@ -13,6 +13,10 @@ export const sidebarGettingStartedMenu: SidebarMenuItem[] = [
         to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.GETTING_STARTED}/installation`,
     },
     {
+        text: 'Configuration',
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.GETTING_STARTED}/configuration`,
+    },
+    {
         isSectionTitle: true,
         text: 'Theme',
         icon: 'mdi:palette-outline',

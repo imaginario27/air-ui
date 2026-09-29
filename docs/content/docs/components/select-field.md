@@ -11,6 +11,8 @@ props:
     helpText: "Help text example"
     helpTextPosition: "bottom"
     required: false
+    showOptionalLabel: true
+    optionalLabel: null
     options: 
         - value: 1
           text: Option 1
@@ -39,6 +41,8 @@ props:
     loadingOptionsPlaceholder: "Options are being loaded"
     selectBoxClass: ""
     transparent: false
+    shouldTeleport: false
+    teleportTo: "body"
 items:
     size: 
         - value: lg
@@ -109,6 +113,15 @@ props: [
         "name": "required",
         "default": "false",
         "type": "boolean",
+    },
+    {
+        "name": "showOptionalLabel",
+        "default": "true",
+        "type": "boolean",
+    },
+    {
+        "name": "optionalLabel",
+        "type": "string",
     },
     {
         "name": "options",
@@ -228,6 +241,16 @@ props: [
         "default": "false",
         "type": "boolean",
     },
+    {
+        "name": "shouldTeleport",
+        "default": "false",
+        "type": "boolean",
+    },
+    {
+        "name": "teleportTo",
+        "default": "'body'",
+        "type": "string",
+    },
 ]
 ---
 ::
@@ -311,6 +334,31 @@ Sets whether the field is required or not.
 
 - **Type:** `boolean`
 - **Default:** `false`
+
+### showOptionalLabel
+
+When the field is not `required`, shows an "(optional)" hint next to the label. Set to `false` to hide it. The hint text defaults to a global setting that can be overridden project-wide, and can also be overridden per field with the `optionalLabel` prop.
+
+```vue
+<template>
+    <SelectField label="Country" :showOptionalLabel="false" />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `true`
+
+### optionalLabel
+
+Overrides the "(optional)" hint text for this specific field, taking priority over the global default.
+
+```vue
+<template>
+    <SelectField label="Country" optionalLabel="(not required)" />
+</template>
+```
+
+- **Type:** `string`
 
 ### options 
 
@@ -749,9 +797,35 @@ When `true`, removes the default `bg-background-container-surface` background fr
 
 - **Type:** `boolean`
 - **Default:** `false`
-- **Default:** `'Clear selection'`
 
+### shouldTeleport
+Teleports the dropdown panel to `teleportTo` (`body` by default) instead of rendering it as an absolutely-positioned descendant of the select box. Enable this when the field is used inside a container with `overflow-hidden`/`overflow-auto` (such as `Table`), otherwise the dropdown panel gets clipped by that ancestor.
 
+```vue
+<template>
+    <SelectField
+        id="field-id"
+        shouldTeleport
+    />
+</template>
+```
 
+- **Type:** `boolean`
+- **Default:** `false`
 
+### teleportTo
+Sets the teleport target selector used when `shouldTeleport` is `true`.
+
+```vue
+<template>
+    <SelectField
+        id="field-id"
+        shouldTeleport
+        teleportTo="body"
+    />
+</template>
+```
+
+- **Type:** `string`
+- **Default:** `'body'`
 

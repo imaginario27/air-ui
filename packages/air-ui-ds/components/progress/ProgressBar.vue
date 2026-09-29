@@ -10,7 +10,7 @@
                 progressLabelClass,
             ]"
         >
-            {{ isIndeterminate ? loadingText : `${normalizedProgress}%` }}
+            {{ isIndeterminate ? resolvedLoadingText : `${normalizedProgress}%` }}
         </div>
 
         <div
@@ -18,7 +18,7 @@
             :aria-valuenow="isIndeterminate ? undefined : normalizedProgress"
             :aria-valuemin="min"
             :aria-valuemax="max"
-            :aria-valuetext="isIndeterminate ? loadingText : undefined"
+            :aria-valuetext="isIndeterminate ? resolvedLoadingText : undefined"
             :aria-label="ariaLabel"
             :class="[
                 'w-full',
@@ -63,7 +63,7 @@
                 progressLabelClass,
             ]"
         >
-            {{ isIndeterminate ? loadingText : `${normalizedProgress}%` }}
+            {{ isIndeterminate ? resolvedLoadingText : `${normalizedProgress}%` }}
         </div>
     </div>
 </template>
@@ -114,10 +114,7 @@ const props = defineProps({
         type: Boolean as PropType<boolean>,
         default: false,
     },
-    loadingText: {
-        type: String as PropType<string>,
-        default: 'Loading...',
-    },
+    loadingText: String as PropType<string>,
     progressClass: String as PropType<string>,
     progressLabelClass: String as PropType<string>,
     ariaLabel: {
@@ -126,7 +123,12 @@ const props = defineProps({
     },
 })
 
+// Composables
+const dsConfig = useDSConfig()
+
 // Computed
+const resolvedLoadingText = computed(() => props.loadingText ?? dsConfig.common.loadingText())
+
 const normalizedProgress = computed(() => {
     if (props.isIndeterminate) return 100
 

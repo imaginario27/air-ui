@@ -2,6 +2,7 @@ import { mount } from '@vue/test-utils'
 import { defineComponent, h, ref } from 'vue'
 import FileUploadField from '~/components/forms/fields/FileUploadField.vue'
 import { Position } from '@/models/enums/positions'
+import { useDSConfig } from '@/composables/useDSConfig'
 
 vi.mock('~/composables/useFormValidationMode', () => ({
     useInjectedValidationMode: () => ref('blur')
@@ -52,7 +53,7 @@ const factory = (props: Record<string, unknown> = {}) => {
 
 describe('FileUploadField.vue', () => {
     it('renders label when provided', () => {
-        const wrapper = factory({ label: 'Upload your file' })
+        const wrapper = factory({ label: 'Upload your file', required: true })
         const label = wrapper.find('label')
 
         expect(label.exists()).toBe(true)
@@ -200,5 +201,55 @@ describe('FileUploadField.vue', () => {
         const wrapper = factory()
         const dropzone = wrapper.findComponent({ name: 'Dropzone' })
         expect(dropzone.props('transparent')).toBe(false)
+    })
+
+    describe('global config', () => {
+        afterEach(() => {
+            const config = useDSConfig()
+            config.forms.fileUpload.dragDropText = () => 'Drag and drop files here'
+            config.forms.fileUpload.selectFilesText = () => 'Select files'
+            config.forms.fileUpload.uploadingText = () => 'Uploading'
+            config.forms.fileUpload.uploadedText = () => 'Uploaded'
+            config.forms.fileUpload.uploadFailedText = () => 'Upload failed'
+            config.forms.fileUpload.removeFileText = () => 'Remove file'
+            config.actions.clearAllText = () => 'Clear all'
+        })
+
+        it('falls back to useDSConfig().forms.fileUpload for title, buttonText, status and remove label', () => {
+            useDSConfig().forms.fileUpload.dragDropText = () => 'Suelta los archivos aquí'
+            useDSConfig().forms.fileUpload.selectFilesText = () => 'Seleccionar archivos'
+            useDSConfig().forms.fileUpload.uploadingText = () => 'Subiendo'
+            useDSConfig().forms.fileUpload.uploadFailedText = () => 'Error al subir'
+            useDSConfig().forms.fileUpload.removeFileText = () => 'Eliminar archivo'
+
+            const wrapper = factory({ multiple: true })
+            const dropzone = wrapper.find('[data-test="dropzone"]')
+
+            expect(dropzone.attributes('title')).toBe('Suelta los archivos aquí')
+            expect(dropzone.attributes('buttontext')).toBe('Seleccionar archivos')
+            expect(dropzone.attributes('uploadingstatustext')).toBe('Subiendo')
+            expect(dropzone.attributes('errorstatustext')).toBe('Error al subir')
+            expect(dropzone.attributes('removearialabel')).toBe('Eliminar archivo')
+        })
+
+        it('lets explicit props win over global config overrides', () => {
+            useDSConfig().forms.fileUpload.dragDropText = () => 'Suelta los archivos aquí'
+            useDSConfig().forms.fileUpload.removeFileText = () => 'Eliminar archivo'
+
+            const wrapper = factory({ multiple: true, title: 'Upload files', removeAriaLabel: 'Delete' })
+            const dropzone = wrapper.find('[data-test="dropzone"]')
+
+            expect(dropzone.attributes('title')).toBe('Upload files')
+            expect(dropzone.attributes('removearialabel')).toBe('Delete')
+        })
+
+        it('falls back to useDSConfig().actions.clearAllText() for clearAllButtonText', () => {
+            useDSConfig().actions.clearAllText = () => 'Limpiar todo'
+
+            const wrapper = factory()
+            const dropzone = wrapper.find('[data-test="dropzone"]')
+
+            expect(dropzone.attributes('clearallbuttontext')).toBe('Limpiar todo')
+        })
     })
 })

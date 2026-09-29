@@ -28,13 +28,16 @@
                     {{ title }}
                 </span>
 
-                <slot name="description" />
+                <div v-if="$slots.description" class="text-sm">
+                    <slot name="description" />
+                </div>
 
-                <p 
-                    v-if="!$slots.description && description"
-                    v-html="description" 
-                    class="text-sm" 
-                />
+                <p
+                    v-else-if="description"
+                    class="text-sm"
+                >
+                    {{ description }}
+                </p>
     
                 <div
                     v-if="hasActionButtons && buttons?.length"

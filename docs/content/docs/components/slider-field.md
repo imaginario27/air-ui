@@ -9,6 +9,8 @@ props:
     helpText: Pick your preferred range
     helpTextPosition: bottom
     required: false
+    showOptionalLabel: true
+    optionalLabel: null
     modelValue:
         - 20
         - 80
@@ -123,6 +125,15 @@ props: [
         "name": "required",
         "default": "false",
         "type": "boolean",
+    },
+    {
+        "name": "showOptionalLabel",
+        "default": "true",
+        "type": "boolean",
+    },
+    {
+        "name": "optionalLabel",
+        "type": "string",
     },
     {
         "name": "modelValue",
@@ -314,6 +325,31 @@ Marks the field as required for validation.
 
 - **Type:** `boolean`
 - **Default:** `false`
+
+### showOptionalLabel
+
+When the field is not `required`, shows an "(optional)" hint next to the label. Set to `false` to hide it. The hint text defaults to a global setting that can be overridden project-wide, and can also be overridden per field with the `optionalLabel` prop.
+
+```vue
+<template>
+    <SliderField id="price-range" label="Price" :showOptionalLabel="false" />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `true`
+
+### optionalLabel
+
+Overrides the "(optional)" hint text for this specific field, taking priority over the global default.
+
+```vue
+<template>
+    <SliderField id="price-range" label="Price" optionalLabel="(not required)" />
+</template>
+```
+
+- **Type:** `string`
 
 ### modelValue
 

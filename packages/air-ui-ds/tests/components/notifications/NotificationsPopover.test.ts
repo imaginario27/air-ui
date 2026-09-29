@@ -4,6 +4,7 @@ import NotificationsPopover from '@/components/notifications/NotificationsPopove
 import NotificationListItem from '@/components/notifications/NotificationListItem.vue'
 import ActionButton from '@/components/buttons/ActionButton.vue'
 import NavLink from '@/components/navigation/links/NavLink.vue'
+import { useDSConfig } from '@/composables/useDSConfig'
 
 const makeSampleList = () => [
     { id: '1', read: false, title: 'Unread A', description: 'Desc A', timeAgo: '1m ago', author: 'Alice', link: '' },
@@ -207,6 +208,34 @@ describe('NotificationsPopover.vue', () => {
             const wrapper = factory()
             await wrapper.findAllComponents(NotificationListItem)[0]?.vm.$emit('itemClick')
             expect(wrapper.onClose).toHaveBeenCalled()
+        })
+    })
+
+    describe('global config', () => {
+        afterEach(() => {
+            useDSConfig().actions.clearAllText = () => 'Clear all'
+        })
+
+        it('falls back to useDSConfig().actions.clearAllText() when buttonClearAllText is unset', () => {
+            const wrapper = factory()
+            const buttons = wrapper.findAllComponents(ActionButton)
+            expect(buttons[1]?.props('text')).toBe('Clear all')
+        })
+
+        it('uses a global config override for the clear-all button text', () => {
+            useDSConfig().actions.clearAllText = () => 'Limpiar todo'
+
+            const wrapper = factory()
+            const buttons = wrapper.findAllComponents(ActionButton)
+            expect(buttons[1]?.props('text')).toBe('Limpiar todo')
+        })
+
+        it('lets the buttonClearAllText prop win over a global config override', () => {
+            useDSConfig().actions.clearAllText = () => 'Limpiar todo'
+
+            const wrapper = factory({ buttonClearAllText: 'Dismiss all' })
+            const buttons = wrapper.findAllComponents(ActionButton)
+            expect(buttons[1]?.props('text')).toBe('Dismiss all')
         })
     })
 })

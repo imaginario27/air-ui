@@ -16,13 +16,19 @@
             ]"
         >
             {{ legend }}
+            <span
+                v-if="!required && showOptionalLabel"
+                class="font-normal text-text-neutral-subtler"
+            >
+                {{ optionalLabelText }}
+            </span>
         </legend>
 
         <!-- Main wrapper -->
         <div
             :class="[
                 'flex items-center gap-3',
-                label || icon ? 'justify-between' : 'justify-end',
+                ($slots.label || label) || icon ? 'justify-between' : 'justify-end',
                 fitToContent && 'w-max',
                 'text-sm w-full',
                 hasError ? 'text-text-error' : 'text-text-default',
@@ -31,7 +37,7 @@
         >
             <!-- Label + Icon block (only if present) -->
             <div
-                v-if="label || icon"
+                v-if="$slots.label || label || icon"
                 class="flex gap-2.5 w-full"
             >
                 <!-- Icon -->
@@ -43,15 +49,16 @@
 
                 <!-- Label -->
                 <label
-                    v-if="label"
+                    v-if="$slots.label || label"
                     :for="id"
                     :class="[
                         disabled && 'text-text-neutral-disabled',
                         labelSizeClass,
                         labelClass && labelClass
                     ]"
-                    v-html="label"
-                />
+                >
+                    <slot name="label">{{ label }}</slot>
+                </label>
             </div>
 
             <TriStateSwitch
@@ -98,6 +105,14 @@ const props = defineProps({
         type: Boolean as PropType<boolean>,
         default: false,
     },
+    showOptionalLabel: {
+        type: Boolean as PropType<boolean>,
+        default: true,
+    },
+    optionalLabel: {
+        type: String as PropType<string>,
+        default: undefined,
+    },
     disabled: {
         type: Boolean as PropType<boolean>,
         default: false,
@@ -126,9 +141,11 @@ const emit = defineEmits(['update:modelValue', 'update:error'])
 
 // Composables
 const validationMode = useInjectedValidationMode()
+const dsConfig = useDSConfig()
 
 // Computed
 const hasError = computed(() => props.error !== '')
+const optionalLabelText = computed(() => props.optionalLabel ?? dsConfig.forms.optionalLabelText())
 
 // Computed classes
 const labelSizeClass = computed(() => {

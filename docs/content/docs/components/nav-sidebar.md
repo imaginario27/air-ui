@@ -324,6 +324,10 @@ slots: [
         description: "Template to render a header for the sidebar. It is commonly used for logos, language selectors, etc.",
     },
     {
+        name: "sidebar-menu",
+        description: "Template to fully replace the default menu. When used, it renders instead of the built-in menu built from the `menuItems` prop.",
+    },
+    {
         name: "sidebar-menu-prefix-content",
         description: "Template to render the prefix content before the menu items. It will render the content before the menu items inside the menu.",
     },
@@ -346,6 +350,10 @@ slots: [
         :menuItems="routeItems"
     >
         <template #sidebar-header>
+            <!-- Add content here -->
+        </template>
+
+        <template #sidebar-menu>
             <!-- Add content here -->
         </template>
 

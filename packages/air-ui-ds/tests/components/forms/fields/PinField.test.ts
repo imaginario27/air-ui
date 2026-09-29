@@ -34,7 +34,7 @@ describe('PinField.vue', () => {
     })
 
     it('renders label if provided', () => {
-        const wrapper = factory({ label: 'Enter PIN' })
+        const wrapper = factory({ label: 'Enter PIN', required: true })
         expect(wrapper.find('label').text()).toBe('Enter PIN')
     })
 

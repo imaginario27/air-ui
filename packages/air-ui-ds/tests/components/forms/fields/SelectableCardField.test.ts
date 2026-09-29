@@ -30,7 +30,7 @@ describe('SelectableCardField', () => {
     })
 
     it('renders the label when provided', () => {
-        const wrapper = factory({ label: 'Select one' })
+        const wrapper = factory({ label: 'Select one', required: true })
 
         expect(wrapper.find('label').text()).toBe('Select one')
         expect(wrapper.find('label').attributes('for')).toBe('test-card-field')

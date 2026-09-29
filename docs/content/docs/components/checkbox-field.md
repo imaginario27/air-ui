@@ -14,6 +14,8 @@ props:
     validator: null
     disabled: false
     required: false
+    showOptionalLabel: true
+    optionalLabel: null
     size: "md"
     inverse: false
 items:
@@ -89,6 +91,15 @@ props: [
         "type": "boolean",
     },
     {
+        "name": "showOptionalLabel",
+        "default": "true",
+        "type": "boolean",
+    },
+    {
+        "name": "optionalLabel",
+        "type": "string",
+    },
+    {
         "name": "size",
         "default": "ControlFieldSize.MD",
         "type": "ControlFieldSize",
@@ -101,6 +112,28 @@ props: [
 ]
 ---
 ::
+
+## Slots
+::slots-table
+---
+slots: [
+    {
+        name: "label",
+        description: "Overrides the rendered label with custom markup, instead of the plain-text `label` prop. Use this when the label needs formatted or rich content.",
+    },
+]
+---
+::
+
+```vue
+<template>
+    <CheckboxField id="field-id">
+        <template #label>
+            I agree to the <a href="/terms" class="underline">Terms of Service</a>
+        </template>
+    </CheckboxField>
+</template>
+```
 
 ## Usage
 ### id 
@@ -128,6 +161,14 @@ Sets the label of the field.
 
 - **Type:** `string`
 - **Default:** `'Text'`
+
+::content-alert
+---
+props:
+    title: "Rich label content"
+    description: "The `label` prop is rendered as plain text. For formatted or markup content, use the `label` slot instead (see Slots below)."
+---
+::
 
 ### legend 
 
@@ -219,6 +260,31 @@ Sets the required state of the field.
 
 - **Type:** `boolean`
 - **Default:** `false`
+
+### showOptionalLabel
+
+When the field is not `required`, shows an "(optional)" hint next to the `legend`. Set to `false` to hide it. The hint text defaults to a global setting that can be overridden project-wide, and can also be overridden per field with the `optionalLabel` prop.
+
+```vue
+<template>
+    <CheckboxField legend="Terms" :showOptionalLabel="false" />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `true`
+
+### optionalLabel
+
+Overrides the "(optional)" hint text for this specific field, taking priority over the global default.
+
+```vue
+<template>
+    <CheckboxField legend="Terms" optionalLabel="(not required)" />
+</template>
+```
+
+- **Type:** `string`
 
 ### size
 

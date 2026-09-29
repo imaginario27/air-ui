@@ -1,15 +1,21 @@
 <template>
     <div :class="[ 'flex flex-col', 'w-full', 'gap-2' ]">
         <!-- Label -->
-        <legend 
+        <legend
             v-if="legend"
-            :class="[ 
-                'text-sm', 
-                'font-semibold', 
+            :class="[
+                'text-sm',
+                'font-semibold',
                 'text-left',
             ]"
         >
             {{ legend }}
+            <span
+                v-if="!required && showOptionalLabel"
+                class="font-normal text-text-neutral-subtler"
+            >
+                {{ optionalLabelText }}
+            </span>
         </legend>
         <!-- Checkbox with Label -->
         <div 
@@ -20,15 +26,16 @@
             ]"
         >
             <!-- Label (inverted)-->
-            <label 
-                v-if="inverse && label"
-                :for="id" 
+            <label
+                v-if="inverse && ($slots.label || label)"
+                :for="id"
                 :class="[
                     disabled && 'text-text-neutral-disabled',
                     labelSizeClass,
-                ]" 
-                v-html="label"
-            />
+                ]"
+            >
+                <slot name="label">{{ label }}</slot>
+            </label>
 
             <Checkbox
                 :id="id"
@@ -40,15 +47,16 @@
             />
             
             <!-- Label (natural position) -->
-            <label 
-                v-if="!inverse && label"
-                :for="id" 
+            <label
+                v-if="!inverse && ($slots.label || label)"
+                :for="id"
                 :class="[
                     disabled && 'text-text-neutral-disabled',
                     labelSizeClass,
-                ]"  
-                v-html="label"
-            />
+                ]"
+            >
+                <slot name="label">{{ label }}</slot>
+            </label>
         </div>
 
         <!-- Help Text -->
@@ -86,9 +94,17 @@ const props = defineProps({
         type: Boolean as PropType<boolean>,
         default: false,
     },
-    required: { 
-        type: Boolean as PropType<boolean>, 
-        default: false, 
+    required: {
+        type: Boolean as PropType<boolean>,
+        default: false,
+    },
+    showOptionalLabel: {
+        type: Boolean as PropType<boolean>,
+        default: true,
+    },
+    optionalLabel: {
+        type: String as PropType<string>,
+        default: undefined,
     },
     size: {
         type: String as PropType<ControlFieldSize>,
@@ -106,9 +122,11 @@ const emit = defineEmits(['update:modelValue', 'update:error'])
 
 // Composables
 const validationMode = useInjectedValidationMode()
+const dsConfig = useDSConfig()
 
 // Computed
 const hasError = computed(() => props.error !== '')
+const optionalLabelText = computed(() => props.optionalLabel ?? dsConfig.forms.optionalLabelText())
 
 // Computed classes
 const labelSizeClass = computed(() => {

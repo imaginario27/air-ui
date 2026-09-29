@@ -12,6 +12,12 @@
             ]"
         >
             {{ label }}
+            <span
+                v-if="!required && showOptionalLabel"
+                class="font-normal text-text-neutral-subtler"
+            >
+                {{ optionalLabelText }}
+            </span>
         </label>
 
         <!-- Help Text (top) -->
@@ -318,6 +324,14 @@ const props = defineProps({
         type: Boolean as PropType<boolean>,
         default: false,
     },
+    showOptionalLabel: {
+        type: Boolean as PropType<boolean>,
+        default: true,
+    },
+    optionalLabel: {
+        type: String as PropType<string>,
+        default: undefined,
+    },
     maxRules: Number as PropType<number | undefined>,
     rowGridClass: String as PropType<string>,
     transparentInputs: {
@@ -331,9 +345,11 @@ const emit = defineEmits(['update:modelValue', 'update:error'])
 
 // Composables
 const validationMode = useInjectedValidationMode()
+const dsConfig = useDSConfig()
 
 // Computed
 const hasError = computed(() => props.error !== '')
+const optionalLabelText = computed(() => props.optionalLabel ?? dsConfig.forms.optionalLabelText())
 
 const createEmptyRule = (): RuleItem => ({
     item: null,

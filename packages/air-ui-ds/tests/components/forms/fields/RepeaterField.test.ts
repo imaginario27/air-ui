@@ -175,6 +175,7 @@ describe('RepeaterField.vue', () => {
         const wrapper = factory({
             label: 'Members',
             helpText: 'Add one or more members',
+            required: true,
         })
 
         const label = wrapper.find('label')

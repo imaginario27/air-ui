@@ -45,6 +45,8 @@ props:
     isLoading: false
     loadingText: "Loading options..."
     clearSelectionAriaLabel: "Clear selection"
+    shouldTeleport: false
+    teleportTo: "body"
 items:
     size:
         - value: lg
@@ -180,6 +182,16 @@ props: [
     {
         "name": "clearSelectionAriaLabel",
         "default": "'Clear selection'",
+        "type": "string",
+    },
+    {
+        "name": "shouldTeleport",
+        "default": "false",
+        "type": "boolean",
+    },
+    {
+        "name": "teleportTo",
+        "default": "'body'",
         "type": "string",
     },
 ]
@@ -568,4 +580,33 @@ The `clearSelectionAriaLabel` prop sets the accessible label for the clear selec
 
 - **Type:** `string`
 - **Default:** `'Clear selection'`
+
+### shouldTeleport
+Teleports the dropdown panel to `teleportTo` (`body` by default) instead of rendering it as an absolutely-positioned descendant of the select box. Enable this when the select is used inside a container with `overflow-hidden`/`overflow-auto` (such as `Table`), otherwise the dropdown panel gets clipped by that ancestor.
+
+```vue
+<template>
+    <DropdownSelect
+        shouldTeleport
+    />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `false`
+
+### teleportTo
+Sets the teleport target selector used when `shouldTeleport` is `true`.
+
+```vue
+<template>
+    <DropdownSelect
+        shouldTeleport
+        teleportTo="body"
+    />
+</template>
+```
+
+- **Type:** `string`
+- **Default:** `'body'`
 

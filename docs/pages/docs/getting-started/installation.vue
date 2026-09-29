@@ -14,9 +14,9 @@
                     description: 'Get started with AirUI.'
                 }"
                 :nextPage="{
-                    label: 'Theme customization',
-                    link: `/${DocsAppSlug.DOCS}/${DocsAppSlug.GETTING_STARTED}/${DocsAppSlug.THEME}/theme-customization`,
-                    description: 'Learn how to customize the theme of AirUI.'
+                    label: 'Configuration',
+                    link: `/${DocsAppSlug.DOCS}/${DocsAppSlug.GETTING_STARTED}/configuration`,
+                    description: 'Learn how to configure AirUI globally.'
                 }"
             />
         </SectionBody>

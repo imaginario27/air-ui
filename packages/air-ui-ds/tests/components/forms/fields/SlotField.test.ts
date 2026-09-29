@@ -30,7 +30,7 @@ const factory = (
 
 describe('SlotField.vue', () => {
     it('renders label when provided', () => {
-        const wrapper = factory({ label: 'Custom Field' })
+        const wrapper = factory({ label: 'Custom Field', required: true })
 
         const label = wrapper.find('label')
         expect(label.exists()).toBe(true)

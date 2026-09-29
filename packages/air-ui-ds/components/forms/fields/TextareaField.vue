@@ -12,6 +12,12 @@
             ]"
         >
             {{ label }}
+            <span
+                v-if="!required && showOptionalLabel"
+                class="font-normal text-text-neutral-subtler"
+            >
+                {{ optionalLabelText }}
+            </span>
         </label>
 
         <!-- Help Text (top) -->
@@ -180,6 +186,14 @@ const props = defineProps({
         type: Boolean as PropType<boolean>,
         default: false,
     },
+    showOptionalLabel: {
+        type: Boolean as PropType<boolean>,
+        default: true,
+    },
+    optionalLabel: {
+        type: String as PropType<string>,
+        default: undefined,
+    },
     transparent: {
         type: Boolean as PropType<boolean>,
         default: false,
@@ -204,6 +218,7 @@ const emit = defineEmits([
 
 // Composables
 const validationMode = useInjectedValidationMode()
+const dsConfig = useDSConfig()
 
 // States
 const isFocused = ref(false)
@@ -213,6 +228,7 @@ const textareaRef = ref<HTMLTextAreaElement | null>(null)
 
 // Computed States
 const hasError = computed(() => props.error !== '')
+const optionalLabelText = computed(() => props.optionalLabel ?? dsConfig.forms.optionalLabelText())
 
 const isBlurred = computed(() => {
     if (!props.blurContent) return false

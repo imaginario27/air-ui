@@ -3,9 +3,12 @@
         <!-- Dropdown Menu -->
         <DropdownMenu
             ref="dropdownContainer"
-            :shouldTeleport="false"
+            :shouldTeleport
+            :teleportTo
+            :position="teleportPosition"
             :positionClass="`absolute ${dropdownPositionClass}`"
-            zIndex="10"
+            :positionYOffset="dropdownGap"
+            zIndex="10000"
             :dropdownClass
             :class="[ 
                 'max-h-[200px]', 
@@ -21,7 +24,7 @@
                     role="combobox"
                     :aria-expanded="isOpen"
                     aria-haspopup="listbox"
-                    :aria-label="ariaLabel || placeholder"
+                    :aria-label="ariaLabel || resolvedPlaceholder"
                     :tabindex="disabled ? -1 : 0"
                     :class="[
                         'select-box',
@@ -51,7 +54,7 @@
                         </template>
                         <template v-else>
                             <span class="text-text-neutral-subtle">
-                                {{ placeholder }}
+                                {{ resolvedPlaceholder }}
                             </span>
                         </template>
                     </div>
@@ -64,7 +67,7 @@
                         <template v-if="type === SelectType.USER">
                             <!-- Show default placeholder if no user is selected -->
                             <template v-if="!selectedOption?.userDisplayName">
-                                <span>{{ placeholder }}</span>
+                                <span>{{ resolvedPlaceholder }}</span>
                             </template>
                             <!-- Show selected user's avatar and displayName -->
                             <template v-else>
@@ -111,7 +114,7 @@
                             :size="ButtonSize.SM"
                             :styleType="ButtonStyleType.NEUTRAL_TRANSPARENT_SUBTLE"
                             icon="mdi:close-circle"
-                            :ariaLabel="clearSelectionAriaLabel"
+                            :ariaLabel="resolvedClearSelectionAriaLabel"
                             @click="selected = []"
                         />
 
@@ -129,7 +132,7 @@
                 <!-- Show loading state if it is loading -->
                 <div v-if="isLoading" class="p-4 flex items-center justify-center space-x-2 text-sm text-text-neutral-subtle">
                     <Spinner/>
-                    <span>{{ loadingText }}</span>
+                    <span>{{ resolvedLoadingText }}</span>
                 </div>
                 <template v-else>
                     <!-- Search Input -->
@@ -146,8 +149,8 @@
                         <input
                             v-model="searchQuery"
                             type="text"
-                            :aria-label="searchFieldPlaceholder"
-                            :placeholder="searchFieldPlaceholder"
+                            :aria-label="resolvedSearchFieldPlaceholder"
+                            :placeholder="resolvedSearchFieldPlaceholder"
                             :class="[ 
                                 'w-full', 
                                 'px-2', 
@@ -207,7 +210,7 @@
                     
                     <!-- No Results Message -->
                     <div v-else class="p-2 text-sm text-text-neutral-subtle">
-                        {{ noResultsFoundText }}
+                        {{ resolvedNoResultsFoundText }}
                     </div>
                 </template>
             </template>
@@ -240,10 +243,7 @@ const props = defineProps({
             },
         ]
     },
-    placeholder: { 
-        type: String as PropType<string>,
-        default: 'Select an option',
-    },
+    placeholder: String as PropType<string>,
     type: {
         type: String as PropType<SelectType>,
         default: SelectType.TEXT,
@@ -273,14 +273,8 @@ const props = defineProps({
         type: Boolean as PropType<boolean>,
         default: false,
     },
-    searchFieldPlaceholder: {
-        type: String as PropType<string>,
-        default: 'Search...',
-    },
-    noResultsFoundText: {
-        type: String as PropType<string>,
-        default: 'No results found',
-    },
+    searchFieldPlaceholder: String as PropType<string>,
+    noResultsFoundText: String as PropType<string>,
     disabled: {
         type: Boolean as PropType<boolean>,
         default: false,
@@ -301,22 +295,37 @@ const props = defineProps({
         type: Boolean as PropType<boolean>,
         default: false,
     },
-    loadingText: {
-        type: String as PropType<string>,
-        default: 'Loading options...',
-    },
-    clearSelectionAriaLabel: {
-        type: String as PropType<string>,
-        default: 'Clear selection',
-    },
+    loadingText: String as PropType<string>,
+    clearSelectionAriaLabel: String as PropType<string>,
     transparent: {
         type: Boolean as PropType<boolean>,
         default: false,
+    },
+    shouldTeleport: {
+        type: Boolean as PropType<boolean>,
+        default: false,
+    },
+    teleportTo: {
+        type: String as PropType<string>,
+        default: 'body',
     },
 })
 
 // Emits
 const emit = defineEmits(['update:modelValue', 'onSelect'])
+
+// Composables
+const dsConfig = useDSConfig()
+
+// Constants
+const dropdownGap = 4
+
+// Computed
+const resolvedPlaceholder = computed(() => props.placeholder ?? dsConfig.forms.selectPlaceholderText())
+const resolvedSearchFieldPlaceholder = computed(() => props.searchFieldPlaceholder ?? dsConfig.forms.searchText())
+const resolvedNoResultsFoundText = computed(() => props.noResultsFoundText ?? dsConfig.forms.noResultsText())
+const resolvedLoadingText = computed(() => props.loadingText ?? dsConfig.forms.loadingOptionsText())
+const resolvedClearSelectionAriaLabel = computed(() => props.clearSelectionAriaLabel ?? dsConfig.forms.clearSelectionText())
 
 // Computed classes
 const sizeClass = computed(() => {
@@ -334,6 +343,15 @@ const dropdownPositionClass = computed(() => {
     }
 
     return positionVariant[props.dropdownPosition as Position] || 'top-full mt-1'
+})
+
+const teleportPosition = computed(() => {
+    const positionVariant = {
+        [Position.TOP]: DropdownPosition.TOP_LEFT,
+        [Position.BOTTOM]: DropdownPosition.BOTTOM_LEFT,
+    }
+
+    return positionVariant[props.dropdownPosition as Position] || DropdownPosition.BOTTOM_LEFT
 })
 
 const dropdownClass = computed(() => {
@@ -386,7 +404,7 @@ const initializeSelected = () => {
 
             selected.value = preselectedOption 
                 ? { ...preselectedOption } 
-                : { text: props.placeholder, value: '' }
+                : { text: resolvedPlaceholder.value, value: '' }
         }
     } else {
         const defaultValue = hasOptions ? props.options[0]!.value : ''
@@ -396,16 +414,16 @@ const initializeSelected = () => {
         } else {
             switch (props.type) {
                 case SelectType.ICON:
-                    selected.value = { text: props.placeholder, icon: '', value: defaultValue }
+                    selected.value = { text: resolvedPlaceholder.value, icon: '', value: defaultValue }
                     break
                 case SelectType.USER:
                     selected.value = { userDisplayName: '', userProfileImg: '', value: defaultValue }
                     break
                 case SelectType.IMAGE:
-                    selected.value = { text: props.placeholder, imgUrl: '', alt: 'Default image', value: defaultValue }
+                    selected.value = { text: resolvedPlaceholder.value, imgUrl: '', alt: 'Default image', value: defaultValue }
                     break
                 default:
-                    selected.value = { text: props.placeholder, value: defaultValue }
+                    selected.value = { text: resolvedPlaceholder.value, value: defaultValue }
                     break
             }
         }
@@ -461,8 +479,8 @@ watch(() => props.modelValue, (newValue) => {
 
     } else {
         const newSelected = props.options.find(option => option.value === newValue) as SelectOption
-        selected.value = newSelected || { 
-            text: props.placeholder, 
+        selected.value = newSelected || {
+            text: resolvedPlaceholder.value,
             value: (
                 typeof props.modelValue === 'string' || 
                 typeof props.modelValue === 'number'

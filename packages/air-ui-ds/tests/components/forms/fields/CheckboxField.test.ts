@@ -41,7 +41,7 @@ describe('CheckboxField.vue', () => {
     })
 
     it('renders legend when provided', () => {
-        const wrapper = factory({ legend: 'Form Section' })
+        const wrapper = factory({ legend: 'Form Section', required: true })
 
         const legend = wrapper.find('legend')
         expect(legend.exists()).toBe(true)
@@ -154,5 +154,28 @@ describe('CheckboxField.vue', () => {
 
         expect(wrapper.find('label').exists()).toBe(false)
         expect(checkbox.props('ariaLabel')).toBe('Accept terms checkbox')
+    })
+
+    it('renders rich markup passed via the label slot', () => {
+        const wrapper = mount(CheckboxField, {
+            props: { id: 'test-checkbox' },
+            slots: {
+                label: '<strong>Bold</strong> terms'
+            },
+            global: {
+                components: { Checkbox },
+                stubs: {
+                    Icon: {
+                        name: 'Icon',
+                        props: ['name', 'iconClass'],
+                        template: '<div class="mock-icon" />'
+                    }
+                }
+            }
+        })
+
+        const label = wrapper.find('label')
+        expect(label.find('strong').exists()).toBe(true)
+        expect(label.text()).toBe('Bold terms')
     })
 })

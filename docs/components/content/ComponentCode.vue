@@ -84,6 +84,7 @@
                             :id="`playground-${option.name}`"
                             :modelValue="componentProps[option.name]"
                             :label="option.name"
+                            :showOptionalLabel="false"
                             placeholder="Write something"
                             :type="option.inputType"
                             :maxLength="50"
@@ -95,6 +96,7 @@
                             :id="`playground-${option.name}`"
                             v-model="componentProps[option.name]"
                             :label="option.name"
+                            :showOptionalLabel="false"
                             :options="option.options"
                         />
                         <SwitchField
@@ -102,6 +104,7 @@
                             :id="`playground-${option.name}`"
                             v-model="componentProps[option.name]"
                             :legend="option.name"
+                            :showOptionalLabel="false"
                             checkboxWrapperClass="!justify-start"
                         />
                     </template>

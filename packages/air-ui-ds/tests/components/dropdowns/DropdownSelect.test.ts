@@ -5,6 +5,7 @@ import User from '@/components/users/User.vue'
 import ActionIconButton from '@/components/buttons/ActionIconButton.vue'
 import { SelectType } from '@/models/enums/selects'
 import { nextTick } from 'vue'
+import { useDSConfig } from '@/composables/useDSConfig'
 
 vi.mock('@/assets/images/placeholders/missing-image-placeholder.png', () => ({
     default: '/mocked/missing-image.png'
@@ -325,5 +326,62 @@ describe('DropdownSelect.vue', () => {
 
         const clearBtn = wrapper.findComponent(ActionIconButton)
         expect(clearBtn.props('ariaLabel')).toBe('Limpiar selección')
+    })
+
+    describe('global config', () => {
+        afterEach(() => {
+            const config = useDSConfig()
+            config.forms.selectPlaceholderText = () => 'Select an option'
+            config.forms.searchText = () => 'Search...'
+            config.forms.noResultsText = () => 'No results found'
+            config.forms.loadingOptionsText = () => 'Loading options...'
+            config.forms.clearSelectionText = () => 'Clear selection'
+        })
+
+        it('uses useDSConfig().forms.selectPlaceholderText() as the default placeholder', async () => {
+            useDSConfig().forms.selectPlaceholderText = () => 'Elige una opción'
+
+            const wrapper = factory({ modelValue: null, options: [] })
+            await nextTick()
+            expect(wrapper.text()).toContain('Elige una opción')
+        })
+
+        it('lets the placeholder prop win over a global config override', async () => {
+            useDSConfig().forms.selectPlaceholderText = () => 'Elige una opción'
+
+            const wrapper = factory({ modelValue: null, options: [], placeholder: 'Pick one' })
+            await nextTick()
+            expect(wrapper.text()).toContain('Pick one')
+            expect(wrapper.text()).not.toContain('Elige una opción')
+        })
+
+        it('uses useDSConfig().forms.loadingOptionsText() as the default loading text', () => {
+            useDSConfig().forms.loadingOptionsText = () => 'Cargando...'
+
+            const wrapper = factory({ isLoading: true })
+            expect(wrapper.text()).toContain('Cargando...')
+        })
+
+        it('uses useDSConfig().forms.noResultsText() as the default no-results text', async () => {
+            useDSConfig().forms.noResultsText = () => 'Sin resultados'
+
+            const wrapper = factory({ filterable: true })
+            await wrapper.find('.select-box').trigger('click')
+
+            const input = wrapper.find('input[type="text"]')
+            await input.setValue('Nonexistent Option')
+
+            expect(wrapper.text()).toContain('Sin resultados')
+        })
+
+        it('uses useDSConfig().forms.clearSelectionText() as the default clear button aria label', async () => {
+            useDSConfig().forms.clearSelectionText = () => 'Limpiar selección'
+
+            const wrapper = factory({ multiple: true, modelValue: ['1', '2'] })
+            await wrapper.find('.select-box').trigger('click')
+
+            const clearBtn = wrapper.findComponent(ActionIconButton)
+            expect(clearBtn.props('ariaLabel')).toBe('Limpiar selección')
+        })
     })
 })

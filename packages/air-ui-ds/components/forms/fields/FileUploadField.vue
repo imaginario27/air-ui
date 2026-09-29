@@ -11,6 +11,12 @@
             ]"
         >
             {{ label }}
+            <span
+                v-if="!required && showOptionalLabel"
+                class="font-normal text-text-neutral-subtler"
+            >
+                {{ optionalLabelText }}
+            </span>
         </label>
 
         <!-- Help Text (top) -->
@@ -69,7 +75,7 @@
                     :selectFileStrategy
                     :showSelectButton
                     :showClearAllButton
-                    :clearAllButtonText
+                    :clearAllButtonText="resolvedClearAllButtonText"
                     :fileTypeIconMap
                     :useServerUpload
                     :uploadUrl
@@ -77,9 +83,9 @@
                     :uploadHeaders
                     :uploadAdditionalData
                     :uploadWithCredentials
-                    :uploadingStatusText
-                    :successStatusText
-                    :errorStatusText
+                    :uploadingStatusText="resolvedUploadingStatusText"
+                    :successStatusText="resolvedSuccessStatusText"
+                    :errorStatusText="resolvedErrorStatusText"
                     :pendingStatusText
                     :retryIcon
                     :removeIcon
@@ -102,7 +108,7 @@
                     :fileNameClass
                     :fileMetaClass
                     :retryAriaLabel
-                    :removeAriaLabel
+                    :removeAriaLabel="resolvedRemoveAriaLabel"
                     :transparent
                     @error="handleDropzoneError"
                     @file-added="(file: File) => emit('file-added', file)"
@@ -133,10 +139,7 @@ const props = defineProps({
     },
     label: String as PropType<string>,
     ariaLabel: String as PropType<string>,
-    title: {
-        type: String as PropType<string>,
-        default: 'Drag and drop files here',
-    },
+    title: String as PropType<string>,
     helpText: String as PropType<string>,
     helpTextPosition: {
         type: String as PropType<Position>,
@@ -147,10 +150,7 @@ const props = defineProps({
         type: String as PropType<string>,
         default: 'mdi:cloud-upload-outline',
     },
-    buttonText: {
-        type: String as PropType<string>,
-        default: 'Select files',
-    },
+    buttonText: String as PropType<string>,
     singleFileTitleText: {
         type: String as PropType<string>,
         default: 'Drag and drop a file here',
@@ -190,6 +190,14 @@ const props = defineProps({
     required: {
         type: Boolean as PropType<boolean>,
         default: false,
+    },
+    showOptionalLabel: {
+        type: Boolean as PropType<boolean>,
+        default: true,
+    },
+    optionalLabel: {
+        type: String as PropType<string>,
+        default: undefined,
     },
     multiple: {
         type: Boolean as PropType<boolean>,
@@ -247,10 +255,7 @@ const props = defineProps({
         type: Boolean as PropType<boolean>,
         default: true,
     },
-    clearAllButtonText: {
-        type: String as PropType<string>,
-        default: 'Clear all',
-    },
+    clearAllButtonText: String as PropType<string>,
     fileTypeIconMap: {
         type: Object as PropType<Record<string, string>>,
         default: () => ({}),
@@ -277,18 +282,9 @@ const props = defineProps({
         type: Boolean as PropType<boolean>,
         default: false,
     },
-    uploadingStatusText: {
-        type: String as PropType<string>,
-        default: 'Uploading',
-    },
-    successStatusText: {
-        type: String as PropType<string>,
-        default: 'Uploaded',
-    },
-    errorStatusText: {
-        type: String as PropType<string>,
-        default: 'Upload failed',
-    },
+    uploadingStatusText: String as PropType<string>,
+    successStatusText: String as PropType<string>,
+    errorStatusText: String as PropType<string>,
     pendingStatusText: {
         type: String as PropType<string>,
         default: 'Pending',
@@ -329,10 +325,7 @@ const props = defineProps({
         type: String as PropType<string>,
         default: 'Retry upload',
     },
-    removeAriaLabel: {
-        type: String as PropType<string>,
-        default: 'Remove file',
-    },
+    removeAriaLabel: String as PropType<string>,
     transparent: {
         type: Boolean as PropType<boolean>,
         default: false,
@@ -353,6 +346,9 @@ const emit = defineEmits([
 // Validation
 const validationMode = useInjectedValidationMode()
 
+// Composables
+const dsConfig = useDSConfig()
+
 // Toast
 const { $toast } = useNuxtApp()
 
@@ -361,6 +357,14 @@ const localTotalProgress = ref(props.totalProgress)
 
 // Computed
 const hasError = computed(() => props.error !== '')
+const optionalLabelText = computed(() => props.optionalLabel ?? dsConfig.forms.optionalLabelText())
+const resolvedTitle = computed(() => props.title ?? dsConfig.forms.fileUpload.dragDropText())
+const resolvedButtonText = computed(() => props.buttonText ?? dsConfig.forms.fileUpload.selectFilesText())
+const resolvedUploadingStatusText = computed(() => props.uploadingStatusText ?? dsConfig.forms.fileUpload.uploadingText())
+const resolvedSuccessStatusText = computed(() => props.successStatusText ?? dsConfig.forms.fileUpload.uploadedText())
+const resolvedErrorStatusText = computed(() => props.errorStatusText ?? dsConfig.forms.fileUpload.uploadFailedText())
+const resolvedRemoveAriaLabel = computed(() => props.removeAriaLabel ?? dsConfig.forms.fileUpload.removeFileText())
+const resolvedClearAllButtonText = computed(() => props.clearAllButtonText ?? dsConfig.actions.clearAllText())
 
 const acceptedFileTypes = computed(() => {
     const acceptList = Array.isArray(props.accept) ? props.accept : [props.accept]
@@ -393,7 +397,7 @@ const computedTitleText = computed(() => {
         return props.replaceTitleText
     }
 
-    return props.multiple ? props.title : props.singleFileTitleText
+    return props.multiple ? resolvedTitle.value : props.singleFileTitleText
 })
 
 const computedButtonText = computed(() => {
@@ -406,7 +410,7 @@ const computedButtonText = computed(() => {
         return props.replaceButtonText
     }
 
-    return props.multiple ? props.buttonText : props.singleFileButtonText
+    return props.multiple ? resolvedButtonText.value : props.singleFileButtonText
 })
 
 const computedDescriptionText = computed(() => {

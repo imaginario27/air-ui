@@ -22,7 +22,7 @@ const factory = (props: Record<string, unknown> = {}) => {
 
 describe('SwitchField', () => {
     it('renders legend when provided', () => {
-        const wrapper = factory({ legend: 'Settings' })
+        const wrapper = factory({ legend: 'Settings', required: true })
 
         const legend = wrapper.find('legend')
         expect(legend.exists()).toBe(true)
@@ -190,5 +190,18 @@ describe('SwitchField', () => {
         expect(wrapper.find('label').exists()).toBe(false)
         expect(switchEl.attributes('aria-label')).toBe('Enable notifications switch')
         expect(input.attributes('aria-label')).toBe('Enable notifications switch')
+    })
+
+    it('renders rich markup passed via the label slot', () => {
+        const wrapper = mount(SwitchField, {
+            props: defaultProps,
+            slots: {
+                label: '<strong>Bold</strong> feature'
+            }
+        })
+
+        const label = wrapper.find('label')
+        expect(label.find('strong').exists()).toBe(true)
+        expect(label.text()).toBe('Bold feature')
     })
 })

@@ -40,6 +40,7 @@ describe('RulesField.vue', () => {
         const wrapper = factory({
             label: 'Rules',
             helpText: 'Use conditions to filter data',
+            required: true,
         })
 
         const label = wrapper.find('label')
