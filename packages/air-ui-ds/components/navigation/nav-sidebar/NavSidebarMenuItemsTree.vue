@@ -42,11 +42,25 @@
                     :isCollapsed
                     :level
                     :showNestedLevelGuide
+                    :truncate="isLevelEnabled(truncateDepth, level)"
+                    :marquee
+                    :moreActionsItems="item.moreActionsItems"
+                    :moreActionsPosition
+                    :moreActionsPositionXOffset
+                    :moreActionsPositionYOffset
                     :class="[
                         getItemCustomClass(level),
                     ]"
                     @click="handleItemClick(item, getNodePath(index))"
-                />
+                >
+                    <template v-if="item.suffix" #suffix>
+                        <component :is="item.suffix" />
+                    </template>
+
+                    <template v-if="item.textSuffix" #text-suffix>
+                        <component :is="item.textSuffix" />
+                    </template>
+                </NavSidebarMenuItem>
 
                 <VerticalExpansionTransition v-if="canRenderChildren(item)" v-show="isNodeOpen(getNodePath(index))">
                     <NavSidebarMenuItemsTree
@@ -65,6 +79,11 @@
                         :prefetchOn
                         :showCollapseDivider
                         :showNestedLevelGuide
+                        :truncateDepth
+                        :marquee
+                        :moreActionsPosition
+                        :moreActionsPositionXOffset
+                        :moreActionsPositionYOffset
                         :pathPrefix="getNodePath(index)"
                         @toggle="emit('toggle', $event)"
                     />
@@ -120,6 +139,28 @@ const props = defineProps({
         type: Boolean as PropType<boolean>,
         default: true,
     },
+    truncateDepth: {
+        type: Array as PropType<SidebarMenuDepth[]>,
+        default: () => [],
+        validator: (value: SidebarMenuDepth[]) => value.every((level) => Object.values(SidebarMenuDepth).includes(level)),
+    },
+    marquee: {
+        type: Boolean as PropType<boolean>,
+        default: false,
+    },
+    moreActionsPosition: {
+        type: String as PropType<DropdownPosition>,
+        default: DropdownPosition.BOTTOM_RIGHT,
+        validator: (value: DropdownPosition) => Object.values(DropdownPosition).includes(value),
+    },
+    moreActionsPositionXOffset: {
+        type: [Number, String] as PropType<number | string>,
+        default: 0,
+    },
+    moreActionsPositionYOffset: {
+        type: [Number, String] as PropType<number | string>,
+        default: 0,
+    },
     pathPrefix: {
         type: Array as PropType<number[]>,
         default: () => [],
@@ -131,6 +172,18 @@ const emit = defineEmits<{
 }>()
 
 const MAX_NESTING_LEVEL = 3
+
+const LEVEL_ENUM_BY_NUMBER: Record<number, SidebarMenuDepth> = {
+    1: SidebarMenuDepth.LEVEL_1,
+    2: SidebarMenuDepth.LEVEL_2,
+    3: SidebarMenuDepth.LEVEL_3,
+}
+
+const isLevelEnabled = (levels: SidebarMenuDepth[], level: number) => {
+    const levelEnum = LEVEL_ENUM_BY_NUMBER[level]
+
+    return !!levelEnum && levels.includes(levelEnum)
+}
 
 const getNodePath = (index: number) => {
     return [...props.pathPrefix, index]

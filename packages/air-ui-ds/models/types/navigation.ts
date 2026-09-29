@@ -25,4 +25,7 @@ export interface SidebarMenuItem {
     children?: SidebarMenuItem[]
     disabled?: boolean
     detectActive?: boolean
+    moreActionsItems?: DropdownMenuItem[]
+    suffix?: () => VNode | VNode[]
+    textSuffix?: () => VNode | VNode[]
 }

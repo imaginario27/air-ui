@@ -4,42 +4,94 @@
         v-bind="componentProps"
         :class="[
             !isCollapsed && 'w-full',
+            'group',
             'flex',
             'items-center',
             'text-left',
             'rounded-lg',
             'transition-colors duration-200 ease-out',
-            'hover:bg-background-neutral-hover',
+            !isActive && 'hover:bg-background-neutral-hover',
             'justify-between',
             levelTextClass,
             spacingClass,
             nestedItemSpacingClass,
             !isActive && 'text-text-default',
-            isActive && 'text-text-primary-brand-on-neutral-hover-bg bg-background-neutral-hover',
+            isActive && 'text-text-primary-brand-on-soft-bg bg-background-primary-brand-soft hover:bg-background-primary-brand-soft-hover',
             disabled && 'opacity-disabled cursor-not-allowed pointer-events-none',
         ]"
         @click="$emit('click')"
+        @mouseenter="onRowMouseEnter"
+        @mouseleave="onRowMouseLeave"
     >
         <div
             :class="[
                 'w-full',
                 'flex',
                 'items-center',
+                truncate && 'min-w-0',
                 gapClass,
             ]"
         >
             <Icon
                 v-if="icon"
                 :name="icon"
-                :iconClass="[iconClass || 'text-icon-neutral-subtler', iconSizeClass]"
+                :iconClass="[
+                    iconClass || 'text-icon-neutral-subtler',
+                    'group-hover:text-icon-default',
+                    isActive ? '!text-icon-primary-brand-on-soft-bg' : '',
+                    iconSizeClass,
+                ].filter(Boolean)"
             />
 
-            <span
-                v-if="!isCollapsed"
-                :class="[disabled && 'select-none', textClass]"
-            >
-                {{ text }}
-            </span>
+            <template v-if="!isCollapsed">
+                <div
+                    v-if="truncate"
+                    ref="textWrapperEl"
+                    :class="[
+                        'relative min-w-0 flex-1 overflow-hidden',
+                        isMarqueeEnabled && hasMoreActions && 'mr-2',
+                    ]"
+                >
+                    <span
+                        ref="textEl"
+                        :class="[
+                            'block',
+                            disabled && 'select-none',
+                            isMarqueeEnabled && 'transition-transform ease-in-out',
+                            isMarqueeSliding ? 'whitespace-nowrap' : 'truncate',
+                            textClass,
+                        ]"
+                        :style="marqueeStyle"
+                    >
+                        {{ text }}
+                    </span>
+
+                    <span
+                        v-if="hasMoreActions && !isMarqueeEnabled"
+                        aria-hidden="true"
+                        :class="[
+                            'pointer-events-none absolute inset-y-0 right-0 w-8',
+                            'bg-linear-to-r from-transparent to-background-neutral-hover',
+                            'opacity-0 transition-opacity duration-150',
+                            'group-hover:opacity-100 group-focus-within:opacity-100',
+                        ]"
+                    />
+                </div>
+
+                <span
+                    v-else
+                    :class="[disabled && 'select-none', textClass]"
+                >
+                    {{ text }}
+                </span>
+
+                <span
+                    v-if="$slots['text-suffix']"
+                    class="flex shrink-0 items-center"
+                >
+                    <slot name="text-suffix" />
+                </span>
+            </template>
         </div>
 
         <Icon
@@ -47,6 +99,45 @@
             :name="isOpen ? 'mdi:chevron-up' : 'mdi:chevron-down'"
             :class="iconSizeClass"
         />
+
+        <div
+            v-if="hasMoreActions && !isCollapsed"
+            :class="[
+                'flex shrink-0 items-center',
+                'opacity-0 transition-opacity duration-150',
+                'group-hover:opacity-100 group-focus-within:opacity-100',
+            ]"
+            @click.stop.prevent
+            @keydown.stop
+        >
+            <slot name="suffix">
+                <DropdownMenu
+                    :items="moreActionsItems"
+                    :position="moreActionsPosition"
+                    :positionXOffset="moreActionsPositionXOffset"
+                    :positionYOffset="moreActionsPositionYOffset"
+                    :style="{ minWidth: `${moreActionsMenuWidth}px` }"
+                >
+                    <template #activator>
+                        <button
+                            type="button"
+                            :aria-label="moreActionsAriaLabel"
+                            :class="[
+                                'flex items-center justify-center rounded-button',
+                                'w-[24px] h-[24px]',
+                                'text-icon-default hover:bg-background-neutral-active',
+                                'transition-colors duration-150',
+                            ]"
+                        >
+                            <Icon
+                                name="mdi:dots-vertical"
+                                iconClass="w-[16px] h-[16px]"
+                            />
+                        </button>
+                    </template>
+                </DropdownMenu>
+            </slot>
+        </div>
     </component>
 </template>
 <script setup lang="ts">
@@ -102,13 +193,55 @@ const props = defineProps({
         type: [String, Object] as PropType<PrefetchOnStrategy>,
         default: PrefetchOn.VISIBILITY,
     },
+    truncate: {
+        type: Boolean as PropType<boolean>,
+        default: false,
+    },
+    marquee: {
+        type: Boolean as PropType<boolean>,
+        default: false,
+    },
+    moreActionsItems: {
+        type: Array as PropType<DropdownMenuItem[]>,
+        default: () => [],
+    },
+    moreActionsAriaLabel: {
+        type: String as PropType<string>,
+        default: 'More options',
+    },
+    moreActionsMenuWidth: {
+        type: Number as PropType<number>,
+        default: 200,
+    },
+    moreActionsPosition: {
+        type: String as PropType<DropdownPosition>,
+        default: DropdownPosition.BOTTOM_RIGHT,
+        validator: (value: DropdownPosition) => Object.values(DropdownPosition).includes(value),
+    },
+    moreActionsPositionXOffset: {
+        type: [Number, String] as PropType<number | string>,
+        default: 0,
+    },
+    moreActionsPositionYOffset: {
+        type: [Number, String] as PropType<number | string>,
+        default: 0,
+    },
 })
 
-// Emits 
+// Emits
 defineEmits(['click'])
 
 // Composables
 const route = useRoute()
+const slots = useSlots()
+
+// Refs
+const textEl = ref<HTMLElement | null>(null)
+const textWrapperEl = ref<HTMLElement | null>(null)
+
+// States
+const isRowHovered = ref(false)
+const marqueeShift = ref(0)
 
 // Computed classes
 const resolvedLevel = computed(() => {
@@ -207,4 +340,54 @@ const componentProps = computed(() => {
 
     return { type: 'button' }
 })
+
+const isMarqueeEnabled = computed(() => {
+    return props.truncate && props.marquee && !props.isCollapsed
+})
+
+const isMarqueeSliding = computed(() => {
+    return isMarqueeEnabled.value && isRowHovered.value
+})
+
+const hasMoreActions = computed(() => {
+    if (props.showDropdownArrow) return false
+
+    return Boolean(slots.suffix) || props.moreActionsItems.length > 0
+})
+
+const marqueeStyle = computed(() => {
+    if (!isMarqueeEnabled.value) return undefined
+
+    const shift = isRowHovered.value ? marqueeShift.value : 0
+    const durationSeconds = Math.max(0.6, shift / 60)
+
+    return {
+        transform: `translateX(-${shift}px)`,
+        transitionDuration: `${durationSeconds}s`,
+    }
+})
+
+// Methods
+const updateMarqueeShift = () => {
+    if (!isMarqueeEnabled.value || !textEl.value || !textWrapperEl.value) {
+        marqueeShift.value = 0
+        return
+    }
+
+    const overflow = textEl.value.scrollWidth - textWrapperEl.value.clientWidth
+
+    marqueeShift.value = Math.max(0, overflow)
+}
+
+const onRowMouseEnter = () => {
+    isRowHovered.value = true
+
+    if (isMarqueeEnabled.value) {
+        nextTick(updateMarqueeShift)
+    }
+}
+
+const onRowMouseLeave = () => {
+    isRowHovered.value = false
+}
 </script>

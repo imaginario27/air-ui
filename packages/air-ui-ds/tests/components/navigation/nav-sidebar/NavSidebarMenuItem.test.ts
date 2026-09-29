@@ -2,6 +2,7 @@ import { mount } from '@vue/test-utils'
 import { reactive } from 'vue'
 import NavSidebarMenuItem from '@/components/navigation/nav-sidebar/NavSidebarMenuItem.vue'
 import Icon from '@/components/icons/Icon.vue'
+import DropdownMenu from '@/components/dropdowns/DropdownMenu.vue'
 import { SidebarNavMenuItemStyleType } from '#imports'
 import { PrefetchOn } from '@/models/enums/prefetch'
 
@@ -19,13 +20,15 @@ describe('NavSidebarMenuItem.vue', () => {
         }
     }
 
-    const factory = (props = {}) =>
+    const factory = (props = {}, slots = {}) =>
         mount(NavSidebarMenuItem, {
             props,
+            slots,
             global: {
                 stubs: globalStubs,
                 components: {
-                    Icon
+                    Icon,
+                    DropdownMenu
                 }
             }
         })
@@ -93,8 +96,8 @@ describe('NavSidebarMenuItem.vue', () => {
         const link = wrapper.find('a')
         const classList = link.classes()
 
-        expect(classList).not.toContain('text-text-primary-brand-on-neutral-hover-bg')
-        expect(classList).not.toContain('bg-background-neutral-hover')
+        expect(classList).not.toContain('text-text-primary-brand-on-soft-bg')
+        expect(classList).not.toContain('bg-background-primary-brand-soft')
     })
 
     it('renders dropdown arrow icon when showDropdownArrow is true and not collapsed', () => {
@@ -182,6 +185,45 @@ describe('NavSidebarMenuItem.vue', () => {
         expect(arrowIcon?.props('iconClass')).toBeUndefined()
     })
 
+    it.each([
+        ['collapsed', true],
+        ['expanded', false],
+    ])('uses a soft brand background and matching on-soft-bg text/icon color for the active item when %s', (_label, isCollapsed) => {
+        const wrapper = factory({
+            icon: 'mdi:home',
+            to: '/',
+            isCollapsed,
+        })
+
+        const icon = wrapper.findComponent(Icon)
+        expect(wrapper.classes()).toContain('bg-background-primary-brand-soft')
+        expect(wrapper.classes()).toContain('text-text-primary-brand-on-soft-bg')
+        expect(icon.props('iconClass')).toContain('!text-icon-primary-brand-on-soft-bg')
+    })
+
+    it.each([
+        ['collapsed', true],
+        ['expanded', false],
+    ])('does not use the active soft styles when not active (%s)', (_label, isCollapsed) => {
+        const wrapper = factory({
+            icon: 'mdi:home',
+            to: '/other-page',
+            isCollapsed,
+        })
+
+        const icon = wrapper.findComponent(Icon)
+        expect(wrapper.classes()).not.toContain('bg-background-primary-brand-soft')
+        expect(wrapper.classes()).not.toContain('text-text-primary-brand-on-soft-bg')
+        expect(icon.props('iconClass')).not.toContain('!text-icon-primary-brand-on-soft-bg')
+    })
+
+    it('shows the neutral-default icon color on hover via group-hover', () => {
+        const wrapper = factory({ icon: 'mdi:home' })
+
+        const icon = wrapper.findComponent(Icon)
+        expect(icon.props('iconClass')).toContain('group-hover:text-icon-default')
+    })
+
     it('applies disabled styles and text selection guard when disabled is true', () => {
         const wrapper = factory({
             text: 'Disabled item',
@@ -246,5 +288,163 @@ describe('NavSidebarMenuItem.vue', () => {
         })
 
         expect(wrapper.classes()).not.toContain('border-l-2')
+    })
+
+    it('does not truncate text by default', () => {
+        const wrapper = factory({ text: 'Settings' })
+
+        expect(wrapper.find('span').classes()).not.toContain('whitespace-nowrap')
+    })
+
+    it('wraps text in a truncating (ellipsis) span when truncate is true', () => {
+        const wrapper = factory({ text: 'Settings', truncate: true })
+        const span = wrapper.find('span')
+
+        expect(span.classes()).toContain('block')
+        expect(span.classes()).toContain('truncate')
+        expect(span.text()).toBe('Settings')
+    })
+
+    it('does not apply the marquee transition when marquee is true but truncate is false', () => {
+        const wrapper = factory({ text: 'Settings', marquee: true })
+
+        expect(wrapper.find('span').classes()).not.toContain('transition-transform')
+    })
+
+    it('stays ellipsis-truncated at rest when truncate and marquee are both true', () => {
+        const wrapper = factory({ text: 'Settings', truncate: true, marquee: true })
+        const span = wrapper.find('span')
+
+        expect(span.classes()).toContain('transition-transform')
+        expect(span.classes()).toContain('truncate')
+        expect(span.classes()).not.toContain('whitespace-nowrap')
+    })
+
+    it('switches from ellipsis to a sliding, non-clipped span on hover when truncate and marquee are both true', async () => {
+        const wrapper = factory({ text: 'Settings', truncate: true, marquee: true })
+
+        await wrapper.trigger('mouseenter')
+
+        const span = wrapper.find('span')
+        expect(span.classes()).toContain('whitespace-nowrap')
+        expect(span.classes()).not.toContain('truncate')
+    })
+
+    it('does not render a more-actions trigger by default', () => {
+        const wrapper = factory({ text: 'Settings' })
+
+        expect(wrapper.find('[aria-label="More options"]').exists()).toBe(false)
+    })
+
+    it('renders the built-in more-actions trigger when moreActionsItems is provided', () => {
+        const wrapper = factory({
+            text: 'Settings',
+            moreActionsItems: [{ text: 'Rename' }, { text: 'Delete' }],
+        })
+
+        expect(wrapper.find('[aria-label="More options"]').exists()).toBe(true)
+    })
+
+    it('does not render the more-actions trigger when showDropdownArrow is true, even with moreActionsItems set', () => {
+        const wrapper = factory({
+            text: 'Item 3',
+            showDropdownArrow: true,
+            moreActionsItems: [{ text: 'Rename' }],
+        })
+
+        expect(wrapper.find('[aria-label="More options"]').exists()).toBe(false)
+    })
+
+    it('does not render a text-suffix wrapper when the slot is unused', () => {
+        const wrapper = factory({ text: 'Settings' })
+
+        expect(wrapper.find('.custom-badge').exists()).toBe(false)
+    })
+
+    it('renders text-suffix slot content right after the text', () => {
+        const wrapper = factory(
+            { text: 'Settings' },
+            { 'text-suffix': '<span class="custom-badge">New</span>' }
+        )
+
+        expect(wrapper.find('.custom-badge').exists()).toBe(true)
+        expect(wrapper.find('.custom-badge').text()).toBe('New')
+    })
+
+    it('does not render text-suffix slot content when the sidebar is collapsed', () => {
+        const wrapper = factory(
+            { text: 'Settings', isCollapsed: true },
+            { 'text-suffix': '<span class="custom-badge">New</span>' }
+        )
+
+        expect(wrapper.find('.custom-badge').exists()).toBe(false)
+    })
+
+    it('renders custom suffix slot content instead of the built-in trigger', () => {
+        const wrapper = factory(
+            { text: 'Settings', moreActionsItems: [{ text: 'Rename' }] },
+            { suffix: '<span class="custom-suffix">Custom</span>' }
+        )
+
+        expect(wrapper.find('.custom-suffix').exists()).toBe(true)
+        expect(wrapper.find('[aria-label="More options"]').exists()).toBe(false)
+    })
+
+    it('stops the more-actions trigger click from bubbling up to the row click handler', async () => {
+        const wrapper = factory({
+            text: 'Settings',
+            moreActionsItems: [{ text: 'Rename' }],
+        })
+
+        await wrapper.find('[aria-label="More options"]').trigger('click')
+
+        expect(wrapper.emitted('click')).toBeFalsy()
+    })
+
+    it('renders the fade mask when truncate and moreActionsItems are set without marquee', () => {
+        const wrapper = factory({
+            text: 'Settings',
+            truncate: true,
+            moreActionsItems: [{ text: 'Rename' }],
+        })
+
+        expect(wrapper.find('[aria-hidden="true"].pointer-events-none').exists()).toBe(true)
+    })
+
+    it('does not render the fade mask when marquee is enabled, so sliding text stays fully visible', () => {
+        const wrapper = factory({
+            text: 'Settings',
+            truncate: true,
+            marquee: true,
+            moreActionsItems: [{ text: 'Rename' }],
+        })
+
+        expect(wrapper.find('[aria-hidden="true"].pointer-events-none').exists()).toBe(false)
+    })
+
+    it('adds right margin to the text wrapper when marquee and more-actions are combined', () => {
+        const wrapper = factory({
+            text: 'Settings',
+            truncate: true,
+            marquee: true,
+            moreActionsItems: [{ text: 'Rename' }],
+        })
+
+        expect(wrapper.find('span').element.parentElement?.classList.contains('mr-2')).toBe(true)
+    })
+
+    it('passes moreActionsPosition and offsets through to the DropdownMenu', () => {
+        const wrapper = factory({
+            text: 'Settings',
+            moreActionsItems: [{ text: 'Rename' }],
+            moreActionsPosition: 'top-left',
+            moreActionsPositionXOffset: 12,
+            moreActionsPositionYOffset: 8,
+        })
+
+        const dropdown = wrapper.findComponent(DropdownMenu)
+        expect(dropdown.props('position')).toBe('top-left')
+        expect(dropdown.props('positionXOffset')).toBe(12)
+        expect(dropdown.props('positionYOffset')).toBe(8)
     })
 })
