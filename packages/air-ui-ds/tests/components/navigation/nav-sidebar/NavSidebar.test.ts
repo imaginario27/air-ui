@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import { nextTick, ref } from 'vue'
+import { h, nextTick, ref } from 'vue'
 import NavSidebar from '@/components/navigation/nav-sidebar/NavSidebar.vue'
 import NavSidebarMenu from '@/components/navigation/nav-sidebar/NavSidebarMenu.vue'
 import NavSidebarMenuItem from '@/components/navigation/nav-sidebar/NavSidebarMenuItem.vue'
@@ -9,6 +9,7 @@ import DropdownMenuItem from '~/components/dropdowns/DropdownMenuItem.vue'
 import ActionIconButton from '@/components/buttons/ActionIconButton.vue'
 import Divider from '~/components/dividers/Divider.vue'
 import { Position } from '@/models/enums/positions'
+import { SidebarMenuDepth } from '@/models/enums/navigation'
 
 // Shared reactive ref for collapsed state
 const isSidebarCollapsedRef = ref(false)
@@ -449,4 +450,98 @@ describe('NavSidebar.vue', () => {
         expect(items[1]!.props('detectActive')).toBe(false)
     })
 
+    it('only truncates items at the levels listed in truncateDepth', () => {
+        const wrapper = factory({
+            props: { truncateDepth: [SidebarMenuDepth.LEVEL_1] },
+        })
+
+        const items = wrapper.findAllComponents(NavSidebarMenuItem)
+        const byText = (text: string) => items.find((item) => item.props('text') === text)!
+
+        expect(byText('Item 1').props('level')).toBe(1)
+        expect(byText('Item 1').props('truncate')).toBe(true)
+        expect(byText('Subitem 1').props('level')).toBe(2)
+        expect(byText('Subitem 1').props('truncate')).toBe(false)
+        expect(byText('Third level 1').props('level')).toBe(3)
+        expect(byText('Third level 1').props('truncate')).toBe(false)
+    })
+
+    it('applies truncate to a non-contiguous set of levels', () => {
+        const wrapper = factory({
+            props: { truncateDepth: [SidebarMenuDepth.LEVEL_1, SidebarMenuDepth.LEVEL_3] },
+        })
+
+        const items = wrapper.findAllComponents(NavSidebarMenuItem)
+        const byText = (text: string) => items.find((item) => item.props('text') === text)!
+
+        expect(byText('Item 1').props('truncate')).toBe(true)
+        expect(byText('Subitem 1').props('truncate')).toBe(false)
+        expect(byText('Third level 1').props('truncate')).toBe(true)
+    })
+
+    it('forwards the marquee boolean to every item regardless of level', () => {
+        const wrapper = factory({
+            props: { truncateDepth: [SidebarMenuDepth.LEVEL_1], marquee: true },
+        })
+
+        const items = wrapper.findAllComponents(NavSidebarMenuItem)
+        const byText = (text: string) => items.find((item) => item.props('text') === text)!
+
+        expect(byText('Item 1').props('marquee')).toBe(true)
+        expect(byText('Subitem 1').props('marquee')).toBe(true)
+    })
+
+    it('forwards moreActionsPosition and offsets to every rendered item', () => {
+        const wrapper = factory({
+            props: {
+                moreActionsPosition: 'top-left',
+                moreActionsPositionXOffset: 10,
+                moreActionsPositionYOffset: 5,
+            },
+        })
+
+        const items = wrapper.findAllComponents(NavSidebarMenuItem)
+        expect(items[0]!.props('moreActionsPosition')).toBe('top-left')
+        expect(items[0]!.props('moreActionsPositionXOffset')).toBe(10)
+        expect(items[0]!.props('moreActionsPositionYOffset')).toBe(5)
+    })
+
+    it('renders a suffix render function set on a menu item', () => {
+        // NuxtLink is globally stubbed and discards slot content, so this item
+        // intentionally omits `to` to render as a real (unstubbed) button.
+        const wrapper = factory({
+            props: {
+                menuItems: [
+                    { text: 'Item 1', icon: 'mdi:help', suffix: () => h('span', { class: 'custom-suffix' }, 'S') },
+                ],
+            },
+        })
+
+        expect(wrapper.find('.custom-suffix').exists()).toBe(true)
+        expect(wrapper.find('.custom-suffix').text()).toBe('S')
+    })
+
+    it('renders a textSuffix render function set on a menu item', () => {
+        const wrapper = factory({
+            props: {
+                menuItems: [
+                    { text: 'Item 1', icon: 'mdi:help', textSuffix: () => h('span', { class: 'custom-badge' }, 'New') },
+                ],
+            },
+        })
+
+        expect(wrapper.find('.custom-badge').exists()).toBe(true)
+        expect(wrapper.find('.custom-badge').text()).toBe('New')
+    })
+
+    it('does not render suffix/textSuffix wrappers when a menu item defines neither', () => {
+        const wrapper = factory({
+            props: {
+                menuItems: [{ text: 'Item 1', icon: 'mdi:help' }],
+            },
+        })
+
+        expect(wrapper.find('.custom-suffix').exists()).toBe(false)
+        expect(wrapper.find('.custom-badge').exists()).toBe(false)
+    })
 })

@@ -77,6 +77,11 @@ props:
     thirdLevelItemsCustomClass: ""
     showNestedSectionLevelGuide: true
     prefetchOn: "visibility"
+    truncateDepth: []
+    marquee: false
+    moreActionsPosition: 'bottom-right'
+    moreActionsPositionXOffset: 0
+    moreActionsPositionYOffset: 0
     closeSidebarAriaLabel: "Close sidebar"
     collapseSidebarAriaLabel: "Collapse sidebar"
     expandSidebarAriaLabel: "Expand sidebar"
@@ -102,15 +107,35 @@ items:
           text: VISIBILITY
         - value: interaction
           text: INTERACTION
+    moreActionsPosition:
+        - value: top-left
+          text: TOP_LEFT
+        - value: top-right
+          text: TOP_RIGHT
+        - value: bottom-left
+          text: BOTTOM_LEFT
+        - value: bottom-right
+          text: BOTTOM_RIGHT
+        - value: left-top
+          text: LEFT_TOP
+        - value: left-bottom
+          text: LEFT_BOTTOM
+        - value: right-top
+          text: RIGHT_TOP
+        - value: right-bottom
+          text: RIGHT_BOTTOM
 external:
   - menuItems
+  - truncateDepth
 externalTypes:
   - SidebarMenuItem[]
+  - SidebarMenuDepth[]
 enums:
     itemsStyleType: "SidebarNavMenuItemStyleType"
     collapseTogglePosition: "Position"
     collapsedSubmenuTrigger: "Trigger"
     prefetchOn: "PrefetchOn"
+    moreActionsPosition: "DropdownPosition"
 propsSettingsExcludedProps: [
     'menuItems',
     'class',
@@ -120,6 +145,7 @@ propsSettingsExcludedProps: [
     'headerHeight',
     'footerHeight',
     'footerSafeAreaHeight',
+    'truncateDepth',
 ]
 ---
 ::
@@ -297,6 +323,31 @@ props: [
         "type": "PrefetchOnStrategy",
     },
     {
+        "name": "truncateDepth",
+        "default": "[]",
+        "type": "SidebarMenuDepth[]",
+    },
+    {
+        "name": "marquee",
+        "default": "false",
+        "type": "boolean",
+    },
+    {
+        "name": "moreActionsPosition",
+        "default": "DropdownPosition.BOTTOM_RIGHT",
+        "type": "DropdownPosition",
+    },
+    {
+        "name": "moreActionsPositionXOffset",
+        "default": "0",
+        "type": "number | string",
+    },
+    {
+        "name": "moreActionsPositionYOffset",
+        "default": "0",
+        "type": "number | string",
+    },
+    {
         "name": "closeSidebarAriaLabel",
         "default": "'Close sidebar'",
         "type": "string",
@@ -470,6 +521,7 @@ Set `isDivider: true` on an item to render a horizontal `Divider` between entrie
 
 Set `detectActive: false` on an item to opt it out of route-based active highlighting. By default every item with a `to` highlights itself when the current route matches.
 
+
 #### TypeScript interface
 ```ts
 interface SidebarMenuItem {
@@ -481,7 +533,75 @@ interface SidebarMenuItem {
     children?: SidebarMenuItem[]
     disabled?: boolean
     detectActive?: boolean
+    moreActionsItems?: DropdownMenuItem[]
+    suffix?: () => VNode | VNode[]
+    textSuffix?: () => VNode | VNode[]
 }
+```
+
+#### Per-item slots
+
+::content-alert
+---
+props:
+    title: "Per-item slots"
+    description: "`suffix` (replaces the more-actions trigger) and `textSuffix` (renders right after the label, e.g. for a badge) can be set directly on a `menuItems` entry as render functions. They're also available as `#suffix`/`#text-suffix` template slots when rendering `NavSidebarMenuItem` directly."
+---
+::
+
+::slots-table
+---
+slots: [
+    {
+        name: "suffix",
+        description: "Replaces the built-in more-actions trigger entirely. Renders right-aligned on row hover/focus.",
+    },
+    {
+        name: "text-suffix",
+        description: "Renders inline right after the item's label, e.g. for a badge or a count. Never clipped by `truncate`/`marquee`, and hidden when the sidebar is collapsed.",
+    },
+]
+---
+::
+
+<br/>
+
+Set `suffix`/`textSuffix` on a `menuItems` entry as a render function:
+
+```vue
+<template>
+    <NavSidebar sidebarId="main-sidebar" :menuItems="routeItems" />
+</template>
+<script setup lang="ts">
+import { h } from 'vue'
+
+const routeItems: SidebarMenuItem[] = [
+    {
+        text: 'Inbox',
+        icon: 'mdi:inbox-outline',
+        to: '/inbox',
+        textSuffix: () => h(Badge, { text: '12', color: ColorAccent.SUCCESS }),
+    },
+]
+</script>
+```
+
+Or pass them as template slots when rendering `NavSidebarMenuItem` directly, e.g. inside `NavSidebar`'s `#sidebar-menu` slot:
+
+```vue
+<template>
+    <NavSidebar sidebarId="main-sidebar">
+        <template #sidebar-menu>
+            <NavSidebarMenu>
+                <NavSidebarMenuItem text="Inbox" icon="mdi:inbox-outline" to="/inbox">
+                    <template #text-suffix>
+                        <Badge text="12" :color="ColorAccent.SUCCESS" />
+                    </template>
+                </NavSidebarMenuItem>
+            </NavSidebarMenu>
+        </template>
+    </NavSidebar>
+</template>
 ```
 
 ### expandedWidth
@@ -1083,6 +1203,179 @@ options: [
 ]
 ---
 ::
+
+### truncateDepth
+
+An array of `SidebarMenuDepth` values that determines which nesting levels render their item text as single-line, ellipsis-truncated labels instead of wrapping across multiple lines. Levels don't need to be contiguous: you can truncate level 1 and level 3 while leaving level 2 items free to wrap.
+
+```vue
+<template>
+    <NavSidebar
+        sidebarId="main-sidebar"
+        :menuItems="routeItems"
+        :truncateDepth="[SidebarMenuDepth.LEVEL_1, SidebarMenuDepth.LEVEL_2]"
+    />
+</template>
+```
+
+- **Type:** `SidebarMenuDepth[]`
+- **Default:** `[]`
+
+#### Options
+
+::options-table
+---
+options: [
+    {
+        value: "LEVEL_1",
+        description: "Top-level menu items.",
+    },
+    {
+        value: "LEVEL_2",
+        description: "First-level nested (child) items.",
+    },
+    {
+        value: "LEVEL_3",
+        description: "Second-level nested (grandchild) items.",
+    },
+]
+---
+::
+
+### marquee
+
+A boolean value that slides an item's full text into view on hover instead of leaving it ellipsis-truncated. It only affects items whose level is already in `truncateDepth`, so there's no separate per-level control for it.
+
+```vue
+<template>
+    <NavSidebar
+        sidebarId="main-sidebar"
+        :menuItems="routeItems"
+        :truncateDepth="[SidebarMenuDepth.LEVEL_1]"
+        marquee
+    />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `false`
+
+### moreActionsItems
+
+Set `moreActionsItems` on a `menuItems` entry to render a "more actions" trigger button on that item, opening a `DropdownMenu` with the given items. It's visible on row hover/focus and is automatically suppressed on parent items that already show a dropdown arrow for their children.
+
+```vue
+<script setup lang="ts">
+const routeItems: SidebarMenuItem[] = [
+    {
+        text: 'Inbox',
+        icon: 'mdi:inbox-outline',
+        to: '/inbox',
+        moreActionsItems: [
+            { text: 'Mark all as read', icon: 'mdi:email-check-outline' },
+            { text: 'Archive', icon: 'mdi:archive-outline' },
+        ],
+    },
+]
+</script>
+```
+
+- **Type:** `DropdownMenuItem[]`
+- **Default:** `undefined`
+
+Use `moreActionsPosition`, `moreActionsPositionXOffset` and `moreActionsPositionYOffset` below to control where this dropdown opens relative to its trigger.
+
+### moreActionsPosition
+
+Sets the position of the built-in "more actions" dropdown menu (rendered when an item defines `moreActionsItems`) relative to its trigger button. Uses the `DropdownPosition` enum.
+
+```vue
+<template>
+    <NavSidebar
+        sidebarId="main-sidebar"
+        :menuItems="routeItems"
+        :moreActionsPosition="DropdownPosition.BOTTOM_LEFT"
+    />
+</template>
+```
+
+- **Type:** `DropdownPosition`
+- **Default:** `DropdownPosition.BOTTOM_RIGHT`
+
+#### Options
+
+::options-table
+---
+options: [
+    {
+        value: "TOP_LEFT",
+        description: "Aligns the menu above and to the left of the trigger.",
+    },
+    {
+        value: "TOP_RIGHT",
+        description: "Aligns the menu above and to the right of the trigger.",
+    },
+    {
+        value: "BOTTOM_LEFT",
+        description: "Places the menu below and left-aligned with the trigger.",
+    },
+    {
+        value: "BOTTOM_RIGHT",
+        description: "Places the menu below and right-aligned with the trigger.",
+    },
+    {
+        value: "LEFT_TOP",
+        description: "Displays the menu to the left of the trigger, aligned to its top edge.",
+    },
+    {
+        value: "LEFT_BOTTOM",
+        description: "Displays the menu to the left of the trigger, aligned to its bottom edge.",
+    },
+    {
+        value: "RIGHT_TOP",
+        description: "Displays the menu to the right of the trigger, aligned to its top edge.",
+    },
+    {
+        value: "RIGHT_BOTTOM",
+        description: "Displays the menu to the right of the trigger, aligned to its bottom edge.",
+    },
+]
+---
+::
+
+### moreActionsPositionXOffset
+
+Sets the horizontal offset of the "more actions" dropdown menu relative to its trigger. Positive values move the menu to the right, negative values move it to the left.
+
+```vue
+<template>
+    <NavSidebar
+        sidebarId="main-sidebar"
+        :menuItems="routeItems"
+        :moreActionsPositionXOffset="8"
+    />
+</template>
+```
+
+- **Type:** `number | string`
+- **Default:** `0`
+
+### moreActionsPositionYOffset
+
+Sets the vertical offset of the "more actions" dropdown menu relative to its trigger. Positive values move the menu down, negative values move it up.
+
+```vue
+<template>
+    <NavSidebar
+        sidebarId="main-sidebar"
+        :menuItems="routeItems"
+        :moreActionsPositionYOffset="4"
+    />
+</template>
+```
+
+- **Type:** `number | string`
+- **Default:** `0`
 
 ### closeSidebarAriaLabel
 

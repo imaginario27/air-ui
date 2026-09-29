@@ -154,6 +154,11 @@
                     :prefetchOn
                     :showCollapseDivider
                     :showNestedLevelGuide="showNestedSectionLevelGuide"
+                    :truncateDepth
+                    :marquee
+                    :moreActionsPosition
+                    :moreActionsPositionXOffset
+                    :moreActionsPositionYOffset
                     @toggle="toggleItem"
                 />
             </template>
@@ -355,6 +360,28 @@ const props = defineProps({
     showNestedSectionLevelGuide: {
         type: Boolean as PropType<boolean>,
         default: true,
+    },
+    truncateDepth: {
+        type: Array as PropType<SidebarMenuDepth[]>,
+        default: () => [],
+        validator: (value: SidebarMenuDepth[]) => value.every((level) => Object.values(SidebarMenuDepth).includes(level)),
+    },
+    marquee: {
+        type: Boolean as PropType<boolean>,
+        default: false,
+    },
+    moreActionsPosition: {
+        type: String as PropType<DropdownPosition>,
+        default: DropdownPosition.BOTTOM_RIGHT,
+        validator: (value: DropdownPosition) => Object.values(DropdownPosition).includes(value),
+    },
+    moreActionsPositionXOffset: {
+        type: [Number, String] as PropType<number | string>,
+        default: 0,
+    },
+    moreActionsPositionYOffset: {
+        type: [Number, String] as PropType<number | string>,
+        default: 0,
     },
     prefetchOn: {
         type: [String, Object] as PropType<PrefetchOnStrategy>,
