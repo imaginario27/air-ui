@@ -163,4 +163,27 @@ describe('TriStateCheckboxField.vue', () => {
         expect(wrapper.find('label').exists()).toBe(false)
         expect(checkbox.props('ariaLabel')).toBe('Accept terms checkbox')
     })
+
+    it('renders rich markup passed via the label slot', () => {
+        const wrapper = mount(TriStateCheckboxField, {
+            props: { id: 'test-checkbox' },
+            slots: {
+                label: '<strong>Bold</strong> terms'
+            },
+            global: {
+                components: { TriStateCheckbox },
+                stubs: {
+                    Icon: {
+                        name: 'Icon',
+                        props: ['name', 'iconClass'],
+                        template: '<div class="mock-icon" />'
+                    }
+                }
+            }
+        })
+
+        const label = wrapper.find('label')
+        expect(label.find('strong').exists()).toBe(true)
+        expect(label.text()).toBe('Bold terms')
+    })
 })

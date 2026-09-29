@@ -207,4 +207,17 @@ describe('TriStateSwitchField', () => {
         expect(switchEl.attributes('aria-label')).toBe('Enable notifications switch')
         expect(input.attributes('aria-label')).toBe('Enable notifications switch')
     })
+
+    it('renders rich markup passed via the label slot', () => {
+        const wrapper = mount(TriStateSwitchField, {
+            props: defaultProps,
+            slots: {
+                label: '<strong>Bold</strong> feature'
+            }
+        })
+
+        const label = wrapper.find('label')
+        expect(label.find('strong').exists()).toBe(true)
+        expect(label.text()).toBe('Bold feature')
+    })
 })

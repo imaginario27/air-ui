@@ -138,6 +138,28 @@ props: [
 ---
 ::
 
+## Slots
+::slots-table
+---
+slots: [
+    {
+        name: "label",
+        description: "Overrides the rendered label with custom markup, instead of the plain-text `label` prop. Use this when the label needs formatted or rich content.",
+    },
+]
+---
+::
+
+```vue
+<template>
+    <SwitchField id="field-id">
+        <template #label>
+            Enable <strong>advanced</strong> mode
+        </template>
+    </SwitchField>
+</template>
+```
+
 ## Usage
 ### id 
 
@@ -163,6 +185,14 @@ Sets the label of the field.
 ```
 
 - **Type:** `string`
+
+::content-alert
+---
+props:
+    title: "Rich label content"
+    description: "The `label` prop is rendered as plain text. For formatted or markup content, use the `label` slot instead (see Slots below)."
+---
+::
 
 ### legend
 

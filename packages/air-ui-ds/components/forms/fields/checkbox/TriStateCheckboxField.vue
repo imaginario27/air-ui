@@ -27,14 +27,15 @@
         >
             <!-- Label (inverted)-->
             <label
-                v-if="inverse && label"
+                v-if="inverse && ($slots.label || label)"
                 :for="id"
                 :class="[
                     disabled && 'text-text-neutral-disabled',
                     labelSizeClass,
                 ]"
-                v-html="label"
-            />
+            >
+                <slot name="label">{{ label }}</slot>
+            </label>
 
             <TriStateCheckbox
                 :id="id"
@@ -47,14 +48,15 @@
 
             <!-- Label (natural position) -->
             <label
-                v-if="!inverse && label"
+                v-if="!inverse && ($slots.label || label)"
                 :for="id"
                 :class="[
                     disabled && 'text-text-neutral-disabled',
                     labelSizeClass,
                 ]"
-                v-html="label"
-            />
+            >
+                <slot name="label">{{ label }}</slot>
+            </label>
         </div>
 
         <!-- Help Text -->

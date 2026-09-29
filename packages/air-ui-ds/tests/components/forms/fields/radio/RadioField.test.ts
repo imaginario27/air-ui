@@ -127,4 +127,17 @@ describe('RadioField', () => {
         expect(wrapper.find('label').exists()).toBe(false)
         expect(input.attributes('aria-label')).toBe('Accessible radio option')
     })
+
+    it('renders rich markup passed via the label slot', () => {
+        const wrapper = mount(RadioField, {
+            props: defaultProps,
+            slots: {
+                label: '<strong>Bold</strong> label'
+            }
+        })
+
+        const label = wrapper.find('label')
+        expect(label.find('strong').exists()).toBe(true)
+        expect(label.text()).toBe('Bold label')
+    })
 })
