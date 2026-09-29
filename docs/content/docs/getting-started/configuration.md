@@ -201,3 +201,35 @@ props: [
 ]
 ---
 ::
+
+### Extending the config
+
+`useDSConfig` and `useUtilsConfig` cover AirUI's own text and validator messages only. They aren't meant to hold project-specific config for your own local components or utils; add a separate composable in your app for that.
+
+If you want typed additions to `DesignSystemConfig` or `UtilsConfig` themselves, use TypeScript declaration merging in your app rather than editing these types in AirUI:
+
+```ts
+// types/air-ui-config.d.ts
+import '@imaginario27/air-ui-ds'
+
+declare module '@imaginario27/air-ui-ds' {
+    interface DesignSystemConfig {
+        myApp: {
+            welcomeText: () => string
+        }
+    }
+}
+```
+
+```ts
+// plugins/air-ui-config.ts
+export default defineNuxtPlugin(() => {
+    const dsConfig = useDSConfig()
+
+    dsConfig.myApp = {
+        welcomeText: () => 'Welcome back',
+    }
+})
+```
+
+This keeps `DesignSystemConfig` and `UtilsConfig` closed and fully typed for every consumer of the library, while your app still gets typed access to the properties it adds.
