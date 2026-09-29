@@ -10,13 +10,13 @@
             'text-left',
             'rounded-lg',
             'transition-colors duration-200 ease-out',
-            !isActive && 'hover:bg-background-neutral-hover',
+            'hover:bg-background-neutral-hover',
             'justify-between',
             levelTextClass,
             spacingClass,
             nestedItemSpacingClass,
             !isActive && 'text-text-default',
-            isActive && 'text-text-primary-brand-on-soft-bg bg-background-primary-brand-soft hover:bg-background-primary-brand-soft-hover',
+            isActive && 'text-text-primary-brand-on-neutral-hover-bg bg-background-neutral-hover',
             disabled && 'opacity-disabled cursor-not-allowed pointer-events-none',
         ]"
         @click="$emit('click')"
@@ -38,7 +38,7 @@
                 :iconClass="[
                     iconClass || 'text-icon-neutral-subtler',
                     'group-hover:text-icon-default',
-                    isActive ? '!text-icon-primary-brand-on-soft-bg' : '',
+                    isActive ? '!text-icon-primary-brand-on-neutral-hover-bg' : '',
                     iconSizeClass,
                 ].filter(Boolean)"
             />

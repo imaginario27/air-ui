@@ -96,8 +96,8 @@ describe('NavSidebarMenuItem.vue', () => {
         const link = wrapper.find('a')
         const classList = link.classes()
 
-        expect(classList).not.toContain('text-text-primary-brand-on-soft-bg')
-        expect(classList).not.toContain('bg-background-primary-brand-soft')
+        expect(classList).not.toContain('text-text-primary-brand-on-neutral-hover-bg')
+        expect(classList).not.toContain('bg-background-neutral-hover')
     })
 
     it('renders dropdown arrow icon when showDropdownArrow is true and not collapsed', () => {
@@ -188,7 +188,7 @@ describe('NavSidebarMenuItem.vue', () => {
     it.each([
         ['collapsed', true],
         ['expanded', false],
-    ])('uses a soft brand background and matching on-soft-bg text/icon color for the active item when %s', (_label, isCollapsed) => {
+    ])('uses the neutral-hover background and matching on-neutral-hover-bg text/icon color for the active item when %s', (_label, isCollapsed) => {
         const wrapper = factory({
             icon: 'mdi:home',
             to: '/',
@@ -196,15 +196,15 @@ describe('NavSidebarMenuItem.vue', () => {
         })
 
         const icon = wrapper.findComponent(Icon)
-        expect(wrapper.classes()).toContain('bg-background-primary-brand-soft')
-        expect(wrapper.classes()).toContain('text-text-primary-brand-on-soft-bg')
-        expect(icon.props('iconClass')).toContain('!text-icon-primary-brand-on-soft-bg')
+        expect(wrapper.classes()).toContain('bg-background-neutral-hover')
+        expect(wrapper.classes()).toContain('text-text-primary-brand-on-neutral-hover-bg')
+        expect(icon.props('iconClass')).toContain('!text-icon-primary-brand-on-neutral-hover-bg')
     })
 
     it.each([
         ['collapsed', true],
         ['expanded', false],
-    ])('does not use the active soft styles when not active (%s)', (_label, isCollapsed) => {
+    ])('does not use the active styles when not active (%s)', (_label, isCollapsed) => {
         const wrapper = factory({
             icon: 'mdi:home',
             to: '/other-page',
@@ -212,9 +212,9 @@ describe('NavSidebarMenuItem.vue', () => {
         })
 
         const icon = wrapper.findComponent(Icon)
-        expect(wrapper.classes()).not.toContain('bg-background-primary-brand-soft')
-        expect(wrapper.classes()).not.toContain('text-text-primary-brand-on-soft-bg')
-        expect(icon.props('iconClass')).not.toContain('!text-icon-primary-brand-on-soft-bg')
+        expect(wrapper.classes()).not.toContain('bg-background-neutral-hover')
+        expect(wrapper.classes()).not.toContain('text-text-primary-brand-on-neutral-hover-bg')
+        expect(icon.props('iconClass')).not.toContain('!text-icon-primary-brand-on-neutral-hover-bg')
     })
 
     it('shows the neutral-default icon color on hover via group-hover', () => {
