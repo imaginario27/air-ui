@@ -30,7 +30,7 @@
         "typecheck:all": "npm run typecheck:ds && npm run typecheck:utils && npm run typecheck:docs"
     },
     "dependencies": {
-        "better-sqlite3": "^13.0.3"
+        "better-sqlite3": "13.0.3"
     },
     "devDependencies": {
         "@changesets/cli": "3.0.3",
