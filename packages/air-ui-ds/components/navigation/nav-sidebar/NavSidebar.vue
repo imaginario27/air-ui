@@ -52,7 +52,10 @@
         <slot name="sidebar-header" />
         
         <!-- Menu -->
-        <NavSidebarMenu 
+        <slot name="sidebar-menu" />
+
+        <NavSidebarMenu
+            v-if="!$slots['sidebar-menu']"
             :isCollapsed
             :class="[
                 !$slots['sidebar-footer'] && '80% lg:90%',
