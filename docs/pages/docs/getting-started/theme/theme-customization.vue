@@ -8,9 +8,9 @@
 
             <ContentFooterNavigation 
                 :previousPage="{
-                    label: 'Installation',
-                    link: `/${DocsAppSlug.DOCS}/${DocsAppSlug.GETTING_STARTED}/installation`,
-                    description: 'Learn how to install AirUI in your project.'
+                    label: 'Configuration',
+                    link: `/${DocsAppSlug.DOCS}/${DocsAppSlug.GETTING_STARTED}/configuration`,
+                    description: 'Learn how to configure AirUI globally.'
                 }"
                 :nextPage="{
                     label: 'Design tokens',

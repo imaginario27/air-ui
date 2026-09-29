@@ -7,14 +7,26 @@ props:
     modelValue: false
     title: "Item title"
     titleClass: ""
+    titleWrapperClass: ""
+    actionsWrapperClass: ""
     buttonSize: "md"
 slots:
     default: ""
+    title-suffix: ""
+    header-suffix: ""
 slotComponents:
     default:
         srcDir: 'placeholders/ContentPlaceholder.vue'
         props:
             text: "Insert content here"
+    title-suffix:
+        srcDir: 'placeholders/ContentPlaceholder.vue'
+        props:
+            text: "Insert title suffix here"
+    header-suffix:
+        srcDir: 'placeholders/ContentPlaceholder.vue'
+        props:
+            text: "Insert header suffix here"
 items:
     buttonSize: 
         - value: 2xl
@@ -58,6 +70,14 @@ props: [
         "type": "string",
     },
     {
+        "name": "titleWrapperClass",
+        "type": "string",
+    },
+    {
+        "name": "actionsWrapperClass",
+        "type": "string",
+    },
+    {
         "name": "buttonSize",
         "default": "ButtonSize.MD",
         "type": "ButtonSize",
@@ -73,6 +93,14 @@ slots: [
     {
         name: "default",
         description: "Slot to render the collapsible content",
+    },
+    {
+        name: "title-suffix",
+        description: "Template to render content right after the title, such as a badge or an icon.",
+    },
+    {
+        name: "header-suffix",
+        description: "Template to render content before the expand/collapse icon button, such as buttons or other components.",
     },
 ]
 ---
@@ -133,6 +161,38 @@ Adds extra classes to the title `<span>`, appended after the base styling.
     <Collapsible
         title="My collapsible title"
         titleClass="text-lg"
+    >
+        <!-- Insert content here -->
+    </Collapsible>
+</template>
+```
+
+- **Type:** `string`
+
+### titleWrapperClass
+Adds extra classes to the wrapper `<div>` around the title and the `title-suffix` slot, appended after the base styling.
+
+```vue
+<template>
+    <Collapsible
+        title="My collapsible title"
+        titleWrapperClass="items-center"
+    >
+        <!-- Insert content here -->
+    </Collapsible>
+</template>
+```
+
+- **Type:** `string`
+
+### actionsWrapperClass
+Adds extra classes to the wrapper `<div>` around the `header-suffix` slot and the expand/collapse icon button, appended after the base styling.
+
+```vue
+<template>
+    <Collapsible
+        title="My collapsible title"
+        actionsWrapperClass="items-center"
     >
         <!-- Insert content here -->
     </Collapsible>
