@@ -27,7 +27,7 @@ definePageMeta({
     title: 'Configuration',
     layout: 'docs',
     overtitle: 'Getting Started',
-    description: 'Learn how to configure AirUI globally, including translating built-in text via useDSConfig.'
+    description: 'Learn how to configure AirUI globally, including translating built-in text via useDSConfig and useUtilsConfig.'
 })
 
 // Route
