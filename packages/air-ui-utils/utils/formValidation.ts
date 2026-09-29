@@ -5,16 +5,13 @@ import type {
     RuleValidationItem,
     RuleValidationValue,
 } from '../models/types/formValidation'
+import { useUtilsConfig } from '../composables/useUtilsConfig'
 
-// Centralized error messages for form validation
+// Centralized error messages for form validation.
+// Overridable globally via useUtilsConfig().validation, or per-call via each function's message params.
 const FieldError = {
-    REQUIRED_FIELD: 'This field is required.',
     REQUIRED_EMAIL: 'Email is required.',
-    INVALID_EMAIL: 'Invalid email address.',
     REQUIRED_OPTION: 'Please select an option.',
-    INVALID_DATE_RANGE: 'Start date must be before or equal to end date',
-    PASSWORDS_DO_NOT_MATCH: 'Passwords do not match.',
-    INVALID_URL: 'Invalid URL.',
 }
 
 /**
@@ -29,11 +26,11 @@ export const validateField = (
     requiredFieldMessage?: string,
 ): string | null => {
     if (typeof value === 'string' && value.trim() === '') {
-        return requiredFieldMessage ?? FieldError.REQUIRED_FIELD
+        return requiredFieldMessage ?? useUtilsConfig().validation.requiredFieldMessage()
     }
 
     if (value === null || value === undefined) {
-        return requiredFieldMessage ?? FieldError.REQUIRED_FIELD
+        return requiredFieldMessage ?? useUtilsConfig().validation.requiredFieldMessage()
     }
 
     return null
@@ -58,7 +55,7 @@ export const validateEmail = (
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     if (!emailRegex.test(value)) {
-        return invalidEmailMessage ?? FieldError.INVALID_EMAIL
+        return invalidEmailMessage ?? useUtilsConfig().validation.invalidEmailMessage()
     }
 
     return null
@@ -85,11 +82,11 @@ export const validatePasswordMatch = (
         typeof confirmPassword !== 'string' ||
         !confirmPassword.trim()
     ) {
-        return requiredFieldMessage ?? FieldError.REQUIRED_FIELD
+        return requiredFieldMessage ?? useUtilsConfig().validation.requiredFieldMessage()
     }
 
     if (password !== confirmPassword) {
-        return mismatchMessage ?? FieldError.PASSWORDS_DO_NOT_MATCH
+        return mismatchMessage ?? useUtilsConfig().validation.passwordsDoNotMatchMessage()
     }
 
     return null
@@ -107,8 +104,8 @@ export const validatePasswordMatch = (
 export const validateDateRange = (
     startDate: unknown,
     endDate: unknown,
-    requiredFieldMessage = FieldError.REQUIRED_FIELD,
-    invalidRangeMessage = FieldError.INVALID_DATE_RANGE,
+    requiredFieldMessage = useUtilsConfig().validation.requiredFieldMessage(),
+    invalidRangeMessage = useUtilsConfig().validation.invalidDateRangeMessage(),
 ): string | null => {
     if (
         typeof startDate !== 'string' || !startDate ||
@@ -137,8 +134,8 @@ export const validateDateRange = (
  */
 export const validateUrl = (
     value: unknown,
-    requiredFieldMessage = FieldError.REQUIRED_FIELD,
-    invalidUrlMessage = FieldError.INVALID_URL,
+    requiredFieldMessage = useUtilsConfig().validation.requiredFieldMessage(),
+    invalidUrlMessage = useUtilsConfig().validation.invalidUrlMessage(),
 ): string | null => {
     if (typeof value !== 'string' || !value.trim()) {
         return requiredFieldMessage
@@ -161,7 +158,7 @@ export const validateUrl = (
  */
 export const validateBooleanField = (
     value: unknown,
-    requiredFieldMessage = FieldError.REQUIRED_FIELD,
+    requiredFieldMessage = useUtilsConfig().validation.requiredFieldMessage(),
 ): string | null => {
     if (typeof value !== 'boolean' || value === false) {
         return requiredFieldMessage
@@ -182,7 +179,7 @@ export const validateBooleanField = (
  */
 export const validateArrayField = (
     value: unknown,
-    requiredFieldMessage = FieldError.REQUIRED_FIELD,
+    requiredFieldMessage = useUtilsConfig().validation.requiredFieldMessage(),
     minLength?: number,
     maxLength?: number,
     lengthErrorMessage?: string,
