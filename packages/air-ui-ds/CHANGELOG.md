@@ -5,6 +5,28 @@ All notable changes to this package are documented in this file.
 Historical releases were reconstructed from git history (GitHub repository) and npm publish dates.
 Future releases will include detailed entries generated with Changesets.
 
+## 1.19.0 - 2026-09-29
+
+Release type: minor.
+Commits found in range: 6.
+
+### Added
+
+1. extend useDSConfig to cover more component text ([8bd9079](https://github.com/imaginario27/air-ui/commit/8bd90790db9a1cd64814db0c1ae644bd889d6cd1))
+2. add sidebar-menu slot to NavSidebar ([a25aeaf](https://github.com/imaginario27/air-ui/commit/a25aeaf2fcc60491ab0bb264f94f9d1e8627a5ad))
+3. add configurable optional-label hint and fix dropdown teleport clipping ([eef6e96](https://github.com/imaginario27/air-ui/commit/eef6e96cd90b3c5f03db161e820de3d521e876fd))
+
+### Fixed
+
+1. render Alert description as plain text instead of v-html ([ae7693c](https://github.com/imaginario27/air-ui/commit/ae7693c890fb4221083809ae6da6b41df3b74389))
+2. replace v-html label rendering with a label slot in form fields ([a3731a4](https://github.com/imaginario27/air-ui/commit/a3731a420a42d8d15c41e73b8b3cb7c56e6d027f))
+
+### Changed
+
+1. fix NavSidebar scrollY stub for happy-dom upgrade ([1adf956](https://github.com/imaginario27/air-ui/commit/1adf956be6cee5b37bf5db598e39846c0193559e))
+
+- Package: @imaginario27/air-ui-ds.
+
 ## 1.18.3 - 2026-09-23
 
 Release type: patch.

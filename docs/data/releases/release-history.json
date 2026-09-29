@@ -1,12 +1,103 @@
 {
-  "generatedAt": "2026-09-29T09:22:34.843Z",
+  "generatedAt": "2026-09-29T16:08:33.891Z",
   "source": "github-git-history+npm-publish-dates",
   "githubBaseUrl": "https://github.com/imaginario27/air-ui",
   "packages": [
     {
       "packageName": "@imaginario27/air-ui-ds",
-      "latestVersion": "1.18.3",
+      "latestVersion": "1.19.0",
       "entries": [
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.19.0",
+          "publishedAt": "2026-09-29",
+          "releaseType": "minor",
+          "notes": [
+            "extend useDSConfig to cover more component text",
+            "add sidebar-menu slot to NavSidebar",
+            "add configurable optional-label hint and fix dropdown teleport clipping",
+            "render Alert description as plain text instead of v-html",
+            "replace v-html label rendering with a label slot in form fields",
+            "fix NavSidebar scrollY stub for happy-dom upgrade"
+          ],
+          "metadata": {
+            "commitCount": 6,
+            "commits": [
+              {
+                "sha": "ae7693c890fb4221083809ae6da6b41df3b74389",
+                "shortSha": "ae7693c",
+                "date": "2026-09-29",
+                "subject": "fix(ds): render Alert description as plain text instead of v-html",
+                "normalizedSubject": "render Alert description as plain text instead of v-html",
+                "type": "fixed",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/ae7693c890fb4221083809ae6da6b41df3b74389",
+                "prUrl": null
+              },
+              {
+                "sha": "a3731a420a42d8d15c41e73b8b3cb7c56e6d027f",
+                "shortSha": "a3731a4",
+                "date": "2026-09-29",
+                "subject": "fix(root): replace v-html label rendering with a label slot in form fields",
+                "normalizedSubject": "replace v-html label rendering with a label slot in form fields",
+                "type": "fixed",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/a3731a420a42d8d15c41e73b8b3cb7c56e6d027f",
+                "prUrl": null
+              },
+              {
+                "sha": "1adf956be6cee5b37bf5db598e39846c0193559e",
+                "shortSha": "1adf956",
+                "date": "2026-09-29",
+                "subject": "test(ds): fix NavSidebar scrollY stub for happy-dom upgrade",
+                "normalizedSubject": "fix NavSidebar scrollY stub for happy-dom upgrade",
+                "type": "changed",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/1adf956be6cee5b37bf5db598e39846c0193559e",
+                "prUrl": null
+              },
+              {
+                "sha": "8bd90790db9a1cd64814db0c1ae644bd889d6cd1",
+                "shortSha": "8bd9079",
+                "date": "2026-09-29",
+                "subject": "feat(ds): extend useDSConfig to cover more component text",
+                "normalizedSubject": "extend useDSConfig to cover more component text",
+                "type": "added",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/8bd90790db9a1cd64814db0c1ae644bd889d6cd1",
+                "prUrl": null
+              },
+              {
+                "sha": "a25aeaf2fcc60491ab0bb264f94f9d1e8627a5ad",
+                "shortSha": "a25aeaf",
+                "date": "2026-09-29",
+                "subject": "feat(ds): add sidebar-menu slot to NavSidebar",
+                "normalizedSubject": "add sidebar-menu slot to NavSidebar",
+                "type": "added",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/a25aeaf2fcc60491ab0bb264f94f9d1e8627a5ad",
+                "prUrl": null
+              },
+              {
+                "sha": "eef6e96cd90b3c5f03db161e820de3d521e876fd",
+                "shortSha": "eef6e96",
+                "date": "2026-09-29",
+                "subject": "feat(ds): add configurable optional-label hint and fix dropdown teleport clipping",
+                "normalizedSubject": "add configurable optional-label hint and fix dropdown teleport clipping",
+                "type": "added",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/eef6e96cd90b3c5f03db161e820de3d521e876fd",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 3,
+              "fixed": 2,
+              "changed": 1,
+              "breaking": 0
+            }
+          }
+        },
         {
           "packageName": "@imaginario27/air-ui-ds",
           "version": "1.18.3",
@@ -3526,8 +3617,39 @@
     },
     {
       "packageName": "@imaginario27/air-ui-utils",
-      "latestVersion": "1.2.6",
+      "latestVersion": "1.3.0",
       "entries": [
+        {
+          "packageName": "@imaginario27/air-ui-utils",
+          "version": "1.3.0",
+          "publishedAt": "2026-09-29",
+          "releaseType": "minor",
+          "notes": [
+            "add global config for form validation messages"
+          ],
+          "metadata": {
+            "commitCount": 1,
+            "commits": [
+              {
+                "sha": "818afa59e130b984fbe65e827f793a77283f8733",
+                "shortSha": "818afa5",
+                "date": "2026-09-29",
+                "subject": "feat(utils): add global config for form validation messages",
+                "normalizedSubject": "add global config for form validation messages",
+                "type": "added",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/818afa59e130b984fbe65e827f793a77283f8733",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 1,
+              "fixed": 0,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
         {
           "packageName": "@imaginario27/air-ui-utils",
           "version": "1.2.6",
