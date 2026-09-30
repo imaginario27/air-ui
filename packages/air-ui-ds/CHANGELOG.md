@@ -5,6 +5,17 @@ All notable changes to this package are documented in this file.
 Historical releases were reconstructed from git history (GitHub repository) and npm publish dates.
 Future releases will include detailed entries generated with Changesets.
 
+## 1.20.0 - 2026-09-29
+
+Release type: minor.
+Commits found in range: 1.
+
+### Added
+
+1. add truncation, marquee and more-actions support to NavSidebar ([c73e1ec](https://github.com/imaginario27/air-ui/commit/c73e1eccd98f92fdf7d09512cf04dda4a98f6ff6))
+
+- Package: @imaginario27/air-ui-ds.
+
 ## 1.19.0 - 2026-09-29
 
 Release type: minor.

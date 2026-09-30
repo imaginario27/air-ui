@@ -1,6 +1,7 @@
 <template>
     <component
         :is="componentTag"
+        ref="rootEl"
         v-bind="componentProps"
         :class="[
             !isCollapsed && 'w-full',
@@ -109,12 +110,13 @@
             ]"
             @click.stop.prevent
             @keydown.stop
+            @mouseenter="updateResolvedMoreActionsPosition"
+            @focusin="updateResolvedMoreActionsPosition"
         >
             <slot name="suffix">
                 <DropdownMenu
                     :items="moreActionsItems"
-                    :position="moreActionsPosition"
-                    :positionXOffset="moreActionsPositionXOffset"
+                    :position="resolvedMoreActionsPosition"
                     :positionYOffset="moreActionsPositionYOffset"
                     :style="{ minWidth: `${moreActionsMenuWidth}px` }"
                 >
@@ -214,17 +216,13 @@ const props = defineProps({
         default: 200,
     },
     moreActionsPosition: {
-        type: String as PropType<DropdownPosition>,
-        default: DropdownPosition.BOTTOM_RIGHT,
-        validator: (value: DropdownPosition) => Object.values(DropdownPosition).includes(value),
-    },
-    moreActionsPositionXOffset: {
-        type: [Number, String] as PropType<number | string>,
-        default: 0,
+        type: String as PropType<Position>,
+        default: Position.BOTTOM,
+        validator: (value: Position) => Object.values(Position).includes(value),
     },
     moreActionsPositionYOffset: {
         type: [Number, String] as PropType<number | string>,
-        default: 0,
+        default: 4,
     },
 })
 
@@ -236,12 +234,23 @@ const route = useRoute()
 const slots = useSlots()
 
 // Refs
+const rootEl = ref<HTMLElement | { $el: HTMLElement } | null>(null)
 const textEl = ref<HTMLElement | null>(null)
 const textWrapperEl = ref<HTMLElement | null>(null)
+
+// Rough height of the more-actions dropdown panel, used to flip it to the other side near the viewport edge
+const MORE_ACTIONS_ITEM_HEIGHT = 36
+const MORE_ACTIONS_MENU_PADDING = 8
+
+// The dropdown always anchors to the right; only top/bottom flips based on available space
+const toDropdownPosition = (position: Position) => {
+    return position === Position.TOP ? DropdownPosition.TOP_RIGHT : DropdownPosition.BOTTOM_RIGHT
+}
 
 // States
 const isRowHovered = ref(false)
 const marqueeShift = ref(0)
+const resolvedMoreActionsPosition = ref<DropdownPosition>(toDropdownPosition(props.moreActionsPosition))
 
 // Computed classes
 const resolvedLevel = computed(() => {
@@ -368,6 +377,31 @@ const marqueeStyle = computed(() => {
 })
 
 // Methods
+const updateResolvedMoreActionsPosition = () => {
+    const el = rootEl.value && '$el' in rootEl.value ? rootEl.value.$el : rootEl.value
+    if (!(el instanceof HTMLElement)) {
+        resolvedMoreActionsPosition.value = toDropdownPosition(props.moreActionsPosition)
+        return
+    }
+
+    const menuHeight = props.moreActionsItems.length * MORE_ACTIONS_ITEM_HEIGHT + MORE_ACTIONS_MENU_PADDING
+    const rect = el.getBoundingClientRect()
+    const spaceBelow = window.innerHeight - rect.bottom
+    const spaceAbove = rect.top
+
+    const fitsBelow = spaceBelow >= menuHeight
+    const fitsAbove = spaceAbove >= menuHeight
+
+    let position = props.moreActionsPosition
+    if (position === Position.BOTTOM && !fitsBelow && fitsAbove) {
+        position = Position.TOP
+    } else if (position === Position.TOP && !fitsAbove && fitsBelow) {
+        position = Position.BOTTOM
+    }
+
+    resolvedMoreActionsPosition.value = toDropdownPosition(position)
+}
+
 const updateMarqueeShift = () => {
     if (!isMarqueeEnabled.value || !textEl.value || !textWrapperEl.value) {
         marqueeShift.value = 0

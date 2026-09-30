@@ -79,9 +79,8 @@ props:
     prefetchOn: "visibility"
     truncateDepth: []
     marquee: false
-    moreActionsPosition: 'bottom-right'
-    moreActionsPositionXOffset: 0
-    moreActionsPositionYOffset: 0
+    moreActionsPosition: 'bottom'
+    moreActionsPositionYOffset: 4
     closeSidebarAriaLabel: "Close sidebar"
     collapseSidebarAriaLabel: "Collapse sidebar"
     expandSidebarAriaLabel: "Expand sidebar"
@@ -108,22 +107,10 @@ items:
         - value: interaction
           text: INTERACTION
     moreActionsPosition:
-        - value: top-left
-          text: TOP_LEFT
-        - value: top-right
-          text: TOP_RIGHT
-        - value: bottom-left
-          text: BOTTOM_LEFT
-        - value: bottom-right
-          text: BOTTOM_RIGHT
-        - value: left-top
-          text: LEFT_TOP
-        - value: left-bottom
-          text: LEFT_BOTTOM
-        - value: right-top
-          text: RIGHT_TOP
-        - value: right-bottom
-          text: RIGHT_BOTTOM
+        - value: top
+          text: TOP
+        - value: bottom
+          text: BOTTOM
 external:
   - menuItems
   - truncateDepth
@@ -135,7 +122,7 @@ enums:
     collapseTogglePosition: "Position"
     collapsedSubmenuTrigger: "Trigger"
     prefetchOn: "PrefetchOn"
-    moreActionsPosition: "DropdownPosition"
+    moreActionsPosition: "Position"
 propsSettingsExcludedProps: [
     'menuItems',
     'class',
@@ -334,17 +321,12 @@ props: [
     },
     {
         "name": "moreActionsPosition",
-        "default": "DropdownPosition.BOTTOM_RIGHT",
-        "type": "DropdownPosition",
-    },
-    {
-        "name": "moreActionsPositionXOffset",
-        "default": "0",
-        "type": "number | string",
+        "default": "Position.BOTTOM",
+        "type": "Position",
     },
     {
         "name": "moreActionsPositionYOffset",
-        "default": "0",
+        "default": "4",
         "type": "number | string",
     },
     {
@@ -1283,24 +1265,24 @@ const routeItems: SidebarMenuItem[] = [
 - **Type:** `DropdownMenuItem[]`
 - **Default:** `undefined`
 
-Use `moreActionsPosition`, `moreActionsPositionXOffset` and `moreActionsPositionYOffset` below to control where this dropdown opens relative to its trigger.
+Use `moreActionsPosition` and `moreActionsPositionYOffset` below to control where this dropdown opens relative to its trigger. The menu is always right-aligned with the trigger; only the vertical side is configurable.
 
 ### moreActionsPosition
 
-Sets the position of the built-in "more actions" dropdown menu (rendered when an item defines `moreActionsItems`) relative to its trigger button. Uses the `DropdownPosition` enum.
+Sets the preferred vertical side of the built-in "more actions" dropdown menu (rendered when an item defines `moreActionsItems`) relative to its trigger button. Uses the `Position` enum. Each row measures the space above and below it on hover/focus and automatically flips to the opposite side when the preferred side doesn't have enough room, so the menu never overflows the viewport.
 
 ```vue
 <template>
     <NavSidebar
         sidebarId="main-sidebar"
         :menuItems="routeItems"
-        :moreActionsPosition="DropdownPosition.BOTTOM_LEFT"
+        :moreActionsPosition="Position.TOP"
     />
 </template>
 ```
 
-- **Type:** `DropdownPosition`
-- **Default:** `DropdownPosition.BOTTOM_RIGHT`
+- **Type:** `Position`
+- **Default:** `Position.BOTTOM`
 
 #### Options
 
@@ -1308,57 +1290,16 @@ Sets the position of the built-in "more actions" dropdown menu (rendered when an
 ---
 options: [
     {
-        value: "TOP_LEFT",
-        description: "Aligns the menu above and to the left of the trigger.",
+        value: "TOP",
+        description: "Places the menu above the trigger, right-aligned; flips below it if there isn't enough room above.",
     },
     {
-        value: "TOP_RIGHT",
-        description: "Aligns the menu above and to the right of the trigger.",
-    },
-    {
-        value: "BOTTOM_LEFT",
-        description: "Places the menu below and left-aligned with the trigger.",
-    },
-    {
-        value: "BOTTOM_RIGHT",
-        description: "Places the menu below and right-aligned with the trigger.",
-    },
-    {
-        value: "LEFT_TOP",
-        description: "Displays the menu to the left of the trigger, aligned to its top edge.",
-    },
-    {
-        value: "LEFT_BOTTOM",
-        description: "Displays the menu to the left of the trigger, aligned to its bottom edge.",
-    },
-    {
-        value: "RIGHT_TOP",
-        description: "Displays the menu to the right of the trigger, aligned to its top edge.",
-    },
-    {
-        value: "RIGHT_BOTTOM",
-        description: "Displays the menu to the right of the trigger, aligned to its bottom edge.",
+        value: "BOTTOM",
+        description: "Places the menu below the trigger, right-aligned; flips above it if there isn't enough room below.",
     },
 ]
 ---
 ::
-
-### moreActionsPositionXOffset
-
-Sets the horizontal offset of the "more actions" dropdown menu relative to its trigger. Positive values move the menu to the right, negative values move it to the left.
-
-```vue
-<template>
-    <NavSidebar
-        sidebarId="main-sidebar"
-        :menuItems="routeItems"
-        :moreActionsPositionXOffset="8"
-    />
-</template>
-```
-
-- **Type:** `number | string`
-- **Default:** `0`
 
 ### moreActionsPositionYOffset
 
@@ -1375,7 +1316,7 @@ Sets the vertical offset of the "more actions" dropdown menu relative to its tri
 ```
 
 - **Type:** `number | string`
-- **Default:** `0`
+- **Default:** `4`
 
 ### closeSidebarAriaLabel
 
