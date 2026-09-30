@@ -491,18 +491,16 @@ describe('NavSidebar.vue', () => {
         expect(byText('Subitem 1').props('marquee')).toBe(true)
     })
 
-    it('forwards moreActionsPosition and offsets to every rendered item', () => {
+    it('forwards moreActionsPosition and offset to every rendered item', () => {
         const wrapper = factory({
             props: {
-                moreActionsPosition: 'top-left',
-                moreActionsPositionXOffset: 10,
+                moreActionsPosition: 'top',
                 moreActionsPositionYOffset: 5,
             },
         })
 
         const items = wrapper.findAllComponents(NavSidebarMenuItem)
-        expect(items[0]!.props('moreActionsPosition')).toBe('top-left')
-        expect(items[0]!.props('moreActionsPositionXOffset')).toBe(10)
+        expect(items[0]!.props('moreActionsPosition')).toBe('top')
         expect(items[0]!.props('moreActionsPositionYOffset')).toBe(5)
     })
 

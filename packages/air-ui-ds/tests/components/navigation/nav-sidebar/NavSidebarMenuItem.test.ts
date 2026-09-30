@@ -433,18 +433,68 @@ describe('NavSidebarMenuItem.vue', () => {
         expect(wrapper.find('span').element.parentElement?.classList.contains('mr-2')).toBe(true)
     })
 
-    it('passes moreActionsPosition and offsets through to the DropdownMenu', () => {
+    it('passes moreActionsPosition and offset through to the DropdownMenu', () => {
         const wrapper = factory({
             text: 'Settings',
             moreActionsItems: [{ text: 'Rename' }],
-            moreActionsPosition: 'top-left',
-            moreActionsPositionXOffset: 12,
+            moreActionsPosition: 'top',
             moreActionsPositionYOffset: 8,
         })
 
         const dropdown = wrapper.findComponent(DropdownMenu)
-        expect(dropdown.props('position')).toBe('top-left')
-        expect(dropdown.props('positionXOffset')).toBe(12)
+        expect(dropdown.props('position')).toBe('top-right')
         expect(dropdown.props('positionYOffset')).toBe(8)
+    })
+
+    it('flips more-actions position to bottom when there is not enough space above', async () => {
+        const wrapper = factory({
+            text: 'Settings',
+            moreActionsItems: [{ text: 'Rename' }, { text: 'Delete' }],
+            moreActionsPosition: 'top',
+        })
+
+        vi.spyOn(window, 'innerHeight', 'get').mockReturnValue(200)
+        wrapper.element.getBoundingClientRect = () => ({
+            top: 20,
+            bottom: 40,
+            left: 0,
+            right: 0,
+            width: 0,
+            height: 20,
+            x: 0,
+            y: 0,
+            toJSON: () => {},
+        }) as DOMRect
+
+        await wrapper.find('div.opacity-0').trigger('mouseenter')
+
+        const dropdown = wrapper.findComponent(DropdownMenu)
+        expect(dropdown.props('position')).toBe('bottom-right')
+    })
+
+    it('flips more-actions position to top when there is not enough space below', async () => {
+        const wrapper = factory({
+            text: 'Settings',
+            moreActionsItems: [{ text: 'Rename' }, { text: 'Delete' }],
+            moreActionsPosition: 'bottom',
+        })
+
+        vi.spyOn(window, 'innerHeight', 'get').mockReturnValue(200)
+        wrapper.element.getBoundingClientRect = () => ({
+            top: 170,
+            bottom: 190,
+            left: 0,
+            right: 0,
+            width: 0,
+            height: 20,
+            x: 0,
+            y: 0,
+            toJSON: () => {},
+        }) as DOMRect
+
+        await wrapper.find('div.opacity-0').trigger('mouseenter')
+
+        const dropdown = wrapper.findComponent(DropdownMenu)
+        expect(dropdown.props('position')).toBe('top-right')
     })
 })

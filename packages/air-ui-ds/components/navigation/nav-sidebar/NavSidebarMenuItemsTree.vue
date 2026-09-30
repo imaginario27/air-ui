@@ -46,7 +46,6 @@
                     :marquee
                     :moreActionsItems="item.moreActionsItems"
                     :moreActionsPosition
-                    :moreActionsPositionXOffset
                     :moreActionsPositionYOffset
                     :class="[
                         getItemCustomClass(level),
@@ -82,7 +81,6 @@
                         :truncateDepth
                         :marquee
                         :moreActionsPosition
-                        :moreActionsPositionXOffset
                         :moreActionsPositionYOffset
                         :pathPrefix="getNodePath(index)"
                         @toggle="emit('toggle', $event)"
@@ -149,17 +147,13 @@ const props = defineProps({
         default: false,
     },
     moreActionsPosition: {
-        type: String as PropType<DropdownPosition>,
-        default: DropdownPosition.BOTTOM_RIGHT,
-        validator: (value: DropdownPosition) => Object.values(DropdownPosition).includes(value),
-    },
-    moreActionsPositionXOffset: {
-        type: [Number, String] as PropType<number | string>,
-        default: 0,
+        type: String as PropType<Position>,
+        default: Position.BOTTOM,
+        validator: (value: Position) => Object.values(Position).includes(value),
     },
     moreActionsPositionYOffset: {
         type: [Number, String] as PropType<number | string>,
-        default: 0,
+        default: 4,
     },
     pathPrefix: {
         type: Array as PropType<number[]>,
