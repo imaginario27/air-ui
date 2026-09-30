@@ -20,7 +20,7 @@ export const componentList: ComponentPortfolioItem[] = [
         imgUrl: `/images/thumbnails/components/section.png`,
     },
     {
-        title: 'Header',
+        title: 'CompactHeader',
         to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/compact-header`,
         imgUrl: `/images/thumbnails/components/header.png`,
     },
@@ -56,7 +56,7 @@ export const componentList: ComponentPortfolioItem[] = [
         imgUrl: `/images/thumbnails/components/badge.png`,
     },
     {
-        title: 'Button',
+        title: 'ActionButton',
         to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/action-button`,
         imgUrl: `/images/thumbnails/components/button.png`,
     },
@@ -116,12 +116,12 @@ export const componentList: ComponentPortfolioItem[] = [
         imgUrl: `/images/thumbnails/components/overtitle.png`,
     },
     {
-        title: 'Placeholder',
+        title: 'ContentPlaceholder',
         to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/content-placeholder`,
         imgUrl: `/images/thumbnails/components/placeholder.png`,
     },
     {
-        title: 'Progress',
+        title: 'ProgressBar',
         to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/progress-bar`,
         imgUrl: `/images/thumbnails/components/progress.png`,
     },
@@ -157,22 +157,22 @@ export const componentList: ComponentPortfolioItem[] = [
         imgUrl: `/images/thumbnails/components/nav-link.png`,
     },
     {
-        title: 'Pagination',
+        title: 'ButtonPagination',
         to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/button-pagination`,
         imgUrl: `/images/thumbnails/components/pagination.png`,
     },
     {
-        title: 'Sidebar',
+        title: 'NavSidebar',
         to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/nav-sidebar`,
         imgUrl: `/images/thumbnails/components/sidebar.png`,
     },
     {
-        title: 'Stepper',
+        title: 'TabStepper',
         to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/tab-stepper`,
         imgUrl: `/images/thumbnails/components/stepper.png`,
     },
     {
-        title: 'Tabs',
+        title: 'TabsContainer',
         to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/tabs`,
         imgUrl: `/images/thumbnails/components/tabs.png`,
     },
@@ -329,7 +329,7 @@ export const componentList: ComponentPortfolioItem[] = [
         imgUrl: `/images/thumbnails/components/drawer.png`,
     },
     {
-        title: 'Dropdown',
+        title: 'DropdownMenu',
         to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/dropdown-menu`,
         imgUrl: `/images/thumbnails/components/dropdown.png`,
     },
