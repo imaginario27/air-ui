@@ -1,0 +1,29 @@
+name: CI
+
+on:
+    pull_request:
+        # Skip plain "opened" pushes while a PR is still a draft (handled below
+        # via the draft check) but rerun on every new commit so this can be a
+        # required status check without getting stuck on a stale SHA.
+        types: [opened, ready_for_review, synchronize]
+
+concurrency:
+    # Only the latest push on a given PR needs to finish; cancel older,
+    # superseded runs so rapid pushes don't burn extra Actions minutes.
+    group: ci-${{ github.event.pull_request.number }}
+    cancel-in-progress: true
+
+jobs:
+    preflight:
+        # Don't run at all while the PR is a draft (e.g. WIP commits).
+        if: github.event.pull_request.draft == false
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+            - uses: actions/setup-node@v4
+              with:
+                  node-version: 22
+                  cache: npm
+            - run: npm ci
+            # Typechecks + tests for all workspaces (docs, ds, utils).
+            - run: npm run preflight

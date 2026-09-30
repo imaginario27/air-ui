@@ -27,7 +27,8 @@
         "typecheck:ds": "npm run typecheck --workspace=@imaginario27/air-ui-ds",
         "typecheck:utils": "npm run typecheck --workspace=@imaginario27/air-ui-utils",
         "typecheck:docs": "npm run typecheck --workspace=@imaginario27/air-ui-docs",
-        "typecheck:all": "npm run typecheck:ds && npm run typecheck:utils && npm run typecheck:docs"
+        "typecheck:all": "npm run typecheck:ds && npm run typecheck:utils && npm run typecheck:docs",
+        "preflight": "npm run typecheck:all && npm run test:ds && npm run test:utils && npm run test:docs"
     },
     "dependencies": {
         "better-sqlite3": "13.0.3"
