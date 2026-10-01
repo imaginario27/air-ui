@@ -252,4 +252,66 @@ describe('ToggleButtonGroup', () => {
         expect(wrapper.attributes('role')).toBe('group')
         expect(wrapper.attributes('aria-label')).toBe('Toggle options')
     })
+
+    it('uses each button size over the group size when button.size is set', () => {
+        const { wrapper, buttons } = factory({ size: ButtonSize.XS })
+
+        const toggleButtons = wrapper.findAllComponents(ToggleButton)
+
+        expect(toggleButtons[0].props('size')).toBe(buttons[0].size)
+        expect(toggleButtons[1].props('size')).toBe(buttons[1].size)
+        expect(toggleButtons[0].props('size')).not.toBe(ButtonSize.XS)
+    })
+
+    it('falls back to the group size when a button has no size', () => {
+        const { wrapper } = factory({
+            size: ButtonSize.XS,
+            buttons: [
+                { text: 'First', value: 'first', action: vi.fn() },
+                { text: 'Second', value: 'second', action: vi.fn() },
+            ],
+        })
+
+        const toggleButtons = wrapper.findAllComponents(ToggleButton)
+
+        toggleButtons.forEach(btn => {
+            expect(btn.props('size')).toBe(ButtonSize.XS)
+        })
+    })
+
+    it('falls back to the group size for ToggleIconButton when a button has no size', () => {
+        const { wrapper } = factory({
+            onlyIcon: true,
+            size: ButtonSize.XXL,
+            buttons: [
+                { value: 'first', icon: 'mdi:one', ariaLabel: 'First' },
+                { value: 'second', icon: 'mdi:two', ariaLabel: 'Second' },
+            ],
+        })
+
+        const toggleIconButtons = wrapper.findAllComponents(ToggleIconButton)
+
+        toggleIconButtons.forEach(btn => {
+            expect(btn.props('size')).toBe(ButtonSize.XXL)
+        })
+    })
+
+    it('defaults the group size to ButtonSize.LG when neither is passed', () => {
+        const wrapper = mount(ToggleButtonGroup, {
+            props: {
+                buttons: [
+                    { text: 'First', value: 'first' },
+                ],
+            },
+            global: {
+                stubs: {
+                    ToggleButton: true,
+                    ToggleIconButton: true,
+                },
+            },
+        })
+
+        const toggleButton = wrapper.findComponent(ToggleButton)
+        expect(toggleButton.props('size')).toBe(ButtonSize.LG)
+    })
 })

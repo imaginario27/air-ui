@@ -1,12 +1,55 @@
 {
-  "generatedAt": "2026-09-30T08:34:45.755Z",
+  "generatedAt": "2026-10-01T12:51:52.210Z",
   "source": "github-git-history+npm-publish-dates",
   "githubBaseUrl": "https://github.com/imaginario27/air-ui",
   "packages": [
     {
       "packageName": "@imaginario27/air-ui-ds",
-      "latestVersion": "1.20.0",
+      "latestVersion": "1.20.1",
       "entries": [
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.20.1",
+          "publishedAt": "2026-09-30",
+          "releaseType": "patch",
+          "notes": [
+            "flip sidebar more-actions dropdown to avoid viewport overflow",
+            "revert active NavSidebar item to neutral-hover styling"
+          ],
+          "metadata": {
+            "commitCount": 2,
+            "commits": [
+              {
+                "sha": "1ca2ec44ae9af5440b82d00576af62339145cdb0",
+                "shortSha": "1ca2ec4",
+                "date": "2026-09-30",
+                "subject": "fix(ds): flip sidebar more-actions dropdown to avoid viewport overflow",
+                "normalizedSubject": "flip sidebar more-actions dropdown to avoid viewport overflow",
+                "type": "fixed",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/1ca2ec44ae9af5440b82d00576af62339145cdb0",
+                "prUrl": null
+              },
+              {
+                "sha": "3acc90fe71b4bae5679d7d37e2bbfea188902778",
+                "shortSha": "3acc90f",
+                "date": "2026-09-29",
+                "subject": "fix(ds): revert active NavSidebar item to neutral-hover styling",
+                "normalizedSubject": "revert active NavSidebar item to neutral-hover styling",
+                "type": "fixed",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/3acc90fe71b4bae5679d7d37e2bbfea188902778",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 0,
+              "fixed": 2,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
         {
           "packageName": "@imaginario27/air-ui-ds",
           "version": "1.20.0",
