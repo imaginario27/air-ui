@@ -19,6 +19,7 @@ props:
     modelValue: "option1"
     onlyIcon: false
     groupStyle: "grouped"
+    size: "lg"
     disabled: false
     transparent: false
 items:
@@ -32,6 +33,19 @@ items:
           text: TOP
         - value: bottom
           text: BOTTOM
+    size:
+        - value: xs
+          text: XS
+        - value: sm
+          text: SM
+        - value: md
+          text: MD
+        - value: lg
+          text: LG
+        - value: xl
+          text: XL
+        - value: 2xl
+          text: XXL
 external:
   - buttons
 externalTypes:
@@ -39,6 +53,7 @@ externalTypes:
 enums:
     groupStyle: "ToggleButtonGroupStyle"
     helpTextPosition: "Position"
+    size: "ButtonSize"
 isPreviewContentBoxed: true
 previewContentMaxWidth: 400
 propsSettingsExcludedProps: ['validator', 'buttons']
@@ -87,6 +102,11 @@ props: [
         "name": "groupStyle",
         "type": "ToggleButtonGroupStyle",
     },   
+    {
+        "name": "size",
+        "default": "ButtonSize.LG",
+        "type": "ButtonSize",
+    },
     {
         "name": "disabled",
         "default": "false",
@@ -288,6 +308,51 @@ options: [
     {
         value: "SEGMENTED",
         description: "Segmented style",
+    },
+]
+---
+::
+
+### size
+
+Sets the default size applied to buttons in the group. If a button in the `buttons` array sets its own `size`, that value takes precedence over this prop (see [buttons](#buttons)).
+
+```vue
+<template>
+    <ToggleButtonsGroupField :size="ButtonSize.XL" />
+</template>
+```
+
+- **Type:** `ButtonSize`
+- **Default:** `ButtonSize.LG`
+
+#### Options
+::options-table
+---
+options: [
+    {
+        value: "XS",
+        description: "xs",
+    },
+    {
+        value: "SM",
+        description: "sm",
+    },
+    {
+        value: "MD",
+        description: "md",
+    },
+    {
+        value: "LG",
+        description: "lg",
+    },
+    {
+        value: "XL",
+        description: "xl",
+    },
+    {
+        value: "XXL",
+        description: "2xl",
     },
 ]
 ---

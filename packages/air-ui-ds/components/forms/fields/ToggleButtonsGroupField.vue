@@ -31,6 +31,7 @@
             :buttons
             :modelValue
             :groupStyle
+            :size
             :disabled
             :onlyIcon
             :transparent
@@ -70,6 +71,11 @@ defineProps({
         required: true,
     },
     groupStyle: String as PropType<ToggleButtonGroupStyle>,
+    size: {
+        type: String as PropType<ButtonSize>,
+        default: undefined,
+        validator: (value: ButtonSize) => !value || Object.values(ButtonSize).includes(value),
+    },
     disabled: {
         type: Boolean as PropType<boolean>,
         default: false,

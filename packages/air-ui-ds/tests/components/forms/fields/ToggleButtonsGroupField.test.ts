@@ -1,7 +1,7 @@
 import { mount } from '@vue/test-utils'
 import ToggleButtonsGroupField from '~/components/forms/fields/ToggleButtonsGroupField.vue'
 import ToggleButtonGroup from '~/components/buttons/toggle/ToggleButtonGroup.vue'
-import { ToggleButtonGroupStyle } from '#imports'
+import { ToggleButtonGroupStyle, ButtonSize } from '#imports'
 import { Position } from '@/models/enums/positions'
 
 const defaultProps = {
@@ -116,6 +116,29 @@ describe('ToggleButtonsGroupField', () => {
         await group.vm.$emit('update:modelValue', 'option2')
 
         expect(wrapper.emitted('update:modelValue')).toEqual([['option2']])
+    })
+
+    it('forwards size to ToggleButtonGroup', () => {
+        const wrapper = mount(ToggleButtonsGroupField, {
+            props: {
+                ...defaultProps,
+                size: ButtonSize.XL,
+            }
+        })
+
+        const group = wrapper.findComponent(ToggleButtonGroup)
+        expect(group.props('size')).toBe(ButtonSize.XL)
+    })
+
+    it('defaults size to ButtonSize.LG when not passed', () => {
+        const wrapper = mount(ToggleButtonsGroupField, {
+            props: {
+                ...defaultProps
+            }
+        })
+
+        const group = wrapper.findComponent(ToggleButtonGroup)
+        expect(group.props('size')).toBe(ButtonSize.LG)
     })
 
     it('forwards ariaLabel when visual label is hidden', () => {

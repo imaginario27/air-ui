@@ -17,7 +17,7 @@
                 :active="button.value === modelValue"
                 :ariaLabel="button.ariaLabel"
                 :text="!onlyIcon && 'text' in button ? button.text : undefined"
-                :size="button.size"
+                :size="buttonSize(button)"
                 :icon="button.icon"
                 :iconPosition="'iconPosition' in button ? button.iconPosition : undefined"
                 :disabled
@@ -32,7 +32,7 @@
                 :key="index"
                 :active="button.value === modelValue"
                 :ariaLabel="button.ariaLabel"
-                :size="button.size"
+                :size="buttonSize(button)"
                 :icon="button.icon"
                 :disabled
                 :transparent
@@ -66,6 +66,11 @@ const props = defineProps({
                 action: () => {},
             },
         ],
+    },
+    size: {
+        type: String as PropType<ButtonSize>,
+        default: ButtonSize.LG,
+        validator: (value: ButtonSize) => Object.values(ButtonSize).includes(value),
     },
     onlyIcon: {
         type: Boolean as PropType<boolean>, 
@@ -105,6 +110,8 @@ const segmentedButtonClass = computed(() =>
         ? 'border border-border-default rounded-button'
         : false
 )
+
+const buttonSize = (button: ToggleButtonItem) => button.size ?? props.size
 
 const buttonItemClass = (button: ToggleButtonItem) => [
     groupedButtonClass.value,
