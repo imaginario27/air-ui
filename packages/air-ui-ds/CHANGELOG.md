@@ -5,6 +5,18 @@ All notable changes to this package are documented in this file.
 Historical releases were reconstructed from git history (GitHub repository) and npm publish dates.
 Future releases will include detailed entries generated with Changesets.
 
+## 1.20.1 - 2026-09-30
+
+Release type: patch.
+Commits found in range: 2.
+
+### Fixed
+
+1. flip sidebar more-actions dropdown to avoid viewport overflow ([1ca2ec4](https://github.com/imaginario27/air-ui/commit/1ca2ec44ae9af5440b82d00576af62339145cdb0))
+2. revert active NavSidebar item to neutral-hover styling ([3acc90f](https://github.com/imaginario27/air-ui/commit/3acc90fe71b4bae5679d7d37e2bbfea188902778))
+
+- Package: @imaginario27/air-ui-ds.
+
 ## 1.20.0 - 2026-09-29
 
 Release type: minor.
