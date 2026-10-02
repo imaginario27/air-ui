@@ -1,19 +1,21 @@
 <template>
     <div :class="[ 'flex flex-col', 'w-full', 'gap-2' ]">
         <!-- Radio Button with Label -->
-        <div 
-            :class="[ 
+        <div
+            :class="[
                 'flex items-center gap-3',
                 'text-sm',
-                'text-text-default'
+                'text-text-default',
+                disabled ? 'cursor-not-allowed' : 'cursor-pointer'
             ]"
+            @click="handleRowClick"
         >
             <!-- Label (inverted position) -->
             <label
                 v-if="inverse && ($slots.label || label)"
                 :for="id"
                 :class="[
-                    disabled && 'text-text-neutral-disabled',
+                    disabled ? 'text-text-neutral-disabled cursor-not-allowed' : 'cursor-pointer',
                     labelSizeClass
                 ]"
             >
@@ -63,7 +65,7 @@
                 v-if="!inverse && ($slots.label || label)"
                 :for="id"
                 :class="[
-                    disabled ? 'text-text-neutral-disabled' : undefined,
+                    disabled ? 'text-text-neutral-disabled cursor-not-allowed' : 'cursor-pointer',
                     labelSizeClass
                 ]"
             >
@@ -149,5 +151,12 @@ const labelSizeClass = computed(() => {
 const selectRadio = () => {
     if (props.disabled) return
     emit('update:modelValue', props.value)
+}
+
+// Selects the radio option when clicking the row background (not already handled by the label or the radio control itself)
+const handleRowClick = (event: MouseEvent) => {
+    if (event.target !== event.currentTarget) return
+
+    selectRadio()
 }
 </script>

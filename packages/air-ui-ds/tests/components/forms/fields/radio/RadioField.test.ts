@@ -57,6 +57,25 @@ describe('RadioField', () => {
         expect(wrapper.emitted('update:modelValue')![0]).toEqual(['option1'])
     })
 
+    it('selects the radio when clicking the row background', async () => {
+        const wrapper = factory()
+
+        const row = wrapper.find('.flex.items-center.gap-3')
+        await row.trigger('click')
+
+        expect(wrapper.emitted('update:modelValue')).toBeTruthy()
+        expect(wrapper.emitted('update:modelValue')![0]).toEqual(['option1'])
+    })
+
+    it('does not select the radio when clicking the row background while disabled', async () => {
+        const wrapper = factory({ disabled: true })
+
+        const row = wrapper.find('.flex.items-center.gap-3')
+        await row.trigger('click')
+
+        expect(wrapper.emitted('update:modelValue')).toBeUndefined()
+    })
+
     it('applies disabled styles when disabled', () => {
         const wrapper = factory({ disabled: true })
 
