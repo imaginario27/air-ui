@@ -2,6 +2,7 @@ import { mount } from '@vue/test-utils'
 import RadioGroupField from '~/components/forms/fields/radio/RadioGroupField.vue'
 import RadioField from '~/components/forms/fields/radio/RadioField.vue'
 import RadioButtonField from '~/components/forms/fields/radio/RadioButtonField.vue'
+import Divider from '~/components/dividers/Divider.vue'
 import { FormValidationMode } from '~/models/enums/formValidations'
 
 vi.mock('~/composables/useFormValidationMode', () => ({
@@ -172,5 +173,20 @@ describe('RadioGroupField', () => {
 
         expect(fields[0]?.props('label')).toBeUndefined()
         expect(fields[0]?.props('ariaLabel')).toBe('Accessible option A')
+    })
+
+    it('does not render dividers by default', () => {
+        const wrapper = factory({ type: 'default' })
+        expect(wrapper.findAllComponents(Divider)).toHaveLength(0)
+    })
+
+    it('renders a divider between options when showDivider is true and type is DEFAULT', () => {
+        const wrapper = factory({ type: 'default', showDivider: true })
+        expect(wrapper.findAllComponents(Divider)).toHaveLength(defaultOptions.length - 1)
+    })
+
+    it('does not render dividers when type is BUTTON even if showDivider is true', () => {
+        const wrapper = factory({ type: 'button', showDivider: true })
+        expect(wrapper.findAllComponents(Divider)).toHaveLength(0)
     })
 })

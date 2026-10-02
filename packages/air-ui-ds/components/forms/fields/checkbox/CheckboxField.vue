@@ -18,19 +18,21 @@
             </span>
         </legend>
         <!-- Checkbox with Label -->
-        <div 
-            :class="[ 
+        <div
+            :class="[
                 'flex items-center gap-3',
                 'text-sm',
-                hasError ? 'text-text-error' : 'text-text-default'
+                hasError ? 'text-text-error' : 'text-text-default',
+                disabled ? 'cursor-not-allowed' : 'cursor-pointer'
             ]"
+            @click="handleRowClick"
         >
             <!-- Label (inverted)-->
             <label
                 v-if="inverse && ($slots.label || label)"
                 :for="id"
                 :class="[
-                    disabled && 'text-text-neutral-disabled',
+                    disabled ? 'text-text-neutral-disabled cursor-not-allowed' : 'cursor-pointer',
                     labelSizeClass,
                 ]"
             >
@@ -45,13 +47,13 @@
                 :size="size"
                 @update:modelValue="handleCheckboxUpdate"
             />
-            
+
             <!-- Label (natural position) -->
             <label
                 v-if="!inverse && ($slots.label || label)"
                 :for="id"
                 :class="[
-                    disabled && 'text-text-neutral-disabled',
+                    disabled ? 'text-text-neutral-disabled cursor-not-allowed' : 'cursor-pointer',
                     labelSizeClass,
                 ]"
             >
@@ -148,6 +150,13 @@ const handleCheckboxUpdate = (value: boolean) => {
     }
 
     emit('update:modelValue', value)
+}
+
+// Toggles the checkbox when clicking the row background (not already handled by the label or the checkbox control itself)
+const handleRowClick = (event: MouseEvent) => {
+    if (event.target !== event.currentTarget) return
+
+    handleCheckboxUpdate(!props.modelValue)
 }
 
 const runValidation = () => {

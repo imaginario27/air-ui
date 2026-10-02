@@ -57,24 +57,32 @@
                     : ['flex flex-wrap gap-6', listClass]
             ]"
         >
-            <div
-                v-for="option in options"
+            <template
+                v-for="(option, index) in options"
                 :key="option.id"
-                :class="orientation === Orientation.HORIZONTAL ? 'w-fit' : 'w-full'"
             >
-                <CheckboxField
-                    :id="option.id.toString()"
-                    :modelValue="isChecked(option.value)"
-                    :label="option.label"
-                    :ariaLabel="option.ariaLabel"
-                    :required
-                    :disabled="option.disabled ? option.disabled : disabled"
-                    :helpText="option.helpText"
-                    :inverse="inverse"
-                    :size="size"
-                    @update:model-value="handleChange(option.value, $event)"
+                <div
+                    :class="orientation === Orientation.HORIZONTAL ? 'w-fit' : 'w-full'"
+                >
+                    <CheckboxField
+                        :id="option.id.toString()"
+                        :modelValue="isChecked(option.value)"
+                        :label="option.label"
+                        :ariaLabel="option.ariaLabel"
+                        :required
+                        :disabled="option.disabled ? option.disabled : disabled"
+                        :helpText="option.helpText"
+                        :inverse="inverse"
+                        :size="size"
+                        @update:model-value="handleChange(option.value, $event)"
+                    />
+                </div>
+                <Divider
+                    v-if="showDivider && index < options.length - 1"
+                    :orientation="orientation === Orientation.VERTICAL ? Orientation.HORIZONTAL : Orientation.VERTICAL"
+                    dividerClass="opacity-80"
                 />
-            </div>
+            </template>
         </div>
 
         <!-- Help Text or Error Message (bottom) -->
@@ -166,6 +174,10 @@ const props = defineProps({
         default: 'gap-4',
     },
     listClass: String as PropType<string>,
+    showDivider: {
+        type: Boolean as PropType<boolean>,
+        default: false,
+    },
 })
 
 // Emits

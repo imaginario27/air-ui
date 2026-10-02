@@ -39,21 +39,29 @@
             ]"
         >
             <template v-if="type === RadioType.DEFAULT">
-                <RadioField
-                    v-for="option in options" 
-                    :id="option.id.toString()"
+                <template
+                    v-for="(option, index) in options"
                     :key="option.id"
-                    v-model="selectedOption" 
-                    :name
-                    :value="option.value"
-                    :label="option.label"
-                    :ariaLabel="option.ariaLabel"
-                    :required
-                    :disabled="option.disabled ? option.disabled : disabled"
-                    :helpText="option.helpText"
-                    :inverse="inverse"
-                    :size="size"
-                />
+                >
+                    <RadioField
+                        :id="option.id.toString()"
+                        v-model="selectedOption"
+                        :name
+                        :value="option.value"
+                        :label="option.label"
+                        :ariaLabel="option.ariaLabel"
+                        :required
+                        :disabled="option.disabled ? option.disabled : disabled"
+                        :helpText="option.helpText"
+                        :inverse="inverse"
+                        :size="size"
+                    />
+                    <Divider
+                        v-if="showDivider && index < options.length - 1"
+                        :orientation="orientation === Orientation.VERTICAL ? Orientation.HORIZONTAL : Orientation.VERTICAL"
+                        dividerClass="opacity-80"
+                    />
+                </template>
             </template>
 
             <template v-if="type === RadioType.BUTTON">
@@ -151,6 +159,10 @@ const props = defineProps({
         type: String as PropType<Orientation>,
         default: Orientation.VERTICAL,
         validator: (value: Orientation) => Object.values(Orientation).includes(value),
+    },
+    showDivider: {
+        type: Boolean as PropType<boolean>,
+        default: false,
     },
 })
 

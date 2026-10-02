@@ -1,6 +1,7 @@
 import { mount } from '@vue/test-utils'
 import CheckboxGroupField from '~/components/forms/fields/checkbox/CheckboxGroupField.vue'
 import CheckboxField from '~/components/forms/fields/checkbox/CheckboxField.vue'
+import Divider from '~/components/dividers/Divider.vue'
 import { FormValidationMode } from '~/models/enums/formValidations'
 
 vi.mock('~/composables/useFormValidationMode', () => ({
@@ -232,5 +233,20 @@ describe('CheckboxGroupField', () => {
         for (const field of fields) {
             expect(field.props('size')).toBe(ControlFieldSize.MD)
         }
+    })
+
+    it('does not render dividers by default', () => {
+        const wrapper = factory()
+        expect(wrapper.findAllComponents(Divider)).toHaveLength(0)
+    })
+
+    it('renders a divider between options when showDivider is true', () => {
+        const wrapper = factory({ showDivider: true })
+        expect(wrapper.findAllComponents(Divider)).toHaveLength(defaultOptions.length - 1)
+    })
+
+    it('does not render dividers in grid layout even if showDivider is true', () => {
+        const wrapper = factory({ layout: 'grid', showDivider: true })
+        expect(wrapper.findAllComponents(Divider)).toHaveLength(0)
     })
 })

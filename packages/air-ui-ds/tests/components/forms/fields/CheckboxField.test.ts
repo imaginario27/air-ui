@@ -156,6 +156,26 @@ describe('CheckboxField.vue', () => {
         expect(checkbox.props('ariaLabel')).toBe('Accept terms checkbox')
     })
 
+    it('toggles the checkbox when clicking the row background', async () => {
+        const wrapper = factory({ modelValue: false, label: 'Accept terms' })
+
+        const row = wrapper.find('.flex.items-center.gap-3')
+        await row.trigger('click')
+
+        const emitted = wrapper.emitted('update:modelValue')
+        expect(emitted).toBeTruthy()
+        expect(emitted?.[0]?.[0]).toBe(true)
+    })
+
+    it('does not toggle the row when disabled', async () => {
+        const wrapper = factory({ modelValue: false, label: 'Accept terms', disabled: true })
+
+        const row = wrapper.find('.flex.items-center.gap-3')
+        await row.trigger('click')
+
+        expect(wrapper.emitted('update:modelValue')).toBeUndefined()
+    })
+
     it('renders rich markup passed via the label slot', () => {
         const wrapper = mount(CheckboxField, {
             props: { id: 'test-checkbox' },
