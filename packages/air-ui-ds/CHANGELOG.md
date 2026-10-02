@@ -5,6 +5,17 @@ All notable changes to this package are documented in this file.
 Historical releases were reconstructed from git history (GitHub repository) and npm publish dates.
 Future releases will include detailed entries generated with Changesets.
 
+## 1.20.2 - 2026-10-01
+
+Release type: patch.
+Commits found in range: 1.
+
+### Added
+
+1. add size prop to ToggleButtonGroup and toggle field ([2e04708](https://github.com/imaginario27/air-ui/commit/2e04708010e205aa282b7b4880ffb2a80c68eb77))
+
+- Package: @imaginario27/air-ui-ds.
+
 ## 1.20.1 - 2026-09-30
 
 Release type: patch.
