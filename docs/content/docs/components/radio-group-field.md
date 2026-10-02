@@ -30,6 +30,7 @@ props:
     inverse: false
     size: "md"
     orientation: "vertical"
+    showDivider: false
 items:
     type: 
         - value: default
@@ -147,6 +148,11 @@ props: [
         "name": "orientation",
         "default": "'vertical'",
         "type": "Orientation",
+    },
+    {
+        "name": "showDivider",
+        "default": "false",
+        "type": "boolean",
     }    
 ]
 ---
@@ -469,6 +475,27 @@ options: [
 ]
 ---
 ::
+
+### showDivider
+
+Shows a divider line between consecutive options.
+
+::content-alert
+---
+props:
+    title: "Important"
+    description: "This prop is only applicable when the `type` prop is set to `RadioType.DEFAULT`."
+---
+::
+
+```vue
+<template>
+    <RadioGroupField showDivider />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `false`
 
 ### helpTextPosition
 

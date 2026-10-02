@@ -35,6 +35,7 @@ props:
     gridMobileCols: 1
     gridGapClass: "gap-4"
     listClass: ""
+    showDivider: false
 items:
     orientation:
         - value: vertical
@@ -171,6 +172,11 @@ props: [
     {
         "name": "listClass",
         "type": "string",
+    },
+    {
+        "name": "showDivider",
+        "default": "false",
+        "type": "boolean",
     },
 ]
 ---
@@ -554,3 +560,16 @@ Appends extra classes to the list container. Only applies when `layout` is `List
 ```
 
 - **Type:** `string`
+
+### showDivider
+
+Shows a divider line between consecutive options. Only applies when `layout` is `ListLayout.LIST`.
+
+```vue
+<template>
+    <CheckboxGroupField showDivider />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `false`
