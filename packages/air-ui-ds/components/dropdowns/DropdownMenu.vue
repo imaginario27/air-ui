@@ -107,6 +107,8 @@
                                     :size="item.size"
                                     :type="item.type"
                                     :checked="item.checked"
+                                    :steps="item.steps"
+                                    :stepValue="item.stepValue"
                                     :userDisplayName="item.userDisplayName"
                                     :userProfileImg="item.userProfileImg"
                                     :imgUrl="item.imgUrl"
@@ -119,6 +121,7 @@
                                     :hasNestedLevels="hasNestedItems(item)"
                                     :prefetchOn
                                     @click="handleClick(item, $event)"
+                                    @update:stepValue="handleStepChange(item, $event)"
                                 />
                             </template>
                         </template>
@@ -214,6 +217,8 @@
                                 :size="item.size"
                                 :type="item.type"
                                 :checked="item.checked"
+                                :steps="item.steps"
+                                :stepValue="item.stepValue"
                                 :userDisplayName="item.userDisplayName"
                                 :userProfileImg="item.userProfileImg"
                                 :imgUrl="item.imgUrl"
@@ -226,6 +231,7 @@
                                 :hasNestedLevels="hasNestedItems(item)"
                                 :prefetchOn
                                 @click="handleClick(item, $event)"
+                                @update:stepValue="handleStepChange(item, $event)"
                             />
                         </template>
                     </template>
@@ -438,6 +444,10 @@ const isToggleItem = (item: DropdownMenuItem) => {
         DropdownItemType.ICON_SWITCH,
         DropdownItemType.ICON_CHECKBOX,
     ].includes(item.type as DropdownItemType)
+}
+
+const handleStepChange = (item: DropdownMenuItem, value: string | number) => {
+    item.stepCallback?.(value)
 }
 
 const handleClick = (item: DropdownMenuItem, checked?: boolean) => {

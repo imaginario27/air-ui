@@ -64,6 +64,8 @@
             :size="item.size"
             :type="item.type"
             :checked="item.checked"
+            :steps="item.steps"
+            :stepValue="item.stepValue"
             :userDisplayName="item.userDisplayName"
             :userProfileImg="item.userProfileImg"
             :imgUrl="item.imgUrl"
@@ -77,6 +79,7 @@
             :kbd="item.kbd"
             :prefetchOn="prefetchOn"
             @click="handleItemClick(item.callback, $event)"
+            @update:stepValue="item.stepCallback?.($event)"
             @close="handleClose"
         />
     </template>

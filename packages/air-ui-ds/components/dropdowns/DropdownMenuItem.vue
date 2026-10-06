@@ -26,7 +26,7 @@
     >
         <div class="flex items-center gap-3 w-full">
             <Icon
-                v-if="icon && (type === DropdownItemType.ICON || type === DropdownItemType.DANGER_ICON || type === DropdownItemType.ICON_CHECK || type === DropdownItemType.ICON_SWITCH || type === DropdownItemType.ICON_CHECKBOX)"
+                v-if="icon && (type === DropdownItemType.ICON || type === DropdownItemType.DANGER_ICON || type === DropdownItemType.ICON_CHECK || type === DropdownItemType.ICON_SWITCH || type === DropdownItemType.ICON_CHECKBOX || type === DropdownItemType.ICON_STEP_SWITCH)"
                 :name="icon"
                 :iconClass="iconColorClass"
             />
@@ -73,6 +73,16 @@
                 :modelValue="checked"
                 :size="ControlFieldSize.SM"
                 class="ml-auto pointer-events-none"
+            />
+
+            <StepSwitch
+                v-if="isStepSwitchType"
+                :id="`step-switch-${text}`"
+                :modelValue="stepValue"
+                :steps
+                :size="ControlFieldSize.SM"
+                class="ml-auto"
+                @update:modelValue="emitStepChange"
             />
 
             <Icon
@@ -135,6 +145,14 @@ const props = defineProps({
         type: Boolean as PropType<boolean>,
         default: false,
     },
+    steps: {
+        type: Array as PropType<StepSwitchOption[]>,
+        default: () => [],
+    },
+    stepValue: {
+        type: [String, Number] as PropType<string | number>,
+        default: undefined,
+    },
     userDisplayName: {
         type: String as PropType<string>,
         default: "Test user",
@@ -185,11 +203,19 @@ const isToggleType = computed(() => [
     DropdownItemType.ICON_CHECKBOX,
 ].includes(props.type))
 
+const isStepSwitchType = computed(() => [
+    DropdownItemType.STEP_SWITCH,
+    DropdownItemType.ICON_STEP_SWITCH,
+].includes(props.type))
+
 // Emits
-const emit = defineEmits(["click", "close", "update:checked"])
+const emit = defineEmits(["click", "close", "update:checked", "update:stepValue"])
 const emitClick = () => {
     if (props.disabled) return
     if (props.actionType !== DropdownActionType.ACTION) return
+
+    // Step switch items are changed through the StepSwitch itself; clicking the row does nothing
+    if (isStepSwitchType.value) return
 
     if (isToggleType.value) {
         const nextChecked = !props.checked
@@ -200,6 +226,12 @@ const emitClick = () => {
 
     emit("click")
     emit("close")
+}
+
+const emitStepChange = (value: string | number) => {
+    if (props.disabled) return
+
+    emit("update:stepValue", value)
 }
 
 // Handlers for image load and error
@@ -234,6 +266,8 @@ const typeClass = computed(() => {
         [DropdownItemType.ICON_CHECK]: "text-text-default",
         [DropdownItemType.ICON_SWITCH]: "text-text-default",
         [DropdownItemType.ICON_CHECKBOX]: "text-text-default",
+        [DropdownItemType.STEP_SWITCH]: "text-text-default",
+        [DropdownItemType.ICON_STEP_SWITCH]: "text-text-default",
     }
     return typeVariant[props.type as DropdownItemType] || "text-text-default"
 })
@@ -252,6 +286,8 @@ const iconColorClass = computed(() => {
         [DropdownItemType.ICON_CHECK]: "text-icon-neutral-subtle",
         [DropdownItemType.ICON_SWITCH]: "text-icon-neutral-subtle",
         [DropdownItemType.ICON_CHECKBOX]: "text-icon-neutral-subtle",
+        [DropdownItemType.STEP_SWITCH]: undefined,
+        [DropdownItemType.ICON_STEP_SWITCH]: "text-icon-neutral-subtle",
     }
     return colorVariant[props.type as DropdownItemType] || "text-icon-neutral-subtle"
 })

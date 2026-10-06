@@ -1,12 +1,43 @@
 {
-  "generatedAt": "2026-10-06T08:45:18.313Z",
+  "generatedAt": "2026-10-06T12:51:48.793Z",
   "source": "github-git-history+npm-publish-dates",
   "githubBaseUrl": "https://github.com/imaginario27/air-ui",
   "packages": [
     {
       "packageName": "@imaginario27/air-ui-ds",
-      "latestVersion": "1.20.3",
+      "latestVersion": "1.20.4",
       "entries": [
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.20.4",
+          "publishedAt": "2026-10-06",
+          "releaseType": "patch",
+          "notes": [
+            "emit update:modelValue when clearing multiple select"
+          ],
+          "metadata": {
+            "commitCount": 1,
+            "commits": [
+              {
+                "sha": "da814021096574a614d93ae57d40a7b164bad2d9",
+                "shortSha": "da81402",
+                "date": "2026-10-06",
+                "subject": "fix(ds): emit update:modelValue when clearing multiple select",
+                "normalizedSubject": "emit update:modelValue when clearing multiple select",
+                "type": "fixed",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/da814021096574a614d93ae57d40a7b164bad2d9",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 0,
+              "fixed": 1,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
         {
           "packageName": "@imaginario27/air-ui-ds",
           "version": "1.20.3",
