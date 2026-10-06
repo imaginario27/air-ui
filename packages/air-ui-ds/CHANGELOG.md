@@ -5,6 +5,17 @@ All notable changes to this package are documented in this file.
 Historical releases were reconstructed from git history (GitHub repository) and npm publish dates.
 Future releases will include detailed entries generated with Changesets.
 
+## 1.20.3 - 2026-10-02
+
+Release type: patch.
+Commits found in range: 1.
+
+### Added
+
+1. add option divider and full-row click to checkbox/radio fields ([d004986](https://github.com/imaginario27/air-ui/commit/d004986472d7973e2fd2f6641783e55396aa83bc))
+
+- Package: @imaginario27/air-ui-ds.
+
 ## 1.20.2 - 2026-10-01
 
 Release type: patch.
