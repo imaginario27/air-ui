@@ -115,7 +115,7 @@
                             :styleType="ButtonStyleType.NEUTRAL_TRANSPARENT_SUBTLE"
                             icon="mdi:close-circle"
                             :ariaLabel="resolvedClearSelectionAriaLabel"
-                            @click="selected = []"
+                            @click="handleClearSelection"
                         />
 
                         <!-- Show loading icon while loading instead of the icon-->
@@ -492,6 +492,11 @@ watch(() => props.modelValue, (newValue) => {
 })
 
 // Method
+const handleClearSelection = () => {
+    selected.value = []
+    emit('update:modelValue', [])
+}
+
 const handleOptionClick = (option: SelectOption) => {
     if (props.disabled || props.isLoading || option.disabled) return
 
