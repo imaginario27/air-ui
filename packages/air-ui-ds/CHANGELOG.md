@@ -5,6 +5,17 @@ All notable changes to this package are documented in this file.
 Historical releases were reconstructed from git history (GitHub repository) and npm publish dates.
 Future releases will include detailed entries generated with Changesets.
 
+## 1.20.4 - 2026-10-06
+
+Release type: patch.
+Commits found in range: 1.
+
+### Fixed
+
+1. emit update:modelValue when clearing multiple select ([da81402](https://github.com/imaginario27/air-ui/commit/da814021096574a614d93ae57d40a7b164bad2d9))
+
+- Package: @imaginario27/air-ui-ds.
+
 ## 1.20.3 - 2026-10-02
 
 Release type: patch.
