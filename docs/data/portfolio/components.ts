@@ -275,12 +275,12 @@ export const componentList: ComponentPortfolioItem[] = [
     {
         title: 'StepSwitch',
         to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/step-switch`,
-        imgUrl: `/images/thumbnails/components/switch.png`,
+        imgUrl: `/images/thumbnails/components/step-switch.png`,
     },
     {
         title: 'StepSwitchField',
         to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/step-switch-field`,
-        imgUrl: `/images/thumbnails/components/switch-field.png`,
+        imgUrl: `/images/thumbnails/components/step-switch-field.png`,
     },
     {
         title: 'Switch',
