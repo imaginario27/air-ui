@@ -229,6 +229,7 @@ describe('DropdownSelect.vue', () => {
 
         const selected = (wrapper.vm as any).selected
         expect(selected).toEqual([])
+        expect(wrapper.emitted('update:modelValue')?.at(-1)).toEqual([[]])
     })
 
     it('renders no results found text when filtering yields no matches', async () => {
