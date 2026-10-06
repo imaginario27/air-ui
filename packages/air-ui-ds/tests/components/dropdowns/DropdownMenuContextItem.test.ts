@@ -261,4 +261,60 @@ describe('DropdownMenuContextItem.vue', () => {
             expect(wrapper.emitted('update:checked')).toEqual([[true]])
         })
     })
+
+    describe('step-switch types', () => {
+        const steps = [
+            { value: 'low', label: 'Low' },
+            { value: 'medium', label: 'Medium' },
+            { value: 'high', label: 'High' },
+        ]
+
+        it.each([
+            DropdownItemType.STEP_SWITCH,
+            DropdownItemType.ICON_STEP_SWITCH,
+        ])('renders a StepSwitch with the given steps when type is %s', (type) => {
+            const wrapper = factory({ type, icon: 'mdi:star', steps, stepValue: 'medium' })
+            const stepSwitch = wrapper.findComponent({ name: 'StepSwitch' })
+
+            expect(stepSwitch.exists()).toBe(true)
+            expect(stepSwitch.props('steps')).toEqual(steps)
+            expect(stepSwitch.props('modelValue')).toBe('medium')
+        })
+
+        it('renders the leading Icon only when type is ICON_STEP_SWITCH', () => {
+            const withIcon = factory({ type: DropdownItemType.ICON_STEP_SWITCH, icon: 'mdi:star', steps })
+            const withoutIcon = factory({ type: DropdownItemType.STEP_SWITCH, icon: 'mdi:star', steps })
+            const hasLeadingIcon = (wrapper: ReturnType<typeof factory>) =>
+                wrapper.findAllComponents({ name: 'Icon' }).some(icon => icon.props('name') === 'mdi:star')
+
+            expect(hasLeadingIcon(withIcon)).toBe(true)
+            expect(hasLeadingIcon(withoutIcon)).toBe(false)
+        })
+
+        it('emits update:stepValue when the StepSwitch changes', async () => {
+            const wrapper = factory({ type: DropdownItemType.STEP_SWITCH, steps, stepValue: 'low' })
+
+            await wrapper.findComponent({ name: 'StepSwitch' }).vm.$emit('update:modelValue', 'high')
+
+            expect(wrapper.emitted('update:stepValue')).toEqual([['high']])
+        })
+
+        it('does not emit click, close or update:stepValue when the row is clicked', async () => {
+            const wrapper = factory({ type: DropdownItemType.STEP_SWITCH, steps, stepValue: 'low' })
+
+            await wrapper.trigger('click')
+
+            expect(wrapper.emitted('click')).toBeUndefined()
+            expect(wrapper.emitted('close')).toBeUndefined()
+            expect(wrapper.emitted('update:stepValue')).toBeUndefined()
+        })
+
+        it('does not emit update:stepValue when disabled', async () => {
+            const wrapper = factory({ type: DropdownItemType.STEP_SWITCH, steps, stepValue: 'low', disabled: true })
+
+            await wrapper.findComponent({ name: 'StepSwitch' }).vm.$emit('update:modelValue', 'high')
+
+            expect(wrapper.emitted('update:stepValue')).toBeUndefined()
+        })
+    })
 })

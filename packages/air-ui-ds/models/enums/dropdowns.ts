@@ -11,6 +11,8 @@ export enum DropdownItemType {
     ICON_CHECK = 'icon-check',
     ICON_SWITCH = 'icon-switch',
     ICON_CHECKBOX = 'icon-checkbox',
+    STEP_SWITCH = 'step-switch',
+    ICON_STEP_SWITCH = 'icon-step-switch',
 }
 
 export enum DropdownItemSize {

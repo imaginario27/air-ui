@@ -329,6 +329,8 @@ interface DropdownMenuItem {
     size?: DropdownItemSize
     type?: DropdownItemType
     checked?: boolean
+    steps?: StepSwitchOption[]
+    stepValue?: string | number
     userDisplayName?: string
     userProfileImg?: string
     imgUrl?: string
@@ -339,6 +341,7 @@ interface DropdownMenuItem {
     hasSeparator?: boolean
     disabled?: boolean
     callback?: (checked?: boolean) => void
+    stepCallback?: (value: string | number) => void
     children?: DropdownMenuItem[]
 }
 ```
@@ -687,6 +690,7 @@ When `true`, the teleported dropdown panel uses `position: fixed` instead of `po
 srcDir: 'dropdowns/DropdownMenuItem.vue'
 model:
     checked: update:checked
+    stepValue: update:stepValue
 props: 
     actionType: "action"
     text: "Menu item text"
@@ -694,6 +698,14 @@ props:
     size: "md"
     type: "text"
     checked: false
+    steps:
+        - value: "low"
+          label: "Low"
+        - value: "medium"
+          label: "Medium"
+        - value: "high"
+          label: "High"
+    stepValue: "medium"
     userDisplayName: "Test user"
     userProfileImg: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
     imgUrl: "https://www.wheeliebinstorage.co.uk/wp-content/uploads/2025/01/Small-Space-Garden-Ideas.jpg"
@@ -731,12 +743,16 @@ items:
           text: SWITCH
         - value: check
           text: CHECK
+        - value: step-switch
+          text: STEP_SWITCH
         - value: icon-checkbox
           text: ICON_CHECKBOX
         - value: icon-switch
           text: ICON_SWITCH
         - value: icon-check
           text: ICON_CHECK
+        - value: icon-step-switch
+          text: ICON_STEP_SWITCH
     actionType:
         - value: action
           text: ACTION
@@ -749,7 +765,7 @@ items:
           text: INTERACTION
 enums:
     prefetchOn: "PrefetchOn"
-propsSettingsExcludedProps: ['class']
+propsSettingsExcludedProps: ['class', 'steps', 'stepValue']
 ---
 ::
 
@@ -787,6 +803,15 @@ props: [
         "name": "checked",
         "default": "false",
         "type": "boolean",
+    },
+    {
+        "name": "steps",
+        "default": "[]",
+        "type": "StepSwitchOption[]",
+    },
+    {
+        "name": "stepValue",
+        "type": "string | number",
     },
     {
         "name": "userDisplayName",
@@ -965,6 +990,10 @@ options: [
         description: "Displays a check icon reflecting the checked prop, aligned to the end of the item, when checked is true.",
     },
     {
+        value: "STEP_SWITCH",
+        description: "Displays an interactive StepSwitch built from the steps prop and reflecting the stepValue prop, aligned to the end of the item.",
+    },
+    {
         value: "ICON_CHECKBOX",
         description: "Displays a leading icon together with a non-interactive Checkbox reflecting the checked prop, aligned to the end of the item.",
     },
@@ -975,6 +1004,10 @@ options: [
     {
         value: "ICON_CHECK",
         description: "Displays a leading icon together with a check icon reflecting the checked prop, aligned to the end of the item, when checked is true.",
+    },
+    {
+        value: "ICON_STEP_SWITCH",
+        description: "Displays a leading icon together with an interactive StepSwitch built from the steps prop and reflecting the stepValue prop, aligned to the end of the item.",
     },
 ]
 ---
@@ -1028,6 +1061,71 @@ const items = computed<DropdownMenuItem[]>(() => [
 
 - **Type:** `boolean`
 - **Default:** `false`
+
+### steps
+Sets the steps of the `StepSwitch` rendered when `type` is `DropdownItemType.STEP_SWITCH` or `DropdownItemType.ICON_STEP_SWITCH`. Has no effect for other types. See [StepSwitch](/docs/components/step-switch) for the available options, such as the recommended maximum number of steps.
+
+```vue
+<template>
+    <DropdownMenuItem
+        :type="DropdownItemType.STEP_SWITCH"
+        text="Effort"
+        :steps="steps"
+        v-model:stepValue="effort"
+    />
+</template>
+<script setup lang="ts">
+const steps: StepSwitchOption[] = [
+    { value: 'low', label: 'Low' },
+    { value: 'medium', label: 'Medium' },
+    { value: 'high', label: 'High' },
+]
+const effort = ref<string | number>('medium')
+</script>
+```
+
+#### TypeScript interface
+```ts
+interface StepSwitchOption {
+    value: string | number
+    label?: string
+}
+```
+
+- **Type:** `StepSwitchOption[]`
+- **Default:** `[]`
+
+### stepValue
+Sets the selected step, by its `value`, of the `StepSwitch` rendered when `type` is `DropdownItemType.STEP_SWITCH` or `DropdownItemType.ICON_STEP_SWITCH`. Has no effect for other types.
+
+Changing the step through the `StepSwitch` emits `update:stepValue` with the `value` of the new step. Unlike other item types, clicking the rest of the item does nothing and the dropdown is **not** closed. Use `v-model:stepValue` for two-way binding, or handle `update:stepValue` manually.
+
+When using the `items` prop instead, the selected value is passed to the item's `stepCallback`:
+
+```vue
+<template>
+    <DropdownMenu :items="items" />
+</template>
+<script setup lang="ts">
+const effort = ref<string | number>('medium')
+
+const items = computed<DropdownMenuItem[]>(() => [
+    {
+        text: 'Effort',
+        type: DropdownItemType.STEP_SWITCH,
+        steps: [
+            { value: 'low', label: 'Low' },
+            { value: 'medium', label: 'Medium' },
+            { value: 'high', label: 'High' },
+        ],
+        stepValue: effort.value,
+        stepCallback: (value) => { effort.value = value },
+    },
+])
+</script>
+```
+
+- **Type:** `string | number`
 
 ### userDisplayName
 Sets the userDisplayName of the user profile.

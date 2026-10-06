@@ -6,6 +6,8 @@ export interface DropdownMenuItem {
     size?: DropdownItemSize
     type?: DropdownItemType
     checked?: boolean
+    steps?: StepSwitchOption[]
+    stepValue?: string | number
     userDisplayName?: string
     userProfileImg?: string
     imgUrl?: string
@@ -16,6 +18,7 @@ export interface DropdownMenuItem {
     hasSeparator?: boolean
     disabled?: boolean
     callback?: (checked?: boolean) => void
+    stepCallback?: (value: string | number) => void
     children?: DropdownMenuItem[]
 }
 

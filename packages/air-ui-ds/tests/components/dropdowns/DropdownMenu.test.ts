@@ -155,6 +155,35 @@ describe('DropdownMenu.vue', () => {
         expect((wrapper.vm as any).isOpen).toBe(true)
     })
 
+    it('calls stepCallback with the selected value and keeps the dropdown open for STEP_SWITCH items', async () => {
+        const stepCallback = vi.fn()
+        const steps = [
+            { value: 'low', label: 'Low' },
+            { value: 'high', label: 'High' },
+        ]
+
+        const wrapper = factory({
+            props: {
+                items: [{ text: 'Item', type: DropdownItemType.STEP_SWITCH, steps, stepValue: 'low', stepCallback }],
+            },
+        })
+
+        await wrapper.find('.dropdown-activator').trigger('click')
+        await wrapper.vm.$nextTick()
+        await wrapper.vm.$nextTick()
+
+        const item = wrapper.findComponent(DropdownMenuItem)
+        expect(item.exists()).toBe(true)
+        expect(item.props('steps')).toEqual(steps)
+        expect(item.props('stepValue')).toBe('low')
+
+        await item.vm.$emit('update:stepValue', 'high')
+        await wrapper.vm.$nextTick()
+
+        expect(stepCallback).toHaveBeenCalledWith('high')
+        expect((wrapper.vm as any).isOpen).toBe(true)
+    })
+
     it('renders dropdown with default positioning class when no positionClass is provided', async () => {
         const wrapper = factory({
             props: {
