@@ -310,7 +310,7 @@ const textSizeClass = computed(() => {
 
 // Optical correction: nudges the label up 1px at the sizes where it reads low
 const textOffsetClass = computed(() => {
-    const variant = {
+    const variant: Partial<Record<ButtonSize, string>> = {
         [ButtonSize.XS]: '-translate-y-px',
         [ButtonSize.XXL]: '-translate-y-px',
     }
