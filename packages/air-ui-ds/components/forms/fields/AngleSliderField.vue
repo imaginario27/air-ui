@@ -39,6 +39,7 @@
             :color="color"
             :size="size"
             :step="step"
+            :isRounded="isRounded"
             :showMarkers="showMarkers"
             :showValue="showValue"
             :valueLabel="valueLabel"
@@ -100,6 +101,10 @@ const props = defineProps({
     step: {
         type: Number as PropType<number>,
         default: 1,
+    },
+    isRounded: {
+        type: Boolean as PropType<boolean>,
+        default: false,
     },
     showMarkers: {
         type: Boolean as PropType<boolean>,

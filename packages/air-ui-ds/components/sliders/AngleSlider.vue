@@ -30,6 +30,7 @@
                 :r="radius"
                 :stroke-width="trackThicknessPx"
                 :stroke-dasharray="`${filledLength} ${circumference}`"
+                :stroke-linecap="isRounded && normalizedValue > 0 ? 'round' : 'butt'"
                 :transform="`rotate(-90 ${center} ${center})`"
                 :class="completedTrackColorClass"
                 data-testid="angle-slider-fill"
@@ -125,6 +126,10 @@ const props = defineProps({
     step: {
         type: Number as PropType<number>,
         default: 1,
+    },
+    isRounded: {
+        type: Boolean as PropType<boolean>,
+        default: false,
     },
     showMarkers: {
         type: Boolean as PropType<boolean>,

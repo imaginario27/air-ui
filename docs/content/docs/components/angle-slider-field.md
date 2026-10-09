@@ -15,6 +15,7 @@ props:
     color: neutral
     size: md
     step: 1
+    isRounded: false
     showMarkers: false
     showValue: true
     valueLabel: degrees
@@ -131,6 +132,11 @@ props: [
         "name": "step",
         "default": "1",
         "type": "number",
+    },
+    {
+        "name": "isRounded",
+        "default": "false",
+        "type": "boolean",
     },
     {
         "name": "showMarkers",
@@ -322,6 +328,19 @@ Sets the angle increment applied while dragging and with the keyboard.
 
 - **Type:** `number`
 - **Default:** `1`
+
+### isRounded
+
+Rounds the start of the filled arc.
+
+```vue
+<template>
+    <AngleSliderField id="rotation" isRounded />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `false`
 
 ### showMarkers
 

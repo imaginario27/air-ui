@@ -34,11 +34,12 @@ describe('AngleSliderField.vue', () => {
     })
 
     it('passes slider props to the AngleSlider component', () => {
-        const wrapper = factory({ step: 5, showMarkers: true, showValue: false, valueLabel: 'deg', readOnly: true })
+        const wrapper = factory({ step: 5, isRounded: true, showMarkers: true, showValue: false, valueLabel: 'deg', readOnly: true })
         const slider = wrapper.findComponent(AngleSlider)
 
         expect(slider.props('modelValue')).toBe(90)
         expect(slider.props('step')).toBe(5)
+        expect(slider.props('isRounded')).toBe(true)
         expect(slider.props('showMarkers')).toBe(true)
         expect(slider.props('showValue')).toBe(false)
         expect(slider.props('valueLabel')).toBe('deg')

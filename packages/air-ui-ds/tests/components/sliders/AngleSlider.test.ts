@@ -91,6 +91,19 @@ describe('AngleSlider.vue', () => {
         expect(wrapper.findAll('[data-testid="angle-slider-marker"]')).toHaveLength(12)
     })
 
+    it('uses butt caps by default and round caps when isRounded', () => {
+        const fill = (props = {}) => factory({ modelValue: 90, ...props }).find('[data-testid="angle-slider-fill"]')
+
+        expect(fill().attributes('stroke-linecap')).toBe('butt')
+        expect(fill({ isRounded: true }).attributes('stroke-linecap')).toBe('round')
+    })
+
+    it('keeps butt caps at 0 degrees so no dot is drawn when isRounded', () => {
+        const fill = factory({ modelValue: 0, isRounded: true }).find('[data-testid="angle-slider-fill"]')
+
+        expect(fill.attributes('stroke-linecap')).toBe('butt')
+    })
+
     it('clamps the value between 0 and 360', () => {
         expect(factory({ modelValue: 500 }).find('[data-testid="angle-slider-value"]').text()).toBe('360°')
         expect(factory({ modelValue: -20 }).find('[data-testid="angle-slider-value"]').text()).toBe('0°')
