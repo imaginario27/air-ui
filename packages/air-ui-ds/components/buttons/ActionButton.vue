@@ -29,7 +29,7 @@
         <template v-if="isLoading">
             <Spinner :class="[iconSizeClass, spinnerColorClass]" />
             
-            <span :class="['font-semibold', 'leading-none', 'select-none', textSizeClass, textClass]">
+            <span :class="['font-semibold', 'leading-none', '[text-box:trim-both_cap_alphabetic]', 'select-none', textSizeClass, textOffsetClass, textClass]">
                 {{ loadingText }}
             </span>
         </template>
@@ -49,7 +49,7 @@
                 />
             </template>
 
-            <span :class="['font-semibold', 'leading-none', 'select-none', textSizeClass, textClass]">
+            <span :class="['font-semibold', 'leading-none', '[text-box:trim-both_cap_alphabetic]', 'select-none', textSizeClass, textOffsetClass, textClass]">
                 {{ text }}
             </span>
 
@@ -306,6 +306,15 @@ const textSizeClass = computed(() => {
         [ButtonSize.XXL]: 'text-base',
     }
     return variant[props.size as ButtonSize] || 'text-sm'
+})
+
+// Optical correction: nudges the label up 1px at the sizes where it reads low
+const textOffsetClass = computed(() => {
+    const variant = {
+        [ButtonSize.XS]: '-translate-y-px',
+        [ButtonSize.XXL]: '-translate-y-px',
+    }
+    return variant[props.size as ButtonSize] || ''
 })
 
 const iconColorClass = computed(() => {

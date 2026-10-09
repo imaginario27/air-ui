@@ -2,7 +2,7 @@ import { mount } from '@vue/test-utils'
 import ActionButton from '@/components/buttons/ActionButton.vue'
 import Icon from '@/components/icons/Icon.vue'
 import Spinner from '@/components/spinners/Spinner.vue'
-import { ButtonActionType, ButtonStyleType } from '@/models/enums/buttons'
+import { ButtonActionType, ButtonSize, ButtonStyleType } from '@/models/enums/buttons'
 import { IconPosition } from '@/models/enums/icons'
 
 const factory = (props = {}) => {
@@ -214,5 +214,18 @@ describe('ActionButton.vue', () => {
         })
 
         expect(wrapper.find('button').attributes('aria-label')).toBe('Submit form')
+    })
+
+    it.each([
+        [ButtonSize.XS, true],
+        [ButtonSize.SM, false],
+        [ButtonSize.MD, false],
+        [ButtonSize.LG, false],
+        [ButtonSize.XL, false],
+        [ButtonSize.XXL, true],
+    ])('nudges the label up only where needed (%s)', (size, nudged) => {
+        const wrapper = factory({ text: 'Label', size })
+
+        expect(wrapper.find('span').classes().includes('-translate-y-px')).toBe(nudged)
     })
 })
