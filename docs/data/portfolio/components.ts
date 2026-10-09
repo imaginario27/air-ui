@@ -48,7 +48,7 @@ export const componentList: ComponentPortfolioItem[] = [
     {
         title: 'AngleSlider',
         to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/angle-slider`,
-        imgUrl: `/images/thumbnails/components/slider.png`,
+        imgUrl: `/images/thumbnails/components/angle-slider.png`,
     },
     {
         title: 'Avatar',
@@ -195,7 +195,7 @@ export const componentList: ComponentPortfolioItem[] = [
     {
         title: 'AngleSliderField',
         to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/angle-slider-field`,
-        imgUrl: `/images/thumbnails/components/slider-field.png`,
+        imgUrl: `/images/thumbnails/components/angle-slider-field.png`,
     },
     {
         title: 'ButtonField',
