@@ -146,6 +146,11 @@ export const componentList: ComponentPortfolioItem[] = [
         imgUrl: `/images/thumbnails/components/rating.png`,
     },
     {
+        title: 'TreeView',
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/tree-view`,
+        imgUrl: `/images/thumbnails/components/list.png`,
+    },
+    {
         title: 'User',
         to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/user`,
         imgUrl: `/images/thumbnails/components/user.png`,
