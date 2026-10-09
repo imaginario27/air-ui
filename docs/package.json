@@ -27,6 +27,7 @@
         "cloudinary": "2.11.0",
         "eslint": "10.11.0",
         "fuse.js": "7.5.0",
+        "html-to-image": "1.11.13",
         "nuxt": "4.5.2",
         "nuxt-llms": "0.2.0",
         "pinia": "4.0.3",

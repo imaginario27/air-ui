@@ -126,6 +126,29 @@
                     'rounded',
                 ]"
             >
+                <!-- Export actions -->
+                <div
+                    v-if="enableExport"
+                    class="absolute right-0 top-0 z-10 m-2 flex gap-2"
+                >
+                    <ActionIconButton
+                        :styleType="ButtonStyleType.NEUTRAL_OUTLINED"
+                        :size="ButtonSize.SM"
+                        icon="mdi:content-copy"
+                        ariaLabel="Copy component as image"
+                        :disabled="isExporting"
+                        @click="copyAsImage"
+                    />
+                    <ActionIconButton
+                        :styleType="ButtonStyleType.NEUTRAL_OUTLINED"
+                        :size="ButtonSize.SM"
+                        icon="mdi:download"
+                        ariaLabel="Download component as PNG"
+                        :disabled="isExporting"
+                        @click="downloadAsPng"
+                    />
+                </div>
+
                 <template v-if="props.hasResizeHandler">
                     <iframe
                         ref="previewIframeRef"
@@ -193,6 +216,7 @@
 
                 <div
                     v-else
+                    ref="previewContentRef"
                     :class="[
                         'flex',
                         'items-center',
@@ -379,6 +403,10 @@ const props = defineProps({
         type: String as PropType<'false' | 'full' | 'template' | 'script'>,
         default: 'false',
     },
+    enableExport: {
+        type: Boolean as PropType<boolean>,
+        default: true,
+    },
     hasResizeHandler: {
         type: Boolean as PropType<boolean>,
         default: false,
@@ -404,6 +432,8 @@ const resizeOriginWidth = ref(0)
 const previewIframeRef = ref<HTMLIFrameElement | null>(null)
 const iframePreviewContentRef = ref<HTMLElement | null>(null)
 const previewIframeHeight = ref<number | null>(null)
+const previewContentRef = ref<HTMLElement | null>(null)
+const isExporting = ref(false)
 
 const RESIZE_HANDLER_WIDTH = 32
 const MIN_RESIZABLE_WIDTH = 320
@@ -692,6 +722,120 @@ onBeforeUnmount(() => {
     stopResize()
     disconnectIframeObservers()
 })
+
+// Export the rendered component as an image
+const { $toast } = useNuxtApp()
+
+// html-to-image does not inline styles on SVG shapes, so classes such as
+// `stroke-*` would be lost in the export. Inline their computed paint
+// properties for the capture and restore the original attributes afterwards.
+const SVG_PAINT_PROPERTIES = [
+    'fill',
+    'fill-opacity',
+    'stroke',
+    'stroke-width',
+    'stroke-opacity',
+    'stroke-dasharray',
+    'stroke-dashoffset',
+    'stroke-linecap',
+    'stroke-linejoin',
+    'opacity',
+]
+
+const inlineSvgPaint = (root: HTMLElement) => {
+    const restores: Array<() => void> = []
+
+    root.querySelectorAll<SVGElement>('svg *').forEach(node => {
+        const originalStyle = node.getAttribute('style')
+        const computed = getComputedStyle(node)
+
+        SVG_PAINT_PROPERTIES.forEach(property => {
+            node.style.setProperty(property, computed.getPropertyValue(property))
+        })
+
+        restores.push(() => {
+            if (originalStyle === null) {
+                node.removeAttribute('style')
+            } else {
+                node.setAttribute('style', originalStyle)
+            }
+        })
+    })
+
+    return () => restores.forEach(restore => restore())
+}
+
+const renderPreviewToBlob = async (): Promise<Blob> => {
+    const contentNode = props.hasResizeHandler
+        ? iframePreviewContentRef.value
+        : previewContentRef.value
+
+    // Crop to the component itself, not to the preview container around it
+    const target = (contentNode?.firstElementChild as HTMLElement | null) ?? contentNode
+
+    if (!target) {
+        throw new Error('Preview content is not rendered')
+    }
+
+    const { toBlob } = await import('html-to-image')
+
+    const restoreSvgStyles = inlineSvgPaint(target)
+
+    try {
+        // No backgroundColor: the image stays transparent unless the component paints its own
+        const blob = await toBlob(target, {
+            pixelRatio: 2,
+        })
+
+        if (!blob) {
+            throw new Error('Image rendering returned no data')
+        }
+
+        return blob
+    } finally {
+        restoreSvgStyles()
+    }
+}
+
+const runExport = async (action: (blob: Blob) => Promise<void> | void, errorMessage: string) => {
+    if (isExporting.value) {
+        return
+    }
+
+    isExporting.value = true
+
+    try {
+        await action(await renderPreviewToBlob())
+    } catch (error) {
+        console.error('[component previewer] Image export failed', error)
+        $toast.error(errorMessage, {
+            toastId: 'component-code-export-error',
+        })
+    } finally {
+        isExporting.value = false
+    }
+}
+
+const downloadAsPng = () => runExport(blob => {
+    const fileName = (props.srcDir?.split('/').pop()?.replace('.vue', '') || 'component')
+        .replace(/([a-z0-9])([A-Z])/g, '$1-$2')
+        .toLowerCase()
+
+    const url = URL.createObjectURL(blob)
+    const link = document.createElement('a')
+    link.download = `${fileName}.png`
+    link.href = url
+    link.click()
+    URL.revokeObjectURL(url)
+}, 'Failed to export the component as PNG.')
+
+const copyAsImage = () => runExport(async blob => {
+    await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })])
+
+    $toast.success('Image copied to clipboard!', {
+        toastId: 'component-code-export-success',
+    })
+}, 'Failed to copy the component as image.')
 
 // Dynamic component
 const designSystemComponents = import.meta.glob<{ default: Component }>(
