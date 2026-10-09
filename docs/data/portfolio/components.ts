@@ -131,6 +131,11 @@ export const componentList: ComponentPortfolioItem[] = [
         imgUrl: `/images/thumbnails/components/progress.png`,
     },
     {
+        title: 'ProgressCircle',
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/progress-circle`,
+        imgUrl: `/images/thumbnails/components/progress-circle.png`,
+    },
+    {
         title: 'Slider',
         to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/slider`,
         imgUrl: `/images/thumbnails/components/slider.png`,
