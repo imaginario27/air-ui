@@ -14,6 +14,7 @@
         "rebuild-release-history": "node scripts/rebuild-release-history.mjs",
         "version-packages": "changeset version",
         "release": "changeset publish",
+        "check:thumbnails": "node scripts/check-component-thumbnails.mjs",
         "test:docs": "npm run test --workspace=docs",
         "test:ds": "npm run test --workspace=@imaginario27/air-ui-ds",
         "test:utils": "npm run test --workspace=@imaginario27/air-ui-utils",
