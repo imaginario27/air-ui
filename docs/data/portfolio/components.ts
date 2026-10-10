@@ -426,6 +426,11 @@ export const componentList: ComponentPortfolioItem[] = [
         imgUrl: `/images/thumbnails/components/data-details.png`,
     },
     {
+        title: 'Marquee',
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/marquee`,
+        imgUrl: `/images/thumbnails/components/marquee.png`,
+    },
+    {
         title: 'ScrollArea',
         to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/scroll-area`,
         imgUrl: `/images/thumbnails/components/scroll-area.png`,
