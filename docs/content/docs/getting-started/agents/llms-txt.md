@@ -28,6 +28,9 @@ items:
 
   - section: "Utilities"
     what-it-covers: "Documentation for Air UI utilities."
+
+  - section: "Blocks"
+    what-it-covers: "Documentation for Air UI blocks."
 ---
 ::
 
