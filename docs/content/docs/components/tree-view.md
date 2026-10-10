@@ -64,6 +64,17 @@ props:
     expandOnClick: true
     showIcons: true
     showIndentGuides: true
+    size: "md"
+    checkStrictly: false
+    defaultExpandAll: false
+    defaultExpandedDepth: 0
+    filter: ""
+    leafIcon: "mdi:file-outline"
+    collapsedIcon: "mdi:folder-outline"
+    expandedIcon: "mdi:folder-open-outline"
+    isRenamable: false
+    isReorderable: false
+    readOnly: false
     disabled: false
     moreActionsItems:
         - text: New file
@@ -78,7 +89,6 @@ props:
           icon: mdi:trash-can-outline
           type: danger-icon
           actionType: action
-          hasSeparator: true
     moreActionsPosition: "bottom"
     moreActionsPositionYOffset: 4
     moreActionsMenuWidth: 200
@@ -102,7 +112,17 @@ items:
           text: SINGLE
         - value: multiple
           text: MULTIPLE
+    size:
+        - value: xs
+          text: XS
+        - value: sm
+          text: SM
+        - value: md
+          text: MD
+        - value: lg
+          text: LG
 enums:
+    size: "ControlFieldSize"
     moreActionsPosition: "Position"
     color: "ColorAccent"
     selectionMode: "TreeViewSelectionMode"
@@ -185,9 +205,74 @@ props: [
         "type": "boolean",
     },
     {
+        "name": "size",
+        "default": "ControlFieldSize.MD",
+        "type": "ControlFieldSize",
+    },
+    {
+        "name": "checkStrictly",
+        "default": "false",
+        "type": "boolean",
+    },
+    {
+        "name": "defaultExpandAll",
+        "default": "false",
+        "type": "boolean",
+    },
+    {
+        "name": "defaultExpandedDepth",
+        "default": "0",
+        "type": "number",
+    },
+    {
+        "name": "filter",
+        "default": "''",
+        "type": "string | ((node: TreeViewNode) => boolean)",
+    },
+    {
+        "name": "leafIcon",
+        "default": "'mdi:file-outline'",
+        "type": "string",
+    },
+    {
+        "name": "collapsedIcon",
+        "default": "'mdi:folder-outline'",
+        "type": "string",
+    },
+    {
+        "name": "expandedIcon",
+        "default": "'mdi:folder-open-outline'",
+        "type": "string",
+    },
+    {
+        "name": "isRenamable",
+        "default": "false",
+        "type": "boolean",
+    },
+    {
+        "name": "renameLabel",
+        "default": "'Rename'",
+        "type": "string",
+    },
+    {
+        "name": "isReorderable",
+        "default": "false",
+        "type": "boolean",
+    },
+    {
+        "name": "readOnly",
+        "default": "false",
+        "type": "boolean",
+    },
+    {
         "name": "loadChildren",
         "default": "undefined",
         "type": "(node: TreeViewNode) => Promise<TreeViewNode[]>",
+    },
+    {
+        "name": "loadErrorLabel",
+        "default": "'Failed to load. Click to retry.'",
+        "type": "string",
     },
     {
         "name": "moreActionsItems",
@@ -236,6 +321,18 @@ slots: [
     {
         name: "label",
         description: "Replaces the label of every row. Receives the `node`, its `level`, and the `isBranch`, `isExpanded` and `isSelected` states as slot props. Icons, chevron and checkbox are kept.",
+    },
+    {
+        name: "icon",
+        description: "Replaces the icon of every row (only rendered when `showIcons` is enabled). Receives the same slot props as `label`.",
+    },
+    {
+        name: "trailing",
+        description: "Content shown at the end of every row, before the \"more actions\" button, such as badges or counters. Receives the same slot props as `label`.",
+    },
+    {
+        name: "empty",
+        description: "Content shown when there are no rows to display, for example when `nodes` is empty or `filter` matches nothing.",
     },
 ]
 ---
@@ -394,7 +491,7 @@ Sets the color of the active node: only its icon and label change, never the che
 
 ### selectionMode
 
-Sets whether one or many nodes can be selected.
+Sets whether one or many nodes can be selected. In `MULTIPLE` mode it works like a file explorer: a plain click selects only that node, `Ctrl` / `Cmd` + click toggles a node, and `Shift` + click selects the range from the last clicked node. Disabled nodes are skipped.
 
 ```vue
 <template>
@@ -540,9 +637,181 @@ const nodes: TreeViewNode[] = [
 - **Type:** `boolean`
 - **Default:** `true`
 
+### size
+
+Sets the row height, text size and indentation.
+
+```vue
+<template>
+    <TreeView :nodes="nodes" :size="ControlFieldSize.LG" />
+</template>
+```
+
+- **Type:** `ControlFieldSize`
+- **Default:** `ControlFieldSize.MD`
+
+### checkStrictly
+
+Makes every node store its own checked state when `showCheckboxes` is enabled: checking a branch does not check its children, and a branch never shows a mixed state. Any node, branches included, can be in `checkedValue`.
+
+```vue
+<template>
+    <TreeView :nodes="nodes" showCheckboxes checkStrictly v-model:checkedValue="checked" />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `false`
+
+### defaultExpandAll
+
+Opens every branch on the first render. It is ignored when `expandedValue` already has values.
+
+```vue
+<template>
+    <TreeView :nodes="nodes" defaultExpandAll />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `false`
+
+### defaultExpandedDepth
+
+Opens the branches down to this many levels on the first render (`1` opens only the root level folders). It is ignored when `expandedValue` already has values, and `defaultExpandAll` takes precedence.
+
+```vue
+<template>
+    <TreeView :nodes="nodes" :defaultExpandedDepth="2" />
+</template>
+```
+
+- **Type:** `number`
+- **Default:** `0`
+
+### filter
+
+Shows only the nodes that match, together with their ancestors, which are opened automatically while the filter is active. Pass a string to match labels case-insensitively, or a function for custom logic. Use the `empty` slot to show a message when nothing matches. Only loaded nodes are searched.
+
+```vue
+<template>
+    <TreeView :nodes="nodes" :filter="search">
+        <template #empty>No results</template>
+    </TreeView>
+</template>
+
+<script setup lang="ts">
+const search = ref('')
+</script>
+```
+
+- **Type:** `string | ((node: TreeViewNode) => boolean)`
+- **Default:** `''`
+
+### leafIcon
+
+Sets the icon of nodes without children (files). A node's own `icon` still takes precedence.
+
+```vue
+<template>
+    <TreeView :nodes="nodes" leafIcon="mdi:text-box-outline" />
+</template>
+```
+
+- **Type:** `string`
+- **Default:** `'mdi:file-outline'`
+
+### collapsedIcon
+
+Sets the icon of closed branches (folders). A node's own `icon` still takes precedence.
+
+```vue
+<template>
+    <TreeView :nodes="nodes" collapsedIcon="mdi:folder-plus-outline" />
+</template>
+```
+
+- **Type:** `string`
+- **Default:** `'mdi:folder-outline'`
+
+### expandedIcon
+
+Sets the icon of open branches (folders). A node's own `icon` still takes precedence.
+
+```vue
+<template>
+    <TreeView :nodes="nodes" expandedIcon="mdi:folder-minus-outline" />
+</template>
+```
+
+- **Type:** `string`
+- **Default:** `'mdi:folder-open-outline'`
+
+### isRenamable
+
+Adds a "Rename" item at the top of the "more actions" menu of every enabled node, and enables `F2` on the focused node. The label turns into an input: `Enter` or leaving the field confirms, `Escape` cancels. The tree never edits `nodes`; it emits `rename` and you apply the change. It has no effect when `readOnly` or `disabled` is set. You can also start a rename yourself with the `startRename(value)` method.
+
+```vue
+<template>
+    <TreeView :nodes="nodes" isRenamable @rename="({ value, label }) => rename(value, label)" />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `false`
+
+### renameLabel
+
+Sets the text of the built-in rename menu item and the accessible label of the rename input. Override it for i18n.
+
+- **Type:** `string`
+- **Default:** `'Rename'`
+
+### isReorderable
+
+Lets the user drag nodes to reorder or move them. Dropping on the top or bottom quarter of a folder row, or on the upper or lower half of a file row, places the node before or after it; dropping on the middle of a folder places it inside. A node cannot be dropped on itself, on its own descendants or on a disabled node. The tree never edits `nodes`; it emits `reorder` and you apply the move. It has no effect when `readOnly` or `disabled` is set.
+
+```vue
+<template>
+    <TreeView :nodes="nodes" isReorderable @reorder="move" />
+</template>
+
+<script setup lang="ts">
+const move = ({ value, targetValue, position, parentValue }: TreeViewReorderDetails) => {
+    // Remove `value` from its old place and insert it relative to `targetValue`
+}
+</script>
+```
+
+- **Type:** `boolean`
+- **Default:** `false`
+
+#### TypeScript interface
+```ts
+interface TreeViewReorderDetails {
+    value: string // Node being moved
+    targetValue: string // Node it was dropped on
+    position: TreeViewDropPosition // BEFORE | AFTER | INSIDE
+    parentValue: string | null // New parent, null for the root level
+}
+```
+
+### readOnly
+
+Keeps the tree navigable and selectable but turns off renaming and reordering, even when `isRenamable` or `isReorderable` are set.
+
+```vue
+<template>
+    <TreeView :nodes="nodes" isRenamable isReorderable readOnly />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `false`
+
 ### loadChildren
 
-Loads the children of a branch the first time it is opened. Mark the branch with `hasChildren: true` and no `children`. A spinner replaces the chevron while loading, the result is cached, and a failure emits `load-error` and keeps the branch closed.
+Loads the children of a branch the first time it is opened. Mark the branch with `hasChildren: true` and no `children`. A spinner replaces the chevron while loading and the result is cached. A failure emits `load-error`, keeps the branch closed and shows an error icon (see [loadErrorLabel](#loaderrorlabel)); opening the branch again retries. Call `reload(value)` to discard the cached children.
 
 ```vue
 <template>
@@ -563,6 +832,13 @@ const loadChildren = async (node: TreeViewNode) => {
 
 - **Type:** `(node: TreeViewNode) => Promise<TreeViewNode[]>`
 - **Default:** `undefined`
+
+### loadErrorLabel
+
+Sets the tooltip of the error icon shown on a branch whose `loadChildren` failed. Override it for i18n.
+
+- **Type:** `string`
+- **Default:** `'Failed to load. Click to retry.'`
 
 ### moreActionsItems
 
@@ -753,8 +1029,13 @@ options: [
     { value: "Arrow Right", description: "Opens a closed branch, or moves focus to its first child when it is already open." },
     { value: "Arrow Left", description: "Closes an open branch, or moves focus to the parent node." },
     { value: "Home / End", description: "Moves focus to the first or last visible node." },
-    { value: "Enter", description: "Selects the focused node." },
-    { value: "Space", description: "Toggles the checkbox of the focused node when `showCheckboxes` is enabled, otherwise selects it." },
+    { value: "Enter", description: "Same as clicking the node: selects it and opens or closes it when `expandOnClick` is enabled." },
+    { value: "Space", description: "Toggles the checkbox of the focused node when `showCheckboxes` is enabled, otherwise toggles its selection. While typing a typeahead search it adds a space to the search." },
+    { value: "Ctrl / Cmd + Space", description: "Toggles the selection of the focused node, even when `showCheckboxes` is enabled." },
+    { value: "Shift + Arrow Down / Up", description: "Selects the range from the last selected node to the newly focused one (`MULTIPLE` mode)." },
+    { value: "Ctrl / Cmd + A", description: "Selects every enabled visible node (`MULTIPLE` mode)." },
+    { value: "*", description: "Opens every closed branch at the level of the focused node (not in accordion mode)." },
+    { value: "F2", description: "Renames the focused node when `isRenamable` is enabled." },
     { value: "Characters", description: "Typeahead: moves focus to the next node whose label starts with the typed text." },
 ]
 ---
@@ -769,6 +1050,8 @@ options: [
     { value: "@update:selectedValue", description: "Emitted with the new list of selected nodes (`v-model:selectedValue`)." },
     { value: "@update:checkedValue", description: "Emitted with the new list of checked leaves (`v-model:checkedValue`)." },
     { value: "@load-error", description: "Emitted with `{ value, error }` when `loadChildren` fails for a branch." },
+    { value: "@rename", description: "Emitted with `{ value, label, previousLabel }` when a rename is confirmed with a new, non-empty label." },
+    { value: "@reorder", description: "Emitted with `{ value, targetValue, position, parentValue }` when a node is dropped in a valid place." },
 ]
 ---
 ::
@@ -781,4 +1064,32 @@ options: [
         @load-error="({ value, error }) => console.error(value, error)"
     />
 </template>
+```
+
+## Methods
+
+Get a reference to the component to call these methods.
+
+::options-table
+---
+options: [
+    { value: "expandAll()", description: "Opens every branch that has loaded children." },
+    { value: "collapseAll()", description: "Closes every branch." },
+    { value: "expandTo(value)", description: "Opens all the ancestors of a node, loading them when needed, so its row becomes visible." },
+    { value: "scrollToNode(value)", description: "Runs `expandTo` and scrolls the node into view without moving the focus." },
+    { value: "startRename(value)", description: "Starts renaming a node. Requires `isRenamable` and no `readOnly`." },
+    { value: "reload(value)", description: "Discards the cached children of a lazy branch and loads them again if it is open." },
+]
+---
+::
+
+```vue
+<template>
+    <TreeView ref="tree" :nodes="nodes" />
+    <button @click="tree?.scrollToNode('src/hooks/use-auth')">Reveal</button>
+</template>
+
+<script setup lang="ts">
+const tree = useTemplateRef('tree')
+</script>
 ```
