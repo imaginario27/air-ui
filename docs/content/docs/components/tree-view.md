@@ -76,16 +76,13 @@ props:
     collapsedIcon: "mdi:folder-outline"
     expandedIcon: "mdi:folder-open-outline"
     isRenamable: false
+    renameOnClick: false
     isReorderable: false
     readOnly: false
     disabled: false
     moreActionsItems:
         - text: New file
           icon: mdi:file-plus-outline
-          type: icon
-          actionType: action
-        - text: Rename
-          icon: mdi:pencil-outline
           type: icon
           actionType: action
         - text: Delete
@@ -272,6 +269,11 @@ props: [
     },
     {
         "name": "isRenamable",
+        "default": "false",
+        "type": "boolean",
+    },
+    {
+        "name": "renameOnClick",
         "default": "false",
         "type": "boolean",
     },
@@ -842,11 +844,24 @@ Sets the icon of open branches (folders). A node's own `icon` still takes preced
 
 ### isRenamable
 
-Adds a "Rename" item at the top of the "more actions" menu of every enabled node, and enables `F2` on the focused node. The label turns into an input: `Enter` or leaving the field confirms, `Escape` cancels. The tree never edits `nodes`; it emits `rename` and you apply the change. It has no effect when `readOnly` or `disabled` is set. You can also start a rename yourself with the `startRename(value)` method.
+Adds a "Rename" item at the top of the "more actions" menu of every enabled node, and enables `F2` on the focused node. The label turns into an input: `Enter` or leaving the field confirms, `Escape` cancels. The tree never edits `nodes` itself: bind `v-model:nodes` and it emits the renamed tree as `update:nodes`, or listen to `rename` to apply the change yourself. When the node was loaded with `loadChildren`, which `nodes` does not hold, only `rename` is emitted. It has no effect when `readOnly` or `disabled` is set. You can also start a rename yourself with the `startRename(value)` method. Do not add your own "Rename" item to `moreActionsItems` when using it, or the menu shows two.
 
 ```vue
 <template>
     <TreeView :nodes="nodes" isRenamable @rename="({ value, label }) => rename(value, label)" />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `false`
+
+### renameOnClick
+
+Starts a rename when the only selected node is clicked again, like a file explorer: the second click is not a double click, so after about 500 ms without another click the label turns into an input. A double click cancels it and emits `node-dblclick` instead. It needs `isRenamable`, and it does nothing with `readOnly`, `disabled`, with a modifier key held, or on a branch while `expandOnClick` is enabled (there the click opens or closes it).
+
+```vue
+<template>
+    <TreeView :nodes="nodes" isRenamable renameOnClick @rename="onRename" />
 </template>
 ```
 
@@ -1182,11 +1197,12 @@ options: [
 ::options-table
 ---
 options: [
-    { value: "@update:nodes", description: "Emitted with the moved tree after a valid drop when `isReorderable` is enabled (`v-model:nodes`)." },
+    { value: "@update:nodes", description: "Emitted with the updated tree after a valid drop when `isReorderable` is enabled, or after a confirmed rename (`v-model:nodes`)." },
     { value: "@update:expandedValue", description: "Emitted with the new list of open branches (`v-model:expandedValue`)." },
     { value: "@update:selectedValue", description: "Emitted with the new list of selected nodes (`v-model:selectedValue`)." },
     { value: "@update:checkedValue", description: "Emitted with the new list of checked leaves (`v-model:checkedValue`)." },
     { value: "@load-error", description: "Emitted with `{ value, error }` when `loadChildren` fails for a branch." },
+    { value: "@node-dblclick", description: "Emitted with `{ node }` when a node is double clicked, so you can run your own action such as opening a file. It is not emitted for disabled nodes." },
     { value: "@rename", description: "Emitted with `{ value, label, previousLabel }` when a rename is confirmed with a new, non-empty label." },
     { value: "@reorder", description: "Emitted with `{ value, targetValue, position, parentValue }` when a node is dropped in a valid place." },
 ]
@@ -1201,6 +1217,21 @@ options: [
         @load-error="({ value, error }) => console.error(value, error)"
     />
 </template>
+```
+
+A double click does not toggle a branch twice: the second click of the pair is ignored, so a double click on a folder opens it once.
+
+```vue
+<template>
+    <TreeView :nodes="nodes" @node-dblclick="({ node }) => openFile(node.value)" />
+</template>
+```
+
+#### TypeScript interface
+```ts
+interface TreeViewNodeDetails {
+    node: TreeViewNode
+}
 ```
 
 ## Methods
