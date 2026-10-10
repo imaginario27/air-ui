@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @source "../../../packages/air-ui-ds/components";
+@source "../../../packages/air-ui-ds/composables";
 @source "../../../packages/air-ui-utils";
 
 @import "./theme/primitives.css";

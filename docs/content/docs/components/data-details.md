@@ -13,7 +13,7 @@ componentSource: 'docs'
 ## Architecture
 The `DataDetails` component provides a clean and consistent layout structure for building data details blocks.
 
-It’s designed to work with the `DataDetailsRow`, `DataDetailsFieldGroup`, and `DataField` components to help organize fields and actions intuitively.
+It works with the `DataDetailsRow`, `DataDetailsFieldGroup`, and `DataField` components to help organize fields and actions intuitively.
 
 ```vue
 <template>

@@ -5,6 +5,6 @@
 definePageMeta({
     title: 'Blocks',
     layout: 'docs',
-    description: 'Explore a growing collection of beautifully designed, fully responsive UI blocks built with Tailwind CSS — ready to copy, customize, and drop into your project with ease.',
+    description: 'Responsive UI blocks built with Tailwind CSS that you can copy and customize in your project.',
 })
 </script>

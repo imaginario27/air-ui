@@ -5,6 +5,17 @@ All notable changes to this package are documented in this file.
 Historical releases were reconstructed from git history (GitHub repository) and npm publish dates.
 Future releases will include detailed entries generated with Changesets.
 
+## 1.3.0 - 2026-09-29
+
+Release type: minor.
+Commits found in range: 1.
+
+### Added
+
+1. add global config for form validation messages ([818afa5](https://github.com/imaginario27/air-ui/commit/818afa59e130b984fbe65e827f793a77283f8733))
+
+- Package: @imaginario27/air-ui-utils.
+
 ## 1.2.6 - 2026-09-17
 
 Release type: patch.

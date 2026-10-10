@@ -22,7 +22,7 @@ export const componentList: ComponentPortfolioItem[] = [
     {
         title: 'CompactHeader',
         to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/compact-header`,
-        imgUrl: `/images/thumbnails/components/header.png`,
+        imgUrl: `/images/thumbnails/components/compact-header.png`,
     },
     {
         title: 'Footer',
@@ -46,6 +46,11 @@ export const componentList: ComponentPortfolioItem[] = [
         imgUrl: `/images/thumbnails/components/alert.png`,
     },
     {
+        title: 'AngleSlider',
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/angle-slider`,
+        imgUrl: `/images/thumbnails/components/angle-slider.png`,
+    },
+    {
         title: 'Avatar',
         to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/avatar`,
         imgUrl: `/images/thumbnails/components/avatar.png`,
@@ -58,7 +63,7 @@ export const componentList: ComponentPortfolioItem[] = [
     {
         title: 'ActionButton',
         to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/action-button`,
-        imgUrl: `/images/thumbnails/components/button.png`,
+        imgUrl: `/images/thumbnails/components/action-button.png`,
     },
     {
         title: 'Collapsible',
@@ -118,12 +123,22 @@ export const componentList: ComponentPortfolioItem[] = [
     {
         title: 'ContentPlaceholder',
         to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/content-placeholder`,
-        imgUrl: `/images/thumbnails/components/placeholder.png`,
+        imgUrl: `/images/thumbnails/components/content-placeholder.png`,
     },
     {
         title: 'ProgressBar',
         to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/progress-bar`,
-        imgUrl: `/images/thumbnails/components/progress.png`,
+        imgUrl: `/images/thumbnails/components/progress-bar.png`,
+    },
+    {
+        title: 'ProgressCircle',
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/progress-circle`,
+        imgUrl: `/images/thumbnails/components/progress-circle.png`,
+    },
+    {
+        title: 'SignaturePad',
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/signature-pad`,
+        imgUrl: `/images/thumbnails/components/signature-pad.png`,
     },
     {
         title: 'Slider',
@@ -134,6 +149,11 @@ export const componentList: ComponentPortfolioItem[] = [
         title: 'Rating',
         to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/rating`,
         imgUrl: `/images/thumbnails/components/rating.png`,
+    },
+    {
+        title: 'TreeView',
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/tree-view`,
+        imgUrl: `/images/thumbnails/components/tree-view.png`,
     },
     {
         title: 'User',
@@ -159,22 +179,22 @@ export const componentList: ComponentPortfolioItem[] = [
     {
         title: 'ButtonPagination',
         to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/button-pagination`,
-        imgUrl: `/images/thumbnails/components/pagination.png`,
+        imgUrl: `/images/thumbnails/components/button-pagination.png`,
     },
     {
         title: 'NavSidebar',
         to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/nav-sidebar`,
-        imgUrl: `/images/thumbnails/components/sidebar.png`,
+        imgUrl: `/images/thumbnails/components/nav-sidebar.png`,
     },
     {
         title: 'TabStepper',
         to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/tab-stepper`,
-        imgUrl: `/images/thumbnails/components/stepper.png`,
+        imgUrl: `/images/thumbnails/components/tab-stepper.png`,
     },
     {
         title: 'TabsContainer',
         to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/tabs`,
-        imgUrl: `/images/thumbnails/components/tabs.png`,
+        imgUrl: `/images/thumbnails/components/tabs-container.png`,
     },
 
     // FORM
@@ -186,6 +206,11 @@ export const componentList: ComponentPortfolioItem[] = [
         title: 'Form',
         to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/form`,
         imgUrl: `/images/thumbnails/components/form.png`,
+    },
+    {
+        title: 'AngleSliderField',
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/angle-slider-field`,
+        imgUrl: `/images/thumbnails/components/angle-slider-field.png`,
     },
     {
         title: 'ButtonField',
@@ -258,6 +283,11 @@ export const componentList: ComponentPortfolioItem[] = [
         imgUrl: `/images/thumbnails/components/select-field.png`,
     },
     {
+        title: 'SignatureField',
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/signature-field`,
+        imgUrl: `/images/thumbnails/components/signature-field.png`,
+    },
+    {
         title: 'SliderField',
         to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/slider-field`,
         imgUrl: `/images/thumbnails/components/slider-field.png`,
@@ -310,22 +340,22 @@ export const componentList: ComponentPortfolioItem[] = [
     {
         title: 'TriStateCheckbox',
         to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/tri-state-checkbox`,
-        imgUrl: `/images/thumbnails/components/checkbox.png`,
+        imgUrl: `/images/thumbnails/components/tri-state-checkbox.png`,
     },
     {
         title: 'TriStateCheckboxField',
         to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/tri-state-checkbox-field`,
-        imgUrl: `/images/thumbnails/components/checkbox-field.png`,
+        imgUrl: `/images/thumbnails/components/tri-state-checkbox-field.png`,
     },
     {
         title: 'TriStateSwitch',
         to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/tri-state-switch`,
-        imgUrl: `/images/thumbnails/components/switch.png`,
+        imgUrl: `/images/thumbnails/components/tri-state-switch.png`,
     },
     {
         title: 'TriStateSwitchField',
         to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/tri-state-switch-field`,
-        imgUrl: `/images/thumbnails/components/switch-field.png`,
+        imgUrl: `/images/thumbnails/components/tri-state-switch-field.png`,
     },
 
     // OVERLAY
@@ -341,7 +371,7 @@ export const componentList: ComponentPortfolioItem[] = [
     {
         title: 'DropdownMenu',
         to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/dropdown-menu`,
-        imgUrl: `/images/thumbnails/components/dropdown.png`,
+        imgUrl: `/images/thumbnails/components/dropdown-menu.png`,
     },
     {
         title: 'Context menu',
@@ -404,6 +434,11 @@ export const componentList: ComponentPortfolioItem[] = [
         title: 'DataDetails',
         to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/data-details`,
         imgUrl: `/images/thumbnails/components/data-details.png`,
+    },
+    {
+        title: 'Marquee',
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/marquee`,
+        imgUrl: `/images/thumbnails/components/marquee.png`,
     },
     {
         title: 'ScrollArea',
@@ -471,6 +506,21 @@ export const componentList: ComponentPortfolioItem[] = [
     {
         isSectionTitle: true,
         title: 'Images',
+    },
+    {
+        title: 'Gallery',
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/gallery`,
+        imgUrl: `/images/thumbnails/components/gallery.png`,
+    },
+    {
+        title: 'Image',
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/image`,
+        imgUrl: `/images/thumbnails/components/image.png`,
+    },
+    {
+        title: 'Lightbox',
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/lightbox`,
+        imgUrl: `/images/thumbnails/components/lightbox.png`,
     },
     {
         title: 'QRCode',

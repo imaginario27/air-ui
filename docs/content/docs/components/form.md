@@ -12,7 +12,7 @@ componentSource: 'docs'
 ## Architecture
 The `Form` component provides a clean and consistent layout structure for building forms.
 
-It’s designed to work with the `FormRow`, `FormFieldGroup`, and `FormActions` components to help organize fields and actions intuitively.
+It works with the `FormRow`, `FormFieldGroup`, and `FormActions` components to help organize fields and actions intuitively.
 
 ```vue
 <template>

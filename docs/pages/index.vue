@@ -16,7 +16,7 @@
                                 'font-bold',
                             ]"
                         >
-                            Build modern Nuxt apps — faster with
+                            Build Nuxt apps faster with
                             <span class="text-text-primary-brand-default">AirUI</span>
                         </h1>
 
@@ -80,7 +80,7 @@
                             <ListItem>
                                 <Feature 
                                     title="Optimized for Nuxt"
-                                    description="Auto-imported components, composables, and stores — zero config needed."
+                                    description="Auto-imported components, composables, and stores, with no config needed."
                                     icon="mdi:lightning-bolt-outline"
                                 />
                             </ListItem>
@@ -182,7 +182,7 @@
                         <ListItem>
                             <Feature 
                                 title="Fast theme sync from Figma"
-                                description="Import Figma's project theme tokens and quickly update your app's styles via script — no rebuild required."
+                                description="Import Figma's project theme tokens and quickly update your app's styles via script, with no rebuild required."
                                 icon="mdi:sync"
                             />
                         </ListItem>
@@ -220,14 +220,14 @@
                         <ListItem>
                             <Feature 
                                 title="Complete component library"
-                                description="Forms, tables, modals, alerts, menus, tabs, and more — ready to drop into your project."
+                                description="Forms, tables, modals, alerts, menus, tabs, and more, ready to use in your project."
                                 icon="mdi:check-all"
                             />
                         </ListItem>
                         <ListItem>
                             <Feature 
                                 title="Tailwind-first customization"
-                                description="Override styles using utility classes or extend with your own Tailwind config — no friction."
+                                description="Override styles using utility classes or extend with your own Tailwind config."
                                 icon="mdi:tailwind"
                             />
                         </ListItem>

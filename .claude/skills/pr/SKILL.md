@@ -30,6 +30,7 @@ Creates a pull request via `gh pr create` that matches AirUI's commit/scope conv
 4. **No "Summary" / "Test plan" / emoji sections** — only the bulleted list (or scoped groups).
 5. **Always show the full title + body to the user and wait for confirmation before running `gh pr create`.**
 6. **Always create a brand-new PR with `gh pr create`.** Never run `gh pr edit`, `gh pr close` + reopen, or otherwise update/override an existing PR — even if one already exists for the same branch. If `gh pr create` refuses because an open PR already exists for this head branch, tell the user instead of falling back to editing it.
+7. **Run `npm run check:thumbnails` first and never create the PR if it fails** — every component in the docs registry must have a valid thumbnail.
 
 ## Procedure
 
@@ -44,10 +45,11 @@ Creates a pull request via `gh pr create` that matches AirUI's commit/scope conv
    - `packages/air-ui-utils/**` → `utils`
    - `docs/**` → `docs`
    - Root configs / multi-workspace tooling → `root`
-3. If the branch is not pushed or not tracking a remote, push with `-u` to `origin`.
-4. Draft the title + body following the rules. For mixed scopes, sort each change into the correct group based on which workspace its files live in.
-5. Show the user the **exact** title and body as they will appear, then ask for confirmation or edits.
-6. On approval, create the PR using a HEREDOC so multi-line formatting is preserved:
+3. Run `npm run check:thumbnails` from the repo root **before pushing or drafting**. It verifies every item in `docs/data/portfolio/components.ts` has an existing thumbnail named after its kebab-case title. If it fails, stop and report the errors to the user (do not create the PR) so the missing or misnamed images can be fixed first.
+4. If the branch is not pushed or not tracking a remote, push with `-u` to `origin`.
+5. Draft the title + body following the rules. For mixed scopes, sort each change into the correct group based on which workspace its files live in.
+6. Show the user the **exact** title and body as they will appear, then ask for confirmation or edits.
+7. On approval, create the PR using a HEREDOC so multi-line formatting is preserved:
 
    ```bash
    gh pr create --title "feat(root): unify token pipeline across ds and utils" --body "$(cat <<'EOF'
@@ -61,7 +63,7 @@ Creates a pull request via `gh pr create` that matches AirUI's commit/scope conv
    EOF
    )"
    ```
-7. Print the returned PR URL so the user can open it.
+8. Print the returned PR URL so the user can open it.
 
 ## Examples
 

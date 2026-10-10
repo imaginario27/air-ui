@@ -327,24 +327,25 @@ const handleInput = (event: Event) => {
     if (props.type === 'number') {
         let numericValue = Number.parseFloat(value)
 
-        // Handle invalid number input (e.g. empty or non-numeric)
+        // Empty or incomplete input (e.g. "" or "-"): keep it as typed so the field can be cleared
         if (Number.isNaN(numericValue)) {
-            numericValue = 0
+            emit('update:modelValue', value)
+            return
         }
 
-        // Enforce min/max manually if provided
+        // Enforce min/max manually if provided. The typed text is only rewritten
+        // when clamped, so partial decimals like "1." are not reformatted.
         const min = props.min === undefined ? undefined : Number.parseFloat(props.min)
         const max = props.max === undefined ? undefined : Number.parseFloat(props.max)
 
-        if (!Number.isNaN(numericValue)) {
-            if (min !== undefined && numericValue < min) {
-                numericValue = min
-            }
+        if (min !== undefined && numericValue < min) {
+            numericValue = min
+            value = numericValue.toString()
+            target.value = value
+        }
 
-            if (max !== undefined && numericValue > max) {
-                numericValue = max
-            }
-
+        if (max !== undefined && numericValue > max) {
+            numericValue = max
             value = numericValue.toString()
             target.value = value
         }

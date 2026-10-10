@@ -54,11 +54,18 @@ Other MDC blocks used site-wide: `::props-table`, `::options-table`, `::grid`, `
 
 ## Heading hierarchy
 
-- `##` `Component` — live demo (always first)
-- `##` `Props` — `::props-table`
-- `##` `Usage` — one `### <propName>` per prop, in `Props` order; each contains a short sentence, a fenced `vue` snippet, `- **Type:**` / `- **Default:**` lines, plus `#### Options` + `::options-table` for enum props
-- `##` `Emits` — `::options-table` + `#### Example`
-- `##` `Slots` — only when slots exist
+Fixed order (see the `docs-page` skill for the full template):
+
+1. `##` `Component` — live demo (always first)
+2. `##` `Composable` — only when the component has a public companion composable
+3. `##` `Props` — `::props-table`
+4. `##` `Slots` — only when slots exist (`::slots-table`)
+5. `##` `Usage` — one `### <propName>` per prop, in `Props` order; each contains a short sentence, a fenced `vue` snippet (enum members bound, not literals), `- **Type:**` / `- **Default:**` lines, plus `#### Options` + `::options-table` for enum/union props
+6. `##` `Accessibility` — when there is something to document
+7. `##` `Emits` — `::options-table` + `#### Example`
+8. `##` `Methods` — only when the component exposes methods
+
+Whenever a prop (or emit payload) uses a specific interface, add `#### TypeScript Interface` with a `ts` block right after its Type/Default lines.
 
 Never skip levels (no `##` → `####`). Never use `#` — the page title comes from `definePageMeta`.
 

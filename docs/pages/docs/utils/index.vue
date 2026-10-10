@@ -94,7 +94,7 @@
 definePageMeta({
     title: 'Utils',
     layout: 'docs',
-    description: 'Explore a growing collection of utility functions and helpers designed to simplify your development process and enhance your projects within Air UI.',
+    description: 'Utility functions and helpers for forms, dates, strings, passwords, and more.',
 })
 
 // States

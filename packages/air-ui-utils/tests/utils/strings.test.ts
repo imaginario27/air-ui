@@ -1,4 +1,24 @@
-import { trimText } from '../../utils/strings'
+import { trimText, cleanImageAlt } from '../../utils/strings'
+
+describe('cleanImageAlt', () => {
+    it('strips a leading "image of" prefix', () => {
+        expect(cleanImageAlt('Image of a calm landscape')).toBe('a calm landscape')
+        expect(cleanImageAlt('Imagen de un paisaje')).toBe('un paisaje')
+    })
+
+    it('strips a trailing "image" suffix', () => {
+        expect(cleanImageAlt('Company logo image')).toBe('Company logo')
+    })
+
+    it('keeps the original when stripping would leave nothing', () => {
+        expect(cleanImageAlt('Image')).toBe('Image')
+    })
+
+    it('returns an empty string for missing alt text', () => {
+        expect(cleanImageAlt(undefined)).toBe('')
+        expect(cleanImageAlt(null)).toBe('')
+    })
+})
 
 describe('trimText', () => {
     it('returns the original text when within maxLength', () => {

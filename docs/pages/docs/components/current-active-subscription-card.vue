@@ -14,7 +14,7 @@ definePageMeta({
     title: 'Current active subscription card',
     layout: 'docs',
     overtitle: 'Components',
-    description: 'Displays the user’s current subscription details, including plan name, billing status, and renewal information—commonly used in account or billing pages.',
+    description: 'Displays the user’s current subscription details, including plan name, billing status, and renewal information. Commonly used in account or billing pages.',
 })
 
 // Route

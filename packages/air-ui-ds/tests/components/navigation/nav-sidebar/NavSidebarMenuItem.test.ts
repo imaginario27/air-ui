@@ -1,4 +1,4 @@
-import { mount } from '@vue/test-utils'
+import { mount, flushPromises } from '@vue/test-utils'
 import { reactive } from 'vue'
 import NavSidebarMenuItem from '@/components/navigation/nav-sidebar/NavSidebarMenuItem.vue'
 import Icon from '@/components/icons/Icon.vue'
@@ -328,6 +328,32 @@ describe('NavSidebarMenuItem.vue', () => {
         const span = wrapper.find('span')
         expect(span.classes()).toContain('whitespace-nowrap')
         expect(span.classes()).not.toContain('truncate')
+    })
+
+    it('runs the callback of a clicked more-actions item without emitting a row click', async () => {
+        const rename = vi.fn()
+        const remove = vi.fn()
+        const wrapper = factory({
+            text: 'Settings',
+            moreActionsItems: [
+                { text: 'Rename', callback: rename },
+                { text: 'Delete', callback: remove },
+            ],
+        })
+
+        await wrapper.find('[aria-label="More options"]').trigger('click')
+        await flushPromises()
+
+        const menuItem = Array.from(document.body.querySelectorAll<HTMLElement>('[data-dropdown-menu-panel] *'))
+            .find(element => element.children.length === 0 && element.textContent?.trim() === 'Rename')
+        expect(menuItem).toBeDefined()
+
+        menuItem!.click()
+        await flushPromises()
+
+        expect(rename).toHaveBeenCalledTimes(1)
+        expect(remove).not.toHaveBeenCalled()
+        expect(wrapper.emitted('click')).toBeUndefined()
     })
 
     it('does not render a more-actions trigger by default', () => {

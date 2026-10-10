@@ -626,9 +626,9 @@ Sets custom validator function.
 - **Type:** `function`
 - **Default:** `null`
 
-### error
+### error (v-model:error)
 
-Sets or binds validation error message.
+Sets the error message of the field. This prop is bindable via `v-model:error`, allowing two-way syncing of the validation state.
 
 ```vue
 <template>

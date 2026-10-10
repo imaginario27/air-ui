@@ -174,6 +174,14 @@ export default defineNuxtConfig({
                 contentFilters: [
                     { field: 'path', operator: 'LIKE', value: '/docs/utils%' }
                 ]
+            },
+            {
+                title: 'Blocks',
+                description: 'Documentation for Air UI blocks',
+                contentCollection: 'content',
+                contentFilters: [
+                    { field: 'path', operator: 'LIKE', value: '/docs/blocks%' }
+                ]
             }
         ]
     },

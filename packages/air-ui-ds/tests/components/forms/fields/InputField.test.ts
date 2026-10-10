@@ -41,7 +41,7 @@ describe('InputField.vue', () => {
         expect(help.exists()).toBe(true)
         expect(help.text()).toBe('Hint')
         // help text is a direct child of the wrapper and appears before the input container
-        const children = Array.from(wrapper.element.children)
+        const children = Array.from(wrapper.element.children as HTMLCollection)
         const helpIdx = children.findIndex(el => el.classList.contains('text-xs'))
         const inputContainerIdx = children.findIndex(el => el.classList.contains('border'))
         expect(helpIdx).toBeGreaterThan(-1)
@@ -108,6 +108,19 @@ describe('InputField.vue', () => {
         expect(emits?.[0]?.[0]).toBe('5')   // -20 → 0 → clamped to 5
         expect(emits?.[1]?.[0]).toBe('5')   // 3 → clamped to 5
         expect(emits?.[2]?.[0]).toBe('10')  // 12 → clamped to 10
+    })
+
+    it('keeps partial decimals as typed and allows clearing a number field', async () => {
+        const wrapper = factory({ type: 'number', modelValue: '1' })
+        const input = wrapper.find('input')
+
+        await input.setValue('1.')
+        await input.setValue('1.5')
+        await input.setValue('')
+
+        const emits = wrapper.emitted('update:modelValue')
+        expect(emits?.[1]?.[0]).toBe('1.5')
+        expect(emits?.[2]?.[0]).toBe('')
     })
 
     it('calls validator on blur if validation mode is "blur"', async () => {

@@ -21,6 +21,18 @@ describe('useDSConfig', () => {
         expect(config.actions.clearAllText()).toBe('Clear all')
         expect(config.actions.closeText()).toBe('Close')
         expect(config.common.loadingText()).toBe('Loading...')
+        expect(config.pagination.resultTextMultiplePages()).toBe('Showing {from} to {to} of {total} results')
+        expect(config.pagination.resultTextSinglePage()).toBe('Showing {total} results')
+        expect(config.pagination.resultTextSingleItem()).toBe('Showing {total} result')
+        expect(config.pagination.previousPageText()).toBe('Previous page')
+        expect(config.pagination.nextPageText()).toBe('Next page')
+        expect(config.pagination.pageText()).toBe('Page {page}')
+        expect(config.gallery.loadMoreText()).toBe('Load more')
+        expect(config.lightbox.dialogText()).toBe('Image lightbox')
+        expect(config.lightbox.openImageText()).toBe('Open image')
+        expect(config.lightbox.previousText()).toBe('Previous image')
+        expect(config.lightbox.nextText()).toBe('Next image')
+        expect(config.lightbox.fullscreenText()).toBe('Toggle fullscreen')
     })
 
     it('is reactive and allows overriding the resolver function', () => {

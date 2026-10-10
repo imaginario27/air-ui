@@ -11,6 +11,10 @@ mockNuxtImport('useDocsShikiHighlighter', () => {
     })
 })
 
+const toBlob = vi.hoisted(() => vi.fn())
+
+vi.mock('html-to-image', () => ({ toBlob }))
+
 const flush = async () => {
     await flushPromises()
     await flushPromises()
@@ -198,5 +202,82 @@ describe('ComponentCode.vue', () => {
 
         expect(templateWrapper.text()).toContain('<kbd')
         expect(templateWrapper.text()).not.toContain('defineProps')
+    })
+
+    describe('image export', () => {
+        const downloadButton = 'button[aria-label="Download component as PNG"]'
+        const copyButton = 'button[aria-label="Copy component as image"]'
+
+        const mountPreview = async (extraProps: Record<string, unknown> = {}) => {
+            const wrapper = await mountSuspended(ComponentCode, {
+                props: {
+                    srcDir: 'kbds/Kbd.vue',
+                    props: { text: 'Enter' },
+                    ...extraProps,
+                },
+            })
+            await flush()
+
+            return wrapper
+        }
+
+        beforeEach(() => {
+            toBlob.mockReset()
+            toBlob.mockResolvedValue(new Blob(['png'], { type: 'image/png' }))
+            URL.createObjectURL = vi.fn(() => 'blob:preview')
+            URL.revokeObjectURL = vi.fn()
+        })
+
+        it('shows the download and copy buttons in the preview by default', async () => {
+            const wrapper = await mountPreview()
+
+            expect(wrapper.find(downloadButton).exists()).toBe(true)
+            expect(wrapper.find(copyButton).exists()).toBe(true)
+        })
+
+        it('hides both buttons when enableExport is false', async () => {
+            const wrapper = await mountPreview({ enableExport: false })
+
+            expect(wrapper.find(downloadButton).exists()).toBe(false)
+            expect(wrapper.find(copyButton).exists()).toBe(false)
+        })
+
+        it('hides both buttons while the code view is shown', async () => {
+            const wrapper = await mountPreview()
+
+            await showCode(wrapper)
+
+            expect(wrapper.find(downloadButton).exists()).toBe(false)
+            expect(wrapper.find(copyButton).exists()).toBe(false)
+        })
+
+        it('downloads the rendered component as a PNG named after it', async () => {
+            const click = vi.spyOn(HTMLAnchorElement.prototype, 'click').mockImplementation(() => {})
+            const wrapper = await mountPreview()
+
+            await wrapper.find(downloadButton).trigger('click')
+            await vi.waitFor(() => expect(click).toHaveBeenCalled())
+
+            expect(toBlob).toHaveBeenCalledTimes(1)
+            expect(toBlob.mock.calls[0]![1]).toMatchObject({ pixelRatio: 2 })
+            expect(click.mock.contexts[0]).toMatchObject({ download: 'kbd.png' })
+
+            click.mockRestore()
+        })
+
+        it('copies the rendered component to the clipboard as an image', async () => {
+            const write = vi.fn().mockResolvedValue(undefined)
+            vi.stubGlobal('ClipboardItem', class { constructor(public items: Record<string, Blob>) {} })
+            Object.defineProperty(navigator, 'clipboard', { value: { write }, configurable: true })
+            const wrapper = await mountPreview()
+
+            await wrapper.find(copyButton).trigger('click')
+            await vi.waitFor(() => expect(write).toHaveBeenCalledTimes(1))
+
+            const [items] = write.mock.calls[0]![0]
+            expect(Object.keys(items.items)).toEqual(['image/png'])
+
+            vi.unstubAllGlobals()
+        })
     })
 })

@@ -144,17 +144,17 @@ props: [
     },
     {
         "name": "resultTextMultiplePages",
-        "default": "'Showing {from} to {to} of {total} results'",
+        "default": "useDSConfig().pagination.resultTextMultiplePages()",
         "type": "string"
     },
     {
         "name": "resultTextSinglePage",
-        "default": "'Showing {total} results'",
+        "default": "useDSConfig().pagination.resultTextSinglePage()",
         "type": "string"
     },
     {
         "name": "resultTextSingleItem",
-        "default": "'Showing {total} result'",
+        "default": "useDSConfig().pagination.resultTextSingleItem()",
         "type": "string"
     },
     {
@@ -164,17 +164,17 @@ props: [
     },
     {
         "name": "ariaLabelPrevious",
-        "default": "'Previous page'",
+        "default": "useDSConfig().pagination.previousPageText()",
         "type": "string"
     },
     {
         "name": "ariaLabelNext",
-        "default": "'Next page'",
+        "default": "useDSConfig().pagination.nextPageText()",
         "type": "string"
     },
     {
         "name": "ariaLabelPage",
-        "default": "'Page {page}'",
+        "default": "useDSConfig().pagination.pageText()",
         "type": "string"
     },
 ]
@@ -341,7 +341,7 @@ interface PaginationRowPerPageOption {
 
 ### resultTextMultiplePages
 
-Sets the result text for multiple pages.
+Sets the result text for multiple pages. Falls back to `useDSConfig().pagination.resultTextMultiplePages()`.
 
 ```vue
 <template>
@@ -355,7 +355,7 @@ Sets the result text for multiple pages.
 
 ### resultTextSinglePage
 
-Sets the result text for a single page.
+Sets the result text for a single page. Falls back to `useDSConfig().pagination.resultTextSinglePage()`.
 
 ```vue
 <template>
@@ -369,7 +369,7 @@ Sets the result text for a single page.
 
 ### resultTextSingleItem
 
-Sets the result text for a single item.
+Sets the result text for a single item. Falls back to `useDSConfig().pagination.resultTextSingleItem()`.
 
 ```vue
 <template>
@@ -398,7 +398,7 @@ Sets the viewport width (in pixels) below which the pagination switches to its m
 
 ### ariaLabelPrevious
 
-Sets the `aria-label` for the previous page button.
+Sets the `aria-label` for the previous page button. Falls back to `useDSConfig().pagination.previousPageText()`.
 
 ```vue
 <template>
@@ -409,11 +409,11 @@ Sets the `aria-label` for the previous page button.
 ```
 
 - **Type:** `string`
-- **Default:** `'Previous page'`
+- **Default:** `useDSConfig().pagination.previousPageText()`
 
 ### ariaLabelNext
 
-Sets the `aria-label` for the next page button.
+Sets the `aria-label` for the next page button. Falls back to `useDSConfig().pagination.nextPageText()`.
 
 ```vue
 <template>
@@ -424,11 +424,11 @@ Sets the `aria-label` for the next page button.
 ```
 
 - **Type:** `string`
-- **Default:** `'Next page'`
+- **Default:** `useDSConfig().pagination.nextPageText()`
 
 ### ariaLabelPage
 
-Sets the `aria-label` template for each page number button. The `{page}` placeholder is replaced with the button's page number.
+Sets the `aria-label` template for each page number button. The `{page}` placeholder is replaced with the button's page number. Falls back to `useDSConfig().pagination.pageText()`.
 
 ```vue
 <template>
@@ -439,4 +439,4 @@ Sets the `aria-label` template for each page number button. The `{page}` placeho
 ```
 
 - **Type:** `string`
-- **Default:** `'Page {page}'`
+- **Default:** `useDSConfig().pagination.pageText()`

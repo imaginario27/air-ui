@@ -5,6 +5,18 @@ All notable changes to this package are documented in this file.
 Historical releases were reconstructed from git history (GitHub repository) and npm publish dates.
 Future releases will include detailed entries generated with Changesets.
 
+## 1.21.0 - 2026-10-06
+
+Release type: minor.
+Commits found in range: 2.
+
+### Added
+
+1. add step switch item types to dropdown menus ([766ec75](https://github.com/imaginario27/air-ui/commit/766ec7588c7ccaefe37ee5654791aad08e359722))
+2. add StepSwitch and StepSwitchField components ([85cb618](https://github.com/imaginario27/air-ui/commit/85cb61815f4d63639b33a32dc098cd16e2b2d137))
+
+- Package: @imaginario27/air-ui-ds.
+
 ## 1.20.4 - 2026-10-06
 
 Release type: patch.
