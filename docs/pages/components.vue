@@ -7,7 +7,7 @@
         <SectionBody>
             <Heading 
                 :title
-                description="Explore the official AirUI component library — including buttons, forms, modals, and more."
+                description="Explore the official AirUI component library, including buttons, forms, modals, and more."
                 :align="Align.CENTER"
                 headingTag="h1"
             />

@@ -1,15 +1,14 @@
 ## What is Air UI?
 
-Air UI is a modern component and utility framework built on **Vue**, **Nuxt**, and **Tailwind CSS**, designed to accelerate development while maintaining full design freedom. It provides:
+Air UI is a component and utility framework built on **Vue**, **Nuxt**, and **Tailwind CSS**. It provides:
 
-- A consistent and themeable design system
-- Fully typed, reusable components and utilities
+- A themeable design system based on semantic tokens
+- Typed, reusable components and utilities
 - Auto-imported composables and helpers in Nuxt
-- Optimized setup for performance and scalability
 
-### Built on modular packages
+### Built on two packages
 
-Air UI is composed of two focused, modular packages, each designed to serve a specific purpose in your application architecture:
+Air UI is split into two packages, so you can install only the part you need:
 
 
 
@@ -20,7 +19,7 @@ cols: 2
 ::feature-card
 ---
 title: '@imaginario27/air-ui-ds'
-description: 'Provides a fully typed component library, design tokens, themes, and composables tailored for Vue and Nuxt projects. Ideal for building consistent UI across applications.'
+description: 'Typed component library, design tokens, themes, and composables for Vue and Nuxt projects.'
 ---
 #footer
 ::card-actions
@@ -41,7 +40,7 @@ iconPosition: 'left'
 ::feature-card
 ---
 title: '@imaginario27/air-ui-utils'
-description: 'A standalone utility package offering reusable, type-safe logic and composables. Designed for Nuxt but suitable for any modern JavaScript or TypeScript project.'
+description: 'Standalone, type-safe utilities and composables. Built for Nuxt, usable in any JavaScript or TypeScript project.'
 ---
 #footer
 ::card-actions
@@ -68,7 +67,7 @@ iconPosition: 'left'
 ::feature-card
 ---
 title: 'Vue + Composition API'
-description: 'Built entirely with Vue 3’s Composition API and TypeScript. Designed for modular, reactive architecture with auto-imported support in Nuxt.'
+description: 'Written with Vue 3’s Composition API and TypeScript, and auto-imported in Nuxt.'
 icon: 'mdi:vuejs'
 containedIconStyleType: 'flat'
 ---
@@ -77,7 +76,7 @@ containedIconStyleType: 'flat'
 ::feature-card
 ---
 title: 'Nuxt integration'
-description: 'Air UI is optimized for Nuxt, supporting auto-import of all components and composables, with zero configuration required.'
+description: 'All components and composables are auto-imported, with no extra configuration.'
 icon: 'mdi:nuxt'
 containedIconStyleType: 'flat'
 ---
@@ -86,7 +85,7 @@ containedIconStyleType: 'flat'
 ::feature-card
 ---
 title: 'Tailwind CSS'
-description: 'Air UI uses the latest Tailwind CSS, enabling full design flexibility via utility classes, and supporting custom themes via CSS variables.'
+description: 'Built on Tailwind CSS v4. Components use utility classes, and themes are customized through CSS variables.'
 icon: 'mdi:tailwind'
 containedIconStyleType: 'flat'
 ---
@@ -104,9 +103,8 @@ containedIconStyleType: 'flat'
 
 ### Component Library
 
-- Ready-to-use Vue components
-- Fully typed with TS support
-- Drop-in integration with Nuxt auto-import
+- Vue components with typed props, slots, and emits
+- Auto-imported in Nuxt
 
 ### Utility-first architecture
 
@@ -118,22 +116,20 @@ containedIconStyleType: 'flat'
   - **Navigation and page helpers**
   - **PDF generation**
   - **User and password utilities**
-- Fully compatible with Nuxt's auto-import system
-- Modular by design: use only what you need
+- Auto-imported in Nuxt, so you only use what you need
 
 
 ### Developer experience
 
-- Full TypeScript support with IntelliSense
-- Tested with Vitest, Vue Test Utils, and Nuxt Test Utils
-- Consistent, composable API design
+- TypeScript support with IntelliSense
+- Tested with Vitest and Vue Test Utils
 
 
 ## TypeScript support
 
-Air UI provides a complete type-safe experience across both UI components and utilities:
+Both packages are written in TypeScript:
 
-* **Props, slots, and events** are fully typed
-* **Composables** return strongly-typed reactive values
-* **Design tokens** are generated and typed automatically
-* Supports **IntelliSense** in both Nuxt and Vue projects
+* **Props, slots, and events** are typed
+* **Composables** return typed reactive values
+* **Design tokens** are exposed as typed CSS variables
+* **IntelliSense** works in Nuxt and Vue projects

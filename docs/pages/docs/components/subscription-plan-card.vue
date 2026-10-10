@@ -14,7 +14,7 @@ definePageMeta({
     title: 'Subscription plan card',
     layout: 'docs',
     overtitle: 'Components',
-    description: 'Presents pricing details, plan features, and a call-to-action for a subscription tier—commonly used in pricing sections to help users compare and select plans.',
+    description: 'Presents pricing details, plan features, and a call-to-action for a subscription tier. Commonly used in pricing sections to help users compare and select plans.',
 })
 
 // Route
