@@ -1,6 +1,7 @@
 import { mount, flushPromises } from '@vue/test-utils'
 import TreeView from '~/components/tree-views/TreeView.vue'
 import { TreeViewSelectionMode, TreeViewDropPosition } from '@/models/enums/tree-view'
+import { SortOrder } from '@/models/enums/order'
 import type { TreeViewNode } from '@/models/types/treeView'
 
 const nodes: TreeViewNode[] = [
@@ -946,6 +947,81 @@ describe('TreeView', () => {
             ])
         })
 
+        it('shows the drop placeholder on the row under the cursor and clears it afterwards', async () => {
+            const wrapper = factory({ isReorderable: true, expandedValue: ['src'] })
+            const target = item(wrapper, 'index')
+            vi.spyOn(target.element, 'getBoundingClientRect').mockReturnValue({ top: 0, height: 100 } as DOMRect)
+
+            await item(wrapper, 'package').trigger('dragstart')
+            await target.trigger('dragover', { clientY: 10 })
+            expect(target.find('[data-testid="tree-view-drop-indicator"]').classes()).toContain('top-0')
+
+            await target.trigger('dragover', { clientY: 90 })
+            expect(target.find('[data-testid="tree-view-drop-indicator"]').classes()).toContain('bottom-0')
+
+            await item(wrapper, 'package').trigger('dragend')
+            expect(wrapper.find('[data-testid="tree-view-drop-indicator"]').exists()).toBe(false)
+        })
+
+        it('emits the moved tree as update:nodes and opens the folder it was dropped into', async () => {
+            const wrapper = factory({ isReorderable: true })
+
+            await dropOn(wrapper, 'package', 'src', 0.5)
+
+            const moved = wrapper.emitted('update:nodes')?.[0]?.[0] as TreeViewNode[]
+            expect(moved.map(node => node.value)).toEqual(['src', 'readme'])
+            expect(moved[0]!.children!.map(node => node.value)).toEqual(['app', 'index', 'package'])
+            expect(wrapper.emitted('update:expandedValue')?.at(-1)).toEqual([['src']])
+        })
+
+        it('moves a folder inside another folder and drops into empty folders', async () => {
+            const tree: TreeViewNode[] = [
+                { value: 'a', label: 'a', children: [{ value: 'a1', label: 'a1' }] },
+                { value: 'b', label: 'b', children: [] },
+            ]
+            const wrapper = factory({ nodes: tree, isReorderable: true })
+
+            await dropOn(wrapper, 'a', 'b', 0.5)
+
+            const moved = wrapper.emitted('update:nodes')?.[0]?.[0] as TreeViewNode[]
+            expect(moved).toHaveLength(1)
+            expect(moved[0]!.value).toBe('b')
+            expect(moved[0]!.children![0]!.children![0]!.value).toBe('a1')
+        })
+
+        it('does not emit update:nodes when the move involves lazy-loaded nodes', async () => {
+            const loadChildren = vi.fn(async () => [{ value: 'child', label: 'child' }])
+            const wrapper = factory({
+                nodes: [{ value: 'remote', label: 'remote', hasChildren: true }, { value: 'file', label: 'file' }],
+                loadChildren,
+                isReorderable: true,
+            })
+
+            await item(wrapper, 'remote').trigger('click')
+            await flushPromises()
+            await dropOn(wrapper, 'child', 'file', 0.9)
+
+            expect(wrapper.emitted('reorder')).toHaveLength(1)
+            expect(wrapper.emitted('update:nodes')).toBeUndefined()
+        })
+
+        it('keeps the drop placeholder while the pointer stays inside the row and clears it when it leaves', async () => {
+            const wrapper = factory({ isReorderable: true, expandedValue: ['src'] })
+            const target = item(wrapper, 'index')
+            vi.spyOn(target.element, 'getBoundingClientRect')
+                .mockReturnValue({ top: 0, bottom: 100, left: 0, right: 200, height: 100 } as DOMRect)
+
+            await item(wrapper, 'package').trigger('dragstart')
+            await target.trigger('dragover', { clientX: 50, clientY: 90 })
+
+            // Crossing a child element fires dragleave while the pointer is still inside the row
+            await target.trigger('dragleave', { clientX: 50, clientY: 60 })
+            expect(target.find('[data-testid="tree-view-drop-indicator"]').exists()).toBe(true)
+
+            await target.trigger('dragleave', { clientX: 50, clientY: 140 })
+            expect(target.find('[data-testid="tree-view-drop-indicator"]').exists()).toBe(false)
+        })
+
         it('rejects dropping a node on itself, its descendants or a disabled node', async () => {
             const wrapper = factory({ isReorderable: true, expandedValue: ['src'] })
 
@@ -954,6 +1030,167 @@ describe('TreeView', () => {
             await dropOn(wrapper, 'package', 'readme', 0.5)
 
             expect(wrapper.emitted('reorder')).toBeUndefined()
+        })
+    })
+    describe('sorting', () => {
+        const unsorted: TreeViewNode[] = [
+            { value: 'b', label: 'b.txt', meta: { size: 30 } },
+            { value: 'a10', label: 'A10.txt', meta: { size: 10 } },
+            { value: 'dir', label: 'Zeta', children: [{ value: 'child-b', label: 'b' }, { value: 'child-a', label: 'a' }] },
+            { value: 'a2', label: 'a2.txt', meta: { size: 20 } },
+        ]
+
+        it('keeps the given order by default', () => {
+            expect(values(factory({ nodes: unsorted }))).toEqual(['b', 'a10', 'dir', 'a2'])
+        })
+
+        it('sorts labels naturally and case-insensitively, ascending and descending', () => {
+            expect(values(factory({ nodes: unsorted, sortOrder: SortOrder.ASC }))).toEqual(['a2', 'a10', 'b', 'dir'])
+            expect(values(factory({ nodes: unsorted, sortOrder: SortOrder.DESC }))).toEqual(['dir', 'b', 'a10', 'a2'])
+        })
+
+        it('sorts nested levels and numbers aria-posinset after sorting', () => {
+            const wrapper = factory({ nodes: unsorted, sortOrder: SortOrder.ASC, expandedValue: ['dir'] })
+
+            expect(values(wrapper)).toEqual(['a2', 'a10', 'b', 'dir', 'child-a', 'child-b'])
+            expect(item(wrapper, 'a10').attributes('aria-posinset')).toBe('2')
+            expect(item(wrapper, 'child-a').attributes('aria-posinset')).toBe('1')
+        })
+
+        it('puts folders first and keeps the order inside each group', () => {
+            expect(values(factory({ nodes: unsorted, foldersFirst: true }))).toEqual(['dir', 'b', 'a10', 'a2'])
+            expect(values(factory({ nodes: unsorted, foldersFirst: true, sortOrder: SortOrder.ASC })))
+                .toEqual(['dir', 'a2', 'a10', 'b'])
+        })
+
+        it('uses sortCompare over sortOrder', () => {
+            const sortCompare = (a: TreeViewNode, b: TreeViewNode) => Number(a.meta?.size ?? 0) - Number(b.meta?.size ?? 0)
+
+            expect(values(factory({ nodes: unsorted, sortCompare, sortOrder: SortOrder.DESC })))
+                .toEqual(['dir', 'a10', 'a2', 'b'])
+        })
+
+        it('never changes nodes', () => {
+            const wrapper = factory({ nodes: unsorted, sortOrder: SortOrder.ASC })
+
+            expect(wrapper.props('nodes').map((node: TreeViewNode) => node.value)).toEqual(['b', 'a10', 'dir', 'a2'])
+        })
+    })
+
+    describe('reorder while sorted', () => {
+        const tree: TreeViewNode[] = [
+            { value: 'docs', label: 'docs', children: [{ value: 'readme', label: 'readme.md' }] },
+            { value: 'src', label: 'src', children: [] },
+            { value: 'a', label: 'a.txt' },
+            { value: 'b', label: 'b.txt' },
+        ]
+
+        const drag = async (wrapper: ReturnType<typeof factory>, source: string, target: string, ratio: number) => {
+            const targetRow = item(wrapper, target)
+            vi.spyOn(targetRow.element, 'getBoundingClientRect').mockReturnValue({ top: 0, height: 100 } as DOMRect)
+
+            await item(wrapper, source).trigger('dragstart')
+            await targetRow.trigger('dragover', { clientY: ratio * 100 })
+        }
+
+        const sorted = (props: Record<string, unknown> = {}) => {
+            return factory({ nodes: tree, isReorderable: true, sortOrder: SortOrder.ASC, ...props })
+        }
+
+        it('ignores before and after drops on files', async () => {
+            const wrapper = sorted()
+
+            await drag(wrapper, 'a', 'b', 0.9)
+            expect(wrapper.find('[data-testid="tree-view-drop-indicator"]').exists()).toBe(false)
+
+            await item(wrapper, 'b').trigger('drop', { clientY: 90 })
+            expect(wrapper.emitted('reorder')).toBeUndefined()
+        })
+
+        it('treats any pointer position over a folder as a drop inside it, empty folders included', async () => {
+            const wrapper = sorted()
+
+            await drag(wrapper, 'a', 'src', 0.1)
+            expect(item(wrapper, 'src').classes()).toContain('ring-inset')
+
+            await item(wrapper, 'src').trigger('drop', { clientY: 10 })
+
+            expect(wrapper.emitted('reorder')?.[0]).toEqual([
+                { value: 'a', targetValue: 'src', position: TreeViewDropPosition.INSIDE, parentValue: 'src' },
+            ])
+            const moved = wrapper.emitted('update:nodes')?.[0]?.[0] as TreeViewNode[]
+            expect(moved.find(node => node.value === 'src')?.children?.map(node => node.value)).toEqual(['a'])
+        })
+
+        it('moves a node into the list of a folder when dropped on one of its files', async () => {
+            const wrapper = sorted({ expandedValue: ['docs'] })
+
+            await drag(wrapper, 'a', 'readme', 0.5)
+
+            expect(item(wrapper, 'docs').classes()).toContain('ring-inset')
+            expect(wrapper.find('[data-testid="tree-view-drop-indicator"]').exists()).toBe(false)
+
+            await item(wrapper, 'readme').trigger('drop', { clientY: 50 })
+
+            expect(wrapper.emitted('reorder')?.[0]).toEqual([
+                { value: 'a', targetValue: 'readme', position: TreeViewDropPosition.AFTER, parentValue: 'docs' },
+            ])
+            const moved = wrapper.emitted('update:nodes')?.[0]?.[0] as TreeViewNode[]
+            expect(moved.find(node => node.value === 'docs')?.children?.map(node => node.value)).toEqual(['readme', 'a'])
+            expect(moved.map(node => node.value)).toEqual(['docs', 'src', 'b'])
+        })
+
+        it('moves a node to the root level when dropped on a root file, highlighting the whole list', async () => {
+            const wrapper = sorted({ expandedValue: ['docs'] })
+
+            await drag(wrapper, 'readme', 'b', 0.5)
+
+            expect(wrapper.find('[data-testid="tree-view-root"]').classes()).toContain('ring-inset')
+
+            await item(wrapper, 'b').trigger('drop', { clientY: 50 })
+
+            expect(wrapper.emitted('reorder')?.[0]).toEqual([
+                { value: 'readme', targetValue: 'b', position: TreeViewDropPosition.AFTER, parentValue: null },
+            ])
+            const moved = wrapper.emitted('update:nodes')?.[0]?.[0] as TreeViewNode[]
+            expect(moved.map(node => node.value)).toEqual(['docs', 'src', 'a', 'b', 'readme'])
+            expect(wrapper.find('[data-testid="tree-view-root"]').classes()).not.toContain('ring-inset')
+        })
+
+        it('ignores a drop on a file of the list the node already belongs to', async () => {
+            const wrapper = sorted({ expandedValue: ['docs'] })
+
+            await drag(wrapper, 'a', 'b', 0.5)
+
+            expect(wrapper.find('[data-testid="tree-view-root"]').classes()).not.toContain('ring-inset')
+        })
+
+        it('ignores a drop on the folder the node already lives in', async () => {
+            const wrapper = sorted({ expandedValue: ['docs'] })
+
+            await drag(wrapper, 'readme', 'docs', 0.5)
+
+            expect(item(wrapper, 'docs').classes()).not.toContain('ring-inset')
+        })
+
+        it('keeps the before and after placeholders when no sort is active', async () => {
+            const wrapper = factory({ nodes: tree, isReorderable: true })
+
+            await drag(wrapper, 'a', 'b', 0.9)
+
+            expect(item(wrapper, 'b').find('[data-testid="tree-view-drop-indicator"]').exists()).toBe(true)
+        })
+    })
+
+    describe('meta', () => {
+        it('lets slots read the free-form meta of a node', () => {
+            const wrapper = factory({
+                nodes: [{ value: 'file', label: 'file.txt', meta: { size: 2048 } }],
+            }, {
+                trailing: '<template #trailing="{ node }"><span data-testid="size">{{ node.meta?.size }} B</span></template>',
+            })
+
+            expect(wrapper.find('[data-testid="size"]').text()).toBe('2048 B')
         })
     })
 })
