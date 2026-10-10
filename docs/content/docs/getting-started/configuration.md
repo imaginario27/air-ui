@@ -4,7 +4,7 @@ AirUI exposes a small set of behaviors as shared, reactive configuration instead
 
 There are two config composables, one per package:
 
-- `useDSConfig` (from `@imaginario27/air-ui-ds`): text used by components, grouped under `forms`, `actions` and `common`.
+- `useDSConfig` (from `@imaginario27/air-ui-ds`): text used by components, grouped under `forms`, `actions`, `common`, `pagination`, `gallery` and `lightbox`.
 - `useUtilsConfig` (from `@imaginario27/air-ui-utils`): messages used by the framework-agnostic form validators in `air-ui-utils`, grouped under `validation`.
 
 <br/>
@@ -60,6 +60,30 @@ export default defineNuxtPlugin(() => {
     /* Shared text used across multiple component types */
     Object.assign(dsConfig.common, {
         loadingText: () => 'Loading...',
+    })
+
+    /* Text used by ButtonPagination, SimplePagination and the Gallery pagination */
+    Object.assign(dsConfig.pagination, {
+        resultTextMultiplePages: () => 'Showing {from} to {to} of {total} results',
+        resultTextSinglePage: () => 'Showing {total} results',
+        resultTextSingleItem: () => 'Showing {total} result',
+        previousPageText: () => 'Previous page',
+        nextPageText: () => 'Next page',
+        pageText: () => 'Page {page}',
+    })
+
+    /* Text used by the Gallery component */
+    Object.assign(dsConfig.gallery, {
+        loadMoreText: () => 'Load more',
+    })
+
+    /* Text used by the Lightbox and Image components */
+    Object.assign(dsConfig.lightbox, {
+        dialogText: () => 'Image lightbox',
+        openImageText: () => 'Open image',
+        previousText: () => 'Previous image',
+        nextText: () => 'Next image',
+        fullscreenText: () => 'Toggle fullscreen',
     })
 })
 ```

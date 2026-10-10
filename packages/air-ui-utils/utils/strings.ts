@@ -90,6 +90,22 @@ export const uppercaseFirstLetter = (str: string): string => {
     return str.charAt(0).toUpperCase() + str.slice(1)
 }
 
+const REDUNDANT_ALT_PREFIX = /^(?:image|picture|photo|imagen|foto)(?:\s+(?:of|de|del))?(?:\s*[:\-–])?\s+/i
+const REDUNDANT_ALT_SUFFIX = /\s(?:image|picture|photo|imagen|foto)$/i
+
+/**
+ * Strips the redundant "image" wording from alt text, since screen readers already announce an <img> as an image.
+ *
+ * @param {string | null | undefined} alt - The raw alt text, e.g. "Image of a calm landscape".
+ * @returns {string} The alt text without a leading "image of" / "imagen de" or a trailing "image", e.g. "a calm landscape".
+ */
+export const cleanImageAlt = (alt: string | null | undefined): string => {
+    const original = (alt ?? '').trim()
+    const cleaned = original.replace(REDUNDANT_ALT_PREFIX, '').replace(REDUNDANT_ALT_SUFFIX, '').trim()
+    // Keep the original when stripping would leave nothing, e.g. an alt that is just "Image"
+    return cleaned || original
+}
+
 /**
  * Extracts the last four digits from a given credit card number.
  *

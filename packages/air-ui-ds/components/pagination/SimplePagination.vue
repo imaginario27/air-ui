@@ -4,7 +4,7 @@
             icon="mdi:chevron-left"
             :styleType="ButtonStyleType.NEUTRAL_TRANSPARENT"
             :disabled="modelValue === 1"
-            :ariaLabel="previousPageAriaLabel"
+            :ariaLabel="resolvedPreviousPageAriaLabel"
             :class="[
                 'bg-transparent transition-colors duration-200 ease-out',
                 modelValue > 1 && 'hover:border border-border-default',
@@ -18,7 +18,7 @@
             icon="mdi:chevron-right"
             :styleType="ButtonStyleType.NEUTRAL_TRANSPARENT"
             :disabled="modelValue === totalPages"
-            :ariaLabel="nextPageAriaLabel"
+            :ariaLabel="resolvedNextPageAriaLabel"
             :class="[
                 'bg-transparent transition-colors duration-200 ease-out',
                 modelValue < totalPages && 'hover:border border-border-default',
@@ -46,30 +46,34 @@ const props = defineProps({
     },
     resultTextMultiplePages: {
         type: String as PropType<string>,
-        default: 'Showing {from} to {to} of {total} results',
     },
     resultTextSinglePage: {
         type: String as PropType<string>,
-        default: 'Showing {total} results',
     },
     resultTextSingleItem: {
         type: String as PropType<string>,
-        default: 'Showing {total} result',
     },
     previousPageAriaLabel: {
         type: String as PropType<string>,
-        default: 'Previous page',
     },
     nextPageAriaLabel: {
         type: String as PropType<string>,
-        default: 'Next page',
     },
 })
 
 // Emits
 const emit = defineEmits(["update:modelValue"])
 
+// Composables
+const dsConfig = useDSConfig()
+
 // Computed
+const resolvedResultTextMultiplePages = computed(() => props.resultTextMultiplePages ?? dsConfig.pagination.resultTextMultiplePages())
+const resolvedResultTextSinglePage = computed(() => props.resultTextSinglePage ?? dsConfig.pagination.resultTextSinglePage())
+const resolvedResultTextSingleItem = computed(() => props.resultTextSingleItem ?? dsConfig.pagination.resultTextSingleItem())
+const resolvedPreviousPageAriaLabel = computed(() => props.previousPageAriaLabel ?? dsConfig.pagination.previousPageText())
+const resolvedNextPageAriaLabel = computed(() => props.nextPageAriaLabel ?? dsConfig.pagination.nextPageText())
+
 const totalPages = computed(() => Math.ceil(props.totalItems / props.itemsPerPage))
 
 const from = computed(() => (props.modelValue - 1) * props.itemsPerPage + 1)
@@ -77,18 +81,18 @@ const to = computed(() => Math.min(props.modelValue * props.itemsPerPage, props.
 
 const computedResultsText = computed(() => {
     if (props.totalItems > props.itemsPerPage) {
-        return props.resultTextMultiplePages
+        return resolvedResultTextMultiplePages.value
             .replace('{from}', from.value.toString())
             .replace('{to}', to.value.toString())
             .replace('{total}', props.totalItems.toString())
     }
 
     if (props.totalItems === 1) {
-        return props.resultTextSingleItem
+        return resolvedResultTextSingleItem.value
             .replace('{total}', '1')
     }
 
-    return props.resultTextSinglePage
+    return resolvedResultTextSinglePage.value
         .replace('{total}', props.totalItems.toString())
 })
 

@@ -1,6 +1,7 @@
 import { mount } from '@vue/test-utils'
 import { ref } from 'vue'
 import ButtonPagination from '@/components/pagination/ButtonPagination.vue'
+import { useDSConfig } from '@/composables/useDSConfig'
 
 const { useIsMobileSpy } = vi.hoisted(() => ({
     useIsMobileSpy: vi.fn()
@@ -257,5 +258,33 @@ describe('ButtonPagination - mobile behavior', () => {
 
         const pages = wrapper.findAllComponents({ name: 'PaginationButton' }).filter(btn => btn.text().match(/^\d+$/))
         expect(pages.length).toBeLessThanOrEqual(4)
+    })
+    describe('DS config texts', () => {
+        afterEach(() => {
+            const config = useDSConfig()
+            config.pagination.resultTextMultiplePages = () => 'Showing {from} to {to} of {total} results'
+            config.pagination.nextPageText = () => 'Next page'
+        })
+
+        it('uses the texts from the DS config', () => {
+            const config = useDSConfig()
+            config.pagination.resultTextMultiplePages = () => 'Mostrando {from} a {to} de {total}'
+            config.pagination.nextPageText = () => 'Siguiente'
+
+            const wrapper = factory()
+            const next = wrapper.findAllComponents({ name: 'PaginationButton' }).find(btn => btn.props('ariaLabel') === 'Siguiente')
+
+            expect(wrapper.text()).toContain('Mostrando 11 a 20 de 100')
+            expect(next).toBeDefined()
+        })
+
+        it('prefers the props over the DS config', () => {
+            const config = useDSConfig()
+            config.pagination.resultTextMultiplePages = () => 'Mostrando {from} a {to} de {total}'
+
+            const wrapper = factory({ resultTextMultiplePages: 'Prop {from}-{to}/{total}' })
+
+            expect(wrapper.text()).toContain('Prop 11-20/100')
+        })
     })
 })

@@ -24,6 +24,24 @@ const dsConfig = reactive<DesignSystemConfig>({
     common: {
         loadingText: () => 'Loading...',
     },
+    pagination: {
+        resultTextMultiplePages: () => 'Showing {from} to {to} of {total} results',
+        resultTextSinglePage: () => 'Showing {total} results',
+        resultTextSingleItem: () => 'Showing {total} result',
+        previousPageText: () => 'Previous page',
+        nextPageText: () => 'Next page',
+        pageText: () => 'Page {page}',
+    },
+    gallery: {
+        loadMoreText: () => 'Load more',
+    },
+    lightbox: {
+        dialogText: () => 'Image lightbox',
+        openImageText: () => 'Open image',
+        previousText: () => 'Previous image',
+        nextText: () => 'Next image',
+        fullscreenText: () => 'Toggle fullscreen',
+    },
 })
 
 export const useDSConfig = () => dsConfig

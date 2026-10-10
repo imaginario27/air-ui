@@ -24,4 +24,22 @@ export interface DesignSystemConfig {
     common: {
         loadingText: () => string
     }
+    pagination: {
+        resultTextMultiplePages: () => string
+        resultTextSinglePage: () => string
+        resultTextSingleItem: () => string
+        previousPageText: () => string
+        nextPageText: () => string
+        pageText: () => string
+    }
+    gallery: {
+        loadMoreText: () => string
+    }
+    lightbox: {
+        dialogText: () => string
+        openImageText: () => string
+        previousText: () => string
+        nextText: () => string
+        fullscreenText: () => string
+    }
 }

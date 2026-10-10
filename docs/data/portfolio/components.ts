@@ -508,6 +508,21 @@ export const componentList: ComponentPortfolioItem[] = [
         title: 'Images',
     },
     {
+        title: 'Gallery',
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/gallery`,
+        imgUrl: `/images/thumbnails/components/gallery.png`,
+    },
+    {
+        title: 'Image',
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/image`,
+        imgUrl: `/images/thumbnails/components/image.png`,
+    },
+    {
+        title: 'Lightbox',
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/lightbox`,
+        imgUrl: `/images/thumbnails/components/lightbox.png`,
+    },
+    {
         title: 'QRCode',
         to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/qr-code`,
         imgUrl: `/images/thumbnails/components/qr-code.png`,

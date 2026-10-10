@@ -56,7 +56,7 @@
                 <PaginationButton
                     :styleType
                     :disabled="modelValue === 1"
-                    :ariaLabel="ariaLabelPrevious"
+                    :ariaLabel="resolvedAriaLabelPrevious"
                     @click="goToPreviousPage"
                 >
                     <Icon
@@ -117,7 +117,7 @@
                 <PaginationButton
                     :styleType
                     :disabled="modelValue === totalPages"
-                    :ariaLabel="ariaLabelNext"
+                    :ariaLabel="resolvedAriaLabelNext"
                     @click="goToNextPage"
                 >
                     <Icon 
@@ -158,15 +158,12 @@ const props = defineProps({
     rowsPerPageOptions: Array as PropType<PaginationRowPerPageOption[]>,
     resultTextMultiplePages: {
         type: String as PropType<string>,
-        default: 'Showing {from} to {to} of {total} results',
     },
     resultTextSinglePage: {
         type: String as PropType<string>,
-        default: 'Showing {total} results',
     },
     resultTextSingleItem: {
         type: String as PropType<string>,
-        default: 'Showing {total} result',
     },
     mobileBreakpoint: {
         type: Number as PropType<number>,
@@ -174,20 +171,18 @@ const props = defineProps({
     },
     ariaLabelPrevious: {
         type: String as PropType<string>,
-        default: 'Previous page',
     },
     ariaLabelNext: {
         type: String as PropType<string>,
-        default: 'Next page',
     },
     ariaLabelPage: {
         type: String as PropType<string>,
-        default: 'Page {page}',
     },
 })
 
 // Composables
 const { isMobile } = useIsMobile(() => props.mobileBreakpoint)
+const dsConfig = useDSConfig()
 
 // States
 const itemsPerPage = ref(props.itemsPerPage)
@@ -196,6 +191,13 @@ const itemsPerPage = ref(props.itemsPerPage)
 const emit = defineEmits(["update:modelValue", "update:itemsPerPage"])
 
 // Computed
+const resolvedResultTextMultiplePages = computed(() => props.resultTextMultiplePages ?? dsConfig.pagination.resultTextMultiplePages())
+const resolvedResultTextSinglePage = computed(() => props.resultTextSinglePage ?? dsConfig.pagination.resultTextSinglePage())
+const resolvedResultTextSingleItem = computed(() => props.resultTextSingleItem ?? dsConfig.pagination.resultTextSingleItem())
+const resolvedAriaLabelPrevious = computed(() => props.ariaLabelPrevious ?? dsConfig.pagination.previousPageText())
+const resolvedAriaLabelNext = computed(() => props.ariaLabelNext ?? dsConfig.pagination.nextPageText())
+const resolvedAriaLabelPage = computed(() => props.ariaLabelPage ?? dsConfig.pagination.pageText())
+
 const totalPages = computed(() => Math.ceil(props.totalItems / itemsPerPage.value))
 
 // Visible pages logic with ellipsis
@@ -241,7 +243,7 @@ const to = computed(() => Math.min(props.modelValue * itemsPerPage.value, props.
 const renderedResultsText = computed(() => {
     // Multi-page case
     if (props.totalItems > itemsPerPage.value) {
-        return props.resultTextMultiplePages
+        return resolvedResultTextMultiplePages.value
             .replace('{from}', from.value.toString())
             .replace('{to}', to.value.toString())
             .replace('{total}', props.totalItems.toString())
@@ -250,13 +252,13 @@ const renderedResultsText = computed(() => {
 
     // Single item case
     if (props.totalItems === 1) {
-        return props.resultTextSingleItem
+        return resolvedResultTextSingleItem.value
             .replace('{total}', '1')
             .replace('{count}', 'result')
     }
 
     // Single page with multiple results
-    return props.resultTextSinglePage
+    return resolvedResultTextSinglePage.value
         .replace('{total}', props.totalItems.toString())
 })
 
@@ -280,7 +282,7 @@ const handlePageClick = (page: string | number) => {
 
 const pageAriaLabel = (page: string | number) => {
     if (page === '...') return undefined
-    return props.ariaLabelPage.replace('{page}', page.toString())
+    return resolvedAriaLabelPage.value.replace('{page}', page.toString())
 }
 
 // Watchers

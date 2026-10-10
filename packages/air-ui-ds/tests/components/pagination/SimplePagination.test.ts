@@ -1,5 +1,6 @@
 import { mount } from '@vue/test-utils'
 import SimplePagination from '@/components/pagination/SimplePagination.vue'
+import { useDSConfig } from '@/composables/useDSConfig'
 
 const factory = (props = {}) => {
     return mount(SimplePagination, {
@@ -109,5 +110,34 @@ describe('SimplePagination', () => {
         const [prev, next] = wrapper.findAllComponents({ name: 'ActionIconButton' })
         expect(prev.props('ariaLabel')).toBe('Página anterior')
         expect(next.props('ariaLabel')).toBe('Página siguiente')
+    })
+    describe('DS config texts', () => {
+        afterEach(() => {
+            const config = useDSConfig()
+            config.pagination.resultTextMultiplePages = () => 'Showing {from} to {to} of {total} results'
+            config.pagination.previousPageText = () => 'Previous page'
+        })
+
+        it('uses the texts from the DS config', () => {
+            const config = useDSConfig()
+            config.pagination.resultTextMultiplePages = () => 'Mostrando {from} a {to} de {total}'
+            config.pagination.previousPageText = () => 'Anterior'
+
+            const wrapper = factory()
+            const [prev] = wrapper.findAllComponents({ name: 'ActionIconButton' })
+
+            expect(wrapper.get('p.text-sm').text()).toBe('Mostrando 11 a 20 de 50')
+            expect(prev.props('ariaLabel')).toBe('Anterior')
+        })
+
+        it('prefers the props over the DS config', () => {
+            const config = useDSConfig()
+            config.pagination.previousPageText = () => 'Anterior'
+
+            const wrapper = factory({ previousPageAriaLabel: 'Volver' })
+            const [prev] = wrapper.findAllComponents({ name: 'ActionIconButton' })
+
+            expect(prev.props('ariaLabel')).toBe('Volver')
+        })
     })
 })
