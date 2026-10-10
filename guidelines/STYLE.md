@@ -54,7 +54,7 @@ previewBackground: 'white'
 ::
 ```
 
-Section order for every component page: `## Component` → `## Composable` (if any) → `## Props` → `## Slots` (if any) → `## Usage` (one `### <prop>` per prop, each with a `vue` snippet, Type/Default, `#### Options` for enums) → `## Accessibility` → `## Emits` → `## Methods` (if any). Interface-typed props get a `#### TypeScript Interface` block. Full template: `.claude/skills/docs-page/SKILL.md`.
+Section order for every component page: `## Component` → `## Composable` (if any) → `## Props` → `## Slots` (if any) → `## Usage` (one `### <prop>` per prop, each with a `vue` snippet, Type/Default, `#### Options` for enums) → `## Accessibility` → `## Emits` → `## Methods` (if any). Interface-typed props get a `#### TypeScript Interface` block. Form field pages title the error prop `### error (v-model:error)` (bound via `v-model:error`). Full template: `.claude/skills/docs-page/SKILL.md`.
 
 `docs/pages/docs/components/kbd.vue`:
 

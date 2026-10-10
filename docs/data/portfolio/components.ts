@@ -136,6 +136,11 @@ export const componentList: ComponentPortfolioItem[] = [
         imgUrl: `/images/thumbnails/components/progress-circle.png`,
     },
     {
+        title: 'SignaturePad',
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/signature-pad`,
+        imgUrl: `/images/thumbnails/components/signature-pad.png`,
+    },
+    {
         title: 'Slider',
         to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/slider`,
         imgUrl: `/images/thumbnails/components/slider.png`,
@@ -276,6 +281,11 @@ export const componentList: ComponentPortfolioItem[] = [
         title: 'SelectField',
         to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/select-field`,
         imgUrl: `/images/thumbnails/components/select-field.png`,
+    },
+    {
+        title: 'SignatureField',
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/signature-field`,
+        imgUrl: `/images/thumbnails/components/signature-field.png`,
     },
     {
         title: 'SliderField',

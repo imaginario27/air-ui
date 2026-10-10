@@ -118,6 +118,7 @@ Rules:
 - Closely coupled props (e.g. `isFullWidth` and `isMobileFullWidth`) may share one `###`; otherwise one prop = one title.
 - **Whenever a prop uses a specific interface**, add `#### TypeScript Interface` right after the Type/Default lines (and after Options, if any) with a `ts` block of the interface, with short inline comments for non-obvious fields. Same rule for an emit payload or slot-prop interface: add it under that section.
 - Link related props with `[loadChildren](#loadchildren)`.
+- **Form fields (`*Field.vue`)**: the `error` prop is always titled `### error (v-model:error)` and described as "Sets the error message of the field. This prop is bindable via `v-model:error`, allowing two-way syncing of the validation state." Its snippet binds `v-model:error`; Type is `string` and Default is `''`.
 
 ### 6. `## Accessibility`
 
