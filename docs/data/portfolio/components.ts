@@ -148,7 +148,7 @@ export const componentList: ComponentPortfolioItem[] = [
     {
         title: 'TreeView',
         to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/tree-view`,
-        imgUrl: `/images/thumbnails/components/list.png`,
+        imgUrl: `/images/thumbnails/components/tree-view.png`,
     },
     {
         title: 'User',
