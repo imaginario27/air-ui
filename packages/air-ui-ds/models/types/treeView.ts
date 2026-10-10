@@ -16,6 +16,22 @@ export interface TreeRow {
     position: number
 }
 
+export interface TreeViewRenameDetails {
+    value: string
+    label: string
+    previousLabel: string
+}
+
+export interface TreeViewReorderDetails {
+    // Node being moved
+    value: string
+    // Node it was dropped on
+    targetValue: string
+    position: TreeViewDropPosition
+    // New parent of the moved node, `null` for the root level
+    parentValue: string | null
+}
+
 export interface TreeViewMoreActionsDetails {
     isBranch: boolean
     level: number

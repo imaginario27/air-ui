@@ -1,6 +1,6 @@
 import { mount, flushPromises } from '@vue/test-utils'
 import TreeView from '~/components/tree-views/TreeView.vue'
-import { TreeViewSelectionMode } from '@/models/enums/tree-view'
+import { TreeViewSelectionMode, TreeViewDropPosition } from '@/models/enums/tree-view'
 import type { TreeViewNode } from '@/models/types/treeView'
 
 const nodes: TreeViewNode[] = [
@@ -26,6 +26,12 @@ const factory = (props: Record<string, unknown> = {}, slots: Record<string, stri
 
 const items = (wrapper: ReturnType<typeof factory>) => wrapper.findAll('[data-testid="tree-view-item"]')
 const item = (wrapper: ReturnType<typeof factory>, value: string) => wrapper.find(`[data-value="${value}"]`)
+// The more-actions menu is only mounted on a hovered / focused / active row
+const arm = async (wrapper: ReturnType<typeof factory>, ...rowValues: string[]) => {
+    for (const value of rowValues) {
+        await item(wrapper, value).trigger('mouseenter')
+    }
+}
 const values = (wrapper: ReturnType<typeof factory>) => items(wrapper).map(row => row.attributes('data-value'))
 
 describe('TreeView', () => {
@@ -195,16 +201,18 @@ describe('TreeView', () => {
             expect(factory().find('[data-testid="tree-view-more-actions"]').exists()).toBe(false)
         })
 
-        it('renders the same menu on every enabled node when given a list', () => {
+        it('renders the same menu on every enabled node when given a list', async () => {
             const wrapper = factory({ moreActionsItems: items, expandedValue: ['src'] })
 
-            expect(wrapper.findAll('[aria-label="More options"]')).toHaveLength(4)
-            wrapper.findAllComponents({ name: 'DropdownMenu' }).forEach(dropdown => {
-                expect(dropdown.props('items')).toEqual(items)
-            })
+            expect(wrapper.findAll('[data-testid="tree-view-more-actions"]')).toHaveLength(4)
+
+            await arm(wrapper, 'app')
+            const menus = wrapper.findAllComponents({ name: 'DropdownMenu' })
+            expect(menus).toHaveLength(1)
+            expect(menus[0]!.props('items')).toEqual(items)
         })
 
-        it('resolves the menu per node when given a function, receiving the node, branch state and level', () => {
+        it('resolves the menu per node when given a function, receiving the node, branch state and level', async () => {
             const resolver = vi.fn((node: TreeViewNode, details: { isBranch: boolean }) => {
                 return details.isBranch ? [{ text: 'New file' }] : node.value === 'package' ? [{ text: 'Open' }] : []
             })
@@ -216,8 +224,11 @@ describe('TreeView', () => {
             expect(resolver).toHaveBeenCalledWith(expect.objectContaining({ value: 'app' }), { isBranch: false, level: 1 })
             expect(resolver).toHaveBeenCalledWith(expect.objectContaining({ value: 'src' }), { isBranch: true, level: 0 })
 
-            const menus = wrapper.findAllComponents({ name: 'DropdownMenu' }).map(dropdown => dropdown.props('items'))
-            expect(menus).toEqual([[{ text: 'New file' }], [{ text: 'Open' }]])
+            await arm(wrapper, 'src')
+            expect(wrapper.findComponent({ name: 'DropdownMenu' }).props('items')).toEqual([{ text: 'New file' }])
+
+            await arm(wrapper, 'package')
+            expect(wrapper.findComponent({ name: 'DropdownMenu' }).props('items')).toEqual([{ text: 'Open' }])
         })
 
         it('reveals the button on row hover and focus and keeps it hidden otherwise', () => {
@@ -233,8 +244,10 @@ describe('TreeView', () => {
             expect(actions(factory({ moreActionsItems: items, disabled: true }), 'src').exists()).toBe(false)
         })
 
-        it('uses the custom aria label', () => {
+        it('uses the custom aria label', async () => {
             const wrapper = factory({ moreActionsItems: items, moreActionsAriaLabel: 'Folder actions' })
+
+            await arm(wrapper, 'src')
 
             expect(wrapper.find('[aria-label="Folder actions"]').exists()).toBe(true)
         })
@@ -256,8 +269,10 @@ describe('TreeView', () => {
             expect(wrapper.emitted('update:expandedValue')).toBeUndefined()
         })
 
-        it('passes the offset and position to the dropdown menu', () => {
+        it('passes the offset and position to the dropdown menu', async () => {
             const wrapper = factory({ moreActionsItems: items, moreActionsPositionYOffset: 8 })
+
+            await arm(wrapper, 'src')
             const dropdown = wrapper.findComponent({ name: 'DropdownMenu' })
 
             expect(dropdown.props('positionYOffset')).toBe(8)
@@ -275,6 +290,7 @@ describe('TreeView', () => {
                 ],
             })
 
+            await arm(wrapper, 'src')
             await wrapper.find('[aria-label="More options"]').trigger('click')
             await flushPromises()
 
@@ -296,7 +312,7 @@ describe('TreeView', () => {
             const spy = vi.spyOn(row, 'getBoundingClientRect').mockReturnValue({ top: 700, bottom: 732 } as DOMRect)
             vi.stubGlobal('innerHeight', 740)
 
-            await actions(wrapper, 'src').trigger('mouseenter')
+            await arm(wrapper, 'src')
 
             expect(wrapper.findComponent({ name: 'DropdownMenu' }).props('position')).toBe('top-right')
 
@@ -428,15 +444,42 @@ describe('TreeView', () => {
             expect(wrapper.emitted('update:selectedValue')?.[0]).toEqual([['package']])
         })
 
-        it('toggles values in multiple mode', async () => {
+        it('replaces the selection on a plain click in multiple mode', async () => {
             const wrapper = factory({ selectionMode: TreeViewSelectionMode.MULTIPLE, selectedValue: ['package'] })
 
             await item(wrapper, 'src').trigger('click')
-            await item(wrapper, 'package').trigger('click')
+
+            expect(wrapper.emitted('update:selectedValue')?.[0]).toEqual([['src']])
+            expect(wrapper.find('[role="tree"]').attributes('aria-multiselectable')).toBe('true')
+        })
+
+        it('toggles values with Ctrl / Cmd + click in multiple mode', async () => {
+            const wrapper = factory({ selectionMode: TreeViewSelectionMode.MULTIPLE, selectedValue: ['package'] })
+
+            await item(wrapper, 'src').trigger('click', { ctrlKey: true })
+            await item(wrapper, 'package').trigger('click', { metaKey: true })
 
             expect(wrapper.emitted('update:selectedValue')?.[0]).toEqual([['package', 'src']])
             expect(wrapper.emitted('update:selectedValue')?.[1]).toEqual([['src']])
-            expect(wrapper.find('[role="tree"]').attributes('aria-multiselectable')).toBe('true')
+            expect(wrapper.emitted('update:expandedValue')).toBeUndefined()
+        })
+
+        it('selects the range from the last clicked node with Shift + click', async () => {
+            const wrapper = factory({ selectionMode: TreeViewSelectionMode.MULTIPLE, expandedValue: ['src'] })
+
+            await item(wrapper, 'app').trigger('click')
+            await item(wrapper, 'package').trigger('click', { shiftKey: true })
+
+            expect(wrapper.emitted('update:selectedValue')?.at(-1)).toEqual([['app', 'index', 'package']])
+        })
+
+        it('selects every enabled visible node with Ctrl + A in multiple mode', async () => {
+            const wrapper = factory({ selectionMode: TreeViewSelectionMode.MULTIPLE })
+
+            await item(wrapper, 'src').trigger('focus')
+            await item(wrapper, 'src').trigger('keydown', { key: 'a', ctrlKey: true })
+
+            expect(wrapper.emitted('update:selectedValue')?.at(-1)).toEqual([['src', 'package']])
         })
 
         it('marks selected rows with aria-selected', () => {
@@ -664,6 +707,253 @@ describe('TreeView', () => {
             await press(wrapper, 'src', 'ArrowRight')
 
             expect(wrapper.emitted('update:expandedValue')).toBeUndefined()
+        })
+    })
+
+    describe('performance', () => {
+        it('mounts the more-actions dropdown only on the hovered row', async () => {
+            const wrapper = factory({ moreActionsItems: [{ text: 'Open' }], expandedValue: ['src'] })
+
+            expect(wrapper.findAllComponents({ name: 'DropdownMenu' })).toHaveLength(0)
+
+            await arm(wrapper, 'app')
+            await arm(wrapper, 'index')
+
+            expect(wrapper.findAllComponents({ name: 'DropdownMenu' })).toHaveLength(1)
+        })
+    })
+
+    describe('initial expansion', () => {
+        it('expands every branch with defaultExpandAll', () => {
+            const wrapper = factory({ defaultExpandAll: true })
+
+            expect(values(wrapper)).toEqual(['src', 'app', 'index', 'package', 'readme'])
+        })
+
+        it('expands down to defaultExpandedDepth and ignores it when expandedValue is provided', () => {
+            const deep: TreeViewNode[] = [
+                { value: 'a', label: 'a', children: [{ value: 'b', label: 'b', children: [{ value: 'c', label: 'c' }] }] },
+            ]
+
+            expect(values(factory({ nodes: deep, defaultExpandedDepth: 1 }))).toEqual(['a', 'b'])
+            expect(values(factory({ nodes: deep, defaultExpandedDepth: 1, expandedValue: ['a', 'b'] }))).toEqual(['a', 'b', 'c'])
+        })
+    })
+
+    describe('filter', () => {
+        it('keeps matching nodes with their ancestors and opens those ancestors', () => {
+            const wrapper = factory({ filter: 'INDEX' })
+
+            expect(values(wrapper)).toEqual(['src', 'index'])
+            expect(item(wrapper, 'src').attributes('aria-expanded')).toBe('true')
+        })
+
+        it('accepts a predicate and renders the empty slot when nothing matches', () => {
+            const wrapper = factory({ filter: (node: TreeViewNode) => node.value === 'package' })
+
+            expect(values(wrapper)).toEqual(['package'])
+
+            const empty = factory({ filter: 'zzz' }, { empty: 'Nothing found' })
+            expect(empty.find('[data-testid="tree-view-empty"]').text()).toBe('Nothing found')
+        })
+    })
+
+    describe('slots, size and icons', () => {
+        it('renders the icon and trailing slots', () => {
+            const wrapper = factory({}, {
+                icon: '<template #icon="{ node }"><i data-testid="custom-icon">{{ node.value }}</i></template>',
+                trailing: '<template #trailing="{ node }"><b data-testid="custom-trailing">{{ node.value }}</b></template>',
+            })
+
+            expect(wrapper.find('[data-testid="custom-icon"]').exists()).toBe(true)
+            expect(item(wrapper, 'package').find('[data-testid="custom-trailing"]').text()).toBe('package')
+        })
+
+        it('applies the row height of the size', () => {
+            expect(item(factory({ size: 'lg' }), 'src').classes()).toContain('h-[40px]')
+            expect(item(factory({ size: 'xs' }), 'src').classes()).toContain('h-[24px]')
+        })
+
+        it('uses custom icons for files and folders', () => {
+            const wrapper = factory({ leafIcon: 'mdi:star', collapsedIcon: 'mdi:plus', expandedIcon: 'mdi:minus', expandedValue: ['src'] })
+
+            expect(item(wrapper, 'package').html()).toContain('mdi:star')
+            expect(item(wrapper, 'src').html()).toContain('mdi:minus')
+        })
+    })
+
+    describe('checkStrictly', () => {
+        it('stores each node on its own without cascading', async () => {
+            const wrapper = factory({ showCheckboxes: true, checkStrictly: true, expandedValue: ['src'] })
+
+            item(wrapper, 'src').findComponent({ name: 'TriStateCheckbox' }).vm.$emit('update:model-value')
+            await flushPromises()
+
+            expect(wrapper.emitted('update:checkedValue')?.[0]).toEqual([['src']])
+        })
+    })
+
+    describe('public API', () => {
+        type Api = {
+            expandAll: () => void
+            collapseAll: () => void
+            expandTo: (value: string) => Promise<void>
+            reload: (value: string) => Promise<void>
+            startRename: (value: string) => Promise<void>
+        }
+        const api = (wrapper: ReturnType<typeof factory>) => wrapper.vm as unknown as Api
+
+        it('expands and collapses everything', async () => {
+            const wrapper = factory()
+
+            api(wrapper).expandAll()
+            await flushPromises()
+            expect(wrapper.emitted('update:expandedValue')?.at(-1)).toEqual([['src']])
+            expect(values(wrapper)).toContain('app')
+
+            api(wrapper).collapseAll()
+            await flushPromises()
+            expect(wrapper.emitted('update:expandedValue')?.at(-1)).toEqual([[]])
+        })
+
+        it('expands the ancestors of a node with expandTo', async () => {
+            const wrapper = factory()
+
+            await api(wrapper).expandTo('app')
+            await flushPromises()
+
+            expect(values(wrapper)).toContain('app')
+        })
+
+        it('reloads the children of a lazy branch', async () => {
+            const loadChildren = vi.fn(async () => [{ value: 'child', label: 'child' }])
+            const wrapper = factory({ nodes: [{ value: 'remote', label: 'remote', hasChildren: true }], loadChildren })
+
+            await item(wrapper, 'remote').trigger('click')
+            await flushPromises()
+            await api(wrapper).reload('remote')
+            await flushPromises()
+
+            expect(loadChildren).toHaveBeenCalledTimes(2)
+        })
+
+        it('shows an error state on a failed load and retries on the next expand', async () => {
+            const loadChildren = vi.fn()
+                .mockRejectedValueOnce(new Error('boom'))
+                .mockResolvedValueOnce([{ value: 'child', label: 'child' }])
+            const wrapper = factory({ nodes: [{ value: 'remote', label: 'remote', hasChildren: true }], loadChildren })
+
+            await item(wrapper, 'remote').trigger('click')
+            await flushPromises()
+            expect(wrapper.find('[data-testid="tree-view-load-error"]').exists()).toBe(true)
+
+            await item(wrapper, 'remote').trigger('click')
+            await flushPromises()
+            expect(wrapper.find('[data-testid="tree-view-load-error"]').exists()).toBe(false)
+            expect(values(wrapper)).toContain('child')
+        })
+
+        describe('rename', () => {
+            const menuTexts = async (props: Record<string, unknown>) => {
+                const wrapper = factory({ nodes: [{ value: 'a', label: 'a' }], ...props })
+                await arm(wrapper, 'a')
+                const menu = wrapper.findComponent({ name: 'DropdownMenu' })
+
+                return menu.exists() ? (menu.props('items') as DropdownMenuItem[]).map(entry => entry.text) : []
+            }
+
+            it('adds a Rename item to the more actions only when isRenamable and not readOnly', async () => {
+                expect(await menuTexts({ isRenamable: true })).toEqual(['Rename'])
+                expect(await menuTexts({ isRenamable: true, readOnly: true })).toEqual([])
+                expect(await menuTexts({})).toEqual([])
+            })
+
+            it('emits rename with the trimmed label on Enter and ignores empty labels', async () => {
+                const wrapper = factory({ isRenamable: true })
+
+                await api(wrapper).startRename('package')
+                await flushPromises()
+                const input = wrapper.find('[data-testid="tree-view-rename-input"]')
+                await input.setValue('  main.json  ')
+                await input.trigger('keydown', { key: 'Enter' })
+
+                expect(wrapper.emitted('rename')?.[0]).toEqual([
+                    { value: 'package', label: 'main.json', previousLabel: 'package.json' },
+                ])
+                expect(wrapper.find('[data-testid="tree-view-rename-input"]').exists()).toBe(false)
+
+                await api(wrapper).startRename('package')
+                await flushPromises()
+                await wrapper.find('[data-testid="tree-view-rename-input"]').setValue('   ')
+                await wrapper.find('[data-testid="tree-view-rename-input"]').trigger('keydown', { key: 'Enter' })
+
+                expect(wrapper.emitted('rename')).toHaveLength(1)
+            })
+
+            it('cancels on Escape and does nothing when readOnly', async () => {
+                const wrapper = factory({ isRenamable: true })
+
+                await api(wrapper).startRename('package')
+                await flushPromises()
+                await wrapper.find('[data-testid="tree-view-rename-input"]').trigger('keydown', { key: 'Escape' })
+                expect(wrapper.emitted('rename')).toBeUndefined()
+
+                const readOnly = factory({ isRenamable: true, readOnly: true })
+                await api(readOnly).startRename('package')
+                expect(readOnly.find('[data-testid="tree-view-rename-input"]').exists()).toBe(false)
+            })
+
+            it('starts renaming with F2', async () => {
+                const wrapper = factory({ isRenamable: true })
+
+                await item(wrapper, 'package').trigger('focus')
+                await item(wrapper, 'package').trigger('keydown', { key: 'F2' })
+                await flushPromises()
+
+                expect(wrapper.find('[data-testid="tree-view-rename-input"]').exists()).toBe(true)
+            })
+        })
+    })
+
+    describe('reorder', () => {
+        const dropOn = async (wrapper: ReturnType<typeof factory>, source: string, target: string, ratio: number) => {
+            const targetRow = item(wrapper, target)
+            vi.spyOn(targetRow.element, 'getBoundingClientRect').mockReturnValue({ top: 0, height: 100 } as DOMRect)
+
+            await item(wrapper, source).trigger('dragstart')
+            await targetRow.trigger('dragover', { clientY: ratio * 100 })
+            await targetRow.trigger('drop', { clientY: ratio * 100 })
+        }
+
+        it('is not draggable unless isReorderable is set and not readOnly', () => {
+            expect(item(factory(), 'package').attributes('draggable')).toBe('false')
+            expect(item(factory({ isReorderable: true }), 'package').attributes('draggable')).toBe('true')
+            expect(item(factory({ isReorderable: true, readOnly: true }), 'package').attributes('draggable')).toBe('false')
+            expect(item(factory({ isReorderable: true }), 'readme').attributes('draggable')).toBe('false')
+        })
+
+        it('emits reorder with the drop position and the new parent', async () => {
+            const wrapper = factory({ isReorderable: true, expandedValue: ['src'] })
+
+            await dropOn(wrapper, 'package', 'src', 0.5)
+            await dropOn(wrapper, 'package', 'index', 0.9)
+
+            expect(wrapper.emitted('reorder')?.[0]).toEqual([
+                { value: 'package', targetValue: 'src', position: TreeViewDropPosition.INSIDE, parentValue: 'src' },
+            ])
+            expect(wrapper.emitted('reorder')?.[1]).toEqual([
+                { value: 'package', targetValue: 'index', position: TreeViewDropPosition.AFTER, parentValue: 'src' },
+            ])
+        })
+
+        it('rejects dropping a node on itself, its descendants or a disabled node', async () => {
+            const wrapper = factory({ isReorderable: true, expandedValue: ['src'] })
+
+            await dropOn(wrapper, 'src', 'src', 0.5)
+            await dropOn(wrapper, 'src', 'app', 0.5)
+            await dropOn(wrapper, 'package', 'readme', 0.5)
+
+            expect(wrapper.emitted('reorder')).toBeUndefined()
         })
     })
 })
