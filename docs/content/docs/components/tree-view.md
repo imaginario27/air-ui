@@ -4,6 +4,7 @@
 ---
 srcDir: 'tree-views/TreeView.vue'
 model:
+    nodes: update:nodes
     expandedValue: update:expandedValue
     selectedValue: update:selectedValue
     checkedValue: update:checkedValue
@@ -69,6 +70,8 @@ props:
     defaultExpandAll: false
     defaultExpandedDepth: 0
     filter: ""
+    sortOrder: "none"
+    foldersFirst: false
     leafIcon: "mdi:file-outline"
     collapsedIcon: "mdi:folder-outline"
     expandedIcon: "mdi:folder-open-outline"
@@ -112,6 +115,13 @@ items:
           text: SINGLE
         - value: multiple
           text: MULTIPLE
+    sortOrder:
+        - value: none
+          text: NONE
+        - value: asc
+          text: ASC
+        - value: desc
+          text: DESC
     size:
         - value: xs
           text: XS
@@ -122,6 +132,7 @@ items:
         - value: lg
           text: LG
 enums:
+    sortOrder: "SortOrder"
     size: "ControlFieldSize"
     moreActionsPosition: "Position"
     color: "ColorAccent"
@@ -228,6 +239,21 @@ props: [
         "name": "filter",
         "default": "''",
         "type": "string | ((node: TreeViewNode) => boolean)",
+    },
+    {
+        "name": "sortOrder",
+        "default": "SortOrder.NONE",
+        "type": "SortOrder",
+    },
+    {
+        "name": "foldersFirst",
+        "default": "false",
+        "type": "boolean",
+    },
+    {
+        "name": "sortCompare",
+        "default": "undefined",
+        "type": "(a: TreeViewNode, b: TreeViewNode) => number",
     },
     {
         "name": "leafIcon",
@@ -352,7 +378,7 @@ slots: [
 
 ### nodes
 
-Sets the tree data. Each node has a unique `value` and a `label`, and can define `children`, a custom `icon`, `disabled`, or `hasChildren` for lazy loading (see [loadChildren](#loadchildren)).
+Sets the tree data. Each node has a unique `value` and a `label`, and can define `children`, a custom `icon`, `disabled`, `hasChildren` for lazy loading (see [loadChildren](#loadchildren)), or `meta` for your own data (see [Metadata](#metadata)).
 
 ```vue
 <template>
@@ -386,6 +412,7 @@ interface TreeViewNode {
     disabled?: boolean
     children?: TreeViewNode[]
     hasChildren?: boolean // Branch whose children are loaded with `loadChildren`
+    meta?: Record<string, unknown> // Free-form data for slots and sorting, such as a file size
 }
 ```
 
@@ -708,6 +735,72 @@ const search = ref('')
 - **Type:** `string | ((node: TreeViewNode) => boolean)`
 - **Default:** `''`
 
+### sortOrder
+
+Sorts the nodes of every level for display, by label, in a natural and case-insensitive way (`file2` comes before `file10`). `nodes` is never reordered, so turning the sort off brings the original order back. Sorting also applies to lazy-loaded children.
+
+```vue
+<template>
+    <TreeView :nodes="nodes" :sortOrder="SortOrder.ASC" />
+</template>
+```
+
+- **Type:** `SortOrder`
+- **Default:** `SortOrder.NONE`
+
+#### Options
+
+::options-table
+---
+options: [
+    {
+        value: "NONE",
+        description: "Keeps the order of `nodes`.",
+    },
+    {
+        value: "ASC",
+        description: "Sorts labels from A to Z.",
+    },
+    {
+        value: "DESC",
+        description: "Sorts labels from Z to A.",
+    },
+]
+---
+::
+
+### foldersFirst
+
+Shows the folders (empty ones included) above the files at every level. Within each group the order comes from `sortOrder`, `sortCompare` or `nodes`.
+
+```vue
+<template>
+    <TreeView :nodes="nodes" :sortOrder="SortOrder.ASC" foldersFirst />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `false`
+
+### sortCompare
+
+Sets your own comparison, which replaces `sortOrder`. It receives two nodes and works like the callback of `Array.sort`. Combine it with `meta` to sort by data such as a file size.
+
+```vue
+<template>
+    <TreeView :nodes="nodes" :sortCompare="bySize" />
+</template>
+
+<script setup lang="ts">
+const bySize = (a: TreeViewNode, b: TreeViewNode) => {
+    return Number(a.meta?.size ?? 0) - Number(b.meta?.size ?? 0)
+}
+</script>
+```
+
+- **Type:** `(a: TreeViewNode, b: TreeViewNode) => number`
+- **Default:** `undefined`
+
 ### leafIcon
 
 Sets the icon of nodes without children (files). A node's own `icon` still takes precedence.
@@ -764,12 +857,26 @@ Adds a "Rename" item at the top of the "more actions" menu of every enabled node
 
 Sets the text of the built-in rename menu item and the accessible label of the rename input. Override it for i18n.
 
+```vue
+<template>
+    <TreeView :nodes="nodes" isRenamable renameLabel="Renombrar" />
+</template>
+```
+
 - **Type:** `string`
 - **Default:** `'Rename'`
 
 ### isReorderable
 
-Lets the user drag nodes to reorder or move them. Dropping on the top or bottom quarter of a folder row, or on the upper or lower half of a file row, places the node before or after it; dropping on the middle of a folder places it inside. A node cannot be dropped on itself, on its own descendants or on a disabled node. The tree never edits `nodes`; it emits `reorder` and you apply the move. It has no effect when `readOnly` or `disabled` is set.
+Lets the user drag nodes to reorder or move them. Dropping on the top or bottom quarter of a folder row, or on the upper or lower half of a file row, places the node before or after it; dropping on the middle of a folder places it inside. While dragging, a placeholder shows where the node will land: a line with a dot, indented at the level it will take, or a highlighted folder when it will go inside. A node cannot be dropped on itself, on its own descendants or on a disabled node. Folders can be dragged into other folders, and empty folders (`children: []`) accept drops too. While a sort is active (`sortOrder`, `foldersFirst` or `sortCompare`) the order is automatic, so a drop only chooses the list the node joins, and no line placeholder is shown: the list that will receive it is highlighted instead. Dropping on a folder row moves the node inside that folder, and dropping on a file moves it into the list that file belongs to, which is the parent folder or the root level. Dropping on the list the node already belongs to does nothing. It has no effect when `readOnly` or `disabled` is set.
+
+The tree never edits `nodes` itself. Bind `v-model:nodes` and it emits the moved tree as `update:nodes` (and opens the folder a node was dropped into). To apply the move yourself instead, listen to `reorder`. When a move involves lazy-loaded nodes, which `nodes` does not hold, only `reorder` is emitted.
+
+```vue
+<template>
+    <TreeView v-model:nodes="nodes" isReorderable />
+</template>
+```
 
 ```vue
 <template>
@@ -836,6 +943,12 @@ const loadChildren = async (node: TreeViewNode) => {
 ### loadErrorLabel
 
 Sets the tooltip of the error icon shown on a branch whose `loadChildren` failed. Override it for i18n.
+
+```vue
+<template>
+    <TreeView :nodes="nodes" :loadChildren="loadChildren" loadErrorLabel="Error al cargar. Haz clic para reintentar." />
+</template>
+```
 
 - **Type:** `string`
 - **Default:** `'Failed to load. Click to retry.'`
@@ -1018,6 +1131,29 @@ const nodes: TreeViewNode[] = [
 - **Type:** `string`
 - **Default:** `'Tree view'`
 
+## Metadata
+
+Each node can carry free-form data in `meta`. The tree does not read it; use it in the `trailing`, `label` and `icon` slots, or in `sortCompare`.
+
+```vue
+<template>
+    <TreeView :nodes="nodes" :sortCompare="bySize">
+        <template #trailing="{ node }">
+            <span v-if="node.meta?.size" class="text-xs">{{ formatBytes(node.meta.size as number) }}</span>
+        </template>
+    </TreeView>
+</template>
+
+<script setup lang="ts">
+const nodes: TreeViewNode[] = [
+    { value: 'app', label: 'app.tsx', meta: { size: 2048 } },
+    { value: 'index', label: 'index.ts', meta: { size: 512 } },
+]
+
+const bySize = (a: TreeViewNode, b: TreeViewNode) => Number(a.meta?.size) - Number(b.meta?.size)
+</script>
+```
+
 ## Accessibility
 
 The tree uses `role="tree"` with `role="treeitem"` rows that expose `aria-level`, `aria-setsize`, `aria-posinset`, `aria-expanded` and `aria-selected`. Only one row is reachable with `Tab`, and the rest is navigated with the keyboard.
@@ -1046,6 +1182,7 @@ options: [
 ::options-table
 ---
 options: [
+    { value: "@update:nodes", description: "Emitted with the moved tree after a valid drop when `isReorderable` is enabled (`v-model:nodes`)." },
     { value: "@update:expandedValue", description: "Emitted with the new list of open branches (`v-model:expandedValue`)." },
     { value: "@update:selectedValue", description: "Emitted with the new list of selected nodes (`v-model:selectedValue`)." },
     { value: "@update:checkedValue", description: "Emitted with the new list of checked leaves (`v-model:checkedValue`)." },
