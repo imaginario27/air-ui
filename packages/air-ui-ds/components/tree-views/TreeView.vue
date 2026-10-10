@@ -48,7 +48,8 @@
             ]"
             :style="{ paddingLeft: `${BASE_PADDING_PX + row.level * sizeConfig.indent}px` }"
             data-testid="tree-view-item"
-            @click="handleRowClick(row.node, $event)"
+            @click="onRowClick(row.node, $event)"
+            @dblclick="onRowDoubleClick(row.node)"
             @focus="focusedValue = row.node.value"
             @mouseenter="activateActions($event, row.node)"
             @focusin="activateActions($event, row.node)"
@@ -374,6 +375,10 @@ const props = defineProps({
         type: Boolean as PropType<boolean>,
         default: false,
     },
+    renameOnClick: {
+        type: Boolean as PropType<boolean>,
+        default: false,
+    },
     renameLabel: {
         type: String as PropType<string>,
         default: 'Rename',
@@ -426,6 +431,7 @@ const emit = defineEmits([
     'load-error',
     'rename',
     'reorder',
+    'node-dblclick',
 ])
 
 // States
@@ -445,12 +451,13 @@ const rename = useTreeViewRename(props, emit, rootRef, structure, expansion, foc
 const dragDrop = useTreeViewDragDrop(props, emit, structure, expanded, rename.renamingValue)
 const appearance = useTreeViewAppearance(props, structure, expansion, selection)
 const moreActions = useTreeViewMoreActions(props, structure, focus, appearance, rename)
+const { onRowClick, onRowDoubleClick } = useTreeViewClicks(props, emit, structure, selection, rename, selected)
 const { handleKeydown } = useTreeViewKeyboard(props, structure, focus, expansion, selection, checkboxes, rename)
 
 const { rows, isBranch, isDisabled, isExpanded } = structure
 const { isLoading, hasLoadError, toggleExpanded } = expansion
 const { focusedValue, tabbableValue } = focus
-const { isMultiple, isSelected, handleRowClick } = selection
+const { isMultiple, isSelected } = selection
 const { isCheckDisabled, getCheckState, toggleChecked } = checkboxes
 const { renamingValue, renameDraft, startRename, commitRename, cancelRename } = rename
 const {

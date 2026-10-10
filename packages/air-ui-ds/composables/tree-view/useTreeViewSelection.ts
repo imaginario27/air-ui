@@ -73,7 +73,10 @@ export const useTreeViewSelection = (
 
         selectNode(node)
 
-        if (props.expandOnClick) {
+        // The second click of a double click must not toggle the branch back
+        const isRepeatedClick = (event?.detail ?? 0) > 1
+
+        if (props.expandOnClick && !isRepeatedClick) {
             await expansion.toggleExpanded(node)
         }
     }

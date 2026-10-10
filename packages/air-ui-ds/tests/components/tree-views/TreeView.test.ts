@@ -891,6 +891,37 @@ describe('TreeView', () => {
                 expect(wrapper.emitted('rename')).toHaveLength(1)
             })
 
+            it('emits the renamed tree as update:nodes, except for lazy-loaded nodes', async () => {
+                const wrapper = factory({ isRenamable: true, expandedValue: ['src'] })
+
+                await api(wrapper).startRename('app')
+                await flushPromises()
+                const input = wrapper.find('[data-testid="tree-view-rename-input"]')
+                await input.setValue('main.tsx')
+                await input.trigger('keydown', { key: 'Enter' })
+
+                const renamed = wrapper.emitted('update:nodes')?.[0]?.[0] as TreeViewNode[]
+                expect(renamed[0]!.children!.map(node => node.label)).toEqual(['main.tsx', 'index.ts'])
+                expect(wrapper.props('nodes')[0]!.children![0]!.label).toBe('app.tsx')
+
+                const loadChildren = vi.fn(async () => [{ value: 'child', label: 'child' }])
+                const lazy = factory({
+                    nodes: [{ value: 'remote', label: 'remote', hasChildren: true }],
+                    loadChildren,
+                    isRenamable: true,
+                })
+
+                await item(lazy, 'remote').trigger('click')
+                await flushPromises()
+                await api(lazy).startRename('child')
+                await flushPromises()
+                await lazy.find('[data-testid="tree-view-rename-input"]').setValue('renamed')
+                await lazy.find('[data-testid="tree-view-rename-input"]').trigger('keydown', { key: 'Enter' })
+
+                expect(lazy.emitted('rename')).toHaveLength(1)
+                expect(lazy.emitted('update:nodes')).toBeUndefined()
+            })
+
             it('cancels on Escape and does nothing when readOnly', async () => {
                 const wrapper = factory({ isRenamable: true })
 
@@ -1191,6 +1222,91 @@ describe('TreeView', () => {
             })
 
             expect(wrapper.find('[data-testid="size"]').text()).toBe('2048 B')
+        })
+    })
+    describe('double click and rename on click', () => {
+        const renameInput = (wrapper: ReturnType<typeof factory>) => wrapper.find('[data-testid="tree-view-rename-input"]')
+
+        afterEach(() => {
+            vi.useRealTimers()
+        })
+
+        it('emits node-dblclick with the node, but not for disabled nodes', async () => {
+            const wrapper = factory()
+
+            await item(wrapper, 'package').trigger('dblclick')
+            await item(wrapper, 'readme').trigger('dblclick')
+
+            expect(wrapper.emitted('node-dblclick')).toHaveLength(1)
+            expect(wrapper.emitted('node-dblclick')?.[0]).toEqual([{ node: expect.objectContaining({ value: 'package' }) }])
+        })
+
+        it('does not toggle a branch back on the second click of a double click', async () => {
+            const wrapper = factory()
+
+            await item(wrapper, 'src').trigger('click', { detail: 1 })
+            await item(wrapper, 'src').trigger('click', { detail: 2 })
+
+            expect(wrapper.emitted('update:expandedValue')).toHaveLength(1)
+            expect(wrapper.emitted('update:expandedValue')?.[0]).toEqual([['src']])
+        })
+
+        it('starts a rename when the only selected node is clicked again', async () => {
+            vi.useFakeTimers()
+            const wrapper = factory({ isRenamable: true, renameOnClick: true, selectedValue: ['package'] })
+
+            await item(wrapper, 'package').trigger('click', { detail: 1 })
+            expect(renameInput(wrapper).exists()).toBe(false)
+
+            await vi.advanceTimersByTimeAsync(500)
+            await nextTick()
+
+            expect(renameInput(wrapper).exists()).toBe(true)
+        })
+
+        it('does not rename on the first click, when the option is off or on a toggling branch', async () => {
+            vi.useFakeTimers()
+
+            const unselected = factory({ isRenamable: true, renameOnClick: true })
+            await item(unselected, 'package').trigger('click', { detail: 1 })
+
+            const optionOff = factory({ isRenamable: true, selectedValue: ['package'] })
+            await item(optionOff, 'package').trigger('click', { detail: 1 })
+
+            const branch = factory({ isRenamable: true, renameOnClick: true, selectedValue: ['src'] })
+            await item(branch, 'src').trigger('click', { detail: 1 })
+
+            await vi.advanceTimersByTimeAsync(600)
+            await nextTick()
+
+            expect(renameInput(unselected).exists()).toBe(false)
+            expect(renameInput(optionOff).exists()).toBe(false)
+            expect(renameInput(branch).exists()).toBe(false)
+        })
+
+        it('does not rename when a double click follows and emits the double click instead', async () => {
+            vi.useFakeTimers()
+            const wrapper = factory({ isRenamable: true, renameOnClick: true, selectedValue: ['package'] })
+
+            await item(wrapper, 'package').trigger('click', { detail: 1 })
+            await item(wrapper, 'package').trigger('click', { detail: 2 })
+            await item(wrapper, 'package').trigger('dblclick')
+            await vi.advanceTimersByTimeAsync(600)
+            await nextTick()
+
+            expect(renameInput(wrapper).exists()).toBe(false)
+            expect(wrapper.emitted('node-dblclick')).toHaveLength(1)
+        })
+
+        it('does not rename on click when readOnly', async () => {
+            vi.useFakeTimers()
+            const wrapper = factory({ isRenamable: true, renameOnClick: true, readOnly: true, selectedValue: ['package'] })
+
+            await item(wrapper, 'package').trigger('click', { detail: 1 })
+            await vi.advanceTimersByTimeAsync(600)
+            await nextTick()
+
+            expect(renameInput(wrapper).exists()).toBe(false)
         })
     })
 })

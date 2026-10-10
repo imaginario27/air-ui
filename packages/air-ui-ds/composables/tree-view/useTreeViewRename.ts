@@ -1,4 +1,26 @@
-// Inline rename. The tree never edits `nodes`: it emits `rename` and the parent applies it.
+// Returns the tree with the new label, or null for nodes that `nodes` does not hold (lazy-loaded ones)
+const withLabel = (nodes: TreeViewNode[], value: string, label: string): TreeViewNode[] | null => {
+    let found = false
+
+    const walk = (list: TreeViewNode[]): TreeViewNode[] => {
+        return list.map(node => {
+            if (node.value === value) {
+                found = true
+
+                return { ...node, label }
+            }
+
+            return node.children ? { ...node, children: walk(node.children) } : node
+        })
+    }
+
+    const result = walk(nodes)
+
+    return found ? result : null
+}
+
+// Inline rename. The tree never edits `nodes`: it emits `rename` and the renamed tree as `update:nodes`,
+// and the parent decides whether to apply them.
 export const useTreeViewRename = (
     props: TreeViewProps,
     emit: TreeViewEmit,
@@ -58,6 +80,12 @@ export const useTreeViewRename = (
 
         if (node && label && label !== node.label) {
             emit('rename', { value, label, previousLabel: node.label })
+
+            const renamed = withLabel(props.nodes, value, label)
+
+            if (renamed) {
+                emit('update:nodes', renamed)
+            }
         }
 
         finishRename(restoreFocus)

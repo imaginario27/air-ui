@@ -34,6 +34,10 @@ export interface TreeViewReorderDetails {
     parentValue: string | null
 }
 
+export interface TreeViewNodeDetails {
+    node: TreeViewNode
+}
+
 export interface TreeViewDropTarget {
     value: string
     position: TreeViewDropPosition
@@ -57,6 +61,7 @@ export type TreeViewEvent =
     | 'load-error'
     | 'rename'
     | 'reorder'
+    | 'node-dblclick'
 
 export type TreeViewEmit = (event: TreeViewEvent, ...args: unknown[]) => void
 
@@ -76,6 +81,7 @@ export interface TreeViewProps {
     readonly sortCompare?: (a: TreeViewNode, b: TreeViewNode) => number
     readonly loadChildren?: (node: TreeViewNode) => Promise<TreeViewNode[]>
     readonly isRenamable: boolean
+    readonly renameOnClick: boolean
     readonly renameLabel: string
     readonly isReorderable: boolean
     readonly readOnly: boolean
