@@ -21,3 +21,4 @@
 18. NEVER introduce slots in a DS component without reflecting them in the corresponding `docs/content/docs/components/<name>.md` page.
 19. NEVER skip husky/commitlint with `--no-verify`. Commits must follow `<type>(ds|utils|docs|root): <subject>`.
 20. ALWAYS import test subjects via the `@/` alias (e.g. `import Alert from '@/components/alerts/Alert.vue'`), never relative paths.
+21. ALWAYS declare functions as arrow functions (`const name = (…) => { … }`), in components, composables, utils, scripts and tests. NEVER use `function name() { … }` declarations. Define each arrow function before its first use, since `const` is not hoisted.

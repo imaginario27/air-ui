@@ -26,7 +26,9 @@ Creates commits that satisfy this repo's husky + commitlint setup.
    - Root configs / multi-workspace / tooling → `root`
    - If changes span multiple workspaces, use `root`.
 7. **Inline code**: wrap code identifiers in backticks in the title and body bullets when it makes the message clearer — component, prop, slot, enum, composable and util names, file paths, CLI commands and flags (e.g. `` add `hasActionButtons` prop to `Alert` ``). The releases page renders backticked text as inline code.
+   - Rule of thumb: if the word exists in the design system or utils, wrap it. That covers component, prop, slot, emit, enum (and its members like `NONE`), type, composable and util names, plus file names and paths and attributes such as `aria-label` or `v-model:error`.
    - Wrap only real identifiers or paths, not ordinary words, and keep each backticked span free of other backticks.
+   - Existing commits can't be rewritten, so `scripts/code-name-highlighter.mjs` applies the same rule when the release history is generated.
    - Always commit through the quoted HEREDOC below (`<<'EOF'`) so the shell keeps backticks literal instead of running them.
 
 ## Procedure
