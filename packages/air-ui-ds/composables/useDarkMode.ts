@@ -2,23 +2,41 @@
 export const useDarkMode = () => {
     const preferredDark = usePreferredDark()
 
-    // use VueUse localStorage composable
+    // use VueUse localStorage composable, reading the saved mode after mount so hydration matches the server render
     const themeMode = useLocalStorage<'light' | 'dark' | 'system'>(
         'color-mode',
         'system',
+        { initOnMounted: true },
     )
 
-    const isDark = useDark({
+    const resolvedIsDark = useDark({
         storageKey: 'color-scheme',
         valueDark: 'dark',
         valueLight: 'light',
     })
 
+    // Reports light until mounted so the first client render matches the server render.
+    // Outside a component there is no hydration to wait for.
+    const isHydrated = ref(!getCurrentInstance())
+
+    if (getCurrentInstance()) {
+        onMounted(() => {
+            isHydrated.value = true
+        })
+    }
+
+    const isDark = computed({
+        get: () => isHydrated.value && resolvedIsDark.value,
+        set: (value: boolean) => {
+            resolvedIsDark.value = value
+        },
+    })
+
     watchEffect(() => {
         if (themeMode.value === 'system') {
-            isDark.value = preferredDark.value
+            resolvedIsDark.value = preferredDark.value
         } else {
-            isDark.value = themeMode.value === 'dark'
+            resolvedIsDark.value = themeMode.value === 'dark'
         }
     })
 

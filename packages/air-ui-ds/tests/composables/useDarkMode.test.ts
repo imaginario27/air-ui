@@ -1,4 +1,5 @@
-import { ref, nextTick } from 'vue'
+import { ref, nextTick, defineComponent, h } from 'vue'
+import { mount } from '@vue/test-utils'
 import { useDarkMode } from '@/composables/useDarkMode'
 import { useDark, usePreferredDark, useLocalStorage } from '@vueuse/core'
 
@@ -119,5 +120,24 @@ describe('useDarkMode', () => {
 
         setTheme('system')
         expect(themeMode.value).toBe('system')
+    })
+
+    it('reports light until the component is mounted', async () => {
+        setupMocks({ preferred: true, storedTheme: 'system' })
+
+        const seen: boolean[] = []
+        const Comp = defineComponent({
+            setup() {
+                const { isDark } = useDarkMode()
+                seen.push(isDark.value)
+                return () => h('div', String(isDark.value))
+            },
+        })
+
+        const wrapper = mount(Comp)
+        await nextTick()
+
+        expect(seen[0]).toBe(false)
+        expect(wrapper.text()).toBe('true')
     })
 })
