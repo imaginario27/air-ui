@@ -10,17 +10,6 @@ import { resolve, dirname } from "path"
 const inputPath = resolve("assets/css/theme/ui-theme.css")
 const outputPath = resolve("assets/css/main.css")
 
-ensureOutputDir(outputPath)
-deleteIfExists(outputPath)
-
-const content = readFileSync(inputPath, "utf-8")
-const { colorVars, otherVars } = extractThemeVars(content)
-
-const finalOutput = generateThemeFile(colorVars, otherVars)
-writeFileSync(outputPath, finalOutput, "utf-8")
-
-console.log("✅ Tailwind theme file generated in assets/css/")
-
 const ensureOutputDir = (filePath: string) => {
     const dir = dirname(filePath)
     if (!existsSync(dir)) {
@@ -103,3 +92,14 @@ const generateThemeFile = (colorVars: string[], otherVars: string[]) : string =>
         `}`,
     ].join("\n")
 }
+
+ensureOutputDir(outputPath)
+deleteIfExists(outputPath)
+
+const content = readFileSync(inputPath, "utf-8")
+const { colorVars, otherVars } = extractThemeVars(content)
+
+const finalOutput = generateThemeFile(colorVars, otherVars)
+writeFileSync(outputPath, finalOutput, "utf-8")
+
+console.log("✅ Tailwind theme file generated in assets/css/")

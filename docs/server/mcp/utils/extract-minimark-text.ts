@@ -1,6 +1,6 @@
 type MinimarkNode = string | [string, Record<string, unknown>, ...MinimarkNode[]]
 
-export function extractMinimarkText(nodes: MinimarkNode[]): string {
+export const extractMinimarkText = (nodes: MinimarkNode[]): string => {
     const parts: string[] = []
 
     for (const node of nodes) {

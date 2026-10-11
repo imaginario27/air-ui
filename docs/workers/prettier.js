@@ -1,19 +1,5 @@
 /* eslint-disable no-undef */
-self.onmessage = async function (event) {
-    self.postMessage({
-        uid: event.data.uid,
-        message: await handleMessage(event.data.message),
-    })
-}
-
-function handleMessage(message) {
-    switch (message.type) {
-        case "format":
-            return handleFormatMessage(message)
-    }
-}
-
-async function handleFormatMessage(message) {
+const handleFormatMessage = async (message) => {
     if (!globalThis.prettier) {
         await Promise.all([
             import("https://cdn.jsdelivr.net/npm/prettier@3.5.2/standalone.js"),
@@ -43,4 +29,18 @@ async function handleFormatMessage(message) {
     })
 
     return formatted
+}
+
+const handleMessage = (message) => {
+    switch (message.type) {
+        case "format":
+            return handleFormatMessage(message)
+    }
+}
+
+self.onmessage = async (event) => {
+    self.postMessage({
+        uid: event.data.uid,
+        message: await handleMessage(event.data.message),
+    })
 }
