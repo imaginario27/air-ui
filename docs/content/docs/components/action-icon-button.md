@@ -127,6 +127,11 @@ props: [
         "type": "boolean"
     },
     {
+        "name": "isDecorative",
+        "default": "false",
+        "type": "boolean"
+    },
+    {
         "name": "isRounded",
         "default": "false",
         "type": "boolean"
@@ -390,6 +395,26 @@ Opens the link in a new tab when `true`.
         to="https://example.com"
         :isExternal="true"
     />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `false`
+
+### isDecorative
+
+Renders the icon button as a non-interactive `span`, keeping the same look. Use it when the button sits inside another interactive element such as a `button`, where a nested `button` is invalid HTML. The element ignores clicks and is not focusable.
+
+```vue
+<template>
+    <button type="button">
+        Toggle
+        <ActionIconButton
+            isDecorative
+            icon="mdi:unfold-more-horizontal"
+            aria-hidden="true"
+        />
+    </button>
 </template>
 ```
 
