@@ -1,6 +1,6 @@
 // composables/useTable.ts
 
-export function useTable<T extends Record<string, string>>(data: Ref<T[]>) {
+export const useTable = <T extends Record<string, string>>(data: Ref<T[]>) => {
     const sortKey = ref<keyof T | ''>('')
     const sortAsc = ref(true)
 

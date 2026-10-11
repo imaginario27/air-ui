@@ -25,12 +25,12 @@ export const delay = (ms: number): Promise<void> => {
  * @param {number} [itemsLimit] - Optional maximum number of items to consider before pagination.
  * @returns {T[]} The paginated array of items.
  */
-export function getPaginatedData<T>(
+export const getPaginatedData = <T>(
     data: T[],
     currentPage: number,
     itemsPerPage: number,
     itemsLimit?: number
-): T[] {
+): T[] => {
     let result = data
 
     // Apply items limit if provided
