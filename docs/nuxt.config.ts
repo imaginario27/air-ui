@@ -22,7 +22,7 @@ export default defineNuxtConfig({
         },
     },
 
-    modules: ["@pinia/nuxt", "@nuxt/image", "@nuxt/eslint", "@vueuse/nuxt", "@nuxt/content", "@nuxt/icon", "nuxt-llms", "@nuxtjs/mcp-toolkit", "@nuxtjs/sitemap", "@nuxtjs/robots"],
+    modules: ["@pinia/nuxt", "@nuxt/image", "@nuxt/eslint", "@vueuse/nuxt", "@nuxt/content", "@nuxt/icon", "@nuxt/fonts", "nuxt-llms", "@nuxtjs/mcp-toolkit", "@nuxtjs/sitemap", "@nuxtjs/robots"],
 
     plugins: ["@/plugins/vue3-toastify", "@/plugins/prettier"],
 
@@ -56,18 +56,6 @@ export default defineNuxtConfig({
                 lang: "en",
             },
             link: [
-                // Preconnect for fonts
-                { rel: "preconnect", href: "https://fonts.googleapis.com" },
-                {
-                    rel: "preconnect",
-                    href: "https://fonts.gstatic.com",
-                    crossorigin: "anonymous",
-                },
-                {
-                    rel: "stylesheet",
-                    href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap",
-                },
-
                 // Icons
                 {
                     rel: "apple-touch-icon",
@@ -135,6 +123,17 @@ export default defineNuxtConfig({
                 
             },
         }
+    },
+
+    fonts: {
+        families: [
+            {
+                name: "Inter",
+                provider: "google",
+                weights: ["100 900"],
+                styles: ["normal", "italic"],
+            },
+        ],
     },
 
     icon: {
