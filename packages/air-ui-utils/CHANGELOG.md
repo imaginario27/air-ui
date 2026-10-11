@@ -5,6 +5,28 @@ All notable changes to this package are documented in this file.
 Historical releases were reconstructed from git history (GitHub repository) and npm publish dates.
 Future releases will include detailed entries generated with Changesets.
 
+## 1.4.1 - 2026-10-11
+
+Release type: patch.
+Commits found in range: 6.
+
+### Added
+
+1. highlight design system names in release history ([147171b](https://github.com/imaginario27/air-ui/commit/147171b4940605cade39e38921648198a12b5951))
+2. describe empty releases by comparing published packages ([bbb024e](https://github.com/imaginario27/air-ui/commit/bbb024e6e8a44d90d30ac076c72c5539af763974))
+3. add detailed release entries with card layout ([6116a14](https://github.com/imaginario27/air-ui/commit/6116a14b316c57c9b74181e8dc5afb627880d4d9))
+
+### Fixed
+
+1. improve release history for empty and wrapped entries ([a16f3ed](https://github.com/imaginario27/air-ui/commit/a16f3ed59234d169b8b65769036002ad72c998a2))
+2. wait for npm registry before rebuilding release history ([9ab6c54](https://github.com/imaginario27/air-ui/commit/9ab6c54c3f95ba4265924d9c7fb67af0cc8551f3))
+
+### Maintenance
+
+1. convert function declarations to arrow functions ([fc4574b](https://github.com/imaginario27/air-ui/commit/fc4574bfdee6d0f93a6cd82c294bbe63b41c991b))
+
+- Package: @imaginario27/air-ui-utils.
+
 ## 1.4.0 - 2026-10-10
 
 Release type: minor.
