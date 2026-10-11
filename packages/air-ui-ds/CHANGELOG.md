@@ -5,6 +5,29 @@ All notable changes to this package are documented in this file.
 Historical releases were reconstructed from git history (GitHub repository) and npm publish dates.
 Future releases will include detailed entries generated with Changesets.
 
+## 1.22.0 - 2026-10-10
+
+Release type: minor.
+Commits found in range: 13.
+
+### Added
+
+1. add Image, Gallery and Lightbox components ([72c5539](https://github.com/imaginario27/air-ui/commit/72c5539f13bced86e1f328e7796af03779893623))
+2. add SignaturePad and SignatureField components ([00e0a79](https://github.com/imaginario27/air-ui/commit/00e0a790339b3c88e7aea230bca8836fc2bce203))
+3. add Marquee component ([60704bd](https://github.com/imaginario27/air-ui/commit/60704bd85937018e9836fd49dfb5c292c5d7da28))
+4. add TreeView double click event and rename on click ([60350a0](https://github.com/imaginario27/air-ui/commit/60350a05eb61aad21c047e5531a89801327232fc))
+5. split TreeView logic into composables and add sorting ([a7e6e60](https://github.com/imaginario27/air-ui/commit/a7e6e604cd58892130b4be591d3e17dad9062e13))
+6. improve TreeView selection, performance and features ([3e1116b](https://github.com/imaginario27/air-ui/commit/3e1116bf7e1ad3702e40e27603ab790e35661843))
+7. add TreeView component ([bb4fba6](https://github.com/imaginario27/air-ui/commit/bb4fba659b75c8d97c3ebcb0597c19c2a2ba233c))
+8. add ProgressCircle component ([76d9fd5](https://github.com/imaginario27/air-ui/commit/76d9fd5e4c359ee17c54858e168c277084cf8d08))
+9. add isRounded prop to AngleSlider ([bcdffd9](https://github.com/imaginario27/air-ui/commit/bcdffd9c8a9eedf2e838cd3c9ef62a6bc5f45ccb))
+
+### Fixed
+
+1. type ActionButton label offset map ([704fda5](https://github.com/imaginario27/air-ui/commit/704fda5a9c46d1ff85d6575d3491bff012da6cab))
+
+- Package: @imaginario27/air-ui-ds.
+
 ## 1.21.0 - 2026-10-06
 
 Release type: minor.

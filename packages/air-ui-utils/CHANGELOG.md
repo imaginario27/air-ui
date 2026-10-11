@@ -5,6 +5,17 @@ All notable changes to this package are documented in this file.
 Historical releases were reconstructed from git history (GitHub repository) and npm publish dates.
 Future releases will include detailed entries generated with Changesets.
 
+## 1.4.0 - 2026-10-10
+
+Release type: minor.
+Commits found in range: 1.
+
+### Added
+
+1. add Image, Gallery and Lightbox components ([72c5539](https://github.com/imaginario27/air-ui/commit/72c5539f13bced86e1f328e7796af03779893623))
+
+- Package: @imaginario27/air-ui-utils.
+
 ## 1.3.0 - 2026-09-29
 
 Release type: minor.

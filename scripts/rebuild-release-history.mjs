@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+import { readFileSync } from "node:fs"
 import { writeFile } from "node:fs/promises"
 import { execFileSync } from "node:child_process"
 import path from "node:path"
@@ -225,26 +226,53 @@ function buildNotesFromCommits(commits) {
     }
 }
 
-async function fetchPackageTime(packageName) {
+const FETCH_MAX_ATTEMPTS = 10
+const FETCH_RETRY_DELAY_MS = 3000
+
+function getLocalPackageVersion(packageJsonPath) {
+    return JSON.parse(readFileSync(path.join(repoRoot, packageJsonPath), "utf8"))
+        .version
+}
+
+// The npm registry metadata lags right after a publish, so when we know which
+// version was just published we retry until it shows up instead of writing stale data.
+async function fetchPackageTime(packageName, expectedVersion = null) {
     const encoded = encodeURIComponent(packageName)
     const url = `https://registry.npmjs.org/${encoded}`
 
-    const response = await fetch(url)
+    for (let attempt = 1; attempt <= FETCH_MAX_ATTEMPTS; attempt++) {
+        const response = await fetch(url, {
+            headers: { "cache-control": "no-cache" },
+        })
 
-    if (!response.ok) {
-        throw new Error(
-            `Failed to fetch npm metadata for ${packageName}: ${response.status}`,
-        )
+        if (!response.ok) {
+            throw new Error(
+                `Failed to fetch npm metadata for ${packageName}: ${response.status}`,
+            )
+        }
+
+        const metadata = await response.json()
+        const time = metadata?.time || {}
+        const versions = Object.keys(metadata?.versions || {})
+
+        if (!expectedVersion || (versions.includes(expectedVersion) && time[expectedVersion])) {
+            return {
+                versions,
+                time,
+            }
+        }
+
+        if (attempt < FETCH_MAX_ATTEMPTS) {
+            console.log(
+                `Waiting for ${packageName}@${expectedVersion} to appear on npm (attempt ${attempt}/${FETCH_MAX_ATTEMPTS})...`,
+            )
+            await new Promise((resolve) => setTimeout(resolve, FETCH_RETRY_DELAY_MS))
+        }
     }
 
-    const metadata = await response.json()
-    const time = metadata?.time || {}
-    const versions = Object.keys(metadata?.versions || {})
-
-    return {
-        versions,
-        time,
-    }
+    throw new Error(
+        `${packageName}@${expectedVersion} is not visible on the npm registry yet. Re-run: npm run rebuild-release-history -- ${packageName}`,
+    )
 }
 
 function buildEntries({
@@ -399,7 +427,15 @@ async function main() {
     }
 
     for (const pkg of PACKAGES) {
-        const { versions, time } = await fetchPackageTime(pkg.name)
+        // Only the package that was just published is guaranteed to be on npm.
+        const expectedVersion =
+            pkg.name === targetPackageName
+                ? getLocalPackageVersion(pkg.packageJsonPath)
+                : null
+        const { versions, time } = await fetchPackageTime(
+            pkg.name,
+            expectedVersion,
+        )
         const entries = buildEntries({
             packageName: pkg.name,
             packagePath: pkg.dirPath,

@@ -1,12 +1,184 @@
 {
-  "generatedAt": "2026-10-10T17:09:12.731Z",
+  "generatedAt": "2026-10-11T07:34:03.468Z",
   "source": "github-git-history+npm-publish-dates",
   "githubBaseUrl": "https://github.com/imaginario27/air-ui",
   "packages": [
     {
       "packageName": "@imaginario27/air-ui-ds",
-      "latestVersion": "1.21.0",
+      "latestVersion": "1.22.0",
       "entries": [
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.22.0",
+          "publishedAt": "2026-10-10",
+          "releaseType": "minor",
+          "notes": [
+            "add Image, Gallery and Lightbox components",
+            "add SignaturePad and SignatureField components",
+            "add Marquee component",
+            "add TreeView double click event and rename on click",
+            "split TreeView logic into composables and add sorting",
+            "improve TreeView selection, performance and features",
+            "add TreeView component",
+            "add ProgressCircle component",
+            "add isRounded prop to AngleSlider",
+            "add AngleSlider and AngleSliderField components"
+          ],
+          "metadata": {
+            "commitCount": 13,
+            "commits": [
+              {
+                "sha": "72c5539f13bced86e1f328e7796af03779893623",
+                "shortSha": "72c5539",
+                "date": "2026-10-10",
+                "subject": "feat(ds): add Image, Gallery and Lightbox components",
+                "normalizedSubject": "add Image, Gallery and Lightbox components",
+                "type": "added",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/72c5539f13bced86e1f328e7796af03779893623",
+                "prUrl": null
+              },
+              {
+                "sha": "00e0a790339b3c88e7aea230bca8836fc2bce203",
+                "shortSha": "00e0a79",
+                "date": "2026-10-10",
+                "subject": "feat(ds): add SignaturePad and SignatureField components",
+                "normalizedSubject": "add SignaturePad and SignatureField components",
+                "type": "added",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/00e0a790339b3c88e7aea230bca8836fc2bce203",
+                "prUrl": null
+              },
+              {
+                "sha": "60704bd85937018e9836fd49dfb5c292c5d7da28",
+                "shortSha": "60704bd",
+                "date": "2026-10-10",
+                "subject": "feat(ds): add Marquee component",
+                "normalizedSubject": "add Marquee component",
+                "type": "added",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/60704bd85937018e9836fd49dfb5c292c5d7da28",
+                "prUrl": null
+              },
+              {
+                "sha": "60350a05eb61aad21c047e5531a89801327232fc",
+                "shortSha": "60350a0",
+                "date": "2026-10-10",
+                "subject": "feat(ds): add TreeView double click event and rename on click",
+                "normalizedSubject": "add TreeView double click event and rename on click",
+                "type": "added",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/60350a05eb61aad21c047e5531a89801327232fc",
+                "prUrl": null
+              },
+              {
+                "sha": "a7e6e604cd58892130b4be591d3e17dad9062e13",
+                "shortSha": "a7e6e60",
+                "date": "2026-10-10",
+                "subject": "feat(ds): split TreeView logic into composables and add sorting",
+                "normalizedSubject": "split TreeView logic into composables and add sorting",
+                "type": "added",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/a7e6e604cd58892130b4be591d3e17dad9062e13",
+                "prUrl": null
+              },
+              {
+                "sha": "3e1116bf7e1ad3702e40e27603ab790e35661843",
+                "shortSha": "3e1116b",
+                "date": "2026-10-10",
+                "subject": "feat(ds): improve TreeView selection, performance and features",
+                "normalizedSubject": "improve TreeView selection, performance and features",
+                "type": "added",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/3e1116bf7e1ad3702e40e27603ab790e35661843",
+                "prUrl": null
+              },
+              {
+                "sha": "bb4fba659b75c8d97c3ebcb0597c19c2a2ba233c",
+                "shortSha": "bb4fba6",
+                "date": "2026-10-09",
+                "subject": "feat(ds): add TreeView component",
+                "normalizedSubject": "add TreeView component",
+                "type": "added",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/bb4fba659b75c8d97c3ebcb0597c19c2a2ba233c",
+                "prUrl": null
+              },
+              {
+                "sha": "76d9fd5e4c359ee17c54858e168c277084cf8d08",
+                "shortSha": "76d9fd5",
+                "date": "2026-10-09",
+                "subject": "feat(ds): add ProgressCircle component",
+                "normalizedSubject": "add ProgressCircle component",
+                "type": "added",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/76d9fd5e4c359ee17c54858e168c277084cf8d08",
+                "prUrl": null
+              },
+              {
+                "sha": "704fda5a9c46d1ff85d6575d3491bff012da6cab",
+                "shortSha": "704fda5",
+                "date": "2026-10-09",
+                "subject": "fix(ds): type ActionButton label offset map",
+                "normalizedSubject": "type ActionButton label offset map",
+                "type": "fixed",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/704fda5a9c46d1ff85d6575d3491bff012da6cab",
+                "prUrl": null
+              },
+              {
+                "sha": "bcdffd9c8a9eedf2e838cd3c9ef62a6bc5f45ccb",
+                "shortSha": "bcdffd9",
+                "date": "2026-10-09",
+                "subject": "feat(ds): add isRounded prop to AngleSlider",
+                "normalizedSubject": "add isRounded prop to AngleSlider",
+                "type": "added",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/bcdffd9c8a9eedf2e838cd3c9ef62a6bc5f45ccb",
+                "prUrl": null
+              },
+              {
+                "sha": "83aeac996d0660d9d48f5db9e58d7b57367d9c9c",
+                "shortSha": "83aeac9",
+                "date": "2026-10-09",
+                "subject": "fix(ds): allow clearing and partial decimals in number InputField",
+                "normalizedSubject": "allow clearing and partial decimals in number InputField",
+                "type": "fixed",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/83aeac996d0660d9d48f5db9e58d7b57367d9c9c",
+                "prUrl": null
+              },
+              {
+                "sha": "3e424473d9a302d633d0607d1bad2ac5848bd071",
+                "shortSha": "3e42447",
+                "date": "2026-10-09",
+                "subject": "fix(ds): center ActionButton label vertically",
+                "normalizedSubject": "center ActionButton label vertically",
+                "type": "fixed",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/3e424473d9a302d633d0607d1bad2ac5848bd071",
+                "prUrl": null
+              },
+              {
+                "sha": "a9396289e7476f128fa31daab45a105af1782779",
+                "shortSha": "a939628",
+                "date": "2026-10-09",
+                "subject": "feat(root): add AngleSlider and AngleSliderField components",
+                "normalizedSubject": "add AngleSlider and AngleSliderField components",
+                "type": "added",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/a9396289e7476f128fa31daab45a105af1782779",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 10,
+              "fixed": 3,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
         {
           "packageName": "@imaginario27/air-ui-ds",
           "version": "1.21.0",
@@ -3827,8 +3999,39 @@
     },
     {
       "packageName": "@imaginario27/air-ui-utils",
-      "latestVersion": "1.3.0",
+      "latestVersion": "1.4.0",
       "entries": [
+        {
+          "packageName": "@imaginario27/air-ui-utils",
+          "version": "1.4.0",
+          "publishedAt": "2026-10-10",
+          "releaseType": "minor",
+          "notes": [
+            "add Image, Gallery and Lightbox components"
+          ],
+          "metadata": {
+            "commitCount": 1,
+            "commits": [
+              {
+                "sha": "72c5539f13bced86e1f328e7796af03779893623",
+                "shortSha": "72c5539",
+                "date": "2026-10-10",
+                "subject": "feat(ds): add Image, Gallery and Lightbox components",
+                "normalizedSubject": "add Image, Gallery and Lightbox components",
+                "type": "added",
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/72c5539f13bced86e1f328e7796af03779893623",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 1,
+              "fixed": 0,
+              "changed": 0,
+              "breaking": 0
+            }
+          }
+        },
         {
           "packageName": "@imaginario27/air-ui-utils",
           "version": "1.3.0",

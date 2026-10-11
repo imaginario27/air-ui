@@ -75,6 +75,22 @@ async function main() {
         const commitMessage = `chore(${scope}): release ${packageName} v${version}`
         const releaseFiles = getReleaseFiles(packageName)
 
+        const history = JSON.parse(
+            readFileSync(
+                path.join(repoRoot, "docs/data/releases/release-history.json"),
+                "utf8",
+            ),
+        )
+        const historyVersion = history.packages.find(
+            (pkg) => pkg.packageName === packageName,
+        )?.latestVersion
+
+        if (historyVersion !== version) {
+            throw new Error(
+                `release-history.json is stale (latest ${historyVersion}, expected ${version}). Run: npm run rebuild-release-history -- ${packageName}`,
+            )
+        }
+
         const proceed = await askConfirmation(
             `\n✅ Commit message: "${commitMessage}"\nProceed? (y/n): `
         )
