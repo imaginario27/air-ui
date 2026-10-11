@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-11T08:09:18.207Z",
+  "generatedAt": "2026-10-11T08:38:49.995Z",
   "source": "github-git-history+npm-publish-dates",
   "githubBaseUrl": "https://github.com/imaginario27/air-ui",
   "packages": [
@@ -13,16 +13,16 @@
           "publishedAt": "2026-10-10",
           "releaseType": "minor",
           "notes": [
-            "add Image, Gallery and Lightbox components",
-            "add SignaturePad and SignatureField components",
-            "add Marquee component",
-            "add TreeView double click event and rename on click",
-            "split TreeView logic into composables and add sorting",
-            "improve TreeView selection, performance and features",
-            "add TreeView component",
-            "add ProgressCircle component",
-            "add isRounded prop to AngleSlider",
-            "add AngleSlider and AngleSliderField components"
+            "add `Image`, `Gallery` and `Lightbox` components",
+            "add `SignaturePad` and `SignatureField` components",
+            "add `Marquee` component",
+            "add `TreeView` double click event and rename on click",
+            "split `TreeView` logic into composables and add sorting",
+            "improve `TreeView` selection, performance and features",
+            "add `TreeView` component",
+            "add `ProgressCircle` component",
+            "add `isRounded` prop to `AngleSlider`",
+            "add `AngleSlider` and `AngleSliderField` components"
           ],
           "metadata": {
             "commitCount": 13,
@@ -32,20 +32,20 @@
                 "shortSha": "72c5539",
                 "date": "2026-10-10",
                 "subject": "feat(ds): add Image, Gallery and Lightbox components",
-                "normalizedSubject": "add Image, Gallery and Lightbox components",
+                "normalizedSubject": "add `Image`, `Gallery` and `Lightbox` components",
                 "type": "added",
                 "body": [
-                  "add Lightbox with swipe, keyboard navigation, fullscreen and scroll lock",
-                  "add Image with aspect ratio, hover effects, captions, lightbox and optional NuxtImg",
-                  "add Gallery with grid layout, shared lightbox and four pagination modes",
-                  "add ImageHoverEffect NONE, GRAYSCALE and SPLIT_ZOOM options",
-                  "add ImageFit, ImageHoverSplitDirection, ImageCaptionPlacement and ImageLoading enums",
-                  "add GalleryPaginationMode enum and GalleryImage type",
-                  "add useAspectRatioClass composable and reuse it in ContentItemImage",
-                  "add cleanImageAlt util to air-ui-utils",
-                  "add pagination, gallery and lightbox groups to useDSConfig, props take precedence",
-                  "make ButtonPagination and SimplePagination texts fall back to the DS config",
-                  "add docs pages, demo, thumbnails and registry entries for Image, Gallery and Lightbox",
+                  "add `Lightbox` with swipe, keyboard navigation, fullscreen and scroll lock",
+                  "add `Image` with aspect ratio, hover effects, captions, lightbox and optional NuxtImg",
+                  "add `Gallery` with grid layout, shared lightbox and four pagination modes",
+                  "add `ImageHoverEffect` `NONE`, `GRAYSCALE` and `SPLIT_ZOOM` options",
+                  "add `ImageFit`, `ImageHoverSplitDirection`, `ImageCaptionPlacement` and `ImageLoading` enums",
+                  "add `GalleryPaginationMode` enum and `GalleryImage` type",
+                  "add `useAspectRatioClass` composable and reuse it in `ContentItemImage`",
+                  "add `cleanImageAlt` util to air-ui-utils",
+                  "add pagination, gallery and lightbox groups to `useDSConfig`, props take precedence",
+                  "make `ButtonPagination` and `SimplePagination` texts fall back to the DS config",
+                  "add docs pages, demo, thumbnails and registry entries for `Image`, `Gallery` and `Lightbox`",
                   "document the new config texts in getting started configuration",
                   "scan ds composables in docs tailwind sources",
                   "add tests for the new components, composable, util and config"
@@ -69,14 +69,14 @@
                 "shortSha": "00e0a79",
                 "date": "2026-10-10",
                 "subject": "feat(ds): add SignaturePad and SignatureField components",
-                "normalizedSubject": "add SignaturePad and SignatureField components",
+                "normalizedSubject": "add `SignaturePad` and `SignatureField` components",
                 "type": "added",
                 "body": [
-                  "add SignaturePad under components/signature-pads with minWidth and clear icon props",
-                  "add SignatureField form field with label, help text, validator and v-model:error",
-                  "add unit tests for SignaturePad and SignatureField",
-                  "add SignaturePad and SignatureField docs pages, routes, thumbnails and registry entries",
-                  "title the error prop as \"error (v-model:error)\" on the SliderField docs page",
+                  "add `SignaturePad` under `components/signature-pads` with `minWidth` and clear icon props",
+                  "add `SignatureField` form field with label, help text, validator and `v-model:error`",
+                  "add unit tests for `SignaturePad` and `SignatureField`",
+                  "add `SignaturePad` and `SignatureField` docs pages, routes, thumbnails and registry entries",
+                  "title the error prop as \"error (`v-model:error`)\" on the `SliderField` docs page",
                   "add the form field error title rule to the docs-page skill and STYLE guidelines"
                 ],
                 "affected": [
@@ -92,14 +92,14 @@
                 "shortSha": "60704bd",
                 "date": "2026-10-10",
                 "subject": "feat(ds): add Marquee component",
-                "normalizedSubject": "add Marquee component",
+                "normalizedSubject": "add `Marquee` component",
                 "type": "added",
                 "body": [
-                  "add Marquee.vue under components/sliders with speed, gap, orientation and fade options",
+                  "add `Marquee.vue` under `components/sliders` with speed, gap, orientation and fade options",
                   "add loopComplete and complete emits",
-                  "add unit tests for Marquee",
-                  "add Marquee docs page, route and sidebar entry",
-                  "add placeholder Marquee thumbnail"
+                  "add unit tests for `Marquee`",
+                  "add `Marquee` docs page, route and sidebar entry",
+                  "add placeholder `Marquee` thumbnail"
                 ],
                 "affected": [
                   "Marquee"
@@ -113,14 +113,14 @@
                 "shortSha": "60350a0",
                 "date": "2026-10-10",
                 "subject": "feat(ds): add TreeView double click event and rename on click",
-                "normalizedSubject": "add TreeView double click event and rename on click",
+                "normalizedSubject": "add `TreeView` double click event and rename on click",
                 "type": "added",
                 "body": [
                   "add node-dblclick event emitted with the double clicked node",
                   "ignore the second click of a double click when toggling branches",
-                  "add renameOnClick prop to rename a node when the selected node is clicked again",
-                  "add useTreeViewClicks composable",
-                  "emit update:nodes with the new label after a confirmed rename",
+                  "add `renameOnClick` prop to rename a node when the selected node is clicked again",
+                  "add `useTreeViewClicks` composable",
+                  "emit `update:nodes` with the new label after a confirmed rename",
                   "add tests for double click, rename on click and rename update"
                 ],
                 "affected": [
@@ -138,15 +138,15 @@
                 "shortSha": "a7e6e60",
                 "date": "2026-10-10",
                 "subject": "feat(ds): split TreeView logic into composables and add sorting",
-                "normalizedSubject": "split TreeView logic into composables and add sorting",
+                "normalizedSubject": "split `TreeView` logic into composables and add sorting",
                 "type": "added",
                 "body": [
-                  "move TreeView logic into composables under composables/tree-view",
+                  "move `TreeView` logic into composables under `composables/tree-view`",
                   "register composables subfolders for auto-import in nuxt config",
-                  "add SortOrder enum",
-                  "add sortOrder, foldersFirst and sortCompare props",
-                  "add meta field to TreeViewNode",
-                  "add update:nodes event emitted after a reorder drop",
+                  "add `SortOrder` enum",
+                  "add `sortOrder`, `foldersFirst` and `sortCompare` props",
+                  "add meta field to `TreeViewNode`",
+                  "add `update:nodes` event emitted after a reorder drop",
                   "allow drops inside empty folders",
                   "while sorted, accept drops on folders and on files to pick the receiving list",
                   "highlight the receiving list instead of showing a line placeholder when sorted",
@@ -174,7 +174,7 @@
                 "shortSha": "3e1116b",
                 "date": "2026-10-10",
                 "subject": "feat(ds): improve TreeView selection, performance and features",
-                "normalizedSubject": "improve TreeView selection, performance and features",
+                "normalizedSubject": "improve `TreeView` selection, performance and features",
                 "type": "added",
                 "body": [
                   "select one node on plain click in multiple mode, ctrl/cmd toggles, shift selects ranges",
@@ -182,12 +182,12 @@
                   "fix space being ignored during typeahead",
                   "show the more-actions button on the active row for touch devices",
                   "memoize leaf and check state and mount a single more-actions dropdown at a time",
-                  "add size, checkStrictly, defaultExpandAll, defaultExpandedDepth and filter props",
-                  "add leafIcon, collapsedIcon and expandedIcon props",
+                  "add size, `checkStrictly`, `defaultExpandAll`, `defaultExpandedDepth` and filter props",
+                  "add `leafIcon`, `collapsedIcon` and `expandedIcon` props",
                   "add icon, trailing and empty slots",
-                  "add isRenamable, renameLabel and readOnly with rename event",
-                  "add isReorderable with reorder event and TreeViewDropPosition enum",
-                  "add load error state with loadErrorLabel",
+                  "add `isRenamable`, `renameLabel` and `readOnly` with rename event",
+                  "add `isReorderable` with reorder event and `TreeViewDropPosition` enum",
+                  "add load error state with `loadErrorLabel`",
                   "expose expandAll, collapseAll, expandTo, scrollToNode, startRename and reload",
                   "add tests for the new behavior"
                 ],
@@ -203,15 +203,15 @@
                 "shortSha": "bb4fba6",
                 "date": "2026-10-09",
                 "subject": "feat(ds): add TreeView component",
-                "normalizedSubject": "add TreeView component",
+                "normalizedSubject": "add `TreeView` component",
                 "type": "added",
                 "body": [
-                  "add TreeView with expand, selection, checkboxes and keyboard navigation",
+                  "add `TreeView` with expand, selection, checkboxes and keyboard navigation",
                   "add lazy loading, accordion mode and expand and collapse transition",
-                  "add more-actions dropdown on hover through the moreActionsItems prop",
+                  "add more-actions dropdown on hover through the `moreActionsItems` prop",
                   "add color prop with primary brand, secondary brand and neutral options",
-                  "add TreeViewSelectionMode enum and TreeViewNode, TreeRow and resolver types",
-                  "add unit tests for TreeView and for NavSidebarMenuItem action callbacks",
+                  "add `TreeViewSelectionMode` enum and `TreeViewNode`, `TreeRow` and resolver types",
+                  "add unit tests for `TreeView` and for `NavSidebarMenuItem` action callbacks",
                   "add docs page, route and portfolio entry"
                 ],
                 "affected": [
@@ -226,12 +226,12 @@
                 "shortSha": "76d9fd5",
                 "date": "2026-10-09",
                 "subject": "feat(ds): add ProgressCircle component",
-                "normalizedSubject": "add ProgressCircle component",
+                "normalizedSubject": "add `ProgressCircle` component",
                 "type": "added",
                 "body": [
-                  "add ProgressCircle with progress, color, size, label and indeterminate support",
-                  "add ProgressCircleSize and ProgressCircleLabelPosition enums",
-                  "add unit tests for ProgressCircle",
+                  "add `ProgressCircle` with progress, color, size, label and indeterminate support",
+                  "add `ProgressCircleSize` and `ProgressCircleLabelPosition` enums",
+                  "add unit tests for `ProgressCircle`",
                   "add docs page and portfolio entry"
                 ],
                 "affected": [
@@ -246,7 +246,7 @@
                 "shortSha": "704fda5",
                 "date": "2026-10-09",
                 "subject": "fix(ds): type ActionButton label offset map",
-                "normalizedSubject": "type ActionButton label offset map",
+                "normalizedSubject": "type `ActionButton` label offset map",
                 "type": "fixed",
                 "body": [
                   "type the label offset variant map as a partial size record"
@@ -263,11 +263,11 @@
                 "shortSha": "bcdffd9",
                 "date": "2026-10-09",
                 "subject": "feat(ds): add isRounded prop to AngleSlider",
-                "normalizedSubject": "add isRounded prop to AngleSlider",
+                "normalizedSubject": "add `isRounded` prop to `AngleSlider`",
                 "type": "added",
                 "body": [
-                  "add isRounded prop to round the start of the filled arc",
-                  "pass isRounded through AngleSliderField",
+                  "add `isRounded` prop to round the start of the filled arc",
+                  "pass `isRounded` through `AngleSliderField`",
                   "keep square caps at 0 degrees to avoid a stray dot",
                   "add tests and docs for the new prop"
                 ],
@@ -284,7 +284,7 @@
                 "shortSha": "83aeac9",
                 "date": "2026-10-09",
                 "subject": "fix(ds): allow clearing and partial decimals in number InputField",
-                "normalizedSubject": "allow clearing and partial decimals in number InputField",
+                "normalizedSubject": "allow clearing and partial decimals in number `InputField`",
                 "type": "fixed",
                 "body": [
                   "emit raw value when number input is empty or incomplete",
@@ -303,11 +303,11 @@
                 "shortSha": "3e42447",
                 "date": "2026-10-09",
                 "subject": "fix(ds): center ActionButton label vertically",
-                "normalizedSubject": "center ActionButton label vertically",
+                "normalizedSubject": "center `ActionButton` label vertically",
                 "type": "fixed",
                 "body": [
                   "trim label box to cap height with text-box",
-                  "nudge label up 1px at XS and XXL sizes",
+                  "nudge label up 1px at `XS` and `XXL` sizes",
                   "add test for per-size label offset"
                 ],
                 "affected": [
@@ -322,12 +322,12 @@
                 "shortSha": "a939628",
                 "date": "2026-10-09",
                 "subject": "feat(root): add AngleSlider and AngleSliderField components",
-                "normalizedSubject": "add AngleSlider and AngleSliderField components",
+                "normalizedSubject": "add `AngleSlider` and `AngleSliderField` components",
                 "type": "added",
                 "body": [
-                  "add AngleSlider circular dial with drag, keyboard and marker support",
-                  "add AngleSliderField form field with label, help text and validation",
-                  "add AngleSliderSize enum",
+                  "add `AngleSlider` circular dial with drag, keyboard and marker support",
+                  "add `AngleSliderField` form field with label, help text and validation",
+                  "add `AngleSliderSize` enum",
                   "add unit tests for both components",
                   "add docs pages and portfolio entries for both components"
                 ],
@@ -356,7 +356,7 @@
           "releaseType": "minor",
           "notes": [
             "add step switch item types to dropdown menus",
-            "add StepSwitch and StepSwitchField components"
+            "add `StepSwitch` and `StepSwitchField` components"
           ],
           "metadata": {
             "commitCount": 2,
@@ -369,12 +369,12 @@
                 "normalizedSubject": "add step switch item types to dropdown menus",
                 "type": "added",
                 "body": [
-                  "add STEP_SWITCH and ICON_STEP_SWITCH to DropdownItemType",
-                  "add steps, stepValue and stepCallback to DropdownMenuItem type",
-                  "render interactive StepSwitch in DropdownMenuItem and DropdownMenuContextItem",
-                  "forward step props and callback through DropdownMenu and context items tree",
+                  "add `STEP_SWITCH` and `ICON_STEP_SWITCH` to `DropdownItemType`",
+                  "add steps, `stepValue` and stepCallback to `DropdownMenuItem` type",
+                  "render interactive `StepSwitch` in `DropdownMenuItem` and `DropdownMenuContextItem`",
+                  "forward step props and callback through `DropdownMenu` and context items tree",
                   "add unit tests for the new item types",
-                  "document the new types, steps and stepValue in dropdown-menu docs"
+                  "document the new types, steps and `stepValue` in dropdown-menu docs"
                 ],
                 "affected": [
                   "DropdownMenu",
@@ -391,12 +391,12 @@
                 "shortSha": "85cb618",
                 "date": "2026-10-06",
                 "subject": "feat(ds): add StepSwitch and StepSwitchField components",
-                "normalizedSubject": "add StepSwitch and StepSwitchField components",
+                "normalizedSubject": "add `StepSwitch` and `StepSwitchField` components",
                 "type": "added",
                 "body": [
-                  "add StepSwitch with user-defined steps, draggable handle and maxSteps limit",
-                  "add StepSwitchField form field based on TriStateSwitchField",
-                  "add StepSwitchOption type",
+                  "add `StepSwitch` with user-defined steps, draggable handle and `maxSteps` limit",
+                  "add `StepSwitchField` form field based on `TriStateSwitchField`",
+                  "add `StepSwitchOption` type",
                   "add unit tests for both components",
                   "add docs pages and sidebar entries for both components"
                 ],
@@ -424,7 +424,7 @@
           "publishedAt": "2026-10-06",
           "releaseType": "patch",
           "notes": [
-            "emit update:modelValue when clearing multiple select"
+            "emit `update:modelValue` when clearing multiple select"
           ],
           "metadata": {
             "commitCount": 1,
@@ -434,12 +434,12 @@
                 "shortSha": "da81402",
                 "date": "2026-10-06",
                 "subject": "fix(ds): emit update:modelValue when clearing multiple select",
-                "normalizedSubject": "emit update:modelValue when clearing multiple select",
+                "normalizedSubject": "emit `update:modelValue` when clearing multiple select",
                 "type": "fixed",
                 "body": [
-                  "add handleClearSelection to DropdownSelect to reset selection and emit an empty array",
-                  "wire the clear button to the new handler so SelectField badge stack clears",
-                  "assert update:modelValue emission in the clear button test"
+                  "add handleClearSelection to `DropdownSelect` to reset selection and emit an empty array",
+                  "wire the clear button to the new handler so `SelectField` badge stack clears",
+                  "assert `update:modelValue` emission in the clear button test"
                 ],
                 "affected": [
                   "DropdownSelect"
@@ -477,9 +477,9 @@
                 "normalizedSubject": "add option divider and full-row click to checkbox/radio fields",
                 "type": "added",
                 "body": [
-                  "add showDivider prop to RadioGroupField (DEFAULT type only) and CheckboxGroupField (list only)",
-                  "render a Divider between consecutive options when showDivider is enabled",
-                  "show pointer cursor across the whole row in CheckboxField and RadioField, not just the control",
+                  "add `showDivider` prop to `RadioGroupField` (`DEFAULT` type only) and `CheckboxGroupField` (list only)",
+                  "render a `Divider` between consecutive options when `showDivider` is enabled",
+                  "show pointer cursor across the whole row in `CheckboxField` and `RadioField`, not just the control",
                   "toggle the checkbox or select the radio when clicking anywhere on the row background",
                   "guard row click handler against double-toggling when click bubbles from label or control",
                   "add test coverage for divider rendering and row-click behavior"
@@ -510,7 +510,7 @@
           "publishedAt": "2026-10-01",
           "releaseType": "patch",
           "notes": [
-            "add size prop to ToggleButtonGroup and toggle field"
+            "add size prop to `ToggleButtonGroup` and toggle field"
           ],
           "metadata": {
             "commitCount": 1,
@@ -520,12 +520,12 @@
                 "shortSha": "2e04708",
                 "date": "2026-10-01",
                 "subject": "feat(ds): add size prop to ToggleButtonGroup and toggle field",
-                "normalizedSubject": "add size prop to ToggleButtonGroup and toggle field",
+                "normalizedSubject": "add size prop to `ToggleButtonGroup` and toggle field",
                 "type": "added",
                 "body": [
-                  "add size prop to ToggleButtonGroup, defaulting to ButtonSize.LG",
+                  "add size prop to `ToggleButtonGroup`, defaulting to `ButtonSize.LG`",
                   "resolve each button's size as button.size with group size as fallback",
-                  "forward size prop from ToggleButtonsGroupField to ToggleButtonGroup",
+                  "forward size prop from `ToggleButtonsGroupField` to `ToggleButtonGroup`",
                   "add unit tests covering size precedence and defaults",
                   "document size prop and usage in toggle-buttons-group-field docs"
                 ],
@@ -554,7 +554,7 @@
           "releaseType": "patch",
           "notes": [
             "flip sidebar more-actions dropdown to avoid viewport overflow",
-            "revert active NavSidebar item to neutral-hover styling"
+            "revert active `NavSidebar` item to neutral-hover styling"
           ],
           "metadata": {
             "commitCount": 2,
@@ -568,9 +568,9 @@
                 "type": "fixed",
                 "body": [
                   "flip more-actions dropdown to the opposite side when it would overflow the viewport",
-                  "simplify moreActionsPosition to Position (top/bottom), always right-anchored",
-                  "remove moreActionsPositionXOffset prop, default moreActionsPositionYOffset to 4",
-                  "update NavSidebar and NavSidebarMenuItemsTree prop pass-through accordingly",
+                  "simplify `moreActionsPosition` to Position (top/bottom), always right-anchored",
+                  "remove moreActionsPositionXOffset prop, default `moreActionsPositionYOffset` to 4",
+                  "update `NavSidebar` and `NavSidebarMenuItemsTree` prop pass-through accordingly",
                   "update nav-sidebar docs page and add flip-behavior tests"
                 ],
                 "affected": [
@@ -587,12 +587,12 @@
                 "shortSha": "3acc90f",
                 "date": "2026-09-29",
                 "subject": "fix(ds): revert active NavSidebar item to neutral-hover styling",
-                "normalizedSubject": "revert active NavSidebar item to neutral-hover styling",
+                "normalizedSubject": "revert active `NavSidebar` item to neutral-hover styling",
                 "type": "fixed",
                 "body": [
                   "revert active item background/text/icon color to neutral-hover treatment",
                   "always apply hover:bg-background-neutral-hover regardless of active state",
-                  "update NavSidebarMenuItem tests to match the reverted active styles"
+                  "update `NavSidebarMenuItem` tests to match the reverted active styles"
                 ],
                 "affected": [
                   "NavSidebarMenuItem"
@@ -617,7 +617,7 @@
           "publishedAt": "2026-09-29",
           "releaseType": "minor",
           "notes": [
-            "add truncation, marquee and more-actions support to NavSidebar"
+            "add truncation, marquee and more-actions support to `NavSidebar`"
           ],
           "metadata": {
             "commitCount": 1,
@@ -627,14 +627,14 @@
                 "shortSha": "c73e1ec",
                 "date": "2026-09-29",
                 "subject": "feat(ds): add truncation, marquee and more-actions support to NavSidebar",
-                "normalizedSubject": "add truncation, marquee and more-actions support to NavSidebar",
+                "normalizedSubject": "add truncation, marquee and more-actions support to `NavSidebar`",
                 "type": "added",
                 "body": [
-                  "add truncateDepth prop to ellipsis-truncate menu item text at specific nesting levels",
+                  "add `truncateDepth` prop to ellipsis-truncate menu item text at specific nesting levels",
                   "add marquee prop to slide truncated text into view on row hover",
                   "add moreActionsItems/moreActionsPosition/offsets for a per-item \"more actions\" dropdown",
                   "add suffix and textSuffix render-function/slot support on menu items",
-                  "add SidebarMenuDepth enum and extend SidebarMenuItem type with the new fields",
+                  "add `SidebarMenuDepth` enum and extend `SidebarMenuItem` type with the new fields",
                   "restyle the active menu item to a soft brand background/text/icon color set",
                   "update nav-sidebar docs and component tests to cover the new props and styling"
                 ],
@@ -663,12 +663,12 @@
           "publishedAt": "2026-09-29",
           "releaseType": "minor",
           "notes": [
-            "extend useDSConfig to cover more component text",
-            "add sidebar-menu slot to NavSidebar",
+            "extend `useDSConfig` to cover more component text",
+            "add sidebar-menu slot to `NavSidebar`",
             "add configurable optional-label hint and fix dropdown teleport clipping",
-            "render Alert description as plain text instead of v-html",
+            "render `Alert` description as plain text instead of v-html",
             "replace v-html label rendering with a label slot in form fields",
-            "fix NavSidebar scrollY stub for happy-dom upgrade",
+            "fix `NavSidebar` scrollY stub for happy-dom upgrade",
             "update dependencies across all workspaces"
           ],
           "metadata": {
@@ -679,10 +679,10 @@
                 "shortSha": "ae7693c",
                 "date": "2026-09-29",
                 "subject": "fix(ds): render Alert description as plain text instead of v-html",
-                "normalizedSubject": "render Alert description as plain text instead of v-html",
+                "normalizedSubject": "render `Alert` description as plain text instead of v-html",
                 "type": "fixed",
                 "body": [
-                  "remove v-html from Alert's description prop fallback, rendering it as plain text",
+                  "remove v-html from `Alert`'s description prop fallback, rendering it as plain text",
                   "wrap the description slot in a text-sm container so it matches the prop fallback's typography"
                 ],
                 "affected": [
@@ -700,7 +700,7 @@
                 "normalizedSubject": "replace v-html label rendering with a label slot in form fields",
                 "type": "fixed",
                 "body": [
-                  "replace v-html=\"label\" with a label slot (defaulting to plain-text label) in CheckboxField, TriStateCheckboxField, SwitchField, TriStateSwitchField, RadioField, RadioButtonField",
+                  "replace v-html=\"label\" with a label slot (defaulting to plain-text label) in `CheckboxField`, `TriStateCheckboxField`, `SwitchField`, `TriStateSwitchField`, `RadioField`, `RadioButtonField`",
                   "add label slot tests to each affected component's test file",
                   "document the label slot with a slots-table and usage example in the checkbox-field, tri-state-checkbox-field, switch-field, and tri-state-switch-field docs pages"
                 ],
@@ -721,7 +721,7 @@
                 "shortSha": "1adf956",
                 "date": "2026-09-29",
                 "subject": "test(ds): fix NavSidebar scrollY stub for happy-dom upgrade",
-                "normalizedSubject": "fix NavSidebar scrollY stub for happy-dom upgrade",
+                "normalizedSubject": "fix `NavSidebar` scrollY stub for happy-dom upgrade",
                 "type": "changed",
                 "body": [
                   "replace direct window.scrollY assignment with vi.spyOn getter mock",
@@ -742,7 +742,7 @@
                 "body": [
                   "run npm-check-updates across root, docs, ds, and utils",
                   "keep typescript pinned at 6.0.3 in docs",
-                  "regenerate package-lock.json"
+                  "regenerate `package-lock.json`"
                 ],
                 "affected": [],
                 "prNumber": null,
@@ -754,7 +754,7 @@
                 "shortSha": "8bd9079",
                 "date": "2026-09-29",
                 "subject": "feat(ds): extend useDSConfig to cover more component text",
-                "normalizedSubject": "extend useDSConfig to cover more component text",
+                "normalizedSubject": "extend `useDSConfig` to cover more component text",
                 "type": "added",
                 "body": [
                   "add forms.selectPlaceholderText, searchText, noResultsText, loadingOptionsText",
@@ -787,11 +787,11 @@
                 "shortSha": "a25aeaf",
                 "date": "2026-09-29",
                 "subject": "feat(ds): add sidebar-menu slot to NavSidebar",
-                "normalizedSubject": "add sidebar-menu slot to NavSidebar",
+                "normalizedSubject": "add sidebar-menu slot to `NavSidebar`",
                 "type": "added",
                 "body": [
                   "add sidebar-menu slot to fully replace the built-in menu when used",
-                  "guard NavSidebarMenu render behind the new slot check"
+                  "guard `NavSidebarMenu` render behind the new slot check"
                 ],
                 "affected": [
                   "NavSidebar"
@@ -808,12 +808,12 @@
                 "normalizedSubject": "add configurable optional-label hint and fix dropdown teleport clipping",
                 "type": "added",
                 "body": [
-                  "add useDSConfig composable with a DesignSystemConfig type for shared, reactive DS settings",
+                  "add `useDSConfig` composable with a `DesignSystemConfig` type for shared, reactive DS settings",
                   "show an \"(optional)\" hint next to the label/legend when a field is not required",
-                  "add showOptionalLabel and optionalLabel props to control or override the hint per field",
-                  "add shouldTeleport and teleportTo props to SelectField and DropdownSelect to fix dropdown panel clipping inside overflow-hidden/overflow-auto ancestors",
-                  "add titleWrapperClass, actionsWrapperClass, and title-suffix/header-suffix slots to Collapsible",
-                  "update existing tests for the new default optional hint and add coverage for useDSConfig"
+                  "add `showOptionalLabel` and `optionalLabel` props to control or override the hint per field",
+                  "add `shouldTeleport` and `teleportTo` props to `SelectField` and `DropdownSelect` to fix dropdown panel clipping inside overflow-hidden/overflow-auto ancestors",
+                  "add `titleWrapperClass`, `actionsWrapperClass`, and title-suffix/header-suffix slots to `Collapsible`",
+                  "update existing tests for the new default optional hint and add coverage for `useDSConfig`"
                 ],
                 "affected": [
                   "Collapsible",
@@ -860,8 +860,8 @@
           "releaseType": "patch",
           "notes": [
             "add icon variants for dropdown checkbox, switch, and check types",
-            "add noWrap prop to TableHeaderCell",
-            "focus first focusable slot content in ModalDialog, not the close button"
+            "add `noWrap` prop to `TableHeaderCell`",
+            "focus first focusable slot content in `ModalDialog`, not the close button"
           ],
           "metadata": {
             "commitCount": 3,
@@ -871,7 +871,7 @@
                 "shortSha": "cc726c5",
                 "date": "2026-09-23",
                 "subject": "fix(ds): focus first focusable slot content in ModalDialog, not the close button",
-                "normalizedSubject": "focus first focusable slot content in ModalDialog, not the close button",
+                "normalizedSubject": "focus first focusable slot content in `ModalDialog`, not the close button",
                 "type": "fixed",
                 "body": [
                   "add tabindex=\"-1\" to dialog so it can receive focus as a fallback",
@@ -894,11 +894,11 @@
                 "normalizedSubject": "add icon variants for dropdown checkbox, switch, and check types",
                 "type": "added",
                 "body": [
-                  "add ICON_CHECKBOX, ICON_SWITCH, and ICON_CHECK to DropdownItemType enum",
+                  "add `ICON_CHECKBOX`, `ICON_SWITCH`, and `ICON_CHECK` to `DropdownItemType` enum",
                   "render leading icon alongside checkbox/switch/check controls in item components",
-                  "treat new icon-combo types as toggle items in DropdownMenu",
+                  "treat new icon-combo types as toggle items in `DropdownMenu`",
                   "add tests for the three new types in both item components",
-                  "document new type options and checked prop behavior in dropdown-menu.md"
+                  "document new type options and checked prop behavior in `dropdown-menu.md`"
                 ],
                 "affected": [
                   "DropdownMenu",
@@ -914,12 +914,12 @@
                 "shortSha": "849a46e",
                 "date": "2026-09-23",
                 "subject": "feat(ds): add noWrap prop to TableHeaderCell",
-                "normalizedSubject": "add noWrap prop to TableHeaderCell",
+                "normalizedSubject": "add `noWrap` prop to `TableHeaderCell`",
                 "type": "added",
                 "body": [
-                  "add noWrap prop to TableHeaderCell for row-scoped header cells",
-                  "add tests covering noWrap behavior",
-                  "document scope, sort props, fitToContent/to, and noWrap with usage examples in table.md"
+                  "add `noWrap` prop to `TableHeaderCell` for row-scoped header cells",
+                  "add tests covering `noWrap` behavior",
+                  "document scope, sort props, fitToContent/to, and `noWrap` with usage examples in `table.md`"
                 ],
                 "affected": [
                   "TableHeaderCell"
@@ -944,7 +944,7 @@
           "publishedAt": "2026-09-21",
           "releaseType": "patch",
           "notes": [
-            "add titleClass and buttonSize props to Collapsible"
+            "add `titleClass` and `buttonSize` props to `Collapsible`"
           ],
           "metadata": {
             "commitCount": 1,
@@ -954,13 +954,13 @@
                 "shortSha": "8c76a69",
                 "date": "2026-09-21",
                 "subject": "feat(ds): add titleClass and buttonSize props to Collapsible",
-                "normalizedSubject": "add titleClass and buttonSize props to Collapsible",
+                "normalizedSubject": "add `titleClass` and `buttonSize` props to `Collapsible`",
                 "type": "added",
                 "body": [
-                  "add titleClass prop to customize the title span's classes",
-                  "add buttonSize prop (ButtonSize enum) to control the expand/collapse icon button size",
-                  "add tests covering titleClass and buttonSize defaults/overrides",
-                  "document titleClass and buttonSize in the Collapsible docs page"
+                  "add `titleClass` prop to customize the title span's classes",
+                  "add `buttonSize` prop (`ButtonSize` enum) to control the expand/collapse icon button size",
+                  "add tests covering `titleClass` and `buttonSize` defaults/overrides",
+                  "document `titleClass` and `buttonSize` in the `Collapsible` docs page"
                 ],
                 "affected": [
                   "Collapsible"
@@ -985,8 +985,8 @@
           "publishedAt": "2026-09-18",
           "releaseType": "patch",
           "notes": [
-            "add check type to DropdownMenuItem",
-            "support check type in DropdownMenuContextItem and DropdownMenu"
+            "add check type to `DropdownMenuItem`",
+            "support check type in `DropdownMenuContextItem` and `DropdownMenu`"
           ],
           "metadata": {
             "commitCount": 2,
@@ -996,12 +996,12 @@
                 "shortSha": "ef6925a",
                 "date": "2026-09-18",
                 "subject": "fix(ds): support check type in DropdownMenuContextItem and DropdownMenu",
-                "normalizedSubject": "support check type in DropdownMenuContextItem and DropdownMenu",
+                "normalizedSubject": "support check type in `DropdownMenuContextItem` and `DropdownMenu`",
                 "type": "fixed",
                 "body": [
-                  "render check icon and toggle behavior for DropdownItemType.CHECK in DropdownMenuContextItem.vue",
-                  "add unit tests covering the check type for DropdownMenuContextItem",
-                  "treat CHECK as a toggle type in DropdownMenu's :items fallback so the dropdown stays open on click"
+                  "render check icon and toggle behavior for `DropdownItemType.CHECK` in `DropdownMenuContextItem.vue`",
+                  "add unit tests covering the check type for `DropdownMenuContextItem`",
+                  "treat `CHECK` as a toggle type in `DropdownMenu`'s `:items` fallback so the dropdown stays open on click"
                 ],
                 "affected": [
                   "DropdownMenu",
@@ -1016,14 +1016,14 @@
                 "shortSha": "0e834c3",
                 "date": "2026-09-18",
                 "subject": "feat(ds): add check type to DropdownMenuItem",
-                "normalizedSubject": "add check type to DropdownMenuItem",
+                "normalizedSubject": "add check type to `DropdownMenuItem`",
                 "type": "added",
                 "body": [
-                  "add DropdownItemType.CHECK enum value",
-                  "render a check icon in DropdownMenuItem when type is CHECK and checked is true",
-                  "toggle checked on click for CHECK type like checkbox/switch, without closing the dropdown",
+                  "add `DropdownItemType.CHECK` enum value",
+                  "render a check icon in `DropdownMenuItem` when type is `CHECK` and checked is true",
+                  "toggle checked on click for `CHECK` type like checkbox/switch, without closing the dropdown",
                   "add unit tests covering the check type",
-                  "document the CHECK option in dropdown-menu.md"
+                  "document the `CHECK` option in `dropdown-menu.md`"
                 ],
                 "affected": [
                   "DropdownMenuItem"
@@ -1065,11 +1065,11 @@
                 "normalizedSubject": "fix badge stack overrides, group field sizing, and layout components",
                 "type": "fixed",
                 "body": [
-                  "let BadgeStack items override styleType, shape, color, and other badge props",
-                  "add size prop to CheckboxGroupField and RadioGroupField",
-                  "default CompactHeader setAutoTitle to false",
-                  "pass through attrs class on Section's MaxWidthContainer",
-                  "fix air-ui-ds nuxt.config main.css path alias",
+                  "let `BadgeStack` items override `styleType`, shape, color, and other badge props",
+                  "add size prop to `CheckboxGroupField` and `RadioGroupField`",
+                  "default `CompactHeader` `setAutoTitle` to false",
+                  "pass through attrs class on `Section`'s `MaxWidthContainer`",
+                  "fix air-ui-ds nuxt.config `main.css` path alias",
                   "prefix playground field ids in ComponentCode to avoid id collisions",
                   "update badge-stack, checkbox-group-field, radio-group-field, and compact-header docs"
                 ],
@@ -1092,10 +1092,10 @@
                 "normalizedSubject": "support checkbox and switch items in dropdown menu",
                 "type": "added",
                 "body": [
-                  "add CHECKBOX and SWITCH to DropdownItemType",
+                  "add `CHECKBOX` and `SWITCH` to `DropdownItemType`",
                   "render Checkbox/Switch controls in dropdown menu items",
                   "pass toggle state through click handlers instead of closing on toggle",
-                  "add checked prop to DropdownMenuItem type and callback signature",
+                  "add checked prop to `DropdownMenuItem` type and callback signature",
                   "update dropdown-menu docs with checkbox/switch usage"
                 ],
                 "affected": [
@@ -1116,9 +1116,9 @@
                 "normalizedSubject": "add tri-state checkbox and switch components",
                 "type": "added",
                 "body": [
-                  "add TriStateCheckbox and TriStateCheckboxField components",
-                  "add TriStateSwitch and TriStateSwitchField components",
-                  "add TriStateValue enum",
+                  "add `TriStateCheckbox` and `TriStateCheckboxField` components",
+                  "add `TriStateSwitch` and `TriStateSwitchField` components",
+                  "add `TriStateValue` enum",
                   "add unit tests for all four components",
                   "add docs content and pages for the new components",
                   "add tri-state entries to the portfolio component list"
@@ -1141,7 +1141,7 @@
                 "normalizedSubject": "update switch test imports to new subfolder path",
                 "type": "changed",
                 "body": [
-                  "fix Switch.test.ts and SwitchField.test.ts imports left pointing at the pre-move location"
+                  "fix `Switch.test.ts` and `SwitchField.test.ts` imports left pointing at the pre-move location"
                 ],
                 "affected": [],
                 "prNumber": null,
@@ -1156,9 +1156,9 @@
                 "normalizedSubject": "move switch field components into switch/ subfolder",
                 "type": "changed",
                 "body": [
-                  "move Switch.vue and SwitchField.vue into forms/fields/switch/",
+                  "move `Switch.vue` and `SwitchField.vue` into forms/fields/switch/",
                   "move their tests into tests/components/forms/fields/switch/",
-                  "update srcDir references in switch.md and switch-field.md docs"
+                  "update srcDir references in `switch.md` and `switch-field.md` docs"
                 ],
                 "affected": [
                   "Switch",
@@ -1184,7 +1184,7 @@
           "publishedAt": "2026-09-01",
           "releaseType": "patch",
           "notes": [
-            "add divider items and detectActive opt-out to NavSidebar"
+            "add divider items and `detectActive` opt-out to `NavSidebar`"
           ],
           "metadata": {
             "commitCount": 1,
@@ -1194,18 +1194,18 @@
                 "shortSha": "3b5b894",
                 "date": "2026-09-01",
                 "subject": "feat(ds): add divider items and detectActive opt-out to NavSidebar",
-                "normalizedSubject": "add divider items and detectActive opt-out to NavSidebar",
+                "normalizedSubject": "add divider items and `detectActive` opt-out to `NavSidebar`",
                 "type": "added",
                 "body": [
-                  "add dividerClass prop to Divider for overriding the line color/thickness",
-                  "support isDivider items in SidebarMenuItem, rendered as a Divider at any nesting level",
-                  "render divider separators inside collapsed submenu dropdowns via hasSeparator",
-                  "add detectActive flag to SidebarMenuItem and forward it through NavSidebar and the items tree",
-                  "make text optional on SidebarMenuItem now that divider items carry no other fields",
-                  "reserve a stable scrollbar gutter on the expanded NavSidebarMenu scroll container",
-                  "forward dividerClass from NavSidebar through NavSidebarMenuItemsTree",
-                  "add tests for divider rendering, dividerClass forwarding, detectActive, and the scrollbar gutter",
-                  "document dividerClass, isDivider, and detectActive in the divider and nav-sidebar docs"
+                  "add `dividerClass` prop to `Divider` for overriding the line color/thickness",
+                  "support isDivider items in `SidebarMenuItem`, rendered as a `Divider` at any nesting level",
+                  "render divider separators inside collapsed submenu dropdowns via `hasSeparator`",
+                  "add `detectActive` flag to `SidebarMenuItem` and forward it through `NavSidebar` and the items tree",
+                  "make text optional on `SidebarMenuItem` now that divider items carry no other fields",
+                  "reserve a stable scrollbar gutter on the expanded `NavSidebarMenu` scroll container",
+                  "forward `dividerClass` from `NavSidebar` through `NavSidebarMenuItemsTree`",
+                  "add tests for divider rendering, `dividerClass` forwarding, `detectActive`, and the scrollbar gutter",
+                  "document `dividerClass`, isDivider, and `detectActive` in the divider and nav-sidebar docs"
                 ],
                 "affected": [
                   "Divider",
@@ -1233,7 +1233,7 @@
           "publishedAt": "2026-09-01",
           "releaseType": "patch",
           "notes": [
-            "rename NotificationItem interface to AppNotificationItem"
+            "rename NotificationItem interface to `AppNotificationItem`"
           ],
           "metadata": {
             "commitCount": 1,
@@ -1243,12 +1243,12 @@
                 "shortSha": "514b46b",
                 "date": "2026-09-01",
                 "subject": "refactor(root): rename NotificationItem interface to AppNotificationItem",
-                "normalizedSubject": "rename NotificationItem interface to AppNotificationItem",
+                "normalizedSubject": "rename NotificationItem interface to `AppNotificationItem`",
                 "type": "changed",
                 "body": [
-                  "rename NotificationItem to AppNotificationItem in models/types/notifications.ts",
-                  "update NotificationsPopover prop and internal ref types to AppNotificationItem",
-                  "update notifications-popover docs to reference AppNotificationItem"
+                  "rename NotificationItem to `AppNotificationItem` in `models/types/notifications.ts`",
+                  "update `NotificationsPopover` prop and internal ref types to `AppNotificationItem`",
+                  "update notifications-popover docs to reference `AppNotificationItem`"
                 ],
                 "affected": [
                   "NotificationsPopover"
@@ -1273,7 +1273,7 @@
           "publishedAt": "2026-08-09",
           "releaseType": "patch",
           "notes": [
-            "close dropdown menus on child item click in CompactHeader"
+            "close dropdown menus on child item click in `CompactHeader`"
           ],
           "metadata": {
             "commitCount": 1,
@@ -1283,13 +1283,13 @@
                 "shortSha": "d908fe7",
                 "date": "2026-08-09",
                 "subject": "fix(ds): close dropdown menus on child item click in CompactHeader",
-                "normalizedSubject": "close dropdown menus on child item click in CompactHeader",
+                "normalizedSubject": "close dropdown menus on child item click in `CompactHeader`",
                 "type": "fixed",
                 "body": [
                   "close mobile menu dropdown after clicking any nav or submenu item",
                   "close user menu dropdown after clicking a menu item",
                   "close horizontal menu submenu after clicking a child item",
-                  "expose onClose in the header-actions slot so consumers can close the enclosing dropdown"
+                  "expose `onClose` in the header-actions slot so consumers can close the enclosing dropdown"
                 ],
                 "affected": [
                   "CompactHeader",
@@ -1315,7 +1315,7 @@
           "publishedAt": "2026-08-09",
           "releaseType": "patch",
           "notes": [
-            "honor setAutoTitle in CompactHeader"
+            "honor `setAutoTitle` in `CompactHeader`"
           ],
           "metadata": {
             "commitCount": 1,
@@ -1325,12 +1325,12 @@
                 "shortSha": "eb79a35",
                 "date": "2026-08-09",
                 "subject": "fix(ds): honor setAutoTitle in CompactHeader",
-                "normalizedSubject": "honor setAutoTitle in CompactHeader",
+                "normalizedSubject": "honor `setAutoTitle` in `CompactHeader`",
                 "type": "fixed",
                 "body": [
-                  "skip useHead entirely when setAutoTitle is false",
-                  "add tests for setAutoTitle and fallbackTitle",
-                  "document setAutoTitle and fallbackTitle in compact-header docs"
+                  "skip useHead entirely when `setAutoTitle` is false",
+                  "add tests for `setAutoTitle` and `fallbackTitle`",
+                  "document `setAutoTitle` and `fallbackTitle` in compact-header docs"
                 ],
                 "affected": [
                   "CompactHeader"
@@ -1355,7 +1355,7 @@
           "publishedAt": "2026-07-21",
           "releaseType": "patch",
           "notes": [
-            "add Alert description slot, action button gating, and MetricCard slots"
+            "add `Alert` description slot, action button gating, and `MetricCard` slots"
           ],
           "metadata": {
             "commitCount": 1,
@@ -1365,15 +1365,15 @@
                 "shortSha": "c8384f1",
                 "date": "2026-07-21",
                 "subject": "feat(ds): add Alert description slot, action button gating, and MetricCard slots",
-                "normalizedSubject": "add Alert description slot, action button gating, and MetricCard slots",
+                "normalizedSubject": "add `Alert` description slot, action button gating, and `MetricCard` slots",
                 "type": "added",
                 "body": [
-                  "add Alert `description` slot to override the description prop with custom content",
-                  "add Alert `hasActionButtons` prop to gate button rendering independent of description",
-                  "default Alert `hasCloseButton` to false and allow the close button regardless of description",
-                  "add MetricCard `rightTop` slot (LEFT icon position only) and `footer` slot",
-                  "fix TableHeaderCell header text alignment (text-left)",
-                  "add/update tests for Alert and MetricCard covering the new slots and props"
+                  "add `Alert` `description` slot to override the description prop with custom content",
+                  "add `Alert` `hasActionButtons` prop to gate button rendering independent of description",
+                  "default `Alert` `hasCloseButton` to false and allow the close button regardless of description",
+                  "add `MetricCard` `rightTop` slot (`LEFT` icon position only) and `footer` slot",
+                  "fix `TableHeaderCell` header text alignment (text-left)",
+                  "add/update tests for `Alert` and `MetricCard` covering the new slots and props"
                 ],
                 "affected": [
                   "Alert",
@@ -1400,7 +1400,7 @@
           "publishedAt": "2026-07-14",
           "releaseType": "patch",
           "notes": [
-            "support dragging items into the last position in RepeaterField and RulesField"
+            "support dragging items into the last position in `RepeaterField` and `RulesField`"
           ],
           "metadata": {
             "commitCount": 1,
@@ -1410,13 +1410,13 @@
                 "shortSha": "f956083",
                 "date": "2026-07-14",
                 "subject": "fix(ds): support dragging items into the last position in RepeaterField and RulesField",
-                "normalizedSubject": "support dragging items into the last position in RepeaterField and RulesField",
+                "normalizedSubject": "support dragging items into the last position in `RepeaterField` and `RulesField`",
                 "type": "fixed",
                 "body": [
-                  "add trailing drop zone in RepeaterField to allow dropping items into the last position",
-                  "allow RulesField drag-over/drop to target the trailing add-row as \"drop after last rule\"",
-                  "emit update:modelValue for edits to already-added RulesField rows, not just on add/Enter",
-                  "update RepeaterField and RulesField tests for the new drag/emit behavior"
+                  "add trailing drop zone in `RepeaterField` to allow dropping items into the last position",
+                  "allow `RulesField` drag-over/drop to target the trailing add-row as \"drop after last rule\"",
+                  "emit `update:modelValue` for edits to already-added `RulesField` rows, not just on add/Enter",
+                  "update `RepeaterField` and `RulesField` tests for the new drag/emit behavior"
                 ],
                 "affected": [
                   "RepeaterField",
@@ -1442,8 +1442,8 @@
           "publishedAt": "2026-07-14",
           "releaseType": "minor",
           "notes": [
-            "expand RepeaterField into a full-featured form field",
-            "add row reordering to RulesField via new DragPlaceholder"
+            "expand `RepeaterField` into a full-featured form field",
+            "add row reordering to `RulesField` via new `DragPlaceholder`"
           ],
           "metadata": {
             "commitCount": 2,
@@ -1453,16 +1453,16 @@
                 "shortSha": "0380511",
                 "date": "2026-07-13",
                 "subject": "feat(ds): expand RepeaterField into a full-featured form field",
-                "normalizedSubject": "expand RepeaterField into a full-featured form field",
+                "normalizedSubject": "expand `RepeaterField` into a full-featured form field",
                 "type": "added",
                 "body": [
-                  "add label, help text, error, and required/validator support to RepeaterField",
-                  "add sortingType (buttons/drag), move up/down, and drag-and-drop reordering to RepeaterField",
-                  "add actionsOrientation prop for vertical vs horizontal action buttons, with mobile fallback",
-                  "rename RulesFieldSortingType enum to RepeatingFieldSortingType, shared with RepeaterField",
-                  "add dragPlaceholderTextClass prop to style the drag placeholder text in RulesField/RepeaterField",
-                  "update RulesField docs and add new repeater-field docs page and portfolio entry",
-                  "extend RepeaterField and RulesField test suites for the new props and behavior"
+                  "add label, help text, error, and required/validator support to `RepeaterField`",
+                  "add `sortingType` (buttons/drag), move up/down, and drag-and-drop reordering to `RepeaterField`",
+                  "add `actionsOrientation` prop for vertical vs horizontal action buttons, with mobile fallback",
+                  "rename RulesFieldSortingType enum to `RepeatingFieldSortingType`, shared with `RepeaterField`",
+                  "add `dragPlaceholderTextClass` prop to style the drag placeholder text in RulesField/RepeaterField",
+                  "update `RulesField` docs and add new repeater-field docs page and portfolio entry",
+                  "extend `RepeaterField` and `RulesField` test suites for the new props and behavior"
                 ],
                 "affected": [
                   "RepeaterField",
@@ -1477,18 +1477,18 @@
                 "shortSha": "a966db6",
                 "date": "2026-07-13",
                 "subject": "feat(root): add row reordering to RulesField via new DragPlaceholder",
-                "normalizedSubject": "add row reordering to RulesField via new DragPlaceholder",
+                "normalizedSubject": "add row reordering to `RulesField` via new `DragPlaceholder`",
                 "type": "added",
                 "body": [
-                  "add DragPlaceholder component with dashed drop-zone styling and optional label",
+                  "add `DragPlaceholder` component with dashed drop-zone styling and optional label",
                   "add RulesFieldSortingType enum (none, buttons, drag)",
-                  "add sortingType prop to RulesField supporting up/down buttons and drag reordering",
-                  "switch RulesField to local draft state, committing edits on add, remove, or Enter",
+                  "add `sortingType` prop to `RulesField` supporting up/down buttons and drag reordering",
+                  "switch `RulesField` to local draft state, committing edits on add, remove, or Enter",
                   "add keyboard reordering (ArrowUp/ArrowDown) on the drag handle",
-                  "add transition-colors to Card's hover background for smoother hover state",
-                  "add docs pages, portfolio entry, and thumbnail for DragPlaceholder",
-                  "update RulesField docs with new sorting props and usage notes",
-                  "add/update tests for DragPlaceholder, RulesField sorting, and Card transition classes"
+                  "add transition-colors to `Card`'s hover background for smoother hover state",
+                  "add docs pages, portfolio entry, and thumbnail for `DragPlaceholder`",
+                  "update `RulesField` docs with new sorting props and usage notes",
+                  "add/update tests for `DragPlaceholder`, `RulesField` sorting, and `Card` transition classes"
                 ],
                 "affected": [
                   "Card",
@@ -1515,7 +1515,7 @@
           "publishedAt": "2026-07-07",
           "releaseType": "minor",
           "notes": [
-            "extract standalone Switch component and polish interaction transitions"
+            "extract standalone `Switch` component and polish interaction transitions"
           ],
           "metadata": {
             "commitCount": 1,
@@ -1525,17 +1525,17 @@
                 "shortSha": "4c28c2d",
                 "date": "2026-07-07",
                 "subject": "feat(ds): extract standalone Switch component and polish interaction transitions",
-                "normalizedSubject": "extract standalone Switch component and polish interaction transitions",
+                "normalizedSubject": "extract standalone `Switch` component and polish interaction transitions",
                 "type": "added",
                 "body": [
-                  "add standalone Switch.vue component (extracted from SwitchField)",
-                  "add docs page, portfolio entry, and thumbnail for the new Switch component",
-                  "refactor SwitchField to render the new Switch component and add XS/SM size support",
-                  "add expand/collapse transition to NavSidebarMenuItemsTree via VerticalExpansionTransition",
-                  "render ActionButton loading state with the Spinner component instead of a spinning Icon",
-                  "change Spinner root element from div[role=status] to the semantic <output> element",
+                  "add standalone `Switch.vue` component (extracted from `SwitchField`)",
+                  "add docs page, portfolio entry, and thumbnail for the new `Switch` component",
+                  "refactor `SwitchField` to render the new `Switch` component and add `XS/SM` size support",
+                  "add expand/collapse transition to `NavSidebarMenuItemsTree` via `VerticalExpansionTransition`",
+                  "render `ActionButton` loading state with the `Spinner` component instead of a spinning `Icon`",
+                  "change `Spinner` root element from div[role=status] to the semantic <output> element",
                   "add transition-colors/transform polish across various interactive components",
-                  "update tests for ActionButton, NavSidebar, and Spinner to match"
+                  "update tests for `ActionButton`, `NavSidebar`, and `Spinner` to match"
                 ],
                 "affected": [
                   "Avatar",
@@ -1578,7 +1578,7 @@
           "publishedAt": "2026-07-03",
           "releaseType": "patch",
           "notes": [
-            "add accessible aria-labels to pagination buttons"
+            "add accessible `aria-labels` to pagination buttons"
           ],
           "metadata": {
             "commitCount": 1,
@@ -1588,14 +1588,14 @@
                 "shortSha": "58b1770",
                 "date": "2026-07-03",
                 "subject": "fix(ds): add accessible aria-labels to pagination buttons",
-                "normalizedSubject": "add accessible aria-labels to pagination buttons",
+                "normalizedSubject": "add accessible `aria-labels` to pagination buttons",
                 "type": "fixed",
                 "body": [
-                  "add ariaLabel prop to PaginationButton, applied to the button element",
-                  "add ariaLabelPrevious, ariaLabelNext, ariaLabelPage props to ButtonPagination",
-                  "set aria-current=\"page\" on the active page button",
-                  "update docs for new aria-label props",
-                  "add tests for aria-label defaults, overrides and aria-current"
+                  "add `ariaLabel` prop to `PaginationButton`, applied to the button element",
+                  "add `ariaLabelPrevious`, `ariaLabelNext`, `ariaLabelPage` props to `ButtonPagination`",
+                  "set `aria-current`=\"page\" on the active page button",
+                  "update docs for new `aria-label` props",
+                  "add tests for `aria-label` defaults, overrides and `aria-current`"
                 ],
                 "affected": [
                   "PaginationButton",
@@ -1634,10 +1634,10 @@
                 "normalizedSubject": "close notifications popover on view-all and item click",
                 "type": "fixed",
                 "body": [
-                  "prevent navigation and close popover on view-all click when viewAllLink is empty",
+                  "prevent navigation and close popover on view-all click when `viewAllLink` is empty",
                   "close popover when a notification list item is clicked",
                   "constrain notification list item description width and prevent text selection on meta labels",
-                  "update NotificationsPopover docs and tests for new close-on-click behavior",
+                  "update `NotificationsPopover` docs and tests for new close-on-click behavior",
                   "add changeset for the fix"
                 ],
                 "affected": [
@@ -1664,7 +1664,7 @@
           "publishedAt": "2026-07-01",
           "releaseType": "patch",
           "notes": [
-            "pass unit prop verbatim and add limit prop to NotificationsPopover"
+            "pass unit prop verbatim and add limit prop to `NotificationsPopover`"
           ],
           "metadata": {
             "commitCount": 1,
@@ -1674,13 +1674,13 @@
                 "shortSha": "3fe78ba",
                 "date": "2026-07-01",
                 "subject": "feat(ds): pass unit prop verbatim and add limit prop to NotificationsPopover",
-                "normalizedSubject": "pass unit prop verbatim and add limit prop to NotificationsPopover",
+                "normalizedSubject": "pass unit prop verbatim and add limit prop to `NotificationsPopover`",
                 "type": "added",
                 "body": [
-                  "render MetricCard unit prop as-is instead of prefixing it with \"/\"",
-                  "update MetricCard tests for the new unit format",
-                  "add limit prop to NotificationsPopover to cap rendered items after filtering",
-                  "default NotificationsPopover list prop to empty array instead of sample data",
+                  "render `MetricCard` unit prop as-is instead of prefixing it with \"/\"",
+                  "update `MetricCard` tests for the new unit format",
+                  "add limit prop to `NotificationsPopover` to cap rendered items after filtering",
+                  "default `NotificationsPopover` list prop to empty array instead of sample data",
                   "add tests for limit behavior with and without the unread filter"
                 ],
                 "affected": [
@@ -1707,7 +1707,7 @@
           "publishedAt": "2026-06-30",
           "releaseType": "minor",
           "notes": [
-            "add NotificationsPopover; enhance MetricCard, ContainedIcon, SectionTitle, and Popover"
+            "add `NotificationsPopover`; enhance `MetricCard`, `ContainedIcon`, `SectionTitle`, and `Popover`"
           ],
           "metadata": {
             "commitCount": 1,
@@ -1717,21 +1717,21 @@
                 "shortSha": "352e809",
                 "date": "2026-06-30",
                 "subject": "feat(ds): add NotificationsPopover; enhance MetricCard, ContainedIcon, SectionTitle, and Popover",
-                "normalizedSubject": "add NotificationsPopover; enhance MetricCard, ContainedIcon, SectionTitle, and Popover",
+                "normalizedSubject": "add `NotificationsPopover`; enhance `MetricCard`, `ContainedIcon`, `SectionTitle`, and `Popover`",
                 "type": "added",
                 "body": [
-                  "add NotificationsPopover and NotificationListItem components",
+                  "add `NotificationsPopover` and `NotificationListItem` components",
                   "add NotificationItem type",
-                  "rename DashboardMetricCardStyle to MetricCardStyle",
-                  "rename DashboardMetricTrendDirection to MetricTrendDirection",
-                  "add MetricCardIconPosition and MetricCardBackgroundIconPosition enums",
-                  "add SM and MD values to IconContainerSize enum and ContainedIcon size maps",
-                  "add backgroundIcon prop with position and class controls to MetricCard",
-                  "add iconPosition prop for left/right icon placement to MetricCard",
-                  "add iconContainerSize, iconSize, and trendIconSize props to MetricCard",
-                  "add class override props to MetricCard for header, body, amount, unit, and trend slots",
-                  "add headingTag prop to SectionTitle for dynamic heading element",
-                  "allow popoverClass to accept string | string[] in Popover",
+                  "rename DashboardMetricCardStyle to `MetricCardStyle`",
+                  "rename DashboardMetricTrendDirection to `MetricTrendDirection`",
+                  "add `MetricCardIconPosition` and `MetricCardBackgroundIconPosition` enums",
+                  "add `SM` and `MD` values to `IconContainerSize` enum and `ContainedIcon` size maps",
+                  "add `backgroundIcon` prop with position and class controls to `MetricCard`",
+                  "add `iconPosition` prop for left/right icon placement to `MetricCard`",
+                  "add `iconContainerSize`, `iconSize`, and `trendIconSize` props to `MetricCard`",
+                  "add class override props to `MetricCard` for header, body, amount, unit, and trend slots",
+                  "add `headingTag` prop to `SectionTitle` for dynamic heading element",
+                  "allow `popoverClass` to accept string | string[] in `Popover`",
                   "update all affected tests"
                 ],
                 "affected": [
@@ -1762,7 +1762,7 @@
           "publishedAt": "2026-06-23",
           "releaseType": "patch",
           "notes": [
-            "add zIndex prop to CompactHeader and NavMenu"
+            "add `zIndex` prop to `CompactHeader` and `NavMenu`"
           ],
           "metadata": {
             "commitCount": 1,
@@ -1772,13 +1772,13 @@
                 "shortSha": "5bed1f1",
                 "date": "2026-06-23",
                 "subject": "feat(ds): add zIndex prop to CompactHeader and NavMenu",
-                "normalizedSubject": "add zIndex prop to CompactHeader and NavMenu",
+                "normalizedSubject": "add `zIndex` prop to `CompactHeader` and `NavMenu`",
                 "type": "added",
                 "body": [
-                  "add zIndex prop to CompactHeader, forwarded to NavMenu, user DropdownMenu, and mobile menu",
-                  "replace hardcoded sticky z-index class with inline style driven by zIndex prop",
-                  "add isSticky and dropdownZIndex props to NavMenu, forwarded to DropdownMenu",
-                  "add tests for zIndex forwarding in CompactHeader and NavMenu"
+                  "add `zIndex` prop to `CompactHeader`, forwarded to `NavMenu`, user `DropdownMenu`, and mobile menu",
+                  "replace hardcoded sticky z-index class with inline style driven by `zIndex` prop",
+                  "add `isSticky` and `dropdownZIndex` props to `NavMenu`, forwarded to `DropdownMenu`",
+                  "add tests for `zIndex` forwarding in `CompactHeader` and `NavMenu`"
                 ],
                 "affected": [
                   "CompactHeader",
@@ -1804,7 +1804,7 @@
           "publishedAt": "2026-06-22",
           "releaseType": "patch",
           "notes": [
-            "add transparent, isSticky, and grid layout props"
+            "add transparent, `isSticky`, and grid layout props"
           ],
           "metadata": {
             "commitCount": 1,
@@ -1814,13 +1814,13 @@
                 "shortSha": "f730d67",
                 "date": "2026-06-22",
                 "subject": "feat(ds): add transparent, isSticky, and grid layout props",
-                "normalizedSubject": "add transparent, isSticky, and grid layout props",
+                "normalizedSubject": "add transparent, `isSticky`, and grid layout props",
                 "type": "added",
                 "body": [
                   "add transparent prop to toggle button components",
-                  "refactor ToggleButtonGroup GROUPED border to per-button classes",
-                  "add isSticky prop to DropdownMenu and wire it in CompactHeader",
-                  "add layout and grid props to CheckboxGroupField",
+                  "refactor `ToggleButtonGroup` `GROUPED` border to per-button classes",
+                  "add `isSticky` prop to `DropdownMenu` and wire it in `CompactHeader`",
+                  "add layout and grid props to `CheckboxGroupField`",
                   "update tests and docs"
                 ],
                 "affected": [
@@ -1852,7 +1852,7 @@
           "publishedAt": "2026-06-16",
           "releaseType": "minor",
           "notes": [
-            "add CheckboxGroupField and refactor checkbox components"
+            "add `CheckboxGroupField` and refactor checkbox components"
           ],
           "metadata": {
             "commitCount": 1,
@@ -1862,14 +1862,14 @@
                 "shortSha": "da239fc",
                 "date": "2026-06-16",
                 "subject": "feat(ds): add CheckboxGroupField and refactor checkbox components",
-                "normalizedSubject": "add CheckboxGroupField and refactor checkbox components",
+                "normalizedSubject": "add `CheckboxGroupField` and refactor checkbox components",
                 "type": "added",
                 "body": [
-                  "move Checkbox.vue and CheckboxField.vue into forms/fields/checkbox/ subdir",
-                  "add CheckboxGroupField component with checkbox type model and validation",
-                  "add checkbox.ts types for CheckboxGroupField",
-                  "add helpTextPosition prop to RadioGroupField",
-                  "add tests for CheckboxGroupField",
+                  "move `Checkbox.vue` and `CheckboxField.vue` into forms/fields/checkbox/ subdir",
+                  "add `CheckboxGroupField` component with checkbox type model and validation",
+                  "add `checkbox.ts` types for `CheckboxGroupField`",
+                  "add `helpTextPosition` prop to `RadioGroupField`",
+                  "add tests for `CheckboxGroupField`",
                   "update test imports to reflect new component paths"
                 ],
                 "affected": [
@@ -1898,7 +1898,7 @@
           "publishedAt": "2026-06-16",
           "releaseType": "patch",
           "notes": [
-            "add HelpText component and helpTextPosition prop to field components"
+            "add `HelpText` component and `helpTextPosition` prop to field components"
           ],
           "metadata": {
             "commitCount": 1,
@@ -1908,12 +1908,12 @@
                 "shortSha": "9ad36a5",
                 "date": "2026-06-16",
                 "subject": "feat(ds): add HelpText component and helpTextPosition prop to field components",
-                "normalizedSubject": "add HelpText component and helpTextPosition prop to field components",
+                "normalizedSubject": "add `HelpText` component and `helpTextPosition` prop to field components",
                 "type": "added",
                 "body": [
-                  "add HelpText.vue to forms/ and replace inline help text markup across all field components",
-                  "add helpTextPosition prop (Position enum, default BOTTOM) to all field components",
-                  "add transparent and inputClass props to InputField",
+                  "add `HelpText.vue` to forms/ and replace inline help text markup across all field components",
+                  "add `helpTextPosition` prop (Position enum, default `BOTTOM`) to all field components",
+                  "add transparent and `inputClass` props to `InputField`",
                   "update tests for new props across all field components",
                   "update docs for all affected field components"
                 ],
@@ -1961,8 +1961,8 @@
           "publishedAt": "2026-06-15",
           "releaseType": "patch",
           "notes": [
-            "propagate aria-label props to compound components",
-            "add customizable aria-label props for i18n support"
+            "propagate `aria-label` props to compound components",
+            "add customizable `aria-label` props for i18n support"
           ],
           "metadata": {
             "commitCount": 2,
@@ -1972,12 +1972,12 @@
                 "shortSha": "3bd194a",
                 "date": "2026-06-11",
                 "subject": "feat(ds): propagate aria-label props to compound components",
-                "normalizedSubject": "propagate aria-label props to compound components",
+                "normalizedSubject": "propagate `aria-label` props to compound components",
                 "type": "added",
                 "body": [
-                  "Pass through closeAriaLabel to DangerModalDialog, InfoModalDialog, and SuccessModalDialog",
-                  "Pass through clearSelectionAriaLabel to SelectField",
-                  "Pass through retryAriaLabel and removeAriaLabel to FileUploadField"
+                  "Pass through `closeAriaLabel` to `DangerModalDialog`, `InfoModalDialog`, and `SuccessModalDialog`",
+                  "Pass through `clearSelectionAriaLabel` to `SelectField`",
+                  "Pass through `retryAriaLabel` and `removeAriaLabel` to `FileUploadField`"
                 ],
                 "affected": [
                   "FileUploadField",
@@ -1995,11 +1995,11 @@
                 "shortSha": "3b432b0",
                 "date": "2026-06-11",
                 "subject": "feat(ds): add customizable aria-label props for i18n support",
-                "normalizedSubject": "add customizable aria-label props for i18n support",
+                "normalizedSubject": "add customizable `aria-label` props for i18n support",
                 "type": "added",
                 "body": [
-                  "Replace hardcoded aria-label strings with configurable props",
-                  "Affects Drawer, DropdownSelect, Dropzone, SearchField, CompactHeader, ModalDialog, NavSidebar, SimplePagination, and TableHeaderCell",
+                  "Replace hardcoded `aria-label` strings with configurable props",
+                  "Affects `Drawer`, `DropdownSelect`, `Dropzone`, `SearchField`, `CompactHeader`, `ModalDialog`, `NavSidebar`, `SimplePagination`, and `TableHeaderCell`",
                   "Defaults to original English strings for backward compat"
                 ],
                 "affected": [
@@ -2033,7 +2033,7 @@
           "publishedAt": "2026-06-11",
           "releaseType": "patch",
           "notes": [
-            "propagate aria-label props to compound components"
+            "propagate `aria-label` props to compound components"
           ],
           "metadata": {
             "commitCount": 1,
@@ -2043,12 +2043,12 @@
                 "shortSha": "c1b13e6",
                 "date": "2026-06-11",
                 "subject": "feat(ds): propagate aria-label props to compound components",
-                "normalizedSubject": "propagate aria-label props to compound components",
+                "normalizedSubject": "propagate `aria-label` props to compound components",
                 "type": "added",
                 "body": [
-                  "Pass through closeAriaLabel to DangerModalDialog, InfoModalDialog, and SuccessModalDialog",
-                  "Pass through clearSelectionAriaLabel to SelectField",
-                  "Pass through retryAriaLabel and removeAriaLabel to FileUploadField"
+                  "Pass through `closeAriaLabel` to `DangerModalDialog`, `InfoModalDialog`, and `SuccessModalDialog`",
+                  "Pass through `clearSelectionAriaLabel` to `SelectField`",
+                  "Pass through `retryAriaLabel` and `removeAriaLabel` to `FileUploadField`"
                 ],
                 "affected": [
                   "FileUploadField",
@@ -2077,7 +2077,7 @@
           "publishedAt": "2026-06-11",
           "releaseType": "patch",
           "notes": [
-            "add customizable aria-label props for i18n support",
+            "add customizable `aria-label` props for i18n support",
             "update ds package version fix (#119)"
           ],
           "metadata": {
@@ -2088,11 +2088,11 @@
                 "shortSha": "faed17c",
                 "date": "2026-06-11",
                 "subject": "feat(ds): add customizable aria-label props for i18n support",
-                "normalizedSubject": "add customizable aria-label props for i18n support",
+                "normalizedSubject": "add customizable `aria-label` props for i18n support",
                 "type": "added",
                 "body": [
-                  "Replace hardcoded aria-label strings with configurable props",
-                  "Affects Drawer, DropdownSelect, Dropzone, SearchField, CompactHeader, ModalDialog, NavSidebar, SimplePagination, and TableHeaderCell",
+                  "Replace hardcoded `aria-label` strings with configurable props",
+                  "Affects `Drawer`, `DropdownSelect`, `Dropzone`, `SearchField`, `CompactHeader`, `ModalDialog`, `NavSidebar`, `SimplePagination`, and `TableHeaderCell`",
                   "Defaults to original English strings for backward compat"
                 ],
                 "affected": [
@@ -2118,19 +2118,19 @@
                 "normalizedSubject": "update ds package version fix (#119)",
                 "type": "maintenance",
                 "body": [
-                  "feat(ds): make Heading headingTag prop required with HeadingTag type",
-                  "add HeadingTag type in models/types/headings.ts",
-                  "make headingTag required in Heading component (remove default)",
-                  "update FormFieldGroup and DataDetailsFieldGroup to use HeadingTag type",
-                  "add explicit headingTag in ErrorDisplay usage",
-                  "update Heading test to pass required headingTag",
-                  "feat(docs): update docs for required headingTag and add typecheck",
-                  "add explicit headingTag to all Heading usages across doc pages",
+                  "feat(ds): make `Heading` `headingTag` prop required with `HeadingTag` type",
+                  "add `HeadingTag` type in `models/types/headings.ts`",
+                  "make `headingTag` required in `Heading` component (remove default)",
+                  "update `FormFieldGroup` and `DataDetailsFieldGroup` to use `HeadingTag` type",
+                  "add explicit `headingTag` in `ErrorDisplay` usage",
+                  "update `Heading` test to pass required `headingTag`",
+                  "feat(docs): update docs for required `headingTag` and add typecheck",
+                  "add explicit `headingTag` to all `Heading` usages across doc pages",
                   "add non-null assertions to cleanPath computed in all doc pages",
-                  "update heading, form, and data-details docs for required headingTag",
-                  "add docs typecheck script and tsconfig.typecheck.json",
+                  "update heading, form, and data-details docs for required `headingTag`",
+                  "add docs typecheck script and `tsconfig.typecheck.json`",
                   "fix nitro hook typing in nuxt config",
-                  "add qrcode.vue to vite optimizeDeps and sort alphabetically",
+                  "add `qrcode.vue` to vite optimizeDeps and sort alphabetically",
                   "chore(root): add docs typecheck and pin vue-tsc",
                   "add typecheck:docs script and include docs in typecheck:all",
                   "pin vue-tsc to 3.3.1",
@@ -2166,7 +2166,7 @@
           "publishedAt": "2026-06-09",
           "releaseType": "patch",
           "notes": [
-            "make Heading headingTag prop required with HeadingTag type",
+            "make `Heading` `headingTag` prop required with `HeadingTag` type",
             "improve accessibility across ds components and docs (#115)"
           ],
           "metadata": {
@@ -2177,14 +2177,14 @@
                 "shortSha": "82248a2",
                 "date": "2026-06-09",
                 "subject": "feat(ds): make Heading headingTag prop required with HeadingTag type",
-                "normalizedSubject": "make Heading headingTag prop required with HeadingTag type",
+                "normalizedSubject": "make `Heading` `headingTag` prop required with `HeadingTag` type",
                 "type": "added",
                 "body": [
-                  "add HeadingTag type in models/types/headings.ts",
-                  "make headingTag required in Heading component (remove default)",
-                  "update FormFieldGroup and DataDetailsFieldGroup to use HeadingTag type",
-                  "add explicit headingTag in ErrorDisplay usage",
-                  "update Heading test to pass required headingTag"
+                  "add `HeadingTag` type in `models/types/headings.ts`",
+                  "make `headingTag` required in `Heading` component (remove default)",
+                  "update `FormFieldGroup` and `DataDetailsFieldGroup` to use `HeadingTag` type",
+                  "add explicit `headingTag` in `ErrorDisplay` usage",
+                  "update `Heading` test to pass required `headingTag`"
                 ],
                 "affected": [
                   "DataDetailsFieldGroup",
@@ -2205,67 +2205,67 @@
                 "type": "added",
                 "body": [
                   "docs(root): rewrite README with project overview and quick start",
-                  "feat(ds): make MetricCard description prop optional",
-                  "remove default value from description prop in MetricCard",
+                  "feat(ds): make `MetricCard` description prop optional",
+                  "remove default value from description prop in `MetricCard`",
                   "add v-if guard so description paragraph is hidden when not provided",
                   "update unit tests for optional description behavior",
                   "update docs to reflect description has no default",
                   "chore(ds): release @imaginario27/air-ui-ds v1.13.4",
                   "feat(ds): add accessibility attributes across components",
-                  "replace div header with button in AccordionItem for keyboard access",
-                  "add aria-expanded, aria-controls, and region role to AccordionItem",
-                  "add role=\"alert\" to Alert",
-                  "add aria-label=\"Remove\" to Badge close button",
-                  "add ariaLabel prop to ActionIconButton",
-                  "add role=\"group\" and aria-label to OptionButtonGroup and ToggleButtonGroup",
-                  "add aria-pressed to ToggleButton and ToggleIconButton",
-                  "add aria-checked and keyboard handling to SelectableCard",
-                  "add aria-expanded and aria-controls to Collapsible",
-                  "add role=\"menuitem\" to DropdownMenuItem",
-                  "add aria-expanded, aria-haspopup, and listbox role to DropdownSelect",
-                  "add aria-checked to Checkbox",
-                  "add aria-label to SearchField clear button",
-                  "add fieldset/legend and aria-checked to SwitchField",
-                  "add aria-label to QRCode image",
-                  "add role=\"status\" and aria-live to Loading and Spinner",
-                  "add aria-labelledby, aria-modal, and focus trap to ModalDialog",
-                  "add role=\"progressbar\" with aria-valuenow/min/max to ProgressBar",
-                  "add aria-label and keyboard navigation to Rating",
-                  "add role=\"tablist\", role=\"tab\", and role=\"tabpanel\" to Tab components",
+                  "replace div header with button in `AccordionItem` for keyboard access",
+                  "add `aria-expanded`, `aria-controls`, and region role to `AccordionItem`",
+                  "add role=\"alert\" to `Alert`",
+                  "add `aria-label`=\"Remove\" to `Badge` close button",
+                  "add `ariaLabel` prop to `ActionIconButton`",
+                  "add role=\"group\" and `aria-label` to `OptionButtonGroup` and `ToggleButtonGroup`",
+                  "add `aria-pressed` to `ToggleButton` and `ToggleIconButton`",
+                  "add `aria-checked` and keyboard handling to `SelectableCard`",
+                  "add `aria-expanded` and `aria-controls` to `Collapsible`",
+                  "add role=\"menuitem\" to `DropdownMenuItem`",
+                  "add `aria-expanded`, `aria-haspopup`, and listbox role to `DropdownSelect`",
+                  "add `aria-checked` to `Checkbox`",
+                  "add `aria-label` to `SearchField` clear button",
+                  "add fieldset/legend and `aria-checked` to `SwitchField`",
+                  "add `aria-label` to `QRCode` image",
+                  "add role=\"status\" and `aria-live` to `Loading` and `Spinner`",
+                  "add `aria-labelledby`, `aria-modal`, and focus trap to `ModalDialog`",
+                  "add role=\"progressbar\" with aria-valuenow/min/max to `ProgressBar`",
+                  "add `aria-label` and keyboard navigation to `Rating`",
+                  "add role=\"tablist\", role=\"tab\", and role=\"tabpanel\" to `Tab` components",
                   "add accessibility tests for all modified components",
-                  "docs(docs): document ariaLabel prop and improve accessibility defaults",
-                  "add ariaLabel prop docs for ActionIconButton and ProgressBar",
+                  "docs(docs): document `ariaLabel` prop and improve accessibility defaults",
+                  "add `ariaLabel` prop docs for `ActionIconButton` and `ProgressBar`",
                   "remove user-scalable=no from viewport meta",
                   "replace placeholder page title with descriptive text",
                   "fix nitro config hook type annotation",
-                  "fix(ds): resolve typescript errors in DropdownMenuItem and ModalDialog",
-                  "remove extra argument from emitClick call in DropdownMenuItem keydown handler",
-                  "add non-null assertions to focus trap element access in ModalDialog",
+                  "fix(ds): resolve typescript errors in `DropdownMenuItem` and `ModalDialog`",
+                  "remove extra argument from emitClick call in `DropdownMenuItem` keydown handler",
+                  "add non-null assertions to focus trap element access in `ModalDialog`",
                   "chore(ds): release @imaginario27/air-ui-ds v1.13.5",
                   "fix(ds): fix missing buttons aria labels",
-                  "pass ariaLabel from toggle and option button arrays to child button components",
-                  "add aria-label support to toggle and option button wrappers",
+                  "pass `ariaLabel` from toggle and option button arrays to child button components",
+                  "add `aria-label` support to toggle and option button wrappers",
                   "update button interfaces and option field typing for aria label usage",
-                  "add and extend unit tests for aria-label propagation and optional ActionButton aria-label",
-                  "improve CopyButton typing and set copy control aria label from current text",
+                  "add and extend unit tests for `aria-label` propagation and optional `ActionButton` `aria-label`",
+                  "improve `CopyButton` typing and set copy control aria label from current text",
                   "docs(docs): update buttons aria label documentation",
-                  "clarify when ActionButton requires aria-label for accessibility",
-                  "document ariaLabel support in toggle and option button group field types",
-                  "align examples and external types with OptionButton and ToggleIconButton usage",
+                  "clarify when `ActionButton` requires `aria-label` for accessibility",
+                  "document `ariaLabel` support in toggle and option button group field types",
+                  "align examples and external types with `OptionButton` and `ToggleIconButton` usage",
                   "chore(ds): release @imaginario27/air-ui-ds v1.13.6",
                   "fix(ds): add aria labels to interactive icon buttons",
-                  "add aria-label attributes to InputField suffix and password toggle buttons",
-                  "add aria-label attributes to NavSidebar mobile close and collapse toggle buttons",
+                  "add `aria-label` attributes to `InputField` suffix and password toggle buttons",
+                  "add `aria-label` attributes to `NavSidebar` mobile close and collapse toggle buttons",
                   "chore(ds): release @imaginario27/air-ui-ds v1.13.7",
-                  "fix(ds): add aria-label fallbacks for hidden field labels",
-                  "add ariaLabel support across form fields and shared controls",
+                  "fix(ds): add `aria-label` fallbacks for hidden field labels",
+                  "add `ariaLabel` support across form fields and shared controls",
                   "propagate accessible labels to nested controls and icon-only actions",
                   "extend radio option typing and field behavior for hidden-label accessibility",
                   "add and update unit tests for hidden-label accessibility scenarios",
-                  "docs(docs): document ariaLabel props for updated field components",
-                  "add ariaLabel prop docs to affected field component pages",
+                  "docs(docs): document `ariaLabel` props for updated field components",
+                  "add `ariaLabel` prop docs to affected field component pages",
                   "add accessibility usage examples for hidden visual labels",
-                  "document SlotField ariaLabel slot prop exposure",
+                  "document `SlotField` `ariaLabel` slot prop exposure",
                   "chore(ds): release @imaginario27/air-ui-ds v1.13.8",
                   "---------"
                 ],
@@ -2414,42 +2414,42 @@
                 "type": "added",
                 "body": [
                   "docs(root): rewrite README with project overview and quick start",
-                  "feat(ds): make MetricCard description prop optional",
-                  "remove default value from description prop in MetricCard",
+                  "feat(ds): make `MetricCard` description prop optional",
+                  "remove default value from description prop in `MetricCard`",
                   "add v-if guard so description paragraph is hidden when not provided",
                   "update unit tests for optional description behavior",
                   "update docs to reflect description has no default",
                   "chore(ds): release @imaginario27/air-ui-ds v1.13.4",
                   "feat(ds): add accessibility attributes across components",
-                  "replace div header with button in AccordionItem for keyboard access",
-                  "add aria-expanded, aria-controls, and region role to AccordionItem",
-                  "add role=\"alert\" to Alert",
-                  "add aria-label=\"Remove\" to Badge close button",
-                  "add ariaLabel prop to ActionIconButton",
-                  "add role=\"group\" and aria-label to OptionButtonGroup and ToggleButtonGroup",
-                  "add aria-pressed to ToggleButton and ToggleIconButton",
-                  "add aria-checked and keyboard handling to SelectableCard",
-                  "add aria-expanded and aria-controls to Collapsible",
-                  "add role=\"menuitem\" to DropdownMenuItem",
-                  "add aria-expanded, aria-haspopup, and listbox role to DropdownSelect",
-                  "add aria-checked to Checkbox",
-                  "add aria-label to SearchField clear button",
-                  "add fieldset/legend and aria-checked to SwitchField",
-                  "add aria-label to QRCode image",
-                  "add role=\"status\" and aria-live to Loading and Spinner",
-                  "add aria-labelledby, aria-modal, and focus trap to ModalDialog",
-                  "add role=\"progressbar\" with aria-valuenow/min/max to ProgressBar",
-                  "add aria-label and keyboard navigation to Rating",
-                  "add role=\"tablist\", role=\"tab\", and role=\"tabpanel\" to Tab components",
+                  "replace div header with button in `AccordionItem` for keyboard access",
+                  "add `aria-expanded`, `aria-controls`, and region role to `AccordionItem`",
+                  "add role=\"alert\" to `Alert`",
+                  "add `aria-label`=\"Remove\" to `Badge` close button",
+                  "add `ariaLabel` prop to `ActionIconButton`",
+                  "add role=\"group\" and `aria-label` to `OptionButtonGroup` and `ToggleButtonGroup`",
+                  "add `aria-pressed` to `ToggleButton` and `ToggleIconButton`",
+                  "add `aria-checked` and keyboard handling to `SelectableCard`",
+                  "add `aria-expanded` and `aria-controls` to `Collapsible`",
+                  "add role=\"menuitem\" to `DropdownMenuItem`",
+                  "add `aria-expanded`, `aria-haspopup`, and listbox role to `DropdownSelect`",
+                  "add `aria-checked` to `Checkbox`",
+                  "add `aria-label` to `SearchField` clear button",
+                  "add fieldset/legend and `aria-checked` to `SwitchField`",
+                  "add `aria-label` to `QRCode` image",
+                  "add role=\"status\" and `aria-live` to `Loading` and `Spinner`",
+                  "add `aria-labelledby`, `aria-modal`, and focus trap to `ModalDialog`",
+                  "add role=\"progressbar\" with aria-valuenow/min/max to `ProgressBar`",
+                  "add `aria-label` and keyboard navigation to `Rating`",
+                  "add role=\"tablist\", role=\"tab\", and role=\"tabpanel\" to `Tab` components",
                   "add accessibility tests for all modified components",
-                  "docs(docs): document ariaLabel prop and improve accessibility defaults",
-                  "add ariaLabel prop docs for ActionIconButton and ProgressBar",
+                  "docs(docs): document `ariaLabel` prop and improve accessibility defaults",
+                  "add `ariaLabel` prop docs for `ActionIconButton` and `ProgressBar`",
                   "remove user-scalable=no from viewport meta",
                   "replace placeholder page title with descriptive text",
                   "fix nitro config hook type annotation",
-                  "fix(ds): resolve typescript errors in DropdownMenuItem and ModalDialog",
-                  "remove extra argument from emitClick call in DropdownMenuItem keydown handler",
-                  "add non-null assertions to focus trap element access in ModalDialog",
+                  "fix(ds): resolve typescript errors in `DropdownMenuItem` and `ModalDialog`",
+                  "remove extra argument from emitClick call in `DropdownMenuItem` keydown handler",
+                  "add non-null assertions to focus trap element access in `ModalDialog`",
                   "chore(ds): release @imaginario27/air-ui-ds v1.13.5",
                   "---------"
                 ],
@@ -2499,7 +2499,7 @@
           "publishedAt": "2026-06-03",
           "releaseType": "patch",
           "notes": [
-            "make MetricCard description optional and rewrite README (#113)"
+            "make `MetricCard` description optional and rewrite README (#113)"
           ],
           "metadata": {
             "commitCount": 1,
@@ -2509,12 +2509,12 @@
                 "shortSha": "fe0e88a",
                 "date": "2026-05-26",
                 "subject": "feat(root): make MetricCard description optional and rewrite README (#113)",
-                "normalizedSubject": "make MetricCard description optional and rewrite README (#113)",
+                "normalizedSubject": "make `MetricCard` description optional and rewrite README (#113)",
                 "type": "added",
                 "body": [
                   "docs(root): rewrite README with project overview and quick start",
-                  "feat(ds): make MetricCard description prop optional",
-                  "remove default value from description prop in MetricCard",
+                  "feat(ds): make `MetricCard` description prop optional",
+                  "remove default value from description prop in `MetricCard`",
                   "add v-if guard so description paragraph is hidden when not provided",
                   "update unit tests for optional description behavior",
                   "update docs to reflect description has no default",
@@ -2571,7 +2571,7 @@
           "publishedAt": "2026-05-21",
           "releaseType": "patch",
           "notes": [
-            "merge InteractiveRating into Rating and add disabled option to DropdownSelect"
+            "merge `InteractiveRating` into `Rating` and add disabled option to `DropdownSelect`"
           ],
           "metadata": {
             "commitCount": 1,
@@ -2581,17 +2581,17 @@
                 "shortSha": "15a4b1c",
                 "date": "2026-05-21",
                 "subject": "feat(ds): merge InteractiveRating into Rating and add disabled option to DropdownSelect",
-                "normalizedSubject": "merge InteractiveRating into Rating and add disabled option to DropdownSelect",
+                "normalizedSubject": "merge `InteractiveRating` into `Rating` and add disabled option to `DropdownSelect`",
                 "type": "added",
                 "body": [
-                  "add isInteractive and hoverPreview props to Rating; rename value to modelValue",
-                  "delete InteractiveRating component",
-                  "update TestimonialCard to bind :modelValue on Rating",
-                  "update Rating and TestimonialCard tests for new prop name",
-                  "add disabled field to SelectOption type",
-                  "pass option.disabled to DropdownSelectItem and ignore clicks on disabled options",
-                  "style disabled DropdownSelectItem with not-allowed cursor and disabled opacity; guard emitClick",
-                  "add test covering disabled option click in DropdownSelect"
+                  "add `isInteractive` and `hoverPreview` props to `Rating`; rename value to `modelValue`",
+                  "delete `InteractiveRating` component",
+                  "update `TestimonialCard` to bind `:modelValue` on `Rating`",
+                  "update `Rating` and `TestimonialCard` tests for new prop name",
+                  "add disabled field to `SelectOption` type",
+                  "pass option.disabled to `DropdownSelectItem` and ignore clicks on disabled options",
+                  "style disabled `DropdownSelectItem` with not-allowed cursor and disabled opacity; guard emitClick",
+                  "add test covering disabled option click in `DropdownSelect`"
                 ],
                 "affected": [
                   "TestimonialCard",
@@ -2667,9 +2667,9 @@
                 "normalizedSubject": "make mobile breakpoint behavior configurable",
                 "type": "added",
                 "body": [
-                  "add mobileBreakpoint prop to layout, header, sidebar, and pagination components",
+                  "add `mobileBreakpoint` prop to layout, header, sidebar, and pagination components",
                   "replace fixed lg visibility/layout classes with runtime isMobile behavior",
-                  "update useIsMobile to accept reactive/getter breakpoints and watch breakpoint changes",
+                  "update `useIsMobile` to accept reactive/getter breakpoints and watch breakpoint changes",
                   "align DS component and composable tests with configurable mobile breakpoint behavior"
                 ],
                 "affected": [
@@ -2700,7 +2700,7 @@
           "publishedAt": "2026-04-22",
           "releaseType": "minor",
           "notes": [
-            "update MetricCard with new props"
+            "update `MetricCard` with new props"
           ],
           "metadata": {
             "commitCount": 1,
@@ -2710,7 +2710,7 @@
                 "shortSha": "4841cb3",
                 "date": "2026-04-22",
                 "subject": "feat(ds): update MetricCard with new props",
-                "normalizedSubject": "update MetricCard with new props",
+                "normalizedSubject": "update `MetricCard` with new props",
                 "type": "added",
                 "body": [],
                 "affected": [
@@ -2777,7 +2777,7 @@
           "publishedAt": "2026-04-16",
           "releaseType": "patch",
           "notes": [
-            "fix NavSidebar menu items gap"
+            "fix `NavSidebar` menu items gap"
           ],
           "metadata": {
             "commitCount": 1,
@@ -2787,7 +2787,7 @@
                 "shortSha": "4a9cee9",
                 "date": "2026-04-16",
                 "subject": "fix(ds): fix NavSidebar menu items gap",
-                "normalizedSubject": "fix NavSidebar menu items gap",
+                "normalizedSubject": "fix `NavSidebar` menu items gap",
                 "type": "fixed",
                 "body": [],
                 "affected": [
@@ -2813,7 +2813,7 @@
           "publishedAt": "2026-04-16",
           "releaseType": "minor",
           "notes": [
-            "add ContextMenu and Kbd components"
+            "add `ContextMenu` and `Kbd` components"
           ],
           "metadata": {
             "commitCount": 1,
@@ -2823,7 +2823,7 @@
                 "shortSha": "9d4acce",
                 "date": "2026-04-16",
                 "subject": "feat(ds): add ContextMenu and Kbd components",
-                "normalizedSubject": "add ContextMenu and Kbd components",
+                "normalizedSubject": "add `ContextMenu` and `Kbd` components",
                 "type": "added",
                 "body": [],
                 "affected": [
@@ -2962,7 +2962,7 @@
           "publishedAt": "2026-04-09",
           "releaseType": "patch",
           "notes": [
-            "fix TypeScript errors in TabBar.vue"
+            "fix TypeScript errors in `TabBar.vue`"
           ],
           "metadata": {
             "commitCount": 1,
@@ -2972,7 +2972,7 @@
                 "shortSha": "273925b",
                 "date": "2026-04-09",
                 "subject": "fix(ds): fix TypeScript errors in TabBar.vue",
-                "normalizedSubject": "fix TypeScript errors in TabBar.vue",
+                "normalizedSubject": "fix TypeScript errors in `TabBar.vue`",
                 "type": "fixed",
                 "body": [],
                 "affected": [
@@ -2998,7 +2998,7 @@
           "publishedAt": "2026-04-09",
           "releaseType": "minor",
           "notes": [
-            "add prefetchOn and disabled states to navigation components"
+            "add `prefetchOn` and disabled states to navigation components"
           ],
           "metadata": {
             "commitCount": 1,
@@ -3008,10 +3008,10 @@
                 "shortSha": "04f9124",
                 "date": "2026-04-09",
                 "subject": "feat(ds): add prefetchOn and disabled states to navigation components",
-                "normalizedSubject": "add prefetchOn and disabled states to navigation components",
+                "normalizedSubject": "add `prefetchOn` and disabled states to navigation components",
                 "type": "added",
                 "body": [
-                  "add disabled and prefetchOn to navigable items and dropdowns",
+                  "add disabled and `prefetchOn` to navigable items and dropdowns",
                   "fix alignment for filterable search in selects",
                   "fix text alignment in sidebar menu items with children"
                 ],
@@ -3047,7 +3047,7 @@
           "publishedAt": "2026-04-06",
           "releaseType": "patch",
           "notes": [
-            "fix CardTitle text color"
+            "fix `CardTitle` text color"
           ],
           "metadata": {
             "commitCount": 1,
@@ -3057,7 +3057,7 @@
                 "shortSha": "6a8807b",
                 "date": "2026-04-06",
                 "subject": "fix(ds): fix CardTitle text color",
-                "normalizedSubject": "fix CardTitle text color",
+                "normalizedSubject": "fix `CardTitle` text color",
                 "type": "fixed",
                 "body": [],
                 "affected": [
@@ -3083,7 +3083,7 @@
           "publishedAt": "2026-04-06",
           "releaseType": "patch",
           "notes": [
-            "fix SelectField empty div with multiple option and badge stack"
+            "fix `SelectField` empty div with multiple option and badge stack"
           ],
           "metadata": {
             "commitCount": 1,
@@ -3093,7 +3093,7 @@
                 "shortSha": "041fd2d",
                 "date": "2026-04-06",
                 "subject": "fix(ds): fix SelectField empty div with multiple option and badge stack",
-                "normalizedSubject": "fix SelectField empty div with multiple option and badge stack",
+                "normalizedSubject": "fix `SelectField` empty div with multiple option and badge stack",
                 "type": "fixed",
                 "body": [],
                 "affected": [
@@ -3159,7 +3159,7 @@
           "publishedAt": "2026-03-31",
           "releaseType": "patch",
           "notes": [
-            "add titleClass prop to ContentPageHeader component"
+            "add `titleClass` prop to `ContentPageHeader` component"
           ],
           "metadata": {
             "commitCount": 1,
@@ -3169,7 +3169,7 @@
                 "shortSha": "17c3276",
                 "date": "2026-03-31",
                 "subject": "feat(ds): add titleClass prop to ContentPageHeader component",
-                "normalizedSubject": "add titleClass prop to ContentPageHeader component",
+                "normalizedSubject": "add `titleClass` prop to `ContentPageHeader` component",
                 "type": "added",
                 "body": [],
                 "affected": [
@@ -3196,7 +3196,7 @@
           "publishedAt": "2026-03-28",
           "releaseType": "minor",
           "notes": [
-            "add new Dropzone and update FileUploadField component"
+            "add new `Dropzone` and update `FileUploadField` component"
           ],
           "metadata": {
             "commitCount": 1,
@@ -3206,7 +3206,7 @@
                 "shortSha": "0be8a1f",
                 "date": "2026-03-28",
                 "subject": "feat(ds): add new Dropzone and update FileUploadField component",
-                "normalizedSubject": "add new Dropzone and update FileUploadField component",
+                "normalizedSubject": "add new `Dropzone` and update `FileUploadField` component",
                 "type": "added",
                 "body": [],
                 "affected": [
@@ -3235,7 +3235,7 @@
           "publishedAt": "2026-03-28",
           "releaseType": "minor",
           "notes": [
-            "add Slider and SliderField components",
+            "add `Slider` and `SliderField` components",
             "reset file upload field test to original state"
           ],
           "metadata": {
@@ -3246,7 +3246,7 @@
                 "shortSha": "5454fba",
                 "date": "2026-03-28",
                 "subject": "feat(ds): add Slider and SliderField components",
-                "normalizedSubject": "add Slider and SliderField components",
+                "normalizedSubject": "add `Slider` and `SliderField` components",
                 "type": "added",
                 "body": [],
                 "affected": [
@@ -3286,7 +3286,7 @@
           "publishedAt": "2026-03-25",
           "releaseType": "patch",
           "notes": [
-            "fix disable state for link types in ActionButton and ActionIconButton"
+            "fix disable state for link types in `ActionButton` and `ActionIconButton`"
           ],
           "metadata": {
             "commitCount": 1,
@@ -3296,7 +3296,7 @@
                 "shortSha": "cd538d7",
                 "date": "2026-03-25",
                 "subject": "fix(ds): fix disable state for link types in ActionButton and ActionIconButton",
-                "normalizedSubject": "fix disable state for link types in ActionButton and ActionIconButton",
+                "normalizedSubject": "fix disable state for link types in `ActionButton` and `ActionIconButton`",
                 "type": "fixed",
                 "body": [],
                 "affected": [
@@ -3323,7 +3323,7 @@
           "publishedAt": "2026-03-25",
           "releaseType": "patch",
           "notes": [
-            "remove inexisting description prop and replace it with separatorIcon prop"
+            "remove inexisting description prop and replace it with `separatorIcon` prop"
           ],
           "metadata": {
             "commitCount": 1,
@@ -3333,7 +3333,7 @@
                 "shortSha": "4d5ad0a",
                 "date": "2026-03-25",
                 "subject": "fix(ds): remove inexisting description prop and replace it with separatorIcon prop",
-                "normalizedSubject": "remove inexisting description prop and replace it with separatorIcon prop",
+                "normalizedSubject": "remove inexisting description prop and replace it with `separatorIcon` prop",
                 "type": "fixed",
                 "body": [],
                 "affected": [
@@ -3359,7 +3359,7 @@
           "publishedAt": "2026-03-25",
           "releaseType": "minor",
           "notes": [
-            "add ConfirmationDetailsCard and noWrap support"
+            "add `ConfirmationDetailsCard` and `noWrap` support"
           ],
           "metadata": {
             "commitCount": 1,
@@ -3369,12 +3369,12 @@
                 "shortSha": "a136530",
                 "date": "2026-03-25",
                 "subject": "feat(ds): add ConfirmationDetailsCard and noWrap support",
-                "normalizedSubject": "add ConfirmationDetailsCard and noWrap support",
+                "normalizedSubject": "add `ConfirmationDetailsCard` and `noWrap` support",
                 "type": "added",
                 "body": [
-                  "Add ConfirmationDetailsCard component for displaying confirmation data",
-                  "Introduce noWrap prop for TableCell to control text wrapping",
-                  "Fix no-wrap behavior in IconTextBadge component"
+                  "Add `ConfirmationDetailsCard` component for displaying confirmation data",
+                  "Introduce `noWrap` prop for `TableCell` to control text wrapping",
+                  "Fix no-wrap behavior in `IconTextBadge` component"
                 ],
                 "affected": [
                   "IconTextBadge",
@@ -3401,7 +3401,7 @@
           "publishedAt": "2026-03-24",
           "releaseType": "minor",
           "notes": [
-            "add SlotField form component"
+            "add `SlotField` form component"
           ],
           "metadata": {
             "commitCount": 1,
@@ -3411,7 +3411,7 @@
                 "shortSha": "d1e71a9",
                 "date": "2026-03-24",
                 "subject": "feat(ds): add SlotField form component",
-                "normalizedSubject": "add SlotField form component",
+                "normalizedSubject": "add `SlotField` form component",
                 "type": "added",
                 "body": [],
                 "affected": [
@@ -3452,8 +3452,8 @@
                 "body": [
                   "Add new checkbox component.",
                   "Add new checkbox sizes.",
-                  "Add iconSize prop for ContainedIcon component.",
-                  "Fix SelectField error border."
+                  "Add `iconSize` prop for `ContainedIcon` component.",
+                  "Fix `SelectField` error border."
                 ],
                 "affected": [
                   "Checkbox",
@@ -3655,7 +3655,7 @@
                 "normalizedSubject": "fix tags field cursor issue and updates docs",
                 "type": "fixed",
                 "body": [
-                  "Fix TagsField cursor issue and adds a clear button.",
+                  "Fix `TagsField` cursor issue and adds a clear button.",
                   "Update docs"
                 ],
                 "affected": [
@@ -3681,7 +3681,7 @@
           "publishedAt": "2026-03-19",
           "releaseType": "patch",
           "notes": [
-            "add new TagsField and RulesField components + component fixes"
+            "add new `TagsField` and `RulesField` components + component fixes"
           ],
           "metadata": {
             "commitCount": 1,
@@ -3691,11 +3691,11 @@
                 "shortSha": "c8c125e",
                 "date": "2026-03-18",
                 "subject": "feat(design system + docs): add new TagsField and RulesField components + component fixes",
-                "normalizedSubject": "add new TagsField and RulesField components + component fixes",
+                "normalizedSubject": "add new `TagsField` and `RulesField` components + component fixes",
                 "type": "added",
                 "body": [
-                  "Add new TagsField form component",
-                  "Add new RulesField form component",
+                  "Add new `TagsField` form component",
+                  "Add new `RulesField` form component",
                   "Add new form validations for rules",
                   "Add new UI theme variable",
                   "Bump package versions",
@@ -3875,13 +3875,13 @@
                 "type": "added",
                 "body": [
                   "Improves the feedback modal.",
-                  "Updates TextareaField docs page.",
-                  "TextareaField",
-                  "Add autoResize",
-                  "Add maxHeightClass",
-                  "Add textareaClass",
-                  "Add blurContent",
-                  "Add revealBlurOnFocus"
+                  "Updates `TextareaField` docs page.",
+                  "`TextareaField`",
+                  "Add `autoResize`",
+                  "Add `maxHeightClass`",
+                  "Add `textareaClass`",
+                  "Add `blurContent`",
+                  "Add `revealBlurOnFocus`"
                 ],
                 "affected": [
                   "TextareaField"
@@ -3901,7 +3901,7 @@
                   "Updates section docs page.",
                   "Add basic feedback system for users.",
                   "Add listener for Esc click in drawer.",
-                  "Add new SectionFooter component"
+                  "Add new `SectionFooter` component"
                 ],
                 "affected": [
                   "Drawer",
@@ -3959,7 +3959,7 @@
                   "Add 'Esc' shortkey to close search modal",
                   "Updates select field docs",
                   "Fix tab indentation in tabs docs",
-                  "Add missing selectBoxClass to SelectField"
+                  "Add missing `selectBoxClass` to `SelectField`"
                 ],
                 "affected": [
                   "DropdownSelect",
@@ -4063,7 +4063,7 @@
           "publishedAt": "2026-02-28",
           "releaseType": "patch",
           "notes": [
-            "add Drawer component"
+            "add `Drawer` component"
           ],
           "metadata": {
             "commitCount": 1,
@@ -4073,11 +4073,11 @@
                 "shortSha": "0f1dac4",
                 "date": "2026-02-28",
                 "subject": "feat: add Drawer component",
-                "normalizedSubject": "add Drawer component",
+                "normalizedSubject": "add `Drawer` component",
                 "type": "added",
                 "body": [
-                  "Add new Drawer component",
-                  "Add Drawer docs page"
+                  "Add new `Drawer` component",
+                  "Add `Drawer` docs page"
                 ],
                 "affected": [
                   "Drawer"
@@ -4136,11 +4136,11 @@
           "publishedAt": "2026-02-28",
           "releaseType": "patch",
           "notes": [
-            "add customRoute to Breadcrumbs and scope prop to TableHeaderCell",
+            "add `customRoute` to `Breadcrumbs` and scope prop to `TableHeaderCell`",
             "improve search modal, badge and action button",
             "updates components code, fixes file upload file and updates docs pages",
             "adjust text top padding",
-            "removes aspect-square class from ActionButton"
+            "removes aspect-square class from `ActionButton`"
           ],
           "metadata": {
             "commitCount": 5,
@@ -4150,10 +4150,10 @@
                 "shortSha": "08faa89",
                 "date": "2026-02-28",
                 "subject": "feat(design system + docs): add customRoute to Breadcrumbs and scope prop to TableHeaderCell",
-                "normalizedSubject": "add customRoute to Breadcrumbs and scope prop to TableHeaderCell",
+                "normalizedSubject": "add `customRoute` to `Breadcrumbs` and scope prop to `TableHeaderCell`",
                 "type": "added",
                 "body": [
-                  "Add customRoute to Breadcrumbs and scope prop to TableHeaderCell",
+                  "Add `customRoute` to `Breadcrumbs` and scope prop to `TableHeaderCell`",
                   "Updates the table docs page"
                 ],
                 "affected": [
@@ -4174,7 +4174,7 @@
                 "body": [
                   "Updates component code component.",
                   "Fixes nav link and content page header docs text errors.",
-                  "Fixes double explorer window issue in FileUploadField component"
+                  "Fixes double explorer window issue in `FileUploadField` component"
                 ],
                 "affected": [
                   "FileUploadField"
@@ -4207,10 +4207,10 @@
                 "normalizedSubject": "improve search modal, badge and action button",
                 "type": "added",
                 "body": [
-                  "Fixes vertical spacing issue in ActionButton and Badge component.",
+                  "Fixes vertical spacing issue in `ActionButton` and `Badge` component.",
                   "Compensates horizontal padding in button when using icons.",
                   "Add shortcut to search modal.",
-                  "Sets app header search button to ActionButton.",
+                  "Sets app header search button to `ActionButton`.",
                   "Sets the autofocus for search input."
                 ],
                 "affected": [
@@ -4226,10 +4226,10 @@
                 "shortSha": "147f2d4",
                 "date": "2026-02-26",
                 "subject": "fix(design-system): removes aspect-square class from ActionButton",
-                "normalizedSubject": "removes aspect-square class from ActionButton",
+                "normalizedSubject": "removes aspect-square class from `ActionButton`",
                 "type": "fixed",
                 "body": [
-                  "Removes the 'aspect-square' class from ActionButton component, which was inserted by mistake."
+                  "Removes the 'aspect-square' class from `ActionButton` component, which was inserted by mistake."
                 ],
                 "affected": [
                   "ActionButton"
@@ -4254,7 +4254,7 @@
           "publishedAt": "2026-02-26",
           "releaseType": "patch",
           "notes": [
-            "renames modal dialog cardClasses prop to cardClass"
+            "renames modal dialog cardClasses prop to `cardClass`"
           ],
           "metadata": {
             "commitCount": 1,
@@ -4264,7 +4264,7 @@
                 "shortSha": "0f6dde3",
                 "date": "2026-02-23",
                 "subject": "fix(design system): renames modal dialog cardClasses prop to cardClass",
-                "normalizedSubject": "renames modal dialog cardClasses prop to cardClass",
+                "normalizedSubject": "renames modal dialog cardClasses prop to `cardClass`",
                 "type": "fixed",
                 "body": [],
                 "affected": [
@@ -4388,8 +4388,8 @@
                 "type": "fixed",
                 "body": [
                   "fixes app header style issues",
-                  "add new headingTag and titleClass props to form/data field group components",
-                  "add heading tag fallback to Heading component"
+                  "add new `headingTag` and `titleClass` props to form/data field group components",
+                  "add heading tag fallback to `Heading` component"
                 ],
                 "affected": [
                   "DataDetailsFieldGroup",
@@ -4433,9 +4433,9 @@
                   "Updates components docs pages",
                   "Enhances theme toggle in the AppHeader",
                   "Fixes style issues and console warnings",
-                  "Enables ToggleButtonsGroupField to use only icon buttons",
-                  "Updates useDarkMode to use system theme",
-                  "Enhances useMobileSidebar to close mobile sidebar when switching routes",
+                  "Enables `ToggleButtonsGroupField` to use only icon buttons",
+                  "Updates `useDarkMode` to use system theme",
+                  "Enhances `useMobileSidebar` to close mobile sidebar when switching routes",
                   "Updates modified components and composables unit tests.",
                   "Improves styling issues in several components."
                 ],
@@ -4509,7 +4509,7 @@
           "publishedAt": "2026-02-10",
           "releaseType": "patch",
           "notes": [
-            "add PinField and ScrollArea component + add fit to content prop to SwitchField"
+            "add `PinField` and `ScrollArea` component + add fit to content prop to `SwitchField`"
           ],
           "metadata": {
             "commitCount": 1,
@@ -4519,11 +4519,11 @@
                 "shortSha": "7891200",
                 "date": "2026-02-09",
                 "subject": "feat(design system): add PinField and ScrollArea component + add fit to content prop to SwitchField",
-                "normalizedSubject": "add PinField and ScrollArea component + add fit to content prop to SwitchField",
+                "normalizedSubject": "add `PinField` and `ScrollArea` component + add fit to content prop to `SwitchField`",
                 "type": "added",
                 "body": [
-                  "Adds new components and improves SwitchField",
-                  "Add PinField and ScrollArea component + add fit to content props to SwitchField",
+                  "Adds new components and improves `SwitchField`",
+                  "Add `PinField` and `ScrollArea` component + add fit to content props to `SwitchField`",
                   "Bumbs package version"
                 ],
                 "affected": [
@@ -4564,7 +4564,7 @@
                 "normalizedSubject": "Improves breadcrumbs, fixes tab styling issues and adds new functionalities to tabs an tables.",
                 "type": "added",
                 "body": [
-                  "Improves contrast in Breadcrumbs component",
+                  "Improves contrast in `Breadcrumbs` component",
                   "Bumps package versions",
                   "Fixes tab styling",
                   "Add tab sizes and container",
@@ -4598,7 +4598,7 @@
           "publishedAt": "2026-02-09",
           "releaseType": "patch",
           "notes": [
-            "add SelectableCard and SelectableCardField components and docs pages + Improves TOC components and collapsible"
+            "add `SelectableCard` and `SelectableCardField` components and docs pages + Improves TOC components and collapsible"
           ],
           "metadata": {
             "commitCount": 1,
@@ -4608,13 +4608,13 @@
                 "shortSha": "085df49",
                 "date": "2026-02-08",
                 "subject": "feat(docs + design system): add SelectableCard and SelectableCardField components and docs pages + Improves TOC components and collapsible",
-                "normalizedSubject": "add SelectableCard and SelectableCardField components and docs pages + Improves TOC components and collapsible",
+                "normalizedSubject": "add `SelectableCard` and `SelectableCardField` components and docs pages + Improves TOC components and collapsible",
                 "type": "added",
                 "body": [
-                  "Add SelectableCard and SelectableCard and SelectableCardField components and docs pages",
+                  "Add `SelectableCard` and `SelectableCard` and `SelectableCardField` components and docs pages",
                   "Adds click emits to toc items",
-                  "Adds overflow and topOffset to toc sidebar",
-                  "Adds a modelValue to Collapsible component to handle open state from the parent",
+                  "Adds overflow and `topOffset` to toc sidebar",
+                  "Adds a `modelValue` to `Collapsible` component to handle open state from the parent",
                   "Docs page",
                   "Add relevant pages",
                   "Fixes overflow in mobile toc version in the header"
@@ -5051,7 +5051,7 @@
           "publishedAt": "2026-01-20",
           "releaseType": "patch",
           "notes": [
-            "Fixes color and sizes issues + Add teleport version to DropdownMenu"
+            "Fixes color and sizes issues + Add teleport version to `DropdownMenu`"
           ],
           "metadata": {
             "commitCount": 1,
@@ -5061,7 +5061,7 @@
                 "shortSha": "3419e6e",
                 "date": "2026-01-20",
                 "subject": "fix(design-system): Fixes color and sizes issues + Add teleport version to DropdownMenu",
-                "normalizedSubject": "Fixes color and sizes issues + Add teleport version to DropdownMenu",
+                "normalizedSubject": "Fixes color and sizes issues + Add teleport version to `DropdownMenu`",
                 "type": "fixed",
                 "body": [],
                 "affected": [
@@ -5096,7 +5096,7 @@
           "publishedAt": "2026-01-20",
           "releaseType": "patch",
           "notes": [
-            "Adds text-inherit to Icon component"
+            "Adds text-inherit to `Icon` component"
           ],
           "metadata": {
             "commitCount": 1,
@@ -5106,7 +5106,7 @@
                 "shortSha": "e15bcb6",
                 "date": "2026-01-19",
                 "subject": "fix(design-system): Adds text-inherit to Icon component",
-                "normalizedSubject": "Adds text-inherit to Icon component",
+                "normalizedSubject": "Adds text-inherit to `Icon` component",
                 "type": "fixed",
                 "body": [],
                 "affected": [
@@ -5205,7 +5205,7 @@
           "publishedAt": "2026-01-19",
           "releaseType": "minor",
           "notes": [
-            "Replaces the Nuxt MDI icon module with Nuxt Icon module",
+            "Replaces the Nuxt MDI icon module with Nuxt `Icon` module",
             "add iconify module and introduce unified icon components"
           ],
           "metadata": {
@@ -5216,11 +5216,11 @@
                 "shortSha": "b3343f1",
                 "date": "2026-01-17",
                 "subject": "feat(design-system): Replaces the Nuxt MDI icon module with Nuxt Icon module",
-                "normalizedSubject": "Replaces the Nuxt MDI icon module with Nuxt Icon module",
+                "normalizedSubject": "Replaces the Nuxt MDI icon module with Nuxt `Icon` module",
                 "type": "added",
                 "body": [
-                  "Replaces the old icon nuxt mdi plugin with a new Nuxt Icon plugin that can leverage much more iicons is far more flexibe.",
-                  "Adds the Icon component"
+                  "Replaces the old icon nuxt mdi plugin with a new Nuxt `Icon` plugin that can leverage much more iicons is far more flexibe.",
+                  "Adds the `Icon` component"
                 ],
                 "affected": [
                   "AccordionItem",
@@ -5305,10 +5305,10 @@
                 "type": "added",
                 "body": [
                   "Add Iconify Nuxt module with required Nuxt configuration",
-                  "Introduce Icon and ContainedIcon components supporting MDI and Iconify",
+                  "Introduce `Icon` and `ContainedIcon` components supporting MDI and Iconify",
                   "Extend icon enums and types to support new icon sources",
                   "Add and fix unit tests for icon components",
-                  "Add documentation pages for Icon and update ContainedIcon docs"
+                  "Add documentation pages for `Icon` and update `ContainedIcon` docs"
                 ],
                 "affected": [
                   "ContainedIcon",
@@ -5334,7 +5334,7 @@
           "publishedAt": "2026-01-06",
           "releaseType": "patch",
           "notes": [
-            "Add ProgressBar component and bump package version"
+            "Add `ProgressBar` component and bump package version"
           ],
           "metadata": {
             "commitCount": 1,
@@ -5344,12 +5344,12 @@
                 "shortSha": "e2ff708",
                 "date": "2026-01-05",
                 "subject": "feat(design-system): Add ProgressBar component and bump package version",
-                "normalizedSubject": "Add ProgressBar component and bump package version",
+                "normalizedSubject": "Add `ProgressBar` component and bump package version",
                 "type": "added",
                 "body": [
-                  "Add ProgressBar component implementation and enums",
-                  "Add component tests for ProgressBar",
-                  "Document ProgressBar usage in docs"
+                  "Add `ProgressBar` component implementation and enums",
+                  "Add component tests for `ProgressBar`",
+                  "Document `ProgressBar` usage in docs"
                 ],
                 "affected": [
                   "ProgressBar"
@@ -5374,8 +5374,8 @@
           "publishedAt": "2026-01-05",
           "releaseType": "patch",
           "notes": [
-            "Improves the NavSidebar and completes the component dock page",
-            "Updates NavSidebar components tests"
+            "Improves the `NavSidebar` and completes the component dock page",
+            "Updates `NavSidebar` components tests"
           ],
           "metadata": {
             "commitCount": 2,
@@ -5385,7 +5385,7 @@
                 "shortSha": "fb32dda",
                 "date": "2026-01-03",
                 "subject": "chore(tests): Updates NavSidebar components tests",
-                "normalizedSubject": "Updates NavSidebar components tests",
+                "normalizedSubject": "Updates `NavSidebar` components tests",
                 "type": "maintenance",
                 "body": [],
                 "affected": [],
@@ -5398,7 +5398,7 @@
                 "shortSha": "55c74b6",
                 "date": "2026-01-03",
                 "subject": "feat(design-system + docs):  Improves the NavSidebar and completes the component dock page",
-                "normalizedSubject": "Improves the NavSidebar and completes the component dock page",
+                "normalizedSubject": "Improves the `NavSidebar` and completes the component dock page",
                 "type": "added",
                 "body": [],
                 "affected": [
@@ -5428,7 +5428,7 @@
           "publishedAt": "2026-01-03",
           "releaseType": "patch",
           "notes": [
-            "Add setPageTitle to ErrorDisplay component and updates AirUI package"
+            "Add `setPageTitle` to `ErrorDisplay` component and updates AirUI package"
           ],
           "metadata": {
             "commitCount": 1,
@@ -5438,7 +5438,7 @@
                 "shortSha": "406cdbb",
                 "date": "2025-12-31",
                 "subject": "feat(ui + docs): Add setPageTitle to ErrorDisplay component and updates AirUI package",
-                "normalizedSubject": "Add setPageTitle to ErrorDisplay component and updates AirUI package",
+                "normalizedSubject": "Add `setPageTitle` to `ErrorDisplay` component and updates AirUI package",
                 "type": "added",
                 "body": [],
                 "affected": [
@@ -5464,7 +5464,7 @@
           "publishedAt": "2025-12-31",
           "releaseType": "patch",
           "notes": [
-            "Rename error component to ErrorDisplay and add error mappings"
+            "Rename error component to `ErrorDisplay` and add error mappings"
           ],
           "metadata": {
             "commitCount": 1,
@@ -5474,10 +5474,10 @@
                 "shortSha": "8ad4276",
                 "date": "2025-12-31",
                 "subject": "feat(ui): Rename error component to ErrorDisplay and add error mappings",
-                "normalizedSubject": "Rename error component to ErrorDisplay and add error mappings",
+                "normalizedSubject": "Rename error component to `ErrorDisplay` and add error mappings",
                 "type": "added",
                 "body": [
-                  "Rename the Error layout component to ErrorDisplay for clarity and consistency",
+                  "Rename the `Error` layout component to `ErrorDisplay` for clarity and consistency",
                   "Improve the error display component implementation",
                   "Add new error mapping types to standardize error handling",
                   "Add error page documentation to reflect the new component",
@@ -5506,7 +5506,7 @@
           "publishedAt": "2025-12-31",
           "releaseType": "patch",
           "notes": [
-            "Add Error component and adjust heading breakpoints"
+            "Add `Error` component and adjust heading breakpoints"
           ],
           "metadata": {
             "commitCount": 1,
@@ -5516,11 +5516,11 @@
                 "shortSha": "2a56847",
                 "date": "2025-12-30",
                 "subject": "feat(ui): Add Error component and adjust heading breakpoints",
-                "normalizedSubject": "Add Error component and adjust heading breakpoints",
+                "normalizedSubject": "Add `Error` component and adjust heading breakpoints",
                 "type": "added",
                 "body": [
-                  "Add a reusable Error layout component to air-ui-ds",
-                  "Replace the docs error page to use the new Error component",
+                  "Add a reusable `Error` layout component to air-ui-ds",
+                  "Replace the docs error page to use the new `Error` component",
                   "Update heading alignment breakpoints from lg to md"
                 ],
                 "affected": [
@@ -5740,10 +5740,10 @@
                 "type": "added",
                 "body": [
                   "Add interactive script to replace UI theme color schemes safely",
-                  "Validate color schemes against colors.css before applying changes",
+                  "Validate color schemes against `colors.css` before applying changes",
                   "Improve DX with guided prompts and clear error handling",
                   "Document the script usage in installation-from-scratch docs",
-                  "Register the script for in package.json"
+                  "Register the script for in `package.json`"
                 ],
                 "affected": [],
                 "prNumber": null,
@@ -6192,7 +6192,7 @@
                 "normalizedSubject": "update package metadata and Vitest config, add package READMEs",
                 "type": "maintenance",
                 "body": [
-                  "Updated package.json fields for packages to align with publish settings",
+                  "Updated `package.json` fields for packages to align with publish settings",
                   "Adjusted Vitest utils config for shared setup and coverage output",
                   "Added initial README files for each package with basic usage and scripts"
                 ],
@@ -6419,7 +6419,7 @@
           "publishedAt": "2026-10-10",
           "releaseType": "minor",
           "notes": [
-            "add Image, Gallery and Lightbox components"
+            "add `Image`, `Gallery` and `Lightbox` components"
           ],
           "metadata": {
             "commitCount": 1,
@@ -6429,20 +6429,20 @@
                 "shortSha": "72c5539",
                 "date": "2026-10-10",
                 "subject": "feat(ds): add Image, Gallery and Lightbox components",
-                "normalizedSubject": "add Image, Gallery and Lightbox components",
+                "normalizedSubject": "add `Image`, `Gallery` and `Lightbox` components",
                 "type": "added",
                 "body": [
-                  "add Lightbox with swipe, keyboard navigation, fullscreen and scroll lock",
-                  "add Image with aspect ratio, hover effects, captions, lightbox and optional NuxtImg",
-                  "add Gallery with grid layout, shared lightbox and four pagination modes",
-                  "add ImageHoverEffect NONE, GRAYSCALE and SPLIT_ZOOM options",
-                  "add ImageFit, ImageHoverSplitDirection, ImageCaptionPlacement and ImageLoading enums",
-                  "add GalleryPaginationMode enum and GalleryImage type",
-                  "add useAspectRatioClass composable and reuse it in ContentItemImage",
-                  "add cleanImageAlt util to air-ui-utils",
-                  "add pagination, gallery and lightbox groups to useDSConfig, props take precedence",
-                  "make ButtonPagination and SimplePagination texts fall back to the DS config",
-                  "add docs pages, demo, thumbnails and registry entries for Image, Gallery and Lightbox",
+                  "add `Lightbox` with swipe, keyboard navigation, fullscreen and scroll lock",
+                  "add `Image` with aspect ratio, hover effects, captions, lightbox and optional NuxtImg",
+                  "add `Gallery` with grid layout, shared lightbox and four pagination modes",
+                  "add `ImageHoverEffect` `NONE`, `GRAYSCALE` and `SPLIT_ZOOM` options",
+                  "add `ImageFit`, `ImageHoverSplitDirection`, `ImageCaptionPlacement` and `ImageLoading` enums",
+                  "add `GalleryPaginationMode` enum and `GalleryImage` type",
+                  "add `useAspectRatioClass` composable and reuse it in `ContentItemImage`",
+                  "add `cleanImageAlt` util to air-ui-utils",
+                  "add pagination, gallery and lightbox groups to `useDSConfig`, props take precedence",
+                  "make `ButtonPagination` and `SimplePagination` texts fall back to the DS config",
+                  "add docs pages, demo, thumbnails and registry entries for `Image`, `Gallery` and `Lightbox`",
                   "document the new config texts in getting started configuration",
                   "scan ds composables in docs tailwind sources",
                   "add tests for the new components, composable, util and config"
@@ -6486,7 +6486,7 @@
                 "body": [
                   "run npm-check-updates across root, docs, ds, and utils",
                   "keep typescript pinned at 6.0.3 in docs",
-                  "regenerate package-lock.json"
+                  "regenerate `package-lock.json`"
                 ],
                 "affected": [],
                 "prNumber": null,
@@ -6501,9 +6501,9 @@
                 "normalizedSubject": "add global config for form validation messages",
                 "type": "added",
                 "body": [
-                  "add useUtilsConfig composable and UtilsConfig type",
-                  "fall back to useUtilsConfig().validation messages when a validator has no per-call message",
-                  "add tests for useUtilsConfig defaults, overrides, and validator fallback behavior"
+                  "add `useUtilsConfig` composable and `UtilsConfig` type",
+                  "fall back to `useUtilsConfig`().validation messages when a validator has no per-call message",
+                  "add tests for `useUtilsConfig` defaults, overrides, and validator fallback behavior"
                 ],
                 "affected": [
                   "useUtilsConfig",
@@ -6529,7 +6529,7 @@
           "publishedAt": "2026-09-17",
           "releaseType": "patch",
           "notes": [
-            "add toggle mode to trimText"
+            "add toggle mode to `trimText`"
           ],
           "metadata": {
             "commitCount": 1,
@@ -6539,7 +6539,7 @@
                 "shortSha": "30f74d1",
                 "date": "2026-09-17",
                 "subject": "feat(utils): add toggle mode to trimText",
-                "normalizedSubject": "add toggle mode to trimText",
+                "normalizedSubject": "add toggle mode to `trimText`",
                 "type": "added",
                 "body": [
                   "add readMoreType param ('link' | 'toggle', default 'link')",
@@ -6676,7 +6676,7 @@
           "publishedAt": "2026-04-07",
           "releaseType": "patch",
           "notes": [
-            "add formatNumberWithThousands number util"
+            "add `formatNumberWithThousands` number util"
           ],
           "metadata": {
             "commitCount": 1,
@@ -6686,7 +6686,7 @@
                 "shortSha": "1c66034",
                 "date": "2026-04-07",
                 "subject": "feat(utils): add formatNumberWithThousands number util",
-                "normalizedSubject": "add formatNumberWithThousands number util",
+                "normalizedSubject": "add `formatNumberWithThousands` number util",
                 "type": "added",
                 "body": [],
                 "affected": [
@@ -6713,7 +6713,7 @@
           "releaseType": "patch",
           "notes": [
             "update package versions",
-            "add new TagsField and RulesField components + component fixes",
+            "add new `TagsField` and `RulesField` components + component fixes",
             "add release automatization and changelogs"
           ],
           "metadata": {
@@ -6752,11 +6752,11 @@
                 "shortSha": "c8c125e",
                 "date": "2026-03-18",
                 "subject": "feat(design system + docs): add new TagsField and RulesField components + component fixes",
-                "normalizedSubject": "add new TagsField and RulesField components + component fixes",
+                "normalizedSubject": "add new `TagsField` and `RulesField` components + component fixes",
                 "type": "added",
                 "body": [
-                  "Add new TagsField form component",
-                  "Add new RulesField form component",
+                  "Add new `TagsField` form component",
+                  "Add new `RulesField` form component",
                   "Add new form validations for rules",
                   "Add new UI theme variable",
                   "Bump package versions",
@@ -6836,7 +6836,7 @@
                 "normalizedSubject": "Improves breadcrumbs, fixes tab styling issues and adds new functionalities to tabs an tables.",
                 "type": "added",
                 "body": [
-                  "Improves contrast in Breadcrumbs component",
+                  "Improves contrast in `Breadcrumbs` component",
                   "Bumps package versions",
                   "Fixes tab styling",
                   "Add tab sizes and container",
@@ -7097,7 +7097,7 @@
           "publishedAt": "2026-01-31",
           "releaseType": "patch",
           "notes": [
-            "Replaces the Nuxt MDI icon module with Nuxt Icon module",
+            "Replaces the Nuxt MDI icon module with Nuxt `Icon` module",
             "improve getting started pages and UI components",
             "Fixes packages bump version",
             "Bumps package version",
@@ -7182,11 +7182,11 @@
                 "shortSha": "b3343f1",
                 "date": "2026-01-17",
                 "subject": "feat(design-system): Replaces the Nuxt MDI icon module with Nuxt Icon module",
-                "normalizedSubject": "Replaces the Nuxt MDI icon module with Nuxt Icon module",
+                "normalizedSubject": "Replaces the Nuxt MDI icon module with Nuxt `Icon` module",
                 "type": "added",
                 "body": [
-                  "Replaces the old icon nuxt mdi plugin with a new Nuxt Icon plugin that can leverage much more iicons is far more flexibe.",
-                  "Adds the Icon component"
+                  "Replaces the old icon nuxt mdi plugin with a new Nuxt `Icon` plugin that can leverage much more iicons is far more flexibe.",
+                  "Adds the `Icon` component"
                 ],
                 "affected": [
                   "rating"
@@ -7426,7 +7426,7 @@
                 "normalizedSubject": "update package metadata and Vitest config, add package READMEs",
                 "type": "maintenance",
                 "body": [
-                  "Updated package.json fields for packages to align with publish settings",
+                  "Updated `package.json` fields for packages to align with publish settings",
                   "Adjusted Vitest utils config for shared setup and coverage output",
                   "Added initial README files for each package with basic usage and scripts"
                 ],

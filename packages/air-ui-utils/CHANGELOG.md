@@ -12,7 +12,7 @@ Commits found in range: 1.
 
 ### Added
 
-1. add Image, Gallery and Lightbox components ([72c5539](https://github.com/imaginario27/air-ui/commit/72c5539f13bced86e1f328e7796af03779893623))
+1. add `Image`, `Gallery` and `Lightbox` components ([72c5539](https://github.com/imaginario27/air-ui/commit/72c5539f13bced86e1f328e7796af03779893623))
 
 - Package: @imaginario27/air-ui-utils.
 
@@ -38,7 +38,7 @@ Commits found in range: 1.
 
 ### Added
 
-1. add toggle mode to trimText ([30f74d1](https://github.com/imaginario27/air-ui/commit/30f74d12281e070ca8fe78aacc6a59c3bf6c35d8))
+1. add toggle mode to `trimText` ([30f74d1](https://github.com/imaginario27/air-ui/commit/30f74d12281e070ca8fe78aacc6a59c3bf6c35d8))
 
 - Package: @imaginario27/air-ui-utils.
 
@@ -82,7 +82,7 @@ Commits found in range: 1.
 
 ### Added
 
-1. add formatNumberWithThousands number util ([1c66034](https://github.com/imaginario27/air-ui/commit/1c660343c4718947e43c5393af2dc079f0ed176a))
+1. add `formatNumberWithThousands` number util ([1c66034](https://github.com/imaginario27/air-ui/commit/1c660343c4718947e43c5393af2dc079f0ed176a))
 
 - Package: @imaginario27/air-ui-utils.
 
@@ -94,7 +94,7 @@ Commits found in range: 3.
 ### Added
 
 1. update package versions ([c5a01a1](https://github.com/imaginario27/air-ui/commit/c5a01a186b047bceca41d6cf50d1f9da4e1aa15e))
-2. add new TagsField and RulesField components + component fixes ([c8c125e](https://github.com/imaginario27/air-ui/commit/c8c125eb110eedc16f29706778578514bc28eb4f))
+2. add new `TagsField` and `RulesField` components + component fixes ([c8c125e](https://github.com/imaginario27/air-ui/commit/c8c125eb110eedc16f29706778578514bc28eb4f))
 
 ### Maintenance
 
@@ -200,7 +200,7 @@ Commits found in range: 7.
 
 ### Added
 
-1. Replaces the Nuxt MDI icon module with Nuxt Icon module ([b3343f1](https://github.com/imaginario27/air-ui/commit/b3343f152ee8726f4312059428bec15097b64ce8))
+1. Replaces the Nuxt MDI icon module with Nuxt `Icon` module ([b3343f1](https://github.com/imaginario27/air-ui/commit/b3343f152ee8726f4312059428bec15097b64ce8))
 2. improve getting started pages and UI components ([999f965](https://github.com/imaginario27/air-ui/commit/999f9654e821630af762593dc712d47a46913e35))
 
 ### Fixed

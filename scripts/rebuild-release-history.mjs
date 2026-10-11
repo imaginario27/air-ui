@@ -5,6 +5,7 @@ import { writeFile } from "node:fs/promises"
 import { execFileSync } from "node:child_process"
 import path from "node:path"
 import { fileURLToPath } from "node:url"
+import { createCodeHighlighter } from "./code-name-highlighter.mjs"
 import { diffPublishedPackages } from "./published-package-diff.mjs"
 
 const __filename = fileURLToPath(import.meta.url)
@@ -141,6 +142,14 @@ const shouldIncludeCommit = (subject) => {
     return true
 }
 
+// Built lazily: scanning the design system and utils for names is only needed once per run.
+let codeHighlighter = null
+const highlightCode = (text) => {
+    codeHighlighter ??= createCodeHighlighter(repoRoot)
+
+    return codeHighlighter(text)
+}
+
 const AFFECTED_FILE_REGEX =
     /^packages\/[^/]+\/(?:components|composables|utils)\/(?:.+\/)?([^/]+?)\.(?:vue|ts)$/
 
@@ -223,9 +232,9 @@ const parseGitCommits = (raw, githubBaseUrl) => {
                 shortSha: sha.slice(0, 7),
                 date,
                 subject,
-                normalizedSubject: stripConventionalPrefix(subject),
+                normalizedSubject: highlightCode(stripConventionalPrefix(subject)),
                 type,
-                body: extractBodyLines(body),
+                body: extractBodyLines(body).map(highlightCode),
                 affected: extractAffected(files.split("\n")),
                 prNumber,
                 url: githubBaseUrl ? `${githubBaseUrl}/commit/${sha}` : null,
