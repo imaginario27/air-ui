@@ -2,6 +2,33 @@
     <DatePickerField
         v-if="isDateType"
         :id
+        :type="datePickerType"
+        :label
+        :ariaLabel
+        :helpText
+        :helpTextPosition
+        :icon
+        :size
+        :modelValue="dateValue"
+        :placeholder
+        :validator
+        :error
+        :min
+        :max
+        :locale
+        :readonly
+        :disabled
+        :required
+        :showOptionalLabel
+        :optionalLabel
+        :transparent
+        @update:modelValue="handleDateUpdate"
+        @update:error="emit('update:error', $event)"
+    />
+
+    <TimePickerField
+        v-else-if="isTimeType"
+        :id
         :label
         :ariaLabel
         :helpText
@@ -267,8 +294,10 @@ const passwordInputType = computed(() => {
     return showPassword.value ? 'text' : 'password'
 })
 
-// Date type (delegated to DatePickerField)
-const isDateType = computed(() => props.type === 'date')
+// Date, month, week and date and time types are delegated to DatePickerField, and time to TimePickerField
+const isDateType = computed(() => ['date', 'month', 'week', 'datetime-local'].includes(props.type))
+const isTimeType = computed(() => props.type === 'time')
+const datePickerType = computed(() => props.type as DatePickerType)
 const dateValue = computed(() => (props.modelValue === null ? null : String(props.modelValue)))
 
 const handleDateUpdate = (value: unknown) => {

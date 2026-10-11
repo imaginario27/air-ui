@@ -380,10 +380,42 @@ describe('InputField.vue', () => {
         })
 
         it('keeps the native behavior for other types', () => {
-            const wrapper = factory({ type: 'time' })
+            const wrapper = factory({ type: 'text' })
 
-            expect(wrapper.find('input').attributes('type')).toBe('time')
+            expect(wrapper.find('input').attributes('type')).toBe('text')
             expect(wrapper.find('button[aria-label="Open calendar"]').exists()).toBe(false)
+        })
+    })
+
+    describe.each([
+        ['month', '2026-10', 'October 2026', 'Calendar'],
+        ['week', '2026-W41', 'Week 41, 2026', 'Calendar'],
+        ['datetime-local', '2026-10-15T19:30', '10/15/2026 07:30 PM', 'Calendar'],
+        ['time', '19:30', '07:30 PM', 'TimePicker'],
+    ])('type %s', (type, value, expected, pickerName) => {
+        it('renders a read-only text input with the formatted value', () => {
+            const wrapper = factory({ type, modelValue: value })
+            const input = wrapper.find('input')
+
+            expect(input.attributes('type')).toBe('text')
+            expect(input.attributes('readonly')).toBeDefined()
+            expect((input.element as HTMLInputElement).value).toBe(expected)
+        })
+
+        it('opens the picker instead of the native one', async () => {
+            const wrapper = factory({ type, modelValue: value })
+
+            await wrapper.find('input').trigger('click')
+
+            expect(wrapper.findComponent({ name: pickerName }).exists()).toBe(true)
+        })
+
+        it('emits an empty string when cleared', async () => {
+            const wrapper = factory({ type, modelValue: value })
+
+            await wrapper.find('button[aria-label="Clear selection"]').trigger('click')
+
+            expect(wrapper.emitted('update:modelValue')![0]).toEqual([''])
         })
     })
 })

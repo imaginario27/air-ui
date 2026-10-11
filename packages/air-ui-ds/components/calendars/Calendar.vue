@@ -9,8 +9,13 @@
             'text-text-default',
             disabled && 'opacity-disabled',
             isBoxed
-                ? 'w-[19.5rem] p-3 rounded-lg border border-border-default bg-background-container-surface'
-                : 'w-[18rem]',
+                ? [
+                      hasWeekNumbers ? 'w-[22rem]' : 'w-[19.5rem]',
+                      'p-3 rounded-lg border border-border-default bg-background-container-surface',
+                  ]
+                : hasWeekNumbers
+                  ? 'w-[20.5rem]'
+                  : 'w-[18rem]',
         ]"
     >
         <!-- Header -->
@@ -96,7 +101,14 @@
             @keydown="handleDayKeydown"
             @mouseleave="hoverISO = null"
         >
-            <div role="row" class="grid grid-cols-7">
+            <div role="row" :class="['grid', gridColumnsClass]">
+                <span
+                    v-if="hasWeekNumbers"
+                    role="columnheader"
+                    class="flex h-9 items-center justify-center text-xs font-semibold text-text-neutral-subtler"
+                >
+                    {{ weekAbbreviation }}
+                </span>
                 <span
                     v-for="weekday in weekdays"
                     :key="weekday.long"
@@ -108,8 +120,15 @@
                 </span>
             </div>
 
-            <div v-for="(week, weekIndex) in weeks" :key="weekIndex" role="row" class="grid grid-cols-7">
-                <template v-for="day in week" :key="day.iso">
+            <div v-for="(week, weekIndex) in weeks" :key="weekIndex" role="row" :class="['grid', gridColumnsClass]">
+                <span
+                    v-if="hasWeekNumbers"
+                    role="rowheader"
+                    class="flex items-center justify-center text-xs text-text-neutral-subtler"
+                >
+                    {{ week.number }}
+                </span>
+                <template v-for="day in week.days" :key="day.iso">
                     <button
                         v-if="day.isInMonth || hasOutsideDays"
                         type="button"
@@ -219,6 +238,10 @@ const props = defineProps({
         type: Boolean as PropType<boolean>,
         default: true,
     },
+    hasWeekNumbers: {
+        type: Boolean as PropType<boolean>,
+        default: false,
+    },
     isRounded: {
         type: Boolean as PropType<boolean>,
         default: false,
@@ -261,6 +284,15 @@ const isNavigationDisabled = computed(() => props.disabled || props.isNavigation
 // Value helpers
 const isRange = computed(() => props.mode === CalendarMode.RANGE)
 const isMultiple = computed(() => props.mode === CalendarMode.MULTIPLE)
+const isWeek = computed(() => props.mode === CalendarMode.WEEK)
+const isMonth = computed(() => props.mode === CalendarMode.MONTH)
+
+// Weeks are always Monday to Sunday (ISO 8601) in week mode
+const firstDay = computed(() => (isWeek.value ? 1 : props.firstDayOfWeek))
+
+// The bounds can be a date, a month (YYYY-MM) or a week (YYYY-Www): they are normalized to dates
+const minISO = computed(() => toBoundISO(props.min, 'start'))
+const maxISO = computed(() => toBoundISO(props.max, 'end'))
 
 const singleValue = computed(() => (typeof props.modelValue === 'string' && props.modelValue ? props.modelValue : null))
 
@@ -275,16 +307,32 @@ const rangeValue = computed<CalendarRange>(() => {
     return { start: null, end: null }
 })
 
+// Week mode: the Monday and Sunday of the selected week
+const weekBounds = computed(() => {
+    const monday = parseISOWeek(singleValue.value)
+    if (!isWeek.value || !monday) return null
+
+    return {
+        from: toISODate(monday),
+        to: toISODate(new Date(monday.getFullYear(), monday.getMonth(), monday.getDate() + 6)),
+    }
+})
+
+// Month mode: the first day of the selected month
+const monthValue = computed(() => (isMonth.value ? parseISOMonth(singleValue.value) : null))
+
 const anchorISO = computed(() => {
     if (isRange.value) return rangeValue.value.start
     if (isMultiple.value) return multipleValue.value[0] ?? null
+    if (isWeek.value) return weekBounds.value?.from ?? null
+    if (isMonth.value) return monthValue.value ? toISODate(monthValue.value) : null
 
     return singleValue.value
 })
 
 const clampISO = (iso: string) => {
-    if (props.min && iso < props.min) return props.min
-    if (props.max && iso > props.max) return props.max
+    if (minISO.value && iso < minISO.value) return minISO.value
+    if (maxISO.value && iso > maxISO.value) return maxISO.value
 
     return iso
 }
@@ -294,7 +342,7 @@ const startOfMonth = (date: Date) => new Date(date.getFullYear(), date.getMonth(
 const initialDate = parseISODate(clampISO(parseISODate(anchorISO.value) ? anchorISO.value! : toISODate(new Date())))!
 
 // States
-const view = ref<CalendarView>(CalendarView.DAYS)
+const view = ref<CalendarView>(isMonth.value ? CalendarView.MONTHS : CalendarView.DAYS)
 const viewDate = ref(startOfMonth(initialDate))
 const focusedISO = ref(toISODate(initialDate))
 const hoverISO = ref<string | null>(null)
@@ -326,13 +374,19 @@ const nextLabel = computed(() =>
         : nextYearLabel.value,
 )
 
+const weekAbbreviation = computed(() => dsConfig.calendar.weekAbbreviationText())
+
+const gridColumnsClass = computed(() =>
+    props.hasWeekNumbers ? 'grid-cols-[2.5rem_repeat(7,minmax(0,1fr))]' : 'grid-cols-7',
+)
+
 const weekdays = computed(() => {
     const shortFormatter = new Intl.DateTimeFormat(props.locale, { weekday: 'short' })
     const longFormatter = new Intl.DateTimeFormat(props.locale, { weekday: 'long' })
 
     return Array.from({ length: 7 }, (_, index) => {
         // 2023-01-01 is a Sunday
-        const date = new Date(2023, 0, 1 + ((props.firstDayOfWeek + index) % 7))
+        const date = new Date(2023, 0, 1 + ((firstDay.value + index) % 7))
 
         return { short: shortFormatter.format(date), long: longFormatter.format(date) }
     })
@@ -348,10 +402,13 @@ const rangeBounds = computed(() => {
     return start <= other ? { from: start, to: other } : { from: other, to: start }
 })
 
+const bandBounds = computed(() => (isWeek.value ? weekBounds.value : rangeBounds.value))
+
 const isDisabled = (iso: string) =>
-    Boolean((props.min && iso < props.min) || (props.max && iso > props.max) || props.isDateDisabled(iso))
+    Boolean((minISO.value && iso < minISO.value) || (maxISO.value && iso > maxISO.value) || props.isDateDisabled(iso))
 
 const isDaySelected = (iso: string, bounds: { from: string; to: string } | null) => {
+    if (isWeek.value) return Boolean(bounds && iso >= bounds.from && iso <= bounds.to)
     if (isRange.value) return iso === bounds?.from || iso === bounds?.to
     if (isMultiple.value) return multipleValue.value.includes(iso)
 
@@ -360,8 +417,8 @@ const isDaySelected = (iso: string, bounds: { from: string; to: string } | null)
 
 const weeks = computed(() => {
     const firstOfMonth = viewDate.value
-    const offset = (firstOfMonth.getDay() - props.firstDayOfWeek + 7) % 7
-    const bounds = rangeBounds.value
+    const offset = (firstOfMonth.getDay() - firstDay.value + 7) % 7
+    const bounds = bandBounds.value
 
     const days: CalendarDay[] = Array.from({ length: 42 }, (_, index) => {
         const date = new Date(firstOfMonth.getFullYear(), firstOfMonth.getMonth(), 1 - offset + index)
@@ -377,11 +434,18 @@ const weeks = computed(() => {
             isSelected: isDaySelected(iso, bounds),
             isRangeStart: iso === bounds?.from,
             isRangeEnd: iso === bounds?.to,
-            isInRange: Boolean(bounds && iso > bounds.from && iso < bounds.to),
+            isInRange: Boolean(!isWeek.value && bounds && iso > bounds.from && iso < bounds.to),
         }
     })
 
-    return Array.from({ length: 6 }, (_, index) => days.slice(index * 7, index * 7 + 7))
+    // The ISO week number of a row is the one of its Thursday
+    const thursdayIndex = (4 - firstDay.value + 7) % 7
+
+    return Array.from({ length: 6 }, (_, index) => {
+        const weekDays = days.slice(index * 7, index * 7 + 7)
+
+        return { number: getISOWeek(parseISODate(weekDays[thursdayIndex]!.iso)!).week, days: weekDays }
+    })
 })
 
 const months = computed(() =>
@@ -392,8 +456,10 @@ const months = computed(() =>
         return {
             index,
             label: shortMonthFormatter.value.format(new Date(viewYear.value, index, 1)),
-            isCurrent: index === viewMonth.value,
-            isDisabled: Boolean((props.min && last < props.min) || (props.max && first > props.max)),
+            isCurrent: monthValue.value
+                ? monthValue.value.getFullYear() === viewYear.value && monthValue.value.getMonth() === index
+                : index === viewMonth.value,
+            isDisabled: Boolean((minISO.value && last < minISO.value) || (maxISO.value && first > maxISO.value)),
         }
     }),
 )
@@ -407,7 +473,7 @@ const years = computed(() =>
         return {
             value,
             isCurrent: value === viewYear.value,
-            isDisabled: Boolean((props.min && last < props.min) || (props.max && first > props.max)),
+            isDisabled: Boolean((minISO.value && last < minISO.value) || (maxISO.value && first > maxISO.value)),
         }
     }),
 )
@@ -416,54 +482,35 @@ const yearsRangeLabel = computed(() => `${yearsStart.value} – ${yearsStart.val
 
 // Navigation limits
 const canGoPrevious = computed(() => {
-    if (!props.min) return true
+    if (!minISO.value) return true
 
-    if (view.value === CalendarView.DAYS) return toISODate(new Date(viewYear.value, viewMonth.value, 0)) >= props.min
-    if (view.value === CalendarView.MONTHS) return toISODate(new Date(viewYear.value - 1, 11, 31)) >= props.min
+    if (view.value === CalendarView.DAYS) return toISODate(new Date(viewYear.value, viewMonth.value, 0)) >= minISO.value
+    if (view.value === CalendarView.MONTHS) return toISODate(new Date(viewYear.value - 1, 11, 31)) >= minISO.value
 
-    return toISODate(new Date(yearsStart.value - 1, 11, 31)) >= props.min
+    return toISODate(new Date(yearsStart.value - 1, 11, 31)) >= minISO.value
 })
 
 const canGoNext = computed(() => {
-    if (!props.max) return true
+    if (!maxISO.value) return true
 
     if (view.value === CalendarView.DAYS)
-        return toISODate(new Date(viewYear.value, viewMonth.value + 1, 1)) <= props.max
-    if (view.value === CalendarView.MONTHS) return toISODate(new Date(viewYear.value + 1, 0, 1)) <= props.max
+        return toISODate(new Date(viewYear.value, viewMonth.value + 1, 1)) <= maxISO.value
+    if (view.value === CalendarView.MONTHS) return toISODate(new Date(viewYear.value + 1, 0, 1)) <= maxISO.value
 
-    return toISODate(new Date(yearsStart.value + YEARS_PER_PAGE, 0, 1)) <= props.max
+    return toISODate(new Date(yearsStart.value + YEARS_PER_PAGE, 0, 1)) <= maxISO.value
 })
 
 // Same month in the previous / next year
 const canGoPreviousYear = computed(
-    () => !props.min || toISODate(new Date(viewYear.value - 1, viewMonth.value + 1, 0)) >= props.min,
+    () => !minISO.value || toISODate(new Date(viewYear.value - 1, viewMonth.value + 1, 0)) >= minISO.value,
 )
 
 const canGoNextYear = computed(
-    () => !props.max || toISODate(new Date(viewYear.value + 1, viewMonth.value, 1)) <= props.max,
+    () => !maxISO.value || toISODate(new Date(viewYear.value + 1, viewMonth.value, 1)) <= maxISO.value,
 )
 
 // Classes
-const accent = computed(() => {
-    const variants = {
-        [ColorAccent.PRIMARY_BRAND]: {
-            filled: 'bg-background-primary-brand-default text-text-neutral-on-filled',
-            filledHover: 'hover:bg-background-primary-brand-hover',
-            soft: 'bg-background-primary-brand-soft text-text-primary-brand-on-soft-bg',
-            today: 'border border-border-primary-brand-default',
-            ring: 'focus-visible:ring-border-primary-brand-default',
-        },
-        [ColorAccent.SECONDARY_BRAND]: {
-            filled: 'bg-background-secondary-brand-default text-text-neutral-on-filled',
-            filledHover: 'hover:bg-background-secondary-brand-hover',
-            soft: 'bg-background-secondary-brand-soft text-text-secondary-brand-on-soft-bg',
-            today: 'border border-border-secondary-brand-default',
-            ring: 'focus-visible:ring-border-secondary-brand-default',
-        },
-    }
-
-    return variants[props.color as keyof typeof variants] ?? variants[ColorAccent.PRIMARY_BRAND]
-})
+const accent = computed(() => getCalendarAccent(props.color))
 
 const radius = computed(() =>
     props.isRounded
@@ -483,14 +530,14 @@ const headerButtonClass = computed(() => [
 
 // Range days are joined into a band: only its ends are rounded
 const dayRadius = (day: CalendarDay) => {
-    const bounds = rangeBounds.value
-    const hasSpan = isRange.value && bounds !== null && bounds.from !== bounds.to
+    const bounds = bandBounds.value
+    const hasSpan = (isRange.value || isWeek.value) && bounds !== null && bounds.from !== bounds.to
 
     if (!hasSpan) return radius.value.all
     if (day.isRangeStart) return radius.value.left
     if (day.isRangeEnd) return radius.value.right
 
-    return day.isInRange ? '' : radius.value.all
+    return day.isInRange || isWeek.value ? '' : radius.value.all
 }
 
 const dayCursor = (day: CalendarDay) => {
@@ -583,15 +630,21 @@ const goNext = () => {
 
 const goYear = (amount: number) => showMonth(viewYear.value + amount, viewMonth.value)
 
+// In month mode the months are the final step, so they are selected and the days are never shown
 const selectMonth = (month: number) => {
     showMonth(viewYear.value, month)
-    view.value = CalendarView.DAYS
+
+    if (!isMonth.value) {
+        view.value = CalendarView.DAYS
+    } else if (!props.readonly) {
+        emit('update:modelValue', toISOMonth(new Date(viewYear.value, month, 1)))
+    }
 }
 
-// Picking a year goes straight back to the days of the current month
+// Picking a year goes straight back to the days of the current month (or the months in month mode)
 const selectYear = (year: number) => {
     showMonth(year, viewMonth.value)
-    view.value = CalendarView.DAYS
+    view.value = isMonth.value ? CalendarView.MONTHS : CalendarView.DAYS
 }
 
 const toggleMultiple = (iso: string) => {
@@ -621,6 +674,7 @@ const selectDay = (day: CalendarDay) => {
 
     if (isMultiple.value) toggleMultiple(day.iso)
     else if (isRange.value) pickRangeDate(day.iso)
+    else if (isWeek.value) emit('update:modelValue', toISOWeek(parseISODate(day.iso)!))
     else emit('update:modelValue', day.iso)
 }
 

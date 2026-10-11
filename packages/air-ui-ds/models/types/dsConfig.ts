@@ -47,6 +47,19 @@ export interface DesignSystemConfig {
         nextYearText: () => string
         openText: () => string
         placeholderText: () => string
+        monthPlaceholderText: () => string
+        weekPlaceholderText: () => string
+        dateTimePlaceholderText: () => string
+        weekText: () => string
+        weekAbbreviationText: () => string
+    }
+    timePicker: {
+        openText: () => string
+        placeholderText: () => string
+        hoursText: () => string
+        minutesText: () => string
+        secondsText: () => string
+        periodText: () => string
     }
     slides: {
         previousText: () => string

@@ -1,7 +1,7 @@
 import { mount } from '@vue/test-utils'
 import { nextTick, ref } from 'vue'
 import DatePickerField from '@/components/forms/fields/DatePickerField.vue'
-import { CalendarMode, DatePickerVariant } from '@/models/enums/calendars'
+import { CalendarMode, PickerVariant } from '@/models/enums/calendars'
 import { Position } from '@/models/enums/positions'
 import { useDSConfig } from '@/composables/useDSConfig'
 
@@ -54,7 +54,7 @@ describe('DatePickerField.vue', () => {
             const children = Array.from(wrapper.element.children as HTMLCollection)
 
             expect(children.findIndex((el) => el.classList.contains('text-xs'))).toBeLessThan(
-                children.findIndex((el) => el.classList.contains('border')),
+                children.findIndex((el) => el.classList.contains('relative')),
             )
         })
 
@@ -157,7 +157,9 @@ describe('DatePickerField.vue', () => {
             const wrapper = factory({ calendarPosition: Position.TOP })
             await wrapper.find('input').trigger('click')
 
-            expect(wrapper.findComponent({ name: 'Calendar' }).classes()).toContain('bottom-full')
+            expect(wrapper.findComponent({ name: 'Calendar' }).element.parentElement!.classList).toContain(
+                'bottom-full',
+            )
         })
 
         it('clears the value', async () => {
@@ -249,7 +251,7 @@ describe('DatePickerField.vue', () => {
     })
 
     describe('inline variant', () => {
-        const inline = (props: Record<string, any> = {}) => factory({ variant: DatePickerVariant.INLINE, ...props })
+        const inline = (props: Record<string, any> = {}) => factory({ variant: PickerVariant.INLINE, ...props })
 
         it('renders the calendar without an input and keeps the label and help text', () => {
             const wrapper = inline({ label: 'Date', helpText: 'Hint' })
@@ -320,6 +322,136 @@ describe('DatePickerField.vue', () => {
             await wrapper.setProps({ modelValue: '2026-10-20' })
 
             expect(validator).not.toHaveBeenCalled()
+        })
+    })
+
+    describe('type', () => {
+        const typed = (type: string, props: Record<string, any> = {}) => factory({ type, modelValue: null, ...props })
+
+        const display = (wrapper: ReturnType<typeof factory>) =>
+            (wrapper.find('input').element as HTMLInputElement).value
+
+        describe('month', () => {
+            it('shows the month and picks it from the months view', async () => {
+                const wrapper = typed('month', { modelValue: '2026-10' })
+
+                expect(display(wrapper)).toBe('October 2026')
+
+                await wrapper.find('input').trigger('click')
+                expect(wrapper.findComponent({ name: 'Calendar' }).props('mode')).toBe(CalendarMode.MONTH)
+                await wrapper
+                    .findAll('button')
+                    .find((button) => button.text() === 'Mar')!
+                    .trigger('click')
+
+                expect(wrapper.emitted('update:modelValue')![0]).toEqual(['2026-03'])
+                expect(calendarExists(wrapper)).toBe(false)
+            })
+
+            it('uses the month placeholder', () => {
+                expect(typed('month').find('input').attributes('placeholder')).toBe('Select a month')
+            })
+        })
+
+        describe('week', () => {
+            it('shows the week and picks the whole ISO week of a day', async () => {
+                const wrapper = typed('week', { modelValue: '2026-W41' })
+
+                expect(display(wrapper)).toBe('Week 41, 2026')
+
+                await wrapper.find('input').trigger('click')
+                expect(wrapper.findComponent({ name: 'Calendar' }).props()).toMatchObject({
+                    mode: CalendarMode.WEEK,
+                    hasWeekNumbers: true,
+                })
+
+                await dayButton(wrapper, '2026-10-21').trigger('click')
+                expect(wrapper.emitted('update:modelValue')![0]).toEqual(['2026-W43'])
+                expect(calendarExists(wrapper)).toBe(false)
+            })
+
+            it('uses the week placeholder', () => {
+                expect(typed('week').find('input').attributes('placeholder')).toBe('Select a week')
+            })
+        })
+
+        describe('datetime-local', () => {
+            it('shows the date and the time and renders both pickers', async () => {
+                const wrapper = typed('datetime-local', { modelValue: '2026-10-15T19:30', locale: 'es-ES' })
+
+                expect(display(wrapper)).toBe('15/10/2026 19:30')
+
+                await wrapper.find('input').trigger('click')
+                expect(calendarExists(wrapper)).toBe(true)
+                expect(wrapper.findComponent({ name: 'TimePicker' }).exists()).toBe(true)
+            })
+
+            it('keeps the time when a day is picked and stays open', async () => {
+                const wrapper = typed('datetime-local', { modelValue: '2026-10-15T19:30' })
+                await wrapper.find('input').trigger('click')
+
+                await dayButton(wrapper, '2026-10-20').trigger('click')
+
+                expect(wrapper.emitted('update:modelValue')![0]).toEqual(['2026-10-20T19:30'])
+                expect(calendarExists(wrapper)).toBe(true)
+            })
+
+            it('defaults the time to midnight when picking the first day', async () => {
+                const wrapper = typed('datetime-local')
+                await wrapper.find('input').trigger('click')
+
+                await wrapper.find('[data-date]').trigger('click')
+
+                expect((wrapper.emitted('update:modelValue')![0]![0] as string).endsWith('T00:00')).toBe(true)
+            })
+
+            it('keeps the date when a time is picked', async () => {
+                const wrapper = typed('datetime-local', { modelValue: '2026-10-15T19:30', locale: 'es-ES' })
+                await wrapper.find('input').trigger('click')
+
+                await wrapper
+                    .find('[role="listbox"][aria-label="Hours"]')
+                    .findAll('[role="option"]')
+                    .find((option) => option.text() === '08')!
+                    .trigger('click')
+
+                expect(wrapper.emitted('update:modelValue')![0]).toEqual(['2026-10-15T08:30'])
+            })
+
+            it('only applies the time limits on the day of the date limit', async () => {
+                const wrapper = typed('datetime-local', {
+                    modelValue: '2026-10-10T12:00',
+                    min: '2026-10-10T09:00',
+                    max: '2026-10-12T17:00',
+                })
+                await wrapper.find('input').trigger('click')
+
+                expect(wrapper.findComponent({ name: 'TimePicker' }).props('min')).toBe('09:00')
+                expect(wrapper.findComponent({ name: 'TimePicker' }).props('max')).toBeUndefined()
+                expect(wrapper.findComponent({ name: 'Calendar' }).props('min')).toBe('2026-10-10')
+            })
+
+            it('clears to null', async () => {
+                const wrapper = typed('datetime-local', { modelValue: '2026-10-15T19:30' })
+
+                await wrapper.find('button[aria-label="Clear selection"]').trigger('click')
+
+                expect(wrapper.emitted('update:modelValue')![0]).toEqual([null])
+            })
+
+            it('renders both pickers in one box in the inline variant', () => {
+                const wrapper = typed('datetime-local', { variant: PickerVariant.INLINE })
+
+                expect(calendarExists(wrapper)).toBe(true)
+                expect(wrapper.findComponent({ name: 'TimePicker' }).exists()).toBe(true)
+                expect(wrapper.findComponent({ name: 'Calendar' }).props('isBoxed')).toBe(false)
+            })
+        })
+
+        it('ignores the mode for the types that have their own selection', () => {
+            const wrapper = typed('month', { mode: CalendarMode.RANGE, modelValue: '2026-10' })
+
+            expect(display(wrapper)).toBe('October 2026')
         })
     })
 })

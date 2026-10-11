@@ -420,4 +420,117 @@ describe('Calendar.vue', () => {
         expect(buttonByLabel(wrapper, 'Previous month').exists()).toBe(true)
         expect(buttonByLabel(wrapper, 'Next month').exists()).toBe(true)
     })
+
+    describe('week mode', () => {
+        const week = (props: Record<string, any> = {}) =>
+            factory({ mode: CalendarMode.WEEK, modelValue: '2026-W41', ...props })
+
+        it('selects the whole ISO week of the clicked day', async () => {
+            const wrapper = week()
+
+            await dayButton(wrapper, '2026-10-21').trigger('click')
+
+            expect(wrapper.emitted('update:modelValue')![0]).toEqual(['2026-W43'])
+        })
+
+        it('highlights the seven days of the selected week, Monday to Sunday', () => {
+            const wrapper = week()
+            const selected = wrapper.findAll('[aria-selected="true"]').map((day) => day.attributes('data-date'))
+
+            expect(selected).toEqual([
+                '2026-10-05',
+                '2026-10-06',
+                '2026-10-07',
+                '2026-10-08',
+                '2026-10-09',
+                '2026-10-10',
+                '2026-10-11',
+            ])
+        })
+
+        it('rounds only the ends of the week', () => {
+            const wrapper = week({ isRounded: true })
+
+            expect(dayButton(wrapper, '2026-10-05').classes()).toContain('rounded-l-full')
+            expect(dayButton(wrapper, '2026-10-11').classes()).toContain('rounded-r-full')
+            expect(dayButton(wrapper, '2026-10-07').classes().join(' ')).not.toContain('rounded')
+        })
+
+        it('always starts the week on Monday', () => {
+            const wrapper = week({ firstDayOfWeek: 0 })
+
+            expect(wrapper.findAll('[role="columnheader"]')[0]!.attributes('abbr')).toBe('Monday')
+        })
+
+        it('does not select days outside min and max', async () => {
+            const wrapper = week({ min: '2026-W42' })
+
+            await dayButton(wrapper, '2026-10-06').trigger('click')
+
+            expect(wrapper.emitted('update:modelValue')).toBeUndefined()
+        })
+    })
+
+    describe('week numbers', () => {
+        it('shows the ISO week number of each row', () => {
+            const wrapper = factory({ hasWeekNumbers: true, firstDayOfWeek: 1 })
+            const numbers = wrapper.findAll('[role="rowheader"]').map((cell) => cell.text())
+
+            expect(numbers).toEqual(['40', '41', '42', '43', '44', '45'])
+            expect(wrapper.findAll('[role="columnheader"]')[0]!.text()).toBe('Wk')
+        })
+
+        it('is hidden by default', () => {
+            expect(factory().findAll('[role="rowheader"]')).toHaveLength(0)
+        })
+    })
+
+    describe('month mode', () => {
+        const month = (props: Record<string, any> = {}) =>
+            factory({ mode: CalendarMode.MONTH, modelValue: '2026-10', ...props })
+
+        it('starts on the months and highlights the selected one', () => {
+            const wrapper = month()
+
+            expect(wrapper.find('[role="grid"]').exists()).toBe(false)
+            expect(buttonByText(wrapper, 'Oct').attributes('aria-current')).toBe('true')
+        })
+
+        it('emits YYYY-MM when a month is picked and keeps showing the months', async () => {
+            const wrapper = month()
+
+            await buttonByText(wrapper, 'Mar').trigger('click')
+
+            expect(wrapper.emitted('update:modelValue')![0]).toEqual(['2026-03'])
+            expect(wrapper.find('[role="grid"]').exists()).toBe(false)
+        })
+
+        it('picks a year and goes back to the months', async () => {
+            const wrapper = month()
+
+            await buttonByText(wrapper, '2026').trigger('click')
+            await buttonByText(wrapper, '2020').trigger('click')
+
+            expect(buttonByText(wrapper, 'Jan').exists()).toBe(true)
+            expect(wrapper.text()).toContain('2020')
+            expect(wrapper.find('[role="grid"]').exists()).toBe(false)
+        })
+
+        it('uses months as min and max', () => {
+            const wrapper = month({ min: '2026-03', max: '2026-10' })
+
+            expect(buttonByText(wrapper, 'Feb').attributes('disabled')).toBeDefined()
+            expect(buttonByText(wrapper, 'Mar').attributes('disabled')).toBeUndefined()
+            expect(buttonByText(wrapper, 'Oct').attributes('disabled')).toBeUndefined()
+            expect(buttonByText(wrapper, 'Nov').attributes('disabled')).toBeDefined()
+        })
+
+        it('does not emit when readonly', async () => {
+            const wrapper = month({ readonly: true })
+
+            await buttonByText(wrapper, 'Mar').trigger('click')
+
+            expect(wrapper.emitted('update:modelValue')).toBeUndefined()
+        })
+    })
 })

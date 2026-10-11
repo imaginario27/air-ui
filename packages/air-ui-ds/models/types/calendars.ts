@@ -3,3 +3,9 @@ export interface CalendarRange {
     start: string | null
     end: string | null
 }
+
+export interface TimeParts {
+    hours: number
+    minutes: number
+    seconds: number
+}
