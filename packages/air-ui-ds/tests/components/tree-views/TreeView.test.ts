@@ -134,7 +134,7 @@ describe('TreeView', () => {
         const labelClasses = (wrapper: ReturnType<typeof factory>, value: string) => {
             return item(wrapper, value).find('[data-testid="tree-view-label"]').classes()
         }
-        const active = 'text-text-primary-brand-on-soft-bg'
+        const active = 'text-text-primary-brand-default'
 
         it('is not active until a folder is opened', () => {
             const wrapper = factory({ expandedValue: ['src'] })
@@ -153,7 +153,7 @@ describe('TreeView', () => {
             expect(labelClasses(wrapper, 'src')).not.toContain(active)
 
             const docs = item(wrapper, 'docs')
-            expect(docs.html()).toContain('text-icon-primary-brand-on-soft-bg')
+            expect(docs.html()).toContain('text-icon-primary-brand-default')
             expect(docs.find('span.shrink-0').html()).not.toContain('primary-brand')
         })
 
@@ -179,8 +179,8 @@ describe('TreeView', () => {
 
     describe('color', () => {
         it.each([
-            ['primary-brand', 'text-text-primary-brand-on-soft-bg', 'text-icon-primary-brand-on-soft-bg'],
-            ['secondary-brand', 'text-text-secondary-brand-on-soft-bg', 'text-icon-secondary-brand-default'],
+            ['primary-brand', 'text-text-primary-brand-default', 'text-icon-primary-brand-default'],
+            ['secondary-brand', 'text-text-secondary-brand-default', 'text-icon-secondary-brand-default'],
             ['neutral', 'font-semibold', 'text-icon-default'],
         ])('applies the %s color to the active node', (color, labelClass, iconClass) => {
             const wrapper = factory({ color, selectedValue: ['package'] })
@@ -495,9 +495,9 @@ describe('TreeView', () => {
             const row = item(wrapper, 'app')
             const unselected = item(wrapper, 'index')
 
-            expect(row.find('[data-testid="tree-view-label"]').classes()).toContain('text-text-primary-brand-on-soft-bg')
-            expect(row.html()).toContain('text-icon-primary-brand-on-soft-bg')
-            expect(unselected.find('[data-testid="tree-view-label"]').classes()).not.toContain('text-text-primary-brand-on-soft-bg')
+            expect(row.find('[data-testid="tree-view-label"]').classes()).toContain('text-text-primary-brand-default')
+            expect(row.html()).toContain('text-icon-primary-brand-default')
+            expect(unselected.find('[data-testid="tree-view-label"]').classes()).not.toContain('text-text-primary-brand-default')
 
             // The row itself keeps the default look
             expect(row.classes().some(cls => cls.startsWith('bg-') || cls.startsWith('text-text-'))).toBe(false)

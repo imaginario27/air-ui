@@ -29,22 +29,22 @@ export const useTreeViewAppearance = (
 
     const activeLabelClass = computed(() => {
         const variants = {
-            [ColorAccent.PRIMARY_BRAND]: 'text-text-primary-brand-on-soft-bg',
-            [ColorAccent.SECONDARY_BRAND]: 'text-text-secondary-brand-on-soft-bg',
+            [ColorAccent.PRIMARY_BRAND]: 'text-text-primary-brand-default',
+            [ColorAccent.SECONDARY_BRAND]: 'text-text-secondary-brand-default',
             [ColorAccent.NEUTRAL]: 'font-semibold',
         }
 
-        return variants[props.color as keyof typeof variants] || 'text-text-primary-brand-on-soft-bg'
+        return variants[props.color as keyof typeof variants] || 'text-text-primary-brand-default'
     })
 
     const activeIconColorClass = computed(() => {
         const variants = {
-            [ColorAccent.PRIMARY_BRAND]: 'text-icon-primary-brand-on-soft-bg',
+            [ColorAccent.PRIMARY_BRAND]: 'text-icon-primary-brand-default',
             [ColorAccent.SECONDARY_BRAND]: 'text-icon-secondary-brand-default',
             [ColorAccent.NEUTRAL]: 'text-icon-default',
         }
 
-        return variants[props.color as keyof typeof variants] || 'text-icon-primary-brand-on-soft-bg'
+        return variants[props.color as keyof typeof variants] || 'text-icon-primary-brand-default'
     })
 
     const getIcon = (node: TreeViewNode) => {
