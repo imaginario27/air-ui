@@ -13,6 +13,7 @@ props:
     color: "primary-brand"
     hasYearControls: false
     hasOutsideDays: true
+    hasWeekNumbers: false
     isRounded: false
     isNavigationLocked: false
     isBoxed: true
@@ -27,6 +28,10 @@ items:
           text: MULTIPLE
         - value: range
           text: RANGE
+        - value: week
+          text: WEEK
+        - value: month
+          text: MONTH
     color:
         - value: primary-brand
           text: PRIMARY_BRAND
@@ -93,6 +98,11 @@ props: [
         "type": "boolean"
     },
     {
+        "name": "hasWeekNumbers",
+        "default": "false",
+        "type": "boolean"
+    },
+    {
         "name": "isRounded",
         "default": "false",
         "type": "boolean"
@@ -147,7 +157,7 @@ All dates are ISO strings (`YYYY-MM-DD`), the same format the native date input 
 
 ### modelValue
 
-Sets the selected date. You can bind it with `v-model`. In `MULTIPLE` mode it is an array of dates, and in `RANGE` mode it is a `CalendarRange` object (see [mode](#mode)).
+Sets the selected date. You can bind it with `v-model`. In `MULTIPLE` mode it is an array of dates, in `RANGE` mode it is a `CalendarRange` object, in `WEEK` mode an ISO week such as `2026-W41`, and in `MONTH` mode a month such as `2026-10` (see [mode](#mode)).
 
 ```vue
 <template>
@@ -173,17 +183,21 @@ export interface CalendarRange {
 
 ### mode
 
-Sets how dates are selected via the `CalendarMode` enum. In `MULTIPLE` mode, clicking a day adds it to the array and clicking it again removes it; the array is kept sorted. In `RANGE` mode, the first click sets `start`, the second sets `end`, and a click before the start (or after a complete range) starts a new range. The days between the hovered day and the start are previewed while picking.
+Sets how dates are selected via the `CalendarMode` enum. In `MULTIPLE` mode, clicking a day adds it to the array and clicking it again removes it; the array is kept sorted. In `WEEK` mode, clicking a day selects its whole ISO week (Monday to Sunday), and the value is a string such as `2026-W41`. The week always starts on Monday, whatever [firstDayOfWeek](#firstdayofweek) says. In `MONTH` mode only the months and years are shown, and the value is a string such as `2026-10`. In `RANGE` mode, the first click sets `start`, the second sets `end`, and a click before the start (or after a complete range) starts a new range. The days between the hovered day and the start are previewed while picking.
 
 ```vue
 <template>
     <Calendar v-model="range" :mode="CalendarMode.RANGE" />
     <Calendar v-model="days" :mode="CalendarMode.MULTIPLE" />
+    <Calendar v-model="week" :mode="CalendarMode.WEEK" :hasWeekNumbers="true" />
+    <Calendar v-model="month" :mode="CalendarMode.MONTH" />
 </template>
 
 <script setup lang="ts">
 const range = ref({ start: '2026-10-10', end: '2026-10-14' })
 const days = ref(['2026-10-10', '2026-10-15'])
+const week = ref('2026-W41')
+const month = ref('2026-10')
 </script>
 ```
 
@@ -198,13 +212,15 @@ options: [
     { value: "SINGLE", description: "single" },
     { value: "MULTIPLE", description: "multiple" },
     { value: "RANGE", description: "range" },
+    { value: "WEEK", description: "week" },
+    { value: "MONTH", description: "month" },
 ]
 ---
 ::
 
 ### min
 
-Sets the earliest selectable date. Earlier days, months and years are disabled, and the previous buttons stop at this limit.
+Sets the earliest selectable date. Earlier days, months and years are disabled, and the previous buttons stop at this limit. It also accepts a month (`2026-10`) or a week (`2026-W41`), which mean the first day they cover.
 
 ```vue
 <template>
@@ -216,7 +232,7 @@ Sets the earliest selectable date. Earlier days, months and years are disabled, 
 
 ### max
 
-Sets the latest selectable date. Later days, months and years are disabled, and the next buttons stop at this limit.
+Sets the latest selectable date. Later days, months and years are disabled, and the next buttons stop at this limit. It also accepts a month (`2026-10`) or a week (`2026-W41`), which mean the last day they cover.
 
 ```vue
 <template>
@@ -261,7 +277,7 @@ Sets the BCP 47 locale used for month and weekday names. It defaults to a fixed 
 
 ### firstDayOfWeek
 
-Sets the first column of the week, from `0` (Sunday) to `6` (Saturday).
+Sets the first column of the week, from `0` (Sunday) to `6` (Saturday). It is ignored in `WEEK` mode, which always starts on Monday.
 
 ```vue
 <template>
@@ -321,6 +337,19 @@ Shows the days of the adjacent months that fill the six-week grid. When `false` 
 
 - **Type:** `boolean`
 - **Default:** `true`
+
+### hasWeekNumbers
+
+Shows the ISO week number of each row in a column before the days. The number is the one of the Thursday of the row, so it is right for Monday-first calendars (`firstDayOfWeek` of `1`) and for the `WEEK` mode. The header text comes from `useDSConfig().calendar.weekAbbreviationText()`.
+
+```vue
+<template>
+    <Calendar v-model="date" :hasWeekNumbers="true" :firstDayOfWeek="1" />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `false`
 
 ### isRounded
 
@@ -475,7 +504,7 @@ Clicking the month in the header opens the months view, and clicking the year op
 ::options-table
 ---
 options: [
-    { value: "@update:modelValue", description: "Emitted with the new ISO date (an array in `MULTIPLE` mode, a `CalendarRange` in `RANGE` mode) when a day is selected." },
+    { value: "@update:modelValue", description: "Emitted with the new ISO date when a day is selected. It is an array in `MULTIPLE` mode, a `CalendarRange` in `RANGE` mode, an ISO week in `WEEK` mode and a month in `MONTH` mode." },
 ]
 ---
 ::

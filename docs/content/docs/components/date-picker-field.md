@@ -8,6 +8,7 @@ props:
     label: "Label"
     helpText: "Help text example"
     helpTextPosition: "bottom"
+    type: "date"
     variant: "input"
     modelValue: null
     mode: "single"
@@ -24,6 +25,7 @@ props:
     color: "primary-brand"
     hasYearControls: false
     hasOutsideDays: true
+    hasWeekNumbers: false
     isRounded: false
     isNavigationLocked: false
     isBoxed: true
@@ -34,6 +36,15 @@ props:
     showOptionalLabel: true
     transparent: false
 items:
+    type:
+        - value: date
+          text: DATE
+        - value: month
+          text: MONTH
+        - value: week
+          text: WEEK
+        - value: datetime-local
+          text: DATETIME_LOCAL
     variant:
         - value: input
           text: INPUT
@@ -67,7 +78,8 @@ items:
         - value: bottom
           text: BOTTOM
 enums:
-    variant: "DatePickerVariant"
+    type: "DatePickerType"
+    variant: "PickerVariant"
     mode: "CalendarMode"
     size: "InputSize"
     color: "ColorAccent"
@@ -78,6 +90,26 @@ previewContentMaxWidth: 400
 propsSettingsExcludedProps: ['modelValue', 'validator', 'isDateDisabled', 'displayFormat']
 ---
 ::
+
+The date picker comes in two variants. With `INPUT`, a read-only field shows the date and opens a [Calendar](/docs/components/calendar) in a popup. With `INLINE`, the calendar is shown in place of the field. Both show the label, help text and error, and both accept every [Calendar](/docs/components/calendar) option. Dates are ISO strings (`YYYY-MM-DD`).
+
+```vue
+<template>
+    <DatePickerField v-model="date" id="birth-date" label="Birth date" />
+    <DatePickerField
+        v-model="range"
+        id="stay"
+        label="Stay"
+        :mode="CalendarMode.RANGE"
+        :variant="PickerVariant.INLINE"
+    />
+</template>
+
+<script setup lang="ts">
+const date = ref<string | null>(null)
+const range = ref({ start: null, end: null })
+</script>
+```
 
 ## Props
 
@@ -107,9 +139,14 @@ props: [
         "default": "Position.BOTTOM"
     },
     {
+        "name": "type",
+        "type": "DatePickerType",
+        "default": "DatePickerType.DATE"
+    },
+    {
         "name": "variant",
-        "type": "DatePickerVariant",
-        "default": "DatePickerVariant.INPUT"
+        "type": "PickerVariant",
+        "default": "PickerVariant.INPUT"
     },
     {
         "name": "modelValue",
@@ -192,6 +229,11 @@ props: [
         "default": "true"
     },
     {
+        "name": "hasWeekNumbers",
+        "type": "boolean",
+        "default": "false"
+    },
+    {
         "name": "isRounded",
         "type": "boolean",
         "default": "false"
@@ -205,6 +247,25 @@ props: [
         "name": "isBoxed",
         "type": "boolean",
         "default": "true"
+    },
+    {
+        "name": "hourFormat",
+        "type": "HourFormat"
+    },
+    {
+        "name": "hasSeconds",
+        "type": "boolean",
+        "default": "false"
+    },
+    {
+        "name": "minuteStep",
+        "type": "number",
+        "default": "1"
+    },
+    {
+        "name": "secondStep",
+        "type": "number",
+        "default": "1"
     },
     {
         "name": "validator",
@@ -331,18 +392,44 @@ options: [
 ---
 ::
 
-### variant
+### type
 
-Sets how the calendar is shown via the `DatePickerVariant` enum. `INPUT` shows a field that opens the calendar in a popup, and `INLINE` shows the calendar itself in place of the field. The label, help text and error are shown in both.
+Sets what the field picks, via the `DatePickerType` enum. The values are the ones of the native input types they replace, so a `v-model` keeps the same format.
 
 ```vue
 <template>
-    <DatePickerField id="date" :variant="DatePickerVariant.INLINE" label="Date" />
+    <DatePickerField id="week" :type="DatePickerType.WEEK" label="Week" />
 </template>
 ```
 
-- **Type:** `DatePickerVariant`
-- **Default:** `DatePickerVariant.INPUT`
+- **Type:** `DatePickerType`
+- **Default:** `DatePickerType.DATE`
+
+#### Options
+
+::options-table
+---
+options: [
+    { value: "DATE", description: "date: an ISO date, such as `2026-10-15`" },
+    { value: "MONTH", description: "month: a month, such as `2026-10`" },
+    { value: "WEEK", description: "week: an ISO week, such as `2026-W41`" },
+    { value: "DATETIME_LOCAL", description: "datetime-local: a date and a time, such as `2026-10-15T19:30`" },
+]
+---
+::
+
+### variant
+
+Sets how the calendar is shown via the `PickerVariant` enum. `INPUT` shows a field that opens the calendar in a popup, and `INLINE` shows the calendar itself in place of the field. The label, help text and error are shown in both.
+
+```vue
+<template>
+    <DatePickerField id="date" :variant="PickerVariant.INLINE" label="Date" />
+</template>
+```
+
+- **Type:** `PickerVariant`
+- **Default:** `PickerVariant.INPUT`
 
 #### Options
 
@@ -357,7 +444,7 @@ options: [
 
 ### modelValue
 
-Sets the selected date(s). It is an ISO date (`YYYY-MM-DD`) in `SINGLE` mode, an array in `MULTIPLE` mode and a `CalendarRange` in `RANGE` mode. Bind it with `v-model`.
+Sets the selected value. Its format depends on the [type](#type). For `DATE` it is an ISO date (`YYYY-MM-DD`) in `SINGLE` mode, an array in `MULTIPLE` mode and a `CalendarRange` in `RANGE` mode. For the other types it is a string. Bind it with `v-model`.
 
 ```vue
 <template>
@@ -379,7 +466,7 @@ export interface CalendarRange {
 
 ### mode
 
-Sets how dates are selected, via the `CalendarMode` enum. See the [Calendar](/docs/components/calendar#mode) for how each mode behaves.
+Sets how dates are selected, via the `CalendarMode` enum. See the [Calendar](/docs/components/calendar#mode) for how each mode behaves. It only applies to the `DATE` [type](#type); the other types select a month, a week or a date and a time. `WEEK` and `MONTH` are set by the type, not here.
 
 ```vue
 <template>
@@ -404,7 +491,7 @@ options: [
 
 ### placeholder
 
-Sets the placeholder of the input. Falls back to `useDSConfig().calendar.placeholderText()`. Only applies to the `INPUT` variant.
+Sets the placeholder of the input. Falls back to a text for the [type](#type) in `useDSConfig().calendar`. Only applies to the `INPUT` variant.
 
 ```vue
 <template>
@@ -452,7 +539,7 @@ options: [
 
 ### displayFormat
 
-Sets how dates are written in the input, using `Intl.DateTimeFormat` options. Defaults to a numeric `day/month/year` order that follows the [locale](#locale).
+Sets how dates are written in the input, using `Intl.DateTimeFormat` options. Defaults to a numeric `day/month/year` order that follows the [locale](#locale), and to the month name and year for the `MONTH` type. It does not apply to the `WEEK` type or to the time of `DATETIME_LOCAL`.
 
 ```vue
 <template>
@@ -464,7 +551,7 @@ Sets how dates are written in the input, using `Intl.DateTimeFormat` options. De
 
 ### closeOnSelect
 
-Closes the popup once the selection is complete: after one date in `SINGLE` mode and after the end date in `RANGE` mode. `MULTIPLE` mode never closes on its own.
+Closes the popup once the selection is complete: after one date, month or week, and after the end date of a range. `MULTIPLE` mode and the `DATETIME_LOCAL` type never close on their own, since they take more than one pick: close them with `Escape` or by clicking outside.
 
 ```vue
 <template>
@@ -514,7 +601,7 @@ options: [
 
 ### min
 
-Sets the earliest selectable date (ISO).
+Sets the earliest selectable value, in the format of the [type](#type): a date, a month (`2026-10`), a week (`2026-W41`) or a date and time (`2026-10-15T09:00`). In date and time, the time limit only applies on the day of the date limit.
 
 ```vue
 <template>
@@ -526,7 +613,7 @@ Sets the earliest selectable date (ISO).
 
 ### max
 
-Sets the latest selectable date (ISO).
+Sets the latest selectable value, in the same formats as [min](#min).
 
 ```vue
 <template>
@@ -564,7 +651,7 @@ Sets the BCP 47 locale used for the text in the input and the calendar.
 
 ### firstDayOfWeek
 
-Sets the first column of the calendar, from `0` (Sunday) to `6` (Saturday).
+Sets the first column of the calendar, from `0` (Sunday) to `6` (Saturday). The `WEEK` type always starts on Monday.
 
 ```vue
 <template>
@@ -625,6 +712,19 @@ Shows the days of the adjacent months in the calendar.
 - **Type:** `boolean`
 - **Default:** `true`
 
+### hasWeekNumbers
+
+Shows the ISO week number of each row in the calendar. The `WEEK` type always shows them.
+
+```vue
+<template>
+    <DatePickerField id="date" :hasWeekNumbers="true" :firstDayOfWeek="1" />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `false`
+
 ### isRounded
 
 Makes the calendar cells fully round.
@@ -653,16 +753,78 @@ Locks the calendar to the visible month. See the [Calendar](/docs/components/cal
 
 ### isBoxed
 
-Adds the border, background and padding to the calendar. Only applies to the `INLINE` variant, since the popup is always boxed.
+Adds the border and background to the calendar. Only applies to the `INLINE` variant, since the popup is always boxed.
 
 ```vue
 <template>
-    <DatePickerField id="date" :variant="DatePickerVariant.INLINE" :isBoxed="false" />
+    <DatePickerField id="date" :variant="PickerVariant.INLINE" :isBoxed="false" />
 </template>
 ```
 
 - **Type:** `boolean`
 - **Default:** `true`
+
+### hourFormat
+
+Sets the 12 or 24 hour clock of the time picker via the `HourFormat` enum. Defaults to the one of the [locale](#locale). Only applies to the `DATETIME_LOCAL` type.
+
+```vue
+<template>
+    <DatePickerField id="date" :type="DatePickerType.DATETIME_LOCAL" :hourFormat="HourFormat.HOURS_12" />
+</template>
+```
+
+- **Type:** `HourFormat`
+
+#### Options
+
+::options-table
+---
+options: [
+    { value: "HOURS_12", description: "12" },
+    { value: "HOURS_24", description: "24" },
+]
+---
+::
+
+### hasSeconds
+
+Adds a seconds column to the time picker and to the value (`YYYY-MM-DDTHH:mm:ss`). Only applies to the `DATETIME_LOCAL` type.
+
+```vue
+<template>
+    <DatePickerField id="date" :type="DatePickerType.DATETIME_LOCAL" :hasSeconds="true" />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `false`
+
+### minuteStep
+
+Sets the interval between the minutes of the time picker. Only applies to the `DATETIME_LOCAL` type.
+
+```vue
+<template>
+    <DatePickerField id="date" :type="DatePickerType.DATETIME_LOCAL" :minuteStep="15" />
+</template>
+```
+
+- **Type:** `number`
+- **Default:** `1`
+
+### secondStep
+
+Sets the interval between the seconds of the time picker. Only applies to the `DATETIME_LOCAL` type.
+
+```vue
+<template>
+    <DatePickerField id="date" :type="DatePickerType.DATETIME_LOCAL" :hasSeconds="true" :secondStep="15" />
+</template>
+```
+
+- **Type:** `number`
+- **Default:** `1`
 
 ### validator
 
@@ -793,7 +955,7 @@ Sets the `aria-label` of the calendar button. Falls back to `useDSConfig().calen
 
 ## Accessibility
 
-In the `INPUT` variant the field is a read-only text input with `aria-haspopup="dialog"` and `aria-expanded`. Focus moves into the calendar when it opens and returns to the input when it closes.
+For every type, in the `INPUT` variant the field is a read-only text input with `aria-haspopup="dialog"` and `aria-expanded`. Focus moves into the calendar when it opens and returns to the input when it closes.
 
 ::options-table
 ---
@@ -811,7 +973,7 @@ Inside the calendar, the arrow keys, `Home`, `End` and `PageUp` / `PageDown` mov
 ::options-table
 ---
 options: [
-    { value: "@update:modelValue", description: "Emitted with the new value when it changes: an ISO date, an array of dates or a `CalendarRange`, depending on the mode. Clearing emits `null`, `[]` or `{ start: null, end: null }`." },
+    { value: "@update:modelValue", description: "Emitted with the new value when it changes: a string for every type, and for the `DATE` type also an array of dates or a `CalendarRange`, depending on the mode. Clearing emits `null`, `[]` or `{ start: null, end: null }`." },
     { value: "@update:error", description: "Emitted with the validation message, or an empty string, when the validator runs." },
 ]
 ---
@@ -838,8 +1000,8 @@ const handleChange = (value: string | null) => {
 ::options-table
 ---
 options: [
-    { value: "open()", description: "Opens the calendar popup. Does nothing when the field is disabled, readonly or inline." },
-    { value: "close()", description: "Closes the calendar popup and returns the focus to the input." },
+    { value: "open()", description: "Opens the popup. Does nothing when the field is disabled, readonly or inline." },
+    { value: "close()", description: "Closes the popup and returns the focus to the input." },
 ]
 ---
 ::

@@ -239,7 +239,21 @@ Sets the type of the input field. It uses the `AllowedInputType` type.
 
 For the rest of native HTML input types, please use the specific components provided by AirUI.
 
-With `type="date"`, the field renders a [DatePickerField](/docs/components/date-picker-field): it shows the date formatted for the [locale](#locale) in a read-only input and opens a [Calendar](/docs/components/calendar) to pick it. Use `DatePickerField` directly to control the calendar (color, range, inline variant and more). The value stays an ISO string (`YYYY-MM-DD`), as with the native date input, and [min](#min) and [max](#max) limit the selectable dates. Click the input, or press `Enter`, `Space` or `ArrowDown`, to open it, and `Escape` to close it. Typing a date is not supported.
+With these types the field is not the native one. It renders a custom picker, so it looks the same in every browser, and keeps the format of the native input for the value:
+
+::options-table
+---
+options: [
+    { value: "date", description: "A [DatePickerField](/docs/components/date-picker-field). The value is `2026-10-15`." },
+    { value: "month", description: "A [DatePickerField](/docs/components/date-picker-field) that picks a month. The value is `2026-10`." },
+    { value: "week", description: "A [DatePickerField](/docs/components/date-picker-field) that picks an ISO week. The value is `2026-W41`." },
+    { value: "datetime-local", description: "A [DatePickerField](/docs/components/date-picker-field) with a calendar and a time picker. The value is `2026-10-15T19:30`." },
+    { value: "time", description: "A [TimePickerField](/docs/components/time-picker-field). The value is `19:30`." },
+]
+---
+::
+
+The text shown follows the [locale](#locale), [min](#min) and [max](#max) limit the selectable values, and clearing the field emits an empty string. Click the input, or press `Enter`, `Space` or `ArrowDown`, to open the picker, and `Escape` to close it. Typing a value is not supported. Use `DatePickerField` or `TimePickerField` directly to control the picker (color, range, inline variant, seconds and more).
 
 ```vue
 <template>
@@ -504,7 +518,7 @@ Sets whether to show the "show password" button (only for type `password`).
 
 ### locale
 
-Sets the BCP 47 locale used to format the date shown in the field and the names in the calendar. Only applies to `type="date"`.
+Sets the BCP 47 locale used to format the date shown in the field and the names in the calendar. Only applies to the date and time types (`date`, `month`, `week`, `datetime-local` and `time`).
 
 ```vue
 <template>

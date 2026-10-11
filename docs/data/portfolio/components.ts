@@ -160,6 +160,10 @@ export const componentList: ComponentPortfolioItem[] = [
         imgUrl: `/images/thumbnails/components/rating.png`,
     },
     {
+        title: 'TimePicker',
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/time-picker`,
+    },
+    {
         title: 'TreeView',
         to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/tree-view`,
         imgUrl: `/images/thumbnails/components/tree-view.png`,
@@ -349,6 +353,10 @@ export const componentList: ComponentPortfolioItem[] = [
         title: 'TextareaField',
         to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/textarea-field`,
         imgUrl: `/images/thumbnails/components/textarea-field.png`,
+    },
+    {
+        title: 'TimePickerField',
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/time-picker-field`,
     },
     {
         title: 'ToggleButtonsGroupField',

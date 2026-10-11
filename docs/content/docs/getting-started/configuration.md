@@ -4,7 +4,7 @@ AirUI exposes a small set of behaviors as shared, reactive configuration instead
 
 There are two config composables, one per package:
 
-- `useDSConfig` (from `@imaginario27/air-ui-ds`): text used by components, grouped under `forms`, `actions`, `common`, `pagination`, `gallery`, `lightbox`, `calendar` and `slides`.
+- `useDSConfig` (from `@imaginario27/air-ui-ds`): text used by components, grouped under `forms`, `actions`, `common`, `pagination`, `gallery`, `lightbox`, `calendar`, `timePicker` and `slides`.
 - `useUtilsConfig` (from `@imaginario27/air-ui-utils`): messages used by the framework-agnostic form validators in `air-ui-utils`, grouped under `validation`.
 
 <br/>
@@ -84,7 +84,7 @@ export default defineNuxtPlugin(() => {
         fullscreenText: () => 'Toggle fullscreen',
     })
 
-    /* Text used by the Calendar and the date InputField */
+    /* Text used by the Calendar, the DatePickerField and the date InputField */
     Object.assign(dsConfig.calendar, {
         previousMonthText: () => 'Previous month',
         nextMonthText: () => 'Next month',
@@ -92,6 +92,21 @@ export default defineNuxtPlugin(() => {
         nextYearText: () => 'Next year',
         openText: () => 'Open calendar',
         placeholderText: () => 'Select a date',
+        monthPlaceholderText: () => 'Select a month',
+        weekPlaceholderText: () => 'Select a week',
+        dateTimePlaceholderText: () => 'Select a date and time',
+        weekText: () => 'Week',
+        weekAbbreviationText: () => 'Wk',
+    })
+
+    /* Text used by the TimePicker and the time InputField */
+    Object.assign(dsConfig.timePicker, {
+        openText: () => 'Open time picker',
+        placeholderText: () => 'Select a time',
+        hoursText: () => 'Hours',
+        minutesText: () => 'Minutes',
+        secondsText: () => 'Seconds',
+        periodText: () => 'AM/PM',
     })
 
     /* Navigation text shared by the Carousel and the Lightbox */
