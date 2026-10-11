@@ -5,6 +5,17 @@ All notable changes to this package are documented in this file.
 Historical releases were reconstructed from git history (GitHub repository) and npm publish dates.
 Future releases will include detailed entries generated with Changesets.
 
+## 1.22.2 - 2026-10-11
+
+Release type: patch.
+Commits found in range: 1.
+
+### Fixed
+
+1. prevent dark theme flash on client-side navigation ([8a2e62d](https://github.com/imaginario27/air-ui/commit/8a2e62d08eed65ea034f3490bdffcf4c65c29546))
+
+- Package: @imaginario27/air-ui-ds.
+
 ## 1.22.1 - 2026-10-11
 
 Release type: patch.
