@@ -25,6 +25,9 @@ Creates commits that satisfy this repo's husky + commitlint setup.
    - `docs/**` → `docs`
    - Root configs / multi-workspace / tooling → `root`
    - If changes span multiple workspaces, use `root`.
+7. **Inline code**: wrap code identifiers in backticks in the title and body bullets when it makes the message clearer — component, prop, slot, enum, composable and util names, file paths, CLI commands and flags (e.g. `` add `hasActionButtons` prop to `Alert` ``). The releases page renders backticked text as inline code.
+   - Wrap only real identifiers or paths, not ordinary words, and keep each backticked span free of other backticks.
+   - Always commit through the quoted HEREDOC below (`<<'EOF'`) so the shell keeps backticks literal instead of running them.
 
 ## Procedure
 
@@ -36,10 +39,10 @@ Creates commits that satisfy this repo's husky + commitlint setup.
 
    ```bash
    git commit -m "$(cat <<'EOF'
-   feat(ds): add ContextMenu component
+   feat(ds): add `ContextMenu` component
 
-   - add ContextMenu.vue under components/menus
-   - add ContextMenuItem enum + types
+   - add `ContextMenu.vue` under `components/menus`
+   - add `ContextMenuItem` enum + types
    - add unit tests for keyboard navigation
    EOF
    )"
@@ -51,9 +54,9 @@ Creates commits that satisfy this repo's husky + commitlint setup.
 Good title + body:
 
 ```
-fix(utils): handle null input in toDate
+fix(utils): handle null input in `toDate`
 
-- guard toDate against null/undefined
+- guard `toDate` against `null`/`undefined`
 - add regression test for empty string
 ```
 
@@ -64,3 +67,4 @@ Bad (do not produce):
 - `feat(ds): Added Thing.` — past tense + trailing period
 - Body as prose paragraph instead of bullets
 - Any `Co-Authored-By:` trailer
+- Backticks around ordinary words (`` `fix` the `bug` ``) or an unclosed backtick
