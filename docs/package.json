@@ -16,6 +16,7 @@
         "typecheck": "vue-tsc --noEmit -p tsconfig.typecheck.json"
     },
     "dependencies": {
+        "@iconify-json/mdi": "1.2.3",
         "@nuxt/content": "3.16.1",
         "@nuxt/eslint": "1.17.0",
         "@nuxt/image": "2.1.0",

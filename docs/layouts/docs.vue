@@ -82,6 +82,7 @@ const cleanPath = computed(() => {
 
 // Composables
 const { isMobile } = useIsMobile()
+useDocsSeo()
 
 // Computed states
 const hasOvertitle = computed(() => route.meta.overtitle || null)

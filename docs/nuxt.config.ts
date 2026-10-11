@@ -7,7 +7,7 @@ const SITE_URL = process.env.NUXT_SITEMAP_URL || process.env.LLM_DOMAIN || "http
 export default defineNuxtConfig({
     compatibilityDate: "2024-11-01",
     devtools: { enabled: false },
-    ssr: false,
+    ssr: true,
 
     runtimeConfig: {
         githubToken: process.env.GITHUB_TOKEN,
@@ -211,16 +211,6 @@ export default defineNuxtConfig({
 
     experimental: {
         asyncContext: true
-    },
-
-    hooks: { // Workaround for Nuxt 4.4.2 bug:
-        'nitro:config'(nitroConfig) {
-            const imports = nitroConfig.imports as { imports?: Array<{ name?: string }> } | undefined;
-            if (!imports?.imports) {
-                return;
-            }
-            imports.imports = imports.imports.filter((i) => i?.name !== 'useAppConfig');
-        },
     },
 
     css: ["~/assets/css/main.css", "~/assets/css/docs.css"],
