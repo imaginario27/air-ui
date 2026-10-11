@@ -228,6 +228,18 @@ describe('ButtonPagination', () => {
         expect(inactivePage?.attributes('aria-current')).toBeUndefined()
     })
 
+    it('hides the ellipsis button from assistive tech and the tab order', () => {
+        const wrapper = factory({ modelValue: 5, totalItems: 200 })
+        const buttons = wrapper.findAllComponents({ name: 'PaginationButton' })
+        const ellipsis = buttons.find(btn => btn.text() === '...')
+        const page = buttons.find(btn => btn.text() === '5')
+
+        expect(ellipsis?.attributes('aria-hidden')).toBe('true')
+        expect(ellipsis?.attributes('tabindex')).toBe('-1')
+        expect(page?.attributes('aria-hidden')).toBeUndefined()
+        expect(page?.attributes('tabindex')).toBeUndefined()
+    })
+
     it('falls back to the default aria-label on the ellipsis button', () => {
         const wrapper = factory({ modelValue: 5, totalItems: 200 })
         const ellipsis = wrapper.findAllComponents({ name: 'PaginationButton' }).find(btn => btn.text() === '...')

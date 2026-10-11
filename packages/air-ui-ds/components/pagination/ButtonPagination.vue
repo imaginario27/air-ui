@@ -72,6 +72,8 @@
                     :styleType
                     :ariaLabel="pageAriaLabel(page)"
                     :aria-current="page === modelValue ? 'page' : undefined"
+                    :aria-hidden="page === '...' ? 'true' : undefined"
+                    :tabindex="page === '...' ? -1 : undefined"
                     :class="[
                         styleType === ButtonPaginationStyle.BUTTON && 'border border-border-default',
                         page === modelValue ? [
