@@ -51,6 +51,7 @@
                                 id="release-version-from"
                                 v-model="selectedFromVersion"
                                 :options="versionSelectOptions"
+                                filterable
                                 label="From"
                             />
 
@@ -58,6 +59,7 @@
                                 id="release-version-to"
                                 v-model="selectedToVersion"
                                 :options="versionSelectOptions"
+                                filterable
                                 label="To"
                             />
                         </FormRow>
@@ -178,7 +180,20 @@
                                         class="gap-2!"
                                     >
                                         <div class="flex flex-wrap items-start justify-between gap-x-4 gap-y-1">
-                                            <span class="font-medium">{{ item.label }}</span>
+                                            <span class="font-medium">
+                                                <template
+                                                    v-for="(part, partIndex) in splitInlineCode(item.label)"
+                                                    :key="partIndex"
+                                                >
+                                                    <ProseCode
+                                                        v-if="part.isCode"
+                                                        :class="INLINE_CODE_CLASS"
+                                                    >
+                                                        {{ part.text }}
+                                                    </ProseCode>
+                                                    <template v-else>{{ part.text }}</template>
+                                                </template>
+                                            </span>
                                             <div class="flex items-center gap-2 shrink-0">
                                                 <NavLink
                                                     v-if="item.url"
@@ -221,17 +236,30 @@
                                             </span>
                                         </div>
 
-                                        <ul
+                                        <List
                                             v-if="item.body.length && !isItemCollapsed(item)"
-                                            class="list-disc pl-5 space-y-0.5 text-sm"
+                                            class="gap-1!"
                                         >
-                                            <li
+                                            <ListItem
                                                 v-for="line in item.body"
                                                 :key="line"
+                                                markerIcon="mdi:circle-small"
+                                                :size="ListItemSize.SM"
                                             >
-                                                {{ line }}
-                                            </li>
-                                        </ul>
+                                                <template
+                                                    v-for="(part, partIndex) in splitInlineCode(line)"
+                                                    :key="partIndex"
+                                                >
+                                                    <ProseCode
+                                                        v-if="part.isCode"
+                                                        :class="INLINE_CODE_CLASS"
+                                                    >
+                                                        {{ part.text }}
+                                                    </ProseCode>
+                                                    <template v-else>{{ part.text }}</template>
+                                                </template>
+                                            </ListItem>
+                                        </List>
                                     </Card>
                                 </div>
                             </div>
@@ -326,7 +354,18 @@ const formatCommitCount = (count: number) => `${count} ${count === 1 ? 'commit' 
 // Items are expanded by default; this holds the ones the user collapsed.
 const collapsedItems = ref<Set<string>>(new Set())
 
-const hasItemDetails = (item: { affected: string[], body: string[] }) => {
+// Neutral inline code with a softer background; [&&] raises specificity over ProseCode's own important classes.
+const INLINE_CODE_CLASS = '[&&]:bg-background-neutral-subtler/40!'
+
+// Splits text on `backticks` so the code parts can be rendered as inline code.
+const splitInlineCode = (text: string) => {
+    return text
+        .split(/`([^`]+)`/)
+        .map((part, index) => ({ text: part, isCode: index % 2 === 1 }))
+        .filter((part) => part.text)
+}
+
+const hasItemDetails =(item: { affected: string[], body: string[] }) => {
     return item.affected.length > 0 || item.body.length > 0
 }
 
