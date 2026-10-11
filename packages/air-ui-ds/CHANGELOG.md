@@ -99,7 +99,7 @@ Commits found in range: 1.
 ## 1.19.0 - 2026-09-29
 
 Release type: minor.
-Commits found in range: 6.
+Commits found in range: 7.
 
 ### Added
 
@@ -115,6 +115,10 @@ Commits found in range: 6.
 ### Changed
 
 1. fix NavSidebar scrollY stub for happy-dom upgrade ([1adf956](https://github.com/imaginario27/air-ui/commit/1adf956be6cee5b37bf5db598e39846c0193559e))
+
+### Maintenance
+
+1. update dependencies across all workspaces ([cbfaa0c](https://github.com/imaginario27/air-ui/commit/cbfaa0c2a907c4950b93290d0653f3016a4295a5))
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -384,22 +388,27 @@ Commits found in range: 1.
 ## 1.13.10 - 2026-06-11
 
 Release type: patch.
-Commits found in range: 1.
+Commits found in range: 2.
 
 ### Added
 
 1. add customizable aria-label props for i18n support ([faed17c](https://github.com/imaginario27/air-ui/commit/faed17c29dff732de56d798e7914215cf514fe6a))
+
+### Maintenance
+
+1. update ds package version fix (#119) ([223e918](https://github.com/imaginario27/air-ui/commit/223e918d6d22808adb8377fbca6b49a5d0371a27) (PR [#119](https://github.com/imaginario27/air-ui/pull/119)))
 
 - Package: @imaginario27/air-ui-ds.
 
 ## 1.13.9 - 2026-06-09
 
 Release type: patch.
-Commits found in range: 0.
+Commits found in range: 2.
 
-### Changed
+### Added
 
-1. No user-facing changes were recorded for this release (version bump, or only chore and docs commits).
+1. make Heading headingTag prop required with HeadingTag type ([82248a2](https://github.com/imaginario27/air-ui/commit/82248a2043ca30916adac5154e8c3743d8a2fe2b))
+2. improve accessibility across ds components and docs (#115) ([f5b5278](https://github.com/imaginario27/air-ui/commit/f5b5278a7bba94fec6fbb4345baa45576eb6f867) (PR [#115](https://github.com/imaginario27/air-ui/pull/115)))
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -472,11 +481,11 @@ Commits found in range: 1.
 ## 1.13.2 - 2026-05-20
 
 Release type: patch.
-Commits found in range: 0.
+Commits found in range: 1.
 
-### Changed
+### Maintenance
 
-1. No user-facing changes were recorded for this release (version bump, or only chore and docs commits).
+1. update package dependencies ([ea35b85](https://github.com/imaginario27/air-ui/commit/ea35b85045cab6d160a4914f5f762844e4ae673d))
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -639,11 +648,15 @@ Commits found in range: 1.
 ## 1.8.0 - 2026-03-28
 
 Release type: minor.
-Commits found in range: 1.
+Commits found in range: 2.
 
 ### Added
 
 1. add Slider and SliderField components ([5454fba](https://github.com/imaginario27/air-ui/commit/5454fba3558ddb98172fed4805def34d0bf1aeed))
+
+### Maintenance
+
+1. reset file upload field test to original state ([ee864ae](https://github.com/imaginario27/air-ui/commit/ee864aede742d940f282bd322c7d187bfb1d20b3))
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -705,11 +718,16 @@ Commits found in range: 1.
 ## 1.4.7 - 2026-03-21
 
 Release type: patch.
-Commits found in range: 1.
+Commits found in range: 3.
 
 ### Fixed
 
 1. fix design token grammar error ([b9b9178](https://github.com/imaginario27/air-ui/commit/b9b9178e4992569c1ea2a10550e9a69ac78f9fa1))
+
+### Maintenance
+
+1. fix package version ([0c24e5a](https://github.com/imaginario27/air-ui/commit/0c24e5a9274f781198c74c834870235f2dc130f7))
+2. fix package version ([ea835e7](https://github.com/imaginario27/air-ui/commit/ea835e72910f611021a9284364a8cba4fdabf35a))
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -727,11 +745,15 @@ Commits found in range: 1.
 ## 1.4.3 - 2026-03-20
 
 Release type: patch.
-Commits found in range: 1.
+Commits found in range: 2.
 
 ### Fixed
 
 1. fix whitespace wraps in docs table and fix items custom classes in nav sidebar ([96c3040](https://github.com/imaginario27/air-ui/commit/96c30402ae8464e8ad66d9a74e2f3f98db183e45))
+
+### Maintenance
+
+1. add release automatization and changelogs ([e63500c](https://github.com/imaginario27/air-ui/commit/e63500cacb06d97fc8be8de1016f20f8b6a85a0b))
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -1037,11 +1059,14 @@ Commits found in range: 1.
 ## 1.1.9 - 2026-01-31
 
 Release type: patch.
-Commits found in range: 0.
+Commits found in range: 4.
 
-### Changed
+### Maintenance
 
-1. No user-facing changes were recorded for this release (version bump, or only chore and docs commits).
+1. Fixes tests and add silence to vitest warnings ([6927422](https://github.com/imaginario27/air-ui/commit/6927422c9d1be5fc7619349569d5a79b70230a0a))
+2. Updates dependencies to latest version ([425f4e9](https://github.com/imaginario27/air-ui/commit/425f4e966c4a3a64437259e845fcfcad9c0041f0))
+3. Updates outdated dependencies to resolve audit conflicts ([3b783d7](https://github.com/imaginario27/air-ui/commit/3b783d7656e7f92dd5aa53c8bc1386ff0cb3f6e1))
+4. Updates the update color script ([6227cd0](https://github.com/imaginario27/air-ui/commit/6227cd0fefa66df1e8588f68999822695634a9ce))
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -1149,11 +1174,15 @@ Commits found in range: 1.
 ## 1.0.22 - 2026-01-05
 
 Release type: patch.
-Commits found in range: 1.
+Commits found in range: 2.
 
 ### Added
 
 1. Improves the NavSidebar and completes the component dock page ([55c74b6](https://github.com/imaginario27/air-ui/commit/55c74b63ffda9d4b3c7ba4c8d064ac3808d55bce))
+
+### Maintenance
+
+1. Updates NavSidebar components tests ([fb32dda](https://github.com/imaginario27/air-ui/commit/fb32ddae417cd208492007683897b9dc826cceab))
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -1293,11 +1322,11 @@ Commits found in range: 0.
 ## 1.0.9 - 2025-12-10
 
 Release type: patch.
-Commits found in range: 0.
+Commits found in range: 1.
 
-### Changed
+### Maintenance
 
-1. No user-facing changes were recorded for this release (version bump, or only chore and docs commits).
+1. fix type check issues, update ESLint config, upgrade packages, and clean up utils ([26ef525](https://github.com/imaginario27/air-ui/commit/26ef52509856d9666e4d20725501ee55b73b3152))
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -1359,11 +1388,11 @@ Commits found in range: 0.
 ## 1.0.3 - 2025-12-08
 
 Release type: patch.
-Commits found in range: 0.
+Commits found in range: 1.
 
-### Changed
+### Maintenance
 
-1. No user-facing changes were recorded for this release (version bump, or only chore and docs commits).
+1. Update packages version and README files ([aa56e89](https://github.com/imaginario27/air-ui/commit/aa56e898ecc65cca54f5eb552082706c0abcb001))
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -1381,12 +1410,16 @@ Commits found in range: 0.
 ## 1.0.1 - 2025-12-07
 
 Release type: patch.
-Commits found in range: 2.
+Commits found in range: 3.
 
 ### Changed
 
 1. improve app header, docs index, utils and navigation ([e81f70f](https://github.com/imaginario27/air-ui/commit/e81f70f1ea6aa21e85cd7c8faff4437712794734))
 2. Init ([f153db6](https://github.com/imaginario27/air-ui/commit/f153db6d125daee38fd029ac4bcdb81190893024))
+
+### Maintenance
+
+1. update package metadata and Vitest config, add package READMEs ([9f62a32](https://github.com/imaginario27/air-ui/commit/9f62a32f9dc6c974830d817ce7bd3b20ce09f610))
 
 - Package: @imaginario27/air-ui-ds.
 

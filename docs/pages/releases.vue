@@ -351,6 +351,7 @@ const sectionConfig: Array<{ type: string, title: string, color: ColorAccent }> 
     { type: 'added', title: 'Added', color: ColorAccent.INFO },
     { type: 'fixed', title: 'Fixed', color: ColorAccent.SUCCESS },
     { type: 'changed', title: 'Changed', color: ColorAccent.NEUTRAL },
+    { type: 'maintenance', title: 'Maintenance', color: ColorAccent.WARNING },
 ]
 
 const getEntrySections = (entry: ReleaseEntry) => {

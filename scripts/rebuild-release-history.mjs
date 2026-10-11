@@ -99,10 +99,18 @@ function stripConventionalPrefix(subject) {
     return subject.replace(/^\w+(\([^)]+\))?!?:\s*/i, "").trim()
 }
 
+// Chore commits that only mark releases or housekeeping carry no information for readers.
+const MAINTENANCE_NOISE =
+    /\brelease\b.*\bv?\d+\.\d+\.\d+|\bbumps?\b.*\bversion|\bversion\b.*\bbump|untrack|^sync\b/i
+
 function classifyCommit(subject) {
     const lower = subject.toLowerCase()
 
-    if (lower.startsWith("chore")) return null
+    if (lower.startsWith("chore")) {
+        return MAINTENANCE_NOISE.test(stripConventionalPrefix(subject))
+            ? null
+            : "maintenance"
+    }
     if (lower.includes("breaking") || /!:\s/.test(subject)) return "breaking"
     if (lower.startsWith("feat")) return "added"
     if (lower.startsWith("fix")) return "fixed"
@@ -144,12 +152,47 @@ function extractAffected(files) {
 }
 
 // Keeps the bullet/prose lines of a commit body; drops section headings ("Docs:"), trailers and version-bump noise.
+// Hard-wrapped lines are re-joined into the bullet or paragraph they belong to.
 function extractBodyLines(body) {
-    return body
-        .split("\n")
-        .map((line) => line.trim())
-        .filter((line) => line && !line.endsWith(":"))
-        .map((line) => line.replace(/^[-*]\s*/, "").trim())
+    const items = []
+    let current = null
+
+    const flush = () => {
+        if (current) items.push(current)
+        current = null
+    }
+
+    let afterBlank = false
+
+    for (const rawLine of body.split("\n")) {
+        const line = rawLine.trim()
+        const isIndented = /^\s+\S/.test(rawLine)
+
+        if (!line) {
+            afterBlank = true
+            continue
+        }
+
+        // An indented line continues the current bullet, even after a blank line.
+        const continuesCurrent = current && (!afterBlank || isIndented)
+
+        if (afterBlank && !continuesCurrent) flush()
+        afterBlank = false
+
+        if (/^[-*]\s+/.test(line)) {
+            flush()
+            current = line.replace(/^[-*]\s+/, "")
+        } else if (/^[A-Z][^,.]{0,40}:$/.test(line)) {
+            // Section heading such as "Docs:"
+            flush()
+        } else {
+            current = current ? `${current} ${line}` : line
+        }
+    }
+
+    flush()
+
+    return items
         .filter(
             (line) =>
                 line &&
@@ -194,11 +237,13 @@ function parseGitCommits(raw, githubBaseUrl) {
         .filter(Boolean)
 }
 
+const MAX_RELEASE_COMMIT_DRIFT_MS = 12 * 60 * 60 * 1000
+
 // Maps version -> sha of its "chore(scope): release <pkg> v<version>" commit.
-function getReleaseCommits(packageName) {
+function getReleaseCommits(packageName, time) {
     const raw = runGit([
         "log",
-        "--format=%H%x1f%s",
+        "--format=%H%x1f%s%x1f%ct",
         `--grep=release ${packageName} v`,
     ])
     const releaseCommits = {}
@@ -208,10 +253,16 @@ function getReleaseCommits(packageName) {
     )
 
     for (const line of raw.split("\n").filter(Boolean)) {
-        const [sha, subject] = line.split("\x1f")
+        const [sha, subject, committedAt] = line.split("\x1f")
         const version = subject.match(subjectRegex)?.[1]
 
         if (!version) continue
+
+        // A release commit made long after the npm publish (late or re-done release) can't be trusted as a range boundary.
+        const publishedAt = Date.parse(time[version] ?? "")
+        const driftMs = Math.abs(Number(committedAt) * 1000 - publishedAt)
+        if (!(driftMs <= MAX_RELEASE_COMMIT_DRIFT_MS)) continue
+
         if (releaseCommits[version]) ambiguous.add(version)
         releaseCommits[version] = sha
     }
@@ -264,6 +315,7 @@ function buildNotesFromCommits(commits) {
                 added: [],
                 fixed: [],
                 changed: [],
+                maintenance: [],
                 breaking: [],
             },
         }
@@ -273,6 +325,7 @@ function buildNotesFromCommits(commits) {
         added: commits.filter((commit) => commit.type === "added"),
         fixed: commits.filter((commit) => commit.type === "fixed"),
         changed: commits.filter((commit) => commit.type === "changed"),
+        maintenance: commits.filter((commit) => commit.type === "maintenance"),
         breaking: commits.filter((commit) => commit.type === "breaking"),
     }
 
@@ -281,6 +334,7 @@ function buildNotesFromCommits(commits) {
         ...grouped.added,
         ...grouped.fixed,
         ...grouped.changed,
+        ...grouped.maintenance,
     ]
 
     const notes = ordered
@@ -386,6 +440,7 @@ function buildEntries({
                     added: grouped.added.length,
                     fixed: grouped.fixed.length,
                     changed: grouped.changed.length,
+                    maintenance: grouped.maintenance.length,
                     breaking: grouped.breaking.length,
                 },
             },
@@ -449,6 +504,9 @@ function appendEntrySection(lines, packageName, entry) {
     const changed = commits
         .filter((commit) => commit.type === "changed")
         .map(buildCommitLine)
+    const maintenance = commits
+        .filter((commit) => commit.type === "maintenance")
+        .map(buildCommitLine)
 
     lines.push(
         `## ${entry.version} - ${entry.publishedAt}`,
@@ -463,6 +521,7 @@ function appendEntrySection(lines, packageName, entry) {
         appendNumberedSection(lines, "Added", added)
         appendNumberedSection(lines, "Fixed", fixed)
         appendNumberedSection(lines, "Changed", changed)
+        appendNumberedSection(lines, "Maintenance", maintenance)
     } else {
         appendFallbackNotesSection(lines, entry.notes)
     }
@@ -516,7 +575,7 @@ async function main() {
             packagePath: pkg.dirPath,
             versions,
             time,
-            releaseCommits: getReleaseCommits(pkg.name),
+            releaseCommits: getReleaseCommits(pkg.name, time),
             githubBaseUrl,
         })
 

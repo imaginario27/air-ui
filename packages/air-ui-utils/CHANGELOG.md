@@ -19,11 +19,15 @@ Commits found in range: 1.
 ## 1.3.0 - 2026-09-29
 
 Release type: minor.
-Commits found in range: 1.
+Commits found in range: 2.
 
 ### Added
 
 1. add global config for form validation messages ([818afa5](https://github.com/imaginario27/air-ui/commit/818afa59e130b984fbe65e827f793a77283f8733))
+
+### Maintenance
+
+1. update dependencies across all workspaces ([cbfaa0c](https://github.com/imaginario27/air-ui/commit/cbfaa0c2a907c4950b93290d0653f3016a4295a5))
 
 - Package: @imaginario27/air-ui-utils.
 
@@ -41,22 +45,22 @@ Commits found in range: 1.
 ## 1.2.5 - 2026-06-15
 
 Release type: patch.
-Commits found in range: 0.
+Commits found in range: 1.
 
-### Changed
+### Maintenance
 
-1. No user-facing changes were recorded for this release (version bump, or only chore and docs commits).
+1. update dependencies ([99408c1](https://github.com/imaginario27/air-ui/commit/99408c195a7430a46217f7e48193d478ce049dc4))
 
 - Package: @imaginario27/air-ui-utils.
 
 ## 1.2.4 - 2026-05-20
 
 Release type: patch.
-Commits found in range: 0.
+Commits found in range: 1.
 
-### Changed
+### Maintenance
 
-1. No user-facing changes were recorded for this release (version bump, or only chore and docs commits).
+1. update package dependencies ([d67ff99](https://github.com/imaginario27/air-ui/commit/d67ff99611f508ab83f7c9deef4b7e7cc4b44a54))
 
 - Package: @imaginario27/air-ui-utils.
 
@@ -85,12 +89,16 @@ Commits found in range: 1.
 ## 1.2.1 - 2026-03-21
 
 Release type: patch.
-Commits found in range: 2.
+Commits found in range: 3.
 
 ### Added
 
 1. update package versions ([c5a01a1](https://github.com/imaginario27/air-ui/commit/c5a01a186b047bceca41d6cf50d1f9da4e1aa15e))
 2. add new TagsField and RulesField components + component fixes ([c8c125e](https://github.com/imaginario27/air-ui/commit/c8c125eb110eedc16f29706778578514bc28eb4f))
+
+### Maintenance
+
+1. add release automatization and changelogs ([e63500c](https://github.com/imaginario27/air-ui/commit/e63500cacb06d97fc8be8de1016f20f8b6a85a0b))
 
 - Package: @imaginario27/air-ui-utils.
 
@@ -185,7 +193,7 @@ Commits found in range: 1.
 ## 1.0.8 - 2026-01-31
 
 Release type: patch.
-Commits found in range: 4.
+Commits found in range: 7.
 
 ### Added
 
@@ -200,16 +208,22 @@ Commits found in range: 4.
 
 1. Bumps package version ([0eaefbc](https://github.com/imaginario27/air-ui/commit/0eaefbcbe5fe8cbcf3b6297a80873687a631258b))
 
+### Maintenance
+
+1. Fixes tests and add silence to vitest warnings ([6927422](https://github.com/imaginario27/air-ui/commit/6927422c9d1be5fc7619349569d5a79b70230a0a))
+2. Updates dependencies to latest version ([425f4e9](https://github.com/imaginario27/air-ui/commit/425f4e966c4a3a64437259e845fcfcad9c0041f0))
+3. Updates outdated dependencies to resolve audit conflicts ([3b783d7](https://github.com/imaginario27/air-ui/commit/3b783d7656e7f92dd5aa53c8bc1386ff0cb3f6e1))
+
 - Package: @imaginario27/air-ui-utils.
 
 ## 1.0.7 - 2025-12-10
 
 Release type: patch.
-Commits found in range: 0.
+Commits found in range: 1.
 
-### Changed
+### Maintenance
 
-1. No user-facing changes were recorded for this release (version bump, or only chore and docs commits).
+1. fix type check issues, update ESLint config, upgrade packages, and clean up utils ([26ef525](https://github.com/imaginario27/air-ui/commit/26ef52509856d9666e4d20725501ee55b73b3152))
 
 - Package: @imaginario27/air-ui-utils.
 
@@ -249,11 +263,11 @@ Commits found in range: 0.
 ## 1.0.3 - 2025-12-09
 
 Release type: patch.
-Commits found in range: 0.
+Commits found in range: 1.
 
-### Changed
+### Maintenance
 
-1. No user-facing changes were recorded for this release (version bump, or only chore and docs commits).
+1. Update packages version and README files ([aa56e89](https://github.com/imaginario27/air-ui/commit/aa56e898ecc65cca54f5eb552082706c0abcb001))
 
 - Package: @imaginario27/air-ui-utils.
 
@@ -271,11 +285,15 @@ Commits found in range: 0.
 ## 1.0.1 - 2025-12-07
 
 Release type: patch.
-Commits found in range: 1.
+Commits found in range: 2.
 
 ### Changed
 
 1. Init ([f153db6](https://github.com/imaginario27/air-ui/commit/f153db6d125daee38fd029ac4bcdb81190893024))
+
+### Maintenance
+
+1. update package metadata and Vitest config, add package READMEs ([9f62a32](https://github.com/imaginario27/air-ui/commit/9f62a32f9dc6c974830d817ce7bd3b20ce09f610))
 
 - Package: @imaginario27/air-ui-utils.
 
