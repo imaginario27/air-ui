@@ -5,6 +5,35 @@ All notable changes to this package are documented in this file.
 Historical releases were reconstructed from git history (GitHub repository) and npm publish dates.
 Future releases will include detailed entries generated with Changesets.
 
+## 1.22.1 - 2026-10-11
+
+Release type: patch.
+Commits found in range: 13.
+
+### Added
+
+1. highlight design system names in release history ([147171b](https://github.com/imaginario27/air-ui/commit/147171b4940605cade39e38921648198a12b5951))
+2. import `defaults.css` in generated theme ([b54d2c3](https://github.com/imaginario27/air-ui/commit/b54d2c3f92799d1373d317109755e0d5082b6a5a))
+3. describe empty releases by comparing published packages ([bbb024e](https://github.com/imaginario27/air-ui/commit/bbb024e6e8a44d90d30ac076c72c5539af763974))
+
+### Fixed
+
+1. make `useDarkMode` hydration-safe ([9940764](https://github.com/imaginario27/air-ui/commit/9940764700f62634066b168b964066942a52003f))
+2. remove invalid nested buttons and header rows that break SSR hydration ([843d3c8](https://github.com/imaginario27/air-ui/commit/843d3c8a3b1b998bf98afc2333b3a33f27d6e82e))
+3. guard browser-only code in `Lightbox`, `Loading` and `ModalDialog` for SSR ([36918bf](https://github.com/imaginario27/air-ui/commit/36918bf6f3d5fbd1eada2e52c68f650e32c54485))
+4. hide pagination ellipsis from assistive tech ([406160e](https://github.com/imaginario27/air-ui/commit/406160ebc2c5f46d1f29ce0cc96e7d4a6c13e27e))
+5. improve release history for empty and wrapped entries ([a16f3ed](https://github.com/imaginario27/air-ui/commit/a16f3ed59234d169b8b65769036002ad72c998a2))
+
+### Changed
+
+1. use arrow functions in scripts ([471ce86](https://github.com/imaginario27/air-ui/commit/471ce864b2f7a71cd1d84d591d9978dd75b1be85))
+
+### Maintenance
+
+1. convert `pointsToPath` to an arrow function ([7a90c28](https://github.com/imaginario27/air-ui/commit/7a90c28d783a3c63bd6fcb0c4abd8d658668f8ce))
+
+- Package: @imaginario27/air-ui-ds.
+
 ## 1.22.0 - 2026-10-10
 
 Release type: minor.

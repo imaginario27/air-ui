@@ -1,12 +1,275 @@
 {
-  "generatedAt": "2026-10-11T08:38:49.995Z",
+  "generatedAt": "2026-10-11T14:29:05.837Z",
   "source": "github-git-history+npm-publish-dates",
   "githubBaseUrl": "https://github.com/imaginario27/air-ui",
   "packages": [
     {
       "packageName": "@imaginario27/air-ui-ds",
-      "latestVersion": "1.22.0",
+      "latestVersion": "1.22.1",
       "entries": [
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.22.1",
+          "publishedAt": "2026-10-11",
+          "releaseType": "patch",
+          "notes": [
+            "highlight design system names in release history",
+            "import `defaults.css` in generated theme",
+            "describe empty releases by comparing published packages",
+            "add detailed release entries with card layout",
+            "make `useDarkMode` hydration-safe",
+            "remove invalid nested buttons and header rows that break SSR hydration",
+            "guard browser-only code in `Lightbox`, `Loading` and `ModalDialog` for SSR",
+            "hide pagination ellipsis from assistive tech",
+            "improve release history for empty and wrapped entries",
+            "wait for npm registry before rebuilding release history"
+          ],
+          "metadata": {
+            "commitCount": 13,
+            "commits": [
+              {
+                "sha": "9940764700f62634066b168b964066942a52003f",
+                "shortSha": "9940764",
+                "date": "2026-10-11",
+                "subject": "fix(ds): make useDarkMode hydration-safe",
+                "normalizedSubject": "make `useDarkMode` hydration-safe",
+                "type": "fixed",
+                "body": [],
+                "affected": [
+                  "useDarkMode"
+                ],
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/9940764700f62634066b168b964066942a52003f",
+                "prUrl": null
+              },
+              {
+                "sha": "843d3c8a3b1b998bf98afc2333b3a33f27d6e82e",
+                "shortSha": "843d3c8",
+                "date": "2026-10-11",
+                "subject": "fix(ds): remove invalid nested buttons and header rows that break SSR hydration",
+                "normalizedSubject": "remove invalid nested buttons and header rows that break SSR hydration",
+                "type": "fixed",
+                "body": [],
+                "affected": [
+                  "AccordionItem",
+                  "ActionIconButton",
+                  "Collapsible",
+                  "TableHeader"
+                ],
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/843d3c8a3b1b998bf98afc2333b3a33f27d6e82e",
+                "prUrl": null
+              },
+              {
+                "sha": "36918bf6f3d5fbd1eada2e52c68f650e32c54485",
+                "shortSha": "36918bf",
+                "date": "2026-10-11",
+                "subject": "fix(ds): guard browser-only code in Lightbox, Loading and ModalDialog for SSR",
+                "normalizedSubject": "guard browser-only code in `Lightbox`, `Loading` and `ModalDialog` for SSR",
+                "type": "fixed",
+                "body": [],
+                "affected": [
+                  "Lightbox",
+                  "Loading",
+                  "ModalDialog"
+                ],
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/36918bf6f3d5fbd1eada2e52c68f650e32c54485",
+                "prUrl": null
+              },
+              {
+                "sha": "406160ebc2c5f46d1f29ce0cc96e7d4a6c13e27e",
+                "shortSha": "406160e",
+                "date": "2026-10-11",
+                "subject": "fix(ds): hide pagination ellipsis from assistive tech",
+                "normalizedSubject": "hide pagination ellipsis from assistive tech",
+                "type": "fixed",
+                "body": [
+                  "add `aria-hidden` and `tabindex=\"-1\"` to the ellipsis button in `ButtonPagination`",
+                  "add test covering ellipsis and page button attributes"
+                ],
+                "affected": [
+                  "ButtonPagination"
+                ],
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/406160ebc2c5f46d1f29ce0cc96e7d4a6c13e27e",
+                "prUrl": null
+              },
+              {
+                "sha": "7a90c28d783a3c63bd6fcb0c4abd8d658668f8ce",
+                "shortSha": "7a90c28",
+                "date": "2026-10-11",
+                "subject": "chore(ds): convert `pointsToPath` to an arrow function",
+                "normalizedSubject": "convert `pointsToPath` to an arrow function",
+                "type": "maintenance",
+                "body": [
+                  "declare `pointsToPath` in `SignaturePad.vue` as a `const` arrow function"
+                ],
+                "affected": [
+                  "SignaturePad"
+                ],
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/7a90c28d783a3c63bd6fcb0c4abd8d658668f8ce",
+                "prUrl": null
+              },
+              {
+                "sha": "147171b4940605cade39e38921648198a12b5951",
+                "shortSha": "147171b",
+                "date": "2026-10-11",
+                "subject": "feat(root): highlight design system names in release history",
+                "normalizedSubject": "highlight design system names in release history",
+                "type": "added",
+                "body": [
+                  "add `code-name-highlighter` script that wraps known names in backticks",
+                  "collect components, composables, enums, types, props, slots and utils as known names",
+                  "match file names, paths, `aria-*` attributes and enum member pairs like `XS/SM`",
+                  "apply the highlighter to commit titles and bodies in `rebuild-release-history`",
+                  "regenerate release history and changelogs"
+                ],
+                "affected": [],
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/147171b4940605cade39e38921648198a12b5951",
+                "prUrl": null
+              },
+              {
+                "sha": "b54d2c3f92799d1373d317109755e0d5082b6a5a",
+                "shortSha": "b54d2c3",
+                "date": "2026-10-11",
+                "subject": "feat(ds): import defaults.css in generated theme",
+                "normalizedSubject": "import `defaults.css` in generated theme",
+                "type": "added",
+                "body": [
+                  "add `defaults.css` import to generated `main.css`",
+                  "add `defaults.css` import to the generate-theme script template",
+                  "move script execution below function definitions so the arrow functions are defined before use"
+                ],
+                "affected": [],
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/b54d2c3f92799d1373d317109755e0d5082b6a5a",
+                "prUrl": null
+              },
+              {
+                "sha": "bbb024e6e8a44d90d30ac076c72c5539af763974",
+                "shortSha": "bbb024e",
+                "date": "2026-10-11",
+                "subject": "feat(root): describe empty releases by comparing published packages",
+                "normalizedSubject": "describe empty releases by comparing published packages",
+                "type": "added",
+                "body": [
+                  "add published-package-diff script that compares npm tarballs between versions",
+                  "cache detected changes in `published-changes.json` and include it in release commits",
+                  "show added, changed and removed names for releases without commits",
+                  "render published changes on the releases page",
+                  "convert release scripts to arrow functions",
+                  "regenerate release history and changelogs"
+                ],
+                "affected": [],
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/bbb024e6e8a44d90d30ac076c72c5539af763974",
+                "prUrl": null
+              },
+              {
+                "sha": "471ce864b2f7a71cd1d84d591d9978dd75b1be85",
+                "shortSha": "471ce86",
+                "date": "2026-10-11",
+                "subject": "refactor(root): use arrow functions in scripts",
+                "normalizedSubject": "use arrow functions in scripts",
+                "type": "changed",
+                "body": [
+                  "convert function declarations to arrow functions in git and publish check scripts",
+                  "convert function declarations in ds and docs generate-theme scripts"
+                ],
+                "affected": [],
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/471ce864b2f7a71cd1d84d591d9978dd75b1be85",
+                "prUrl": null
+              },
+              {
+                "sha": "a16f3ed59234d169b8b65769036002ad72c998a2",
+                "shortSha": "a16f3ed",
+                "date": "2026-10-11",
+                "subject": "fix(root): improve release history for empty and wrapped entries",
+                "normalizedSubject": "improve release history for empty and wrapped entries",
+                "type": "fixed",
+                "body": [
+                  "join hard-wrapped commit body lines into a single bullet",
+                  "include chore commits as a Maintenance section, skipping release noise",
+                  "ignore release commits made long after the npm publish",
+                  "show the Maintenance section on the releases page",
+                  "regenerate release history and changelogs"
+                ],
+                "affected": [],
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/a16f3ed59234d169b8b65769036002ad72c998a2",
+                "prUrl": null
+              },
+              {
+                "sha": "6116a14b316c57c9b74181e8dc5afb627880d4d9",
+                "shortSha": "6116a14",
+                "date": "2026-10-11",
+                "subject": "feat(root): add detailed release entries with card layout",
+                "normalizedSubject": "add detailed release entries with card layout",
+                "type": "added",
+                "body": [
+                  "use exact release-commit ranges instead of publish-date windows",
+                  "store commit bodies and affected components in release history",
+                  "drop section headings and version-bump noise from commit bodies",
+                  "reword the empty-release note in release history",
+                  "redesign the releases page with per-change cards and collapsible details",
+                  "distinguish release type, section and component badges",
+                  "regenerate release history and changelogs"
+                ],
+                "affected": [],
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/6116a14b316c57c9b74181e8dc5afb627880d4d9",
+                "prUrl": null
+              },
+              {
+                "sha": "9ab6c54c3f95ba4265924d9c7fb67af0cc8551f3",
+                "shortSha": "9ab6c54",
+                "date": "2026-10-11",
+                "subject": "fix(root): wait for npm registry before rebuilding release history",
+                "normalizedSubject": "wait for npm registry before rebuilding release history",
+                "type": "fixed",
+                "body": [
+                  "retry the npm registry fetch until the just-published version appears",
+                  "fail with a re-run hint instead of writing stale release data",
+                  "abort finalize-release when `release-history.json` is behind `package.json`",
+                  "regenerate release history and changelogs for ds 1.22.0 and utils 1.4.0"
+                ],
+                "affected": [],
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/9ab6c54c3f95ba4265924d9c7fb67af0cc8551f3",
+                "prUrl": null
+              },
+              {
+                "sha": "de30221e5d6e199dd8af5d6c654b3a981427fed9",
+                "shortSha": "de30221",
+                "date": "2026-10-11",
+                "subject": "fix(ds): use adaptive tokens for active tree view colors in dark mode",
+                "normalizedSubject": "use adaptive tokens for active tree view colors in dark mode",
+                "type": "fixed",
+                "body": [
+                  "replace on-soft-bg text and icon tokens with default brand tokens in `useTreeViewAppearance`",
+                  "update `TreeView` tests to expect the new active classes"
+                ],
+                "affected": [
+                  "useTreeViewAppearance"
+                ],
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/de30221e5d6e199dd8af5d6c654b3a981427fed9",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 4,
+              "fixed": 7,
+              "changed": 1,
+              "maintenance": 1,
+              "breaking": 0
+            }
+          }
+        },
         {
           "packageName": "@imaginario27/air-ui-ds",
           "version": "1.22.0",
@@ -6411,8 +6674,152 @@
     },
     {
       "packageName": "@imaginario27/air-ui-utils",
-      "latestVersion": "1.4.0",
+      "latestVersion": "1.4.1",
       "entries": [
+        {
+          "packageName": "@imaginario27/air-ui-utils",
+          "version": "1.4.1",
+          "publishedAt": "2026-10-11",
+          "releaseType": "patch",
+          "notes": [
+            "highlight design system names in release history",
+            "describe empty releases by comparing published packages",
+            "add detailed release entries with card layout",
+            "improve release history for empty and wrapped entries",
+            "wait for npm registry before rebuilding release history",
+            "convert function declarations to arrow functions"
+          ],
+          "metadata": {
+            "commitCount": 6,
+            "commits": [
+              {
+                "sha": "fc4574bfdee6d0f93a6cd82c294bbe63b41c991b",
+                "shortSha": "fc4574b",
+                "date": "2026-10-11",
+                "subject": "chore(utils): convert function declarations to arrow functions",
+                "normalizedSubject": "convert function declarations to arrow functions",
+                "type": "maintenance",
+                "body": [
+                  "convert `useTable` to a `const` arrow function",
+                  "convert `getPaginatedData` to a `const` arrow function",
+                  "convert `formatLocalizedDateTime` to a `const` arrow function"
+                ],
+                "affected": [
+                  "useTable",
+                  "data",
+                  "dates"
+                ],
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/fc4574bfdee6d0f93a6cd82c294bbe63b41c991b",
+                "prUrl": null
+              },
+              {
+                "sha": "147171b4940605cade39e38921648198a12b5951",
+                "shortSha": "147171b",
+                "date": "2026-10-11",
+                "subject": "feat(root): highlight design system names in release history",
+                "normalizedSubject": "highlight design system names in release history",
+                "type": "added",
+                "body": [
+                  "add `code-name-highlighter` script that wraps known names in backticks",
+                  "collect components, composables, enums, types, props, slots and utils as known names",
+                  "match file names, paths, `aria-*` attributes and enum member pairs like `XS/SM`",
+                  "apply the highlighter to commit titles and bodies in `rebuild-release-history`",
+                  "regenerate release history and changelogs"
+                ],
+                "affected": [],
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/147171b4940605cade39e38921648198a12b5951",
+                "prUrl": null
+              },
+              {
+                "sha": "bbb024e6e8a44d90d30ac076c72c5539af763974",
+                "shortSha": "bbb024e",
+                "date": "2026-10-11",
+                "subject": "feat(root): describe empty releases by comparing published packages",
+                "normalizedSubject": "describe empty releases by comparing published packages",
+                "type": "added",
+                "body": [
+                  "add published-package-diff script that compares npm tarballs between versions",
+                  "cache detected changes in `published-changes.json` and include it in release commits",
+                  "show added, changed and removed names for releases without commits",
+                  "render published changes on the releases page",
+                  "convert release scripts to arrow functions",
+                  "regenerate release history and changelogs"
+                ],
+                "affected": [],
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/bbb024e6e8a44d90d30ac076c72c5539af763974",
+                "prUrl": null
+              },
+              {
+                "sha": "a16f3ed59234d169b8b65769036002ad72c998a2",
+                "shortSha": "a16f3ed",
+                "date": "2026-10-11",
+                "subject": "fix(root): improve release history for empty and wrapped entries",
+                "normalizedSubject": "improve release history for empty and wrapped entries",
+                "type": "fixed",
+                "body": [
+                  "join hard-wrapped commit body lines into a single bullet",
+                  "include chore commits as a Maintenance section, skipping release noise",
+                  "ignore release commits made long after the npm publish",
+                  "show the Maintenance section on the releases page",
+                  "regenerate release history and changelogs"
+                ],
+                "affected": [],
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/a16f3ed59234d169b8b65769036002ad72c998a2",
+                "prUrl": null
+              },
+              {
+                "sha": "6116a14b316c57c9b74181e8dc5afb627880d4d9",
+                "shortSha": "6116a14",
+                "date": "2026-10-11",
+                "subject": "feat(root): add detailed release entries with card layout",
+                "normalizedSubject": "add detailed release entries with card layout",
+                "type": "added",
+                "body": [
+                  "use exact release-commit ranges instead of publish-date windows",
+                  "store commit bodies and affected components in release history",
+                  "drop section headings and version-bump noise from commit bodies",
+                  "reword the empty-release note in release history",
+                  "redesign the releases page with per-change cards and collapsible details",
+                  "distinguish release type, section and component badges",
+                  "regenerate release history and changelogs"
+                ],
+                "affected": [],
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/6116a14b316c57c9b74181e8dc5afb627880d4d9",
+                "prUrl": null
+              },
+              {
+                "sha": "9ab6c54c3f95ba4265924d9c7fb67af0cc8551f3",
+                "shortSha": "9ab6c54",
+                "date": "2026-10-11",
+                "subject": "fix(root): wait for npm registry before rebuilding release history",
+                "normalizedSubject": "wait for npm registry before rebuilding release history",
+                "type": "fixed",
+                "body": [
+                  "retry the npm registry fetch until the just-published version appears",
+                  "fail with a re-run hint instead of writing stale release data",
+                  "abort finalize-release when `release-history.json` is behind `package.json`",
+                  "regenerate release history and changelogs for ds 1.22.0 and utils 1.4.0"
+                ],
+                "affected": [],
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/9ab6c54c3f95ba4265924d9c7fb67af0cc8551f3",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 3,
+              "fixed": 2,
+              "changed": 0,
+              "maintenance": 1,
+              "breaking": 0
+            }
+          }
+        },
         {
           "packageName": "@imaginario27/air-ui-utils",
           "version": "1.4.0",
