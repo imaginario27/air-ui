@@ -1,3 +1,5 @@
+import { skipHydrate } from 'pinia'
+
 export const useSearchStore = defineStore('search', () => {
     // States
     const searchValue = ref('')
@@ -47,9 +49,10 @@ export const useSearchStore = defineStore('search', () => {
 
     return {
         searchValue,
-        debouncedSearchValue,
+        // Browser-only state: the server value must not overwrite it when the store hydrates
+        debouncedSearchValue: skipHydrate(debouncedSearchValue),
         results,
-        recentSearches,
+        recentSearches: skipHydrate(recentSearches),
         setResults,
         setSearchValue,
         clearResults,
