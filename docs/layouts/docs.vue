@@ -192,6 +192,7 @@ const sidebarMenu = computed<SidebarMenuItem[]>(() => {
 
 // TOC Links
 const { data } = await useAsyncData(
+    () => `docs-layout-toc:${cleanPath.value}`,
     () => queryCollection('content').path(cleanPath.value).first(),
     {
         watch: [cleanPath],

@@ -9,6 +9,14 @@ export default defineNuxtConfig({
     devtools: { enabled: false },
     ssr: true,
 
+    nitro: {
+        prerender: {
+            // Prerender every page reachable from the sidebar/header links; /api and /mcp stay server routes
+            crawlLinks: true,
+            routes: ["/", "/sitemap.xml", "/robots.txt", "/llms.txt"],
+        },
+    },
+
     runtimeConfig: {
         githubToken: process.env.GITHUB_TOKEN,
         githubRepo: 'imaginario27/air-ui',

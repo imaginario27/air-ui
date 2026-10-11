@@ -283,6 +283,7 @@ const selectedTabRoute = computed({
 
 // TOC Links
 const { data } = await useAsyncData(
+    () => `docs-header-toc:${cleanPath.value}`,
     () => queryCollection('content').path(cleanPath.value).first(),
     {
         watch: [cleanPath],
