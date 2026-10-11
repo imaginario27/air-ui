@@ -28,7 +28,6 @@ props:
     inputPosition: bottom
     disabled: false
     transparentInputs: false
-    borderRadius: undefined
     minText: "Min: "
     maxText: "Max: "
     currentValuePrefix: "$"

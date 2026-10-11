@@ -190,7 +190,7 @@ const serializedValue = computed(() => JSON.stringify(props.modelValue))
 
 // Methods
 // Smooths the stroke with quadratic curves through the midpoints of consecutive points
-function pointsToPath(list: SignaturePoint[]) {
+const pointsToPath = (list: SignaturePoint[]) => {
     const [first, second] = list
 
     if (!first) {

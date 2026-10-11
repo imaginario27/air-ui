@@ -1,8 +1,8 @@
 <template>
     <component
-        :is="actionType === ButtonActionType.LINK ? (disabled ? 'span' : NuxtLink) : 'button'"
+        :is="isDecorative ? 'span' : actionType === ButtonActionType.LINK ? (disabled ? 'span' : NuxtLink) : 'button'"
         :id
-        :type="actionType === ButtonActionType.ACTION ? type : undefined"
+        :type="!isDecorative && actionType === ButtonActionType.ACTION ? type : undefined"
         :class="[
             'flex items-center justify-center rounded-button',
             isRounded ? 'rounded-full' : 'rounded-button',
@@ -15,9 +15,9 @@
         v-bind="{
             ...componentProps,
             ...$attrs,
-            ...(actionType === ButtonActionType.ACTION ? { onClick: emitClick } : {})
+            ...(!isDecorative && actionType === ButtonActionType.ACTION ? { onClick: emitClick } : {})
         }"
-        :disabled="disabled"
+        :disabled="isDecorative ? undefined : disabled"
         :aria-label="ariaLabel"
     >
         <Icon 
@@ -81,6 +81,10 @@ const props = defineProps({
         default: false
     },
     isExternal: {
+        type: Boolean as PropType<boolean>,
+        default: false
+    },
+    isDecorative: {
         type: Boolean as PropType<boolean>,
         default: false
     },

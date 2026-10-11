@@ -371,6 +371,11 @@ watch(
     (isOpen, wasOpen) => {
         if (isOpen) {
             currentIndex.value = props.initialIndex
+        }
+
+        if (!import.meta.client) return
+
+        if (isOpen) {
             previouslyFocusedElement.value = document.activeElement as HTMLElement
             lockScroll()
             nextTick(() => rootEl.value?.focus())

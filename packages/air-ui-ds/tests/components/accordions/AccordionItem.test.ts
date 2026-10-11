@@ -74,7 +74,13 @@ describe('AccordionItem', () => {
         const wrapper = factory()
         const iconButton = wrapper.findComponent(ActionIconButton)
 
-        expect(iconButton.attributes('tabindex')).toBe('-1')
         expect(iconButton.attributes('aria-hidden')).toBe('true')
+        expect(iconButton.element.tagName).toBe('SPAN')
+    })
+
+    it('does not nest a button inside the header button', () => {
+        const wrapper = factory()
+
+        expect(wrapper.find('button.accordion-header button').exists()).toBe(false)
     })
 })

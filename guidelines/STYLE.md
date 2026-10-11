@@ -37,6 +37,28 @@ defineProps({
 </script>
 ```
 
+### Function style
+
+Always arrow functions, never `function` declarations (components, composables, utils, scripts, tests):
+
+```ts
+// ✅
+export const formatCount = (count: number): string => {
+    return `${count} ${count === 1 ? 'item' : 'items'}`
+}
+
+const loadData = async (url: string) => {
+    const response = await fetch(url)
+    return response.json()
+}
+
+// ❌
+function formatCount(count: number): string { … }
+async function loadData(url: string) { … }
+```
+
+Arrow functions are not hoisted: define each one above the code that calls it.
+
 ### Docs page style
 
 `docs/content/docs/components/kbd.md` (no front matter):

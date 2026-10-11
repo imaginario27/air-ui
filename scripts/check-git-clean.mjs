@@ -8,7 +8,7 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 const repoRoot = path.resolve(__dirname, "..")
 
-function runGit(args) {
+const runGit = (args) => {
     return execFileSync("git", ["-C", repoRoot, ...args], {
         encoding: "utf8",
         stdio: ["ignore", "pipe", "pipe"],

@@ -9,11 +9,11 @@
  * @param showTime - Whether to include the time in the output
  * @returns Formatted localized date string
  */
-export function formatLocalizedDateTime(
+export const formatLocalizedDateTime = (
     dateInput: string | number, 
     locale: string = 'en',
     showTime: boolean = true
-): string {
+): string => {
     if (!dateInput) return ''
 
     const date = new Date(dateInput)

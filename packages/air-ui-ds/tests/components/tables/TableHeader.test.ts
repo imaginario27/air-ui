@@ -24,4 +24,14 @@ describe('TableHeader', () => {
 
         expect(wrapper.html()).toContain('<th>Header</th>')
     })
+
+    it('wraps header cells in a row so the markup is valid HTML', () => {
+        const wrapper = factory({
+            slots: {
+                default: '<th>Header</th>'
+            }
+        })
+
+        expect(wrapper.find('thead > tr > th').exists()).toBe(true)
+    })
 })

@@ -50,7 +50,7 @@ let intervalId: ReturnType<typeof setInterval> | null = null
 
 // Methods
 const startAnimation = () => {
-    if (intervalId !== null) return // Prevent multiple intervals
+    if (!import.meta.client || intervalId !== null) return // Browser-only; prevent multiple intervals
 
     let dotCount = 0
     intervalId = setInterval(() => {

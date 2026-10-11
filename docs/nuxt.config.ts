@@ -2,10 +2,20 @@
 import tailwindcss from "@tailwindcss/vite"
 import { resolve } from 'node:path'
 
+const SITE_URL = process.env.NUXT_SITEMAP_URL || process.env.LLM_DOMAIN || "https://air-ui.netlify.app"
+
 export default defineNuxtConfig({
     compatibilityDate: "2024-11-01",
     devtools: { enabled: false },
-    ssr: false,
+    ssr: true,
+
+    nitro: {
+        prerender: {
+            // Prerender every page reachable from the sidebar/header links; /api and /mcp stay server routes
+            crawlLinks: true,
+            routes: ["/", "/sitemap.xml", "/robots.txt", "/llms.txt"],
+        },
+    },
 
     runtimeConfig: {
         githubToken: process.env.GITHUB_TOKEN,
@@ -20,7 +30,19 @@ export default defineNuxtConfig({
         },
     },
 
-    modules: ["@pinia/nuxt", "@nuxt/image", "@nuxt/eslint", "@vueuse/nuxt", "@nuxt/content", "@nuxt/icon", "nuxt-llms", "@nuxtjs/mcp-toolkit"],
+    modules: ["@pinia/nuxt", "@nuxt/image", "@nuxt/eslint", "@vueuse/nuxt", "@nuxt/content", "@nuxt/icon", "@nuxt/fonts", "nuxt-llms", "@nuxtjs/mcp-toolkit", "@nuxtjs/sitemap", "@nuxtjs/robots", "nuxt-gtag"],
+
+    // Google Analytics (GA4). Only active in production builds
+    gtag: {
+        id: process.env.GTAG_ID,
+        enabled: !!process.env.GTAG_ID,
+    },
+
+    $development: {
+        gtag: {
+            enabled: false,
+        },
+    },
 
     plugins: ["@/plugins/vue3-toastify", "@/plugins/prettier"],
 
@@ -54,18 +76,6 @@ export default defineNuxtConfig({
                 lang: "en",
             },
             link: [
-                // Preconnect for fonts
-                { rel: "preconnect", href: "https://fonts.googleapis.com" },
-                {
-                    rel: "preconnect",
-                    href: "https://fonts.gstatic.com",
-                    crossorigin: "anonymous",
-                },
-                {
-                    rel: "stylesheet",
-                    href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap",
-                },
-
                 // Icons
                 {
                     rel: "apple-touch-icon",
@@ -99,7 +109,7 @@ export default defineNuxtConfig({
                 {
                     rel: "icon",
                     type: "image/x-icon",
-                    href: "/favicon/favicon.ico",
+                    href: "/images/favicon/favicon.ico",
                 },
             ],
 
@@ -135,6 +145,17 @@ export default defineNuxtConfig({
         }
     },
 
+    fonts: {
+        families: [
+            {
+                name: "Inter",
+                provider: "google",
+                weights: ["100 900"],
+                styles: ["normal", "italic"],
+            },
+        ],
+    },
+
     icon: {
         customCollections: [
             {
@@ -146,8 +167,19 @@ export default defineNuxtConfig({
         ],
     },
 
+    // Site identity (used by sitemap + robots for absolute URLs)
+    site: {
+        url: SITE_URL,
+        name: process.env.APP_NAME || "AirUI",
+    },
+
+    // robots.txt (Sitemap line is auto-injected from site.url)
+    robots: {
+        disallow: ["/mcp"],
+    },
+
     llms: {
-        domain: process.env.LLM_DOMAIN || 'https://air-ui.netlify.app',
+        domain: SITE_URL,
         title: 'AirUI',
         description: 'AirUI design system documentation and resources',
         sections: [
@@ -198,16 +230,6 @@ export default defineNuxtConfig({
 
     experimental: {
         asyncContext: true
-    },
-
-    hooks: { // Workaround for Nuxt 4.4.2 bug:
-        'nitro:config'(nitroConfig) {
-            const imports = nitroConfig.imports as { imports?: Array<{ name?: string }> } | undefined;
-            if (!imports?.imports) {
-                return;
-            }
-            imports.imports = imports.imports.filter((i) => i?.name !== 'useAppConfig');
-        },
     },
 
     css: ["~/assets/css/main.css", "~/assets/css/docs.css"],

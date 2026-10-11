@@ -64,7 +64,9 @@
                 class="hidden lg:flex"
             />
         </ContentBody>
-    </div> 
+
+        <DocsScrollToTopButton />
+    </div>
 </template>
 <script setup lang="ts">
 // States
@@ -80,6 +82,7 @@ const cleanPath = computed(() => {
 
 // Composables
 const { isMobile } = useIsMobile()
+useDocsSeo()
 
 // Computed states
 const hasOvertitle = computed(() => route.meta.overtitle || null)
@@ -189,6 +192,7 @@ const sidebarMenu = computed<SidebarMenuItem[]>(() => {
 
 // TOC Links
 const { data } = await useAsyncData(
+    () => `docs-layout-toc:${cleanPath.value}`,
     () => queryCollection('content').path(cleanPath.value).first(),
     {
         watch: [cleanPath],

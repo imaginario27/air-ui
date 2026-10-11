@@ -121,4 +121,10 @@ describe('Collapsible', () => {
 
         expect(iconButton.props('size')).toBe(ButtonSize.MD)
     })
+
+    it('does not nest a button inside the header button', () => {
+        const wrapper = factory()
+
+        expect(wrapper.find('button.collapsible-header button').exists()).toBe(false)
+    })
 })

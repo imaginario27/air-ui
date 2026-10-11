@@ -5,6 +5,58 @@ All notable changes to this package are documented in this file.
 Historical releases were reconstructed from git history (GitHub repository) and npm publish dates.
 Future releases will include detailed entries generated with Changesets.
 
+## 1.22.1 - 2026-10-11
+
+Release type: patch.
+Commits found in range: 13.
+
+### Added
+
+1. highlight design system names in release history ([147171b](https://github.com/imaginario27/air-ui/commit/147171b4940605cade39e38921648198a12b5951))
+2. import `defaults.css` in generated theme ([b54d2c3](https://github.com/imaginario27/air-ui/commit/b54d2c3f92799d1373d317109755e0d5082b6a5a))
+3. describe empty releases by comparing published packages ([bbb024e](https://github.com/imaginario27/air-ui/commit/bbb024e6e8a44d90d30ac076c72c5539af763974))
+
+### Fixed
+
+1. make `useDarkMode` hydration-safe ([9940764](https://github.com/imaginario27/air-ui/commit/9940764700f62634066b168b964066942a52003f))
+2. remove invalid nested buttons and header rows that break SSR hydration ([843d3c8](https://github.com/imaginario27/air-ui/commit/843d3c8a3b1b998bf98afc2333b3a33f27d6e82e))
+3. guard browser-only code in `Lightbox`, `Loading` and `ModalDialog` for SSR ([36918bf](https://github.com/imaginario27/air-ui/commit/36918bf6f3d5fbd1eada2e52c68f650e32c54485))
+4. hide pagination ellipsis from assistive tech ([406160e](https://github.com/imaginario27/air-ui/commit/406160ebc2c5f46d1f29ce0cc96e7d4a6c13e27e))
+5. improve release history for empty and wrapped entries ([a16f3ed](https://github.com/imaginario27/air-ui/commit/a16f3ed59234d169b8b65769036002ad72c998a2))
+
+### Changed
+
+1. use arrow functions in scripts ([471ce86](https://github.com/imaginario27/air-ui/commit/471ce864b2f7a71cd1d84d591d9978dd75b1be85))
+
+### Maintenance
+
+1. convert `pointsToPath` to an arrow function ([7a90c28](https://github.com/imaginario27/air-ui/commit/7a90c28d783a3c63bd6fcb0c4abd8d658668f8ce))
+
+- Package: @imaginario27/air-ui-ds.
+
+## 1.22.0 - 2026-10-10
+
+Release type: minor.
+Commits found in range: 13.
+
+### Added
+
+1. add `Image`, `Gallery` and `Lightbox` components ([72c5539](https://github.com/imaginario27/air-ui/commit/72c5539f13bced86e1f328e7796af03779893623))
+2. add `SignaturePad` and `SignatureField` components ([00e0a79](https://github.com/imaginario27/air-ui/commit/00e0a790339b3c88e7aea230bca8836fc2bce203))
+3. add `Marquee` component ([60704bd](https://github.com/imaginario27/air-ui/commit/60704bd85937018e9836fd49dfb5c292c5d7da28))
+4. add `TreeView` double click event and rename on click ([60350a0](https://github.com/imaginario27/air-ui/commit/60350a05eb61aad21c047e5531a89801327232fc))
+5. split `TreeView` logic into composables and add sorting ([a7e6e60](https://github.com/imaginario27/air-ui/commit/a7e6e604cd58892130b4be591d3e17dad9062e13))
+6. improve `TreeView` selection, performance and features ([3e1116b](https://github.com/imaginario27/air-ui/commit/3e1116bf7e1ad3702e40e27603ab790e35661843))
+7. add `TreeView` component ([bb4fba6](https://github.com/imaginario27/air-ui/commit/bb4fba659b75c8d97c3ebcb0597c19c2a2ba233c))
+8. add `ProgressCircle` component ([76d9fd5](https://github.com/imaginario27/air-ui/commit/76d9fd5e4c359ee17c54858e168c277084cf8d08))
+9. add `isRounded` prop to `AngleSlider` ([bcdffd9](https://github.com/imaginario27/air-ui/commit/bcdffd9c8a9eedf2e838cd3c9ef62a6bc5f45ccb))
+
+### Fixed
+
+1. type `ActionButton` label offset map ([704fda5](https://github.com/imaginario27/air-ui/commit/704fda5a9c46d1ff85d6575d3491bff012da6cab))
+
+- Package: @imaginario27/air-ui-ds.
+
 ## 1.21.0 - 2026-10-06
 
 Release type: minor.
@@ -13,7 +65,7 @@ Commits found in range: 2.
 ### Added
 
 1. add step switch item types to dropdown menus ([766ec75](https://github.com/imaginario27/air-ui/commit/766ec7588c7ccaefe37ee5654791aad08e359722))
-2. add StepSwitch and StepSwitchField components ([85cb618](https://github.com/imaginario27/air-ui/commit/85cb61815f4d63639b33a32dc098cd16e2b2d137))
+2. add `StepSwitch` and `StepSwitchField` components ([85cb618](https://github.com/imaginario27/air-ui/commit/85cb61815f4d63639b33a32dc098cd16e2b2d137))
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -24,7 +76,7 @@ Commits found in range: 1.
 
 ### Fixed
 
-1. emit update:modelValue when clearing multiple select ([da81402](https://github.com/imaginario27/air-ui/commit/da814021096574a614d93ae57d40a7b164bad2d9))
+1. emit `update:modelValue` when clearing multiple select ([da81402](https://github.com/imaginario27/air-ui/commit/da814021096574a614d93ae57d40a7b164bad2d9))
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -46,7 +98,7 @@ Commits found in range: 1.
 
 ### Added
 
-1. add size prop to ToggleButtonGroup and toggle field ([2e04708](https://github.com/imaginario27/air-ui/commit/2e04708010e205aa282b7b4880ffb2a80c68eb77))
+1. add size prop to `ToggleButtonGroup` and toggle field ([2e04708](https://github.com/imaginario27/air-ui/commit/2e04708010e205aa282b7b4880ffb2a80c68eb77))
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -58,7 +110,7 @@ Commits found in range: 2.
 ### Fixed
 
 1. flip sidebar more-actions dropdown to avoid viewport overflow ([1ca2ec4](https://github.com/imaginario27/air-ui/commit/1ca2ec44ae9af5440b82d00576af62339145cdb0))
-2. revert active NavSidebar item to neutral-hover styling ([3acc90f](https://github.com/imaginario27/air-ui/commit/3acc90fe71b4bae5679d7d37e2bbfea188902778))
+2. revert active `NavSidebar` item to neutral-hover styling ([3acc90f](https://github.com/imaginario27/air-ui/commit/3acc90fe71b4bae5679d7d37e2bbfea188902778))
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -69,29 +121,33 @@ Commits found in range: 1.
 
 ### Added
 
-1. add truncation, marquee and more-actions support to NavSidebar ([c73e1ec](https://github.com/imaginario27/air-ui/commit/c73e1eccd98f92fdf7d09512cf04dda4a98f6ff6))
+1. add truncation, marquee and more-actions support to `NavSidebar` ([c73e1ec](https://github.com/imaginario27/air-ui/commit/c73e1eccd98f92fdf7d09512cf04dda4a98f6ff6))
 
 - Package: @imaginario27/air-ui-ds.
 
 ## 1.19.0 - 2026-09-29
 
 Release type: minor.
-Commits found in range: 6.
+Commits found in range: 7.
 
 ### Added
 
-1. extend useDSConfig to cover more component text ([8bd9079](https://github.com/imaginario27/air-ui/commit/8bd90790db9a1cd64814db0c1ae644bd889d6cd1))
-2. add sidebar-menu slot to NavSidebar ([a25aeaf](https://github.com/imaginario27/air-ui/commit/a25aeaf2fcc60491ab0bb264f94f9d1e8627a5ad))
+1. extend `useDSConfig` to cover more component text ([8bd9079](https://github.com/imaginario27/air-ui/commit/8bd90790db9a1cd64814db0c1ae644bd889d6cd1))
+2. add sidebar-menu slot to `NavSidebar` ([a25aeaf](https://github.com/imaginario27/air-ui/commit/a25aeaf2fcc60491ab0bb264f94f9d1e8627a5ad))
 3. add configurable optional-label hint and fix dropdown teleport clipping ([eef6e96](https://github.com/imaginario27/air-ui/commit/eef6e96cd90b3c5f03db161e820de3d521e876fd))
 
 ### Fixed
 
-1. render Alert description as plain text instead of v-html ([ae7693c](https://github.com/imaginario27/air-ui/commit/ae7693c890fb4221083809ae6da6b41df3b74389))
+1. render `Alert` description as plain text instead of v-html ([ae7693c](https://github.com/imaginario27/air-ui/commit/ae7693c890fb4221083809ae6da6b41df3b74389))
 2. replace v-html label rendering with a label slot in form fields ([a3731a4](https://github.com/imaginario27/air-ui/commit/a3731a420a42d8d15c41e73b8b3cb7c56e6d027f))
 
 ### Changed
 
-1. fix NavSidebar scrollY stub for happy-dom upgrade ([1adf956](https://github.com/imaginario27/air-ui/commit/1adf956be6cee5b37bf5db598e39846c0193559e))
+1. fix `NavSidebar` scrollY stub for happy-dom upgrade ([1adf956](https://github.com/imaginario27/air-ui/commit/1adf956be6cee5b37bf5db598e39846c0193559e))
+
+### Maintenance
+
+1. update dependencies across all workspaces ([cbfaa0c](https://github.com/imaginario27/air-ui/commit/cbfaa0c2a907c4950b93290d0653f3016a4295a5))
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -103,11 +159,11 @@ Commits found in range: 3.
 ### Added
 
 1. add icon variants for dropdown checkbox, switch, and check types ([1065080](https://github.com/imaginario27/air-ui/commit/1065080b9d86bdcd0c58dbe961d7d6a64f81d3d9))
-2. add noWrap prop to TableHeaderCell ([849a46e](https://github.com/imaginario27/air-ui/commit/849a46eb7b6bcd61a2e43d360b03b574661f1817))
+2. add `noWrap` prop to `TableHeaderCell` ([849a46e](https://github.com/imaginario27/air-ui/commit/849a46eb7b6bcd61a2e43d360b03b574661f1817))
 
 ### Fixed
 
-1. focus first focusable slot content in ModalDialog, not the close button ([cc726c5](https://github.com/imaginario27/air-ui/commit/cc726c563b404688e4f87a56fbf73788d345eff0))
+1. focus first focusable slot content in `ModalDialog`, not the close button ([cc726c5](https://github.com/imaginario27/air-ui/commit/cc726c563b404688e4f87a56fbf73788d345eff0))
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -118,7 +174,7 @@ Commits found in range: 1.
 
 ### Added
 
-1. add titleClass and buttonSize props to Collapsible ([8c76a69](https://github.com/imaginario27/air-ui/commit/8c76a69938edc3ca46a8c560d28e0791e52f4ef3))
+1. add `titleClass` and `buttonSize` props to `Collapsible` ([8c76a69](https://github.com/imaginario27/air-ui/commit/8c76a69938edc3ca46a8c560d28e0791e52f4ef3))
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -129,11 +185,11 @@ Commits found in range: 2.
 
 ### Added
 
-1. add check type to DropdownMenuItem ([0e834c3](https://github.com/imaginario27/air-ui/commit/0e834c3253f1b2e968668db1049b3eb2e44ccc98))
+1. add check type to `DropdownMenuItem` ([0e834c3](https://github.com/imaginario27/air-ui/commit/0e834c3253f1b2e968668db1049b3eb2e44ccc98))
 
 ### Fixed
 
-1. support check type in DropdownMenuContextItem and DropdownMenu ([ef6925a](https://github.com/imaginario27/air-ui/commit/ef6925adca8b627e3a6b0d5797f393cf88ee5bfe))
+1. support check type in `DropdownMenuContextItem` and `DropdownMenu` ([ef6925a](https://github.com/imaginario27/air-ui/commit/ef6925adca8b627e3a6b0d5797f393cf88ee5bfe))
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -165,7 +221,7 @@ Commits found in range: 1.
 
 ### Added
 
-1. add divider items and detectActive opt-out to NavSidebar ([3b5b894](https://github.com/imaginario27/air-ui/commit/3b5b8942ef8a354793e64ab7b7ae6a1fd6e3712c))
+1. add divider items and `detectActive` opt-out to `NavSidebar` ([3b5b894](https://github.com/imaginario27/air-ui/commit/3b5b8942ef8a354793e64ab7b7ae6a1fd6e3712c))
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -176,7 +232,7 @@ Commits found in range: 1.
 
 ### Changed
 
-1. rename NotificationItem interface to AppNotificationItem ([514b46b](https://github.com/imaginario27/air-ui/commit/514b46bf7a108f741f9be00b7278ebce7ff613e9))
+1. rename NotificationItem interface to `AppNotificationItem` ([514b46b](https://github.com/imaginario27/air-ui/commit/514b46bf7a108f741f9be00b7278ebce7ff613e9))
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -187,7 +243,7 @@ Commits found in range: 1.
 
 ### Fixed
 
-1. close dropdown menus on child item click in CompactHeader ([d908fe7](https://github.com/imaginario27/air-ui/commit/d908fe7c468fef5d5d776607aad35ffe20bcd56b))
+1. close dropdown menus on child item click in `CompactHeader` ([d908fe7](https://github.com/imaginario27/air-ui/commit/d908fe7c468fef5d5d776607aad35ffe20bcd56b))
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -198,7 +254,7 @@ Commits found in range: 1.
 
 ### Fixed
 
-1. honor setAutoTitle in CompactHeader ([eb79a35](https://github.com/imaginario27/air-ui/commit/eb79a3594e3a60458f2351af79b483e5e225ea5e))
+1. honor `setAutoTitle` in `CompactHeader` ([eb79a35](https://github.com/imaginario27/air-ui/commit/eb79a3594e3a60458f2351af79b483e5e225ea5e))
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -209,7 +265,7 @@ Commits found in range: 1.
 
 ### Added
 
-1. add Alert description slot, action button gating, and MetricCard slots ([c8384f1](https://github.com/imaginario27/air-ui/commit/c8384f1ab4e8e7664c60727bd48b27aecf4eec14))
+1. add `Alert` description slot, action button gating, and `MetricCard` slots ([c8384f1](https://github.com/imaginario27/air-ui/commit/c8384f1ab4e8e7664c60727bd48b27aecf4eec14))
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -220,7 +276,7 @@ Commits found in range: 1.
 
 ### Fixed
 
-1. support dragging items into the last position in RepeaterField and RulesField ([f956083](https://github.com/imaginario27/air-ui/commit/f9560831c4df10e8d9a2278792d9327d1ee07f97))
+1. support dragging items into the last position in `RepeaterField` and `RulesField` ([f956083](https://github.com/imaginario27/air-ui/commit/f9560831c4df10e8d9a2278792d9327d1ee07f97))
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -231,8 +287,8 @@ Commits found in range: 2.
 
 ### Added
 
-1. expand RepeaterField into a full-featured form field ([0380511](https://github.com/imaginario27/air-ui/commit/038051135acd113e040f3183db7cc542e2e00bf9))
-2. add row reordering to RulesField via new DragPlaceholder ([a966db6](https://github.com/imaginario27/air-ui/commit/a966db6c30346d5912bc1fa037a20239c07c6af9))
+1. expand `RepeaterField` into a full-featured form field ([0380511](https://github.com/imaginario27/air-ui/commit/038051135acd113e040f3183db7cc542e2e00bf9))
+2. add row reordering to `RulesField` via new `DragPlaceholder` ([a966db6](https://github.com/imaginario27/air-ui/commit/a966db6c30346d5912bc1fa037a20239c07c6af9))
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -243,7 +299,7 @@ Commits found in range: 1.
 
 ### Added
 
-1. extract standalone Switch component and polish interaction transitions ([4c28c2d](https://github.com/imaginario27/air-ui/commit/4c28c2d34dc07f299f100e3badc491d67ebf8ca4))
+1. extract standalone `Switch` component and polish interaction transitions ([4c28c2d](https://github.com/imaginario27/air-ui/commit/4c28c2d34dc07f299f100e3badc491d67ebf8ca4))
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -254,7 +310,7 @@ Commits found in range: 1.
 
 ### Fixed
 
-1. add accessible aria-labels to pagination buttons ([58b1770](https://github.com/imaginario27/air-ui/commit/58b1770522a70786df5a02e7ad32ed8646b363a9))
+1. add accessible `aria-labels` to pagination buttons ([58b1770](https://github.com/imaginario27/air-ui/commit/58b1770522a70786df5a02e7ad32ed8646b363a9))
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -276,7 +332,7 @@ Commits found in range: 1.
 
 ### Added
 
-1. pass unit prop verbatim and add limit prop to NotificationsPopover ([3fe78ba](https://github.com/imaginario27/air-ui/commit/3fe78ba2f4b2d42a16205e08b9669bddc2eabdeb))
+1. pass unit prop verbatim and add limit prop to `NotificationsPopover` ([3fe78ba](https://github.com/imaginario27/air-ui/commit/3fe78ba2f4b2d42a16205e08b9669bddc2eabdeb))
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -287,7 +343,7 @@ Commits found in range: 1.
 
 ### Added
 
-1. add NotificationsPopover; enhance MetricCard, ContainedIcon, SectionTitle, and Popover ([352e809](https://github.com/imaginario27/air-ui/commit/352e809a77a63b6ef70d3877ad5d8c4b20a4e65e))
+1. add `NotificationsPopover`; enhance `MetricCard`, `ContainedIcon`, `SectionTitle`, and `Popover` ([352e809](https://github.com/imaginario27/air-ui/commit/352e809a77a63b6ef70d3877ad5d8c4b20a4e65e))
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -298,7 +354,7 @@ Commits found in range: 1.
 
 ### Added
 
-1. add zIndex prop to CompactHeader and NavMenu ([5bed1f1](https://github.com/imaginario27/air-ui/commit/5bed1f16e9315eed16ed042020416c9a1a528762))
+1. add `zIndex` prop to `CompactHeader` and `NavMenu` ([5bed1f1](https://github.com/imaginario27/air-ui/commit/5bed1f16e9315eed16ed042020416c9a1a528762))
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -309,7 +365,7 @@ Commits found in range: 1.
 
 ### Added
 
-1. add transparent, isSticky, and grid layout props ([f730d67](https://github.com/imaginario27/air-ui/commit/f730d67ad16ecbf8610946a88728529f71a41c0a))
+1. add transparent, `isSticky`, and grid layout props ([f730d67](https://github.com/imaginario27/air-ui/commit/f730d67ad16ecbf8610946a88728529f71a41c0a))
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -320,7 +376,7 @@ Commits found in range: 1.
 
 ### Added
 
-1. add CheckboxGroupField and refactor checkbox components ([da239fc](https://github.com/imaginario27/air-ui/commit/da239fcfb515038233a56089fcee4924081826f5))
+1. add `CheckboxGroupField` and refactor checkbox components ([da239fc](https://github.com/imaginario27/air-ui/commit/da239fcfb515038233a56089fcee4924081826f5))
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -331,7 +387,7 @@ Commits found in range: 1.
 
 ### Added
 
-1. add HelpText component and helpTextPosition prop to field components ([9ad36a5](https://github.com/imaginario27/air-ui/commit/9ad36a5a283884fbfcbfd4227384c0082928e7dc))
+1. add `HelpText` component and `helpTextPosition` prop to field components ([9ad36a5](https://github.com/imaginario27/air-ui/commit/9ad36a5a283884fbfcbfd4227384c0082928e7dc))
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -342,8 +398,8 @@ Commits found in range: 2.
 
 ### Added
 
-1. propagate aria-label props to compound components ([3bd194a](https://github.com/imaginario27/air-ui/commit/3bd194ad760ebdf2da5e5c833752c4b06eced913))
-2. add customizable aria-label props for i18n support ([3b432b0](https://github.com/imaginario27/air-ui/commit/3b432b07690fa63933bdd866aaf3e834a900dd11))
+1. propagate `aria-label` props to compound components ([3bd194a](https://github.com/imaginario27/air-ui/commit/3bd194ad760ebdf2da5e5c833752c4b06eced913))
+2. add customizable `aria-label` props for i18n support ([3b432b0](https://github.com/imaginario27/air-ui/commit/3b432b07690fa63933bdd866aaf3e834a900dd11))
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -354,18 +410,22 @@ Commits found in range: 1.
 
 ### Added
 
-1. propagate aria-label props to compound components ([c1b13e6](https://github.com/imaginario27/air-ui/commit/c1b13e619a8285ee1c7fc564b4c1b4286d2bc937))
+1. propagate `aria-label` props to compound components ([c1b13e6](https://github.com/imaginario27/air-ui/commit/c1b13e619a8285ee1c7fc564b4c1b4286d2bc937))
 
 - Package: @imaginario27/air-ui-ds.
 
 ## 1.13.10 - 2026-06-11
 
 Release type: patch.
-Commits found in range: 1.
+Commits found in range: 2.
 
 ### Added
 
-1. add customizable aria-label props for i18n support ([faed17c](https://github.com/imaginario27/air-ui/commit/faed17c29dff732de56d798e7914215cf514fe6a))
+1. add customizable `aria-label` props for i18n support ([faed17c](https://github.com/imaginario27/air-ui/commit/faed17c29dff732de56d798e7914215cf514fe6a))
+
+### Maintenance
+
+1. update ds package version fix (#119) ([223e918](https://github.com/imaginario27/air-ui/commit/223e918d6d22808adb8377fbca6b49a5d0371a27) (PR [#119](https://github.com/imaginario27/air-ui/pull/119)))
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -376,7 +436,7 @@ Commits found in range: 2.
 
 ### Added
 
-1. make Heading headingTag prop required with HeadingTag type ([82248a2](https://github.com/imaginario27/air-ui/commit/82248a2043ca30916adac5154e8c3743d8a2fe2b))
+1. make `Heading` `headingTag` prop required with `HeadingTag` type ([82248a2](https://github.com/imaginario27/air-ui/commit/82248a2043ca30916adac5154e8c3743d8a2fe2b))
 2. improve accessibility across ds components and docs (#115) ([f5b5278](https://github.com/imaginario27/air-ui/commit/f5b5278a7bba94fec6fbb4345baa45576eb6f867) (PR [#115](https://github.com/imaginario27/air-ui/pull/115)))
 
 - Package: @imaginario27/air-ui-ds.
@@ -388,7 +448,7 @@ Commits found in range: 0.
 
 ### Changed
 
-1. Historical release reconstructed from npm publish metadata (no package commits found in this publish window).
+1. Changed: ButtonField, Checkbox, CheckboxField, DataField, DropdownSelect, FileUploadField, InputField, OptionButtonGroup, OptionButtonsGroupField, PinField and 16 more
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -399,7 +459,7 @@ Commits found in range: 0.
 
 ### Changed
 
-1. Historical release reconstructed from npm publish metadata (no package commits found in this publish window).
+1. Changed: InputField, NavSidebar
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -421,7 +481,7 @@ Commits found in range: 1.
 
 ### Added
 
-1. make MetricCard description optional and rewrite README (#113) ([fe0e88a](https://github.com/imaginario27/air-ui/commit/fe0e88a59be6171a15d1bf7cb894f12319c3fd23) (PR [#113](https://github.com/imaginario27/air-ui/pull/113)))
+1. make `MetricCard` description optional and rewrite README (#113) ([fe0e88a](https://github.com/imaginario27/air-ui/commit/fe0e88a59be6171a15d1bf7cb894f12319c3fd23) (PR [#113](https://github.com/imaginario27/air-ui/pull/113)))
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -432,7 +492,7 @@ Commits found in range: 0.
 
 ### Changed
 
-1. Historical release reconstructed from npm publish metadata (no package commits found in this publish window).
+1. Changed: MetricCard
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -443,18 +503,18 @@ Commits found in range: 1.
 
 ### Added
 
-1. merge InteractiveRating into Rating and add disabled option to DropdownSelect ([15a4b1c](https://github.com/imaginario27/air-ui/commit/15a4b1c8bdec9f54d5e733c0ab834aba40a1c50b))
+1. merge `InteractiveRating` into `Rating` and add disabled option to `DropdownSelect` ([15a4b1c](https://github.com/imaginario27/air-ui/commit/15a4b1c8bdec9f54d5e733c0ab834aba40a1c50b))
 
 - Package: @imaginario27/air-ui-ds.
 
 ## 1.13.2 - 2026-05-20
 
 Release type: patch.
-Commits found in range: 0.
+Commits found in range: 1.
 
-### Changed
+### Maintenance
 
-1. Historical release reconstructed from npm publish metadata (no package commits found in this publish window).
+1. update package dependencies ([ea35b85](https://github.com/imaginario27/air-ui/commit/ea35b85045cab6d160a4914f5f762844e4ae673d))
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -476,7 +536,7 @@ Commits found in range: 1.
 
 ### Added
 
-1. update MetricCard with new props ([4841cb3](https://github.com/imaginario27/air-ui/commit/4841cb3e6c0a8385825ff91f505b9e5ca732ca44))
+1. update `MetricCard` with new props ([4841cb3](https://github.com/imaginario27/air-ui/commit/4841cb3e6c0a8385825ff91f505b9e5ca732ca44))
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -498,7 +558,7 @@ Commits found in range: 1.
 
 ### Fixed
 
-1. fix NavSidebar menu items gap ([4a9cee9](https://github.com/imaginario27/air-ui/commit/4a9cee9bdede4bb3bbb1f8fc9c528bf932f62976))
+1. fix `NavSidebar` menu items gap ([4a9cee9](https://github.com/imaginario27/air-ui/commit/4a9cee9bdede4bb3bbb1f8fc9c528bf932f62976))
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -509,7 +569,7 @@ Commits found in range: 1.
 
 ### Added
 
-1. add ContextMenu and Kbd components ([9d4acce](https://github.com/imaginario27/air-ui/commit/9d4acce4d33fefec3eeab657bebfe5a5e4ff41ea))
+1. add `ContextMenu` and `Kbd` components ([9d4acce](https://github.com/imaginario27/air-ui/commit/9d4acce4d33fefec3eeab657bebfe5a5e4ff41ea))
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -544,7 +604,7 @@ Commits found in range: 1.
 
 ### Fixed
 
-1. fix TypeScript errors in TabBar.vue ([273925b](https://github.com/imaginario27/air-ui/commit/273925bdca00ac9ad58c1c43de5668ed78a85da1))
+1. fix TypeScript errors in `TabBar.vue` ([273925b](https://github.com/imaginario27/air-ui/commit/273925bdca00ac9ad58c1c43de5668ed78a85da1))
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -555,7 +615,7 @@ Commits found in range: 1.
 
 ### Added
 
-1. add prefetchOn and disabled states to navigation components ([04f9124](https://github.com/imaginario27/air-ui/commit/04f91246519958fdf3619427f39504269a49a911))
+1. add `prefetchOn` and disabled states to navigation components ([04f9124](https://github.com/imaginario27/air-ui/commit/04f91246519958fdf3619427f39504269a49a911))
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -566,7 +626,7 @@ Commits found in range: 1.
 
 ### Fixed
 
-1. fix CardTitle text color ([6a8807b](https://github.com/imaginario27/air-ui/commit/6a8807b9c4a3b22aa3f2b78eada1d8421ae9ed85))
+1. fix `CardTitle` text color ([6a8807b](https://github.com/imaginario27/air-ui/commit/6a8807b9c4a3b22aa3f2b78eada1d8421ae9ed85))
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -577,7 +637,7 @@ Commits found in range: 1.
 
 ### Fixed
 
-1. fix SelectField empty div with multiple option and badge stack ([041fd2d](https://github.com/imaginario27/air-ui/commit/041fd2df2eab1a17c83b51cc736d0d7ce591faf6))
+1. fix `SelectField` empty div with multiple option and badge stack ([041fd2d](https://github.com/imaginario27/air-ui/commit/041fd2df2eab1a17c83b51cc736d0d7ce591faf6))
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -599,7 +659,7 @@ Commits found in range: 1.
 
 ### Added
 
-1. add titleClass prop to ContentPageHeader component ([17c3276](https://github.com/imaginario27/air-ui/commit/17c32762b19ac5333e87efad54fcb022a4624c0f))
+1. add `titleClass` prop to `ContentPageHeader` component ([17c3276](https://github.com/imaginario27/air-ui/commit/17c32762b19ac5333e87efad54fcb022a4624c0f))
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -610,18 +670,22 @@ Commits found in range: 1.
 
 ### Added
 
-1. add new Dropzone and update FileUploadField component ([0be8a1f](https://github.com/imaginario27/air-ui/commit/0be8a1fcf96373f9fbf6e048113cf83b638bb0d4))
+1. add new `Dropzone` and update `FileUploadField` component ([0be8a1f](https://github.com/imaginario27/air-ui/commit/0be8a1fcf96373f9fbf6e048113cf83b638bb0d4))
 
 - Package: @imaginario27/air-ui-ds.
 
 ## 1.8.0 - 2026-03-28
 
 Release type: minor.
-Commits found in range: 1.
+Commits found in range: 2.
 
 ### Added
 
-1. add Slider and SliderField components ([5454fba](https://github.com/imaginario27/air-ui/commit/5454fba3558ddb98172fed4805def34d0bf1aeed))
+1. add `Slider` and `SliderField` components ([5454fba](https://github.com/imaginario27/air-ui/commit/5454fba3558ddb98172fed4805def34d0bf1aeed))
+
+### Maintenance
+
+1. reset file upload field test to original state ([ee864ae](https://github.com/imaginario27/air-ui/commit/ee864aede742d940f282bd322c7d187bfb1d20b3))
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -632,7 +696,7 @@ Commits found in range: 1.
 
 ### Fixed
 
-1. fix disable state for link types in ActionButton and ActionIconButton ([cd538d7](https://github.com/imaginario27/air-ui/commit/cd538d7722d6c68da6180cc48799b5ae168e1886))
+1. fix disable state for link types in `ActionButton` and `ActionIconButton` ([cd538d7](https://github.com/imaginario27/air-ui/commit/cd538d7722d6c68da6180cc48799b5ae168e1886))
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -643,7 +707,7 @@ Commits found in range: 1.
 
 ### Fixed
 
-1. remove inexisting description prop and replace it with separatorIcon prop ([4d5ad0a](https://github.com/imaginario27/air-ui/commit/4d5ad0a0a538e685ccfb40697c54a8c368732d0b))
+1. remove inexisting description prop and replace it with `separatorIcon` prop ([4d5ad0a](https://github.com/imaginario27/air-ui/commit/4d5ad0a0a538e685ccfb40697c54a8c368732d0b))
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -654,7 +718,7 @@ Commits found in range: 1.
 
 ### Added
 
-1. add ConfirmationDetailsCard and noWrap support ([a136530](https://github.com/imaginario27/air-ui/commit/a136530bd990cdfbe0afc0dbce7098d19a3d0b8e))
+1. add `ConfirmationDetailsCard` and `noWrap` support ([a136530](https://github.com/imaginario27/air-ui/commit/a136530bd990cdfbe0afc0dbce7098d19a3d0b8e))
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -665,7 +729,7 @@ Commits found in range: 1.
 
 ### Added
 
-1. add SlotField form component ([d1e71a9](https://github.com/imaginario27/air-ui/commit/d1e71a903c25a39eedf86c4547496ad238a9da84))
+1. add `SlotField` form component ([d1e71a9](https://github.com/imaginario27/air-ui/commit/d1e71a903c25a39eedf86c4547496ad238a9da84))
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -683,11 +747,16 @@ Commits found in range: 1.
 ## 1.4.7 - 2026-03-21
 
 Release type: patch.
-Commits found in range: 1.
+Commits found in range: 3.
 
 ### Fixed
 
 1. fix design token grammar error ([b9b9178](https://github.com/imaginario27/air-ui/commit/b9b9178e4992569c1ea2a10550e9a69ac78f9fa1))
+
+### Maintenance
+
+1. fix package version ([0c24e5a](https://github.com/imaginario27/air-ui/commit/0c24e5a9274f781198c74c834870235f2dc130f7))
+2. fix package version ([ea835e7](https://github.com/imaginario27/air-ui/commit/ea835e72910f611021a9284364a8cba4fdabf35a))
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -705,11 +774,15 @@ Commits found in range: 1.
 ## 1.4.3 - 2026-03-20
 
 Release type: patch.
-Commits found in range: 1.
+Commits found in range: 2.
 
 ### Fixed
 
 1. fix whitespace wraps in docs table and fix items custom classes in nav sidebar ([96c3040](https://github.com/imaginario27/air-ui/commit/96c30402ae8464e8ad66d9a74e2f3f98db183e45))
+
+### Maintenance
+
+1. add release automatization and changelogs ([e63500c](https://github.com/imaginario27/air-ui/commit/e63500cacb06d97fc8be8de1016f20f8b6a85a0b))
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -731,7 +804,7 @@ Commits found in range: 1.
 
 ### Added
 
-1. add new TagsField and RulesField components + component fixes ([c8c125e](https://github.com/imaginario27/air-ui/commit/c8c125eb110eedc16f29706778578514bc28eb4f))
+1. add new `TagsField` and `RulesField` components + component fixes ([c8c125e](https://github.com/imaginario27/air-ui/commit/c8c125eb110eedc16f29706778578514bc28eb4f))
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -764,7 +837,7 @@ Commits found in range: 0.
 
 ### Changed
 
-1. Historical release reconstructed from npm publish metadata (no package commits found in this publish window).
+1. Changed: InputField, PinField, SearchField, TextareaField
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -825,7 +898,7 @@ Commits found in range: 1.
 
 ### Added
 
-1. add Drawer component ([0f1dac4](https://github.com/imaginario27/air-ui/commit/0f1dac4e25eaed45c4bb24e10b62b3d190f24524))
+1. add `Drawer` component ([0f1dac4](https://github.com/imaginario27/air-ui/commit/0f1dac4e25eaed45c4bb24e10b62b3d190f24524))
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -847,14 +920,14 @@ Commits found in range: 5.
 
 ### Added
 
-1. add customRoute to Breadcrumbs and scope prop to TableHeaderCell ([08faa89](https://github.com/imaginario27/air-ui/commit/08faa897195307e3cd21f03ebabc031af3e629fe))
+1. add `customRoute` to `Breadcrumbs` and scope prop to `TableHeaderCell` ([08faa89](https://github.com/imaginario27/air-ui/commit/08faa897195307e3cd21f03ebabc031af3e629fe))
 2. improve search modal, badge and action button ([1635bec](https://github.com/imaginario27/air-ui/commit/1635becd7ee132929b085dc7f6bc197efb69b041))
 
 ### Fixed
 
 1. updates components code, fixes file upload file and updates docs pages ([1823325](https://github.com/imaginario27/air-ui/commit/1823325462331827d2b5aef8a36e512609c19629))
 2. adjust text top padding ([568da6a](https://github.com/imaginario27/air-ui/commit/568da6a72ab4ded0178d581ddd0719bf6eb32682))
-3. removes aspect-square class from ActionButton ([147f2d4](https://github.com/imaginario27/air-ui/commit/147f2d4b95d497ddd0bf95e57bfbde698ec15366))
+3. removes aspect-square class from `ActionButton` ([147f2d4](https://github.com/imaginario27/air-ui/commit/147f2d4b95d497ddd0bf95e57bfbde698ec15366))
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -865,7 +938,7 @@ Commits found in range: 1.
 
 ### Fixed
 
-1. renames modal dialog cardClasses prop to cardClass ([0f6dde3](https://github.com/imaginario27/air-ui/commit/0f6dde3399e63f6cdde9f2f0e958bf743ba55385))
+1. renames modal dialog cardClasses prop to `cardClass` ([0f6dde3](https://github.com/imaginario27/air-ui/commit/0f6dde3399e63f6cdde9f2f0e958bf743ba55385))
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -931,7 +1004,7 @@ Commits found in range: 1.
 
 ### Added
 
-1. add PinField and ScrollArea component + add fit to content prop to SwitchField ([7891200](https://github.com/imaginario27/air-ui/commit/789120048f32c4bd594031d9067a068eae6723c7))
+1. add `PinField` and `ScrollArea` component + add fit to content prop to `SwitchField` ([7891200](https://github.com/imaginario27/air-ui/commit/789120048f32c4bd594031d9067a068eae6723c7))
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -953,7 +1026,7 @@ Commits found in range: 1.
 
 ### Added
 
-1. add SelectableCard and SelectableCardField components and docs pages + Improves TOC components and collapsible ([085df49](https://github.com/imaginario27/air-ui/commit/085df49cd271372508d2cc1430abcf79ce64efdc))
+1. add `SelectableCard` and `SelectableCardField` components and docs pages + Improves TOC components and collapsible ([085df49](https://github.com/imaginario27/air-ui/commit/085df49cd271372508d2cc1430abcf79ce64efdc))
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -997,7 +1070,7 @@ Commits found in range: 0.
 
 ### Changed
 
-1. Historical release reconstructed from npm publish metadata (no package commits found in this publish window).
+1. Changed: DropdownMenu, DropdownMenuItem, dropdowns (enums), dropdowns (types), package.json
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -1015,11 +1088,14 @@ Commits found in range: 1.
 ## 1.1.9 - 2026-01-31
 
 Release type: patch.
-Commits found in range: 0.
+Commits found in range: 4.
 
-### Changed
+### Maintenance
 
-1. Historical release reconstructed from npm publish metadata (no package commits found in this publish window).
+1. Fixes tests and add silence to vitest warnings ([6927422](https://github.com/imaginario27/air-ui/commit/6927422c9d1be5fc7619349569d5a79b70230a0a))
+2. Updates dependencies to latest version ([425f4e9](https://github.com/imaginario27/air-ui/commit/425f4e966c4a3a64437259e845fcfcad9c0041f0))
+3. Updates outdated dependencies to resolve audit conflicts ([3b783d7](https://github.com/imaginario27/air-ui/commit/3b783d7656e7f92dd5aa53c8bc1386ff0cb3f6e1))
+4. Updates the update color script ([6227cd0](https://github.com/imaginario27/air-ui/commit/6227cd0fefa66df1e8588f68999822695634a9ce))
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -1030,7 +1106,7 @@ Commits found in range: 0.
 
 ### Changed
 
-1. Historical release reconstructed from npm publish metadata (no package commits found in this publish window).
+1. Changed: scripts/update-ui-theme-colors.ts
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -1053,7 +1129,7 @@ Commits found in range: 0.
 
 ### Changed
 
-1. Historical release reconstructed from npm publish metadata (no package commits found in this publish window).
+1. Changed: DropdownMenu, DropdownSelect
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -1064,7 +1140,7 @@ Commits found in range: 1.
 
 ### Fixed
 
-1. Fixes color and sizes issues + Add teleport version to DropdownMenu ([3419e6e](https://github.com/imaginario27/air-ui/commit/3419e6e1845e0e065dc1fcd0ebff3e0a7cbcc0eb))
+1. Fixes color and sizes issues + Add teleport version to `DropdownMenu` ([3419e6e](https://github.com/imaginario27/air-ui/commit/3419e6e1845e0e065dc1fcd0ebff3e0a7cbcc0eb))
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -1075,7 +1151,7 @@ Commits found in range: 1.
 
 ### Fixed
 
-1. Adds text-inherit to Icon component ([e15bcb6](https://github.com/imaginario27/air-ui/commit/e15bcb61c39fdc42fe8538428f212bbeba5d0650))
+1. Adds text-inherit to `Icon` component ([e15bcb6](https://github.com/imaginario27/air-ui/commit/e15bcb61c39fdc42fe8538428f212bbeba5d0650))
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -1108,7 +1184,7 @@ Commits found in range: 2.
 
 ### Added
 
-1. Replaces the Nuxt MDI icon module with Nuxt Icon module ([b3343f1](https://github.com/imaginario27/air-ui/commit/b3343f152ee8726f4312059428bec15097b64ce8))
+1. Replaces the Nuxt MDI icon module with Nuxt `Icon` module ([b3343f1](https://github.com/imaginario27/air-ui/commit/b3343f152ee8726f4312059428bec15097b64ce8))
 2. add iconify module and introduce unified icon components ([6afb8a5](https://github.com/imaginario27/air-ui/commit/6afb8a587e7fad52d7a96a9f2b4d1a8cff80bba3))
 
 - Package: @imaginario27/air-ui-ds.
@@ -1120,18 +1196,22 @@ Commits found in range: 1.
 
 ### Added
 
-1. Add ProgressBar component and bump package version ([e2ff708](https://github.com/imaginario27/air-ui/commit/e2ff7085a50cca4e869c93fdbe8ada0cda0afe91))
+1. Add `ProgressBar` component and bump package version ([e2ff708](https://github.com/imaginario27/air-ui/commit/e2ff7085a50cca4e869c93fdbe8ada0cda0afe91))
 
 - Package: @imaginario27/air-ui-ds.
 
 ## 1.0.22 - 2026-01-05
 
 Release type: patch.
-Commits found in range: 1.
+Commits found in range: 2.
 
 ### Added
 
-1. Improves the NavSidebar and completes the component dock page ([55c74b6](https://github.com/imaginario27/air-ui/commit/55c74b63ffda9d4b3c7ba4c8d064ac3808d55bce))
+1. Improves the `NavSidebar` and completes the component dock page ([55c74b6](https://github.com/imaginario27/air-ui/commit/55c74b63ffda9d4b3c7ba4c8d064ac3808d55bce))
+
+### Maintenance
+
+1. Updates `NavSidebar` components tests ([fb32dda](https://github.com/imaginario27/air-ui/commit/fb32ddae417cd208492007683897b9dc826cceab))
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -1142,7 +1222,7 @@ Commits found in range: 1.
 
 ### Added
 
-1. Add setPageTitle to ErrorDisplay component and updates AirUI package ([406cdbb](https://github.com/imaginario27/air-ui/commit/406cdbb15efb34c9160876b15b541a5bfdac55ef))
+1. Add `setPageTitle` to `ErrorDisplay` component and updates AirUI package ([406cdbb](https://github.com/imaginario27/air-ui/commit/406cdbb15efb34c9160876b15b541a5bfdac55ef))
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -1153,7 +1233,7 @@ Commits found in range: 1.
 
 ### Added
 
-1. Rename error component to ErrorDisplay and add error mappings ([8ad4276](https://github.com/imaginario27/air-ui/commit/8ad4276ccc2090adbcfacab748bcfa8d695abbfa))
+1. Rename error component to `ErrorDisplay` and add error mappings ([8ad4276](https://github.com/imaginario27/air-ui/commit/8ad4276ccc2090adbcfacab748bcfa8d695abbfa))
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -1164,7 +1244,7 @@ Commits found in range: 1.
 
 ### Added
 
-1. Add Error component and adjust heading breakpoints ([2a56847](https://github.com/imaginario27/air-ui/commit/2a568475daf8581a426232cde65d99a1809419ea))
+1. Add `Error` component and adjust heading breakpoints ([2a56847](https://github.com/imaginario27/air-ui/commit/2a568475daf8581a426232cde65d99a1809419ea))
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -1186,7 +1266,9 @@ Commits found in range: 0.
 
 ### Changed
 
-1. Historical release reconstructed from npm publish metadata (no package commits found in this publish window).
+1. Added: Footer
+2. Changed: ContentPageHeader, Heading, headings (enums), navigation (types), Overtitle
+3. Removed: ContainerWrapper, WebAppHeader
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -1242,7 +1324,7 @@ Commits found in range: 0.
 
 ### Changed
 
-1. Historical release reconstructed from npm publish metadata (no package commits found in this publish window).
+1. Added: assets/images/logo/air-ui-logo-color.svg, assets/images/logo/air-ui-logo-white.svg
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -1253,7 +1335,7 @@ Commits found in range: 0.
 
 ### Changed
 
-1. Historical release reconstructed from npm publish metadata (no package commits found in this publish window).
+1. Changed: AppLogo, package.json
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -1264,18 +1346,18 @@ Commits found in range: 0.
 
 ### Changed
 
-1. Historical release reconstructed from npm publish metadata (no package commits found in this publish window).
+1. Republished without changes to the package contents.
 
 - Package: @imaginario27/air-ui-ds.
 
 ## 1.0.9 - 2025-12-10
 
 Release type: patch.
-Commits found in range: 0.
+Commits found in range: 1.
 
-### Changed
+### Maintenance
 
-1. Historical release reconstructed from npm publish metadata (no package commits found in this publish window).
+1. fix type check issues, update ESLint config, upgrade packages, and clean up utils ([26ef525](https://github.com/imaginario27/air-ui/commit/26ef52509856d9666e4d20725501ee55b73b3152))
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -1286,7 +1368,7 @@ Commits found in range: 0.
 
 ### Changed
 
-1. Historical release reconstructed from npm publish metadata (no package commits found in this publish window).
+1. Changed: FileUploadField
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -1297,7 +1379,7 @@ Commits found in range: 0.
 
 ### Changed
 
-1. Historical release reconstructed from npm publish metadata (no package commits found in this publish window).
+1. Changed: DropdownSelect, eslint.config.mjs, FileUploadField, package.json, useForm
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -1308,7 +1390,7 @@ Commits found in range: 0.
 
 ### Changed
 
-1. Historical release reconstructed from npm publish metadata (no package commits found in this publish window).
+1. Republished without changes to the package contents.
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -1319,7 +1401,7 @@ Commits found in range: 0.
 
 ### Changed
 
-1. Historical release reconstructed from npm publish metadata (no package commits found in this publish window).
+1. Changed: package.json, tsconfig.json
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -1330,18 +1412,19 @@ Commits found in range: 0.
 
 ### Changed
 
-1. Historical release reconstructed from npm publish metadata (no package commits found in this publish window).
+1. Added: tsconfig.typecheck.json
+2. Changed: AccordionGroup, ActionButton, ActionIconButton, CircleStepper, DataField, FileUploadField, NavFooterMenu, navigation (types), package.json, RowsPerPage and 5 more
 
 - Package: @imaginario27/air-ui-ds.
 
 ## 1.0.3 - 2025-12-08
 
 Release type: patch.
-Commits found in range: 0.
+Commits found in range: 1.
 
-### Changed
+### Maintenance
 
-1. Historical release reconstructed from npm publish metadata (no package commits found in this publish window).
+1. Update packages version and README files ([aa56e89](https://github.com/imaginario27/air-ui/commit/aa56e898ecc65cca54f5eb552082706c0abcb001))
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -1352,19 +1435,23 @@ Commits found in range: 0.
 
 ### Changed
 
-1. Historical release reconstructed from npm publish metadata (no package commits found in this publish window).
+1. Changed: README.md
 
 - Package: @imaginario27/air-ui-ds.
 
 ## 1.0.1 - 2025-12-07
 
 Release type: patch.
-Commits found in range: 2.
+Commits found in range: 3.
 
 ### Changed
 
 1. improve app header, docs index, utils and navigation ([e81f70f](https://github.com/imaginario27/air-ui/commit/e81f70f1ea6aa21e85cd7c8faff4437712794734))
 2. Init ([f153db6](https://github.com/imaginario27/air-ui/commit/f153db6d125daee38fd029ac4bcdb81190893024))
+
+### Maintenance
+
+1. update package metadata and Vitest config, add package READMEs ([9f62a32](https://github.com/imaginario27/air-ui/commit/9f62a32f9dc6c974830d817ce7bd3b20ce09f610))
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -1375,7 +1462,7 @@ Commits found in range: 0.
 
 ### Changed
 
-1. Historical release reconstructed from npm publish metadata (no package commits found in this publish window).
+1. Initial public release.
 
 - Package: @imaginario27/air-ui-ds.
 

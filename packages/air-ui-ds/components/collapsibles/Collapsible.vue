@@ -23,7 +23,7 @@
                     :icon="isOpen ? 'mdi:unfold-less-horizontal' : 'mdi:unfold-more-horizontal'"
                     :styleType="ButtonStyleType.NEUTRAL_OUTLINED"
                     :size="buttonSize"
-                    tabindex="-1"
+                    isDecorative
                     aria-hidden="true"
                 />
             </div>

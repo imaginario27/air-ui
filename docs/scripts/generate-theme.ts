@@ -10,31 +10,20 @@ import { resolve, dirname } from "path"
 const inputPath = resolve("assets/css/theme/ui-theme.css")
 const outputPath = resolve("assets/css/main.css")
 
-ensureOutputDir(outputPath)
-deleteIfExists(outputPath)
-
-const content = readFileSync(inputPath, "utf-8")
-const { colorVars, otherVars } = extractThemeVars(content)
-
-const finalOutput = generateThemeFile(colorVars, otherVars)
-writeFileSync(outputPath, finalOutput, "utf-8")
-
-console.log("✅ Tailwind theme file generated in assets/css/")
-
-function ensureOutputDir(filePath: string) {
+const ensureOutputDir = (filePath: string) => {
     const dir = dirname(filePath)
     if (!existsSync(dir)) {
         mkdirSync(dir, { recursive: true })
     }
 }
 
-function deleteIfExists(filePath: string) {
+const deleteIfExists = (filePath: string) => {
     if (existsSync(filePath)) {
         unlinkSync(filePath)
     }
 }
 
-function extractThemeVars(content: string) {
+const extractThemeVars = (content: string) => {
     const colorVars: string[] = []
     const otherVars: string[] = []
 
@@ -75,14 +64,14 @@ function extractThemeVars(content: string) {
     return { colorVars, otherVars }
 }
 
-function extractVarKey(line: string): string | null {
+const extractVarKey = (line: string) : string | null => {
     const match = line.match(/^--[\w-]+:\s*[^;]+;/)
     if (!match) return null
     const [key] = line.split(":").map(s => s.trim().replace(/;$/, ""))
     return key || null
 }
 
-function generateThemeFile(colorVars: string[], otherVars: string[]): string {
+const generateThemeFile = (colorVars: string[], otherVars: string[]) : string => {
     return [
         `@import "tailwindcss";`,
         `@source "../../../packages/air-ui-ds/components";`,
@@ -103,3 +92,14 @@ function generateThemeFile(colorVars: string[], otherVars: string[]): string {
         `}`,
     ].join("\n")
 }
+
+ensureOutputDir(outputPath)
+deleteIfExists(outputPath)
+
+const content = readFileSync(inputPath, "utf-8")
+const { colorVars, otherVars } = extractThemeVars(content)
+
+const finalOutput = generateThemeFile(colorVars, otherVars)
+writeFileSync(outputPath, finalOutput, "utf-8")
+
+console.log("✅ Tailwind theme file generated in assets/css/")

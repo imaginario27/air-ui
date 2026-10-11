@@ -8,7 +8,6 @@ props:
     mode: "css"
     size: "md"
     color: "neutral"
-    svgCustomize: false
     iconClass: ""
 items:
     size:

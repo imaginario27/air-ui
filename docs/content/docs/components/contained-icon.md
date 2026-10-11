@@ -10,7 +10,6 @@ props:
     shape: "circle"
     color: "neutral"
     size: "lg"
-    iconSize: ""
 items:
     styleType:
         - value: flat
