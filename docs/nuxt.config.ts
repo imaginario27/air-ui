@@ -30,7 +30,19 @@ export default defineNuxtConfig({
         },
     },
 
-    modules: ["@pinia/nuxt", "@nuxt/image", "@nuxt/eslint", "@vueuse/nuxt", "@nuxt/content", "@nuxt/icon", "@nuxt/fonts", "nuxt-llms", "@nuxtjs/mcp-toolkit", "@nuxtjs/sitemap", "@nuxtjs/robots"],
+    modules: ["@pinia/nuxt", "@nuxt/image", "@nuxt/eslint", "@vueuse/nuxt", "@nuxt/content", "@nuxt/icon", "@nuxt/fonts", "nuxt-llms", "@nuxtjs/mcp-toolkit", "@nuxtjs/sitemap", "@nuxtjs/robots", "nuxt-gtag"],
+
+    // Google Analytics (GA4). Only active in production builds
+    gtag: {
+        id: process.env.GTAG_ID,
+        enabled: !!process.env.GTAG_ID,
+    },
+
+    $development: {
+        gtag: {
+            enabled: false,
+        },
+    },
 
     plugins: ["@/plugins/vue3-toastify", "@/plugins/prettier"],
 

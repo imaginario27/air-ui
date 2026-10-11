@@ -33,6 +33,7 @@
         "fuse.js": "7.5.0",
         "html-to-image": "1.11.13",
         "nuxt": "4.5.2",
+        "nuxt-gtag": "5.0.0",
         "nuxt-llms": "0.2.0",
         "pinia": "4.0.3",
         "qrcode.vue": "3.11.0",
