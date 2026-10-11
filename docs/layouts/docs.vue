@@ -64,7 +64,9 @@
                 class="hidden lg:flex"
             />
         </ContentBody>
-    </div> 
+
+        <DocsScrollToTopButton />
+    </div>
 </template>
 <script setup lang="ts">
 // States
