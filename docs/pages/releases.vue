@@ -72,33 +72,53 @@
                         Showing {{ rangedEntries.length }} versions from {{ rangedEntries[0]?.version }} to {{ rangedEntries[rangedEntries.length - 1]?.version }}.
                     </p>
 
-                    <div
-                        v-for="entry in rangedEntries"
+                    <section
+                        v-for="(entry, entryIndex) in rangedEntries"
                         :key="entry.version"
-                        class="rounded-xl border border-border-neutral-subtle p-5 flex flex-col gap-4"
+                        :class="[
+                            'flex flex-col gap-5',
+                            entryIndex > 0 && 'pt-12 mt-8 border-t border-border-neutral-subtle',
+                        ]"
                     >
-                        <div class="flex flex-wrap items-center gap-3">
-                            <h3 class="text-lg font-semibold">
-                                {{ selectedPackage.packageName }} {{ entry.version }}
-                            </h3>
-                            <Badge
-                                :text="entry.releaseType"
-                                :color="getReleaseTypeColor(entry.releaseType)"
-                                :style="BadgeStyle.FLAT"
-                                class="uppercase"
+                        <div class="flex items-start justify-between gap-3">
+                            <div class="flex flex-wrap items-center gap-x-3 gap-y-2">
+                                <h3 class="text-lg font-semibold">
+                                    {{ selectedPackage.packageName }}
+                                    <span class="text-text-primary-brand-default">{{ entry.version }}</span>
+                                </h3>
+                                <Badge
+                                    :text="entry.releaseType"
+                                    :color="getReleaseTypeColor(entry.releaseType)"
+                                    :style="BadgeStyle.FILLED"
+                                    :shape="BadgeShape.PILL"
+                                    class="uppercase"
+                                />
+                                <span class="text-sm text-text-neutral-subtle">
+                                    {{ entry.publishedAt }}
+                                    <template v-if="entry.metadata?.commitCount">· {{ formatCommitCount(entry.metadata.commitCount) }}</template>
+                                </span>
+                            </div>
+
+                            <NavLink
+                                :to="`https://www.npmjs.com/package/${selectedPackage.packageName}/v/${entry.version}`"
+                                text="npm"
+                                :size="NavLinkSize.SM"
+                                :iconPosition="IconPosition.RIGHT"
+                                icon="mdi:open-in-new"
+                                isExternal
+                                textClass="font-medium"
+                                class="shrink-0"
                             />
-                            <span class="text-sm text-text-neutral-subtle">
-                                {{ entry.publishedAt }}
-                            </span>
-                            <span
-                                v-if="shouldShowCommitDetails"
-                                class="text-sm text-text-neutral-subtle"
-                            >
-                                {{ entry.metadata?.commitCount ?? 0 }} commits
-                            </span>
                         </div>
 
-                        <div class="flex flex-col gap-4">
+                        <div class="flex flex-col gap-5">
+                            <p
+                                v-if="!getEntrySections(entry).length"
+                                class="text-sm text-text-neutral-subtle"
+                            >
+                                {{ entry.notes[0] }}
+                            </p>
+
                             <div
                                 v-for="section in getEntrySections(entry)"
                                 :key="`${entry.version}-${section.title}`"
@@ -111,48 +131,77 @@
                                         :style="BadgeStyle.FLAT"
                                     />
                                     <span class="text-sm text-text-neutral-subtle">
-                                        {{ section.items.length }} items
+                                        {{ section.items.length }} {{ section.items.length === 1 ? 'change' : 'changes' }}
                                     </span>
                                 </div>
 
-                                <ol class="list-decimal pl-5 space-y-1">
-                                    <li
+                                <div class="flex flex-col gap-3">
+                                    <Card
                                         v-for="item in section.items"
                                         :key="`${entry.version}-${section.title}-${item.label}`"
+                                        :hasShadow="false"
+                                        class="gap-2!"
                                     >
-                                        <span>{{ item.label }}</span>
-                                        <span
-                                            v-if="shouldShowCommitDetails"
-                                            class="text-text-neutral-subtle"
+                                        <div class="flex flex-wrap items-start justify-between gap-x-4 gap-y-1">
+                                            <span class="font-medium">{{ item.label }}</span>
+                                            <div class="flex items-center gap-2 shrink-0">
+                                                <NavLink
+                                                    v-if="item.url"
+                                                    :to="item.url"
+                                                    :text="item.sha"
+                                                    :size="NavLinkSize.SM"
+                                                    :iconPosition="IconPosition.RIGHT"
+                                                    icon="mdi:open-in-new"
+                                                    isExternal
+                                                    textClass="font-mono"
+                                                />
+                                                <ActionIconButton
+                                                    v-if="hasItemDetails(item)"
+                                                    :icon="isItemCollapsed(item) ? 'mdi:chevron-down' : 'mdi:chevron-up'"
+                                                    :styleType="ButtonStyleType.NEUTRAL_TRANSPARENT"
+                                                    :size="ButtonSize.XS"
+                                                    :ariaLabel="isItemCollapsed(item) ? 'Expand details' : 'Collapse details'"
+                                                    @click="toggleItem(item)"
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <div
+                                            v-if="item.affected.length && !isItemCollapsed(item)"
+                                            class="flex flex-wrap items-center gap-1.5"
                                         >
-                                            ({{ item.sha }})
-                                        </span>
-                                        <NavLink
-                                            v-if="shouldShowCommitDetails && item.url"
-                                            :to="item.url"
-                                            text="View"
-                                            :size="NavLinkSize.SM"
-                                            :iconPosition="IconPosition.RIGHT"
-                                            icon="mdi:open-in-new"
-                                            isExternal
-                                            textClass="font-medium"
-                                            class="ml-2"
-                                        />
-                                    </li>
-                                </ol>
+                                            <Badge
+                                                v-for="name in item.affected.slice(0, MAX_AFFECTED_TAGS)"
+                                                :key="name"
+                                                :text="name"
+                                                :color="ColorAccent.NEUTRAL"
+                                                :style="BadgeStyle.BORDER"
+                                                class="font-mono"
+                                            />
+                                            <span
+                                                v-if="item.affected.length > MAX_AFFECTED_TAGS"
+                                                class="text-xs text-text-neutral-subtle"
+                                            >
+                                                +{{ item.affected.length - MAX_AFFECTED_TAGS }} more
+                                            </span>
+                                        </div>
+
+                                        <ul
+                                            v-if="item.body.length && !isItemCollapsed(item)"
+                                            class="list-disc pl-5 space-y-0.5 text-sm"
+                                        >
+                                            <li
+                                                v-for="line in item.body"
+                                                :key="line"
+                                            >
+                                                {{ line }}
+                                            </li>
+                                        </ul>
+                                    </Card>
+                                </div>
                             </div>
                         </div>
-
-                        <NavLink
-                            :to="`https://www.npmjs.com/package/${selectedPackage.packageName}/v/${entry.version}`"
-                            text="View this version on npm"
-                            :size="NavLinkSize.SM"
-                            :iconPosition="IconPosition.RIGHT"
-                            icon="mdi:open-in-new"
-                            isExternal
-                            textClass="font-medium"
-                        />
-                    </div>
+                    </section>
                 </div>
 
                 <ContentPlaceholder
@@ -192,6 +241,8 @@ type ReleaseCommit = {
     subject: string
     normalizedSubject: string
     type: string
+    body: string[]
+    affected: string[]
     prNumber: string | null
     url: string | null
     prUrl: string | null
@@ -227,7 +278,26 @@ const versionOptions = computed<string[]>(() => {
 
 const selectedFromVersion = ref<string>(versionOptions.value[0] ?? '')
 const selectedToVersion = ref<string>(versionOptions.value[0] ?? '')
-const shouldShowCommitDetails = ref(false)
+const MAX_AFFECTED_TAGS = 4
+
+const formatCommitCount = (count: number) => `${count} ${count === 1 ? 'commit' : 'commits'}`
+
+// Items are expanded by default; this holds the ones the user collapsed.
+const collapsedItems = ref<Set<string>>(new Set())
+
+const hasItemDetails = (item: { affected: string[], body: string[] }) => {
+    return item.affected.length > 0 || item.body.length > 0
+}
+
+const isItemCollapsed = (item: { sha: string }) => collapsedItems.value.has(item.sha)
+
+const toggleItem = (item: { sha: string }) => {
+    if (collapsedItems.value.has(item.sha)) {
+        collapsedItems.value.delete(item.sha)
+    } else {
+        collapsedItems.value.add(item.sha)
+    }
+}
 
 watch(selectedPackageName, () => {
     selectedFromVersion.value = versionOptions.value[0] ?? ''
@@ -286,19 +356,7 @@ const sectionConfig: Array<{ type: string, title: string, color: ColorAccent }> 
 const getEntrySections = (entry: ReleaseEntry) => {
     const commits = entry.metadata?.commits ?? []
 
-    if (!commits.length) {
-        return [
-            {
-                title: 'Changed',
-                color: ColorAccent.NEUTRAL,
-                items: entry.notes.map((note, index) => ({
-                    label: note,
-                    sha: `note-${index + 1}`,
-                    url: null,
-                })),
-            },
-        ]
-    }
+    if (!commits.length) return []
 
     return sectionConfig
         .map((section) => ({
@@ -310,6 +368,8 @@ const getEntrySections = (entry: ReleaseEntry) => {
                     label: commit.normalizedSubject,
                     sha: commit.shortSha,
                     url: commit.url,
+                    body: commit.body ?? [],
+                    affected: commit.affected ?? [],
                 })),
         }))
         .filter((section) => section.items.length > 0)

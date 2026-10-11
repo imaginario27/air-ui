@@ -132,14 +132,42 @@ function shouldIncludeCommit(subject) {
     return true
 }
 
+const AFFECTED_FILE_REGEX =
+    /^packages\/[^/]+\/(?:components|composables|utils)\/(?:.+\/)?([^/]+?)\.(?:vue|ts)$/
+
+function extractAffected(files) {
+    const names = files
+        .map((file) => file.trim().match(AFFECTED_FILE_REGEX)?.[1])
+        .filter(Boolean)
+
+    return [...new Set(names)]
+}
+
+// Keeps the bullet/prose lines of a commit body; drops section headings ("Docs:"), trailers and version-bump noise.
+function extractBodyLines(body) {
+    return body
+        .split("\n")
+        .map((line) => line.trim())
+        .filter((line) => line && !line.endsWith(":"))
+        .map((line) => line.replace(/^[-*]\s*/, "").trim())
+        .filter(
+            (line) =>
+                line &&
+                !/^co-authored-by:/i.test(line) &&
+                !/^bumps?\b.*\bversion\b/i.test(line),
+        )
+}
+
 function parseGitCommits(raw, githubBaseUrl) {
     if (!raw) return []
 
-    const lines = raw.split("\n").filter(Boolean)
-
-    return lines
-        .map((line) => {
-            const [sha, date, subject] = line.split("\x1f")
+    // Records start with \x1e; fields are separated by \x1f; changed files follow the last field.
+    return raw
+        .split("\x1e")
+        .filter((record) => record.trim())
+        .map((record) => {
+            const [sha, date, subject, body = "", files = ""] =
+                record.split("\x1f")
             const type = classifyCommit(subject)
 
             if (type === null || !shouldIncludeCommit(subject)) return null
@@ -153,6 +181,8 @@ function parseGitCommits(raw, githubBaseUrl) {
                 subject,
                 normalizedSubject: stripConventionalPrefix(subject),
                 type,
+                body: extractBodyLines(body),
+                affected: extractAffected(files.split("\n")),
                 prNumber,
                 url: githubBaseUrl ? `${githubBaseUrl}/commit/${sha}` : null,
                 prUrl:
@@ -164,8 +194,38 @@ function parseGitCommits(raw, githubBaseUrl) {
         .filter(Boolean)
 }
 
+// Maps version -> sha of its "chore(scope): release <pkg> v<version>" commit.
+function getReleaseCommits(packageName) {
+    const raw = runGit([
+        "log",
+        "--format=%H%x1f%s",
+        `--grep=release ${packageName} v`,
+    ])
+    const releaseCommits = {}
+    const ambiguous = new Set()
+    const subjectRegex = new RegExp(
+        `^chore\\(\\w+\\): release ${packageName} v(\\d+\\.\\d+\\.\\d+)$`,
+    )
+
+    for (const line of raw.split("\n").filter(Boolean)) {
+        const [sha, subject] = line.split("\x1f")
+        const version = subject.match(subjectRegex)?.[1]
+
+        if (!version) continue
+        if (releaseCommits[version]) ambiguous.add(version)
+        releaseCommits[version] = sha
+    }
+
+    // Early history has duplicate release commits (branch syncs); those versions use the date window.
+    for (const version of ambiguous) delete releaseCommits[version]
+
+    return releaseCommits
+}
+
 function getGitCommitsForRange({
     packagePath,
+    olderRef,
+    newerRef,
     olderPublishedAt,
     newerPublishedAt,
     githubBaseUrl,
@@ -174,11 +234,18 @@ function getGitCommitsForRange({
         "log",
         "--no-merges",
         "--date=short",
-        "--pretty=format:%H%x1f%ad%x1f%s",
+        "--name-only",
+        "--pretty=tformat:%x1e%H%x1f%ad%x1f%s%x1f%b%x1f",
     ]
 
-    if (olderPublishedAt) args.push(`--since=${olderPublishedAt}`)
-    if (newerPublishedAt) args.push(`--until=${newerPublishedAt}`)
+    if (newerRef) {
+        // Exact range between release commits.
+        args.push(olderRef ? `${olderRef}..${newerRef}` : newerRef)
+    } else {
+        // Fallback for releases without a release commit: npm publish window.
+        if (olderPublishedAt) args.push(`--since=${olderPublishedAt}`)
+        if (newerPublishedAt) args.push(`--until=${newerPublishedAt}`)
+    }
 
     args.push("--", packagePath)
 
@@ -191,7 +258,7 @@ function buildNotesFromCommits(commits) {
     if (!commits.length) {
         return {
             notes: [
-                "Historical release reconstructed from npm publish metadata (no package commits found in this publish window).",
+                "No user-facing changes were recorded for this release (version bump, or only chore and docs commits).",
             ],
             grouped: {
                 added: [],
@@ -280,6 +347,7 @@ function buildEntries({
     packagePath,
     versions,
     time,
+    releaseCommits,
     githubBaseUrl,
 }) {
     const sorted = [...versions].sort(compareSemverDesc)
@@ -289,8 +357,15 @@ function buildEntries({
         const olderPublishedAt = olderVersion ? time[olderVersion] : null
         const newerPublishedAt = time[version] ?? null
 
+        // The newest version's release commit doesn't exist yet during publish, so use HEAD.
+        const newerRef = releaseCommits[version] ?? (index === 0 ? "HEAD" : null)
+        const olderRef = olderVersion ? releaseCommits[olderVersion] : null
+        const useRefs = newerRef && (olderRef || !olderVersion)
+
         const commits = getGitCommitsForRange({
             packagePath,
+            olderRef: useRefs ? olderRef : null,
+            newerRef: useRefs ? newerRef : null,
             olderPublishedAt,
             newerPublishedAt,
             githubBaseUrl,
@@ -441,6 +516,7 @@ async function main() {
             packagePath: pkg.dirPath,
             versions,
             time,
+            releaseCommits: getReleaseCommits(pkg.name),
             githubBaseUrl,
         })
 

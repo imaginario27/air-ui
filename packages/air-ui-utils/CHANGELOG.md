@@ -45,7 +45,7 @@ Commits found in range: 0.
 
 ### Changed
 
-1. Historical release reconstructed from npm publish metadata (no package commits found in this publish window).
+1. No user-facing changes were recorded for this release (version bump, or only chore and docs commits).
 
 - Package: @imaginario27/air-ui-utils.
 
@@ -56,7 +56,7 @@ Commits found in range: 0.
 
 ### Changed
 
-1. Historical release reconstructed from npm publish metadata (no package commits found in this publish window).
+1. No user-facing changes were recorded for this release (version bump, or only chore and docs commits).
 
 - Package: @imaginario27/air-ui-utils.
 
@@ -145,7 +145,7 @@ Commits found in range: 0.
 
 ### Changed
 
-1. Historical release reconstructed from npm publish metadata (no package commits found in this publish window).
+1. No user-facing changes were recorded for this release (version bump, or only chore and docs commits).
 
 - Package: @imaginario27/air-ui-utils.
 
@@ -167,7 +167,7 @@ Commits found in range: 0.
 
 ### Changed
 
-1. Historical release reconstructed from npm publish metadata (no package commits found in this publish window).
+1. No user-facing changes were recorded for this release (version bump, or only chore and docs commits).
 
 - Package: @imaginario27/air-ui-utils.
 
@@ -209,7 +209,7 @@ Commits found in range: 0.
 
 ### Changed
 
-1. Historical release reconstructed from npm publish metadata (no package commits found in this publish window).
+1. No user-facing changes were recorded for this release (version bump, or only chore and docs commits).
 
 - Package: @imaginario27/air-ui-utils.
 
@@ -220,7 +220,7 @@ Commits found in range: 0.
 
 ### Changed
 
-1. Historical release reconstructed from npm publish metadata (no package commits found in this publish window).
+1. No user-facing changes were recorded for this release (version bump, or only chore and docs commits).
 
 - Package: @imaginario27/air-ui-utils.
 
@@ -231,7 +231,7 @@ Commits found in range: 0.
 
 ### Changed
 
-1. Historical release reconstructed from npm publish metadata (no package commits found in this publish window).
+1. No user-facing changes were recorded for this release (version bump, or only chore and docs commits).
 
 - Package: @imaginario27/air-ui-utils.
 
@@ -242,7 +242,7 @@ Commits found in range: 0.
 
 ### Changed
 
-1. Historical release reconstructed from npm publish metadata (no package commits found in this publish window).
+1. No user-facing changes were recorded for this release (version bump, or only chore and docs commits).
 
 - Package: @imaginario27/air-ui-utils.
 
@@ -253,7 +253,7 @@ Commits found in range: 0.
 
 ### Changed
 
-1. Historical release reconstructed from npm publish metadata (no package commits found in this publish window).
+1. No user-facing changes were recorded for this release (version bump, or only chore and docs commits).
 
 - Package: @imaginario27/air-ui-utils.
 
@@ -264,7 +264,7 @@ Commits found in range: 0.
 
 ### Changed
 
-1. Historical release reconstructed from npm publish metadata (no package commits found in this publish window).
+1. No user-facing changes were recorded for this release (version bump, or only chore and docs commits).
 
 - Package: @imaginario27/air-ui-utils.
 
@@ -286,7 +286,7 @@ Commits found in range: 0.
 
 ### Changed
 
-1. Historical release reconstructed from npm publish metadata (no package commits found in this publish window).
+1. No user-facing changes were recorded for this release (version bump, or only chore and docs commits).
 
 - Package: @imaginario27/air-ui-utils.
 

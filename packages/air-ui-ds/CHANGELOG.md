@@ -395,12 +395,11 @@ Commits found in range: 1.
 ## 1.13.9 - 2026-06-09
 
 Release type: patch.
-Commits found in range: 2.
+Commits found in range: 0.
 
-### Added
+### Changed
 
-1. make Heading headingTag prop required with HeadingTag type ([82248a2](https://github.com/imaginario27/air-ui/commit/82248a2043ca30916adac5154e8c3743d8a2fe2b))
-2. improve accessibility across ds components and docs (#115) ([f5b5278](https://github.com/imaginario27/air-ui/commit/f5b5278a7bba94fec6fbb4345baa45576eb6f867) (PR [#115](https://github.com/imaginario27/air-ui/pull/115)))
+1. No user-facing changes were recorded for this release (version bump, or only chore and docs commits).
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -411,7 +410,7 @@ Commits found in range: 0.
 
 ### Changed
 
-1. Historical release reconstructed from npm publish metadata (no package commits found in this publish window).
+1. No user-facing changes were recorded for this release (version bump, or only chore and docs commits).
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -422,7 +421,7 @@ Commits found in range: 0.
 
 ### Changed
 
-1. Historical release reconstructed from npm publish metadata (no package commits found in this publish window).
+1. No user-facing changes were recorded for this release (version bump, or only chore and docs commits).
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -455,7 +454,7 @@ Commits found in range: 0.
 
 ### Changed
 
-1. Historical release reconstructed from npm publish metadata (no package commits found in this publish window).
+1. No user-facing changes were recorded for this release (version bump, or only chore and docs commits).
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -477,7 +476,7 @@ Commits found in range: 0.
 
 ### Changed
 
-1. Historical release reconstructed from npm publish metadata (no package commits found in this publish window).
+1. No user-facing changes were recorded for this release (version bump, or only chore and docs commits).
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -787,7 +786,7 @@ Commits found in range: 0.
 
 ### Changed
 
-1. Historical release reconstructed from npm publish metadata (no package commits found in this publish window).
+1. No user-facing changes were recorded for this release (version bump, or only chore and docs commits).
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -1020,7 +1019,7 @@ Commits found in range: 0.
 
 ### Changed
 
-1. Historical release reconstructed from npm publish metadata (no package commits found in this publish window).
+1. No user-facing changes were recorded for this release (version bump, or only chore and docs commits).
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -1042,7 +1041,7 @@ Commits found in range: 0.
 
 ### Changed
 
-1. Historical release reconstructed from npm publish metadata (no package commits found in this publish window).
+1. No user-facing changes were recorded for this release (version bump, or only chore and docs commits).
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -1053,7 +1052,7 @@ Commits found in range: 0.
 
 ### Changed
 
-1. Historical release reconstructed from npm publish metadata (no package commits found in this publish window).
+1. No user-facing changes were recorded for this release (version bump, or only chore and docs commits).
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -1076,7 +1075,7 @@ Commits found in range: 0.
 
 ### Changed
 
-1. Historical release reconstructed from npm publish metadata (no package commits found in this publish window).
+1. No user-facing changes were recorded for this release (version bump, or only chore and docs commits).
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -1209,7 +1208,7 @@ Commits found in range: 0.
 
 ### Changed
 
-1. Historical release reconstructed from npm publish metadata (no package commits found in this publish window).
+1. No user-facing changes were recorded for this release (version bump, or only chore and docs commits).
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -1265,7 +1264,7 @@ Commits found in range: 0.
 
 ### Changed
 
-1. Historical release reconstructed from npm publish metadata (no package commits found in this publish window).
+1. No user-facing changes were recorded for this release (version bump, or only chore and docs commits).
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -1276,7 +1275,7 @@ Commits found in range: 0.
 
 ### Changed
 
-1. Historical release reconstructed from npm publish metadata (no package commits found in this publish window).
+1. No user-facing changes were recorded for this release (version bump, or only chore and docs commits).
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -1287,7 +1286,7 @@ Commits found in range: 0.
 
 ### Changed
 
-1. Historical release reconstructed from npm publish metadata (no package commits found in this publish window).
+1. No user-facing changes were recorded for this release (version bump, or only chore and docs commits).
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -1298,7 +1297,7 @@ Commits found in range: 0.
 
 ### Changed
 
-1. Historical release reconstructed from npm publish metadata (no package commits found in this publish window).
+1. No user-facing changes were recorded for this release (version bump, or only chore and docs commits).
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -1309,7 +1308,7 @@ Commits found in range: 0.
 
 ### Changed
 
-1. Historical release reconstructed from npm publish metadata (no package commits found in this publish window).
+1. No user-facing changes were recorded for this release (version bump, or only chore and docs commits).
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -1320,7 +1319,7 @@ Commits found in range: 0.
 
 ### Changed
 
-1. Historical release reconstructed from npm publish metadata (no package commits found in this publish window).
+1. No user-facing changes were recorded for this release (version bump, or only chore and docs commits).
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -1331,7 +1330,7 @@ Commits found in range: 0.
 
 ### Changed
 
-1. Historical release reconstructed from npm publish metadata (no package commits found in this publish window).
+1. No user-facing changes were recorded for this release (version bump, or only chore and docs commits).
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -1342,7 +1341,7 @@ Commits found in range: 0.
 
 ### Changed
 
-1. Historical release reconstructed from npm publish metadata (no package commits found in this publish window).
+1. No user-facing changes were recorded for this release (version bump, or only chore and docs commits).
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -1353,7 +1352,7 @@ Commits found in range: 0.
 
 ### Changed
 
-1. Historical release reconstructed from npm publish metadata (no package commits found in this publish window).
+1. No user-facing changes were recorded for this release (version bump, or only chore and docs commits).
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -1364,7 +1363,7 @@ Commits found in range: 0.
 
 ### Changed
 
-1. Historical release reconstructed from npm publish metadata (no package commits found in this publish window).
+1. No user-facing changes were recorded for this release (version bump, or only chore and docs commits).
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -1375,7 +1374,7 @@ Commits found in range: 0.
 
 ### Changed
 
-1. Historical release reconstructed from npm publish metadata (no package commits found in this publish window).
+1. No user-facing changes were recorded for this release (version bump, or only chore and docs commits).
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -1398,7 +1397,7 @@ Commits found in range: 0.
 
 ### Changed
 
-1. Historical release reconstructed from npm publish metadata (no package commits found in this publish window).
+1. No user-facing changes were recorded for this release (version bump, or only chore and docs commits).
 
 - Package: @imaginario27/air-ui-ds.
 
