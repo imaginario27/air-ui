@@ -33,6 +33,8 @@ export const useDarkMode = () => {
     })
 
     watchEffect(() => {
+        if (!isHydrated.value) return
+
         if (themeMode.value === 'system') {
             resolvedIsDark.value = preferredDark.value
         } else {
