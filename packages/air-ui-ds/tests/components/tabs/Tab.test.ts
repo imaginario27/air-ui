@@ -9,7 +9,7 @@ import { nextTick } from 'vue'
 
 // Mock placeholder image
 vi.mock('@/assets/images/placeholders/missing-image-placeholder.png', () => ({
-    default: '/mocked/missing-image.png'
+    default: '/mocked/missing-image.png',
 }))
 
 const factory = (props: Partial<InstanceType<typeof Tab>['$props']> = {}) => {
@@ -20,17 +20,17 @@ const factory = (props: Partial<InstanceType<typeof Tab>['$props']> = {}) => {
             decoration: TabDecoration.NONE,
             size: TabSize.LG,
             active: false,
-            ...props
+            ...props,
         },
         global: {
             stubs: {
                 Icon: {
                     name: 'Icon',
                     props: ['name'],
-                    template: '<div class="icon-stub" />'
-                }
-            }
-        }
+                    template: '<div class="icon-stub" />',
+                },
+            },
+        },
     })
 }
 
@@ -68,7 +68,7 @@ describe('Tab.vue', () => {
     it('renders image when decoration is IMAGE and image loads', async () => {
         const wrapper = factory({
             decoration: TabDecoration.IMAGE,
-            imgUrl: '/test.png'
+            imgUrl: '/test.png',
         })
 
         const img = wrapper.find('img')
@@ -80,7 +80,7 @@ describe('Tab.vue', () => {
     it('renders fallback image when image fails to load', async () => {
         const wrapper = factory({
             decoration: TabDecoration.IMAGE,
-            imgUrl: '/broken.png'
+            imgUrl: '/broken.png',
         })
 
         const img = wrapper.find('img')
@@ -118,7 +118,7 @@ describe('Tab.vue', () => {
     it('applies active styles for PILL style', () => {
         const wrapper = factory({
             tabStyle: TabStyle.PILL,
-            active: true
+            active: true,
         })
 
         const classes = wrapper.classes()
@@ -129,7 +129,7 @@ describe('Tab.vue', () => {
     it('badge uses correct props when active is true', () => {
         const wrapper = factory({
             badgeValue: 'New',
-            active: true
+            active: true,
         })
         const badge = wrapper.findComponent(Badge)
         expect(badge.props('styleType')).toBe(BadgeStyle.FILLED)
@@ -140,7 +140,7 @@ describe('Tab.vue', () => {
     it('badge uses correct props when active is false', () => {
         const wrapper = factory({
             badgeValue: 'New',
-            active: false
+            active: false,
         })
         const badge = wrapper.findComponent(Badge)
         expect(badge.props('styleType')).toBe(BadgeStyle.FLAT)

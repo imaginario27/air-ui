@@ -1,9 +1,7 @@
 ﻿<template>
     <Section>
         <SectionBody>
-            <ContentRenderer 
-                v-if="data" :value="data" 
-            />
+            <ContentRenderer v-if="data" :value="data" />
             <ContentRenderFallback v-else />
         </SectionBody>
     </Section>
@@ -13,7 +11,8 @@ definePageMeta({
     title: 'Content placeholder',
     layout: 'docs',
     overtitle: 'Components',
-    description: 'A content placeholder component used as placholder for future content in the UI. Commonly used to test UI components.',
+    description:
+        'A content placeholder component used as placholder for future content in the UI. Commonly used to test UI components.',
 })
 
 // Route

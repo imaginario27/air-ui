@@ -5,9 +5,9 @@ import FormFieldGroup from '~/components/forms/FormFieldGroup.vue'
 const factory = (options = {}): VueWrapper => {
     return mount(FormFieldGroup, {
         slots: {
-            default: '<div data-test="slot">Field content</div>'
+            default: '<div data-test="slot">Field content</div>',
         },
-        ...options
+        ...options,
     })
 }
 
@@ -24,8 +24,8 @@ describe('FormFieldGroup.vue', () => {
     it.concurrent('renders provided title', () => {
         const wrapper = factory({
             props: {
-                title: 'User Info'
-            }
+                title: 'User Info',
+            },
         })
 
         expect(wrapper.find('h3').text()).toBe('User Info')
@@ -41,8 +41,8 @@ describe('FormFieldGroup.vue', () => {
     it.concurrent('applies titleClass when provided', () => {
         const wrapper = factory({
             props: {
-                titleClass: 'text-red-500'
-            }
+                titleClass: 'text-red-500',
+            },
         })
 
         const heading = wrapper.find('h3')
@@ -53,11 +53,11 @@ describe('FormFieldGroup.vue', () => {
     it.concurrent('renders correct heading tag when headingTag prop is provided', () => {
         const tags = ['h1', 'h2', 'h4', 'h5', 'h6'] as const
 
-        tags.forEach(tag => {
+        tags.forEach((tag) => {
             const wrapper = factory({
                 props: {
-                    headingTag: tag
-                }
+                    headingTag: tag,
+                },
             })
 
             expect(wrapper.find(tag).exists()).toBe(true)
@@ -67,8 +67,8 @@ describe('FormFieldGroup.vue', () => {
     it('falls back to default heading when invalid headingTag is passed', () => {
         const wrapper = factory({
             props: {
-                headingTag: 'invalid-tag'
-            }
+                headingTag: 'invalid-tag',
+            },
         })
 
         expect(wrapper.find('h3').exists()).toBe(true)
@@ -77,14 +77,7 @@ describe('FormFieldGroup.vue', () => {
     it.concurrent('renders static container classes', () => {
         const wrapper = factory()
 
-        expect(wrapper.classes()).toEqual(
-            expect.arrayContaining([
-                'flex',
-                'flex-col',
-                'gap-4',
-                'mt-2'
-            ])
-        )
+        expect(wrapper.classes()).toEqual(expect.arrayContaining(['flex', 'flex-col', 'gap-4', 'mt-2']))
     })
 
     it.concurrent('renders static heading classes', () => {
@@ -92,11 +85,6 @@ describe('FormFieldGroup.vue', () => {
 
         const heading = wrapper.find('h3')
 
-        expect(heading.classes()).toEqual(
-            expect.arrayContaining([
-                'font-semibold',
-                'text-text-neutral-subtle'
-            ])
-        )
+        expect(heading.classes()).toEqual(expect.arrayContaining(['font-semibold', 'text-text-neutral-subtle']))
     })
 })

@@ -49,7 +49,7 @@ describe('NotificationListItem.vue', () => {
             props: { ...defaultProps, icon: 'mdi:bell-outline', isIconContained: false },
         })
         const icons = wrapper.findAllComponents(Icon)
-        expect(icons.some(i => i.props('name') === 'mdi:bell-outline')).toBe(true)
+        expect(icons.some((i) => i.props('name') === 'mdi:bell-outline')).toBe(true)
     })
 
     it('renders no icon element when icon prop is not provided', () => {

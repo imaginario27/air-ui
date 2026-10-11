@@ -7,7 +7,7 @@ import { PrefetchOn } from '@/models/enums/prefetch'
 const defaultTabs = [
     { text: 'Tab 1', icon: 'home', imgUrl: '', badgeValue: 0 },
     { text: 'Tab 2', icon: 'settings', imgUrl: '', badgeValue: 5 },
-    { text: 'Tab 3', icon: 'profile', imgUrl: '', badgeValue: 0 }
+    { text: 'Tab 3', icon: 'profile', imgUrl: '', badgeValue: 0 },
 ]
 
 describe('TabBar.vue', () => {
@@ -16,8 +16,8 @@ describe('TabBar.vue', () => {
             props: {
                 tabs: defaultTabs,
                 modelValue: 0,
-                ...props
-            }
+                ...props,
+            },
         })
     }
 
@@ -26,7 +26,7 @@ describe('TabBar.vue', () => {
         const tabComponents = wrapper.findAllComponents(Tab)
         expect(tabComponents.length).toBe(defaultTabs.length)
 
-        defaultTabs.forEach(tab => {
+        defaultTabs.forEach((tab) => {
             expect(wrapper.text()).toContain(tab.text)
         })
     })
@@ -51,9 +51,7 @@ describe('TabBar.vue', () => {
 
     it('navigates when clicking a tab with route target', async () => {
         const wrapper = factory({
-            tabs: [
-                { text: 'Docs', to: '/docs' },
-            ],
+            tabs: [{ text: 'Docs', to: '/docs' }],
         })
 
         const handleTabClick = (wrapper.vm as any).$?.setupState?.handleTabClick
@@ -74,7 +72,7 @@ describe('TabBar.vue', () => {
         const wrapper = factory({
             tabStyle: TabStyle.PILL,
             decoration: TabDecoration.ICON,
-            tabSize: TabSize.SM
+            tabSize: TabSize.SM,
         })
 
         const tab = wrapper.findComponent(Tab)
@@ -86,7 +84,7 @@ describe('TabBar.vue', () => {
     it('applies container border and padding when hasContainer is true', () => {
         const wrapper = factory({
             hasContainer: true,
-            tabSize: TabSize.MD
+            tabSize: TabSize.MD,
         })
 
         const classes = wrapper.classes()
@@ -99,7 +97,7 @@ describe('TabBar.vue', () => {
     it('adds w-full class when isContainerFullWidth is true', () => {
         const wrapper = factory({
             hasContainer: true,
-            isContainerFullWidth: true
+            isContainerFullWidth: true,
         })
 
         const classes = wrapper.classes()
@@ -108,7 +106,7 @@ describe('TabBar.vue', () => {
 
     it('does not apply container styles if hasContainer is false', () => {
         const wrapper = factory({
-            hasContainer: false
+            hasContainer: false,
         })
 
         const classes = wrapper.classes()
@@ -120,7 +118,7 @@ describe('TabBar.vue', () => {
 
     it('applies disabled interaction styles when disabled is true', () => {
         const wrapper = factory({
-            disabled: true
+            disabled: true,
         })
 
         const classes = wrapper.classes()
@@ -131,10 +129,7 @@ describe('TabBar.vue', () => {
 
     it('passes disabled tab state to tab children', () => {
         const wrapper = factory({
-            tabs: [
-                { text: 'Enabled tab' },
-                { text: 'Disabled tab', disabled: true },
-            ],
+            tabs: [{ text: 'Enabled tab' }, { text: 'Disabled tab', disabled: true }],
         })
 
         const tabComponents = wrapper.findAllComponents(Tab)
@@ -144,9 +139,7 @@ describe('TabBar.vue', () => {
 
     it('defaults prefetch strategy to visibility', () => {
         const wrapper = factory({
-            tabs: [
-                { text: 'Docs', to: '/docs' },
-            ],
+            tabs: [{ text: 'Docs', to: '/docs' }],
         })
 
         const shouldPrefetchOn = (wrapper.vm as any).$?.setupState?.shouldPrefetchOn
@@ -157,9 +150,7 @@ describe('TabBar.vue', () => {
 
     it('enables interaction prefetch when prefetchOn is interaction', () => {
         const wrapper = factory({
-            tabs: [
-                { text: 'Docs', to: '/docs' },
-            ],
+            tabs: [{ text: 'Docs', to: '/docs' }],
             prefetchOn: 'interaction',
         })
 
@@ -171,9 +162,7 @@ describe('TabBar.vue', () => {
 
     it('supports object strategy for prefetchOn', () => {
         const wrapper = factory({
-            tabs: [
-                { text: 'Docs', to: '/docs' },
-            ],
+            tabs: [{ text: 'Docs', to: '/docs' }],
             prefetchOn: {
                 visibility: true,
                 interaction: true,

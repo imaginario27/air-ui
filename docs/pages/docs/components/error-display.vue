@@ -1,9 +1,7 @@
 ﻿<template>
     <Section>
         <SectionBody>
-            <ContentRenderer 
-                v-if="data" :value="data" 
-            />
+            <ContentRenderer v-if="data" :value="data" />
             <ContentRenderFallback v-else />
         </SectionBody>
     </Section>
@@ -13,7 +11,8 @@ definePageMeta({
     title: 'ErrorDisplay',
     layout: 'docs',
     overtitle: 'Components',
-    description: 'A comprehensive ErrorDisplay component to display user-friendly error messages for various HTTP status codes, enhancing user experience during error scenarios.',
+    description:
+        'A comprehensive ErrorDisplay component to display user-friendly error messages for various HTTP status codes, enhancing user experience during error scenarios.',
 })
 
 // Route

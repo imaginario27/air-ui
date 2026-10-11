@@ -18,5 +18,5 @@ export const docTabs: TabItem[] = [
         text: 'Utils',
         to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.UTILS}`,
         icon: 'mdi:tools',
-    }
+    },
 ]

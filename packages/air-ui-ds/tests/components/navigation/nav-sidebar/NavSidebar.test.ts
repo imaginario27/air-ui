@@ -18,23 +18,23 @@ const toggleMobileSidebarMock = vi.fn()
 vi.mock('@/composables/useMobileSidebar', () => ({
     useMobileSidebar: () => ({
         isMobileSidebarOpen: true,
-        toggleMobileSidebar: toggleMobileSidebarMock
-    })
+        toggleMobileSidebar: toggleMobileSidebarMock,
+    }),
 }))
 
 vi.mock('@/composables/useSidebar', () => ({
     useSidebar: () => ({
         isSidebarCollapsed: () => isSidebarCollapsedRef,
         toggleSidebarState: vi.fn(),
-        setSidebarCollapsed: vi.fn()
-    })
+        setSidebarCollapsed: vi.fn(),
+    }),
 }))
 
 const { useIsMobileSpy } = vi.hoisted(() => ({
-    useIsMobileSpy: vi.fn(() => ({ isMobile: false }))
+    useIsMobileSpy: vi.fn(() => ({ isMobile: false })),
 }))
 vi.mock('@/composables/useIsMobile', () => ({
-    useIsMobile: useIsMobileSpy
+    useIsMobile: useIsMobileSpy,
 }))
 
 const defaultMenuItems = [
@@ -52,33 +52,35 @@ const defaultMenuItems = [
                 children: [
                     { isSectionTitle: true, text: 'Nested subsection', icon: 'mdi:format-list-bulleted-square' },
                     { text: 'Third level 1', icon: 'mdi:help-circle-outline', to: '/sub1/third-1' },
-                ]
+                ],
             },
-            { text: 'Subitem 2', icon: 'mdi:help', to: '/sub2' }
-        ]
-    }
+            { text: 'Subitem 2', icon: 'mdi:help', to: '/sub2' },
+        ],
+    },
 ]
 
-const factory = (options: {
-    props?: Record<string, unknown>
-    slots?: Record<string, string>
-} = {}) => {
+const factory = (
+    options: {
+        props?: Record<string, unknown>
+        slots?: Record<string, string>
+    } = {},
+) => {
     return mount(NavSidebar, {
         props: {
             sidebarId: 'main-sidebar',
             menuItems: defaultMenuItems,
-            ...options.props
+            ...options.props,
         },
         slots: {
-            ...options.slots
+            ...options.slots,
         },
         global: {
             components: {
                 DropdownMenu,
                 DropdownMenuItem,
-                ActionIconButton
-            }
-        }
+                ActionIconButton,
+            },
+        },
     })
 }
 
@@ -116,8 +118,10 @@ describe('NavSidebar.vue', () => {
             }
             return true
         }
-        const visibleItems = wrapper.findAllComponents(NavSidebarMenuItem).filter(item => isVisible(item.element))
-        const visibleSectionTitles = wrapper.findAllComponents(NavSidebarMenuSectionTitle).filter(title => isVisible(title.element))
+        const visibleItems = wrapper.findAllComponents(NavSidebarMenuItem).filter((item) => isVisible(item.element))
+        const visibleSectionTitles = wrapper
+            .findAllComponents(NavSidebarMenuSectionTitle)
+            .filter((title) => isVisible(title.element))
 
         expect(visibleItems).toHaveLength(3)
         expect(visibleSectionTitles).toHaveLength(1)
@@ -127,8 +131,8 @@ describe('NavSidebar.vue', () => {
         const wrapper = factory({
             props: {
                 showCollapseToggle: true,
-                collapseTogglePosition: Position.TOP
-            }
+                collapseTogglePosition: Position.TOP,
+            },
         })
         expect(wrapper.findAllComponents(ActionIconButton)).toHaveLength(1)
     })
@@ -139,8 +143,8 @@ describe('NavSidebar.vue', () => {
         const wrapper = factory({
             props: {
                 showCollapseToggle: true,
-                collapseTogglePosition: Position.TOP
-            }
+                collapseTogglePosition: Position.TOP,
+            },
         })
 
         await nextTick()
@@ -153,8 +157,8 @@ describe('NavSidebar.vue', () => {
         const wrapper = factory({
             props: {
                 showCollapseToggle: true,
-                collapseTogglePosition: Position.BOTTOM
-            }
+                collapseTogglePosition: Position.BOTTOM,
+            },
         })
 
         expect(wrapper.findAllComponents(ActionIconButton).length).toBe(1)
@@ -174,8 +178,8 @@ describe('NavSidebar.vue', () => {
         const wrapper = factory({
             props: {
                 stickOnScroll: true,
-                stickyScrollHeight: 100
-            }
+                stickyScrollHeight: 100,
+            },
         })
 
         vi.spyOn(window, 'scrollY', 'get').mockReturnValue(200)
@@ -190,8 +194,8 @@ describe('NavSidebar.vue', () => {
         const wrapper = factory({
             props: {
                 stickOnScroll: true,
-                stickyScrollHeight: 150
-            }
+                stickyScrollHeight: 150,
+            },
         })
 
         vi.spyOn(window, 'scrollY', 'get').mockReturnValue(50)
@@ -208,8 +212,8 @@ describe('NavSidebar.vue', () => {
                 'sidebar-header': '<div class="header-slot">Header</div>',
                 'sidebar-menu-prefix-content': '<div class="prefix-slot">Prefix</div>',
                 'sidebar-menu-suffix-content': '<div class="suffix-slot">Suffix</div>',
-                'sidebar-footer': '<div class="footer-slot">Footer</div>'
-            }
+                'sidebar-footer': '<div class="footer-slot">Footer</div>',
+            },
         })
 
         expect(wrapper.find('.header-slot').exists()).toBe(true)
@@ -280,8 +284,8 @@ describe('NavSidebar.vue', () => {
         const customClass = '!text-text-danger !font-bold'
         const wrapper = factory({
             props: {
-                subItemsCustomClass: customClass
-            }
+                subItemsCustomClass: customClass,
+            },
         })
 
         const items = wrapper.findAllComponents(NavSidebarMenuItem)
@@ -290,7 +294,7 @@ describe('NavSidebar.vue', () => {
 
         const subItems = wrapper
             .findAllComponents(NavSidebarMenuItem)
-            .filter(item => String(item.props('text')).startsWith('Subitem'))
+            .filter((item) => String(item.props('text')).startsWith('Subitem'))
 
         expect(subItems).toHaveLength(2)
 
@@ -306,26 +310,26 @@ describe('NavSidebar.vue', () => {
         const wrapper = factory({
             props: {
                 thirdLevelItemsCustomClass: customClass,
-            }
+            },
         })
 
         const topLevelParent = wrapper
             .findAllComponents(NavSidebarMenuItem)
-            .find(item => item.props('text') === 'Item 3')
+            .find((item) => item.props('text') === 'Item 3')
 
         await topLevelParent!.trigger('click')
         await nextTick()
 
         const secondLevelParent = wrapper
             .findAllComponents(NavSidebarMenuItem)
-            .find(item => item.props('text') === 'Subitem 1')
+            .find((item) => item.props('text') === 'Subitem 1')
 
         await secondLevelParent!.trigger('click')
         await nextTick()
 
         const thirdLevelItems = wrapper
             .findAllComponents(NavSidebarMenuItem)
-            .filter(item => String(item.props('text')).startsWith('Third level'))
+            .filter((item) => String(item.props('text')).startsWith('Third level'))
 
         expect(thirdLevelItems).toHaveLength(1)
         expect(thirdLevelItems[0]!.classes()).toContain('!text-text-primary-brand-default')
@@ -337,14 +341,14 @@ describe('NavSidebar.vue', () => {
 
         const topLevelParent = wrapper
             .findAllComponents(NavSidebarMenuItem)
-            .find(item => item.props('text') === 'Item 3')
+            .find((item) => item.props('text') === 'Item 3')
 
         await topLevelParent!.trigger('click')
         await nextTick()
 
         const secondLevelParent = wrapper
             .findAllComponents(NavSidebarMenuItem)
-            .find(item => item.props('text') === 'Subitem 1')
+            .find((item) => item.props('text') === 'Subitem 1')
 
         await secondLevelParent!.trigger('click')
         await nextTick()
@@ -358,7 +362,7 @@ describe('NavSidebar.vue', () => {
             props: {
                 showCollapseToggle: true,
                 collapseTogglePosition: Position.TOP,
-            }
+            },
         })
 
         const btn = wrapper.findComponent(ActionIconButton)
@@ -371,7 +375,7 @@ describe('NavSidebar.vue', () => {
                 showCollapseToggle: true,
                 collapseTogglePosition: Position.TOP,
                 collapseSidebarAriaLabel: 'Contraer barra lateral',
-            }
+            },
         })
 
         const btn = wrapper.findComponent(ActionIconButton)
@@ -385,7 +389,7 @@ describe('NavSidebar.vue', () => {
                 itemsIconClass: '!text-icon-success',
                 subItemsTextClass: '!text-text-danger',
                 subItemsIconClass: '!text-icon-danger',
-            }
+            },
         })
 
         const items = wrapper.findAllComponents(NavSidebarMenuItem)
@@ -397,7 +401,7 @@ describe('NavSidebar.vue', () => {
 
         const subItems = wrapper
             .findAllComponents(NavSidebarMenuItem)
-            .filter(item => String(item.props('text')).startsWith('Subitem'))
+            .filter((item) => String(item.props('text')).startsWith('Subitem'))
 
         expect(subItems).toHaveLength(2)
         subItems.forEach((item) => {

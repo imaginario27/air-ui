@@ -1,5 +1,5 @@
 export enum EmptyPlaceholderContainerStyle {
-    DASHED = 'dashed',  
+    DASHED = 'dashed',
     FILLED_NEUTRAL = 'filled-neutral',
-    FILLED_PRIMARY_BRAND = 'filled-primary-brand'   
+    FILLED_PRIMARY_BRAND = 'filled-primary-brand',
 }

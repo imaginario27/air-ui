@@ -3,24 +3,20 @@ import SectionFooter from '@/components/layouts/section/SectionFooter.vue'
 import { useDarkMode } from '@/composables/useDarkMode'
 
 vi.mock('@/composables/useDarkMode', () => ({
-    useDarkMode: vi.fn()
+    useDarkMode: vi.fn(),
 }))
 
 describe('SectionFooter.vue', () => {
-    const mountComponent = (options?: {
-        hasBorder?: boolean
-        isDark?: boolean
-        slots?: Record<string, string>
-    }) => {
+    const mountComponent = (options?: { hasBorder?: boolean; isDark?: boolean; slots?: Record<string, string> }) => {
         ;(useDarkMode as unknown as ReturnType<typeof vi.fn>).mockReturnValue({
-            isDark: options?.isDark ?? false
+            isDark: options?.isDark ?? false,
         })
 
         return mount(SectionFooter, {
             props: {
-                hasBorder: options?.hasBorder
+                hasBorder: options?.hasBorder,
             },
-            slots: options?.slots
+            slots: options?.slots,
         })
     }
 
@@ -32,8 +28,8 @@ describe('SectionFooter.vue', () => {
     it('renders default slot content', () => {
         const wrapper = mountComponent({
             slots: {
-                default: '<p>Footer Content</p>'
-            }
+                default: '<p>Footer Content</p>',
+            },
         })
 
         expect(wrapper.html()).toContain('Footer Content')
@@ -52,7 +48,7 @@ describe('SectionFooter.vue', () => {
     it('renders light border when hasBorder is true', () => {
         const wrapper = mountComponent({
             hasBorder: true,
-            isDark: false
+            isDark: false,
         })
 
         expect(wrapper.classes()).toContain('border-t')
@@ -63,7 +59,7 @@ describe('SectionFooter.vue', () => {
     it('renders dark border when dark mode is active', () => {
         const wrapper = mountComponent({
             hasBorder: true,
-            isDark: true
+            isDark: true,
         })
 
         expect(wrapper.classes()).toContain('border-t')
@@ -74,7 +70,7 @@ describe('SectionFooter.vue', () => {
     it('does not render border when hasBorder is false', () => {
         const wrapper = mountComponent({
             hasBorder: false,
-            isDark: true
+            isDark: true,
         })
 
         expect(wrapper.classes()).not.toContain('border-t')

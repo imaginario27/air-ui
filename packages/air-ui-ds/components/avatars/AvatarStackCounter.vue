@@ -1,6 +1,6 @@
 <template>
-    <div 
-        :class="[ 
+    <div
+        :class="[
             'flex justify-center items-center',
             'bg-background-primary-brand-soft',
             'aspect-square',
@@ -10,8 +10,8 @@
             'border-2 border-border-neutral-stacked',
         ]"
     >
-        <span 
-            :class="[ 
+        <span
+            :class="[
                 'flex items-center justify-center text-text-primary-brand-on-soft-bg font-bold select-none',
                 textSizeClass,
             ]"

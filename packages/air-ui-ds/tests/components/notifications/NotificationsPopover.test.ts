@@ -8,7 +8,7 @@ import { useDSConfig } from '@/composables/useDSConfig'
 
 const makeSampleList = () => [
     { id: '1', read: false, title: 'Unread A', description: 'Desc A', timeAgo: '1m ago', author: 'Alice', link: '' },
-    { id: '2', read: true,  title: 'Read B',   description: 'Desc B', timeAgo: '2m ago', author: 'Bob',   link: '' },
+    { id: '2', read: true, title: 'Read B', description: 'Desc B', timeAgo: '2m ago', author: 'Bob', link: '' },
     { id: '3', read: false, title: 'Unread C', description: 'Desc C', timeAgo: '3m ago', author: 'Carol', link: '' },
 ]
 

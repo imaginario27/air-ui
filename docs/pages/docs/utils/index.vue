@@ -3,7 +3,7 @@
         <SectionHeader v-if="utilList.length">
             <Form>
                 <FormRow>
-                    <SearchField 
+                    <SearchField
                         id="search"
                         v-model="searchQuery"
                         placeholder="Search a util"
@@ -16,26 +16,10 @@
         </SectionHeader>
         <SectionBody>
             <template v-if="groupedUtils.length">
-                <div 
-                    v-for="group in groupedUtils" 
-                    :key="group.title"
-                >
-                    <Heading 
-                        :size="HeadingSize.SM"
-                        headingTag="h2"
-                        :class="[
-                            'mb-2',
-                            'flex',
-                            'items-center',
-                            'gap-2',
-                        ]"
-                    >
+                <div v-for="group in groupedUtils" :key="group.title">
+                    <Heading :size="HeadingSize.SM" headingTag="h2" :class="['mb-2', 'flex', 'items-center', 'gap-2']">
                         <template #title>
-                            <Icon
-                                v-if="group.sectionIcon"
-                                :name="group.sectionIcon"
-                                class="relative top-[2px]"
-                            />
+                            <Icon v-if="group.sectionIcon" :name="group.sectionIcon" class="relative top-[2px]" />
                             {{ group.title }}
                         </template>
                     </Heading>
@@ -46,16 +30,10 @@
                             <TableHeaderCell>Description</TableHeaderCell>
                         </TableHeader>
                         <TableBody>
-                            <TableRow 
-                                v-for="util in group.items" 
-                                :key="util.title"
-                            >
+                            <TableRow v-for="util in group.items" :key="util.title">
                                 <TableCell fitToContent class="whitespace-nowrap">
                                     <ProseCode>
-                                        <NavLink 
-                                            :text="util.title"
-                                            :to="util.to"
-                                        >
+                                        <NavLink :text="util.title" :to="util.to">
                                             {{ util.title }}
                                         </NavLink>
                                     </ProseCode>
@@ -69,7 +47,7 @@
                 </div>
             </template>
 
-            <EmptyState 
+            <EmptyState
                 v-else-if="!groupedUtils.length"
                 :title="`No utils found for ${searchQuery}`"
                 icon="mdi:magnify"
@@ -78,7 +56,7 @@
                 :containerStyle="EmptyPlaceholderContainerStyle.FILLED_NEUTRAL"
             />
 
-            <EmptyState 
+            <EmptyState
                 v-else-if="!utilList.length"
                 title="No utils available"
                 icon="mdi:database-off"
@@ -116,9 +94,7 @@ const groupedUtils = computed<GroupedUtilPortfolioItem[]>(() => {
             groups.push(currentGroup)
         } else if (currentGroup) {
             const matches =
-                !query ||
-                item.title.toLowerCase().includes(query) ||
-                item.description?.toLowerCase().includes(query)
+                !query || item.title.toLowerCase().includes(query) || item.description?.toLowerCase().includes(query)
 
             if (matches) {
                 currentGroup.items.push(item)
@@ -130,8 +106,6 @@ const groupedUtils = computed<GroupedUtilPortfolioItem[]>(() => {
         group.items.sort((a, b) => a.title.localeCompare(b.title))
     }
 
-    return query
-        ? groups.filter(group => group.items.length > 0)
-        : groups
+    return query ? groups.filter((group) => group.items.length > 0) : groups
 })
 </script>

@@ -1,36 +1,18 @@
 <template>
-    <div
-        :class="[
-            'flex flex-col',
-            'items-start',
-            'gap-2',
-        ]"
-    >
+    <div :class="['flex flex-col', 'items-start', 'gap-2']">
         <label
             v-if="label"
             :id="`${id}-label`"
-            :class="[
-                'text-sm',
-                'font-semibold',
-                'text-left',
-                hasError && 'text-text-error',
-            ]"
+            :class="['text-sm', 'font-semibold', 'text-left', hasError && 'text-text-error']"
         >
             {{ label }}
-            <span
-                v-if="!required && showOptionalLabel"
-                class="font-normal text-text-neutral-subtler"
-            >
+            <span v-if="!required && showOptionalLabel" class="font-normal text-text-neutral-subtler">
                 {{ optionalLabelText }}
             </span>
         </label>
 
         <!-- Help Text (top) -->
-        <HelpText
-            v-if="helpTextPosition === Position.TOP"
-            :text="helpText"
-            :error="error"
-        />
+        <HelpText v-if="helpTextPosition === Position.TOP" :text="helpText" :error="error" />
 
         <AngleSlider
             :modelValue="modelValue"
@@ -46,15 +28,11 @@
             :disabled="disabled"
             :readOnly="readOnly"
             @update:model-value="handleValueUpdate"
-            @change-end="value => emit('change-end', value)"
+            @change-end="(value) => emit('change-end', value)"
         />
 
         <!-- Help Text (bottom) -->
-        <HelpText
-            v-if="helpTextPosition === Position.BOTTOM"
-            :text="helpText"
-            :error="error"
-        />
+        <HelpText v-if="helpTextPosition === Position.BOTTOM" :text="helpText" :error="error" />
     </div>
 </template>
 

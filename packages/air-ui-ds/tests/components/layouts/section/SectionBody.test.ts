@@ -11,8 +11,8 @@ describe('SectionBody.vue', () => {
     it('renders slot content', () => {
         const wrapper = mount(SectionBody, {
             slots: {
-                default: '<p class="slot-content">Test Content</p>'
-            }
+                default: '<p class="slot-content">Test Content</p>',
+            },
         })
 
         expect(wrapper.find('.slot-content').exists()).toBe(true)

@@ -34,12 +34,12 @@
 defineProps({
     title: {
         type: String as PropType<string>,
-        default: 'Item title'
+        default: 'Item title',
     },
     content: {
         type: String as PropType<string>,
-        default: 'Item content'
-    }
+        default: 'Item content',
+    },
 })
 
 // IDs

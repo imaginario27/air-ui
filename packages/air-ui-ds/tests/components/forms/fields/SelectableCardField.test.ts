@@ -113,9 +113,7 @@ describe('SelectableCardField', () => {
     it('emits buttonClick when SelectableCard triggers it', async () => {
         const callback = vi.fn()
         const wrapper = factory({
-            options: [
-                { value: 'one', title: 'One', secondaryBtnCallback: callback },
-            ],
+            options: [{ value: 'one', title: 'One', secondaryBtnCallback: callback }],
         })
 
         const card = wrapper.findComponent(SelectableCard)
@@ -140,8 +138,8 @@ describe('SelectableCardField', () => {
         expect(help.exists()).toBe(true)
         expect(help.text()).toBe('Choose one')
         const children = Array.from(wrapper.element.children)
-        const helpIdx = children.findIndex(el => el.classList.contains('text-xs'))
-        const labelIdx = children.findIndex(el => el.tagName === 'LABEL')
+        const helpIdx = children.findIndex((el) => el.classList.contains('text-xs'))
+        const labelIdx = children.findIndex((el) => el.tagName === 'LABEL')
         expect(helpIdx).toBeGreaterThan(labelIdx)
         expect(helpIdx).toBeLessThan(children.length - 1)
     })

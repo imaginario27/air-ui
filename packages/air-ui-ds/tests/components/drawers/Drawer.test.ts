@@ -19,8 +19,7 @@ describe('Drawer.vue', () => {
                     Teleport: true,
                     ActionIconButton: {
                         props: ['ariaLabel'],
-                        template:
-                            '<button data-test="close-btn" :aria-label="ariaLabel" @click="$emit(\'click\')" />',
+                        template: '<button data-test="close-btn" :aria-label="ariaLabel" @click="$emit(\'click\')" />',
                     },
                 },
             },

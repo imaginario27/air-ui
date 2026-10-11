@@ -1,9 +1,7 @@
 ﻿<template>
     <Section>
         <SectionBody>
-            <ContentRenderer 
-                v-if="data" :value="data" 
-            />
+            <ContentRenderer v-if="data" :value="data" />
             <ContentRenderFallback v-else />
         </SectionBody>
     </Section>
@@ -13,7 +11,8 @@ definePageMeta({
     title: 'trimText',
     layout: 'docs',
     overtitle: 'Utils',
-    description: 'Trims a given text to a specified length, optionally adding an ellipsis or custom suffix to indicate that the text has been truncated.',
+    description:
+        'Trims a given text to a specified length, optionally adding an ellipsis or custom suffix to indicate that the text has been truncated.',
     category: 'Strings',
 })
 

@@ -1,13 +1,5 @@
 <template>
-    <div 
-        :class="[
-            'flex',
-            'gap-column-gap',
-            'flex-col',
-            'md:flex-row',
-            spaced && 'py-6'
-        ]"
-    >
+    <div :class="['flex', 'gap-column-gap', 'flex-col', 'md:flex-row', spaced && 'py-6']">
         <slot />
     </div>
 </template>

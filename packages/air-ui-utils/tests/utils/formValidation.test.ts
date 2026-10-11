@@ -34,9 +34,7 @@ describe('formValidation rules utils', () => {
     })
 
     it('detects incomplete rules', () => {
-        const result = validateRuleCompleteness([
-            { item: 'age', operator: null, value: null },
-        ])
+        const result = validateRuleCompleteness([{ item: 'age', operator: null, value: null }])
 
         expect(result).toBe('Complete all rule fields before continuing.')
     })
@@ -52,8 +50,8 @@ describe('formValidation rules utils', () => {
 
     it('composes array validators and returns first error', () => {
         const validator = composeArrayValidators<number>([
-            value => (value.length < 2 ? 'Need 2 items' : null),
-            value => (value.includes(0) ? 'Zero is not allowed' : null),
+            (value) => (value.length < 2 ? 'Need 2 items' : null),
+            (value) => (value.includes(0) ? 'Zero is not allowed' : null),
         ])
 
         expect(validator([1])).toBe('Need 2 items')
@@ -64,12 +62,10 @@ describe('formValidation rules utils', () => {
     it('builds ready-to-use rules field validator', () => {
         const validator = createRulesFieldValidator({ required: true })
 
-        expect(validator([{ item: null, operator: null, value: null }])).toBe(
-            'Add at least one complete rule.'
-        )
+        expect(validator([{ item: null, operator: null, value: null }])).toBe('Add at least one complete rule.')
 
         expect(validator([{ item: 'age', operator: null, value: null }])).toBe(
-            'Complete all rule fields before continuing.'
+            'Complete all rule fields before continuing.',
         )
 
         expect(validator([{ item: 'age', operator: 'gt', value: 18 }])).toBeNull()
@@ -81,7 +77,7 @@ describe('formValidation rules utils', () => {
                 { item: 'age', operator: 'gt', value: 18 },
                 { item: 'status', operator: 'eq', value: 'active' },
             ],
-            1
+            1,
         )
 
         expect(result).toBe('No more than 1 rule allowed.')
@@ -94,10 +90,12 @@ describe('formValidation rules utils', () => {
             maxRulesMessage: 'Maximum number of rules reached.',
         })
 
-        expect(validator([
-            { item: 'age', operator: 'gt', value: 18 },
-            { item: 'status', operator: 'eq', value: 'active' },
-        ])).toBe('Maximum number of rules reached.')
+        expect(
+            validator([
+                { item: 'age', operator: 'gt', value: 18 },
+                { item: 'status', operator: 'eq', value: 'active' },
+            ]),
+        ).toBe('Maximum number of rules reached.')
     })
 })
 

@@ -16,10 +16,7 @@
             styleClass,
         ]"
     >
-        <Icon
-            v-if="decoration === TabDecoration.ICON"
-            :name="icon"
-        />
+        <Icon v-if="decoration === TabDecoration.ICON" :name="icon" />
 
         <template v-if="decoration === TabDecoration.IMAGE">
             <img
@@ -29,40 +26,31 @@
                 class="w-[20px] h-[20px] rounded"
                 @load="handleImageLoad"
                 @error="handleImageError"
-            >
-            <img
-                v-else
-                :src="missingImagePlaceholder"
-                alt="Tab decoration"
-                class="w-[20px] h-[20px] rounded"
-            >
+            />
+            <img v-else :src="missingImagePlaceholder" alt="Tab decoration" class="w-[20px] h-[20px] rounded" />
         </template>
 
-        <span 
-            :class="[
-                'text-sm',
-                'font-semibold',
-                disabled && 'select-none',
-            ]"
-        >
+        <span :class="['text-sm', 'font-semibold', disabled && 'select-none']">
             {{ text }}
         </span>
 
-        <Badge 
+        <Badge
             v-if="computedBadgeValue"
             :text="computedBadgeValue"
             :styleType="active ? BadgeStyle.FILLED : BadgeStyle.FLAT"
             :color="active ? ColorAccent.PRIMARY_BRAND : ColorAccent.NEUTRAL"
             :shape="BadgeShape.PILL"
-            :class="[ 
-                !props.active && tabStyle !== TabStyle.PILL_MONOCRHOME && 'group-hover:bg-background-primary-brand-subtle-active',
+            :class="[
+                !props.active &&
+                    tabStyle !== TabStyle.PILL_MONOCRHOME &&
+                    'group-hover:bg-background-primary-brand-subtle-active',
             ]"
         />
     </div>
 </template>
 <script setup lang="ts">
 // Imports
-import missingImagePlaceholder from "@/assets/images/placeholders/missing-image-placeholder.png"
+import missingImagePlaceholder from '@/assets/images/placeholders/missing-image-placeholder.png'
 
 // Props
 const props = defineProps({
@@ -122,53 +110,55 @@ const styleClass = computed(() => {
     const styleVariants = {
         [TabStyle.UNDERLINE]: [
             underlineStyleSizeClass.value,
-            'border-b-2', 
-            props.active ? 
-                'border-b-border-primary-brand-default text-text-primary-brand-active' 
-                : 'border-b-border-inactive !text-text-default hover:!text-text-primary-brand-hover hover:border-b-border-primary-brand-hover',  
+            'border-b-2',
+            props.active
+                ? 'border-b-border-primary-brand-default text-text-primary-brand-active'
+                : 'border-b-border-inactive !text-text-default hover:!text-text-primary-brand-hover hover:border-b-border-primary-brand-hover',
         ],
         [TabStyle.PILL]: [
             pillStyleSizeClass.value,
-            'rounded', 
-            props.active ? 
-                'text-text-primary-brand-on-soft-bg bg-background-primary-brand-subtle-active' 
-                : '!text-text-default hover:!text-text-primary-brand-hover',  
+            'rounded',
+            props.active
+                ? 'text-text-primary-brand-on-soft-bg bg-background-primary-brand-subtle-active'
+                : '!text-text-default hover:!text-text-primary-brand-hover',
         ],
         [TabStyle.PILL_MONOCRHOME]: [
             pillStyleSizeClass.value,
-            'rounded', 
-            props.active ? 
-                'text-text-neutral-on-monochrome-active-bg bg-background-neutral-active' 
-                : '!text-text-default hover:!text-text-neutral-on-monochrome-hover-bg',  
+            'rounded',
+            props.active
+                ? 'text-text-neutral-on-monochrome-active-bg bg-background-neutral-active'
+                : '!text-text-default hover:!text-text-neutral-on-monochrome-hover-bg',
         ],
     }
-    return styleVariants[props.tabStyle as TabStyle] || [
-        'min-h-[52px]', 
-        'border-b-2', 
-        props.active ? 
-            'border-b-border-primary-brand-default text-text-primary-brand-active' 
-            : 'border-b-border-inactive text-text-neutral-inactive, hover:text-text-primary-brand-hover hover:border-b-border-primary-brand-hover',  
-    ]
+    return (
+        styleVariants[props.tabStyle as TabStyle] || [
+            'min-h-[52px]',
+            'border-b-2',
+            props.active
+                ? 'border-b-border-primary-brand-default text-text-primary-brand-active'
+                : 'border-b-border-inactive text-text-neutral-inactive, hover:text-text-primary-brand-hover hover:border-b-border-primary-brand-hover',
+        ]
+    )
 })
 
 const underlineStyleSizeClass = computed(() => {
     const variant: Record<TabSize, string> = {
-        [TabSize.LG]: "min-h-[52px]",
-        [TabSize.MD]: "min-h-[40px]",
-        [TabSize.SM]: "min-h-[36px]",
+        [TabSize.LG]: 'min-h-[52px]',
+        [TabSize.MD]: 'min-h-[40px]',
+        [TabSize.SM]: 'min-h-[36px]',
     }
 
-    return variant[props.size as TabSize] || "min-h-[52px]"
+    return variant[props.size as TabSize] || 'min-h-[52px]'
 })
 
 const pillStyleSizeClass = computed(() => {
     const variant: Record<TabSize, string> = {
-        [TabSize.LG]: "min-h-[40px]",
-        [TabSize.MD]: "min-h-[36px]",
-        [TabSize.SM]: "min-h-[32px]",
+        [TabSize.LG]: 'min-h-[40px]',
+        [TabSize.MD]: 'min-h-[36px]',
+        [TabSize.SM]: 'min-h-[32px]',
     }
 
-    return variant[props.size as TabSize] || "min-h-[40px]"
+    return variant[props.size as TabSize] || 'min-h-[40px]'
 })
 
 // Computed functions

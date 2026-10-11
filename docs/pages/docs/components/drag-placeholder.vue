@@ -1,10 +1,7 @@
 <template>
     <Section>
         <SectionBody>
-            <ContentRenderer
-                v-if="data"
-                :value="data"
-            />
+            <ContentRenderer v-if="data" :value="data" />
             <ContentRenderFallback v-else />
         </SectionBody>
     </Section>
@@ -15,7 +12,8 @@ definePageMeta({
     title: 'Drag placeholder',
     layout: 'docs',
     overtitle: 'Components',
-    description: 'A dashed drop-zone placeholder used to mark the drop position while reordering rows via drag-and-drop.',
+    description:
+        'A dashed drop-zone placeholder used to mark the drop position while reordering rows via drag-and-drop.',
 })
 
 const route = useRoute()

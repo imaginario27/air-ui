@@ -1,7 +1,4 @@
-import type {
-    TurnstileApi,
-    UseTurnstileOptions,
-} from '@/models/types/turnstile'
+import type { TurnstileApi, UseTurnstileOptions } from '@/models/types/turnstile'
 
 let turnstileScriptPromise: Promise<void> | null = null
 
@@ -25,7 +22,9 @@ const loadTurnstileScript = async () => {
 
         if (existingScript) {
             existingScript.addEventListener('load', () => resolve(), { once: true })
-            existingScript.addEventListener('error', () => reject(new Error('Failed to load Turnstile script')), { once: true })
+            existingScript.addEventListener('error', () => reject(new Error('Failed to load Turnstile script')), {
+                once: true,
+            })
             return
         }
 

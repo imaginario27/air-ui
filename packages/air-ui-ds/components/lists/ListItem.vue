@@ -1,15 +1,6 @@
 <template>
-    <li 
-        :class="[
-            'flex gap-2',
-            spaced && 'py-4'
-        ]"
-    >
-        <Icon
-            v-if="markerIcon"
-            :name="markerIcon"
-            :iconClass="[markerIconClass, markerIconSizeClass]"
-        />
+    <li :class="['flex gap-2', spaced && 'py-4']">
+        <Icon v-if="markerIcon" :name="markerIcon" :iconClass="[markerIconClass, markerIconSizeClass]" />
         <span :class="[contentSizeClass, 'w-full']">
             <slot />
         </span>
@@ -21,15 +12,15 @@ const props = defineProps({
     markerIcon: String as PropType<string>,
     markerIconClass: {
         type: String as PropType<string>,
-        default: 'text-icon-secondary-brand-default'
+        default: 'text-icon-secondary-brand-default',
     },
     spaced: {
         type: Boolean as PropType<boolean>,
-        default: false
+        default: false,
     },
     size: {
         type: String as PropType<ListItemSize>,
-        default: ListItemSize.SM, 
+        default: ListItemSize.SM,
         validator: (value: ListItemSize) => Object.values(ListItemSize).includes(value),
     },
 })

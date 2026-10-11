@@ -1,9 +1,7 @@
 ﻿<template>
     <Section>
         <SectionBody>
-            <ContentRenderer 
-                v-if="data" :value="data" 
-            />
+            <ContentRenderer v-if="data" :value="data" />
             <ContentRenderFallback v-else />
         </SectionBody>
     </Section>
@@ -13,7 +11,8 @@ definePageMeta({
     title: 'getFullName',
     layout: 'docs',
     overtitle: 'Utils',
-    description: 'Formats a full name by combining first and last names, handling various edge cases such as missing or extra whitespace.',
+    description:
+        'Formats a full name by combining first and last names, handling various edge cases such as missing or extra whitespace.',
     category: 'Strings',
 })
 

@@ -5,7 +5,7 @@ import { FormValidationMode } from '~/models/enums/formValidations'
 import { Position } from '@/models/enums/positions'
 
 vi.mock('~/composables/useFormValidationMode', () => ({
-    useInjectedValidationMode: () => ref(FormValidationMode.BLUR)
+    useInjectedValidationMode: () => ref(FormValidationMode.BLUR),
 }))
 
 const factory = (props: Record<string, unknown> = {}) => {
@@ -43,8 +43,8 @@ describe('TagsField.vue', () => {
         expect(help.exists()).toBe(true)
         expect(help.text()).toBe('Press Enter to add')
         const children = Array.from(wrapper.element.children)
-        const helpIdx = children.findIndex(el => el.classList.contains('text-xs'))
-        const inputContainerIdx = children.findIndex(el => el.classList.contains('border'))
+        const helpIdx = children.findIndex((el) => el.classList.contains('text-xs'))
+        const inputContainerIdx = children.findIndex((el) => el.classList.contains('border'))
         expect(helpIdx).toBeGreaterThan(-1)
         expect(helpIdx).toBeLessThan(inputContainerIdx)
     })

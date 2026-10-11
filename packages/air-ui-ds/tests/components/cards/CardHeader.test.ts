@@ -10,8 +10,8 @@ describe('CardHeader.vue', () => {
     it('renders default slot content', () => {
         const wrapper = mount(CardHeader, {
             slots: {
-                default: '<h1>Header Content</h1>'
-            }
+                default: '<h1>Header Content</h1>',
+            },
         })
         expect(wrapper.html()).toContain('Header Content')
     })

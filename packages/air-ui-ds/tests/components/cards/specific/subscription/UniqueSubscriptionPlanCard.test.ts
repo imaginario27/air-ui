@@ -5,24 +5,15 @@ import ListItem from '@/components/lists/ListItem.vue'
 const defaultProps = {
     title: 'Plan name',
     description: 'Plan description',
-    features: [
-        'Feature 1',
-        'Feature 2',
-        'Feature 3',
-        'Feature 4',
-        'Feature 5',
-        'Feature 6',
-        'Feature 7',
-        'Feature 8'
-    ],
+    features: ['Feature 1', 'Feature 2', 'Feature 3', 'Feature 4', 'Feature 5', 'Feature 6', 'Feature 7', 'Feature 8'],
     price: '0€',
-    buttonText: 'Get started today'
+    buttonText: 'Get started today',
 }
 
 const factory = (props = {}, slots = {}) => {
     return mount(UniqueSubscriptionPlanCard, {
         props: { ...defaultProps, ...props },
-        slots
+        slots,
     })
 }
 
@@ -50,7 +41,7 @@ describe('UniqueSubscriptionPlanCard', () => {
             price: '49€',
             buttonText: 'Subscribe Now',
             overtitle: 'Best Value',
-            features: ['Fast support', 'Advanced analytics']
+            features: ['Fast support', 'Advanced analytics'],
         }
 
         const wrapper = factory(customProps)
@@ -70,9 +61,12 @@ describe('UniqueSubscriptionPlanCard', () => {
     })
 
     it('renders additionalInfo slot content', () => {
-        const wrapper = factory({}, {
-            additionalInfo: '<p>Custom <strong>slot</strong> info</p>'
-        })
+        const wrapper = factory(
+            {},
+            {
+                additionalInfo: '<p>Custom <strong>slot</strong> info</p>',
+            },
+        )
 
         expect(wrapper.html()).toContain('<strong>slot</strong>')
     })

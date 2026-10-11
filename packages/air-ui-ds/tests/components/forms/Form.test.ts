@@ -5,9 +5,9 @@ import Form from '~/components/forms/Form.vue'
 const factory = (options = {}): VueWrapper => {
     return mount(Form, {
         slots: {
-            default: '<button type="submit">Submit</button>'
+            default: '<button type="submit">Submit</button>',
         },
-        ...options
+        ...options,
     })
 }
 

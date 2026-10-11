@@ -1,12 +1,6 @@
 <template>
-    <nav
-        class="w-full flex flex-col gap-2 text-sm"
-        aria-label="Table of contents"
-    >
-        <span
-            v-if="title"
-            class="font-semibold text-text-default mb-4"
-        >
+    <nav class="w-full flex flex-col gap-2 text-sm" aria-label="Table of contents">
+        <span v-if="title" class="font-semibold text-text-default mb-4">
             {{ title }}
         </span>
         <ul class="w-full flex flex-col gap-2">

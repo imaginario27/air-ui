@@ -1,5 +1,5 @@
 <template>
-    <NuxtLoadingIndicator :color="indicatorColor"/>
+    <NuxtLoadingIndicator :color="indicatorColor" />
     <NuxtLayout>
         <NuxtPage />
     </NuxtLayout>
@@ -10,5 +10,5 @@ const darkModeStore = useDarkMode()
 const { isDark } = darkModeStore
 
 // Computed
-const indicatorColor = computed(() => isDark ? '#687cff' : '#2319e9')
+const indicatorColor = computed(() => (isDark ? '#687cff' : '#2319e9'))
 </script>

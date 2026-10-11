@@ -1,29 +1,12 @@
 <template>
-    <div 
-        :class="[ 
-            'flex flex-col', 
-            'w-full', 
-            'gap-2' 
-        ]"
-    >
+    <div :class="['flex flex-col', 'w-full', 'gap-2']">
         <!-- Label -->
-        <label 
-            v-if="label"
-            :for="id" 
-            :class="[ 
-                'text-sm', 
-                'font-semibold', 
-                'text-left'
-            ]"
-        >
+        <label v-if="label" :for="id" :class="['text-sm', 'font-semibold', 'text-left']">
             {{ label }}
         </label>
 
         <!-- Help Text (top) -->
-        <HelpText
-            v-if="helpTextPosition === Position.TOP"
-            :text="helpText"
-        />
+        <HelpText v-if="helpTextPosition === Position.TOP" :text="helpText" />
 
         <ToggleButtonGroup
             :id
@@ -39,18 +22,15 @@
         />
 
         <!-- Help Text (bottom) -->
-        <HelpText
-            v-if="helpTextPosition === Position.BOTTOM"
-            :text="helpText"
-        />
+        <HelpText v-if="helpTextPosition === Position.BOTTOM" :text="helpText" />
     </div>
 </template>
 
 <script setup lang="ts">
 // Props
 defineProps({
-    id: { 
-        type: String as PropType<string>, 
+    id: {
+        type: String as PropType<string>,
         required: true,
     },
     label: String as PropType<string>,
@@ -63,8 +43,8 @@ defineProps({
     },
     buttons: Array as PropType<ToggleButton[] | ToggleIconButton[]>,
     onlyIcon: {
-        type: Boolean as PropType<boolean>, 
-        default: false, 
+        type: Boolean as PropType<boolean>,
+        default: false,
     },
     modelValue: {
         type: String as PropType<string>,

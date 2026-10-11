@@ -1,9 +1,7 @@
 ﻿<template>
     <Section>
         <SectionBody>
-            <ContentRenderer 
-                v-if="data" :value="data" 
-            />
+            <ContentRenderer v-if="data" :value="data" />
             <ContentRenderFallback v-else />
         </SectionBody>
     </Section>
@@ -13,7 +11,8 @@ definePageMeta({
     title: 'Selectable card',
     layout: 'docs',
     overtitle: 'Components',
-    description: 'Highlights an option or choice, often used in marketing sections or landing pages. It can be used to build custom selection components, such as a pricing plan selector or a feature comparison card.',
+    description:
+        'Highlights an option or choice, often used in marketing sections or landing pages. It can be used to build custom selection components, such as a pricing plan selector or a feature comparison card.',
 })
 
 // Route

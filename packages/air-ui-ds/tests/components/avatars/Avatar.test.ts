@@ -4,7 +4,7 @@ import { AvatarSize } from '@/models/enums/avatars'
 
 const factory = (props?: Record<string, any>) => {
     return mount(Avatar, {
-        props
+        props,
     })
 }
 
@@ -22,7 +22,7 @@ describe('Avatar.vue', () => {
     it('renders an image when imgUrl is provided', () => {
         const wrapper = factory({
             imgUrl: 'https://example.com/avatar.jpg',
-            displayName: 'John Doe'
+            displayName: 'John Doe',
         })
 
         const img = wrapper.find('img')
@@ -34,7 +34,7 @@ describe('Avatar.vue', () => {
     it('falls back to initials when image fails to load', async () => {
         const wrapper = factory({
             imgUrl: 'invalid-url',
-            displayName: 'John Doe'
+            displayName: 'John Doe',
         })
 
         await wrapper.find('img').trigger('error')

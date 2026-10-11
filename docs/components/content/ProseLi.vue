@@ -1,10 +1,5 @@
 <template>
-    <li
-        :class="[
-            'ml-2',
-            'leading-relaxed',
-        ]"
-    >
+    <li :class="['ml-2', 'leading-relaxed']">
         <slot />
     </li>
 </template>

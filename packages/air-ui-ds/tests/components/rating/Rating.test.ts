@@ -10,7 +10,7 @@ vi.mock('@/utils/rating', () => ({
         if (value === 2.5) return [full, full, half, empty, empty]
         if (value === 5) return Array(5).fill(full)
         return Array(5).fill(empty)
-    }
+    },
 }))
 
 type RatingProps = Partial<InstanceType<typeof Rating>['$props']>
@@ -23,10 +23,10 @@ const factory = (props?: RatingProps): VueWrapper => {
                 Icon: {
                     name: 'Icon',
                     props: ['name', 'iconClass', 'mode'],
-                    template: '<i :data-icon="name" class="stub-icon" />'
-                }
-            }
-        }
+                    template: '<i :data-icon="name" class="stub-icon" />',
+                },
+            },
+        },
     })
 }
 
@@ -70,7 +70,7 @@ describe('Rating.vue', () => {
         const wrapper = factory({
             modelValue: 4,
             size: RatingItemSize.LG,
-            color: RatingItemColor.GOLD
+            color: RatingItemColor.GOLD,
         })
 
         const items = getItems(wrapper)
@@ -86,10 +86,10 @@ describe('Rating.vue', () => {
             modelValue: 2.5,
             fullIndicatorIcon: 'customFull',
             halfIndicatorIcon: 'customHalf',
-            emptyIndicatorIcon: 'customEmpty'
+            emptyIndicatorIcon: 'customEmpty',
         })
 
-        const icons = getItems(wrapper).map(item => item.props('icon'))
+        const icons = getItems(wrapper).map((item) => item.props('icon'))
         expect(icons).toContain('customFull')
         expect(icons).toContain('customHalf')
         expect(icons).toContain('customEmpty')
@@ -130,7 +130,7 @@ describe('Rating.vue', () => {
             const wrapper = factory({ modelValue: 2.5, isInteractive: true })
 
             await getItemWrappers(wrapper)[4].trigger('mouseenter') // index 4 = value 5
-            const icons = getItems(wrapper).map(i => i.props('icon'))
+            const icons = getItems(wrapper).map((i) => i.props('icon'))
 
             expect(icons).toEqual(['mdi:star', 'mdi:star', 'mdi:star', 'mdi:star', 'mdi:star'])
         })
@@ -139,9 +139,15 @@ describe('Rating.vue', () => {
             const wrapper = factory({ modelValue: 2.5, isInteractive: true, hoverPreview: false })
 
             await getItemWrappers(wrapper)[4].trigger('mouseenter')
-            const icons = getItems(wrapper).map(i => i.props('icon'))
+            const icons = getItems(wrapper).map((i) => i.props('icon'))
 
-            expect(icons).toEqual(['mdi:star', 'mdi:star', 'mdi:star-half-full', 'mdi:star-outline', 'mdi:star-outline'])
+            expect(icons).toEqual([
+                'mdi:star',
+                'mdi:star',
+                'mdi:star-half-full',
+                'mdi:star-outline',
+                'mdi:star-outline',
+            ])
         })
 
         it('clears hover on container mouseleave', async () => {
@@ -149,21 +155,33 @@ describe('Rating.vue', () => {
             const container = wrapper.find('[role="radiogroup"]')
 
             await getItemWrappers(wrapper)[4].trigger('mouseenter')
-            let icons = getItems(wrapper).map(i => i.props('icon'))
+            let icons = getItems(wrapper).map((i) => i.props('icon'))
             expect(icons).toEqual(['mdi:star', 'mdi:star', 'mdi:star', 'mdi:star', 'mdi:star'])
 
             await container.trigger('mouseleave')
-            icons = getItems(wrapper).map(i => i.props('icon'))
-            expect(icons).toEqual(['mdi:star', 'mdi:star', 'mdi:star-half-full', 'mdi:star-outline', 'mdi:star-outline'])
+            icons = getItems(wrapper).map((i) => i.props('icon'))
+            expect(icons).toEqual([
+                'mdi:star',
+                'mdi:star',
+                'mdi:star-half-full',
+                'mdi:star-outline',
+                'mdi:star-outline',
+            ])
         })
 
         it('ignores hover when not interactive', async () => {
             const wrapper = factory({ modelValue: 2.5, isInteractive: false })
 
             await getItemWrappers(wrapper)[4].trigger('mouseenter')
-            const icons = getItems(wrapper).map(i => i.props('icon'))
+            const icons = getItems(wrapper).map((i) => i.props('icon'))
 
-            expect(icons).toEqual(['mdi:star', 'mdi:star', 'mdi:star-half-full', 'mdi:star-outline', 'mdi:star-outline'])
+            expect(icons).toEqual([
+                'mdi:star',
+                'mdi:star',
+                'mdi:star-half-full',
+                'mdi:star-outline',
+                'mdi:star-outline',
+            ])
         })
     })
 

@@ -1,16 +1,15 @@
 <template>
-    <Drawer 
-        v-model="showDrawer"
-        :direction="currentDirection"
-    >
-        <ContentPlaceholder 
-            text="Insert content here" 
-            :class="currentDirection === Direction.LEFT || currentDirection === Direction.RIGHT ? 'h-full' : 'h-[200px]'"
+    <Drawer v-model="showDrawer" :direction="currentDirection">
+        <ContentPlaceholder
+            text="Insert content here"
+            :class="
+                currentDirection === Direction.LEFT || currentDirection === Direction.RIGHT ? 'h-full' : 'h-[200px]'
+            "
         />
     </Drawer>
-        
+
     <div class="flex gap-2 flex-wrap justify-center">
-        <ActionButton 
+        <ActionButton
             :styleType="ButtonStyleType.NEUTRAL_FILLED"
             text="Open left drawer"
             icon="mdi:arrow-left"
@@ -18,7 +17,7 @@
             @click="handleShowDrawer(Direction.LEFT)"
         />
 
-        <ActionButton 
+        <ActionButton
             :styleType="ButtonStyleType.NEUTRAL_FILLED"
             text="Open right drawer"
             icon="mdi:arrow-right"
@@ -26,7 +25,7 @@
             @click="handleShowDrawer(Direction.RIGHT)"
         />
 
-        <ActionButton 
+        <ActionButton
             :styleType="ButtonStyleType.NEUTRAL_FILLED"
             text="Open top drawer"
             icon="mdi:arrow-up"
@@ -34,7 +33,7 @@
             @click="handleShowDrawer(Direction.TOP)"
         />
 
-        <ActionButton 
+        <ActionButton
             :styleType="ButtonStyleType.NEUTRAL_FILLED"
             text="Open bottom drawer"
             icon="mdi:arrow-down"

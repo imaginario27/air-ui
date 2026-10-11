@@ -1,8 +1,8 @@
 <template>
     <div>
         <AppHeader useBottomTabsHeader />
-        
-        <NavSidebar 
+
+        <NavSidebar
             sidebarId="nav-sidebar"
             :menuItems="sidebarMenu"
             :itemsStyleType="SidebarNavMenuItemStyleType.COMPACT"
@@ -11,50 +11,44 @@
             :expandedWidth="expandedSidebarWidth"
             class="border-border-neutral-subtle"
         />
-    
-        <ContentBody 
-            hasSidebar 
-            :sidebarWidth="expandedSidebarWidth"
-            class="flex-row"
-        >
-            <MainContent 
-                :tocSidebarWidth="Number(hasTableOfContent ? tocSidebarWidth : 0)"
-            >
-                <ContentPageHeader 
+
+        <ContentBody hasSidebar :sidebarWidth="expandedSidebarWidth" class="flex-row">
+            <MainContent :tocSidebarWidth="Number(hasTableOfContent ? tocSidebarWidth : 0)">
+                <ContentPageHeader
                     v-if="isComponentPage || isBlocksPage"
-                    :type="hasOvertitle ? PageTitleType.WITH_OVERTITLE: PageTitleType.SIMPLE" 
+                    :type="hasOvertitle ? PageTitleType.WITH_OVERTITLE : PageTitleType.SIMPLE"
                     hasGoBackLink
                     :goBackText="goBackText"
                     :goBackLink="goBackLink"
                     class="border-border-neutral-subtle"
                 />
 
-                <ContentPageHeader 
+                <ContentPageHeader
                     v-else-if="isUtilsPage"
-                    :type="hasOvertitle ? PageTitleType.WITH_OVERTITLE: PageTitleType.SIMPLE" 
+                    :type="hasOvertitle ? PageTitleType.WITH_OVERTITLE : PageTitleType.SIMPLE"
                     :hasGoBackLink="isUtilsChildPage"
                     :goBackText="goBackText"
                     :goBackLink="goBackLink"
                     class="border-border-neutral-subtle"
-                >   
+                >
                     <template v-if="hasPageMetadata" #bottom>
                         <PageMetadata :data="pageMetadata" />
                     </template>
                 </ContentPageHeader>
 
-                <ContentPageHeader 
+                <ContentPageHeader
                     v-else
-                    :type="hasOvertitle ? PageTitleType.WITH_OVERTITLE: PageTitleType.SIMPLE" 
+                    :type="hasOvertitle ? PageTitleType.WITH_OVERTITLE : PageTitleType.SIMPLE"
                     class="border-border-neutral-subtle"
                 />
 
                 <slot />
-                
+
                 <DocsMobileContentFooter v-if="isMobile && hasTableOfContent" />
 
                 <AppFooter />
             </MainContent>
-            
+
             <DocsSidebar
                 v-if="hasTableOfContent"
                 :tocTitle
@@ -90,11 +84,7 @@ const hasTableOfContent = computed(() => tocLinks.value.length)
 const hasPageMetadata = computed(() => {
     const { category, tags, updatedAt } = route.meta
 
-    return Boolean(
-        category ||
-        (Array.isArray(tags) && tags.length > 0) ||
-        updatedAt
-    )
+    return Boolean(category || (Array.isArray(tags) && tags.length > 0) || updatedAt)
 })
 
 const pageMetadata = computed(() => {
@@ -174,7 +164,7 @@ const sidebarMenu = computed<SidebarMenuItem[]>(() => {
     switch (true) {
         case path.startsWith(`/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}`):
             return sidebarComponentsMenu
-        
+
         case path.startsWith(`/${DocsAppSlug.DOCS}/${DocsAppSlug.BLOCKS}`):
             return sidebarBlocksMenu
 
@@ -189,14 +179,13 @@ const sidebarMenu = computed<SidebarMenuItem[]>(() => {
     }
 })
 
-
 // TOC Links
 const { data } = await useAsyncData(
     () => `docs-layout-toc:${cleanPath.value}`,
     () => queryCollection('content').path(cleanPath.value).first(),
     {
         watch: [cleanPath],
-    }
+    },
 )
 
 // Up to depth level 3 links
@@ -210,8 +199,6 @@ const tocLinks = computed(() => {
             }))
     }
 
-    return data.value?.body?.toc?.links
-        ? filterDepth(data.value.body.toc.links)
-        : []
+    return data.value?.body?.toc?.links ? filterDepth(data.value.body.toc.links) : []
 })
 </script>

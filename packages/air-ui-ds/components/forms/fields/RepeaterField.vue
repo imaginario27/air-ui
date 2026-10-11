@@ -1,40 +1,26 @@
 <template>
     <div :class="['flex flex-col', 'w-full', 'gap-2']">
         <!-- Label -->
-        <label
-            v-if="label"
-            :for="id"
-            :class="[
-                'text-sm',
-                'font-semibold',
-                'text-left',
-                hasError && 'text-text-error',
-            ]"
-        >
+        <label v-if="label" :for="id" :class="['text-sm', 'font-semibold', 'text-left', hasError && 'text-text-error']">
             {{ label }}
-            <span
-                v-if="!required && showOptionalLabel"
-                class="font-normal text-text-neutral-subtler"
-            >
+            <span v-if="!required && showOptionalLabel" class="font-normal text-text-neutral-subtler">
                 {{ optionalLabelText }}
             </span>
         </label>
 
         <!-- Help Text (top) -->
-        <HelpText
-            v-if="helpTextPosition === Position.TOP"
-            :text="helpText"
-            :error="error"
-        />
+        <HelpText v-if="helpTextPosition === Position.TOP" :text="helpText" :error="error" />
 
         <div class="w-full flex flex-col gap-4">
-            <template
-                v-for="(item, index) in items"
-                :key="index"
-            >
+            <template v-for="(item, index) in items" :key="index">
                 <!-- Drop placeholder -->
                 <DragPlaceholder
-                    v-if="sortingType === RepeatingFieldSortingType.DRAG && draggedIndex !== null && dragOverIndex === index && draggedIndex !== index"
+                    v-if="
+                        sortingType === RepeatingFieldSortingType.DRAG &&
+                        draggedIndex !== null &&
+                        dragOverIndex === index &&
+                        draggedIndex !== index
+                    "
                     aria-hidden="true"
                     :text="dragPlaceholderText"
                     :showText="showDragPlaceholderText"
@@ -73,18 +59,11 @@
 
                         <!-- Content slot -->
                         <div class="grow">
-                            <slot
-                                :id="id"
-                                :item="item"
-                                :index="index"
-                            />
+                            <slot :id="id" :item="item" :index="index" />
                         </div>
 
                         <!-- Vertical action buttons (desktop only; actionsOrientation is vertical) -->
-                        <div
-                            v-if="actionsOrientation === Orientation.VERTICAL"
-                            class="hidden md:flex flex-col gap-2"
-                        >
+                        <div v-if="actionsOrientation === Orientation.VERTICAL" class="hidden md:flex flex-col gap-2">
                             <ActionIconButton
                                 v-if="sortingType === RepeatingFieldSortingType.BUTTONS"
                                 :styleType="ButtonStyleType.NEUTRAL_TRANSPARENT"
@@ -193,7 +172,11 @@
 
             <!-- Trailing drop zone: lets an item be dragged into the last position -->
             <div
-                v-if="sortingType === RepeatingFieldSortingType.DRAG && draggedIndex !== null && draggedIndex !== items.length - 1"
+                v-if="
+                    sortingType === RepeatingFieldSortingType.DRAG &&
+                    draggedIndex !== null &&
+                    draggedIndex !== items.length - 1
+                "
                 @dragover.prevent="handleDragOver(items.length, $event)"
                 @drop.prevent="handleDrop(items.length, $event)"
             >
@@ -210,11 +193,7 @@
         </div>
 
         <!-- Help Text (bottom) -->
-        <HelpText
-            v-if="helpTextPosition === Position.BOTTOM"
-            :text="helpText"
-            :error="error"
-        />
+        <HelpText v-if="helpTextPosition === Position.BOTTOM" :text="helpText" :error="error" />
     </div>
 </template>
 
@@ -355,10 +334,10 @@ const localItems = ref<unknown[]>(normalizeItems(props.modelValue))
 
 watch(
     () => props.modelValue,
-    value => {
+    (value) => {
         localItems.value = normalizeItems(value)
     },
-    { deep: true }
+    { deep: true },
 )
 
 const items = computed(() => localItems.value)
@@ -480,11 +459,11 @@ const runValidation = (value: unknown[]) => {
 
 watch(
     () => props.modelValue,
-    value => {
+    (value) => {
         if (validationMode.value === FormValidationMode.BLUR) {
             runValidation(value)
         }
     },
-    { deep: true }
+    { deep: true },
 )
 </script>

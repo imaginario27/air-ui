@@ -4,12 +4,7 @@
         role="group"
         :aria-label="ariaLabel"
         :data-orientation="orientation"
-        :class="[
-            'flex',
-            'overflow-hidden',
-            'select-none',
-            isVertical ? 'flex-col h-full' : 'flex-row w-full',
-        ]"
+        :class="['flex', 'overflow-hidden', 'select-none', isVertical ? 'flex-col h-full' : 'flex-row w-full']"
         :style="viewportStyle"
         @mouseenter="isInteracting = true"
         @mouseleave="isInteracting = false"
@@ -162,7 +157,10 @@ onMounted(() => {
 
 onBeforeUnmount(() => observer?.disconnect())
 
-watch(() => [props.orientation, props.gap], () => nextTick(measure))
+watch(
+    () => [props.orientation, props.gap],
+    () => nextTick(measure),
+)
 </script>
 
 <style>

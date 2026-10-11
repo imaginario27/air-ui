@@ -1,6 +1,1 @@
-export type CollectionCustomizeCallback = (
-    svg: string,
-    name?: string,
-    prefix?: string,
-    provider?: string,
-) => string
+export type CollectionCustomizeCallback = (svg: string, name?: string, prefix?: string, provider?: string) => string

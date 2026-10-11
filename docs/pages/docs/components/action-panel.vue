@@ -1,9 +1,7 @@
 ﻿<template>
     <Section>
         <SectionBody>
-            <ContentRenderer 
-                v-if="data" :value="data" 
-            />
+            <ContentRenderer v-if="data" :value="data" />
             <ContentRenderFallback v-else />
         </SectionBody>
     </Section>
@@ -13,7 +11,7 @@ definePageMeta({
     title: 'Action panel',
     layout: 'docs',
     overtitle: 'Components',
-    description: 'Flexible UI panel for presenting content with contextual actions like buttons, links, inputs, etc.'
+    description: 'Flexible UI panel for presenting content with contextual actions like buttons, links, inputs, etc.',
 })
 
 // Route

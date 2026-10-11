@@ -11,8 +11,8 @@ describe('SectionHeader.vue', () => {
     it('renders slot content', () => {
         const wrapper = mount(SectionHeader, {
             slots: {
-                default: '<h2 class="slot-content">Header Content</h2>'
-            }
+                default: '<h2 class="slot-content">Header Content</h2>',
+            },
         })
 
         expect(wrapper.find('.slot-content').exists()).toBe(true)

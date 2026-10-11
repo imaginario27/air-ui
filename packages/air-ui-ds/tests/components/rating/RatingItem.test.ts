@@ -12,15 +12,15 @@ const defaultProps = {
     icon: 'mdi:star-outline',
     size: 'sm',
     color: 'gold',
-    isInteractive: false
+    isInteractive: false,
 }
 
 const factory = (options: FactoryOptions = {}) => {
     return mount(RatingItem, {
         props: {
             ...defaultProps,
-            ...options
-        }
+            ...options,
+        },
     })
 }
 
@@ -47,7 +47,7 @@ describe('RatingItem', () => {
             md: 'w-[24px]',
             lg: 'w-[32px]',
             xl: 'w-[40px]',
-            xxl: 'w-[48px]'
+            xxl: 'w-[48px]',
         }
 
         for (const [size, className] of Object.entries(sizeMap)) {

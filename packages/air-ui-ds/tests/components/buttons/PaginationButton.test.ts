@@ -8,8 +8,8 @@ describe('PaginationButton', () => {
     it('renders default slot content', () => {
         const wrapper = mount(PaginationButton, {
             slots: {
-                default: '1'
-            }
+                default: '1',
+            },
         })
 
         expect(wrapper.text()).toBe('1')
@@ -27,8 +27,8 @@ describe('PaginationButton', () => {
     it('does not emit click when disabled', async () => {
         const wrapper = mount(PaginationButton, {
             props: {
-                disabled: true
-            }
+                disabled: true,
+            },
         })
 
         await wrapper.trigger('click')
@@ -39,8 +39,8 @@ describe('PaginationButton', () => {
     it('applies correct classes for BUTTON styleType', () => {
         const wrapper = mount(PaginationButton, {
             props: {
-                styleType: ButtonPaginationStyle.BUTTON
-            }
+                styleType: ButtonPaginationStyle.BUTTON,
+            },
         })
 
         const button = wrapper.get('button')
@@ -53,8 +53,8 @@ describe('PaginationButton', () => {
     it('applies correct classes for NON-BUTTON styleType', () => {
         const wrapper = mount(PaginationButton, {
             props: {
-                styleType: ButtonPaginationStyle.OVERLINE 
-            }
+                styleType: ButtonPaginationStyle.OVERLINE,
+            },
         })
 
         const button = wrapper.get('button')
@@ -67,8 +67,8 @@ describe('PaginationButton', () => {
     it('applies disabled classes when disabled', () => {
         const wrapper = mount(PaginationButton, {
             props: {
-                disabled: true
-            }
+                disabled: true,
+            },
         })
 
         const button = wrapper.get('button')
@@ -80,8 +80,8 @@ describe('PaginationButton', () => {
     it('applies hover class when not disabled', () => {
         const wrapper = mount(PaginationButton, {
             props: {
-                disabled: false
-            }
+                disabled: false,
+            },
         })
 
         const button = wrapper.get('button')
@@ -97,8 +97,8 @@ describe('PaginationButton', () => {
     it('applies custom aria-label when provided', () => {
         const wrapper = mount(PaginationButton, {
             props: {
-                ariaLabel: 'Page 3'
-            }
+                ariaLabel: 'Page 3',
+            },
         })
 
         expect(wrapper.get('button').attributes('aria-label')).toBe('Page 3')

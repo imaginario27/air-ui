@@ -14,7 +14,7 @@
         ]"
     >
         <!-- NONE -->
-        <span 
+        <span
             v-if="status === StepStatus.NONE"
             :class="[
                 'flex items-center justify-center',
@@ -28,15 +28,12 @@
                 {{ step }}
             </template>
             <template v-else-if="type === StepIndicatorType.ICON && stepIcon">
-                <Icon
-                    :name="stepIcon"
-                    :iconClass="iconSizeClass"
-                />
+                <Icon :name="stepIcon" :iconClass="iconSizeClass" />
             </template>
         </span>
 
         <!-- INACTIVE -->
-        <span 
+        <span
             v-if="status === StepStatus.INACTIVE"
             :class="[
                 'flex items-center justify-center',
@@ -50,15 +47,12 @@
                 {{ step }}
             </template>
             <template v-else-if="type === StepIndicatorType.ICON && stepIcon">
-                <Icon 
-                    :name="stepIcon"
-                    :iconClass="iconSizeClass"
-                />
+                <Icon :name="stepIcon" :iconClass="iconSizeClass" />
             </template>
         </span>
 
         <!-- CURRENT -->
-        <span 
+        <span
             v-else-if="status === StepStatus.CURRENT"
             :class="[
                 'flex items-center justify-center',
@@ -72,10 +66,7 @@
                 {{ step }}
             </template>
             <template v-else-if="type === StepIndicatorType.ICON && stepIcon">
-                <Icon 
-                    :name="stepIcon"
-                    :iconClass="iconSizeClass"
-                />
+                <Icon :name="stepIcon" :iconClass="iconSizeClass" />
             </template>
             <template v-else-if="type === StepIndicatorType.EMPTY">
                 <!-- Circle -->
@@ -90,17 +81,11 @@
         </span>
 
         <!-- COMPLETED -->
-        <span 
+        <span
             v-else-if="status === StepStatus.COMPLETED"
-            :class="[
-                'text-sm font-semibold text-text-primary-brand-default',
-                'flex items-center justify-center',
-            ]"
+            :class="['text-sm font-semibold text-text-primary-brand-default', 'flex items-center justify-center']"
         >
-            <Icon 
-                :name="completedIcon"
-                :iconClass="['!text-icon-neutral-on-filled-bg', iconSizeClass]"
-            />
+            <Icon :name="completedIcon" :iconClass="['!text-icon-neutral-on-filled-bg', iconSizeClass]" />
         </span>
     </div>
 </template>
@@ -110,17 +95,17 @@ const props = defineProps({
     type: {
         type: String as PropType<StepIndicatorType>,
         default: StepIndicatorType.NUMBER,
-        validator: (value: StepIndicatorType) => Object.values(StepIndicatorType).includes(value),    
+        validator: (value: StepIndicatorType) => Object.values(StepIndicatorType).includes(value),
     },
     status: {
         type: String as PropType<StepStatus>,
         default: StepStatus.INACTIVE,
-        validator: (value: StepStatus) => Object.values(StepStatus).includes(value),    
+        validator: (value: StepStatus) => Object.values(StepStatus).includes(value),
     },
     size: {
         type: String as PropType<StepIndicatorSize>,
         default: StepIndicatorSize.XL,
-        validator: (value: StepIndicatorSize) => Object.values(StepIndicatorSize).includes(value),    
+        validator: (value: StepIndicatorSize) => Object.values(StepIndicatorSize).includes(value),
     },
     step: {
         type: Number as PropType<number>,

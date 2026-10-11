@@ -1,13 +1,6 @@
 <template>
     <NuxtLink :to :prefetch-on="prefetchOn">
-        <span 
-            :class="[
-                'font-medium',
-                'transition-colors',
-                'duration-150',
-                activeClass
-            ]"
-        >
+        <span :class="['font-medium', 'transition-colors', 'duration-150', activeClass]">
             {{ text }}
         </span>
     </NuxtLink>
@@ -41,8 +34,6 @@ const route = useRoute()
 const activeClass = computed(() => {
     const isActive = props.detectActive && route.path === props.to
 
-    return isActive
-        ? 'text-text-primary-brand-active'
-        : 'hover:text-text-primary-brand-active text-text-default'
+    return isActive ? 'text-text-primary-brand-active' : 'hover:text-text-primary-brand-active text-text-default'
 })
 </script>

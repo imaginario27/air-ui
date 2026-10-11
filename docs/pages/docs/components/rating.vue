@@ -1,9 +1,7 @@
 ﻿<template>
     <Section>
         <SectionBody>
-            <ContentRenderer
-                v-if="data" :value="data"
-            />
+            <ContentRenderer v-if="data" :value="data" />
             <ContentRenderFallback v-else />
         </SectionBody>
     </Section>
@@ -13,7 +11,8 @@ definePageMeta({
     title: 'Rating',
     layout: 'docs',
     overtitle: 'Components',
-    description: 'Display visual rating indicators with optional interactivity and customizable color and size options.'
+    description:
+        'Display visual rating indicators with optional interactivity and customizable color and size options.',
 })
 
 // Route

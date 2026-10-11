@@ -1,11 +1,9 @@
-export const useForm = <
-    T extends Record<string, any>
->(options: {
-    formData: T,
-    requiredFields: string[],
-    requiredFieldMessage?: string,
-    validators?: Partial<Record<string, (value: unknown) => string | null>>,
-    validateOn?: FormValidationMode,
+export const useForm = <T extends Record<string, any>>(options: {
+    formData: T
+    requiredFields: string[]
+    requiredFieldMessage?: string
+    validators?: Partial<Record<string, (value: unknown) => string | null>>
+    validateOn?: FormValidationMode
 }) => {
     const { currentFormValidationMode } = useFormValidationMode()
 
@@ -33,11 +31,7 @@ export const useForm = <
             return result || ''
         }
 
-        if (
-            value === undefined ||
-            value === null ||
-            (typeof value === 'string' && (value as string).trim() === '')
-        ) {
+        if (value === undefined || value === null || (typeof value === 'string' && (value as string).trim() === '')) {
             return options.requiredFieldMessage ?? 'This field is required'
         }
 
@@ -94,9 +88,9 @@ export const useForm = <
                 const value = obj[key]
 
                 if (Array.isArray(value)) {
-                    value.splice(0, value.length) 
+                    value.splice(0, value.length)
                 } else if (typeof value === 'object' && value !== null) {
-                    resetObject(value) 
+                    resetObject(value)
                 } else {
                     obj[key] = resetValue(value)
                 }
@@ -107,7 +101,7 @@ export const useForm = <
             const value = formData[key]
 
             if (Array.isArray(value)) {
-                value.splice(0, value.length) 
+                value.splice(0, value.length)
             } else if (typeof value === 'object' && value !== null) {
                 resetObject(value)
             } else {

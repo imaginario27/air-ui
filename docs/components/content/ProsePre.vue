@@ -5,13 +5,7 @@
             :size="ButtonSize.SM"
             icon="mdi:content-copy"
             iconClass="!text-white"
-            :class="[
-                'absolute',
-                'right-0',
-                'top-0',
-                'm-2',
-                'z-10',
-            ]"
+            :class="['absolute', 'right-0', 'top-0', 'm-2', 'z-10']"
         />
 
         <pre

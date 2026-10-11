@@ -2,9 +2,7 @@
     <Section>
         <SectionBody>
             <TabBar v-model="activeIndex" :tabs />
-            <ContentRenderer 
-                v-if="data" :value="data" 
-            />
+            <ContentRenderer v-if="data" :value="data" />
             <ContentRenderFallback v-else />
         </SectionBody>
     </Section>
@@ -14,7 +12,8 @@ definePageMeta({
     title: 'Badge',
     layout: 'docs',
     overtitle: 'Components',
-    description: 'Used to highlight short pieces of information, such as statuses, counts, or labels, often displayed alongside UI elements.'
+    description:
+        'Used to highlight short pieces of information, such as statuses, counts, or labels, often displayed alongside UI elements.',
 })
 
 // Route

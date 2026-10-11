@@ -142,10 +142,7 @@ describe('AngleSlider.vue', () => {
         expect(events?.[2]?.[0]).toBe(110)
     })
 
-    it.each([
-        [{ disabled: true }],
-        [{ readOnly: true }],
-    ])('ignores keyboard input when %o', async props => {
+    it.each([[{ disabled: true }], [{ readOnly: true }]])('ignores keyboard input when %o', async (props) => {
         const wrapper = factory(props)
         const thumb = wrapper.find('[data-testid="angle-slider-thumb"]')
 

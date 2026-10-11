@@ -11,14 +11,7 @@
         >
             <div
                 v-if="isOpen && hasOverlay"
-                :class="[
-                    'fixed',
-                    'inset-0',
-                    'bg-background-overlay',
-                    'backdrop-blur-sm',
-                    'z-[10000]',
-                    overlayClass,
-                ]"
+                :class="['fixed', 'inset-0', 'bg-background-overlay', 'backdrop-blur-sm', 'z-[10000]', overlayClass]"
                 @click="closeOnOverlayClick ? close() : null"
             />
         </Transition>
@@ -51,20 +44,8 @@
                 :style="drawerInlineStyle"
             >
                 <!-- Header -->
-                <div
-                    v-if="hasHeader"
-                    :class="[
-                        'flex',
-                        'items-center',
-                        'justify-between',
-                        'gap-3',
-                        headerClass,
-                    ]"
-                >
-                    <component
-                        :is="titleHeadingTag"
-                        :class="['text-lg', 'font-semibold', titleClass]"
-                    >
+                <div v-if="hasHeader" :class="['flex', 'items-center', 'justify-between', 'gap-3', headerClass]">
+                    <component :is="titleHeadingTag" :class="['text-lg', 'font-semibold', titleClass]">
                         {{ title }}
                     </component>
 
@@ -276,13 +257,13 @@ const removeEscListener = () => {
 // Watchers
 watch(
     () => props.modelValue,
-    newValue => {
+    (newValue) => {
         if (newValue) {
             addEscListener() // Add Esc key listener
         } else {
             removeEscListener() // Remove Esc key listener
         }
-    }
+    },
 )
 
 onUnmounted(() => {

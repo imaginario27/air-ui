@@ -4,7 +4,7 @@
         :class="[
             iconSizeClass,
             colorClass,
-            isInteractive && 'hover:cursor-pointer hover:scale-110 transition-transform duration-150 ease-out'
+            isInteractive && 'hover:cursor-pointer hover:scale-110 transition-transform duration-150 ease-out',
         ]"
     />
 </template>
@@ -13,22 +13,22 @@
 const props = defineProps({
     icon: {
         type: String as PropType<string>,
-        default: 'mdi:star-outline'
+        default: 'mdi:star-outline',
     },
     size: {
         type: String as PropType<RatingItemSize>,
-        default: RatingItemSize.SM, 
+        default: RatingItemSize.SM,
         validator: (value: RatingItemSize) => Object.values(RatingItemSize).includes(value),
     },
     color: {
         type: String as PropType<RatingItemColor>,
-        default: RatingItemColor.GOLD, 
+        default: RatingItemColor.GOLD,
         validator: (value: RatingItemColor) => Object.values(RatingItemColor).includes(value),
     },
     isInteractive: {
         type: Boolean as PropType<boolean>,
-        default: false
-    }
+        default: false,
+    },
 })
 
 // Computed

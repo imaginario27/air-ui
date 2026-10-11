@@ -1,36 +1,17 @@
 <template>
     <div
-        :class="[
-            'relative select-none',
-            orientationContainerClass,
-            disabled && 'cursor-not-allowed',
-        ]"
+        :class="['relative select-none', orientationContainerClass, disabled && 'cursor-not-allowed']"
         data-testid="slider-root"
     >
-        <div
-            ref="trackRef"
-            :class="[
-                'relative touch-none',
-                trackContainerClass,
-            ]"
-            @pointerdown="handleTrackPointerDown"
-        >
+        <div ref="trackRef" :class="['relative touch-none', trackContainerClass]" @pointerdown="handleTrackPointerDown">
             <div
-                :class="[
-                    'absolute',
-                    !hasCustomRadius && 'rounded-full',
-                    incompleteTrackColorClass,
-                ]"
+                :class="['absolute', !hasCustomRadius && 'rounded-full', incompleteTrackColorClass]"
                 :style="[baseTrackStyle, radiusStyle]"
                 data-testid="slider-track"
             />
 
             <div
-                :class="[
-                    'absolute',
-                    !hasCustomRadius && 'rounded-full',
-                    completedTrackColorClass,
-                ]"
+                :class="['absolute', !hasCustomRadius && 'rounded-full', completedTrackColorClass]"
                 :style="[filledTrackStyle, radiusStyle]"
                 data-testid="slider-fill"
             />

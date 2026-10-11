@@ -1,38 +1,27 @@
 <template>
     <div :class="['flex flex-col', 'w-full', 'gap-2']">
         <!-- Label -->
-        <label
-            v-if="label"
-            :for="id"
-            :class="[
-                'text-sm',
-                'font-semibold',
-                'text-left',
-                hasError && 'text-text-error',
-            ]"
-        >
+        <label v-if="label" :for="id" :class="['text-sm', 'font-semibold', 'text-left', hasError && 'text-text-error']">
             {{ label }}
-            <span
-                v-if="!required && showOptionalLabel"
-                class="font-normal text-text-neutral-subtler"
-            >
+            <span v-if="!required && showOptionalLabel" class="font-normal text-text-neutral-subtler">
                 {{ optionalLabelText }}
             </span>
         </label>
 
         <!-- Help Text (top) -->
-        <HelpText
-            v-if="helpTextPosition === Position.TOP"
-            :text="helpText"
-            :error="error"
-        />
+        <HelpText v-if="helpTextPosition === Position.TOP" :text="helpText" :error="error" />
 
         <!-- Rules rows -->
         <div class="flex flex-col gap-2">
             <template v-for="(rule, index) in rules" :key="`rule-${index}`">
                 <!-- Drop placeholder -->
                 <DragPlaceholder
-                    v-if="sortingType === RepeatingFieldSortingType.DRAG && draggedIndex !== null && dragOverIndex === index && draggedIndex !== index"
+                    v-if="
+                        sortingType === RepeatingFieldSortingType.DRAG &&
+                        draggedIndex !== null &&
+                        dragOverIndex === index &&
+                        draggedIndex !== index
+                    "
                     aria-hidden="true"
                     :text="dragPlaceholderText"
                     :showText="showDragPlaceholderText"
@@ -86,7 +75,7 @@
                         :placeholder="itemPlaceholder"
                         :disabled
                         :transparent="transparentInputs"
-                        @update:model-value="value => updateRule(index, 'item', value)"
+                        @update:model-value="(value) => updateRule(index, 'item', value)"
                     />
 
                     <SelectField
@@ -97,7 +86,7 @@
                         :placeholder="operatorPlaceholder"
                         :disabled
                         :transparent="transparentInputs"
-                        @update:model-value="value => updateRule(index, 'operator', value)"
+                        @update:model-value="(value) => updateRule(index, 'operator', value)"
                     />
 
                     <InputField
@@ -108,7 +97,7 @@
                         :placeholder="valuePlaceholder"
                         :disabled
                         :transparent="transparentInputs"
-                        @update:model-value="value => updateRule(index, 'value', value)"
+                        @update:model-value="(value) => updateRule(index, 'value', value)"
                         @keydown.enter.prevent="handleValueEnterKey(index)"
                     />
 
@@ -149,7 +138,11 @@
                     <!-- Mobile action buttons -->
                     <div class="flex md:hidden items-center gap-1">
                         <ActionIconButton
-                            v-if="(sortingType === RepeatingFieldSortingType.BUTTONS || sortingType === RepeatingFieldSortingType.DRAG) && isSortableRow(index)"
+                            v-if="
+                                (sortingType === RepeatingFieldSortingType.BUTTONS ||
+                                    sortingType === RepeatingFieldSortingType.DRAG) &&
+                                isSortableRow(index)
+                            "
                             :id="`${id}-move-up-mobile-${index}`"
                             :icon="moveUpIcon"
                             :ariaLabel="moveUpAriaLabel"
@@ -160,7 +153,11 @@
                         />
 
                         <ActionIconButton
-                            v-if="(sortingType === RepeatingFieldSortingType.BUTTONS || sortingType === RepeatingFieldSortingType.DRAG) && isSortableRow(index)"
+                            v-if="
+                                (sortingType === RepeatingFieldSortingType.BUTTONS ||
+                                    sortingType === RepeatingFieldSortingType.DRAG) &&
+                                isSortableRow(index)
+                            "
                             :id="`${id}-move-down-mobile-${index}`"
                             :icon="moveDownIcon"
                             :ariaLabel="moveDownAriaLabel"
@@ -187,11 +184,7 @@
         </div>
 
         <!-- Help Text (bottom) -->
-        <HelpText
-            v-if="helpTextPosition === Position.BOTTOM"
-            :text="helpText"
-            :error="error"
-        />
+        <HelpText v-if="helpTextPosition === Position.BOTTOM" :text="helpText" :error="error" />
     </div>
 </template>
 
@@ -358,7 +351,7 @@ const createEmptyRule = (): RuleItem => ({
     type: 'text',
 })
 
-const cloneRules = (list: RuleItem[]): RuleItem[] => list.map(rule => ({ ...rule }))
+const cloneRules = (list: RuleItem[]): RuleItem[] => list.map((rule) => ({ ...rule }))
 
 const normalizeRules = (list: RuleItem[]): RuleItem[] => {
     return list.length ? cloneRules(list) : [createEmptyRule()]
@@ -368,10 +361,10 @@ const localRules = ref<RuleItem[]>(normalizeRules(props.modelValue))
 
 watch(
     () => props.modelValue,
-    value => {
+    (value) => {
         localRules.value = normalizeRules(value)
     },
-    { deep: true }
+    { deep: true },
 )
 
 const rules = computed(() => localRules.value)
@@ -432,9 +425,7 @@ const getRuleInputType = (rule: RuleItem): AllowedInputType => {
 }
 
 const getFilteredOperators = (rowType: AllowedInputType): SelectOption[] => {
-    return props.operatorOptions.filter(option => 
-        !option.applicableTypes || option.applicableTypes.includes(rowType)
-    )
+    return props.operatorOptions.filter((option) => !option.applicableTypes || option.applicableTypes.includes(rowType))
 }
 
 const isAllowedInputType = (value: unknown): value is AllowedInputType => {
@@ -459,7 +450,7 @@ const resolveRuleTypeFromItem = (itemValue: RuleValue): AllowedInputType => {
         return itemValue
     }
 
-    const matchedOption = props.itemOptions.find(option => option.value === itemValue)
+    const matchedOption = props.itemOptions.find((option) => option.value === itemValue)
     if (matchedOption?.inputType) {
         return matchedOption.inputType
     }
@@ -652,11 +643,11 @@ const runValidation = (value: RuleItem[]) => {
 
 watch(
     () => props.modelValue,
-    value => {
+    (value) => {
         if (validationMode.value === FormValidationMode.BLUR) {
             runValidation(value)
         }
     },
-    { deep: true }
+    { deep: true },
 )
 </script>

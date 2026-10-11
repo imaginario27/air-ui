@@ -1,5 +1,5 @@
 <template>
-    <ActionButton 
+    <ActionButton
         :text
         :aria-label="ariaLabel"
         :size
@@ -40,7 +40,7 @@ const props = defineProps({
     },
     isRounded: {
         type: Boolean as PropType<boolean>,
-        default: false
+        default: false,
     },
     disabled: {
         type: Boolean as PropType<boolean>,

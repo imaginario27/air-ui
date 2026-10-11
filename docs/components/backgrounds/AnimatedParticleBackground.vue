@@ -3,10 +3,7 @@
         <template v-if="isDark">
             <div class="glow" />
 
-            <div
-                ref="particlesContainer"
-                class="particles-container"
-            />
+            <div ref="particlesContainer" class="particles-container" />
         </template>
 
         <div class="inner-content">
@@ -51,7 +48,6 @@ const createParticle = () => {
 
     animateParticle(particle)
 }
-
 
 const resetParticle = (particle: HTMLDivElement) => {
     const posX = Math.random() * 100
@@ -104,14 +100,14 @@ onMounted(() => {
 
 onBeforeUnmount(() => {
     isDestroyed = true
-    particles.forEach(particle => particle.remove())
+    particles.forEach((particle) => particle.remove())
     particles = []
 })
 
-watch(isDark, value => {
+watch(isDark, (value) => {
     if (!value) {
         isDestroyed = true
-        particles.forEach(particle => particle.remove())
+        particles.forEach((particle) => particle.remove())
         particles = []
         return
     }
@@ -177,11 +173,7 @@ watch(isDark, value => {
             rgba(88, 0, 255, 0.15) 45%,
             transparent 70%
         ),
-        radial-gradient(
-            circle at 60% 40%,
-            rgba(120, 80, 255, 0.25),
-            transparent 60%
-        );
+        radial-gradient(circle at 60% 40%, rgba(120, 80, 255, 0.25), transparent 60%);
 
     filter: blur(80px);
     opacity: 0.9;

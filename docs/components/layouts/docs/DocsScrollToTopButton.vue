@@ -12,11 +12,7 @@
             :size="ButtonSize.LG"
             :styleType="ButtonStyleType.NEUTRAL_FILLED"
             isRounded
-            :class="[
-                'fixed bottom-4 right-4 z-40',
-                'shadow-lg',
-                'lg:hidden',
-            ]"
+            :class="['fixed bottom-4 right-4 z-40', 'shadow-lg', 'lg:hidden']"
             @click="scrollToTop"
         />
     </Transition>

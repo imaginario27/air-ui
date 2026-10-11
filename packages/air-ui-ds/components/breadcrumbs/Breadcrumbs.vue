@@ -1,14 +1,10 @@
 <template>
     <nav aria-label="breadcrumb">
-        <ul
-            :class="[
-                'flex items-center space-x-2 text-icon-neutral-subtle font-medium',
-            ]"
-        >
+        <ul :class="['flex items-center space-x-2 text-icon-neutral-subtle font-medium']">
             <!-- Home Link -->
             <li v-if="showHome">
                 <NuxtLink to="/" class="flex items-center space-x-1">
-                    <Icon 
+                    <Icon
                         :name="homeIcon"
                         :iconClass="[
                             'text-icon-neutral-subtle hover:text-icon-neutral-on-monochrome-hover-bg',
@@ -19,19 +15,12 @@
             </li>
 
             <!-- Dynamic Breadcrumbs -->
-            <li
-                v-for="(crumb, index) in displayedBreadcrumbs"
-                :key="index"
-                class="flex items-center space-x-2"
-            >
+            <li v-for="(crumb, index) in displayedBreadcrumbs" :key="index" class="flex items-center space-x-2">
                 <!-- Chevron Separator -->
                 <Icon
                     v-if="index > 0 || showHome"
                     :name="separatorIcon"
-                    :iconClass="[
-                        'text-icon-neutral-subtle',
-                        separatorClass,
-                    ]"
+                    :iconClass="['text-icon-neutral-subtle', separatorClass]"
                 />
 
                 <!-- Breadcrumb (active or not) -->
@@ -107,15 +96,11 @@ const basePath = computed(() => {
 
 // Generate all breadcrumbs from selected path
 const allCrumbs = computed(() => {
-    const pathSegments = basePath.value
-        .split('/')
-        .filter(Boolean)
+    const pathSegments = basePath.value.split('/').filter(Boolean)
 
     return pathSegments.map((segment, index) => {
         return {
-            label: segment
-                .replace(/-/g, ' ')
-                .replace(/\b\w/g, (c) => c.toUpperCase()),
+            label: segment.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()),
             to: '/' + pathSegments.slice(0, index + 1).join('/'),
             isCurrent: index === pathSegments.length - 1,
         }

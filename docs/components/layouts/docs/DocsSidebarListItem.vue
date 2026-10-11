@@ -1,11 +1,5 @@
 <template>
-    <li 
-        :class="[
-            'hover:text-text-primary-brand-hover',
-            'cursor-pointer',
-            'font-medium text-text-neutral-subtle',
-        ]"
-    >
+    <li :class="['hover:text-text-primary-brand-hover', 'cursor-pointer', 'font-medium text-text-neutral-subtle']">
         <component
             :is="props.actionType === ListItemActionType.LINK ? NuxtLink : 'span'"
             :to="props.link"
@@ -13,10 +7,7 @@
             class="flex gap-2"
             @click="handleClick"
         >
-            <Icon 
-                v-if="icon"
-                :name="icon"
-            />
+            <Icon v-if="icon" :name="icon" />
 
             <span>
                 {{ text }}

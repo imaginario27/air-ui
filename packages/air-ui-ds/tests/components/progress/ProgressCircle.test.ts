@@ -24,7 +24,10 @@ describe('ProgressCircle', () => {
     })
 
     it('fills the arc proportionally to the progress', () => {
-        const [filled, total] = indicator(factory({ progress: 25 })).attributes('stroke-dasharray')!.split(' ').map(Number)
+        const [filled, total] = indicator(factory({ progress: 25 }))
+            .attributes('stroke-dasharray')!
+            .split(' ')
+            .map(Number)
 
         expect(filled! / total!).toBeCloseTo(0.25)
     })
@@ -83,7 +86,12 @@ describe('ProgressCircle', () => {
     })
 
     it('shows a spinning quarter arc and loading text when indeterminate', () => {
-        const wrapper = factory({ isIndeterminate: true, showProgressLabel: true, progressLabelPosition: ProgressCircleLabelPosition.BOTTOM, loadingText: 'Please wait...' })
+        const wrapper = factory({
+            isIndeterminate: true,
+            showProgressLabel: true,
+            progressLabelPosition: ProgressCircleLabelPosition.BOTTOM,
+            loadingText: 'Please wait...',
+        })
         const [filled, total] = indicator(wrapper).attributes('stroke-dasharray')!.split(' ').map(Number)
         const root = wrapper.find('[role="progressbar"]')
 

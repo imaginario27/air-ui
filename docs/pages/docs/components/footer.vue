@@ -1,9 +1,7 @@
 ﻿<template>
     <Section>
         <SectionBody>
-            <ContentRenderer 
-                v-if="data" :value="data" 
-            />
+            <ContentRenderer v-if="data" :value="data" />
             <ContentRenderFallback v-else />
         </SectionBody>
     </Section>
@@ -13,7 +11,8 @@ definePageMeta({
     title: 'Footer',
     layout: 'docs',
     overtitle: 'Components',
-    description: 'A flexible Footer component for structuring and styling the footer section of your application, with optional content width constraints.',
+    description:
+        'A flexible Footer component for structuring and styling the footer section of your application, with optional content width constraints.',
 })
 
 // Route

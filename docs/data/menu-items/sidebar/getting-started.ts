@@ -41,5 +41,5 @@ export const sidebarGettingStartedMenu: SidebarMenuItem[] = [
     {
         text: 'LLMs.txt',
         to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.GETTING_STARTED}/${DocsAppSlug.AGENTS}/llms-txt`,
-    }
+    },
 ]

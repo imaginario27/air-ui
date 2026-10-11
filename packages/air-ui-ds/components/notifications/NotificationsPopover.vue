@@ -1,35 +1,21 @@
 <template>
-    <Popover
-        :position
-        :align
-        :trigger
-        :popoverClass="['px-0 py-3', popoverClass]"
-    >
+    <Popover :position :align :trigger :popoverClass="['px-0 py-3', popoverClass]">
         <template #content="{ onClose }">
-            <div
-                v-if="isLoading && !hasError"
-                class="w-full flex justify-center py-3"
-            >
-                <Loading 
+            <div v-if="isLoading && !hasError" class="w-full flex justify-center py-3">
+                <Loading
                     :text="loadingText"
                     spinnerClass="w-[16px]! h-[16px]! border-2!"
                     class="flex-row gap-2! text-sm!"
                 />
             </div>
 
-            <div
-                v-else-if="!isLoading && hasError"
-                class="w-full flex justify-center py-3"
-            >
+            <div v-else-if="!isLoading && hasError" class="w-full flex justify-center py-3">
                 <span class="text-sm text-text-error">
                     {{ errorText }}
                 </span>
             </div>
 
-            <div 
-                v-else
-                class="w-full flex flex-col gap-2"
-            >
+            <div v-else class="w-full flex flex-col gap-2">
                 <!-- Header -->
                 <div class="w-full flex flex-col gap-2.5 px-3">
                     <div class="w-full flex gap-4 items-center justify-between">
@@ -46,7 +32,7 @@
                                 :shape="badgeShape"
                             />
                         </div>
-                    
+
                         <NavLink
                             v-if="internalList.length"
                             :text="viewAllText"
@@ -59,9 +45,9 @@
                     <!-- Filters -->
                     <ToggleButtonsGroupField
                         v-if="internalList.length"
-                        id="notifications-filters" 
-                        v-model="selectedFilterValue" 
-                        :buttons="toggleFilterButtons" 
+                        id="notifications-filters"
+                        v-model="selectedFilterValue"
+                        :buttons="toggleFilterButtons"
                         :groupStyle="filterGroupStyle"
                     />
                 </div>
@@ -103,10 +89,7 @@
                 </div>
 
                 <!-- Footer -->
-                <div
-                    v-if="internalList.length"
-                    class="w-full flex gap-2 px-3"
-                >
+                <div v-if="internalList.length" class="w-full flex gap-2 px-3">
                     <ActionButton
                         :icon="buttonAllReadIcon"
                         :iconPosition="IconPosition.LEFT"
@@ -123,7 +106,7 @@
                         isFullWidth
                         @click="onClearAll"
                     />
-                </div> 
+                </div>
             </div>
         </template>
         <template #activator>
@@ -158,7 +141,7 @@ const props = defineProps({
     },
     listContainedIconSize: {
         type: String as PropType<IconContainerSize>,
-        default: IconContainerSize.SM, 
+        default: IconContainerSize.SM,
         validator: (value: IconContainerSize) => Object.values(IconContainerSize).includes(value),
     },
     listContainedStyleType: {
@@ -196,11 +179,11 @@ const props = defineProps({
     },
     loadingText: {
         type: String as PropType<string>,
-        default: "Loading notifications",
+        default: 'Loading notifications',
     },
     errorText: {
         type: String as PropType<string>,
-        default: "",
+        default: '',
     },
     title: {
         type: String as PropType<string>,
@@ -223,7 +206,7 @@ const props = defineProps({
     },
     popoverClass: {
         type: String as PropType<string>,
-        default: 'min-w-[332px]'
+        default: 'min-w-[332px]',
     },
     badgeStyleType: {
         type: String as PropType<BadgeStyle>,
@@ -232,12 +215,12 @@ const props = defineProps({
     },
     badgeShape: {
         type: String as PropType<BadgeShape>,
-        default: BadgeShape.PILL, 
+        default: BadgeShape.PILL,
         validator: (value: BadgeShape) => Object.values(BadgeShape).includes(value),
     },
     badgeColor: {
         type: String as PropType<ColorAccent>,
-        default: ColorAccent.SECONDARY_BRAND, 
+        default: ColorAccent.SECONDARY_BRAND,
         validator: (value: ColorAccent) => Object.values(ColorAccent).includes(value),
     },
     viewAllText: {
@@ -293,20 +276,25 @@ const toggleFilterButtons = ref<ToggleButton[]>([
 const internalList = ref<AppNotificationItem[]>([...props.list])
 
 // Watchers
-watch(() => props.list, (newList) => {
-    internalList.value = [...newList]
-}, { deep: true })
+watch(
+    () => props.list,
+    (newList) => {
+        internalList.value = [...newList]
+    },
+    { deep: true },
+)
 
 // Computed
 const hasError = computed(() => props.errorText.trim().length > 0)
 const resolvedButtonClearAllText = computed(() => props.buttonClearAllText ?? dsConfig.actions.clearAllText())
 
-const unreadCount = computed(() => internalList.value.filter(notification => !notification.read).length)
+const unreadCount = computed(() => internalList.value.filter((notification) => !notification.read).length)
 
 const filteredList = computed(() => {
-    const source = selectedFilterValue.value === 'unread'
-        ? internalList.value.filter(notification => !notification.read)
-        : internalList.value
+    const source =
+        selectedFilterValue.value === 'unread'
+            ? internalList.value.filter((notification) => !notification.read)
+            : internalList.value
 
     return source.slice(0, props.limit)
 })
@@ -318,17 +306,17 @@ const onViewAllClick = (event: MouseEvent, onClose: () => void) => {
 }
 
 const onRemoveNotification = (id: string) => {
-    internalList.value = internalList.value.filter(notification => notification.id !== id)
+    internalList.value = internalList.value.filter((notification) => notification.id !== id)
     emit('remove', { id })
 }
 
 const onReadStatusChange = (id: string, read: boolean) => {
-    const item = internalList.value.find(notification => notification.id === id)
+    const item = internalList.value.find((notification) => notification.id === id)
     if (item) item.read = read
 }
 
 const onMarkAllAsRead = () => {
-    internalList.value.forEach(notification => notification.read = true)
+    internalList.value.forEach((notification) => (notification.read = true))
     emit('markAllAsRead')
 }
 

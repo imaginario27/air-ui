@@ -1,6 +1,4 @@
-import type {
-    FeedbackSubmissionPayload,
-} from '@/models/types/feedbackModal'
+import type { FeedbackSubmissionPayload } from '@/models/types/feedbackModal'
 
 const appendFilesToFormData = (form: FormData, files: File[]) => {
     files.forEach((file) => {

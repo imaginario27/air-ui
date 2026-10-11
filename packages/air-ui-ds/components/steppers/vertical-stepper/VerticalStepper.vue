@@ -1,11 +1,5 @@
 <template>
-    <div
-        :class="[
-            'relative',
-            'flex',
-            'flex-col',
-        ]"
-    >
+    <div :class="['relative', 'flex', 'flex-col']">
         <template v-if="items && items.length && !$slots.default">
             <VerticalStep
                 v-for="(step, index) in items"

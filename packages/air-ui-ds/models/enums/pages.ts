@@ -5,6 +5,6 @@ export enum PageTitleType {
 }
 
 export enum PageTitleFormat {
-    FULL = 'full',  
-    SIMPLE = 'simple',   
+    FULL = 'full',
+    SIMPLE = 'simple',
 }

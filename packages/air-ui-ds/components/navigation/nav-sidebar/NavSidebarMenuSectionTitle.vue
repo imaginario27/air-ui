@@ -1,31 +1,17 @@
 <template>
-    <div 
+    <div
         v-if="!isCollapsed"
         v-bind="attrs"
-        :class="[
-        'flex',
-        'items-center',
-        textClass,
-        borderClass,
-        spacingClass,
-        expandedLevelOneBottomMarginClass,
-    ]"
+        :class="['flex', 'items-center', textClass, borderClass, spacingClass, expandedLevelOneBottomMarginClass]"
     >
-        <Icon
-            v-if="icon"
-            :name="icon"
-            :iconClass="['!text-icon-neutral-subtle', iconSizeClass]"
-        />
+        <Icon v-if="icon" :name="icon" :iconClass="['!text-icon-neutral-subtle', iconSizeClass]" />
 
         <span>
             {{ text }}
         </span>
     </div>
 
-    <Divider
-        v-if="isCollapsed && showCollapseDivider"
-        v-bind="attrs"
-    />
+    <Divider v-if="isCollapsed && showCollapseDivider" v-bind="attrs" />
 </template>
 <script setup lang="ts">
 defineOptions({
@@ -36,12 +22,12 @@ defineOptions({
 const props = defineProps({
     text: {
         type: String as PropType<string>,
-        default: 'Item text'
+        default: 'Item text',
     },
     icon: String as PropType<string>,
     styleType: {
         type: String as PropType<SidebarNavMenuItemStyleType>,
-        default: SidebarNavMenuItemStyleType.COMPACT, 
+        default: SidebarNavMenuItemStyleType.COMPACT,
         validator: (value: SidebarNavMenuItemStyleType) => Object.values(SidebarNavMenuItemStyleType).includes(value),
     },
     isCollapsed: {

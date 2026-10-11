@@ -1,11 +1,8 @@
 <template>
-    <div 
+    <div
         :class="[
             'flex flex-col gap-4 w-full pt-5',
-            hasBorder && [
-                'border-t',
-                isDark ? 'border-border-default/70' : 'border-border-neutral-subtle',
-            ]
+            hasBorder && ['border-t', isDark ? 'border-border-default/70' : 'border-border-neutral-subtle'],
         ]"
     >
         <slot />
@@ -16,8 +13,8 @@
 defineProps({
     hasBorder: {
         type: Boolean as PropType<boolean>,
-        default: true
-    }
+        default: true,
+    },
 })
 
 // Composables

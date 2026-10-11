@@ -37,9 +37,7 @@ const DEFAULT_PROPS = {
     copyErrorText: 'Failed!',
 }
 
-const factory = (
-    props: Partial<InstanceType<typeof CopyButton>['$props']> = {}
-) =>
+const factory = (props: Partial<InstanceType<typeof CopyButton>['$props']> = {}) =>
     mount(CopyButton, {
         props: {
             ...DEFAULT_PROPS,

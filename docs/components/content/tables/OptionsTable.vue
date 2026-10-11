@@ -3,33 +3,23 @@
         <ProseTable v-if="options.length">
             <ProseThead>
                 <ProseTr>
-                    <ProseTh>
-                        Value
-                    </ProseTh>
-                    <ProseTh>
-                        Description
-                    </ProseTh>
+                    <ProseTh> Value </ProseTh>
+                    <ProseTh> Description </ProseTh>
                 </ProseTr>
             </ProseThead>
 
             <ProseTbody>
                 <ProseTr v-for="(option, index) in options" :key="index">
                     <ProseTd>
-                        <ProseCode 
-                            :color="ColorAccent.PRIMARY_BRAND"
-                            class="font-semibold"
-                        >
+                        <ProseCode :color="ColorAccent.PRIMARY_BRAND" class="font-semibold">
                             {{ option.value }}
                         </ProseCode>
                     </ProseTd>
                     <ProseTd>
-                        <p 
-                            v-if="typeof option.description === 'string'"
-                            class="text-text-default text-sm"
-                        >
+                        <p v-if="typeof option.description === 'string'" class="text-text-default text-sm">
                             {{ option.description }}
                         </p>
-                        <p 
+                        <p
                             v-else-if="Array.isArray(option.description)"
                             class="text-text-default flex flex-wrap gap-x-1"
                         >
@@ -37,10 +27,7 @@
                                 <span v-if="typeof part === 'string'">
                                     {{ part }}
                                 </span>
-                                <ProseCode
-                                    v-else
-                                    class="text-xs"
-                                >
+                                <ProseCode v-else class="text-xs">
                                     {{ part.content }}
                                 </ProseCode>
                             </template>
@@ -55,14 +42,14 @@
 // Local interfaces
 interface OptionsTableItem {
     value: string
-    description: string | Array<string | { type: 'code', content: string }>
+    description: string | Array<string | { type: 'code'; content: string }>
 }
 
 // Props
 defineProps({
     options: {
         type: Array as PropType<OptionsTableItem[]>,
-        default: () => []
-    }
+        default: () => [],
+    },
 })
 </script>

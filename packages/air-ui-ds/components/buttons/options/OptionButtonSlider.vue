@@ -1,8 +1,12 @@
 <template>
     <div class="relative overflow-hidden">
         <!-- Sombras difuminadas laterales -->
-        <div class="pointer-events-none absolute inset-y-0 left-0 w-8 bg-gradient-to-r from-white/90 to-transparent z-10"></div>
-        <div class="pointer-events-none absolute inset-y-0 right-0 w-8 bg-gradient-to-l from-white/90 to-transparent z-10"></div>
+        <div
+            class="pointer-events-none absolute inset-y-0 left-0 w-8 bg-gradient-to-r from-white/90 to-transparent z-10"
+        ></div>
+        <div
+            class="pointer-events-none absolute inset-y-0 right-0 w-8 bg-gradient-to-l from-white/90 to-transparent z-10"
+        ></div>
 
         <!-- Carrusel de botones -->
         <div
@@ -78,10 +82,7 @@ const isButtonActive = (button: OptionButton) => {
     if (props.isMultiple) {
         if (button.value === props.allButtonValue) {
             if (!Array.isArray(props.modelValue)) return false
-            return (
-                props.modelValue.length === 0 ||
-                props.modelValue.length === props.buttons.length
-            )
+            return props.modelValue.length === 0 || props.modelValue.length === props.buttons.length
         }
 
         return Array.isArray(props.modelValue) && props.modelValue.includes(button.value)
@@ -92,9 +93,7 @@ const isButtonActive = (button: OptionButton) => {
 
 // NUEVO: Determinar el estilo del botón según si está activo
 const getButtonStyleType = (button: OptionButton) => {
-    return isButtonActive(button) 
-        ? ButtonStyleType.PRIMARY_BRAND_FILLED 
-        : ButtonStyleType.PRIMARY_BRAND_SOFT
+    return isButtonActive(button) ? ButtonStyleType.PRIMARY_BRAND_FILLED : ButtonStyleType.PRIMARY_BRAND_SOFT
 }
 
 const handleButtonClick = (button: OptionButton) => {
@@ -102,14 +101,14 @@ const handleButtonClick = (button: OptionButton) => {
 
     if (props.isMultiple) {
         if (button.value === props.allButtonValue) {
-            const allValues = props.buttons.map(b => b.value)
+            const allValues = props.buttons.map((b) => b.value)
             const selected = props.modelValue as string[]
             const isAllSelected = selected.length === allValues.length
             emit('update:modelValue', isAllSelected ? [] : allValues)
         } else if (Array.isArray(props.modelValue)) {
             const isActive = props.modelValue.includes(button.value)
             const updated = isActive
-                ? props.modelValue.filter(v => v !== button.value)
+                ? props.modelValue.filter((v) => v !== button.value)
                 : [...props.modelValue, button.value]
             emit('update:modelValue', updated)
         }

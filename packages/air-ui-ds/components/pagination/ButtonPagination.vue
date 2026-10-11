@@ -1,55 +1,41 @@
 <template>
-    <div 
+    <div
         :class="[
             'flex',
             'justify-between',
             'items-center',
             'gap-3',
             isMobile ? 'flex-col-reverse' : 'flex-row',
-            'w-full'
+            'w-full',
         ]"
     >
-        <div
-            :class="[
-                'flex',
-                'items-center',
-                'justify-between',
-                'gap-4',
-                'w-full'
-            ]"
-        >
+        <div :class="['flex', 'items-center', 'justify-between', 'gap-4', 'w-full']">
             <p class="text-text-neutral-subtle text-xs xs:text-sm">
                 {{ renderedResultsText }}
             </p>
-            <RowsPerPage 
-                v-model="itemsPerPage" 
+            <RowsPerPage
+                v-model="itemsPerPage"
                 :rowsLabel="rowsPerPageLabel"
                 :rowsOptions="rowsPerPageOptions"
                 :class="[isMobile ? 'flex' : 'hidden']"
-            /> <!-- Mobile position -->
+            />
+            <!-- Mobile position -->
         </div>
 
-        <div 
-            v-if="totalItems > 5"
-            :class="[
-                'flex',
-                'gap-6',
-                isMobile ? 'flex-col w-full' : 'flex-row w-auto'
-            ]"
-        >
-            <RowsPerPage 
+        <div v-if="totalItems > 5" :class="['flex', 'gap-6', isMobile ? 'flex-col w-full' : 'flex-row w-auto']">
+            <RowsPerPage
                 v-if="showRowsPerPage"
                 v-model="itemsPerPage"
                 :rowsLabel="rowsPerPageLabel"
                 :rowsOptions="rowsPerPageOptions"
                 :class="[isMobile ? 'hidden' : 'flex']"
             />
-            <nav 
+            <nav
                 v-if="totalItems > itemsPerPage"
                 :class="[
                     'flex',
                     styleType === ButtonPaginationStyle.BUTTON && 'border border-border-default rounded',
-                    'overflow-hidden'
+                    'overflow-hidden',
                 ]"
             >
                 <!-- Previous Button -->
@@ -59,10 +45,7 @@
                     :ariaLabel="resolvedAriaLabelPrevious"
                     @click="goToPreviousPage"
                 >
-                    <Icon
-                        name="mdi:chevron-left"
-                        iconClass="text-icon-neutral-subtle"
-                    />
+                    <Icon name="mdi:chevron-left" iconClass="text-icon-neutral-subtle" />
                 </PaginationButton>
 
                 <!-- Pagination Button Loop -->
@@ -76,38 +59,35 @@
                     :tabindex="page === '...' ? -1 : undefined"
                     :class="[
                         styleType === ButtonPaginationStyle.BUTTON && 'border border-border-default',
-                        page === modelValue ? [
-                            styleType === ButtonPaginationStyle.BUTTON && 'bg-background-primary-brand-active',
-                            'text-text-neutral-on-filled',
-                            'font-semibold',
-                            styleType === ButtonPaginationStyle.OVERLINE && 'border-t-2',
-                            styleType === ButtonPaginationStyle.BUTTON ? 
-                                'hover:bg-background-primary-brand-hover' 
-                                : 'hover:!bg-background-primary-brand-soft',
-                            '!border-background-primary-brand-active'
-                        ] : [
-                            'hover:bg-background-neutral-subtle',
-                            'hover:text-text-default'
-                        ],
-                        page === '...' ? 'cursor-default hover:!cursor-not-allowed hover:!bg-transparent' : 'cursor-pointer',
+                        page === modelValue
+                            ? [
+                                  styleType === ButtonPaginationStyle.BUTTON && 'bg-background-primary-brand-active',
+                                  'text-text-neutral-on-filled',
+                                  'font-semibold',
+                                  styleType === ButtonPaginationStyle.OVERLINE && 'border-t-2',
+                                  styleType === ButtonPaginationStyle.BUTTON
+                                      ? 'hover:bg-background-primary-brand-hover'
+                                      : 'hover:!bg-background-primary-brand-soft',
+                                  '!border-background-primary-brand-active',
+                              ]
+                            : ['hover:bg-background-neutral-subtle', 'hover:text-text-default'],
+                        page === '...'
+                            ? 'cursor-default hover:!cursor-not-allowed hover:!bg-transparent'
+                            : 'cursor-pointer',
                     ]"
                     @click="() => handlePageClick(page)"
                 >
-                    <span 
+                    <span
                         v-if="page !== '...'"
                         :class="[
                             'transition-colors duration-200',
-                            page === modelValue ? 
-                                (
-                                    styleType === ButtonPaginationStyle.BUTTON 
-                                        ? 'text-text-on-filled' 
-                                        : 'text-text-primary-brand-active'
-                                ) 
-                                : (
-                                    styleType === ButtonPaginationStyle.BUTTON 
-                                        ? 'text-text-default' 
-                                        : 'text-text-neutral-inactive'
-                                ) 
+                            page === modelValue
+                                ? styleType === ButtonPaginationStyle.BUTTON
+                                    ? 'text-text-on-filled'
+                                    : 'text-text-primary-brand-active'
+                                : styleType === ButtonPaginationStyle.BUTTON
+                                  ? 'text-text-default'
+                                  : 'text-text-neutral-inactive',
                         ]"
                     >
                         {{ page }}
@@ -122,10 +102,7 @@
                     :ariaLabel="resolvedAriaLabelNext"
                     @click="goToNextPage"
                 >
-                    <Icon 
-                        name="mdi:chevron-right"
-                        iconClass="text-icon-neutral-subtle"
-                    />
+                    <Icon name="mdi:chevron-right" iconClass="text-icon-neutral-subtle" />
                 </PaginationButton>
             </nav>
         </div>
@@ -190,12 +167,18 @@ const dsConfig = useDSConfig()
 const itemsPerPage = ref(props.itemsPerPage)
 
 // Emits
-const emit = defineEmits(["update:modelValue", "update:itemsPerPage"])
+const emit = defineEmits(['update:modelValue', 'update:itemsPerPage'])
 
 // Computed
-const resolvedResultTextMultiplePages = computed(() => props.resultTextMultiplePages ?? dsConfig.pagination.resultTextMultiplePages())
-const resolvedResultTextSinglePage = computed(() => props.resultTextSinglePage ?? dsConfig.pagination.resultTextSinglePage())
-const resolvedResultTextSingleItem = computed(() => props.resultTextSingleItem ?? dsConfig.pagination.resultTextSingleItem())
+const resolvedResultTextMultiplePages = computed(
+    () => props.resultTextMultiplePages ?? dsConfig.pagination.resultTextMultiplePages(),
+)
+const resolvedResultTextSinglePage = computed(
+    () => props.resultTextSinglePage ?? dsConfig.pagination.resultTextSinglePage(),
+)
+const resolvedResultTextSingleItem = computed(
+    () => props.resultTextSingleItem ?? dsConfig.pagination.resultTextSingleItem(),
+)
 const resolvedAriaLabelPrevious = computed(() => props.ariaLabelPrevious ?? dsConfig.pagination.previousPageText())
 const resolvedAriaLabelNext = computed(() => props.ariaLabelNext ?? dsConfig.pagination.nextPageText())
 const resolvedAriaLabelPage = computed(() => props.ariaLabelPage ?? dsConfig.pagination.pageText())
@@ -215,7 +198,6 @@ const visiblePages = computed(() => {
         for (let i = startPage; i <= endPage; i++) {
             pages.push(i)
         }
-
     } else {
         // Desktop: Include ellipsis with a maximum of 7 pages
         const maxPagesDesktop = 7
@@ -254,32 +236,29 @@ const renderedResultsText = computed(() => {
 
     // Single item case
     if (props.totalItems === 1) {
-        return resolvedResultTextSingleItem.value
-            .replace('{total}', '1')
-            .replace('{count}', 'result')
+        return resolvedResultTextSingleItem.value.replace('{total}', '1').replace('{count}', 'result')
     }
 
     // Single page with multiple results
-    return resolvedResultTextSinglePage.value
-        .replace('{total}', props.totalItems.toString())
+    return resolvedResultTextSinglePage.value.replace('{total}', props.totalItems.toString())
 })
 
 // Handlers
 const goToPreviousPage = () => {
     if (props.modelValue > 1) {
-        emit("update:modelValue", props.modelValue - 1)
+        emit('update:modelValue', props.modelValue - 1)
     }
 }
 
 const goToNextPage = () => {
     if (props.modelValue < totalPages.value) {
-        emit("update:modelValue", props.modelValue + 1)
+        emit('update:modelValue', props.modelValue + 1)
     }
 }
 
 const handlePageClick = (page: string | number) => {
     if (page === '...') return
-    emit("update:modelValue", page)
+    emit('update:modelValue', page)
 }
 
 const pageAriaLabel = (page: string | number) => {
@@ -290,6 +269,6 @@ const pageAriaLabel = (page: string | number) => {
 // Watchers
 watch(itemsPerPage, (newVal) => {
     emit('update:modelValue', 1) // Reset to page 1 when rows per page changes
-    emit("update:itemsPerPage", newVal)
+    emit('update:itemsPerPage', newVal)
 })
 </script>

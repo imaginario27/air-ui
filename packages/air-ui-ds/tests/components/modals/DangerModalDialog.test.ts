@@ -12,15 +12,12 @@ import ContainedIcon from '@/components/icons/ContainedIcon.vue'
 import { Orientation } from '@/models/enums/orientations'
 import { useDSConfig } from '@/composables/useDSConfig'
 
-const factory = (
-    props?: Partial<InstanceType<typeof DangerModalDialog>['$props']>,
-    slots?: Record<string, any>
-) => {
+const factory = (props?: Partial<InstanceType<typeof DangerModalDialog>['$props']>, slots?: Record<string, any>) => {
     return mount(DangerModalDialog, {
         props: {
             modelValue: true,
             buttonActionText: 'Delete',
-            ...props
+            ...props,
         },
         slots,
         global: {
@@ -32,10 +29,10 @@ const factory = (
                 ModalDescription,
                 ModalActions,
                 ActionButton,
-                ContainedIcon
-            }
+                ContainedIcon,
+            },
         },
-        attachTo: document.body
+        attachTo: document.body,
     })
 }
 
@@ -55,7 +52,7 @@ describe('DangerModalDialog.vue', () => {
     it('renders custom title and description', async () => {
         factory({
             title: 'Warning!',
-            description: 'This cannot be undone.'
+            description: 'This cannot be undone.',
         })
         await nextTick()
 
@@ -66,7 +63,7 @@ describe('DangerModalDialog.vue', () => {
     it('renders both buttons with correct text', async () => {
         factory({
             buttonCloseText: 'Cancel',
-            buttonActionText: 'Delete forever'
+            buttonActionText: 'Delete forever',
         })
         await nextTick()
 
@@ -120,7 +117,7 @@ describe('DangerModalDialog.vue', () => {
         const wrapper = factory({
             closeOnClickOutside: true,
             hasCornerCloseButton: true,
-            cardClass: 'custom-card'
+            cardClass: 'custom-card',
         })
         await nextTick()
 
@@ -153,7 +150,7 @@ describe('DangerModalDialog.vue', () => {
             buttonActionText: 'Remove',
             buttonActionIcon: 'mdi:trash-can',
             isLoading: true,
-            loadingText: 'Deleting...'
+            loadingText: 'Deleting...',
         })
         await nextTick()
 

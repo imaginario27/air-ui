@@ -48,13 +48,17 @@ describe('Gallery', () => {
         const grid = wrapper.get('.grid')
 
         expect(wrapper.findAll('img')).toHaveLength(3)
-        expect(grid.classes()).toEqual(expect.arrayContaining(['grid-cols-1', 'sm:grid-cols-2', 'lg:grid-cols-3', 'gap-4']))
+        expect(grid.classes()).toEqual(
+            expect.arrayContaining(['grid-cols-1', 'sm:grid-cols-2', 'lg:grid-cols-3', 'gap-4']),
+        )
     })
 
     it('applies custom columns and gap', () => {
         const grid = factory({ cols: 4, tabletCols: 3, mobileCols: 2, gapClass: 'gap-8' }).get('.grid')
 
-        expect(grid.classes()).toEqual(expect.arrayContaining(['grid-cols-2', 'sm:grid-cols-3', 'lg:grid-cols-4', 'gap-8']))
+        expect(grid.classes()).toEqual(
+            expect.arrayContaining(['grid-cols-2', 'sm:grid-cols-3', 'lg:grid-cols-4', 'gap-8']),
+        )
     })
 
     it('uses a square aspect ratio by default and accepts another', () => {
@@ -70,7 +74,7 @@ describe('Gallery', () => {
     it('applies the hover effect to every image', () => {
         const wrapper = factory({ hoverEffect: ImageHoverEffect.GRAYSCALE })
 
-        wrapper.findAll('img').forEach(image => expect(image.classes()).toContain('grayscale'))
+        wrapper.findAll('img').forEach((image) => expect(image.classes()).toContain('grayscale'))
     })
 
     it('passes the loading strategy to every image', () => {
@@ -134,9 +138,11 @@ describe('Gallery', () => {
             alt: `Image ${index}`,
         }))
 
-        const paginated = (props: Record<string, unknown> = {}) => factory({ images: manyImages, itemsPerPage: 3, ...props })
+        const paginated = (props: Record<string, unknown> = {}) =>
+            factory({ images: manyImages, itemsPerPage: 3, ...props })
 
-        const sources = (wrapper: ReturnType<typeof factory>) => wrapper.findAll('img').map(image => image.attributes('src'))
+        const sources = (wrapper: ReturnType<typeof factory>) =>
+            wrapper.findAll('img').map((image) => image.attributes('src'))
 
         it('shows every image without pagination', () => {
             const wrapper = paginated()
@@ -241,7 +247,10 @@ describe('Gallery', () => {
             })
 
             it('uses a custom button text', () => {
-                const wrapper = paginated({ paginationMode: GalleryPaginationMode.LOAD_MORE, loadMoreText: 'Show more' })
+                const wrapper = paginated({
+                    paginationMode: GalleryPaginationMode.LOAD_MORE,
+                    loadMoreText: 'Show more',
+                })
 
                 expect(wrapper.get('.load-more').text()).toBe('Show more')
             })
@@ -261,9 +270,13 @@ describe('Gallery', () => {
                 const config = useDSConfig()
                 config.gallery.loadMoreText = () => 'Cargar más'
 
-                expect(paginated({ paginationMode: GalleryPaginationMode.LOAD_MORE }).get('.load-more').text()).toBe('Cargar más')
+                expect(paginated({ paginationMode: GalleryPaginationMode.LOAD_MORE }).get('.load-more').text()).toBe(
+                    'Cargar más',
+                )
                 expect(
-                    paginated({ paginationMode: GalleryPaginationMode.LOAD_MORE, loadMoreText: 'Ver más' }).get('.load-more').text()
+                    paginated({ paginationMode: GalleryPaginationMode.LOAD_MORE, loadMoreText: 'Ver más' })
+                        .get('.load-more')
+                        .text(),
                 ).toBe('Ver más')
 
                 config.gallery.loadMoreText = () => 'Load more'
@@ -300,7 +313,7 @@ describe('Gallery', () => {
                         constructor(public callback: IntersectionObserverCallback) {
                             observers.push(this)
                         }
-                    }
+                    },
                 )
             })
 
@@ -310,7 +323,10 @@ describe('Gallery', () => {
 
             const intersect = (isIntersecting: boolean) => {
                 const observer = observers.at(-1)!
-                observer.callback([{ isIntersecting } as IntersectionObserverEntry], observer as unknown as IntersectionObserver)
+                observer.callback(
+                    [{ isIntersecting } as IntersectionObserverEntry],
+                    observer as unknown as IntersectionObserver,
+                )
             }
 
             it('renders a hidden sentinel instead of a button while there are more images', () => {

@@ -1,19 +1,9 @@
 <template>
-    <div :class="[ 'flex flex-col', 'w-full', 'gap-2' ]">
+    <div :class="['flex flex-col', 'w-full', 'gap-2']">
         <!-- Label -->
-        <legend
-            v-if="legend"
-            :class="[
-                'text-sm',
-                'font-semibold',
-                'text-left',
-            ]"
-        >
+        <legend v-if="legend" :class="['text-sm', 'font-semibold', 'text-left']">
             {{ legend }}
-            <span
-                v-if="!required && showOptionalLabel"
-                class="font-normal text-text-neutral-subtler"
-            >
+            <span v-if="!required && showOptionalLabel" class="font-normal text-text-neutral-subtler">
                 {{ optionalLabelText }}
             </span>
         </legend>
@@ -23,7 +13,7 @@
                 'flex items-center gap-3',
                 'text-sm',
                 hasError ? 'text-text-error' : 'text-text-default',
-                disabled ? 'cursor-not-allowed' : 'cursor-pointer'
+                disabled ? 'cursor-not-allowed' : 'cursor-pointer',
             ]"
             @click="handleRowClick"
         >
@@ -31,17 +21,14 @@
             <label
                 v-if="inverse && ($slots.label || label)"
                 :for="id"
-                :class="[
-                    disabled ? 'text-text-neutral-disabled cursor-not-allowed' : 'cursor-pointer',
-                    labelSizeClass,
-                ]"
+                :class="[disabled ? 'text-text-neutral-disabled cursor-not-allowed' : 'cursor-pointer', labelSizeClass]"
             >
                 <slot name="label">{{ label }}</slot>
             </label>
 
             <Checkbox
                 :id="id"
-                :ariaLabel="!label ? (ariaLabel || legend) : undefined"
+                :ariaLabel="!label ? ariaLabel || legend : undefined"
                 :modelValue="modelValue"
                 :disabled="disabled"
                 :size="size"
@@ -52,10 +39,7 @@
             <label
                 v-if="!inverse && ($slots.label || label)"
                 :for="id"
-                :class="[
-                    disabled ? 'text-text-neutral-disabled cursor-not-allowed' : 'cursor-pointer',
-                    labelSizeClass,
-                ]"
+                :class="[disabled ? 'text-text-neutral-disabled cursor-not-allowed' : 'cursor-pointer', labelSizeClass]"
             >
                 <slot name="label">{{ label }}</slot>
             </label>
@@ -69,20 +53,20 @@
 <script setup lang="ts">
 // Props
 const props = defineProps({
-    id: { 
-        type: String as PropType<string>, 
+    id: {
+        type: String as PropType<string>,
         required: true,
     },
-    label: { 
-        type: String as PropType<string>, 
+    label: {
+        type: String as PropType<string>,
         default: 'Text',
     },
     ariaLabel: String as PropType<string>,
     legend: String as PropType<string>,
     helpText: String as PropType<string>,
-    modelValue: { 
-        type: Boolean as PropType<boolean>, 
-        default: false, 
+    modelValue: {
+        type: Boolean as PropType<boolean>,
+        default: false,
     },
     validator: {
         type: Function as PropType<(value: boolean) => string | null>,
@@ -113,7 +97,8 @@ const props = defineProps({
         default: ControlFieldSize.MD,
         validator: (value: ControlFieldSize) => Object.values(ControlFieldSize).includes(value),
     },
-    inverse: { // Sets the checkbox on the right side of the text
+    inverse: {
+        // Sets the checkbox on the right side of the text
         type: Boolean as PropType<boolean>,
         default: false,
     },
@@ -170,11 +155,11 @@ const runValidation = () => {
 // Watchers
 watch(
     () => props.modelValue,
-    value => {
+    (value) => {
         if (validationMode.value === FormValidationMode.BLUR && props.validator) {
             const result = props.validator(value)
             emit('update:error', result ?? '')
         }
-    }
+    },
 )
 </script>

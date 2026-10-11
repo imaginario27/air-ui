@@ -1,10 +1,9 @@
 // Docs: https://vue3-toastify.js-bridge.com/get-started/introduction.html
 
-import { toast } from "vue3-toastify"
-import "vue3-toastify/dist/index.css"
+import { toast } from 'vue3-toastify'
+import 'vue3-toastify/dist/index.css'
 
 export default defineNuxtPlugin(() => {
-
     const config = useToastifyConfig()
 
     // Override base config
@@ -13,6 +12,6 @@ export default defineNuxtPlugin(() => {
     config.theme = 'colored'
 
     return {
-        provide: { toastMessage:toast },
+        provide: { toastMessage: toast },
     }
 })

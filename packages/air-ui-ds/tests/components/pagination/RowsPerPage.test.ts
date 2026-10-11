@@ -6,7 +6,7 @@ const defaultOptions = [
     { text: '10', value: 10 },
     { text: '25', value: 25 },
     { text: '50', value: 50 },
-    { text: '100', value: 100 }
+    { text: '100', value: 100 },
 ]
 
 const factory = (props = {}) => {
@@ -16,11 +16,11 @@ const factory = (props = {}) => {
             visible: true,
             rowsLabel: 'Rows',
             rowsOptions: defaultOptions,
-            ...props
+            ...props,
         },
         global: {
-            stubs: ['DropdownSelect']
-        }
+            stubs: ['DropdownSelect'],
+        },
     })
 }
 

@@ -9,16 +9,16 @@ const defaultProps = {
     modelValue: 'option1',
     buttons: [
         { label: 'Option 1', value: 'option1', text: 'Option 1' },
-        { label: 'Option 2', value: 'option2', text: 'Option 2' }
-    ]
+        { label: 'Option 2', value: 'option2', text: 'Option 2' },
+    ],
 }
 
 describe('ToggleButtonsGroupField', () => {
     it('renders without errors with minimal props', () => {
         const wrapper = mount(ToggleButtonsGroupField, {
             props: {
-                ...defaultProps
-            }
+                ...defaultProps,
+            },
         })
 
         expect(wrapper.findComponent(ToggleButtonGroup).exists()).toBe(true)
@@ -30,8 +30,8 @@ describe('ToggleButtonsGroupField', () => {
         const wrapper = mount(ToggleButtonsGroupField, {
             props: {
                 ...defaultProps,
-                label: 'My Label'
-            }
+                label: 'My Label',
+            },
         })
 
         const label = wrapper.find('label')
@@ -44,8 +44,8 @@ describe('ToggleButtonsGroupField', () => {
         const wrapper = mount(ToggleButtonsGroupField, {
             props: {
                 ...defaultProps,
-                helpText: 'Helpful hint'
-            }
+                helpText: 'Helpful hint',
+            },
         })
 
         const help = wrapper.find('p')
@@ -61,15 +61,15 @@ describe('ToggleButtonsGroupField', () => {
                 label: 'View',
                 helpText: 'Select layout',
                 helpTextPosition: Position.TOP,
-            }
+            },
         })
 
         const help = wrapper.find('p.text-xs')
         expect(help.exists()).toBe(true)
         expect(help.text()).toBe('Select layout')
         const children = Array.from(wrapper.element.children)
-        const helpIdx = children.findIndex(el => el.classList.contains('text-xs'))
-        const labelIdx = children.findIndex(el => el.tagName === 'LABEL')
+        const helpIdx = children.findIndex((el) => el.classList.contains('text-xs'))
+        const labelIdx = children.findIndex((el) => el.tagName === 'LABEL')
         expect(helpIdx).toBeGreaterThan(labelIdx)
         expect(helpIdx).toBeLessThan(children.length - 1)
     })
@@ -80,8 +80,8 @@ describe('ToggleButtonsGroupField', () => {
                 ...defaultProps,
                 groupStyle: ToggleButtonGroupStyle.SEGMENTED,
                 disabled: true,
-                onlyIcon: true
-            }
+                onlyIcon: true,
+            },
         })
 
         const group = wrapper.findComponent(ToggleButtonGroup)
@@ -96,8 +96,8 @@ describe('ToggleButtonsGroupField', () => {
     it('passes onlyIcon as false by default', () => {
         const wrapper = mount(ToggleButtonsGroupField, {
             props: {
-                ...defaultProps
-            }
+                ...defaultProps,
+            },
         })
 
         const group = wrapper.findComponent(ToggleButtonGroup)
@@ -107,8 +107,8 @@ describe('ToggleButtonsGroupField', () => {
     it('emits update:modelValue when ToggleButtonGroup emits', async () => {
         const wrapper = mount(ToggleButtonsGroupField, {
             props: {
-                ...defaultProps
-            }
+                ...defaultProps,
+            },
         })
 
         const group = wrapper.findComponent(ToggleButtonGroup)
@@ -123,7 +123,7 @@ describe('ToggleButtonsGroupField', () => {
             props: {
                 ...defaultProps,
                 size: ButtonSize.XL,
-            }
+            },
         })
 
         const group = wrapper.findComponent(ToggleButtonGroup)
@@ -133,8 +133,8 @@ describe('ToggleButtonsGroupField', () => {
     it('defaults size to ButtonSize.LG when not passed', () => {
         const wrapper = mount(ToggleButtonsGroupField, {
             props: {
-                ...defaultProps
-            }
+                ...defaultProps,
+            },
         })
 
         const group = wrapper.findComponent(ToggleButtonGroup)
@@ -147,7 +147,7 @@ describe('ToggleButtonsGroupField', () => {
                 ...defaultProps,
                 label: '',
                 ariaLabel: 'Accessible toggle group',
-            }
+            },
         })
 
         const group = wrapper.findComponent(ToggleButtonGroup)

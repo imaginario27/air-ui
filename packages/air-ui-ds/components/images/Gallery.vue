@@ -1,11 +1,6 @@
 <template>
     <div :class="['w-full', containerClass]">
-        <Grid
-            :cols
-            :tabletCols
-            :mobileCols
-            :gapClass
-        >
+        <Grid :cols :tabletCols :mobileCols :gapClass>
             <Image
                 v-for="(image, index) in visibleImages"
                 :key="image.id"
@@ -32,10 +27,7 @@
         </Grid>
 
         <!-- Pagination -->
-        <div
-            v-if="isPaged && totalPages > 1"
-            :class="['mt-6', paginationClass]"
-        >
+        <div v-if="isPaged && totalPages > 1" :class="['mt-6', paginationClass]">
             <ButtonPagination
                 v-if="paginationMode === GalleryPaginationMode.BUTTONS"
                 v-bind="paginationProps"
@@ -194,10 +186,10 @@ const currentPage = ref(props.page ?? 1)
 // Computed
 // Buttons and simple modes show one page at a time; load more and infinite modes accumulate pages
 const isPaged = computed(() =>
-    [GalleryPaginationMode.BUTTONS, GalleryPaginationMode.SIMPLE].includes(props.paginationMode)
+    [GalleryPaginationMode.BUTTONS, GalleryPaginationMode.SIMPLE].includes(props.paginationMode),
 )
 const isProgressive = computed(() =>
-    [GalleryPaginationMode.LOAD_MORE, GalleryPaginationMode.INFINITE].includes(props.paginationMode)
+    [GalleryPaginationMode.LOAD_MORE, GalleryPaginationMode.INFINITE].includes(props.paginationMode),
 )
 
 const totalPages = computed(() => Math.max(1, Math.ceil(props.images.length / props.itemsPerPage)))
@@ -243,13 +235,13 @@ useIntersectionObserver(sentinelEl, ([entry]) => {
 // Watchers
 watch(
     () => props.page,
-    page => {
+    (page) => {
         if (page !== undefined) currentPage.value = page
-    }
+    },
 )
 
 // Keeps the page valid when the images or the page size change
-watch(totalPages, pages => {
+watch(totalPages, (pages) => {
     if (currentPage.value > pages) setPage(pages)
 })
 </script>

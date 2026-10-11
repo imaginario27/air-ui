@@ -1,10 +1,5 @@
 <template>
-    <div
-        :class="[
-            'flex flex-col pb-8 transition-all duration-300',
-        ]"
-        :style="containerStyle"
-    >
+    <div :class="['flex flex-col pb-8 transition-all duration-300']" :style="containerStyle">
         <slot />
     </div>
 </template>
@@ -36,9 +31,7 @@ const containerStyle = computed(() => {
 
     if (isMobile.value) {
         return {
-            transform: isMobileSidebarOpen.value
-                ? `translateX(${props.sidebarWidth}px)`
-                : 'translateX(0)',
+            transform: isMobileSidebarOpen.value ? `translateX(${props.sidebarWidth}px)` : 'translateX(0)',
         }
     }
 

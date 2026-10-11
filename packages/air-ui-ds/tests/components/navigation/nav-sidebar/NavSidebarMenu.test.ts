@@ -9,9 +9,12 @@ describe('NavSidebarMenu.vue', () => {
         })
 
     it('renders slot content', () => {
-        const wrapper = factory({}, {
-            default: '<div class="test-slot">Slot Content</div>'
-        })
+        const wrapper = factory(
+            {},
+            {
+                default: '<div class="test-slot">Slot Content</div>',
+            },
+        )
 
         const slot = wrapper.find('.test-slot')
         expect(slot.exists()).toBe(true)

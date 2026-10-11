@@ -44,24 +44,15 @@
                     :stroke-dasharray="`${filledLength} ${circumference}`"
                     :stroke-linecap="isRounded ? 'round' : 'butt'"
                     :transform="`rotate(-90 ${center} ${center})`"
-                    :class="[
-                        'transition-[stroke-dasharray] duration-300 ease-in-out',
-                        indicatorColorClass,
-                    ]"
+                    :class="['transition-[stroke-dasharray] duration-300 ease-in-out', indicatorColorClass]"
                     data-testid="progress-circle-indicator"
                 />
             </svg>
 
-            <div
-                v-if="$slots.default || showCenterLabel"
-                class="absolute inset-0 flex items-center justify-center"
-            >
+            <div v-if="$slots.default || showCenterLabel" class="absolute inset-0 flex items-center justify-center">
                 <slot :progress="normalizedProgress">
                     <span
-                        :class="[
-                            'font-semibold leading-none text-text-default',
-                            centerLabelSizeClass,
-                        ]"
+                        :class="['font-semibold leading-none text-text-default', centerLabelSizeClass]"
                         data-testid="progress-circle-label"
                     >
                         {{ labelText }}
@@ -149,14 +140,15 @@ const labelText = computed(() => {
 
 // The loading text is too long to fit inside the ring
 const showCenterLabel = computed(() => {
-    return props.showProgressLabel
-        && props.progressLabelPosition === ProgressCircleLabelPosition.CENTER
-        && !props.isIndeterminate
+    return (
+        props.showProgressLabel &&
+        props.progressLabelPosition === ProgressCircleLabelPosition.CENTER &&
+        !props.isIndeterminate
+    )
 })
 
 const showOutsideLabel = computed(() => {
-    return props.showProgressLabel
-        && props.progressLabelPosition !== ProgressCircleLabelPosition.CENTER
+    return props.showProgressLabel && props.progressLabelPosition !== ProgressCircleLabelPosition.CENTER
 })
 
 const diameterPx = computed(() => {

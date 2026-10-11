@@ -19,9 +19,9 @@ export const useTreeViewFocus = (
             return focusedValue.value
         }
 
-        const visible = rows.value.map(row => row.node.value)
+        const visible = rows.value.map((row) => row.node.value)
 
-        return visible.find(value => selected.value.includes(value)) ?? visible[0] ?? null
+        return visible.find((value) => selected.value.includes(value)) ?? visible[0] ?? null
     })
 
     const focusRow = async (value: string | null | undefined) => {
@@ -32,9 +32,7 @@ export const useTreeViewFocus = (
         focusedValue.value = value
         await nextTick()
 
-        rootRef.value?.$el
-            ?.querySelector<HTMLElement>(`[data-value="${CSS.escape(value)}"]`)
-            ?.focus()
+        rootRef.value?.$el?.querySelector<HTMLElement>(`[data-value="${CSS.escape(value)}"]`)?.focus()
     }
 
     const isTyping = () => !!typeaheadBuffer
@@ -51,7 +49,7 @@ export const useTreeViewFocus = (
         }, TYPEAHEAD_RESET_MS)
 
         const ordered = [...rows.value.slice(currentIndex + 1), ...rows.value.slice(0, currentIndex + 1)]
-        const match = ordered.find(row => row.node.label.toLowerCase().startsWith(typeaheadBuffer))
+        const match = ordered.find((row) => row.node.label.toLowerCase().startsWith(typeaheadBuffer))
 
         focusRow(match?.node.value)
     }

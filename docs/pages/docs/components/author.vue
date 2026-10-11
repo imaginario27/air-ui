@@ -1,11 +1,8 @@
-﻿
-<template>
+﻿<template>
     <Section>
         <SectionBody>
             <TabBar v-model="activeIndex" :tabs />
-            <ContentRenderer 
-                v-if="data" :value="data" 
-            />
+            <ContentRenderer v-if="data" :value="data" />
             <ContentRenderFallback v-else />
         </SectionBody>
     </Section>
@@ -15,7 +12,8 @@ definePageMeta({
     title: 'Author',
     layout: 'docs',
     overtitle: 'Components',
-    description: 'A reusable component for listing authors or contributors, showing their avatar, name, and role with support for flexible layout variations.'
+    description:
+        'A reusable component for listing authors or contributors, showing their avatar, name, and role with support for flexible layout variations.',
 })
 
 // Route

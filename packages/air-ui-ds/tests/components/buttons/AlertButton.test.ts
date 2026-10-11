@@ -8,10 +8,7 @@ import { IconPosition } from '@/models/enums/icons'
 
 type MountOptions = Parameters<typeof mount<InstanceType<typeof AlertButton>>>[1]
 
-const factory = (
-    props?: Record<string, any>,
-    options?: MountOptions
-): VueWrapper => {
+const factory = (props?: Record<string, any>, options?: MountOptions): VueWrapper => {
     return mount(AlertButton, {
         props,
         global: {
@@ -23,12 +20,12 @@ const factory = (
                         <a :href="to" :target="target" :rel="rel">
                             <slot />
                         </a>
-                    `
-                }
+                    `,
+                },
             },
-            ...options?.global
+            ...options?.global,
         },
-        ...options
+        ...options,
     })
 }
 
@@ -46,7 +43,7 @@ describe('AlertButton.vue', () => {
     it('renders as a <NuxtLink> when actionType is LINK', () => {
         const wrapper = factory({
             actionType: ButtonActionType.LINK,
-            to: '/about'
+            to: '/about',
         })
 
         const link = wrapper.find('a')
@@ -58,7 +55,7 @@ describe('AlertButton.vue', () => {
         const wrapper = factory({
             actionType: ButtonActionType.LINK,
             isExternal: true,
-            to: 'https://external.com'
+            to: 'https://external.com',
         })
 
         const link = wrapper.find('a')
@@ -69,7 +66,7 @@ describe('AlertButton.vue', () => {
     it('renders left icon when iconPosition is LEFT', () => {
         const wrapper = factory({
             iconPosition: IconPosition.LEFT,
-            icon: 'mdi:check'
+            icon: 'mdi:check',
         })
 
         const icons = wrapper.findAllComponents(Icon)
@@ -80,7 +77,7 @@ describe('AlertButton.vue', () => {
     it('renders right icon when iconPosition is RIGHT', () => {
         const wrapper = factory({
             iconPosition: IconPosition.RIGHT,
-            icon: 'mdi:arrow-right'
+            icon: 'mdi:arrow-right',
         })
 
         const icons = wrapper.findAllComponents(Icon)
@@ -91,7 +88,7 @@ describe('AlertButton.vue', () => {
     it('does not render icon when iconPosition is NONE', () => {
         const wrapper = factory({
             iconPosition: IconPosition.NONE,
-            icon: 'mdi:close'
+            icon: 'mdi:close',
         })
 
         const icon = wrapper.findComponent(Icon)
@@ -107,7 +104,7 @@ describe('AlertButton.vue', () => {
     it('does not emit click if disabled is true', async () => {
         const wrapper = factory({
             actionType: ButtonActionType.ACTION,
-            disabled: true
+            disabled: true,
         })
 
         await wrapper.trigger('click')
@@ -118,7 +115,7 @@ describe('AlertButton.vue', () => {
         [AlertType.WARNING, 'text-text-warning-on-bg'],
         [AlertType.DANGER, 'text-text-danger'],
         [AlertType.SUCCESS, 'text-text-success'],
-        [AlertType.INFO, 'text-text-info']
+        [AlertType.INFO, 'text-text-info'],
     ])('applies correct text class for alert type: %s', (type, expectedClass) => {
         const wrapper = factory({ type })
         expect(wrapper.classes()).toContain(expectedClass)

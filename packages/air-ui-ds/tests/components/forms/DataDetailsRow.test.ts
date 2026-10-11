@@ -5,9 +5,9 @@ import DataDetailsRow from '~/components/forms/DataDetailsRow.vue'
 const factory = (options = {}): VueWrapper => {
     return mount(DataDetailsRow, {
         slots: {
-            default: '<div>Row Content</div>'
+            default: '<div>Row Content</div>',
         },
-        ...options
+        ...options,
     })
 }
 
@@ -20,8 +20,8 @@ describe('DataDetailsRow.vue', () => {
     it('applies spacing when spaced is true', () => {
         const wrapper = factory({
             props: {
-                spaced: true
-            }
+                spaced: true,
+            },
         })
 
         const div = wrapper.find('div')
@@ -31,8 +31,8 @@ describe('DataDetailsRow.vue', () => {
     it('does not apply spacing when spaced is false', () => {
         const wrapper = factory({
             props: {
-                spaced: false
-            }
+                spaced: false,
+            },
         })
 
         const div = wrapper.find('div')

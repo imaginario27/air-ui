@@ -1,16 +1,14 @@
 ﻿<template>
     <Section>
         <SectionBody>
-            <ContentRenderer 
-                v-if="data" :value="data" 
-            />
+            <ContentRenderer v-if="data" :value="data" />
             <ContentRenderFallback v-else />
 
-            <ContentFooterNavigation 
+            <ContentFooterNavigation
                 :previousPage="{
                     label: 'MCP Server',
                     link: `/${DocsAppSlug.DOCS}/${DocsAppSlug.GETTING_STARTED}/${DocsAppSlug.AGENTS}/mcp-server`,
-                    description: 'Learn about the MCP Server and how to use it with AirUI.'
+                    description: 'Learn about the MCP Server and how to use it with AirUI.',
                 }"
             />
         </SectionBody>
@@ -22,7 +20,8 @@ definePageMeta({
     title: 'LLMs.txt',
     layout: 'docs',
     overtitle: 'Getting Started',
-    description: 'Use the LLMs.txt file to provide AI assistants with access to AirUI documentation and resources in a standardized way.'
+    description:
+        'Use the LLMs.txt file to provide AI assistants with access to AirUI documentation and resources in a standardized way.',
 })
 
 // Route

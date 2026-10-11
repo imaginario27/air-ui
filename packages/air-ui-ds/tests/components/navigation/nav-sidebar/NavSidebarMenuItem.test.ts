@@ -7,17 +7,18 @@ import { SidebarNavMenuItemStyleType } from '#imports'
 import { PrefetchOn } from '@/models/enums/prefetch'
 
 vi.mock('#app', () => ({
-    useRoute: () => reactive({
-        path: '/settings'
-    })
+    useRoute: () =>
+        reactive({
+            path: '/settings',
+        }),
 }))
 
 describe('NavSidebarMenuItem.vue', () => {
     const globalStubs = {
         NuxtLink: {
             template: `<a :href="to" :data-prefetch-on="typeof prefetchOn === 'string' ? prefetchOn : JSON.stringify(prefetchOn)" @click="$emit('click')"><slot /></a>`,
-            props: ['to', 'prefetchOn']
-        }
+            props: ['to', 'prefetchOn'],
+        },
     }
 
     const factory = (props = {}, slots = {}) =>
@@ -28,9 +29,9 @@ describe('NavSidebarMenuItem.vue', () => {
                 stubs: globalStubs,
                 components: {
                     Icon,
-                    DropdownMenu
-                }
-            }
+                    DropdownMenu,
+                },
+            },
         })
 
     it('renders NuxtLink with correct href', () => {
@@ -90,7 +91,7 @@ describe('NavSidebarMenuItem.vue', () => {
     it('does not apply active classes when detectActive is false', () => {
         const wrapper = factory({
             to: '/settings',
-            detectActive: false
+            detectActive: false,
         })
 
         const link = wrapper.find('a')
@@ -104,11 +105,11 @@ describe('NavSidebarMenuItem.vue', () => {
         const wrapper = factory({
             showDropdownArrow: true,
             isCollapsed: false,
-            isOpen: false
+            isOpen: false,
         })
 
         const icons = wrapper.findAllComponents(Icon)
-        const dropdownIcon = icons.find(icon => icon.props('name') === 'mdi:chevron-down')
+        const dropdownIcon = icons.find((icon) => icon.props('name') === 'mdi:chevron-down')
 
         expect(dropdownIcon).toBeTruthy()
     })
@@ -117,11 +118,11 @@ describe('NavSidebarMenuItem.vue', () => {
         const wrapper = factory({
             showDropdownArrow: true,
             isCollapsed: false,
-            isOpen: true
+            isOpen: true,
         })
 
         const icons = wrapper.findAllComponents(Icon)
-        const dropdownIcon = icons.find(icon => icon.props('name') === 'mdi:chevron-up')
+        const dropdownIcon = icons.find((icon) => icon.props('name') === 'mdi:chevron-up')
 
         expect(dropdownIcon).toBeTruthy()
     })
@@ -129,12 +130,12 @@ describe('NavSidebarMenuItem.vue', () => {
     it('does not render dropdown icon when isCollapsed is true', () => {
         const wrapper = factory({
             showDropdownArrow: true,
-            isCollapsed: true
+            isCollapsed: true,
         })
 
         const icons = wrapper.findAllComponents(Icon)
-        const chevronIcon = icons.find(icon =>
-            ['mdi:chevron-up', 'mdi:chevron-down'].includes(icon.props('name') ?? '')
+        const chevronIcon = icons.find((icon) =>
+            ['mdi:chevron-up', 'mdi:chevron-down'].includes(icon.props('name') ?? ''),
         )
 
         expect(chevronIcon).toBeUndefined()
@@ -142,7 +143,7 @@ describe('NavSidebarMenuItem.vue', () => {
 
     it('applies correct spacing and gap classes for SPACED style', () => {
         const wrapper = factory({
-            styleType: SidebarNavMenuItemStyleType.SPACED
+            styleType: SidebarNavMenuItemStyleType.SPACED,
         })
 
         const button = wrapper.find('button')
@@ -163,7 +164,7 @@ describe('NavSidebarMenuItem.vue', () => {
     it('applies textClass on the label span', () => {
         const wrapper = factory({
             text: 'Settings',
-            textClass: '!text-text-danger'
+            textClass: '!text-text-danger',
         })
 
         expect(wrapper.find('span').classes()).toContain('!text-text-danger')
@@ -178,8 +179,8 @@ describe('NavSidebarMenuItem.vue', () => {
         })
 
         const icons = wrapper.findAllComponents(Icon)
-        const itemIcon = icons.find(icon => icon.props('name') === 'mdi:home')
-        const arrowIcon = icons.find(icon => icon.props('name') === 'mdi:chevron-down')
+        const itemIcon = icons.find((icon) => icon.props('name') === 'mdi:home')
+        const arrowIcon = icons.find((icon) => icon.props('name') === 'mdi:chevron-down')
 
         expect(itemIcon?.props('iconClass')).toContain('!text-icon-success')
         expect(arrowIcon?.props('iconClass')).toBeUndefined()
@@ -188,18 +189,21 @@ describe('NavSidebarMenuItem.vue', () => {
     it.each([
         ['collapsed', true],
         ['expanded', false],
-    ])('uses the neutral-hover background and matching on-neutral-hover-bg text/icon color for the active item when %s', (_label, isCollapsed) => {
-        const wrapper = factory({
-            icon: 'mdi:home',
-            to: '/',
-            isCollapsed,
-        })
+    ])(
+        'uses the neutral-hover background and matching on-neutral-hover-bg text/icon color for the active item when %s',
+        (_label, isCollapsed) => {
+            const wrapper = factory({
+                icon: 'mdi:home',
+                to: '/',
+                isCollapsed,
+            })
 
-        const icon = wrapper.findComponent(Icon)
-        expect(wrapper.classes()).toContain('bg-background-neutral-hover')
-        expect(wrapper.classes()).toContain('text-text-primary-brand-on-neutral-hover-bg')
-        expect(icon.props('iconClass')).toContain('!text-icon-primary-brand-on-neutral-hover-bg')
-    })
+            const icon = wrapper.findComponent(Icon)
+            expect(wrapper.classes()).toContain('bg-background-neutral-hover')
+            expect(wrapper.classes()).toContain('text-text-primary-brand-on-neutral-hover-bg')
+            expect(icon.props('iconClass')).toContain('!text-icon-primary-brand-on-neutral-hover-bg')
+        },
+    )
 
     it.each([
         ['collapsed', true],
@@ -344,8 +348,9 @@ describe('NavSidebarMenuItem.vue', () => {
         await wrapper.find('[aria-label="More options"]').trigger('click')
         await flushPromises()
 
-        const menuItem = Array.from(document.body.querySelectorAll<HTMLElement>('[data-dropdown-menu-panel] *'))
-            .find(element => element.children.length === 0 && element.textContent?.trim() === 'Rename')
+        const menuItem = Array.from(document.body.querySelectorAll<HTMLElement>('[data-dropdown-menu-panel] *')).find(
+            (element) => element.children.length === 0 && element.textContent?.trim() === 'Rename',
+        )
         expect(menuItem).toBeDefined()
 
         menuItem!.click()
@@ -388,10 +393,7 @@ describe('NavSidebarMenuItem.vue', () => {
     })
 
     it('renders text-suffix slot content right after the text', () => {
-        const wrapper = factory(
-            { text: 'Settings' },
-            { 'text-suffix': '<span class="custom-badge">New</span>' }
-        )
+        const wrapper = factory({ text: 'Settings' }, { 'text-suffix': '<span class="custom-badge">New</span>' })
 
         expect(wrapper.find('.custom-badge').exists()).toBe(true)
         expect(wrapper.find('.custom-badge').text()).toBe('New')
@@ -400,7 +402,7 @@ describe('NavSidebarMenuItem.vue', () => {
     it('does not render text-suffix slot content when the sidebar is collapsed', () => {
         const wrapper = factory(
             { text: 'Settings', isCollapsed: true },
-            { 'text-suffix': '<span class="custom-badge">New</span>' }
+            { 'text-suffix': '<span class="custom-badge">New</span>' },
         )
 
         expect(wrapper.find('.custom-badge').exists()).toBe(false)
@@ -409,7 +411,7 @@ describe('NavSidebarMenuItem.vue', () => {
     it('renders custom suffix slot content instead of the built-in trigger', () => {
         const wrapper = factory(
             { text: 'Settings', moreActionsItems: [{ text: 'Rename' }] },
-            { suffix: '<span class="custom-suffix">Custom</span>' }
+            { suffix: '<span class="custom-suffix">Custom</span>' },
         )
 
         expect(wrapper.find('.custom-suffix').exists()).toBe(true)
@@ -480,17 +482,18 @@ describe('NavSidebarMenuItem.vue', () => {
         })
 
         vi.spyOn(window, 'innerHeight', 'get').mockReturnValue(200)
-        wrapper.element.getBoundingClientRect = () => ({
-            top: 20,
-            bottom: 40,
-            left: 0,
-            right: 0,
-            width: 0,
-            height: 20,
-            x: 0,
-            y: 0,
-            toJSON: () => {},
-        }) as DOMRect
+        wrapper.element.getBoundingClientRect = () =>
+            ({
+                top: 20,
+                bottom: 40,
+                left: 0,
+                right: 0,
+                width: 0,
+                height: 20,
+                x: 0,
+                y: 0,
+                toJSON: () => {},
+            }) as DOMRect
 
         await wrapper.find('div.opacity-0').trigger('mouseenter')
 
@@ -506,17 +509,18 @@ describe('NavSidebarMenuItem.vue', () => {
         })
 
         vi.spyOn(window, 'innerHeight', 'get').mockReturnValue(200)
-        wrapper.element.getBoundingClientRect = () => ({
-            top: 170,
-            bottom: 190,
-            left: 0,
-            right: 0,
-            width: 0,
-            height: 20,
-            x: 0,
-            y: 0,
-            toJSON: () => {},
-        }) as DOMRect
+        wrapper.element.getBoundingClientRect = () =>
+            ({
+                top: 170,
+                bottom: 190,
+                left: 0,
+                right: 0,
+                width: 0,
+                height: 20,
+                x: 0,
+                y: 0,
+                toJSON: () => {},
+            }) as DOMRect
 
         await wrapper.find('div.opacity-0').trigger('mouseenter')
 

@@ -2,33 +2,15 @@
     <TableWrapper v-if="exampleTableData.length">
         <Table>
             <TableHeader>
-                <TableHeaderCell
-                    sorteable
-                    columnKey="col1"
-                    :sortKey
-                    :sortAsc
-                    :onToggleSort="() => toggleSort('col1')"
-                >
+                <TableHeaderCell sorteable columnKey="col1" :sortKey :sortAsc :onToggleSort="() => toggleSort('col1')">
                     Column 1
                 </TableHeaderCell>
 
-                <TableHeaderCell
-                    sorteable
-                    columnKey="col2"
-                    :sortKey
-                    :sortAsc
-                    :onToggleSort="() => toggleSort('col2')"
-                >
+                <TableHeaderCell sorteable columnKey="col2" :sortKey :sortAsc :onToggleSort="() => toggleSort('col2')">
                     Column 2
                 </TableHeaderCell>
 
-                <TableHeaderCell
-                    sorteable
-                    columnKey="col3"
-                    :sortKey
-                    :sortAsc
-                    :onToggleSort="() => toggleSort('col3')"
-                >
+                <TableHeaderCell sorteable columnKey="col3" :sortKey :sortAsc :onToggleSort="() => toggleSort('col3')">
                     Column 3
                 </TableHeaderCell>
 
@@ -40,15 +22,12 @@
                     <TableCell>{{ item.col2 }}</TableCell>
                     <TableCell>{{ item.col3 }}</TableCell>
                     <TableCellActions>
-                        <ActionIconButton 
-                            :size="ButtonSize.MD"
-                            icon="mdi:eye-outline"
-                        />
+                        <ActionIconButton :size="ButtonSize.MD" icon="mdi:eye-outline" />
                     </TableCellActions>
                 </TableRow>
             </TableBody>
         </Table>
-        <ButtonPagination 
+        <ButtonPagination
             v-model:modelValue="currentPage"
             v-model:items-per-page="currentItemsPerPage"
             :totalItems="exampleTableData.length"
@@ -90,15 +69,8 @@ const exampleTableData = ref<ExampleTableDataItem[]>([
 ])
 
 // Composables
-const {
-    sortKey,
-    sortAsc,
-    toggleSort,
-    sortedData,
-} = useTable(exampleTableData)
+const { sortKey, sortAsc, toggleSort, sortedData } = useTable(exampleTableData)
 
 // Computed
-const paginatedData = computed(() =>
-    getPaginatedData(sortedData.value, currentPage.value, currentItemsPerPage.value)
-)
+const paginatedData = computed(() => getPaginatedData(sortedData.value, currentPage.value, currentItemsPerPage.value))
 </script>

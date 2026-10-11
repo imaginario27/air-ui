@@ -1,16 +1,11 @@
 <template>
-    <header
-        :class="[
-            isSticky && `sticky top-0`,
-        ]"
-        :style="isSticky ? { zIndex } : {}"
-    >
+    <header :class="[isSticky && `sticky top-0`]" :style="isSticky ? { zIndex } : {}">
         <slot name="top-header" />
 
         <!-- Main header wrapper -->
         <div
             :class="[
-                'w-full', 
+                'w-full',
                 'flex',
                 'items-center',
                 'justify-between',
@@ -19,21 +14,15 @@
                 'px-content-side-padding-mobile md:px-content-side-padding',
                 'py-4',
                 'bg-background-surface',
-                hasGlassEffect && [
-                    'backdrop-blur-md',
-                    'bg-background-surface/30 dark:bg-background-surface/85',
-                ],
+                hasGlassEffect && ['backdrop-blur-md', 'bg-background-surface/30 dark:bg-background-surface/85'],
                 hasBorder && 'border-b border-border-default',
                 headerClass,
             ]"
         >
             <!-- Logo -->
             <div class="flex gap-4">
-                <template 
-                    v-if="
-                        showMobileSidebarToggle
-                        && sidebarTogglePosition === SidebarTogglePosition.LOGO_LEFT_SIDE
-                    "
+                <template
+                    v-if="showMobileSidebarToggle && sidebarTogglePosition === SidebarTogglePosition.LOGO_LEFT_SIDE"
                 >
                     <ActionIconButton
                         :icon="isMobileSidebarOpen ? 'mdi:menu-open' : 'mdi:menu-close'"
@@ -46,10 +35,7 @@
                 <slot name="header-logo" />
 
                 <template
-                    v-if="
-                        showMobileSidebarToggle
-                        && sidebarTogglePosition === SidebarTogglePosition.LOGO_RIGHT_SIDE
-                    "
+                    v-if="showMobileSidebarToggle && sidebarTogglePosition === SidebarTogglePosition.LOGO_RIGHT_SIDE"
                 >
                     <ActionIconButton
                         :icon="isMobileSidebarOpen ? 'mdi:menu-open' : 'mdi:menu-close'"
@@ -77,10 +63,7 @@
                 />
 
                 <!-- Header actions -->
-                <div
-                    v-if="$slots['header-actions']"
-                    :class="['gap-3 items-center', isMobile ? 'hidden' : 'flex']"
-                >
+                <div v-if="$slots['header-actions']" :class="['gap-3 items-center', isMobile ? 'hidden' : 'flex']">
                     <slot name="header-actions" :onClose="noop" />
                 </div>
 
@@ -93,7 +76,7 @@
                     :zIndex="zIndex"
                 >
                     <template #activator>
-                        <Avatar 
+                        <Avatar
                             :size="AvatarSize.MD"
                             isInteractive
                             :displayName="userFullname"
@@ -105,7 +88,8 @@
                              whose click never reaches Vue's `click` emit -->
                         <div @click="onClose">
                             <DropdownMenuItem
-                                v-for="item in userMenuItems" :key="item.text"
+                                v-for="item in userMenuItems"
+                                :key="item.text"
                                 :text="item.text"
                                 :icon="item.icon"
                                 :type="item.type"
@@ -130,11 +114,7 @@
                         :zIndex="zIndex"
                     >
                         <template #activator>
-                            <ActionIconButton
-                                icon="mdi:menu"
-                                :ariaLabel="mobileMenuAriaLabel"
-                                class="shadow-sm"
-                            />
+                            <ActionIconButton icon="mdi:menu" :ariaLabel="mobileMenuAriaLabel" class="shadow-sm" />
                         </template>
                         <template #items="{ onClose }">
                             <!-- Native click listener: closes on any item click, including link items
@@ -166,11 +146,8 @@
                     </DropdownMenu>
                 </template>
 
-                <template 
-                    v-else-if="
-                        showMobileSidebarToggle
-                        && sidebarTogglePosition === SidebarTogglePosition.RIGHT_SIDE
-                    "
+                <template
+                    v-else-if="showMobileSidebarToggle && sidebarTogglePosition === SidebarTogglePosition.RIGHT_SIDE"
                 >
                     <ActionIconButton
                         :icon="isMobileSidebarOpen ? 'mdi:menu-open' : 'mdi:menu-close'"
@@ -178,8 +155,7 @@
                         class="lg:hidden shadow-sm"
                         @click="toggleMobileSidebar"
                     />
-                </template>  
-
+                </template>
             </div>
         </div>
         <slot name="bottom-header" />
@@ -263,11 +239,11 @@ const props = defineProps({
     },
     navMenuClass: {
         type: String as PropType<string>,
-        default: ''
+        default: '',
     },
     navMobileMenuClass: {
         type: String as PropType<string>,
-        default: 'min-w-[280px]'
+        default: 'min-w-[280px]',
     },
     zIndex: {
         type: String as PropType<string>,
@@ -302,12 +278,12 @@ const noop = () => {}
 // Page title
 if (props.setAutoTitle) {
     const route = useRoute()
-    const currentPageTitle = computed<string>(() =>
-        (route.meta.title as string) ?? props.fallbackTitle
-    )
+    const currentPageTitle = computed<string>(() => (route.meta.title as string) ?? props.fallbackTitle)
 
     const config = useRuntimeConfig()
-    const { public: { appName } } = config
+    const {
+        public: { appName },
+    } = config
 
     // Dynamically set the page title
     useHead(() => ({

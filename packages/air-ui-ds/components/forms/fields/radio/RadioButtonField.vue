@@ -1,8 +1,8 @@
 <template>
-    <div 
-        :class="[ 
-            'flex', 
-            'w-full', 
+    <div
+        :class="[
+            'flex',
+            'w-full',
             'gap-4',
             'justify-between',
             'items-center',
@@ -13,20 +13,14 @@
             'hover:cursor-pointer',
             'transition-colors duration-200 ease-out',
             modelValue === value && selectedBackgroundColorClass,
-            disabled && 'opacity-disabled'
+            disabled && 'opacity-disabled',
         ]"
         @click="selectRadio"
     >
         <!-- Radio Button with Label -->
-        <div 
-            :class="[ 
-                'flex items-center gap-3',
-                'text-sm',
-                'text-text-default'
-            ]"
-        >
+        <div :class="['flex items-center gap-3', 'text-sm', 'text-text-default']">
             <!-- Icon -->
-            <div 
+            <div
                 :class="[
                     'flex',
                     'justify-center',
@@ -35,7 +29,7 @@
                     'h-[40px]',
                     'rounded-full',
                     'aspect-square',
-                    modelValue === value ? selectedIconBackgroundColorClass : 'bg-background-neutral-subtler'
+                    modelValue === value ? selectedIconBackgroundColorClass : 'bg-background-neutral-subtler',
                 ]"
             >
                 <Icon
@@ -63,40 +57,36 @@
         </div>
 
         <!-- Hidden Native Radio Button -->
-        <input 
-            :id="id" 
-            type="radio" 
+        <input
+            :id="id"
+            type="radio"
             :name="name"
             :value="value"
-            :checked="modelValue === value" 
+            :checked="modelValue === value"
             class="sr-only"
             :aria-label="!label ? ariaLabel : undefined"
             :disabled
             @change="selectRadio"
-        >
+        />
 
         <!-- Custom Radio Button -->
         <div
-            :class="[ 
-                'w-[24px] h-[24px]', 
+            :class="[
+                'w-[24px] h-[24px]',
                 'aspect-square',
-                'border', 
-                'rounded-full', 
+                'border',
+                'rounded-full',
                 'flex items-center justify-center',
                 'transition-colors duration-200 ease-out',
                 modelValue === value ? selectedCheckboxBackgroundColorClass : 'bg-neutral-white border-border-default',
                 modelValue === value && 'border-0',
-                disabled ? 'cursor-not-allowed' : 'cursor-pointer'
+                disabled ? 'cursor-not-allowed' : 'cursor-pointer',
             ]"
             @click="selectRadio"
         >
             <div
                 v-if="modelValue === value"
-                :class="[ 
-                    'rounded-full',
-                    'w-[50%] h-[50%]', 
-                    'bg-icon-neutral-on-filled-bg',
-                ]"
+                :class="['rounded-full', 'w-[50%] h-[50%]', 'bg-icon-neutral-on-filled-bg']"
             />
         </div>
     </div>
@@ -105,18 +95,20 @@
 <script setup lang="ts">
 // Props
 const props = defineProps({
-    id: { 
-        type: String as PropType<string>, 
-        required: true, 
+    id: {
+        type: String as PropType<string>,
+        required: true,
     },
-    name: { // Group name for radio buttons
+    name: {
+        // Group name for radio buttons
         type: String as PropType<string>,
         required: true,
     },
     label: String as PropType<string>,
     ariaLabel: String as PropType<string>,
     helpText: String as PropType<string>,
-    value: { // Value of the radio button
+    value: {
+        // Value of the radio button
         type: [String, Number, Boolean] as PropType<string | number | boolean>,
         required: true,
     },
@@ -126,25 +118,31 @@ const props = defineProps({
     },
     type: {
         type: String as PropType<
-            ColorAccent.INFO | ColorAccent.WARNING| ColorAccent.SUCCESS | ColorAccent.DANGER | ColorAccent.PRIMARY_BRAND | ColorAccent.SECONDARY_BRAND
+            | ColorAccent.INFO
+            | ColorAccent.WARNING
+            | ColorAccent.SUCCESS
+            | ColorAccent.DANGER
+            | ColorAccent.PRIMARY_BRAND
+            | ColorAccent.SECONDARY_BRAND
         >,
         default: ColorAccent.PRIMARY_BRAND,
-        validator: (value: ColorAccent) => [
-            ColorAccent.INFO, 
-            ColorAccent.WARNING, 
-            ColorAccent.DANGER, 
-            ColorAccent.SUCCESS,
-            ColorAccent.PRIMARY_BRAND,
-            ColorAccent.SECONDARY_BRAND,
-        ].includes(value)
+        validator: (value: ColorAccent) =>
+            [
+                ColorAccent.INFO,
+                ColorAccent.WARNING,
+                ColorAccent.DANGER,
+                ColorAccent.SUCCESS,
+                ColorAccent.PRIMARY_BRAND,
+                ColorAccent.SECONDARY_BRAND,
+            ].includes(value),
     },
     size: {
         type: String as PropType<ControlFieldSize>,
         default: ControlFieldSize.MD,
         validator: (value: ControlFieldSize) => Object.values(ControlFieldSize).includes(value),
     },
-    required: { 
-        type: Boolean as PropType<boolean>, 
+    required: {
+        type: Boolean as PropType<boolean>,
         default: false,
     },
     modelValue: {

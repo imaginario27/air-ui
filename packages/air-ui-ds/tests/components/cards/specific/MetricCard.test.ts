@@ -1,6 +1,11 @@
 import { mount } from '@vue/test-utils'
 import MetricCard from '@/components/cards/specific/MetricCard.vue'
-import { MetricCardStyle, MetricTrendDirection, MetricCardIconPosition, MetricCardBackgroundIconPosition } from '@/models/enums/metrics'
+import {
+    MetricCardStyle,
+    MetricTrendDirection,
+    MetricCardIconPosition,
+    MetricCardBackgroundIconPosition,
+} from '@/models/enums/metrics'
 import { ColorAccent } from '@/models/enums/colors'
 import { IconContainerShape, IconContainerSize, IconContainerStyleType, IconSize } from '@/models/enums/icons'
 import Icon from '~/components/icons/Icon.vue'
@@ -12,11 +17,11 @@ const factory = (props: Record<string, unknown> = {}, options: Record<string, un
         global: {
             stubs: {
                 Card: {
-                    template: '<div><slot /></div>'
-                }
-            }
+                    template: '<div><slot /></div>',
+                },
+            },
         },
-        ...options
+        ...options,
     })
 }
 
@@ -35,7 +40,9 @@ describe('MetricCard.vue', () => {
     it('does not render description when not provided', () => {
         const wrapper = factory()
         const paragraphs = wrapper.findAll('p')
-        const descriptionParagraph = paragraphs.find((p) => p.classes().includes('text-sm') && !p.classes().includes('font-semibold'))
+        const descriptionParagraph = paragraphs.find(
+            (p) => p.classes().includes('text-sm') && !p.classes().includes('font-semibold'),
+        )
         expect(descriptionParagraph).toBeUndefined()
     })
 
@@ -48,7 +55,7 @@ describe('MetricCard.vue', () => {
         const wrapper = factory({
             title: 'Revenue',
             amount: 1327,
-            description: 'Last 30 days'
+            description: 'Last 30 days',
         })
         expect(wrapper.text()).toContain('Revenue')
         expect(wrapper.text()).toContain('1327')
@@ -148,7 +155,7 @@ describe('MetricCard.vue', () => {
         const wrapper = factory({
             icon: 'mdi:chart-line',
             styleType: MetricCardStyle.NEUTRAL_FILLED,
-            iconSize: IconSize.LG
+            iconSize: IconSize.LG,
         })
         const icons = wrapper.findAllComponents(Icon)
         const iconEl = icons.find((i) => i.props('name') === 'mdi:chart-line')
@@ -159,7 +166,7 @@ describe('MetricCard.vue', () => {
         const wrapper = factory({
             icon: 'mdi:chart-line',
             iconPosition: MetricCardIconPosition.RIGHT,
-            iconContainerSize: IconContainerSize.MD
+            iconContainerSize: IconContainerSize.MD,
         })
         expect(wrapper.findComponent(ContainedIcon).props('size')).toBe(IconContainerSize.MD)
     })
@@ -167,7 +174,7 @@ describe('MetricCard.vue', () => {
     it('defaults ContainedIcon size to SM on RIGHT position', () => {
         const wrapper = factory({
             icon: 'mdi:chart-line',
-            iconPosition: MetricCardIconPosition.RIGHT
+            iconPosition: MetricCardIconPosition.RIGHT,
         })
         expect(wrapper.findComponent(ContainedIcon).props('size')).toBe(IconContainerSize.SM)
     })
@@ -175,7 +182,7 @@ describe('MetricCard.vue', () => {
     it('renders ContainedIcon for soft and default style types', () => {
         const wrapper = factory({
             icon: 'mdi:chart-line',
-            styleType: MetricCardStyle.PRIMARY_BRAND_SOFT
+            styleType: MetricCardStyle.PRIMARY_BRAND_SOFT,
         })
 
         const contained = wrapper.findComponent(ContainedIcon)
@@ -189,7 +196,7 @@ describe('MetricCard.vue', () => {
     it('renders a plain Icon for filled style types', () => {
         const wrapper = factory({
             icon: 'mdi:chart-line',
-            styleType: MetricCardStyle.NEUTRAL_FILLED
+            styleType: MetricCardStyle.NEUTRAL_FILLED,
         })
 
         expect(wrapper.findComponent(ContainedIcon).exists()).toBe(false)
@@ -201,7 +208,7 @@ describe('MetricCard.vue', () => {
         const wrapper = factory({
             icon: 'mdi:chart-line',
             styleType: MetricCardStyle.DEFAULT,
-            defaultStyleIconColor: ColorAccent.SUCCESS
+            defaultStyleIconColor: ColorAccent.SUCCESS,
         })
 
         expect(wrapper.findComponent(ContainedIcon).props('color')).toBe(ColorAccent.SUCCESS)
@@ -211,7 +218,7 @@ describe('MetricCard.vue', () => {
         const wrapper = factory({
             icon: 'mdi:chart-line',
             styleType: MetricCardStyle.DEFAULT,
-            defaultStyleIconContainerType: IconContainerStyleType.FLAT
+            defaultStyleIconContainerType: IconContainerStyleType.FLAT,
         })
 
         expect(wrapper.findComponent(ContainedIcon).props('styleType')).toBe(IconContainerStyleType.FLAT)
@@ -221,7 +228,7 @@ describe('MetricCard.vue', () => {
         const wrapper = factory({
             icon: 'mdi:chart-line',
             styleType: MetricCardStyle.PRIMARY_BRAND_SOFT,
-            defaultStyleIconContainerType: IconContainerStyleType.FLAT
+            defaultStyleIconContainerType: IconContainerStyleType.FLAT,
         })
 
         expect(wrapper.findComponent(ContainedIcon).props('styleType')).toBe(IconContainerStyleType.FILLED)
@@ -231,7 +238,7 @@ describe('MetricCard.vue', () => {
         const wrapper = factory({
             icon: 'mdi:chart-line',
             styleType: MetricCardStyle.DEFAULT,
-            iconContainerShape: IconContainerShape.SQUARE
+            iconContainerShape: IconContainerShape.SQUARE,
         })
 
         expect(wrapper.findComponent(ContainedIcon).props('shape')).toBe(IconContainerShape.SQUARE)
@@ -241,7 +248,7 @@ describe('MetricCard.vue', () => {
         const wrapper = factory({
             icon: 'mdi:chart-line',
             styleType: MetricCardStyle.PRIMARY_BRAND_SOFT,
-            iconContainerShape: IconContainerShape.CIRCLE
+            iconContainerShape: IconContainerShape.CIRCLE,
         })
 
         expect(wrapper.findComponent(ContainedIcon).props('shape')).toBe(IconContainerShape.SQUARE)
@@ -263,7 +270,7 @@ describe('MetricCard.vue', () => {
     it('applies the custom filled color class when styleType is CUSTOM_FILLED', () => {
         const wrapper = factory({
             styleType: MetricCardStyle.CUSTOM_FILLED,
-            customFilledColorClass: 'bg-background-[#123456]'
+            customFilledColorClass: 'bg-background-[#123456]',
         })
         expect(wrapper.html()).toContain('bg-background-[#123456]')
     })
@@ -287,7 +294,7 @@ describe('MetricCard.vue', () => {
         const wrapper = factory({
             trend: '+12%',
             trendDirection: MetricTrendDirection.UP,
-            styleType: MetricCardStyle.DEFAULT
+            styleType: MetricCardStyle.DEFAULT,
         })
         expect(wrapper.html()).toContain('text-text-success')
     })
@@ -296,7 +303,7 @@ describe('MetricCard.vue', () => {
         const wrapper = factory({
             trend: '-5%',
             trendDirection: MetricTrendDirection.DOWN,
-            styleType: MetricCardStyle.DEFAULT
+            styleType: MetricCardStyle.DEFAULT,
         })
         expect(wrapper.html()).toContain('text-text-error')
     })
@@ -305,7 +312,7 @@ describe('MetricCard.vue', () => {
         const wrapper = factory({
             trend: '-5%',
             trendDirection: MetricTrendDirection.DOWN,
-            styleType: MetricCardStyle.PRIMARY_BRAND_FILLED
+            styleType: MetricCardStyle.PRIMARY_BRAND_FILLED,
         })
         expect(wrapper.html()).toContain('text-text-neutral-on-filled')
     })
@@ -314,7 +321,7 @@ describe('MetricCard.vue', () => {
         const wrapper = factory({
             trend: '0%',
             trendDirection: MetricTrendDirection.NEUTRAL,
-            styleType: MetricCardStyle.DEFAULT
+            styleType: MetricCardStyle.DEFAULT,
         })
         expect(wrapper.html()).toContain('text-text-neutral-subtle')
     })
@@ -380,7 +387,7 @@ describe('MetricCard.vue', () => {
         const wrapper = factory({
             icon: 'mdi:chart-line',
             iconPosition: MetricCardIconPosition.LEFT,
-            iconContainerSize: IconContainerSize.MD
+            iconContainerSize: IconContainerSize.MD,
         })
         expect(wrapper.findComponent(ContainedIcon).props('size')).toBe(IconContainerSize.MD)
     })
@@ -388,22 +395,28 @@ describe('MetricCard.vue', () => {
     it('defaults ContainedIcon size to SM on LEFT position', () => {
         const wrapper = factory({
             icon: 'mdi:chart-line',
-            iconPosition: MetricCardIconPosition.LEFT
+            iconPosition: MetricCardIconPosition.LEFT,
         })
         expect(wrapper.findComponent(ContainedIcon).props('size')).toBe(IconContainerSize.SM)
     })
 
     it('renders the rightTop slot when iconPosition is LEFT', () => {
-        const wrapper = factory({ iconPosition: MetricCardIconPosition.LEFT }, {
-            slots: { rightTop: '<span class="right-top-content">Badge</span>' }
-        })
+        const wrapper = factory(
+            { iconPosition: MetricCardIconPosition.LEFT },
+            {
+                slots: { rightTop: '<span class="right-top-content">Badge</span>' },
+            },
+        )
         expect(wrapper.find('.right-top-content').exists()).toBe(true)
     })
 
     it('does not render the rightTop slot when iconPosition is RIGHT', () => {
-        const wrapper = factory({ iconPosition: MetricCardIconPosition.RIGHT }, {
-            slots: { rightTop: '<span class="right-top-content">Badge</span>' }
-        })
+        const wrapper = factory(
+            { iconPosition: MetricCardIconPosition.RIGHT },
+            {
+                slots: { rightTop: '<span class="right-top-content">Badge</span>' },
+            },
+        )
         expect(wrapper.find('.right-top-content').exists()).toBe(false)
     })
 
@@ -413,9 +426,12 @@ describe('MetricCard.vue', () => {
     })
 
     it('renders the footer slot when provided', () => {
-        const wrapper = factory({}, {
-            slots: { footer: '<span class="footer-content">Footer</span>' }
-        })
+        const wrapper = factory(
+            {},
+            {
+                slots: { footer: '<span class="footer-content">Footer</span>' },
+            },
+        )
         expect(wrapper.find('.footer-content').exists()).toBe(true)
     })
 

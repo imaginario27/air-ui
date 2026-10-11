@@ -15,32 +15,32 @@ const defaultProps: Partial<InstanceType<typeof ContentItem>['$props']> = {
     imgHoverEffect: ImageHoverEffect.ZOOM_IN,
     imgAspectRatio: AspectRatio.AR_16_9,
     imgHoverIcon: 'mdi:eye-outline',
-    type: ContentItemType.CARD
+    type: ContentItemType.CARD,
 }
 
 const factory = (props = {}, slots = {}) => {
     return mount(ContentItem, {
         props: {
             ...defaultProps,
-            ...props
+            ...props,
         },
         slots,
         global: {
             stubs: {
                 NuxtLink: {
                     template: '<a :href="to"><slot /></a>',
-                    props: ['to']
+                    props: ['to'],
                 },
                 NuxtImg: {
                     template: '<img :src="src" :alt="alt" :class="imgClass" />',
-                    props: ['src', 'alt']
+                    props: ['src', 'alt'],
                 },
-                Icon
+                Icon,
             },
             components: {
-                Card
-            }
-        }
+                Card,
+            },
+        },
     })
 }
 
@@ -99,7 +99,7 @@ describe('ContentItem.vue', () => {
             title: longTitle,
             description: longDesc,
             titleMaxLength: 20,
-            descriptionMaxLength: 30
+            descriptionMaxLength: 30,
         })
 
         expect(wrapper.text()).toContain(longTitle.slice(0, 20))
@@ -107,9 +107,12 @@ describe('ContentItem.vue', () => {
     })
 
     it('renders content slot when provided', () => {
-        const wrapper = factory({}, {
-            content: '<div class="custom-slot">Custom Slot</div>'
-        })
+        const wrapper = factory(
+            {},
+            {
+                content: '<div class="custom-slot">Custom Slot</div>',
+            },
+        )
         expect(wrapper.find('.custom-slot').exists()).toBe(true)
         expect(wrapper.text()).toContain('Custom Slot')
     })
@@ -133,9 +136,7 @@ describe('ContentItem.vue', () => {
 
     it('includes containerClass in computed wrapper class', () => {
         const wrapper = factory({ containerClass: 'custom-class' })
-        const root = wrapper.findComponent(Card).exists()
-            ? wrapper.findComponent(Card)
-            : wrapper.find('div')
+        const root = wrapper.findComponent(Card).exists() ? wrapper.findComponent(Card) : wrapper.find('div')
 
         expect(root.classes()).toContain('custom-class')
     })
@@ -150,13 +151,13 @@ describe('ContentItem.vue', () => {
     it('passes hasShadow and hasBackgroundHover props to Card', () => {
         const wrapper = factory({
             hasCardShadow: false,
-            hasCardBackgroundHover: true
+            hasCardBackgroundHover: true,
         })
 
         const card = wrapper.findComponent(Card)
         expect(card.props()).toMatchObject({
             hasShadow: false,
-            hasBackgroundHover: true
+            hasBackgroundHover: true,
         })
     })
 
@@ -168,7 +169,7 @@ describe('ContentItem.vue', () => {
     it('renders fallback icon if imgFallbackIcon is provided and no image', () => {
         const wrapper = factory({
             imgUrl: '',
-            imgFallbackIcon: 'mdi-image-off'
+            imgFallbackIcon: 'mdi-image-off',
         })
 
         const icon = wrapper.findComponent(Icon)
@@ -185,7 +186,7 @@ describe('ContentItem.vue', () => {
 
     it('does not render hover icon when imgUrl is empty', () => {
         const wrapper = factory({ imgUrl: '' })
-        const icon = wrapper.findAllComponents(Icon).find(i => i.props('name') === defaultProps.imgHoverIcon)
+        const icon = wrapper.findAllComponents(Icon).find((i) => i.props('name') === defaultProps.imgHoverIcon)
         expect(icon).toBeUndefined()
     })
 })

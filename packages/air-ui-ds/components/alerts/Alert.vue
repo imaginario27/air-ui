@@ -12,19 +12,10 @@
         ]"
     >
         <template v-if="description || $slots.description">
-            <Icon 
-                :name="iconType" 
-                :iconClass="iconColorClass" 
-            />
-            
-            <div 
-                :class="[
-                    'w-full flex flex-col gap-2',
-                    textColorClass,
-                ]"
-            >
-                <span class="text-sm font-semibold"
-                >
+            <Icon :name="iconType" :iconClass="iconColorClass" />
+
+            <div :class="['w-full flex flex-col gap-2', textColorClass]">
+                <span class="text-sm font-semibold">
                     {{ title }}
                 </span>
 
@@ -32,19 +23,14 @@
                     <slot name="description" />
                 </div>
 
-                <p
-                    v-else-if="description"
-                    class="text-sm"
-                >
+                <p v-else-if="description" class="text-sm">
                     {{ description }}
                 </p>
-    
-                <div
-                    v-if="hasActionButtons && buttons?.length"
-                    class="flex gap-6"
-                >
-                    <AlertButton 
-                        v-for="(button, index) in buttons" :key="`text-${index}`"
+
+                <div v-if="hasActionButtons && buttons?.length" class="flex gap-6">
+                    <AlertButton
+                        v-for="(button, index) in buttons"
+                        :key="`text-${index}`"
                         :type
                         :actionType="button.actionType"
                         :text="button.text"
@@ -57,7 +43,7 @@
                 </div>
             </div>
 
-            <AlertIconButton 
+            <AlertIconButton
                 v-if="hasCloseButton"
                 :type
                 icon="mdi:close"
@@ -68,30 +54,25 @@
 
         <template v-else>
             <div class="w-full flex gap-3">
-                <div 
+                <div
                     :class="[
                         'w-full',
                         'flex',
                         'gap-3',
-                        hasCloseButton || (hasActionButtons && buttons?.length) && 'pt-1.5',
+                        hasCloseButton || (hasActionButtons && buttons?.length && 'pt-1.5'),
                     ]"
                 >
-                    <Icon 
-                        :name="iconType" 
-                        :iconClass="iconColorClass" 
-                    />
+                    <Icon :name="iconType" :iconClass="iconColorClass" />
                     <span :class="['text-sm font-semibold', textColorClass]">
-                        {{ title  }}
+                        {{ title }}
                     </span>
                 </div>
 
                 <div class="flex gap-3">
-                    <div
-                        v-if="hasActionButtons && buttons?.length"
-                        class="flex gap-4"
-                    >
-                        <AlertButton 
-                            v-for="(button, index) in buttons" :key="`text-${index}`"
+                    <div v-if="hasActionButtons && buttons?.length" class="flex gap-4">
+                        <AlertButton
+                            v-for="(button, index) in buttons"
+                            :key="`text-${index}`"
                             :type
                             :actionType="button.actionType"
                             :text="button.text"
@@ -104,12 +85,7 @@
                         />
                     </div>
 
-                    <AlertIconButton 
-                        v-if="hasCloseButton"
-                        :type
-                        icon="mdi:close"
-                        @click="$emit('close')"
-                    />
+                    <AlertIconButton v-if="hasCloseButton" :type icon="mdi:close" @click="$emit('close')" />
                 </div>
             </div>
         </template>
@@ -131,7 +107,7 @@ const props = defineProps({
     description: String as PropType<string>,
     hasActionButtons: {
         type: Boolean as PropType<boolean>,
-        default: false
+        default: false,
     },
     buttons: Array as PropType<AlertButton[]>,
     hasCloseButton: {
@@ -181,6 +157,6 @@ const iconType = computed(() => {
         [AlertType.SUCCESS]: 'mdi:check-circle-outline',
         [AlertType.INFO]: 'mdi:information-outline',
     }
-    return variant[props.type as AlertType] as string || 'mdi:alert-outline'
+    return (variant[props.type as AlertType] as string) || 'mdi:alert-outline'
 })
 </script>

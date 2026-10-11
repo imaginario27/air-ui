@@ -3,12 +3,8 @@
         <ProseTable v-if="items.length">
             <ProseThead>
                 <ProseTr>
-                    <ProseTh>
-                        Token
-                    </ProseTh>
-                    <ProseTh>
-                        Description
-                    </ProseTh>
+                    <ProseTh> Token </ProseTh>
+                    <ProseTh> Description </ProseTh>
                 </ProseTr>
             </ProseThead>
 
@@ -16,19 +12,15 @@
                 <ProseTr v-for="(item, index) in items" :key="index">
                     <ProseTd class="w-[1%] whitespace-nowrap">
                         <div class="flex gap-2 items-center">
-
                             <!-- Background indicator -->
-                            <div 
+                            <div
                                 v-if="type === 'background'"
-                                :class="[
-                                    'w-5 h-5 rounded-full',
-                                    'border-3 border-solid',
-                                ]"
+                                :class="['w-5 h-5 rounded-full', 'border-3 border-solid']"
                                 :style="getBackgroundPreviewStyle(item.name)"
                             />
 
                             <!-- Text indicator -->
-                            <div 
+                            <div
                                 v-else-if="type === 'text'"
                                 :class="[
                                     'flex items-center justify-center',
@@ -37,22 +29,19 @@
                                     'border-2 border-solid',
                                 ]"
                                 :style="getForegroundPreviewStyle(item.name)"
-                            >   
+                            >
                                 Text
                             </div>
 
                             <!-- Border indicator -->
-                            <div 
+                            <div
                                 v-else-if="type === 'border'"
-                                :class="[
-                                    'w-5 h-5 rounded-full',
-                                    'border-3 border-solid',
-                                ]"
+                                :class="['w-5 h-5 rounded-full', 'border-3 border-solid']"
                                 :style="getBorderPreviewStyle(item.name)"
                             />
 
                             <!-- Icon indicator -->
-                            <div 
+                            <div
                                 v-else-if="type === 'icon'"
                                 :class="[
                                     'flex items-center justify-center',
@@ -61,33 +50,23 @@
                                     'border-2 border-solid',
                                 ]"
                                 :style="getForegroundPreviewStyle(item.name)"
-                            >   
-                                <Icon 
-                                    name="mdi-help"
-                                    :size="IconSize.SM"
-                                />
+                            >
+                                <Icon name="mdi-help" :size="IconSize.SM" />
                             </div>
 
-                            <div 
+                            <div
                                 v-if="type === 'opacity'"
-                                :class="[
-                                    'w-5 h-5 rounded-full',
-                                ]"
+                                :class="['w-5 h-5 rounded-full']"
                                 :style="getOpacityPreviewStyle(item.name)"
                             />
 
-                            <div 
+                            <div
                                 v-if="type === 'radius'"
-                                :class="[
-                                    'w-5 h-5',
-                                ]"
+                                :class="['w-5 h-5']"
                                 :style="getRadiusPreviewStyle(item.name)"
                             />
 
-                            <ProseCode 
-                                :color="ColorAccent.NEUTRAL"
-                                class="font-semibold whitespace-nowrap"
-                            >
+                            <ProseCode :color="ColorAccent.NEUTRAL" class="font-semibold whitespace-nowrap">
                                 {{ item.name }}
                             </ProseCode>
                         </div>
@@ -107,25 +86,18 @@ interface DesignTokenTableItem {
     description: string
 }
 
-type DesignTokenTableType = 
-    'background' 
-    | 'text' 
-    | 'border' 
-    | 'icon'
-    | 'opacity'
-    | 'radius'
-    | 'others'
+type DesignTokenTableType = 'background' | 'text' | 'border' | 'icon' | 'opacity' | 'radius' | 'others'
 
 // Props
 defineProps({
     items: {
         type: Array as PropType<DesignTokenTableItem[]>,
-        default: () => []
+        default: () => [],
     },
     type: {
         type: String as PropType<DesignTokenTableType>,
-        default: 'background'
-    }
+        default: 'background',
+    },
 })
 
 const getColorToken = (name: string): string => `var(--color-${name})`
@@ -184,27 +156,27 @@ const getContextBackground = (name: string): string | undefined => {
 
 const getBackgroundPreviewStyle = (name: string) => ({
     backgroundColor: getColorToken(name),
-    borderColor: getColorToken('border-default')
+    borderColor: getColorToken('border-default'),
 })
 
 const getForegroundPreviewStyle = (name: string) => ({
     color: getColorToken(name),
     borderColor: getColorToken('border-default'),
-    backgroundColor: getContextBackground(name)
+    backgroundColor: getContextBackground(name),
 })
 
 const getBorderPreviewStyle = (name: string) => ({
     borderColor: getColorToken(name),
-    backgroundColor: getColorToken('background-surface')
+    backgroundColor: getColorToken('background-surface'),
 })
 
 const getOpacityPreviewStyle = (name: string) => ({
     opacity: `var(--opacity-${name})`,
-    backgroundColor: getColorToken('background-neutral-bold')
+    backgroundColor: getColorToken('background-neutral-bold'),
 })
 
 const getRadiusPreviewStyle = (name: string) => ({
     borderRadius: `var(--radius-${name})`,
-    backgroundColor: getColorToken('background-neutral-bold')
+    backgroundColor: getColorToken('background-neutral-bold'),
 })
 </script>

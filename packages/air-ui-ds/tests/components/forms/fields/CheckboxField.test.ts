@@ -4,27 +4,27 @@ import Checkbox from '~/components/forms/fields/checkbox/Checkbox.vue'
 import { ref } from 'vue'
 
 vi.mock('~/composables/useFormValidationMode', () => ({
-    useInjectedValidationMode: () => ref('blur')
+    useInjectedValidationMode: () => ref('blur'),
 }))
 
 const factory = (props: Record<string, any> = {}) => {
     return mount(CheckboxField, {
         props: {
             id: 'test-checkbox',
-            ...props
+            ...props,
         },
         global: {
             components: {
-                Checkbox
+                Checkbox,
             },
             stubs: {
                 Icon: {
                     name: 'Icon',
                     props: ['name', 'iconClass'],
-                    template: '<div class="mock-icon" />'
-                }
-            }
-        }
+                    template: '<div class="mock-icon" />',
+                },
+            },
+        },
     })
 }
 
@@ -94,7 +94,7 @@ describe('CheckboxField.vue', () => {
         const wrapper = factory({
             modelValue: false,
             required: true,
-            validator
+            validator,
         })
         const checkbox = wrapper.findComponent(Checkbox)
 
@@ -132,7 +132,7 @@ describe('CheckboxField.vue', () => {
         const wrapper = factory({
             modelValue: false,
             required: true,
-            validator
+            validator,
         })
 
         await wrapper.setProps({ modelValue: true })
@@ -180,7 +180,7 @@ describe('CheckboxField.vue', () => {
         const wrapper = mount(CheckboxField, {
             props: { id: 'test-checkbox' },
             slots: {
-                label: '<strong>Bold</strong> terms'
+                label: '<strong>Bold</strong> terms',
             },
             global: {
                 components: { Checkbox },
@@ -188,10 +188,10 @@ describe('CheckboxField.vue', () => {
                     Icon: {
                         name: 'Icon',
                         props: ['name', 'iconClass'],
-                        template: '<div class="mock-icon" />'
-                    }
-                }
-            }
+                        template: '<div class="mock-icon" />',
+                    },
+                },
+            },
         })
 
         const label = wrapper.find('label')

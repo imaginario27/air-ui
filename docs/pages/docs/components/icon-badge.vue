@@ -2,9 +2,7 @@
     <Section>
         <SectionBody>
             <TabBar v-model="activeIndex" :tabs />
-            <ContentRenderer 
-                v-if="data" :value="data" 
-            />
+            <ContentRenderer v-if="data" :value="data" />
             <ContentRenderFallback v-else />
         </SectionBody>
     </Section>
@@ -14,7 +12,8 @@ definePageMeta({
     title: 'Icon badge',
     layout: 'docs',
     overtitle: 'Components',
-    description: 'Small, colored circular badges used to highlight or decorate icons with contextual meaning or status.',
+    description:
+        'Small, colored circular badges used to highlight or decorate icons with contextual meaning or status.',
 })
 
 // Route

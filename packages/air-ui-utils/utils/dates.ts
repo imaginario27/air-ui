@@ -1,18 +1,18 @@
 /**
  * Formats a date (ISO string or timestamp) into a localized full date with optional time.
- * Example: 
+ * Example:
  * - formatLocalizedDateTime('2025-09-20T10:15:22', 'en') → "September 20, 2025 (10:15:22)"
  * - formatLocalizedDateTime(1761724212863, 'en', false) → "October 29, 2025"
- * 
+ *
  * @param dateInput - ISO date string or timestamp
  * @param locale - The locale code (e.g. 'en', 'es', 'fr', 'de')
  * @param showTime - Whether to include the time in the output
  * @returns Formatted localized date string
  */
 export const formatLocalizedDateTime = (
-    dateInput: string | number, 
+    dateInput: string | number,
     locale: string = 'en',
-    showTime: boolean = true
+    showTime: boolean = true,
 ): string => {
     if (!dateInput) return ''
 
@@ -60,10 +60,7 @@ export const formatLocalizedDateTime = (
  * @param locale - Locale code (e.g. `'en'`, `'es'`, `'fr'`). Defaults to `'en'`.
  * @returns Localized date string (e.g. "September 24, 2025"), or empty string if invalid.
  */
-export const formatLocalizedDate = (
-    dateString: string,
-    locale: string = 'en'
-): string => {
+export const formatLocalizedDate = (dateString: string, locale: string = 'en'): string => {
     if (!dateString) return ''
 
     let date: Date
@@ -76,11 +73,7 @@ export const formatLocalizedDate = (
         const month = Number(monthStr)
         const day = Number(dayStr)
 
-        if (
-            Number.isNaN(year) ||
-            Number.isNaN(month) ||
-            Number.isNaN(day)
-        ) return ''
+        if (Number.isNaN(year) || Number.isNaN(month) || Number.isNaN(day)) return ''
 
         // Construct UTC date from parts
         date = new Date(Date.UTC(year, month - 1, day))

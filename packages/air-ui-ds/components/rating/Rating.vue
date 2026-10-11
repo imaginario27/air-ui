@@ -9,24 +9,23 @@
         <div
             v-for="(icon, index) in items"
             :key="index"
-            v-bind="isInteractive ? {
-                role: 'radio',
-                'aria-checked': modelValue === index + 1,
-                'aria-label': `${index + 1} star${index + 1 > 1 ? 's' : ''}`,
-                tabindex: modelValue === index + 1 || (modelValue === 0 && index === 0) ? 0 : -1,
-            } : {
-                'aria-hidden': 'true',
-            }"
+            v-bind="
+                isInteractive
+                    ? {
+                          role: 'radio',
+                          'aria-checked': modelValue === index + 1,
+                          'aria-label': `${index + 1} star${index + 1 > 1 ? 's' : ''}`,
+                          tabindex: modelValue === index + 1 || (modelValue === 0 && index === 0) ? 0 : -1,
+                      }
+                    : {
+                          'aria-hidden': 'true',
+                      }
+            "
             class="inline-flex"
             @click="isInteractive && handleClick(index)"
             @mouseenter="isInteractive && onMouseEnter(index)"
         >
-            <RatingItem
-                :icon
-                :size
-                :color
-                :isInteractive
-            />
+            <RatingItem :icon :size :color :isInteractive />
         </div>
     </div>
 </template>
@@ -50,24 +49,24 @@ const props = defineProps({
     },
     emptyIndicatorIcon: {
         type: String as PropType<string>,
-        default: 'mdi:star-outline'
+        default: 'mdi:star-outline',
     },
     halfIndicatorIcon: {
         type: String as PropType<string>,
-        default: 'mdi:star-half-full'
+        default: 'mdi:star-half-full',
     },
     fullIndicatorIcon: {
         type: String as PropType<string>,
-        default: 'mdi:star'
+        default: 'mdi:star',
     },
     isInteractive: {
         type: Boolean,
-        default: false
+        default: false,
     },
     hoverPreview: {
         type: Boolean,
-        default: true
-    }
+        default: true,
+    },
 })
 
 // Emits
@@ -112,19 +111,14 @@ const handleClick = (index: number) => {
 // Computed functions
 // Normalize value: clamp between 0 and 5, round to nearest 0.5
 const displayValue = computed(() => {
-    if (props.isInteractive && props.hoverPreview && hoverIndex.value !== null)
-        return hoverIndex.value + 1
+    if (props.isInteractive && props.hoverPreview && hoverIndex.value !== null) return hoverIndex.value + 1
 
-    if (!isFinite(props.modelValue) || isNaN(props.modelValue))
-        return 0
+    if (!isFinite(props.modelValue) || isNaN(props.modelValue)) return 0
 
     return Math.min(5, Math.max(0, Math.round(props.modelValue * 2) / 2))
 })
 
-const items = computed(() => getRatingIndicator(
-    displayValue.value,
-    props.emptyIndicatorIcon,
-    props.halfIndicatorIcon,
-    props.fullIndicatorIcon
-))
+const items = computed(() =>
+    getRatingIndicator(displayValue.value, props.emptyIndicatorIcon, props.halfIndicatorIcon, props.fullIndicatorIcon),
+)
 </script>

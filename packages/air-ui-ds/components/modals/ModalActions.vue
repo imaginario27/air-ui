@@ -1,11 +1,6 @@
 <template>
-    <div 
-        :class="[
-            'flex',
-            'gap-4',
-            'w-full',
-            reverseOnMobile ? 'flex-col-reverse md:flex-row' : 'flex-col md:flex-row'
-        ]"
+    <div
+        :class="['flex', 'gap-4', 'w-full', reverseOnMobile ? 'flex-col-reverse md:flex-row' : 'flex-col md:flex-row']"
     >
         <slot />
     </div>

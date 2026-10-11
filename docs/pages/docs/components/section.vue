@@ -1,9 +1,7 @@
 ﻿<template>
     <Section>
         <SectionBody>
-            <ContentRenderer 
-                v-if="data" :value="data" 
-            />
+            <ContentRenderer v-if="data" :value="data" />
             <ContentRenderFallback v-else />
         </SectionBody>
     </Section>
@@ -13,7 +11,8 @@ definePageMeta({
     title: 'Section',
     layout: 'docs',
     overtitle: 'Components',
-    description: 'A layout component that provides structured sections with optional headers and bodies for organizing content.',
+    description:
+        'A layout component that provides structured sections with optional headers and bodies for organizing content.',
 })
 
 // Route

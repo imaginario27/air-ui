@@ -5,12 +5,12 @@ import type { MenuItem, SocialNetwork } from '@/models/types/navigation'
 
 const defaultMenuItems: MenuItem[] = [
     { to: '/about', text: 'About' },
-    { to: '/contact', text: 'Contact' }
+    { to: '/contact', text: 'Contact' },
 ]
 
 const defaultSocialNetworks: SocialNetwork[] = [
     { name: 'Twitter', link: 'https://twitter.com', icon: 'twitter-icon' },
-    { name: 'LinkedIn', link: 'https://linkedin.com', icon: 'linkedin-icon' }
+    { name: 'LinkedIn', link: 'https://linkedin.com', icon: 'linkedin-icon' },
 ]
 
 const defaultProps = {
@@ -19,29 +19,29 @@ const defaultProps = {
     socialNetworks: defaultSocialNetworks,
     hasContentMaxWidth: true,
     hasSidePadding: true,
-    isMobileCentered: true
+    isMobileCentered: true,
 }
 
 const factory = (props = {}, slots = {}) => {
     return mount(Footer, {
         props: {
             ...defaultProps,
-            ...props
+            ...props,
         },
         global: {
             stubs: {
                 MaxWidthContainer,
                 NuxtLink: {
                     props: ['to'],
-                    template: '<a :href="to"><slot /></a>'
+                    template: '<a :href="to"><slot /></a>',
                 },
                 Icon: {
                     props: ['name'],
-                    template: '<svg :data-icon="name" />'
-                }
-            }
+                    template: '<svg :data-icon="name" />',
+                },
+            },
         },
-        slots
+        slots,
     })
 }
 
@@ -100,7 +100,7 @@ describe('Footer', () => {
     it('centers content when isMobileCentered is true', () => {
         const wrapper = factory({ isMobileCentered: true })
 
-        const contentWrapper = wrapper.findAll('div.flex').find(w => {
+        const contentWrapper = wrapper.findAll('div.flex').find((w) => {
             const classes = w.classes()
             return classes.includes('items-center') && classes.includes('text-center')
         })

@@ -8,10 +8,10 @@ const factory = (props = {}, options = {}) => {
         props,
         global: {
             components: {
-                ListItem
-            }
+                ListItem,
+            },
         },
-        ...options
+        ...options,
     })
 }
 
@@ -25,8 +25,8 @@ describe('List.vue', () => {
         const slotFactory = (props = {}) =>
             factory(props, {
                 slots: {
-                    default: '<li>Slot Item 1</li><li>Slot Item 2</li>'
-                }
+                    default: '<li>Slot Item 1</li><li>Slot Item 2</li>',
+                },
             })
 
         it('renders slot content instead of items prop', () => {
@@ -59,17 +59,17 @@ describe('List.vue', () => {
                 listItemIcon: 'mdi:check',
                 listItemIconClass: 'custom-icon',
                 listItemSize: ListItemSize.MD,
-                spaced: true
+                spaced: true,
             })
 
             const listItem = wrapper.findComponent(ListItem)
             expect(listItem.exists()).toBe(true)
 
             expect(listItem.props()).toMatchObject({
-                markerIcon: 'mdi:check', 
+                markerIcon: 'mdi:check',
                 markerIconClass: 'custom-icon',
                 size: ListItemSize.MD,
-                spaced: true
+                spaced: true,
             })
         })
     })
@@ -99,7 +99,7 @@ describe('List.vue', () => {
             layout: ListLayout.GRID,
             cols: 3,
             tabletCols: 2,
-            mobileCols: 1
+            mobileCols: 1,
         })
 
         const classList = wrapper.find('ul').classes().join(' ')
@@ -114,23 +114,23 @@ describe('List.vue', () => {
         const wrapper = factory({
             layout: ListLayout.GRID,
             cols: 4,
-            mobileCols: 2
+            mobileCols: 2,
         })
 
         const classList = wrapper.find('ul').classes().join(' ')
-        expect(classList).toContain('grid-cols-2')       // mobile
-        expect(classList).toContain('sm:grid-cols-2')    // default tablet
-        expect(classList).toContain('lg:grid-cols-4')    // desktop
+        expect(classList).toContain('grid-cols-2') // mobile
+        expect(classList).toContain('sm:grid-cols-2') // default tablet
+        expect(classList).toContain('lg:grid-cols-4') // desktop
     })
 
     it('does not apply grid layout classes when layout is LIST', () => {
         const wrapper = factory({
             layout: ListLayout.LIST,
-            cols: 4
+            cols: 4,
         })
 
         const classList = wrapper.find('ul').classes()
         expect(classList).not.toContain('grid')
-        expect(classList.some(c => c.startsWith('grid-cols-'))).toBe(false)
+        expect(classList.some((c) => c.startsWith('grid-cols-'))).toBe(false)
     })
 })

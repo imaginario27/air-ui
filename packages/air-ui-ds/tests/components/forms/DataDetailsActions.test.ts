@@ -5,9 +5,9 @@ import DataDetailsActions from '~/components/forms/DataDetailsActions.vue'
 const factory = (options = {}): VueWrapper => {
     return mount(DataDetailsActions, {
         slots: {
-            default: '<button>Action</button>'
+            default: '<button>Action</button>',
         },
-        ...options
+        ...options,
     })
 }
 
@@ -28,8 +28,8 @@ describe('DataDetailsActions.vue', () => {
     it('applies layout with flex-col when reverseOnMobile is false', () => {
         const wrapper = factory({
             props: {
-                reverseOnMobile: false
-            }
+                reverseOnMobile: false,
+            },
         })
         const div = wrapper.find('div')
 

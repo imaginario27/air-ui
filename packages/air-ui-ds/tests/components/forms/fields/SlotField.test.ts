@@ -3,28 +3,25 @@ import { h } from 'vue'
 import SlotField from '~/components/forms/fields/SlotField.vue'
 import { Position } from '@/models/enums/positions'
 
-const factory = (
-    props: Record<string, unknown> = {},
-    withSlot = false
-) => {
+const factory = (props: Record<string, unknown> = {}, withSlot = false) => {
     return mount(SlotField, {
         props: {
             id: 'slot-field-id',
-            ...props
+            ...props,
         },
         slots: withSlot
             ? {
-                default: (slotProps: Record<string, unknown>) =>
-                    h('div', { class: 'slot-props' }, [
-                        h('span', { class: 'slot-aria-label' }, String(slotProps.ariaLabel)),
-                        h('span', { class: 'slot-error' }, String(slotProps.error)),
-                        h('span', { class: 'slot-has-error' }, String(slotProps.hasError)),
-                        h('span', { class: 'slot-help-text' }, String(slotProps.helpText)),
-                        h('span', { class: 'slot-disabled' }, String(slotProps.disabled)),
-                        h('span', { class: 'slot-required' }, String(slotProps.required)),
-                    ])
-            }
-            : undefined
+                  default: (slotProps: Record<string, unknown>) =>
+                      h('div', { class: 'slot-props' }, [
+                          h('span', { class: 'slot-aria-label' }, String(slotProps.ariaLabel)),
+                          h('span', { class: 'slot-error' }, String(slotProps.error)),
+                          h('span', { class: 'slot-has-error' }, String(slotProps.hasError)),
+                          h('span', { class: 'slot-help-text' }, String(slotProps.helpText)),
+                          h('span', { class: 'slot-disabled' }, String(slotProps.disabled)),
+                          h('span', { class: 'slot-required' }, String(slotProps.required)),
+                      ]),
+              }
+            : undefined,
     })
 }
 
@@ -52,8 +49,8 @@ describe('SlotField.vue', () => {
         expect(help.exists()).toBe(true)
         expect(help.text()).toBe('Slot hint')
         const children = Array.from(wrapper.element.children)
-        const helpIdx = children.findIndex(el => el.classList.contains('text-xs'))
-        const labelIdx = children.findIndex(el => el.tagName === 'LABEL')
+        const helpIdx = children.findIndex((el) => el.classList.contains('text-xs'))
+        const labelIdx = children.findIndex((el) => el.tagName === 'LABEL')
         expect(helpIdx).toBeGreaterThan(labelIdx)
         expect(helpIdx).toBeLessThan(children.length - 1)
     })
@@ -86,7 +83,7 @@ describe('SlotField.vue', () => {
                 disabled: true,
                 required: true,
             },
-            true
+            true,
         )
 
         expect(wrapper.find('.slot-props').exists()).toBe(true)
@@ -102,7 +99,7 @@ describe('SlotField.vue', () => {
             {
                 ariaLabel: 'Custom control label',
             },
-            true
+            true,
         )
 
         expect(wrapper.find('.slot-aria-label').text()).toBe('Custom control label')

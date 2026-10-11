@@ -1,5 +1,5 @@
 <template>
-    <Alert 
+    <Alert
         :type="finalProps.type"
         :icon="finalProps.icon"
         :title="finalProps.title"
@@ -12,12 +12,12 @@
 <script setup lang="ts">
 // Interface for alert props
 interface AlertProps {
-    type?: AlertType,
-    icon?: string,
-    title?: string,
-    description?: string,
-    preset?: string,
-    extraProps?: Record<string, unknown>,
+    type?: AlertType
+    icon?: string
+    title?: string
+    description?: string
+    preset?: string
+    extraProps?: Record<string, unknown>
 }
 
 // Define props using a single "props" object
@@ -33,13 +33,14 @@ const presets: Record<string, Partial<AlertProps>> = {
     'form-validation': {
         type: AlertType.INFO,
         title: 'Important',
-        description: 'Please review the form validation method page for more details on how to implement field validation effectively.',
+        description:
+            'Please review the form validation method page for more details on how to implement field validation effectively.',
         extraProps: {
             buttons: [
                 {
                     text: 'View form validation',
                     actionType: ButtonActionType.LINK,
-                    to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/form#validation`
+                    to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/form#validation`,
                 },
             ],
         },

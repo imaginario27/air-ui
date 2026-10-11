@@ -8,9 +8,9 @@ vi.mock('vue-router', () => ({
         meta: {
             title: 'Meta Title',
             overtitle: 'Meta Overtitle',
-            description: 'Meta Description'
-        }
-    })
+            description: 'Meta Description',
+        },
+    }),
 }))
 
 const factory = (props = {}) => {
@@ -47,7 +47,7 @@ describe('ContentPageHeader.vue', () => {
         const wrapper = factory({
             hasGoBackLink: true,
             goBackText: 'Return',
-            goBackLink: '/back'
+            goBackLink: '/back',
         })
 
         const navLink = wrapper.findComponent({ name: 'NavLink' })
@@ -60,7 +60,7 @@ describe('ContentPageHeader.vue', () => {
 
     it('renders Breadcrumbs when type is WITH_BREADCRUMBS', () => {
         const wrapper = factory({
-            type: PageTitleType.WITH_BREADCRUMBS
+            type: PageTitleType.WITH_BREADCRUMBS,
         })
 
         expect(wrapper.findComponent({ name: 'Breadcrumbs' }).exists()).toBe(true)
@@ -68,7 +68,7 @@ describe('ContentPageHeader.vue', () => {
 
     it('renders Overtitle with default value on initial render', () => {
         const wrapper = factory({
-            type: PageTitleType.WITH_OVERTITLE
+            type: PageTitleType.WITH_OVERTITLE,
         })
 
         const overtitle = wrapper.findComponent({ name: 'Overtitle' })
@@ -79,7 +79,7 @@ describe('ContentPageHeader.vue', () => {
     it('uses prop overtitle when provided', () => {
         const wrapper = factory({
             type: PageTitleType.WITH_OVERTITLE,
-            overtitle: 'Prop Overtitle'
+            overtitle: 'Prop Overtitle',
         })
 
         const overtitle = wrapper.findComponent({ name: 'Overtitle' })
@@ -89,7 +89,7 @@ describe('ContentPageHeader.vue', () => {
     it('adds border and padding classes when enabled', () => {
         const wrapper = factory({
             hasSeparator: true,
-            hasSidePadding: true
+            hasSidePadding: true,
         })
 
         const root = wrapper.find('div')
@@ -100,7 +100,7 @@ describe('ContentPageHeader.vue', () => {
     it('removes border and padding classes when disabled', () => {
         const wrapper = factory({
             hasSeparator: false,
-            hasSidePadding: false
+            hasSidePadding: false,
         })
 
         const root = wrapper.find('div')

@@ -3,15 +3,15 @@ import Accordion from '@/components/accordions/Accordion.vue'
 
 const mockItems = [
     { id: 1, title: 'Item 1', content: 'Content 1' },
-    { id: 2, title: 'Item 2', content: 'Content 2' }
+    { id: 2, title: 'Item 2', content: 'Content 2' },
 ]
 
 describe('Accordion.vue', () => {
     it('renders the component properly with required props', () => {
         const wrapper = mount(Accordion, {
             props: {
-                items: mockItems
-            }
+                items: mockItems,
+            },
         })
         expect(wrapper.exists()).toBe(true)
     })
@@ -19,8 +19,8 @@ describe('Accordion.vue', () => {
     it('renders AccordionItem components for each item', () => {
         const wrapper = mount(Accordion, {
             props: {
-                items: mockItems
-            }
+                items: mockItems,
+            },
         })
 
         const items = wrapper.findAllComponents({ name: 'AccordionItem' })

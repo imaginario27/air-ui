@@ -1,9 +1,7 @@
 ﻿<template>
     <Section>
         <SectionBody>
-            <ContentRenderer 
-                v-if="data" :value="data" 
-            />
+            <ContentRenderer v-if="data" :value="data" />
             <ContentRenderFallback v-else />
         </SectionBody>
     </Section>
@@ -13,7 +11,7 @@ definePageMeta({
     title: 'ScrollArea',
     layout: 'docs',
     overtitle: 'Components',
-    description: 'A scrollable container that provides custom scrollbars and enhanced scrolling experience.'
+    description: 'A scrollable container that provides custom scrollbars and enhanced scrolling experience.',
 })
 
 // Route

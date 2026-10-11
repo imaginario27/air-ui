@@ -1,9 +1,5 @@
 <template>
-    <form 
-        class="w-full flex flex-col gap-4" 
-        @submit="handleSubmit"
-        @reset="handleReset"
-    >
+    <form class="w-full flex flex-col gap-4" @submit="handleSubmit" @reset="handleReset">
         <slot />
     </form>
 </template>
@@ -15,7 +11,7 @@ const emit = defineEmits(['submit', 'reset'])
 // Handlers
 const handleSubmit = (event: Event) => {
     event.preventDefault()
-    emit('submit') 
+    emit('submit')
 }
 
 const handleReset = (event: Event) => {

@@ -1,48 +1,25 @@
 <template>
     <div class="w-full flex flex-col gap-2">
         <!-- Label -->
-        <div
-            v-if="label"
-            :class="[
-                'text-sm',
-                'font-semibold',
-                'text-left',
-                hasError ? 'text-text-error' : undefined
-            ]"
-        >
+        <div v-if="label" :class="['text-sm', 'font-semibold', 'text-left', hasError ? 'text-text-error' : undefined]">
             {{ label }}
-            <span
-                v-if="!required && showOptionalLabel"
-                class="font-normal text-text-neutral-subtler"
-            >
+            <span v-if="!required && showOptionalLabel" class="font-normal text-text-neutral-subtler">
                 {{ optionalLabelText }}
             </span>
         </div>
 
         <!-- Help Text or Error Message (top) -->
-        <HelpText
-            v-if="helpTextPosition === Position.TOP"
-            :text="helpText"
-            :error="error"
-        />
+        <HelpText v-if="helpTextPosition === Position.TOP" :text="helpText" :error="error" />
 
         <div
             :class="[
-                orientation === Orientation.VERTICAL 
-                    ? 'flex flex-col gap-4' 
-                    : [
-                        'w-full',
-                        'grid gap-4',
-                        'grid-cols-1',
-                        'sm:grid-cols-2',
-                    ]
+                orientation === Orientation.VERTICAL
+                    ? 'flex flex-col gap-4'
+                    : ['w-full', 'grid gap-4', 'grid-cols-1', 'sm:grid-cols-2'],
             ]"
         >
             <template v-if="type === RadioType.DEFAULT">
-                <template
-                    v-for="(option, index) in options"
-                    :key="option.id"
-                >
+                <template v-for="(option, index) in options" :key="option.id">
                     <RadioField
                         :id="option.id.toString()"
                         v-model="selectedOption"
@@ -58,7 +35,9 @@
                     />
                     <Divider
                         v-if="showDivider && index < options.length - 1"
-                        :orientation="orientation === Orientation.VERTICAL ? Orientation.HORIZONTAL : Orientation.VERTICAL"
+                        :orientation="
+                            orientation === Orientation.VERTICAL ? Orientation.HORIZONTAL : Orientation.VERTICAL
+                        "
                         dividerClass="opacity-80"
                     />
                 </template>
@@ -85,11 +64,7 @@
         </div>
 
         <!-- Help Text or Error Message (bottom) -->
-        <HelpText
-            v-if="helpTextPosition === Position.BOTTOM"
-            :text="helpText"
-            :error="error"
-        />
+        <HelpText v-if="helpTextPosition === Position.BOTTOM" :text="helpText" :error="error" />
     </div>
 </template>
 
@@ -105,7 +80,12 @@ const props = defineProps({
         type: Array as PropType<RadioOption[]>,
         required: true,
         validator: (value: RadioOption[]) =>
-            value.every((option) => option.id !== undefined && option.value !== undefined && (option.label !== undefined || option.ariaLabel !== undefined)),
+            value.every(
+                (option) =>
+                    option.id !== undefined &&
+                    option.value !== undefined &&
+                    (option.label !== undefined || option.ariaLabel !== undefined),
+            ),
     },
     modelValue: {
         type: [String, Number, Boolean, null] as PropType<string | number | boolean | null>,
@@ -146,7 +126,8 @@ const props = defineProps({
         default: Position.BOTTOM,
         validator: (value: Position) => Object.values(Position).includes(value),
     },
-    inverse: { // Sets the radio button on the right side of the text
+    inverse: {
+        // Sets the radio button on the right side of the text
         type: Boolean as PropType<boolean>,
         default: false,
     },
@@ -195,10 +176,7 @@ const runValidation = () => {
 
 // Watchers
 // Watch for changes in local selectedOption and emit upward
-watch(
-    selectedOption,
-    () => {
-        runValidation()
-    },
-)
+watch(selectedOption, () => {
+    runValidation()
+})
 </script>

@@ -50,9 +50,9 @@ describe('RadioField', () => {
     it('emits update:modelValue when clicked and not disabled', async () => {
         const wrapper = factory()
 
-        const radio = wrapper.findAll('div').find(div => div.classes().includes('cursor-pointer'))
+        const radio = wrapper.findAll('div').find((div) => div.classes().includes('cursor-pointer'))
         await radio!.trigger('click')
-        
+
         expect(wrapper.emitted('update:modelValue')).toBeTruthy()
         expect(wrapper.emitted('update:modelValue')![0]).toEqual(['option1'])
     })
@@ -82,19 +82,19 @@ describe('RadioField', () => {
         const label = wrapper.find('label')
         expect(label.classes()).toContain('text-text-neutral-disabled')
 
-        const radioBox = wrapper.findAll('div').find(div => div.classes().includes('cursor-not-allowed'))
+        const radioBox = wrapper.findAll('div').find((div) => div.classes().includes('cursor-not-allowed'))
         expect(radioBox).toBeTruthy()
     })
 
     it('applies correct size class for md (default)', () => {
         const wrapper = factory()
-        const radio = wrapper.findAll('div').find(div => div.classes().includes('w-[24px]'))
+        const radio = wrapper.findAll('div').find((div) => div.classes().includes('w-[24px]'))
         expect(radio).toBeTruthy()
     })
 
     it('applies correct size class for lg', () => {
         const wrapper = factory({ size: 'lg' })
-        const radio = wrapper.findAll('div').find(div => div.classes().includes('w-[32px]'))
+        const radio = wrapper.findAll('div').find((div) => div.classes().includes('w-[32px]'))
         expect(radio).toBeTruthy()
 
         const label = wrapper.find('label')
@@ -151,8 +151,8 @@ describe('RadioField', () => {
         const wrapper = mount(RadioField, {
             props: defaultProps,
             slots: {
-                label: '<strong>Bold</strong> label'
-            }
+                label: '<strong>Bold</strong> label',
+            },
         })
 
         const label = wrapper.find('label')

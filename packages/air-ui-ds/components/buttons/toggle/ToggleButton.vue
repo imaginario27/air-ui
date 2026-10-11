@@ -19,20 +19,12 @@
         @click="emitClick"
     >
         <!-- Left icon -->
-        <Icon
-            v-if="iconPosition === IconPosition.LEFT"
-            :name="icon"
-            :iconClass="iconSizeClass"
-        />
+        <Icon v-if="iconPosition === IconPosition.LEFT" :name="icon" :iconClass="iconSizeClass" />
         <span :class="['font-semibold', textSizeClass]">
             {{ text }}
         </span>
         <!-- Right icon -->
-        <Icon
-            v-if="iconPosition === IconPosition.RIGHT"
-            :name="icon"
-            :iconClass="iconSizeClass"
-        />
+        <Icon v-if="iconPosition === IconPosition.RIGHT" :name="icon" :iconClass="iconSizeClass" />
     </button>
 </template>
 <script setup lang="ts">
@@ -83,7 +75,7 @@ const emitClick = () => {
 const buttonStyleClass = computed(() =>
     props.active
         ? ['bg-background-primary-brand-subtle-active', 'text-text-primary-brand-on-soft-bg']
-        : ['text-text-neutral-inactive', !props.disabled && 'hover:text-text-primary-brand-hover']
+        : ['text-text-neutral-inactive', !props.disabled && 'hover:text-text-primary-brand-hover'],
 )
 
 const buttonSizeClass = computed(() => {

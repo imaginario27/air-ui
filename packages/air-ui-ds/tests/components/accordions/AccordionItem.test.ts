@@ -4,7 +4,7 @@ import ActionIconButton from '@/components/buttons/ActionIconButton.vue'
 
 const factory = (props?: { title?: string; content?: string }) => {
     return mount(AccordionItem, {
-        props
+        props,
     })
 }
 
@@ -18,7 +18,7 @@ describe('AccordionItem', () => {
     it('renders with custom title and content', () => {
         const wrapper = factory({
             title: 'FAQ Question',
-            content: 'This is the answer.'
+            content: 'This is the answer.',
         })
 
         expect(wrapper.text()).toContain('FAQ Question')

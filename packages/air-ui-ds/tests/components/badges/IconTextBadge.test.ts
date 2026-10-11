@@ -10,9 +10,9 @@ const factory = (props: Partial<InstanceType<typeof IconTextBadge>['$props']> = 
         global: {
             components: {
                 IconBadge,
-                Icon
-            }
-        }
+                Icon,
+            },
+        },
     })
 }
 
@@ -43,14 +43,14 @@ describe('IconTextBadge.vue', () => {
             [ColorAccent.DANGER]: 'text-text-danger',
             [ColorAccent.INFO]: 'text-text-info',
             [ColorAccent.PRIMARY_BRAND]: 'text-text-primary-brand-default',
-            [ColorAccent.SECONDARY_BRAND]: 'text-text-secondary-brand-default'
+            [ColorAccent.SECONDARY_BRAND]: 'text-text-secondary-brand-default',
         }
 
         for (const color of Object.values(ColorAccent)) {
             const wrapper = factory({ color, text: `Color ${color}` })
 
             // Find span by text content, not just tag name
-            const span = wrapper.findAll('span').find(el => el.text().includes(`Color ${color}`))
+            const span = wrapper.findAll('span').find((el) => el.text().includes(`Color ${color}`))
             expect(span).toBeTruthy()
             expect(span!.classes()).toContain(colorClassMap[color])
         }
@@ -68,7 +68,7 @@ describe('IconTextBadge.vue', () => {
         const icon = wrapper.findComponent(Icon)
         expect(icon.props('name')).toBe('mdi:help')
 
-        const span = wrapper.findAll('span').find(el => el.text() === 'Badge text')
+        const span = wrapper.findAll('span').find((el) => el.text() === 'Badge text')
         expect(span).toBeTruthy()
         expect(span!.classes()).toContain('text-text-neutral-subtle')
     })

@@ -25,19 +25,19 @@ export const extractMinimarkText = (nodes: MinimarkNode[]): string => {
         if (tag === 'style') continue
 
         const prefix =
-            tag === 'h2' ? '\n## ' :
-            tag === 'h3' ? '\n### ' :
-            tag === 'h4' ? '\n#### ' :
-            tag === 'li' ? '- ' :
-            tag === 'p' ? '\n' :
-            ''
+            tag === 'h2'
+                ? '\n## '
+                : tag === 'h3'
+                  ? '\n### '
+                  : tag === 'h4'
+                    ? '\n#### '
+                    : tag === 'li'
+                      ? '- '
+                      : tag === 'p'
+                        ? '\n'
+                        : ''
 
-        const suffix =
-            tag.startsWith('h') ? '\n' :
-            tag === 'p' ? '\n' :
-            tag === 'li' ? '\n' :
-            tag === 'code' ? '' :
-            ''
+        const suffix = tag.startsWith('h') ? '\n' : tag === 'p' ? '\n' : tag === 'li' ? '\n' : tag === 'code' ? '' : ''
 
         parts.push(prefix)
 
@@ -61,5 +61,8 @@ export const extractMinimarkText = (nodes: MinimarkNode[]): string => {
         parts.push(suffix)
     }
 
-    return parts.join('').replace(/\n{3,}/g, '\n\n').trim()
+    return parts
+        .join('')
+        .replace(/\n{3,}/g, '\n\n')
+        .trim()
 }

@@ -1,9 +1,7 @@
 ﻿<template>
     <Section>
         <SectionBody>
-            <ContentRenderer 
-                v-if="data" :value="data" 
-            />
+            <ContentRenderer v-if="data" :value="data" />
             <ContentRenderFallback v-else />
         </SectionBody>
     </Section>
@@ -13,7 +11,7 @@ definePageMeta({
     title: 'Feature',
     layout: 'docs',
     overtitle: 'Components',
-    description: 'Highlight key features with optional icons and descriptions to showcase capabilities.'
+    description: 'Highlight key features with optional icons and descriptions to showcase capabilities.',
 })
 
 // Route

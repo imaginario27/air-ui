@@ -1,9 +1,7 @@
 <template>
     <Section>
         <SectionBody>
-            <ContentRenderer
-                v-if="data" :value="data"
-            />
+            <ContentRenderer v-if="data" :value="data" />
             <ContentRenderFallback v-else />
         </SectionBody>
     </Section>
@@ -14,7 +12,8 @@ definePageMeta({
     title: 'SignaturePad',
     layout: 'docs',
     overtitle: 'Components',
-    description: 'Freehand pad that captures a handwritten signature as SVG paths, with clear button, guide line and data URL export.',
+    description:
+        'Freehand pad that captures a handwritten signature as SVG paths, with clear button, guide line and data URL export.',
 })
 
 // Route

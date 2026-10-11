@@ -1,12 +1,6 @@
 <template>
-    <main 
-        :class="[
-            'flex',
-            'flex-col',
-            'gap-3',
-            'w-full',
-            'scroll-smooth',
-        ]"
+    <main
+        :class="['flex', 'flex-col', 'gap-3', 'w-full', 'scroll-smooth']"
         :style="!isMobile && `max-width: calc(100% - ${tocSidebarWidth}px)`"
     >
         <slot />
@@ -18,7 +12,7 @@
 const props = defineProps({
     tocSidebarWidth: {
         type: Number as PropType<number>,
-        default: 240
+        default: 240,
     },
     mobileBreakpoint: {
         type: Number as PropType<number>,

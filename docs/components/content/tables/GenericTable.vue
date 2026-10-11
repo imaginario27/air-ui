@@ -11,11 +11,15 @@
 
             <ProseTbody>
                 <ProseTr v-for="(row, rowIndex) in normalizedItems" :key="rowIndex">
-                    <ProseTd v-for="(cell, cellIndex) in row" :key="cellIndex" :class="[
-                        'text-text-default',
-                        'text-sm',
-                        boldColumnIndexes.includes(cellIndex) && 'font-semibold',
-                    ]">
+                    <ProseTd
+                        v-for="(cell, cellIndex) in row"
+                        :key="cellIndex"
+                        :class="[
+                            'text-text-default',
+                            'text-sm',
+                            boldColumnIndexes.includes(cellIndex) && 'font-semibold',
+                        ]"
+                    >
                         <ProseCode v-if="codeColumnIndexes.includes(cellIndex)" class="text-xs">
                             {{ cell }}
                         </ProseCode>
@@ -52,35 +56,18 @@ const props = defineProps({
     },
 })
 
-
-const headerKeys = computed(() =>
-    props.headers.map((header) =>
-        convertStringIntoSlugFormat(header),
-    ),
-)
+const headerKeys = computed(() => props.headers.map((header) => convertStringIntoSlugFormat(header)))
 
 const boldColumnIndexes = computed(() => {
-    const boldKeys = props.boldColumns.map((col) =>
-        convertStringIntoSlugFormat(col),
-    )
+    const boldKeys = props.boldColumns.map((col) => convertStringIntoSlugFormat(col))
 
-    return headerKeys.value
-        .map((key, index) =>
-            boldKeys.includes(key) ? index : -1,
-        )
-        .filter((index) => index !== -1)
+    return headerKeys.value.map((key, index) => (boldKeys.includes(key) ? index : -1)).filter((index) => index !== -1)
 })
 
 const codeColumnIndexes = computed(() => {
-    const codeKeys = props.codeColumns.map((col) =>
-        convertStringIntoSlugFormat(col),
-    )
+    const codeKeys = props.codeColumns.map((col) => convertStringIntoSlugFormat(col))
 
-    return headerKeys.value
-        .map((key, index) =>
-            codeKeys.includes(key) ? index : -1,
-        )
-        .filter((index) => index !== -1)
+    return headerKeys.value.map((key, index) => (codeKeys.includes(key) ? index : -1)).filter((index) => index !== -1)
 })
 
 /**
@@ -91,8 +78,6 @@ const normalizedItems = computed(() => {
         return []
     }
 
-    return props.items.map((item) =>
-        headerKeys.value.map((key) => item[key] ?? ''),
-    )
+    return props.items.map((item) => headerKeys.value.map((key) => item[key] ?? ''))
 })
 </script>

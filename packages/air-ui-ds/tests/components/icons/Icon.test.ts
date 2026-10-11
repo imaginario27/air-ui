@@ -11,10 +11,10 @@ const factory = (props: Partial<InstanceType<typeof Icon>['$props']> = {}) => {
                 NuxtIcon: {
                     name: 'NuxtIcon',
                     props: ['name', 'mode', 'customize'],
-                    template: '<div class="nuxt-icon" />'
-                }
-            }
-        }
+                    template: '<div class="nuxt-icon" />',
+                },
+            },
+        },
     })
 }
 
@@ -50,7 +50,7 @@ describe('Icon.vue', () => {
 
         const wrapper = factory({
             size: 'INVALID' as IconSize,
-            color: 'INVALID' as ColorAccent
+            color: 'INVALID' as ColorAccent,
         })
 
         expect(wrapper.classes()).toContain('w-[20px]')
@@ -79,7 +79,7 @@ describe('Icon.vue', () => {
     it('does not apply default size class if size is overridden by iconClass', () => {
         const wrapper = factory({
             size: IconSize.XL,
-            iconClass: ['w-[10px]', 'h-[10px]']
+            iconClass: ['w-[10px]', 'h-[10px]'],
         })
 
         const classes = wrapper.classes()
@@ -90,7 +90,7 @@ describe('Icon.vue', () => {
     it('does not apply color class if text color is overridden by iconClass', () => {
         const wrapper = factory({
             color: ColorAccent.WARNING,
-            iconClass: ['text-red-500']
+            iconClass: ['text-red-500'],
         })
 
         const classes = wrapper.classes()
@@ -115,7 +115,7 @@ describe('Icon.vue', () => {
 
     it('applies deduplicated classes', () => {
         const wrapper = factory({
-            iconClass: ['text-icon-success', 'text-icon-success', 'w-[20px]']
+            iconClass: ['text-icon-success', 'text-icon-success', 'w-[20px]'],
         })
 
         const classes = wrapper.classes()

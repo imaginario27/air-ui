@@ -6,7 +6,7 @@ import ActionButton from '~/components/buttons/ActionButton.vue'
 const factory = (props = {}, options = {}) => {
     return mount(CurrentActiveSubscriptionCard, {
         props,
-        ...options
+        ...options,
     })
 }
 
@@ -41,7 +41,7 @@ describe('CurrentActiveSubscriptionCard.vue', () => {
             isPlanCancelled: false,
             nextPaymentAmount: 19.99,
             currencySymbol: '$',
-            nextPaymentDate: '2025-08-01'
+            nextPaymentDate: '2025-08-01',
         })
         expect(wrapper.text()).toContain('Your next invoice is 19.99$ and will be sent on 2025-08-01.')
     })
@@ -49,7 +49,7 @@ describe('CurrentActiveSubscriptionCard.vue', () => {
     it('displays cancellation message when plan is cancelled', () => {
         const wrapper = factory({
             isPlanCancelled: true,
-            nextPaymentDate: '2025-08-01'
+            nextPaymentDate: '2025-08-01',
         })
         expect(wrapper.text()).toContain('Your plan will switch to FREE on 2025-08-01.')
     })
@@ -62,7 +62,7 @@ describe('CurrentActiveSubscriptionCard.vue', () => {
     it('renders the plan description if plan is active', () => {
         const wrapper = factory({
             isPlanCancelled: false,
-            planDescription: 'Best features'
+            planDescription: 'Best features',
         })
         expect(wrapper.text()).toContain('Best features')
     })
@@ -70,7 +70,7 @@ describe('CurrentActiveSubscriptionCard.vue', () => {
     it('does not render plan description if plan is cancelled', () => {
         const wrapper = factory({
             isPlanCancelled: true,
-            planDescription: 'Hidden description'
+            planDescription: 'Hidden description',
         })
         expect(wrapper.text()).not.toContain('Hidden description')
     })
@@ -78,7 +78,7 @@ describe('CurrentActiveSubscriptionCard.vue', () => {
     it('renders change plan button with correct props', () => {
         const wrapper = factory({
             changePlanButtonText: 'Update Plan',
-            changePlanLink: '/settings/plan'
+            changePlanLink: '/settings/plan',
         })
         const button = wrapper.findAllComponents(ActionButton)[0]
         expect(button.props('text')).toBe('Update Plan')
@@ -88,7 +88,7 @@ describe('CurrentActiveSubscriptionCard.vue', () => {
     it('renders cancel button and emits cancel event when clicked (plan active)', async () => {
         const wrapper = factory({ isPlanCancelled: false })
         const buttons = wrapper.findAllComponents(ActionButton)
-        const cancelBtn = buttons.find(btn => btn.props('text') === 'Cancel subscription')
+        const cancelBtn = buttons.find((btn) => btn.props('text') === 'Cancel subscription')
         expect(cancelBtn).toBeTruthy()
         await cancelBtn!.trigger('click')
         expect(wrapper.emitted('cancel')).toBeTruthy()
@@ -97,7 +97,7 @@ describe('CurrentActiveSubscriptionCard.vue', () => {
     it('renders undo cancellation button and emits undoCancellation event when clicked (plan cancelled)', async () => {
         const wrapper = factory({ isPlanCancelled: true })
         const buttons = wrapper.findAllComponents(ActionButton)
-        const undoBtn = buttons.find(btn => btn.text() === 'Undo cancellation')
+        const undoBtn = buttons.find((btn) => btn.text() === 'Undo cancellation')
         expect(undoBtn).toBeTruthy()
         await undoBtn!.trigger('click')
         expect(wrapper.emitted('undoCancellation')).toBeTruthy()

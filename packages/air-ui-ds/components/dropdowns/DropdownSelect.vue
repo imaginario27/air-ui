@@ -10,12 +10,7 @@
             :positionYOffset="dropdownGap"
             zIndex="10000"
             :dropdownClass
-            :class="[ 
-                'max-h-[200px]', 
-                'overflow-y-auto', 
-                'border', 
-                'border-border-default', 
-            ]"
+            :class="['max-h-[200px]', 'overflow-y-auto', 'border', 'border-border-default']"
         >
             <template #activator="{ isOpen }">
                 <!-- Select Box -->
@@ -31,7 +26,7 @@
                         'flex items-center justify-between',
                         'w-full',
                         'px-3',
-                        disabled ? 'bg-background-neutral-disabled' : (!transparent && 'bg-background-container-surface'),
+                        disabled ? 'bg-background-neutral-disabled' : !transparent && 'bg-background-container-surface',
                         'rounded',
                         disabled ? 'cursor-not-allowed' : 'cursor-pointer',
                         'border border-border-default',
@@ -59,10 +54,7 @@
                         </template>
                     </div>
 
-                    <div 
-                        v-else
-                        class="flex items-center gap-2"
-                    >
+                    <div v-else class="flex items-center gap-2">
                         <!-- Render based on type -->
                         <template v-if="type === SelectType.USER">
                             <!-- Show default placeholder if no user is selected -->
@@ -79,30 +71,25 @@
                             </template>
                         </template>
                         <template v-else-if="type === SelectType.ICON && selectedOption?.icon">
-                            <Icon
-                                :name="selectedOption?.icon" 
-                            />
+                            <Icon :name="selectedOption?.icon" />
                         </template>
                         <template v-else-if="type === SelectType.IMAGE && selectedOption?.imgUrl">
                             <img
                                 v-if="selectedOption?.imgUrl && isImageLoaded"
-                                :src="selectedOption?.imgUrl" 
-                                :alt="selectedOption?.alt" 
-                                class="w-[20px] h-[20px] rounded" 
+                                :src="selectedOption?.imgUrl"
+                                :alt="selectedOption?.alt"
+                                class="w-[20px] h-[20px] rounded"
                                 @load="handleImageLoad"
                                 @error="handleImageError"
-                            >
+                            />
                             <img
                                 v-else
                                 :src="missingImagePlaceholder"
-                                :alt="selectedOption?.alt" 
-                                class="w-[20px] h-[20px] rounded" 
-                            >
+                                :alt="selectedOption?.alt"
+                                class="w-[20px] h-[20px] rounded"
+                            />
                         </template>
-                        <span 
-                            v-if="type !== SelectType.USER"
-                            class="text-left" 
-                        >
+                        <span v-if="type !== SelectType.USER" class="text-left">
                             {{ selectedOption?.text }}
                         </span>
                     </div>
@@ -120,65 +107,53 @@
 
                         <!-- Show loading icon while loading instead of the icon-->
                         <Spinner v-if="isLoading" />
-                        <Icon 
-                            v-else
-                            :name="isOpen ? 'mdi:unfold-less-horizontal' : 'mdi:unfold-more-horizontal'"
-                        />
+                        <Icon v-else :name="isOpen ? 'mdi:unfold-less-horizontal' : 'mdi:unfold-more-horizontal'" />
                     </div>
                 </div>
             </template>
 
             <template #items="{ onClose }">
                 <!-- Show loading state if it is loading -->
-                <div v-if="isLoading" class="p-4 flex items-center justify-center space-x-2 text-sm text-text-neutral-subtle">
-                    <Spinner/>
+                <div
+                    v-if="isLoading"
+                    class="p-4 flex items-center justify-center space-x-2 text-sm text-text-neutral-subtle"
+                >
+                    <Spinner />
                     <span>{{ resolvedLoadingText }}</span>
                 </div>
                 <template v-else>
                     <!-- Search Input -->
-                    <div 
-                        v-if="filterable" 
-                        :class="[ 
-                            'p-2', 
-                            'sticky',
-                            'top-0', 
-                            'bg-background-container-surface', 
-                            'z-10',
-                        ]"
+                    <div
+                        v-if="filterable"
+                        :class="['p-2', 'sticky', 'top-0', 'bg-background-container-surface', 'z-10']"
                     >
                         <input
                             v-model="searchQuery"
                             type="text"
                             :aria-label="resolvedSearchFieldPlaceholder"
                             :placeholder="resolvedSearchFieldPlaceholder"
-                            :class="[ 
-                                'w-full', 
-                                'px-2', 
-                                'py-1', 
-                                'border', 
-                                'border-border-default', 
-                                'rounded-sm', 
-                                'text-sm', 
+                            :class="[
+                                'w-full',
+                                'px-2',
+                                'py-1',
+                                'border',
+                                'border-border-default',
+                                'rounded-sm',
+                                'text-sm',
                                 'outline-none',
                                 searchQuery ? 'text-text-default' : 'text-text-neutral-subtle',
-                                isSearchFieldFocused && 'ring-2 focus-within:ring-inset focus-within:ring-border-primary-brand-default',
+                                isSearchFieldFocused &&
+                                    'ring-2 focus-within:ring-inset focus-within:ring-border-primary-brand-default',
                             ]"
                             @focus="isSearchFieldFocused = true"
                             @blur="isSearchFieldFocused = false"
-                        >
+                        />
                     </div>
 
                     <!-- Filtered options -->
                     <div v-if="filteredOptions.length > 0">
-                        <template
-                            v-for="(option, index) in filteredOptions"
-                            :key="index"
-                        >
-                            <DropdownSectionItem
-                                v-if="option.sectionTitle"
-                                :text="option.text"
-                                :icon="option.icon"
-                            />
+                        <template v-for="(option, index) in filteredOptions" :key="index">
+                            <DropdownSectionItem v-if="option.sectionTitle" :text="option.text" :icon="option.icon" />
 
                             <DropdownSelectItem
                                 v-else
@@ -196,18 +171,20 @@
                                 :isExternal="option.isExternal"
                                 :disabled="option.disabled"
                                 :class="[
-                                    hasSeparator && index !== filteredOptions.length - 1 
-                                        ? 'border-b border-border-default' 
-                                        : undefined
+                                    hasSeparator && index !== filteredOptions.length - 1
+                                        ? 'border-b border-border-default'
+                                        : undefined,
                                 ]"
-                                @click="() => { 
-                                    handleOptionClick(option)
-                                    if (!multiple) onClose()
-                                }"
+                                @click="
+                                    () => {
+                                        handleOptionClick(option)
+                                        if (!multiple) onClose()
+                                    }
+                                "
                             />
                         </template>
                     </div>
-                    
+
                     <!-- No Results Message -->
                     <div v-else class="p-2 text-sm text-text-neutral-subtle">
                         {{ resolvedNoResultsFoundText }}
@@ -241,7 +218,7 @@ const props = defineProps({
                 text: 'Item 3',
                 value: 'item-3',
             },
-        ]
+        ],
     },
     placeholder: String as PropType<string>,
     type: {
@@ -260,7 +237,7 @@ const props = defineProps({
         validator: (value: SelectActiveStyle) => Object.values(SelectActiveStyle).includes(value),
     },
     modelValue: {
-        type: [String, Number, Object, Array] as PropType<string | number | (string | number)[] | null>, 
+        type: [String, Number, Object, Array] as PropType<string | number | (string | number)[] | null>,
         default: null,
     },
     dropdownPosition: {
@@ -325,7 +302,9 @@ const resolvedPlaceholder = computed(() => props.placeholder ?? dsConfig.forms.s
 const resolvedSearchFieldPlaceholder = computed(() => props.searchFieldPlaceholder ?? dsConfig.forms.searchText())
 const resolvedNoResultsFoundText = computed(() => props.noResultsFoundText ?? dsConfig.forms.noResultsText())
 const resolvedLoadingText = computed(() => props.loadingText ?? dsConfig.forms.loadingOptionsText())
-const resolvedClearSelectionAriaLabel = computed(() => props.clearSelectionAriaLabel ?? dsConfig.forms.clearSelectionText())
+const resolvedClearSelectionAriaLabel = computed(
+    () => props.clearSelectionAriaLabel ?? dsConfig.forms.clearSelectionText(),
+)
 
 // Computed classes
 const sizeClass = computed(() => {
@@ -355,9 +334,9 @@ const teleportPosition = computed(() => {
 })
 
 const dropdownClass = computed(() => {
-    const baseClass= 'max-w-full'
+    const baseClass = 'max-w-full'
 
-    return props.filterable? `${baseClass} pt-0!` : baseClass
+    return props.filterable ? `${baseClass} pt-0!` : baseClass
 })
 
 // States
@@ -391,19 +370,15 @@ const initializeSelected = () => {
     if (props.modelValue) {
         if (props.multiple && Array.isArray(props.modelValue)) {
             selected.value = hasOptions
-                ? props.options.filter(option =>
-                    (props.modelValue as (string | number)[]).includes(option.value)
-                )
+                ? props.options.filter((option) => (props.modelValue as (string | number)[]).includes(option.value))
                 : []
         } else {
             const preselectedOption = hasOptions
-                ? props.options.find(
-                    (option) => option.id === props.modelValue || option.value === props.modelValue
-                )
+                ? props.options.find((option) => option.id === props.modelValue || option.value === props.modelValue)
                 : null
 
-            selected.value = preselectedOption 
-                ? { ...preselectedOption } 
+            selected.value = preselectedOption
+                ? { ...preselectedOption }
                 : { text: resolvedPlaceholder.value, value: '' }
         }
     } else {
@@ -420,7 +395,12 @@ const initializeSelected = () => {
                     selected.value = { userDisplayName: '', userProfileImg: '', value: defaultValue }
                     break
                 case SelectType.IMAGE:
-                    selected.value = { text: resolvedPlaceholder.value, imgUrl: '', alt: 'Default image', value: defaultValue }
+                    selected.value = {
+                        text: resolvedPlaceholder.value,
+                        imgUrl: '',
+                        alt: 'Default image',
+                        value: defaultValue,
+                    }
                     break
                 default:
                     selected.value = { text: resolvedPlaceholder.value, value: defaultValue }
@@ -435,7 +415,7 @@ const multiSelectionText = computed(() => {
     if (!props.multiple || !Array.isArray(selected.value)) return ''
 
     return selected.value
-        .map(option => props.type === SelectType.USER ? option.userDisplayName : option.text)
+        .map((option) => (props.type === SelectType.USER ? option.userDisplayName : option.text))
         .filter(Boolean)
         .join(', ')
 })
@@ -443,53 +423,46 @@ const multiSelectionText = computed(() => {
 // Check if the option is selected based on the `type`
 const isSelected = (option: SelectOption) => {
     if (props.multiple && Array.isArray(props.modelValue)) {
-        return (selected.value as SelectOption[]).some(
-            (item) => item.value === option.value
-        )
+        return (selected.value as SelectOption[]).some((item) => item.value === option.value)
     }
     return JSON.stringify(selected.value) === JSON.stringify(option)
 }
 
 const selectedOption = computed(() => {
-    return !props.multiple && selected.value && !Array.isArray(selected.value)
-        ? selected.value as SelectOption
-        : null
+    return !props.multiple && selected.value && !Array.isArray(selected.value) ? (selected.value as SelectOption) : null
 })
 
 // Computed: Filtered options based on search query
 const filteredOptions = computed(() => {
-
     if (props.isLoading || !Array.isArray(props.options) || props.options.length === 0) return []
-    
-    return props.options.filter(option =>
-        (option?.text || option?.userDisplayName || '')
-            .toLowerCase()
-            .includes(searchQuery.value.toLowerCase())
+
+    return props.options.filter((option) =>
+        (option?.text || option?.userDisplayName || '').toLowerCase().includes(searchQuery.value.toLowerCase()),
     )
 })
 
 // Updates visually the component when the value has changed
-watch(() => props.modelValue, (newValue) => {
-    if (props.multiple) {
-        if (Array.isArray(newValue)) {
-            selected.value = props.options.filter(option => newValue.includes(option.value))
+watch(
+    () => props.modelValue,
+    (newValue) => {
+        if (props.multiple) {
+            if (Array.isArray(newValue)) {
+                selected.value = props.options.filter((option) => newValue.includes(option.value))
+            } else {
+                selected.value = []
+            }
         } else {
-            selected.value = []
+            const newSelected = props.options.find((option) => option.value === newValue) as SelectOption
+            selected.value = newSelected || {
+                text: resolvedPlaceholder.value,
+                value:
+                    typeof props.modelValue === 'string' || typeof props.modelValue === 'number'
+                        ? props.modelValue
+                        : '',
+            }
         }
-
-    } else {
-        const newSelected = props.options.find(option => option.value === newValue) as SelectOption
-        selected.value = newSelected || {
-            text: resolvedPlaceholder.value,
-            value: (
-                typeof props.modelValue === 'string' || 
-                typeof props.modelValue === 'number'
-            )
-                ? props.modelValue
-                : ''
-        }
-    }
-})
+    },
+)
 
 // Method
 const handleClearSelection = () => {
@@ -507,10 +480,10 @@ const handleOptionClick = (option: SelectOption) => {
         // Multiple selection
         const currentValues = Array.isArray(props.modelValue) ? props.modelValue : []
         const isSelected = currentValues.includes(optionValue)
-        
+
         if (isSelected) {
             // If selected, deselect.
-            const newValues = currentValues.filter(val => val !== optionValue)
+            const newValues = currentValues.filter((val) => val !== optionValue)
             emit('update:modelValue', newValues)
         } else {
             // Add to selection
@@ -525,7 +498,7 @@ const handleOptionClick = (option: SelectOption) => {
             // Select new option
             emit('update:modelValue', optionValue)
         }
-        
+
         // Close dropdown for simple selection
         toggle()
     }

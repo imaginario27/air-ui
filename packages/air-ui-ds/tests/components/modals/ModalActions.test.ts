@@ -5,16 +5,16 @@ const factory = (props?: Partial<{ reverseOnMobile: boolean }>, slots?: { defaul
     return mount(ModalActions, {
         props: {
             reverseOnMobile: true,
-            ...props
+            ...props,
         },
-        slots
+        slots,
     })
 }
 
 describe('ModalActions', () => {
     it('renders slot content', () => {
         const wrapper = factory(undefined, {
-            default: '<button>Confirm</button>'
+            default: '<button>Confirm</button>',
         })
 
         expect(wrapper.html()).toContain('<button>Confirm</button>')

@@ -8,10 +8,7 @@ export const useTreeViewStructure = (props: TreeViewProps, expanded: Ref<string[
     }
 
     const needsLoad = (node: TreeViewNode) => {
-        return !!props.loadChildren
-            && !!node.hasChildren
-            && !node.children
-            && !(node.value in loadedChildren)
+        return !!props.loadChildren && !!node.hasChildren && !node.children && !(node.value in loadedChildren)
     }
 
     const isBranch = (node: TreeViewNode) => {
@@ -50,12 +47,12 @@ export const useTreeViewStructure = (props: TreeViewProps, expanded: Ref<string[
     }
 
     const descendantValues = (node: TreeViewNode): string[] => {
-        return childrenOf(node).flatMap(child => [child.value, ...descendantValues(child)])
+        return childrenOf(node).flatMap((child) => [child.value, ...descendantValues(child)])
     }
 
     // Values of every branch that has loaded children, down to `maxDepth` levels
     const collectBranchValues = (nodes: TreeViewNode[], maxDepth: number, level = 0): string[] => {
-        return nodes.flatMap(node => {
+        return nodes.flatMap((node) => {
             const children = childrenOf(node)
 
             return children.length && level < maxDepth
@@ -68,9 +65,12 @@ export const useTreeViewStructure = (props: TreeViewProps, expanded: Ref<string[
     const filterState = computed(() => {
         const filter = props.filter
         const query = typeof filter === 'string' ? filter.trim().toLowerCase() : ''
-        const predicate = typeof filter === 'function'
-            ? filter
-            : query ? (node: TreeViewNode) => node.label.toLowerCase().includes(query) : null
+        const predicate =
+            typeof filter === 'function'
+                ? filter
+                : query
+                  ? (node: TreeViewNode) => node.label.toLowerCase().includes(query)
+                  : null
 
         if (!predicate) {
             return null
@@ -150,7 +150,7 @@ export const useTreeViewStructure = (props: TreeViewProps, expanded: Ref<string[
         const visible = filterState.value?.visible
 
         const walk = (nodes: TreeViewNode[], level: number, parentValue: string | null) => {
-            const list = sortNodes(visible ? nodes.filter(node => visible.has(node.value)) : nodes)
+            const list = sortNodes(visible ? nodes.filter((node) => visible.has(node.value)) : nodes)
 
             list.forEach((node, index) => {
                 result.push({ node, level, parentValue, setSize: list.length, position: index + 1 })

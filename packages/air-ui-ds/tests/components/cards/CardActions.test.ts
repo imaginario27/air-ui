@@ -10,8 +10,8 @@ describe('CardActions.vue', () => {
     it('renders default slot content', () => {
         const wrapper = mount(CardActions, {
             slots: {
-                default: '<button>Action</button>'
-            }
+                default: '<button>Action</button>',
+            },
         })
         expect(wrapper.html()).toContain('Action')
     })

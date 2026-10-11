@@ -5,9 +5,9 @@ import { ScrollOrientation } from '@/models/enums/scroll'
 const factory = (props: Partial<InstanceType<typeof ScrollArea>['$props']> = {}, slots = {}) => {
     return mount(ScrollArea, {
         props: {
-            ...props
+            ...props,
         },
-        slots
+        slots,
     })
 }
 

@@ -28,8 +28,8 @@ export enum ButtonActionType {
 }
 
 export enum ToggleButtonGroupStyle {
-    GROUPED = 'grouped', 
-    SEGMENTED = 'segmented' 
+    GROUPED = 'grouped',
+    SEGMENTED = 'segmented',
 }
 
 export enum ButtonPaginationStyle {

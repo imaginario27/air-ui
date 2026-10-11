@@ -11,17 +11,14 @@ describe('AvatarStack', () => {
             global: {
                 components: {
                     Avatar,
-                    AvatarStackCounter
-                }
-            }
+                    AvatarStackCounter,
+                },
+            },
         })
     }
 
     it('renders all avatars when itemsLimit is not finite', () => {
-        const items = [
-            { displayName: 'John Doe' },
-            { displayName: 'Jane Smith' }
-        ]
+        const items = [{ displayName: 'John Doe' }, { displayName: 'Jane Smith' }]
         const wrapper = factory({ items, itemsLimit: null })
 
         expect(wrapper.findAllComponents(Avatar)).toHaveLength(2)
@@ -34,7 +31,7 @@ describe('AvatarStack', () => {
             { displayName: 'Jane Smith' },
             { displayName: 'Alex Brown' },
             { displayName: 'Chris Green' },
-            { displayName: 'Pat White' }
+            { displayName: 'Pat White' },
         ]
         const wrapper = factory({ items, itemsLimit: 3 })
 
@@ -43,10 +40,7 @@ describe('AvatarStack', () => {
     })
 
     it('does not render counter when avatars are within itemsLimit', () => {
-        const items = [
-            { displayName: 'John Doe' },
-            { displayName: 'Jane Smith' }
-        ]
+        const items = [{ displayName: 'John Doe' }, { displayName: 'Jane Smith' }]
         const wrapper = factory({ items, itemsLimit: 4 })
 
         expect(wrapper.findAllComponents(Avatar)).toHaveLength(2)
@@ -95,11 +89,7 @@ describe('AvatarStack', () => {
     })
 
     it('applies correct classes for overlapping avatars', () => {
-        const items = [
-            { displayName: 'User 1' },
-            { displayName: 'User 2' },
-            { displayName: 'User 3' }
-        ]
+        const items = [{ displayName: 'User 1' }, { displayName: 'User 2' }, { displayName: 'User 3' }]
         const wrapper = factory({ items, itemsLimit: 3 })
 
         const avatars = wrapper.findAllComponents(Avatar)
@@ -109,10 +99,7 @@ describe('AvatarStack', () => {
     })
 
     it('adds hover class when avatar is hovered and isInteractive is true', async () => {
-        const items = [
-            { displayName: 'Hover User 1' },
-            { displayName: 'Hover User 2' }
-        ]
+        const items = [{ displayName: 'Hover User 1' }, { displayName: 'Hover User 2' }]
         const wrapper = factory({ items, isInteractive: true })
 
         const avatars = wrapper.findAllComponents(Avatar)
@@ -126,10 +113,7 @@ describe('AvatarStack', () => {
     })
 
     it('does not apply hover class if isInteractive is false', async () => {
-        const items = [
-            { displayName: 'Non-Hover User 1' },
-            { displayName: 'Non-Hover User 2' }
-        ]
+        const items = [{ displayName: 'Non-Hover User 1' }, { displayName: 'Non-Hover User 2' }]
         const wrapper = factory({ items, isInteractive: false })
 
         const avatars = wrapper.findAllComponents(Avatar)

@@ -1,9 +1,7 @@
 <template>
     <Section>
         <SectionBody>
-            <ContentRenderer
-                v-if="data" :value="data"
-            />
+            <ContentRenderer v-if="data" :value="data" />
             <ContentRenderFallback v-else />
         </SectionBody>
     </Section>
@@ -14,7 +12,8 @@ definePageMeta({
     title: 'ProgressCircle',
     layout: 'docs',
     overtitle: 'Components',
-    description: 'A circular indicator that represents the completion status of a task or process, with optional label and indeterminate state.',
+    description:
+        'A circular indicator that represents the completion status of a task or process, with optional label and indeterminate state.',
 })
 
 // Route

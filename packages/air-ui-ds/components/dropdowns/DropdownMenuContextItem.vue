@@ -4,7 +4,7 @@
         v-bind="{
             ...componentProps,
             ...$attrs,
-            ...(actionType === DropdownActionType.ACTION ? { onClick: emitClick } : {})
+            ...(actionType === DropdownActionType.ACTION ? { onClick: emitClick } : {}),
         }"
         :class="[
             'flex flex-col justify-center w-full px-2.5',
@@ -18,7 +18,15 @@
     >
         <div class="flex items-center gap-2.5 w-full">
             <Icon
-                v-if="icon && (type === DropdownItemType.ICON || type === DropdownItemType.DANGER_ICON || type === DropdownItemType.ICON_CHECK || type === DropdownItemType.ICON_SWITCH || type === DropdownItemType.ICON_CHECKBOX || type === DropdownItemType.ICON_STEP_SWITCH)"
+                v-if="
+                    icon &&
+                    (type === DropdownItemType.ICON ||
+                        type === DropdownItemType.DANGER_ICON ||
+                        type === DropdownItemType.ICON_CHECK ||
+                        type === DropdownItemType.ICON_SWITCH ||
+                        type === DropdownItemType.ICON_CHECKBOX ||
+                        type === DropdownItemType.ICON_STEP_SWITCH)
+                "
                 :name="icon"
                 :iconClass="iconColorClass"
             />
@@ -31,13 +39,8 @@
                     class="w-[20px] h-[20px] rounded"
                     @load="handleImageLoad"
                     @error="handleImageError"
-                >
-                <img
-                    v-else
-                    :src="missingImagePlaceholder"
-                    :alt
-                    class="w-[20px] h-[20px] rounded"
-                >
+                />
+                <img v-else :src="missingImagePlaceholder" :alt class="w-[20px] h-[20px] rounded" />
             </template>
 
             <span v-if="type !== DropdownItemType.USER" class="text-sm leading-5">
@@ -84,17 +87,9 @@
             />
 
             <div v-if="kbdItems.length || hasNestedLevels" class="ml-auto flex items-center gap-1.5 pl-3">
-                <Kbd
-                    v-for="(kbdItem, index) in kbdItems"
-                    :key="`${kbdItem}-${index}`"
-                    :text="kbdItem"
-                />
+                <Kbd v-for="(kbdItem, index) in kbdItems" :key="`${kbdItem}-${index}`" :text="kbdItem" />
 
-                <Icon
-                    v-if="hasNestedLevels"
-                    name="mdi:chevron-right"
-                    iconClass="text-icon-neutral-subtle"
-                />
+                <Icon v-if="hasNestedLevels" name="mdi:chevron-right" iconClass="text-icon-neutral-subtle" />
             </div>
         </div>
 
@@ -195,19 +190,20 @@ const props = defineProps({
 const isImageLoaded = ref(true)
 
 // Computed
-const isToggleType = computed(() => [
-    DropdownItemType.CHECKBOX,
-    DropdownItemType.SWITCH,
-    DropdownItemType.CHECK,
-    DropdownItemType.ICON_CHECK,
-    DropdownItemType.ICON_SWITCH,
-    DropdownItemType.ICON_CHECKBOX,
-].includes(props.type))
+const isToggleType = computed(() =>
+    [
+        DropdownItemType.CHECKBOX,
+        DropdownItemType.SWITCH,
+        DropdownItemType.CHECK,
+        DropdownItemType.ICON_CHECK,
+        DropdownItemType.ICON_SWITCH,
+        DropdownItemType.ICON_CHECKBOX,
+    ].includes(props.type),
+)
 
-const isStepSwitchType = computed(() => [
-    DropdownItemType.STEP_SWITCH,
-    DropdownItemType.ICON_STEP_SWITCH,
-].includes(props.type))
+const isStepSwitchType = computed(() =>
+    [DropdownItemType.STEP_SWITCH, DropdownItemType.ICON_STEP_SWITCH].includes(props.type),
+)
 
 // Emits
 const emit = defineEmits(['click', 'close', 'update:checked', 'update:stepValue'])

@@ -1,46 +1,16 @@
 <template>
     <Section>
         <SectionBody>
-            <div
-                :class="[
-                    'flex',
-                    'flex-col',
-                    'gap-6',
-                    'border-t border-border-neutral-subtle',
-                    'pt-6',
-                ]"
-            >
-                <div
-                    :class="[
-                        'flex',
-                        'flex-col',
-                        'gap-2',
-                    ]"
-                >
-                    <Heading 
-                        :size="HeadingSize.XS"
-                        title="Help improve the product"
-                        headingTag="h3"
-                    />
- 
-                    <p
-                        :class="[
-                            'text-sm',
-                            'text-text-neutral-subtle',
-                        ]"
-                    >
+            <div :class="['flex', 'flex-col', 'gap-6', 'border-t border-border-neutral-subtle', 'pt-6']">
+                <div :class="['flex', 'flex-col', 'gap-2']">
+                    <Heading :size="HeadingSize.XS" title="Help improve the product" headingTag="h3" />
+
+                    <p :class="['text-sm', 'text-text-neutral-subtle']">
                         Share your ideas or report issues to help make the product better.
                     </p>
                 </div>
 
-                <div
-                    :class="[
-                        'flex',
-                        'flex-col',
-                        'sm:flex-row',
-                        'gap-3',
-                    ]"
-                >
+                <div :class="['flex', 'flex-col', 'sm:flex-row', 'gap-3']">
                     <ActionButton
                         icon="mdi-lightbulb-on-outline"
                         :iconPosition="IconPosition.LEFT"
@@ -65,11 +35,7 @@
         </SectionBody>
     </Section>
 
-    <FeedbackModalDialog 
-        v-if="feedbackModalType"
-        v-model="showSuggestionModal"
-        :type="feedbackModalType"
-    />
+    <FeedbackModalDialog v-if="feedbackModalType" v-model="showSuggestionModal" :type="feedbackModalType" />
 </template>
 <script setup lang="ts">
 // States

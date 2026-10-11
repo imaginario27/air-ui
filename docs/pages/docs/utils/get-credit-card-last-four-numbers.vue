@@ -1,9 +1,7 @@
 ﻿<template>
     <Section>
         <SectionBody>
-            <ContentRenderer 
-                v-if="data" :value="data" 
-            />
+            <ContentRenderer v-if="data" :value="data" />
             <ContentRenderFallback v-else />
         </SectionBody>
     </Section>
@@ -13,7 +11,8 @@ definePageMeta({
     title: 'getCreditCardLastFourNumbers',
     layout: 'docs',
     overtitle: 'Utils',
-    description: 'Extracts the last four digits from a credit card number, handling various input formats and edge cases.',
+    description:
+        'Extracts the last four digits from a credit card number, handling various input formats and edge cases.',
     category: 'Strings',
 })
 

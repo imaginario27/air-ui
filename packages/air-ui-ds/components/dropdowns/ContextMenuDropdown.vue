@@ -25,15 +25,8 @@
                     :style="panelStyle"
                     @contextmenu.prevent
                 >
-                    <slot
-                        v-if="$slots.items"
-                        name="items"
-                        :onClose="close"
-                    />
-                    <slot
-                        v-else
-                        :onClose="close"
-                    />
+                    <slot v-if="$slots.items" name="items" :onClose="close" />
+                    <slot v-else :onClose="close" />
                 </div>
             </Transition>
         </teleport>
@@ -64,15 +57,8 @@
             :style="panelStyle"
             @contextmenu.prevent
         >
-            <slot
-                v-if="$slots.items"
-                name="items"
-                :onClose="close"
-            />
-            <slot
-                v-else
-                :onClose="close"
-            />
+            <slot v-if="$slots.items" name="items" :onClose="close" />
+            <slot v-else :onClose="close" />
         </div>
     </Transition>
 </template>

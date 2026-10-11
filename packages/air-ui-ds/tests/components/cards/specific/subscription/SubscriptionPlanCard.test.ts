@@ -17,9 +17,9 @@ const factory = (props = {}, options = {}) => {
             monthlyAmount: 15,
             yearlyAmount: 150,
             features: defaultFeatures,
-            ...props
+            ...props,
         },
-        ...options
+        ...options,
     })
 }
 

@@ -25,12 +25,7 @@ export const delay = (ms: number): Promise<void> => {
  * @param {number} [itemsLimit] - Optional maximum number of items to consider before pagination.
  * @returns {T[]} The paginated array of items.
  */
-export const getPaginatedData = <T>(
-    data: T[],
-    currentPage: number,
-    itemsPerPage: number,
-    itemsLimit?: number
-): T[] => {
+export const getPaginatedData = <T>(data: T[], currentPage: number, itemsPerPage: number, itemsLimit?: number): T[] => {
     let result = data
 
     // Apply items limit if provided
@@ -59,7 +54,7 @@ export const getPaginatedData = <T>(
  */
 export const convertToSelectOptions = <T extends Record<string, any>>(
     originArray: T[],
-    keyMap: Partial<Record<keyof SelectOption, keyof T | ((item: T) => any)>>
+    keyMap: Partial<Record<keyof SelectOption, keyof T | ((item: T) => any)>>,
 ): SelectOption[] => {
     if (!Array.isArray(originArray)) {
         return []
@@ -71,12 +66,9 @@ export const convertToSelectOptions = <T extends Record<string, any>>(
 
             for (const [rawKey, source] of Object.entries(keyMap) as [
                 keyof SelectOption,
-                keyof T | ((item: T) => any)
+                keyof T | ((item: T) => any),
             ][]) {
-                const value =
-                    typeof source === 'function'
-                        ? source(item)
-                        : item[source]
+                const value = typeof source === 'function' ? source(item) : item[source]
 
                 if (value !== undefined) {
                     // Prevents error by casting to indexable object
@@ -97,4 +89,3 @@ export const convertToSelectOptions = <T extends Record<string, any>>(
         })
         .filter(Boolean) as SelectOption[]
 }
-

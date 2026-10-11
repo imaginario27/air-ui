@@ -1,9 +1,10 @@
 <template>
-    <tr 
+    <tr
         :class="[
             isHoverable && 'hover:bg-background-neutral-subtlest',
             isStripped && 'even:bg-background-neutral-subtlest',
-        ]">
+        ]"
+    >
         <slot />
     </tr>
 </template>

@@ -2,10 +2,9 @@
 const isMobileSidebarOpen: Ref = ref(false)
 
 export const useMobileSidebar = () => {
-
     const { isMobile } = useIsMobile()
     const route = useRoute()
-    
+
     const toggleMobileSidebar = () => {
         isMobileSidebarOpen.value = !isMobileSidebarOpen.value
     }
@@ -18,7 +17,7 @@ export const useMobileSidebar = () => {
         isMobileSidebarOpen.value = false
     }
 
-    watch(isMobile, newVal => {
+    watch(isMobile, (newVal) => {
         if (!newVal) {
             isMobileSidebarOpen.value = false
         }

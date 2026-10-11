@@ -1,5 +1,5 @@
 <template>
-    <ActionIconButton 
+    <ActionIconButton
         v-if="buttonType === ButtonType.ACTION_ICON_BUTTON"
         :styleType
         :size
@@ -9,7 +9,7 @@
         :ariaLabel="currentCopyButtonText"
         @click="handleCopy"
     />
-    <ActionButton 
+    <ActionButton
         v-else
         :styleType
         :size
@@ -50,17 +50,17 @@ const props = defineProps({
         validator: (value: ButtonType) => Object.values(ButtonType).includes(value),
     },
     styleType: {
-    type: String as PropType<
-        ButtonStyleType.NEUTRAL_FILLED
-        | ButtonStyleType.NEUTRAL_OUTLINED
-        | ButtonStyleType.NEUTRAL_TRANSPARENT
-        | ButtonStyleType.NEUTRAL_TRANSPARENT_SUBTLE
-        | ButtonStyleType.PRIMARY_BRAND_FILLED
-        | ButtonStyleType.PRIMARY_BRAND_SOFT
-        | ButtonStyleType.PRIMARY_BRAND_TRANSPARENT
-        | ButtonStyleType.SECONDARY_BRAND_FILLED
-    >,
-    default: ButtonStyleType.NEUTRAL_OUTLINED,
+        type: String as PropType<
+            | ButtonStyleType.NEUTRAL_FILLED
+            | ButtonStyleType.NEUTRAL_OUTLINED
+            | ButtonStyleType.NEUTRAL_TRANSPARENT
+            | ButtonStyleType.NEUTRAL_TRANSPARENT_SUBTLE
+            | ButtonStyleType.PRIMARY_BRAND_FILLED
+            | ButtonStyleType.PRIMARY_BRAND_SOFT
+            | ButtonStyleType.PRIMARY_BRAND_TRANSPARENT
+            | ButtonStyleType.SECONDARY_BRAND_FILLED
+        >,
+        default: ButtonStyleType.NEUTRAL_OUTLINED,
         validator: (value: unknown) =>
             typeof value === 'string' &&
             [
@@ -76,7 +76,7 @@ const props = defineProps({
     },
     text: {
         type: String as PropType<string>,
-        default: 'Copy'
+        default: 'Copy',
     },
     size: {
         type: String as PropType<ButtonSize>,
@@ -85,7 +85,7 @@ const props = defineProps({
     },
     icon: {
         type: String as PropType<string>,
-        default: "mdi:content-copy",
+        default: 'mdi:content-copy',
     },
     iconPosition: {
         type: String as PropType<IconPosition>,

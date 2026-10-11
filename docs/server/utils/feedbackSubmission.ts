@@ -100,9 +100,7 @@ export const normalizeAndValidateFields = (fields: Record<string, string>): Norm
     const description = (fields.description || '').trim()
     const github = normalizeWhitespace(fields.github).replace(/^@/, '')
     const page = normalizeWhitespace(fields.page)
-    const type = fields.type === FeedbackType.BUG
-        ? FeedbackType.BUG
-        : FeedbackType.SUGGESTION
+    const type = fields.type === FeedbackType.BUG ? FeedbackType.BUG : FeedbackType.SUGGESTION
     const turnstileToken = normalizeWhitespace(fields.turnstileToken)
 
     if (!title || !description) {
@@ -117,7 +115,10 @@ export const normalizeAndValidateFields = (fields: Record<string, string>): Norm
         throwBadRequest('Description is too long')
     }
 
-    if (github.length > FormFieldMaxLength.GITHUB_ISSUE_USERNAME || (github && !/^[a-z\d](?:[a-z\d]|-(?=[a-z\d])){0,38}$/i.test(github))) {
+    if (
+        github.length > FormFieldMaxLength.GITHUB_ISSUE_USERNAME ||
+        (github && !/^[a-z\d](?:[a-z\d]|-(?=[a-z\d])){0,38}$/i.test(github))
+    ) {
         throwBadRequest('Invalid GitHub username')
     }
 
@@ -143,14 +144,17 @@ export const verifyTurnstileToken = async (turnstileSecretKey: string, turnstile
     let verification: TurnstileVerifyResponse
 
     try {
-        verification = await $fetch<TurnstileVerifyResponse>('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
-            method: 'POST',
-            body: new URLSearchParams({
-                secret: turnstileSecretKey,
-                response: turnstileToken,
-                remoteip: clientIp,
-            }),
-        })
+        verification = await $fetch<TurnstileVerifyResponse>(
+            'https://challenges.cloudflare.com/turnstile/v0/siteverify',
+            {
+                method: 'POST',
+                body: new URLSearchParams({
+                    secret: turnstileSecretKey,
+                    response: turnstileToken,
+                    remoteip: clientIp,
+                }),
+            },
+        )
     } catch {
         throw createError({
             statusCode: 502,
@@ -163,12 +167,7 @@ export const verifyTurnstileToken = async (turnstileSecretKey: string, turnstile
     }
 }
 
-export const ensureNotDuplicate = ({
-    clientIp,
-    type,
-    title,
-    description,
-}: DuplicateFeedbackPayload) => {
+export const ensureNotDuplicate = ({ clientIp, type, title, description }: DuplicateFeedbackPayload) => {
     const fingerprint = createHash('sha256')
         .update([clientIp, type, title.toLowerCase(), description.toLowerCase()].join('|'))
         .digest('hex')
@@ -205,10 +204,7 @@ export const parseMetadata = (metadataRaw: string | undefined) => {
 }
 
 export const validateFiles = (files: MultiPartData[]) => {
-    const allowedTypes = new Set([
-        'image/png',
-        'image/jpeg',
-    ])
+    const allowedTypes = new Set(['image/png', 'image/jpeg'])
 
     const maxFiles = 4
     const maxSize = 250 * 1024
@@ -255,14 +251,7 @@ export const uploadScreenshots = async (files: MultiPartData[]) => {
     return uploads.map((upload) => upload.secure_url)
 }
 
-export const buildIssueBody = ({
-    page,
-    reportedBy,
-    type,
-    description,
-    imageUrls,
-    metadata,
-}: BuildIssueBodyPayload) => {
+export const buildIssueBody = ({ page, reportedBy, type, description, imageUrls, metadata }: BuildIssueBodyPayload) => {
     const screenshotsSection = imageUrls.length
         ? `
 
@@ -310,29 +299,20 @@ ${metadata.userAgent || 'N/A'}
 `
 }
 
-export const createIssueInGitHub = async ({
-    config,
-    type,
-    title,
-    labels,
-    issueBody,
-}: CreateGitHubIssuePayload) => {
+export const createIssueInGitHub = async ({ config, type, title, labels, issueBody }: CreateGitHubIssuePayload) => {
     try {
-        return await $fetch(
-            `https://api.github.com/repos/${config.githubRepo}/issues`,
-            {
-                method: 'POST',
-                headers: {
-                    Authorization: `Bearer ${config.githubToken}`,
-                    Accept: 'application/vnd.github+json',
-                },
-                body: {
-                    title: `[${type}] ${title}`,
-                    labels,
-                    body: issueBody.trim(),
-                },
+        return await $fetch(`https://api.github.com/repos/${config.githubRepo}/issues`, {
+            method: 'POST',
+            headers: {
+                Authorization: `Bearer ${config.githubToken}`,
+                Accept: 'application/vnd.github+json',
             },
-        )
+            body: {
+                title: `[${type}] ${title}`,
+                labels,
+                body: issueBody.trim(),
+            },
+        })
     } catch (error: unknown) {
         const maybeError = error as { statusCode?: number }
         throw createError({

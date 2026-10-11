@@ -8,8 +8,8 @@ const factory = (props = {}) =>
     mount(NavSidebarMenuSectionTitle, {
         props,
         global: {
-            components: { Icon, Divider }
-        }
+            components: { Icon, Divider },
+        },
     })
 
 describe('NavSidebarMenuSectionTitle.vue', () => {
@@ -34,13 +34,13 @@ describe('NavSidebarMenuSectionTitle.vue', () => {
         const icon = wrapper.findComponent(Icon)
         expect(icon.exists()).toBe(true)
         expect(icon.props('name')).toBe('mdi:folder')
-        expect(icon.classes().some(cls => cls.includes('text-icon-neutral-subtle'))).toBe(true)
+        expect(icon.classes().some((cls) => cls.includes('text-icon-neutral-subtle'))).toBe(true)
     })
 
     it('renders Divider when isCollapsed is true and showCollapseDivider is true', () => {
         const wrapper = factory({
             isCollapsed: true,
-            showCollapseDivider: true
+            showCollapseDivider: true,
         })
 
         expect(wrapper.findComponent(Divider).exists()).toBe(true)
@@ -50,7 +50,7 @@ describe('NavSidebarMenuSectionTitle.vue', () => {
     it('does not render Divider when isCollapsed is true and showCollapseDivider is false', () => {
         const wrapper = factory({
             isCollapsed: true,
-            showCollapseDivider: false
+            showCollapseDivider: false,
         })
 
         expect(wrapper.findComponent(Divider).exists()).toBe(false)

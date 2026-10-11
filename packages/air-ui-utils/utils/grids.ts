@@ -8,12 +8,7 @@
  * @returns A string of Tailwind utility classes to control the grid layout responsively.
  *
  */
-export const getGridClasses = (
-    cols: number, 
-    tabletCols: number, 
-    mobileCols: number,
-    gapClass = 'gap-6'
-): string => {
+export const getGridClasses = (cols: number, tabletCols: number, mobileCols: number, gapClass = 'gap-6'): string => {
     const baseClasses = 'grid w-full'
 
     const mobileColsMapping: Record<number, string> = {

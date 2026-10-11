@@ -35,15 +35,15 @@
 // Props
 const props = defineProps({
     tabs: {
-        type: Array as PropType<TabItem[]>, 
+        type: Array as PropType<TabItem[]>,
         default: () => [
-            { 
+            {
                 text: 'Tab 1',
             },
-            { 
+            {
                 text: 'Tab 2',
             },
-            { 
+            {
                 text: 'Tab 3',
             },
         ],
@@ -88,7 +88,7 @@ const emit = defineEmits(['update:modelValue'])
 
 // Methods
 const handleTabClick = (index: number, to?: string) => {
-    if(to) {
+    if (to) {
         navigateTo(to)
         return
     }
@@ -98,17 +98,15 @@ const handleTabClick = (index: number, to?: string) => {
 }
 
 const isPrefetchOnOptions = (prefetchOn: PrefetchOnStrategy): prefetchOn is PrefetchOnOptions => {
-        return typeof prefetchOn === 'object' && prefetchOn !== null
+    return typeof prefetchOn === 'object' && prefetchOn !== null
 }
 
 const shouldPrefetchOn = (trigger: PrefetchOn): boolean => {
     if (!isPrefetchOnOptions(props.prefetchOn)) {
-            return props.prefetchOn === trigger
+        return props.prefetchOn === trigger
     }
 
-    return trigger === PrefetchOn.VISIBILITY
-            ? !!props.prefetchOn.visibility
-            : !!props.prefetchOn.interaction
+    return trigger === PrefetchOn.VISIBILITY ? !!props.prefetchOn.visibility : !!props.prefetchOn.interaction
 }
 
 const handleTabPrefetch = (to?: string) => {
@@ -149,23 +147,26 @@ const handleKeydown = (event: KeyboardEvent) => {
 
     handleTabClick(newIndex, props.tabs[newIndex]?.to)
     nextTick(() => {
-        (tabRefs.value[newIndex]?.$el as HTMLElement)?.focus()
+        ;(tabRefs.value[newIndex]?.$el as HTMLElement)?.focus()
     })
 }
 
 // Watchers
-watch(() => props.modelValue, (newVal) => {
-    activeIndex.value = newVal
-})
+watch(
+    () => props.modelValue,
+    (newVal) => {
+        activeIndex.value = newVal
+    },
+)
 
 // Computed classes
 const containerStyleClass = computed(() => {
     const variant: Record<TabSize, string> = {
-        [TabSize.LG]: "p-4 rounded-md",
-        [TabSize.MD]: "p-3 rounded-sm",
-        [TabSize.SM]: "p-2 rounded-sm",
+        [TabSize.LG]: 'p-4 rounded-md',
+        [TabSize.MD]: 'p-3 rounded-sm',
+        [TabSize.SM]: 'p-2 rounded-sm',
     }
 
-    return variant[props.tabSize as TabSize] || "p-4 rounded-md"
+    return variant[props.tabSize as TabSize] || 'p-4 rounded-md'
 })
 </script>

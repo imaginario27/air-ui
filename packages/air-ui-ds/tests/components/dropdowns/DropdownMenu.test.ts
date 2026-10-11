@@ -8,10 +8,12 @@ import { DropdownPosition } from '@/models/enums/positions'
 import { PrefetchOn } from '@/models/enums/prefetch'
 import { DropdownItemType } from '@/models/enums/dropdowns'
 
-const factory = (options: {
-    props?: Record<string, unknown>
-    slots?: Record<string, any>
-} = {}): VueWrapper => {
+const factory = (
+    options: {
+        props?: Record<string, unknown>
+        slots?: Record<string, any>
+    } = {},
+): VueWrapper => {
     return mount(DropdownMenu, {
         props: {
             items: [],
@@ -366,9 +368,7 @@ describe('DropdownMenu.vue', () => {
                 items: [
                     {
                         text: 'Parent',
-                        children: [
-                            { text: 'Child 1', callback: vi.fn() },
-                        ],
+                        children: [{ text: 'Child 1', callback: vi.fn() }],
                     },
                 ],
             },

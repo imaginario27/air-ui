@@ -4,13 +4,13 @@ import ButtonPagination from '@/components/pagination/ButtonPagination.vue'
 import { useDSConfig } from '@/composables/useDSConfig'
 
 const { useIsMobileSpy } = vi.hoisted(() => ({
-    useIsMobileSpy: vi.fn()
+    useIsMobileSpy: vi.fn(),
 }))
 vi.mock('@/composables/useIsMobile', () => ({
     useIsMobile: (breakpoint?: unknown) => {
         useIsMobileSpy(breakpoint)
         return { isMobile: ref(false) }
-    }
+    },
 }))
 
 const defaultRowsPerPageOptions = [
@@ -18,7 +18,7 @@ const defaultRowsPerPageOptions = [
     { text: '10', value: 10 },
     { text: '25', value: 25 },
     { text: '50', value: 50 },
-    { text: '100', value: 100 }
+    { text: '100', value: 100 },
 ]
 
 const factory = (props = {}) => {
@@ -28,8 +28,8 @@ const factory = (props = {}) => {
             totalItems: 100,
             itemsPerPage: 10,
             rowsPerPageOptions: defaultRowsPerPageOptions,
-            ...props
-        }
+            ...props,
+        },
     })
 }
 
@@ -58,7 +58,7 @@ describe('ButtonPagination', () => {
 
     it('renders custom multiple-page result text when provided', () => {
         const wrapper = factory({
-            resultTextMultiplePages: 'Custom from {from} to {to} of {total}'
+            resultTextMultiplePages: 'Custom from {from} to {to} of {total}',
         })
 
         expect(wrapper.text()).toContain('Custom from 11 to 20 of 100')
@@ -68,7 +68,7 @@ describe('ButtonPagination', () => {
         const wrapper = factory({
             totalItems: 5,
             itemsPerPage: 10,
-            resultTextSinglePage: 'Showing everything at once'
+            resultTextSinglePage: 'Showing everything at once',
         })
 
         expect(wrapper.text()).toContain('Showing everything at once')
@@ -78,7 +78,7 @@ describe('ButtonPagination', () => {
         const wrapper = factory({
             totalItems: 1,
             itemsPerPage: 10,
-            resultTextSingleItem: 'Just one entry'
+            resultTextSingleItem: 'Just one entry',
         })
 
         expect(wrapper.text()).toContain('Just one entry')
@@ -87,7 +87,7 @@ describe('ButtonPagination', () => {
     it('renders fallback single-page text when not provided', () => {
         const wrapper = factory({
             totalItems: 5,
-            itemsPerPage: 10
+            itemsPerPage: 10,
         })
 
         expect(wrapper.text()).toContain('Showing 5 results')
@@ -121,7 +121,7 @@ describe('ButtonPagination', () => {
         const wrapper = factory({ modelValue: 4 })
         const pageButtons = wrapper.findAllComponents({ name: 'PaginationButton' })
 
-        const target = pageButtons.find(btn => btn.text() === '5')
+        const target = pageButtons.find((btn) => btn.text() === '5')
         expect(target).toBeTruthy()
 
         await target?.trigger('click')
@@ -131,7 +131,7 @@ describe('ButtonPagination', () => {
 
     it('ignores click on ellipsis pagination button', async () => {
         const wrapper = factory({ modelValue: 5, totalItems: 200 })
-        const ellipsis = wrapper.findAllComponents({ name: 'PaginationButton' }).find(btn => btn.text() === '...')
+        const ellipsis = wrapper.findAllComponents({ name: 'PaginationButton' }).find((btn) => btn.text() === '...')
         expect(ellipsis).toBeTruthy()
 
         await ellipsis?.trigger('click')
@@ -152,7 +152,7 @@ describe('ButtonPagination', () => {
 
     it('renders ellipsis when total pages exceed max visible', () => {
         const wrapper = factory({ modelValue: 6, totalItems: 200 })
-        const dots = wrapper.findAllComponents({ name: 'PaginationButton' }).filter(btn => btn.text() === '...')
+        const dots = wrapper.findAllComponents({ name: 'PaginationButton' }).filter((btn) => btn.text() === '...')
         expect(dots.length).toBeGreaterThan(0)
     })
 
@@ -192,7 +192,7 @@ describe('ButtonPagination', () => {
 
         const prev = buttons[0]
         const next = buttons[buttons.length - 1]
-        const pageThree = buttons.find(btn => btn.text() === '3')
+        const pageThree = buttons.find((btn) => btn.text() === '3')
 
         expect(prev.props('ariaLabel')).toBe('Previous page')
         expect(next.props('ariaLabel')).toBe('Next page')
@@ -204,13 +204,13 @@ describe('ButtonPagination', () => {
             modelValue: 3,
             ariaLabelPrevious: 'Go back',
             ariaLabelNext: 'Go forward',
-            ariaLabelPage: 'Go to page {page}'
+            ariaLabelPage: 'Go to page {page}',
         })
         const buttons = wrapper.findAllComponents({ name: 'PaginationButton' })
 
         const prev = buttons[0]
         const next = buttons[buttons.length - 1]
-        const pageThree = buttons.find(btn => btn.text() === '3')
+        const pageThree = buttons.find((btn) => btn.text() === '3')
 
         expect(prev.props('ariaLabel')).toBe('Go back')
         expect(next.props('ariaLabel')).toBe('Go forward')
@@ -221,8 +221,8 @@ describe('ButtonPagination', () => {
         const wrapper = factory({ modelValue: 3 })
         const buttons = wrapper.findAllComponents({ name: 'PaginationButton' })
 
-        const activePage = buttons.find(btn => btn.text() === '3')
-        const inactivePage = buttons.find(btn => btn.text() === '2')
+        const activePage = buttons.find((btn) => btn.text() === '3')
+        const inactivePage = buttons.find((btn) => btn.text() === '2')
 
         expect(activePage?.attributes('aria-current')).toBe('page')
         expect(inactivePage?.attributes('aria-current')).toBeUndefined()
@@ -231,8 +231,8 @@ describe('ButtonPagination', () => {
     it('hides the ellipsis button from assistive tech and the tab order', () => {
         const wrapper = factory({ modelValue: 5, totalItems: 200 })
         const buttons = wrapper.findAllComponents({ name: 'PaginationButton' })
-        const ellipsis = buttons.find(btn => btn.text() === '...')
-        const page = buttons.find(btn => btn.text() === '5')
+        const ellipsis = buttons.find((btn) => btn.text() === '...')
+        const page = buttons.find((btn) => btn.text() === '5')
 
         expect(ellipsis?.attributes('aria-hidden')).toBe('true')
         expect(ellipsis?.attributes('tabindex')).toBe('-1')
@@ -242,7 +242,7 @@ describe('ButtonPagination', () => {
 
     it('falls back to the default aria-label on the ellipsis button', () => {
         const wrapper = factory({ modelValue: 5, totalItems: 200 })
-        const ellipsis = wrapper.findAllComponents({ name: 'PaginationButton' }).find(btn => btn.text() === '...')
+        const ellipsis = wrapper.findAllComponents({ name: 'PaginationButton' }).find((btn) => btn.text() === '...')
 
         expect(ellipsis?.props('ariaLabel')).toBe('Navigation button')
     })
@@ -252,7 +252,7 @@ describe('ButtonPagination - mobile behavior', () => {
     beforeEach(() => {
         vi.resetModules()
         vi.doMock('@/composables/useIsMobile', () => ({
-            useIsMobile: () => ({ isMobile: ref(true) })
+            useIsMobile: () => ({ isMobile: ref(true) }),
         }))
     })
 
@@ -264,11 +264,11 @@ describe('ButtonPagination - mobile behavior', () => {
                 modelValue: 3,
                 totalItems: 100,
                 itemsPerPage: 10,
-                rowsPerPageOptions: defaultRowsPerPageOptions
-            }
+                rowsPerPageOptions: defaultRowsPerPageOptions,
+            },
         })
 
-        const pages = wrapper.findAllComponents({ name: 'PaginationButton' }).filter(btn => btn.text().match(/^\d+$/))
+        const pages = wrapper.findAllComponents({ name: 'PaginationButton' }).filter((btn) => btn.text().match(/^\d+$/))
         expect(pages.length).toBeLessThanOrEqual(4)
     })
     describe('DS config texts', () => {
@@ -284,7 +284,9 @@ describe('ButtonPagination - mobile behavior', () => {
             config.pagination.nextPageText = () => 'Siguiente'
 
             const wrapper = factory()
-            const next = wrapper.findAllComponents({ name: 'PaginationButton' }).find(btn => btn.props('ariaLabel') === 'Siguiente')
+            const next = wrapper
+                .findAllComponents({ name: 'PaginationButton' })
+                .find((btn) => btn.props('ariaLabel') === 'Siguiente')
 
             expect(wrapper.text()).toContain('Mostrando 11 a 20 de 100')
             expect(next).toBeDefined()

@@ -1,13 +1,5 @@
 <template>
-    <div
-        :id="id"
-        role="group"
-        :aria-label="ariaLabel || 'Options'"
-        :class="[
-            'flex',
-            'flex-wrap gap-2',
-        ]"
-    >
+    <div :id="id" role="group" :aria-label="ariaLabel || 'Options'" :class="['flex', 'flex-wrap gap-2']">
         <OptionButton
             v-for="(button, index) in displayButtons"
             :key="index"
@@ -51,9 +43,7 @@ const props = defineProps({
         ],
     },
     styleType: {
-        type: String as PropType<
-            ButtonStyleType.NEUTRAL_OUTLINED | ButtonStyleType.PRIMARY_BRAND_SOFT
-        >,
+        type: String as PropType<ButtonStyleType.NEUTRAL_OUTLINED | ButtonStyleType.PRIMARY_BRAND_SOFT>,
         default: ButtonStyleType.NEUTRAL_OUTLINED,
         validator: (value: ButtonStyleType.NEUTRAL_OUTLINED | ButtonStyleType.PRIMARY_BRAND_SOFT) =>
             [ButtonStyleType.NEUTRAL_OUTLINED, ButtonStyleType.PRIMARY_BRAND_SOFT].includes(value),
@@ -91,9 +81,7 @@ const allButton = computed<OptionButton>(() => ({
 
 // Computed list of buttons
 const displayButtons = computed(() => {
-    return props.hasAllButton
-        ? [allButton.value, ...props.buttons]
-        : props.buttons
+    return props.hasAllButton ? [allButton.value, ...props.buttons] : props.buttons
 })
 
 // Active state logic
@@ -115,19 +103,14 @@ const isButtonActive = (button: OptionButton) => {
     return button.value === props.modelValue
 }
 
-
 // Handlers
 const getButtonStyleType = (button: OptionButton) => {
-    if(props.styleType === ButtonStyleType.PRIMARY_BRAND_SOFT) {
-        return isButtonActive(button) 
-        ? ButtonStyleType.PRIMARY_BRAND_FILLED 
-        : ButtonStyleType.PRIMARY_BRAND_SOFT
+    if (props.styleType === ButtonStyleType.PRIMARY_BRAND_SOFT) {
+        return isButtonActive(button) ? ButtonStyleType.PRIMARY_BRAND_FILLED : ButtonStyleType.PRIMARY_BRAND_SOFT
     }
 
     // Default style for outlined
-    return isButtonActive(button) 
-        ? ButtonStyleType.PRIMARY_BRAND_SOFT 
-        : ButtonStyleType.NEUTRAL_OUTLINED
+    return isButtonActive(button) ? ButtonStyleType.PRIMARY_BRAND_SOFT : ButtonStyleType.NEUTRAL_OUTLINED
 }
 
 const handleButtonClick = (button: OptionButton) => {
@@ -140,7 +123,7 @@ const handleButtonClick = (button: OptionButton) => {
     // Multiple select with "All" logic
     if (props.isMultiple) {
         if (isAllButton) {
-            const allValues = props.buttons.map(b => b.value)
+            const allValues = props.buttons.map((b) => b.value)
             const selected = props.modelValue as string[]
             const isAllSelected = selected.length === allValues.length
             emit('update:modelValue', isAllSelected ? [] : allValues)
@@ -150,7 +133,7 @@ const handleButtonClick = (button: OptionButton) => {
         if (Array.isArray(props.modelValue)) {
             const isActive = props.modelValue.includes(button.value)
             const updated = isActive
-                ? props.modelValue.filter(v => v !== button.value)
+                ? props.modelValue.filter((v) => v !== button.value)
                 : [...props.modelValue, button.value]
             emit('update:modelValue', updated)
         }

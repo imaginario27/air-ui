@@ -1,8 +1,5 @@
 <template>
-    <div
-        ref="popoverContainer"
-        class="relative popover-container"
-    >
+    <div ref="popoverContainer" class="relative popover-container">
         <Transition
             :enter-from-class="transitionEnterFromClass"
             :leave-to-class="transitionLeaveToClass"
@@ -19,15 +16,12 @@
                     position === Position.TOP ? 'bottom-full mb-2' : 'top-full mt-2',
                     alignClass,
                     popoverClass,
-                    '!shadow-md'
+                    '!shadow-md',
                 ]"
             >
                 <CardBody>
-                    <slot 
-                        name="content"
-                        :onClose="toggle"
-                    />
-                </CardBody>  
+                    <slot name="content" :onClose="toggle" />
+                </CardBody>
             </Card>
         </Transition>
 
@@ -38,10 +32,7 @@
             @mouseenter="handleMouseEnter"
             @mouseleave="handleMouseLeave"
         >
-            <slot 
-                name="activator"
-                :onClick="toggle"
-            />
+            <slot name="activator" :onClick="toggle" />
         </div>
     </div>
 </template>
@@ -66,31 +57,27 @@ const props = defineProps({
     },
     popoverClass: {
         type: [String, Array] as PropType<string | string[]>,
-        default: 'min-w-[300px]'
-    }
+        default: 'min-w-[300px]',
+    },
 })
 
 // Computed classes
 const alignClass = computed(() => {
     const alignVariant: Record<Align, string> = {
-        [Align.LEFT]: "left-0",
-        [Align.CENTER]: "left-1/2 -translate-x-1/2",
-        [Align.RIGHT]: "right-0",
+        [Align.LEFT]: 'left-0',
+        [Align.CENTER]: 'left-1/2 -translate-x-1/2',
+        [Align.RIGHT]: 'right-0',
     }
 
-    return alignVariant[props.align as Align] || "left-1/2 -translate-x-1/2"
+    return alignVariant[props.align as Align] || 'left-1/2 -translate-x-1/2'
 })
 
 const transitionEnterFromClass = computed(() => {
-    return props.position === Position.TOP
-        ? 'opacity-0 translate-y-2'
-        : 'opacity-0 -translate-y-2'
+    return props.position === Position.TOP ? 'opacity-0 translate-y-2' : 'opacity-0 -translate-y-2'
 })
 
 const transitionLeaveToClass = computed(() => {
-    return props.position === Position.TOP
-        ? 'opacity-0 translate-y-2'
-        : 'opacity-0 -translate-y-2'
+    return props.position === Position.TOP ? 'opacity-0 translate-y-2' : 'opacity-0 -translate-y-2'
 })
 
 // Refs

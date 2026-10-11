@@ -4,7 +4,7 @@ import { ColorAccent } from '@/models/enums/colors'
 
 const factory = (props = {}) => {
     return mount(Overtitle, {
-        props
+        props,
     })
 }
 

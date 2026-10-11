@@ -1,26 +1,9 @@
 <template>
-    <div 
-        :class="[
-            'relative', 
-            'flex',
-            leftSpacingClass
-        ]"
-    >
+    <div :class="['relative', 'flex', leftSpacingClass]">
         <!-- Circle + vertical line -->
-        <div
-            v-if="hasStepper"
-            :class="[
-                'absolute',
-                'left-0',
-                'top-0',
-                'h-full',
-                'flex',
-                'flex-col',
-                'items-center',
-            ]"
-        >
+        <div v-if="hasStepper" :class="['absolute', 'left-0', 'top-0', 'h-full', 'flex', 'flex-col', 'items-center']">
             <!-- Step circle -->
-            <StepIndicator 
+            <StepIndicator
                 :type="stepType"
                 :size="stepSize"
                 :status="stepStatus"
@@ -35,7 +18,9 @@
             <div
                 v-if="showLine && !isLast"
                 :class="[
-                    stepStatus === StepStatus.COMPLETED ? 'w-[2px] bg-background-primary-brand-default' : 'w-[1px] bg-border-default',
+                    stepStatus === StepStatus.COMPLETED
+                        ? 'w-[2px] bg-background-primary-brand-default'
+                        : 'w-[1px] bg-border-default',
                     'flex-1',
                     'rounded-md',
                     stepIndicatorGap,
@@ -44,57 +29,23 @@
         </div>
 
         <!-- Step content -->
-        <div
-            :class="[
-                'ml-2',
-                'w-full',
-                'flex',
-                'flex-col',
-                'gap-3',
-                !isLast && 'mb-7',
-            ]"
-        >
+        <div :class="['ml-2', 'w-full', 'flex', 'flex-col', 'gap-3', !isLast && 'mb-7']">
             <!-- Step header -->
-            <div
-                :class="[
-                    'w-full',
-                    'flex',
-                    'flex-col',
-                    titleHeaderClass,
-                ]"
-            >
-                <div
-                    v-if="metaTitle"
-                    :class="[
-                        metaTitleSizeClass,
-                        'text-text-neutral-subtle',
-                    ]"
-                >
+            <div :class="['w-full', 'flex', 'flex-col', titleHeaderClass]">
+                <div v-if="metaTitle" :class="[metaTitleSizeClass, 'text-text-neutral-subtle']">
                     {{ metaTitle }}
                 </div>
-                <h3
-                    :class="[
-                        titleSizeClass,
-                        'font-bold',
-                        'text-text-default',
-                    ]"
-                >
+                <h3 :class="[titleSizeClass, 'font-bold', 'text-text-default']">
                     {{ title }}
                 </h3>
             </div>
 
             <!-- Can use description or slot as content -->
-            <p
-                v-if="description"
-                :class="contentTextSizeClass"
-            >
+            <p v-if="description" :class="contentTextSizeClass">
                 {{ description }}
             </p>
 
-            <div
-                v-else
-                :class="contentTextSizeClass"
-            >
+            <div v-else :class="contentTextSizeClass">
                 <slot />
             </div>
         </div>
@@ -118,12 +69,12 @@ const props = defineProps({
     stepStatus: {
         type: String as PropType<StepStatus>,
         default: StepStatus.NONE,
-        validator: (value: StepStatus) => Object.values(StepStatus).includes(value),    
+        validator: (value: StepStatus) => Object.values(StepStatus).includes(value),
     },
     stepSize: {
         type: String as PropType<StepIndicatorSize>,
         default: StepIndicatorSize.SM,
-        validator: (value: StepIndicatorSize) => Object.values(StepIndicatorSize).includes(value),    
+        validator: (value: StepIndicatorSize) => Object.values(StepIndicatorSize).includes(value),
     },
     stepIcon: String as PropType<string>,
     stepCompletedIcon: String as PropType<string>,
@@ -149,7 +100,7 @@ const props = defineProps({
 // Computed classes
 const titleHeaderClass = computed(() => {
     // If using metaTitle, the fixing top margin is not necessary
-    if(props.metaTitle) return undefined
+    if (props.metaTitle) return undefined
 
     const variant = {
         [StepIndicatorSize.XL]: 'mt-1.5',
@@ -195,7 +146,7 @@ const contentTextSizeClass = computed(() => {
 })
 
 const leftSpacingClass = computed(() => {
-    if(!props.hasStepper) return undefined
+    if (!props.hasStepper) return undefined
 
     const variant = {
         [StepIndicatorSize.XL]: 'pl-14',
@@ -209,7 +160,7 @@ const leftSpacingClass = computed(() => {
 
 const stepIndicatorGap = computed(() => {
     // Only apply gap if it has to
-    if(!props.hasStepperGap) return undefined
+    if (!props.hasStepperGap) return undefined
 
     const variant = {
         [StepIndicatorSize.XL]: 'my-2',

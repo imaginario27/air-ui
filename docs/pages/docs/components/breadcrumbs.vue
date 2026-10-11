@@ -1,9 +1,7 @@
 ﻿<template>
     <Section>
         <SectionBody>
-            <ContentRenderer 
-                v-if="data" :value="data" 
-            />
+            <ContentRenderer v-if="data" :value="data" />
             <ContentRenderFallback v-else />
         </SectionBody>
     </Section>
@@ -13,7 +11,8 @@ definePageMeta({
     title: 'Breadcrumbs',
     layout: 'docs',
     overtitle: 'Components',
-    description: 'Provides a navigational aid that displays the user\'s current location within a hierarchy and allows easy navigation to previous levels with automatic level detection.',
+    description:
+        "Provides a navigational aid that displays the user's current location within a hierarchy and allows easy navigation to previous levels with automatic level detection.",
 })
 
 // Route

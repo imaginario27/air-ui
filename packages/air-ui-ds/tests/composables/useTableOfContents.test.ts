@@ -32,10 +32,7 @@ describe('useTableOfContents', () => {
         global.IntersectionObserver = MockIntersectionObserver as unknown as typeof IntersectionObserver
 
         vi.spyOn(document, 'querySelectorAll').mockImplementation(() => {
-            return [
-                { id: 'heading-1' },
-                { id: 'heading-2' },
-            ] as unknown as NodeListOf<Element>
+            return [{ id: 'heading-1' }, { id: 'heading-2' }] as unknown as NodeListOf<Element>
         })
     })
 
@@ -78,10 +75,8 @@ describe('useTableOfContents', () => {
         await nextTick()
 
         intersectionCallback?.(
-            [
-                { isIntersecting: true, target: { id: 'heading-2' } },
-            ] as unknown as IntersectionObserverEntry[],
-            {} as IntersectionObserver
+            [{ isIntersecting: true, target: { id: 'heading-2' } }] as unknown as IntersectionObserverEntry[],
+            {} as IntersectionObserver,
         )
 
         await nextTick()

@@ -1,11 +1,8 @@
-﻿
-<template>
+﻿<template>
     <Section>
         <SectionBody>
             <TabBar v-model="activeIndex" :tabs />
-            <ContentRenderer 
-                v-if="data" :value="data" 
-            />
+            <ContentRenderer v-if="data" :value="data" />
             <ContentRenderFallback v-else />
         </SectionBody>
     </Section>
@@ -15,7 +12,8 @@ definePageMeta({
     title: 'Avatar',
     layout: 'docs',
     overtitle: 'Components',
-    description: 'Displays a user image or fallback initials, commonly used in user interfaces to represent a person or account.'
+    description:
+        'Displays a user image or fallback initials, commonly used in user interfaces to represent a person or account.',
 })
 
 // Route

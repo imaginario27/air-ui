@@ -2,9 +2,7 @@
     <Section>
         <SectionBody>
             <TabBar v-model="activeIndex" :tabs />
-            <ContentRenderer 
-                v-if="data" :value="data" 
-            />
+            <ContentRenderer v-if="data" :value="data" />
             <ContentRenderFallback v-else />
         </SectionBody>
     </Section>
@@ -14,7 +12,8 @@ definePageMeta({
     title: 'Unique subscription plan card',
     layout: 'docs',
     overtitle: 'Components',
-    description: 'Displays a detailed unique subscription plan with a list of features and a prominently styled pricing panel. Useful for showing tiered pricing options in comparison sections.',
+    description:
+        'Displays a detailed unique subscription plan with a list of features and a prominently styled pricing panel. Useful for showing tiered pricing options in comparison sections.',
 })
 
 // Route

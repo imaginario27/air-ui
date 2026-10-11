@@ -5,27 +5,27 @@ import { TriStateValue } from '#imports'
 import { ref } from 'vue'
 
 vi.mock('~/composables/useFormValidationMode', () => ({
-    useInjectedValidationMode: () => ref('blur')
+    useInjectedValidationMode: () => ref('blur'),
 }))
 
 const factory = (props: Record<string, any> = {}) => {
     return mount(TriStateCheckboxField, {
         props: {
             id: 'test-checkbox',
-            ...props
+            ...props,
         },
         global: {
             components: {
-                TriStateCheckbox
+                TriStateCheckbox,
             },
             stubs: {
                 Icon: {
                     name: 'Icon',
                     props: ['name', 'iconClass'],
-                    template: '<div class="mock-icon" />'
-                }
-            }
-        }
+                    template: '<div class="mock-icon" />',
+                },
+            },
+        },
     })
 }
 
@@ -95,7 +95,7 @@ describe('TriStateCheckboxField.vue', () => {
         const wrapper = factory({
             modelValue: TriStateValue.UNCHECKED,
             required: true,
-            validator
+            validator,
         })
         const checkbox = wrapper.findComponent(TriStateCheckbox)
 
@@ -140,7 +140,7 @@ describe('TriStateCheckboxField.vue', () => {
         const wrapper = factory({
             modelValue: TriStateValue.UNCHECKED,
             required: true,
-            validator
+            validator,
         })
 
         await wrapper.setProps({ modelValue: TriStateValue.INDETERMINATE })
@@ -168,7 +168,7 @@ describe('TriStateCheckboxField.vue', () => {
         const wrapper = mount(TriStateCheckboxField, {
             props: { id: 'test-checkbox' },
             slots: {
-                label: '<strong>Bold</strong> terms'
+                label: '<strong>Bold</strong> terms',
             },
             global: {
                 components: { TriStateCheckbox },
@@ -176,10 +176,10 @@ describe('TriStateCheckboxField.vue', () => {
                     Icon: {
                         name: 'Icon',
                         props: ['name', 'iconClass'],
-                        template: '<div class="mock-icon" />'
-                    }
-                }
-            }
+                        template: '<div class="mock-icon" />',
+                    },
+                },
+            },
         })
 
         const label = wrapper.find('label')

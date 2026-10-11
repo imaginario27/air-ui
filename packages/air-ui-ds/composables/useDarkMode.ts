@@ -3,11 +3,7 @@ export const useDarkMode = () => {
     const preferredDark = usePreferredDark()
 
     // use VueUse localStorage composable, reading the saved mode after mount so hydration matches the server render
-    const themeMode = useLocalStorage<'light' | 'dark' | 'system'>(
-        'color-mode',
-        'system',
-        { initOnMounted: true },
-    )
+    const themeMode = useLocalStorage<'light' | 'dark' | 'system'>('color-mode', 'system', { initOnMounted: true })
 
     const resolvedIsDark = useDark({
         storageKey: 'color-scheme',

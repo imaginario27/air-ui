@@ -20,7 +20,7 @@
                     overlayClass,
                 ]"
             >
-                <div 
+                <div
                     :class="[
                         'modal-container',
                         'min-h-full',
@@ -141,7 +141,7 @@ const handleFocusTrap = (event: KeyboardEvent) => {
     if (event.key !== 'Tab' || !dialogRef.value) return
 
     const focusableElements = dialogRef.value.querySelectorAll<HTMLElement>(
-        'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
     )
     if (focusableElements.length === 0) return
 
@@ -205,7 +205,7 @@ const unlockScroll = () => {
 // Watch for `modelValue` changes
 watch(
     () => props.modelValue,
-    newValue => {
+    (newValue) => {
         if (!import.meta.client) return
 
         if (newValue) {
@@ -214,7 +214,7 @@ watch(
             lockScroll()
             nextTick(() => {
                 const firstFocusable = contentRef.value?.querySelector<HTMLElement>(
-                    'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+                    'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
                 )
                 if (firstFocusable) {
                     firstFocusable.focus()

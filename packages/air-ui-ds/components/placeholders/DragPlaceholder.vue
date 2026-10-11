@@ -5,13 +5,10 @@
             'flex items-center justify-center',
             'rounded-lg',
             'border border-dashed border-border-default',
-            'p-2'
+            'p-2',
         ]"
     >
-        <span
-            v-if="showText && text"
-            :class="['text-xs', 'text-text-neutral-subtle', 'select-none', textClass]"
-        >
+        <span v-if="showText && text" :class="['text-xs', 'text-text-neutral-subtle', 'select-none', textClass]">
             {{ text }}
         </span>
     </div>

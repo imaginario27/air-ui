@@ -20,9 +20,7 @@ describe('NavMenu.vue', () => {
                     {
                         text: 'Guides',
                         to: '/guides',
-                        children: [
-                            { text: 'Intro', to: '/guides/intro' },
-                        ],
+                        children: [{ text: 'Intro', to: '/guides/intro' }],
                     },
                 ],
                 ...props,
@@ -31,7 +29,8 @@ describe('NavMenu.vue', () => {
                 stubs: {
                     DropdownMenu: {
                         name: 'DropdownMenu',
-                        template: '<div class="dropdown-menu-stub"><slot name="activator" :isOpen="false" /><slot name="items" /></div>',
+                        template:
+                            '<div class="dropdown-menu-stub"><slot name="activator" :isOpen="false" /><slot name="items" /></div>',
                         props: ['positionYOffset', 'trigger', 'dropdownClass', 'isSticky', 'zIndex'],
                     },
                     DropdownMenuItem: {

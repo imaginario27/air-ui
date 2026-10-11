@@ -1,5 +1,5 @@
 <template>
-    <footer 
+    <footer
         :class="[
             'w-full',
             'bg-background-surface',
@@ -7,16 +7,14 @@
             hasSidePadding && 'px-content-side-padding-mobile md:px-content-side-padding',
         ]"
     >
-        <MaxWidthContainer
-            :class="[!hasContentMaxWidth && '!max-w-full']"
-        >
+        <MaxWidthContainer :class="[!hasContentMaxWidth && '!max-w-full']">
             <template v-if="!$slots['default']">
-                <div 
+                <div
                     :class="[
                         'w-full',
                         'flex',
                         'flex-col',
-                        isMobileCentered &&'items-center text-center',
+                        isMobileCentered && 'items-center text-center',
                         'gap-10',
                         'lg:flex-row',
                         'lg:items-start',
@@ -30,17 +28,10 @@
 
                     <nav v-if="menuItems.length">
                         <ul class="flex flex-col lg:flex-row gap-5">
-                            <li 
-                                v-for="(item, index) in menuItems" 
-                                :key="index"
-                            >
+                            <li v-for="(item, index) in menuItems" :key="index">
                                 <NuxtLink
                                     :to="item.to"
-                                    :class="[
-                                        'text-sm',
-                                        'hover:text-text-primary-brand-hover',
-                                        'transition-colors',
-                                    ]"
+                                    :class="['text-sm', 'hover:text-text-primary-brand-hover', 'transition-colors']"
                                 >
                                     {{ item.text }}
                                 </NuxtLink>
@@ -49,8 +40,8 @@
                     </nav>
 
                     <div v-if="socialNetworks.length" class="flex gap-5">
-                        <a 
-                            v-for="(network, index) in socialNetworks" 
+                        <a
+                            v-for="(network, index) in socialNetworks"
                             :key="index"
                             :href="network.link"
                             target="_blank"
@@ -62,15 +53,13 @@
                             ]"
                             :aria-label="network.name"
                         >
-                            <Icon
-                                :name="network.icon"
-                            />
+                            <Icon :name="network.icon" />
                         </a>
-                    </div>  
+                    </div>
                 </div>
             </template>
             <template v-else>
-                <slot />    
+                <slot />
             </template>
         </MaxWidthContainer>
     </footer>

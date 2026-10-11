@@ -10,15 +10,15 @@ const factory = (props = {}) => {
         props,
         global: {
             components: {
-                Icon
+                Icon,
             },
             stubs: {
                 NuxtLink: {
                     template: '<a :href="to" :target="target" :rel="rel"><slot /></a>',
-                    props: ['to', 'target', 'rel']
-                }
-            }
-        }
+                    props: ['to', 'target', 'rel'],
+                },
+            },
+        },
     })
 }
 
@@ -47,7 +47,7 @@ describe('ActionButton.vue', () => {
     it('renders as a link when actionType is LINK', () => {
         const wrapper = factory({
             actionType: ButtonActionType.LINK,
-            to: '/home'
+            to: '/home',
         })
 
         const link = wrapper.find('a')
@@ -59,7 +59,7 @@ describe('ActionButton.vue', () => {
         const wrapper = factory({
             actionType: ButtonActionType.LINK,
             to: 'https://external.com',
-            isExternal: true
+            isExternal: true,
         })
 
         const link = wrapper.find('a')
@@ -76,7 +76,7 @@ describe('ActionButton.vue', () => {
         const wrapper = factory({
             actionType: ButtonActionType.LINK,
             to: '/home',
-            disabled: true
+            disabled: true,
         })
         expect(wrapper.find('span').exists()).toBe(true)
         expect(wrapper.find('a').exists()).toBe(false)
@@ -101,7 +101,7 @@ describe('ActionButton.vue', () => {
     it('renders left icon when iconPosition is LEFT', () => {
         const wrapper = factory({
             iconPosition: IconPosition.LEFT,
-            icon: 'mdi:check'
+            icon: 'mdi:check',
         })
 
         const icons = wrapper.findAllComponents(Icon)
@@ -112,7 +112,7 @@ describe('ActionButton.vue', () => {
     it('renders right icon when iconPosition is RIGHT', () => {
         const wrapper = factory({
             iconPosition: IconPosition.RIGHT,
-            icon: 'mdi:check'
+            icon: 'mdi:check',
         })
 
         const icons = wrapper.findAllComponents(Icon)
@@ -123,7 +123,7 @@ describe('ActionButton.vue', () => {
     it('does not render icon when iconPosition is NONE', () => {
         const wrapper = factory({
             iconPosition: IconPosition.NONE,
-            icon: 'mdi:check'
+            icon: 'mdi:check',
         })
 
         const icons = wrapper.findAllComponents(Icon)
@@ -151,23 +151,38 @@ describe('ActionButton.vue', () => {
     })
 
     it.each([
-        [ButtonStyleType.PRIMARY_BRAND_FILLED, 'border-x-border-neutral-on-filled!', 'border-b-border-neutral-on-filled!'],
-        [ButtonStyleType.PRIMARY_BRAND_SOFT, 'border-x-border-primary-brand-default!', 'border-b-border-primary-brand-default!'],
-        [ButtonStyleType.NEUTRAL_OUTLINED, 'border-x-border-primary-brand-default!', 'border-b-border-primary-brand-default!'],
+        [
+            ButtonStyleType.PRIMARY_BRAND_FILLED,
+            'border-x-border-neutral-on-filled!',
+            'border-b-border-neutral-on-filled!',
+        ],
+        [
+            ButtonStyleType.PRIMARY_BRAND_SOFT,
+            'border-x-border-primary-brand-default!',
+            'border-b-border-primary-brand-default!',
+        ],
+        [
+            ButtonStyleType.NEUTRAL_OUTLINED,
+            'border-x-border-primary-brand-default!',
+            'border-b-border-primary-brand-default!',
+        ],
         [ButtonStyleType.DELETE_FILLED, 'border-x-border-neutral-on-filled!', 'border-b-border-neutral-on-filled!'],
-    ])('keeps the spinner top border transparent for %s so it renders as a 3/4 circle, not a full one', (styleType, xClass, bClass) => {
-        const wrapper = factory({ isLoading: true, styleType })
-        const spinner = wrapper.findComponent(Spinner)
+    ])(
+        'keeps the spinner top border transparent for %s so it renders as a 3/4 circle, not a full one',
+        (styleType, xClass, bClass) => {
+            const wrapper = factory({ isLoading: true, styleType })
+            const spinner = wrapper.findComponent(Spinner)
 
-        expect(spinner.classes()).toContain(xClass)
-        expect(spinner.classes()).toContain(bClass)
-        expect(spinner.classes()).toContain('border-t-transparent')
-    })
+            expect(spinner.classes()).toContain(xClass)
+            expect(spinner.classes()).toContain(bClass)
+            expect(spinner.classes()).toContain('border-t-transparent')
+        },
+    )
 
     it('shows custom loading text when loadingText is provided', () => {
         const wrapper = factory({
             isLoading: true,
-            loadingText: 'Loading now...'
+            loadingText: 'Loading now...',
         })
         expect(wrapper.text()).toContain('Loading now...')
     })
@@ -184,23 +199,22 @@ describe('ActionButton.vue', () => {
         expect(span.classes()).toContain('select-none')
     })
 
-    it.each([
-        ['button' as const],
-        ['submit' as const],
-        ['reset' as const]
-    ])('sets the type attribute to "%s" when actionType is ACTION', (buttonType) => {
-        const wrapper = factory({
-            actionType: ButtonActionType.ACTION,
-            type: buttonType
-        })
+    it.each([['button' as const], ['submit' as const], ['reset' as const]])(
+        'sets the type attribute to "%s" when actionType is ACTION',
+        (buttonType) => {
+            const wrapper = factory({
+                actionType: ButtonActionType.ACTION,
+                type: buttonType,
+            })
 
-        expect(wrapper.find('button').attributes('type')).toBe(buttonType)
-    })
+            expect(wrapper.find('button').attributes('type')).toBe(buttonType)
+        },
+    )
 
     it('does not set type attribute when actionType is LINK', () => {
         const wrapper = factory({
             actionType: ButtonActionType.LINK,
-            type: 'submit'
+            type: 'submit',
         })
 
         expect(wrapper.find('a').attributes('type')).toBeUndefined()
@@ -209,19 +223,19 @@ describe('ActionButton.vue', () => {
     it('applies optional aria-label when provided as a native attribute', () => {
         const wrapper = mount(ActionButton, {
             attrs: {
-                'aria-label': 'Submit form'
+                'aria-label': 'Submit form',
             },
             global: {
                 components: {
-                    Icon
+                    Icon,
                 },
                 stubs: {
                     NuxtLink: {
                         template: '<a :href="to" :target="target" :rel="rel"><slot /></a>',
-                        props: ['to', 'target', 'rel']
-                    }
-                }
-            }
+                        props: ['to', 'target', 'rel'],
+                    },
+                },
+            },
         })
 
         expect(wrapper.find('button').attributes('aria-label')).toBe('Submit form')

@@ -2,9 +2,7 @@
     <Section>
         <SectionBody>
             <TabBar v-model="activeIndex" :tabs />
-            <ContentRenderer 
-                v-if="data" :value="data" 
-            />
+            <ContentRenderer v-if="data" :value="data" />
             <ContentRenderFallback v-else />
         </SectionBody>
     </Section>
@@ -14,7 +12,8 @@ definePageMeta({
     title: 'Dropdown select',
     layout: 'docs',
     overtitle: 'Components',
-    description: 'Displays a dropdown list for selecting a single option or multiple option, commonly used in filtering or configuration panels. For form usage, prefer the SelectField component instead.',
+    description:
+        'Displays a dropdown list for selecting a single option or multiple option, commonly used in filtering or configuration panels. For form usage, prefer the SelectField component instead.',
 })
 
 // Route

@@ -8,17 +8,11 @@ config.global.stubs = {
 
 const originalWarn = console.warn
 
-
 console.warn = (...args: any[]) => {
-const message = args[0]
-if (
-typeof message === 'string' &&
-message.includes('transformMode') &&
-message.includes('viteEnvironment')
-) {
-return // suppress specific Vitest deprecation warning
-}
+    const message = args[0]
+    if (typeof message === 'string' && message.includes('transformMode') && message.includes('viteEnvironment')) {
+        return // suppress specific Vitest deprecation warning
+    }
 
-
-originalWarn(...args) // allow all other warnings
+    originalWarn(...args) // allow all other warnings
 }

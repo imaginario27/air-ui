@@ -12,19 +12,15 @@ const factory = (props: Record<string, any> = {}) => {
 }
 
 const findBarContainer = (wrapper: ReturnType<typeof factory>) => {
-    return wrapper.findAll('div').find(div =>
-        div.classes().some(cls => cls.startsWith('h-['))
-    )
+    return wrapper.findAll('div').find((div) => div.classes().some((cls) => cls.startsWith('h-[')))
 }
 
 const findProgressBar = (wrapper: ReturnType<typeof factory>) => {
-    return wrapper.findAll('div').find(div =>
-        div.attributes('style')?.includes('width')
-    )
+    return wrapper.findAll('div').find((div) => div.attributes('style')?.includes('width'))
 }
 
 const hasClassInAnyDiv = (wrapper: ReturnType<typeof factory>, className: string) => {
-    return wrapper.findAll('div').some(div => div.classes().includes(className))
+    return wrapper.findAll('div').some((div) => div.classes().includes(className))
 }
 
 describe('ProgressBar', () => {

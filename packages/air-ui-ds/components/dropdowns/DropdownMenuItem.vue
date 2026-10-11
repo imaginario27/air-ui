@@ -6,7 +6,7 @@
         v-bind="{
             ...componentProps,
             ...$attrs,
-            ...(actionType === DropdownActionType.ACTION ? { onClick: emitClick } : {})
+            ...(actionType === DropdownActionType.ACTION ? { onClick: emitClick } : {}),
         }"
         :class="[
             'flex flex-col justify-center',
@@ -26,7 +26,15 @@
     >
         <div class="flex items-center gap-3 w-full">
             <Icon
-                v-if="icon && (type === DropdownItemType.ICON || type === DropdownItemType.DANGER_ICON || type === DropdownItemType.ICON_CHECK || type === DropdownItemType.ICON_SWITCH || type === DropdownItemType.ICON_CHECKBOX || type === DropdownItemType.ICON_STEP_SWITCH)"
+                v-if="
+                    icon &&
+                    (type === DropdownItemType.ICON ||
+                        type === DropdownItemType.DANGER_ICON ||
+                        type === DropdownItemType.ICON_CHECK ||
+                        type === DropdownItemType.ICON_SWITCH ||
+                        type === DropdownItemType.ICON_CHECKBOX ||
+                        type === DropdownItemType.ICON_STEP_SWITCH)
+                "
                 :name="icon"
                 :iconClass="iconColorClass"
             />
@@ -39,13 +47,8 @@
                     class="w-[24px] h-[24px] rounded"
                     @load="handleImageLoad"
                     @error="handleImageError"
-                >
-                <img
-                    v-else
-                    :src="missingImagePlaceholder"
-                    :alt
-                    class="w-[24px] h-[24px] rounded"
-                >
+                />
+                <img v-else :src="missingImagePlaceholder" :alt class="w-[24px] h-[24px] rounded" />
             </template>
 
             <span v-if="type !== DropdownItemType.USER" class="text-sm">
@@ -91,16 +94,9 @@
                 iconClass="!text-icon-primary-brand-active ml-auto"
             />
 
-            <Icon
-                v-if="hasNestedLevels"
-                name="mdi:chevron-right"
-                iconClass="text-icon-neutral-subtle ml-auto"
-            />
+            <Icon v-if="hasNestedLevels" name="mdi:chevron-right" iconClass="text-icon-neutral-subtle ml-auto" />
         </div>
-        <p 
-            v-if="helpText"
-            class="text-xs text-text-neutral-subtle mt-2"
-        >
+        <p v-if="helpText" class="text-xs text-text-neutral-subtle mt-2">
             {{ helpText }}
         </p>
     </component>
@@ -108,7 +104,7 @@
 
 <script setup lang="ts">
 // Imports
-import missingImagePlaceholder from "@/assets/images/placeholders/missing-image-placeholder.png"
+import missingImagePlaceholder from '@/assets/images/placeholders/missing-image-placeholder.png'
 import { NuxtLink } from '#components'
 
 // Component options
@@ -125,11 +121,11 @@ const props = defineProps({
     },
     text: {
         type: String as PropType<string>,
-        default: "Menu item text",
+        default: 'Menu item text',
     },
     icon: {
         type: String as PropType<string>,
-        default: "mdi:help",
+        default: 'mdi:help',
     },
     size: {
         type: String as PropType<DropdownItemSize>,
@@ -155,18 +151,18 @@ const props = defineProps({
     },
     userDisplayName: {
         type: String as PropType<string>,
-        default: "Test user",
+        default: 'Test user',
     },
     userProfileImg: String as PropType<string>,
     imgUrl: String as PropType<string>,
     alt: {
         type: String as PropType<string>,
-        default: "Menu item image",
+        default: 'Menu item image',
     },
     helpText: String as PropType<string>,
     to: {
         type: String as PropType<string>,
-        default: "/",
+        default: '/',
     },
     isExternal: {
         type: Boolean as PropType<boolean>,
@@ -194,22 +190,23 @@ const props = defineProps({
 const isImageLoaded = ref(true)
 
 // Computed
-const isToggleType = computed(() => [
-    DropdownItemType.CHECKBOX,
-    DropdownItemType.SWITCH,
-    DropdownItemType.CHECK,
-    DropdownItemType.ICON_CHECK,
-    DropdownItemType.ICON_SWITCH,
-    DropdownItemType.ICON_CHECKBOX,
-].includes(props.type))
+const isToggleType = computed(() =>
+    [
+        DropdownItemType.CHECKBOX,
+        DropdownItemType.SWITCH,
+        DropdownItemType.CHECK,
+        DropdownItemType.ICON_CHECK,
+        DropdownItemType.ICON_SWITCH,
+        DropdownItemType.ICON_CHECKBOX,
+    ].includes(props.type),
+)
 
-const isStepSwitchType = computed(() => [
-    DropdownItemType.STEP_SWITCH,
-    DropdownItemType.ICON_STEP_SWITCH,
-].includes(props.type))
+const isStepSwitchType = computed(() =>
+    [DropdownItemType.STEP_SWITCH, DropdownItemType.ICON_STEP_SWITCH].includes(props.type),
+)
 
 // Emits
-const emit = defineEmits(["click", "close", "update:checked", "update:stepValue"])
+const emit = defineEmits(['click', 'close', 'update:checked', 'update:stepValue'])
 const emitClick = () => {
     if (props.disabled) return
     if (props.actionType !== DropdownActionType.ACTION) return
@@ -219,19 +216,19 @@ const emitClick = () => {
 
     if (isToggleType.value) {
         const nextChecked = !props.checked
-        emit("click", nextChecked)
-        emit("update:checked", nextChecked)
+        emit('click', nextChecked)
+        emit('update:checked', nextChecked)
         return
     }
 
-    emit("click")
-    emit("close")
+    emit('click')
+    emit('close')
 }
 
 const emitStepChange = (value: string | number) => {
     if (props.disabled) return
 
-    emit("update:stepValue", value)
+    emit('update:stepValue', value)
 }
 
 // Handlers for image load and error
@@ -246,50 +243,50 @@ const handleImageError = () => {
 // Computed attributes
 const sizeClass = computed(() => {
     const sizeVariant = {
-        [DropdownItemSize.MD]: "min-h-[36px]",
-        [DropdownItemSize.LG]: "min-h-[40px]",
+        [DropdownItemSize.MD]: 'min-h-[36px]',
+        [DropdownItemSize.LG]: 'min-h-[40px]',
     }
-    return sizeVariant[props.size as DropdownItemSize] || "min-h-[36px]"
+    return sizeVariant[props.size as DropdownItemSize] || 'min-h-[36px]'
 })
 
 const typeClass = computed(() => {
     const typeVariant = {
-        [DropdownItemType.DANGER_ICON]: "text-text-delete",
-        [DropdownItemType.DANGER_TEXT]: "text-text-delete",
-        [DropdownItemType.TEXT]: "text-text-default",
-        [DropdownItemType.ICON]: "text-text-default",
-        [DropdownItemType.IMAGE]: "text-text-default",
-        [DropdownItemType.USER]: "text-text-default",
-        [DropdownItemType.CHECKBOX]: "text-text-default",
-        [DropdownItemType.SWITCH]: "text-text-default",
-        [DropdownItemType.CHECK]: "text-text-default",
-        [DropdownItemType.ICON_CHECK]: "text-text-default",
-        [DropdownItemType.ICON_SWITCH]: "text-text-default",
-        [DropdownItemType.ICON_CHECKBOX]: "text-text-default",
-        [DropdownItemType.STEP_SWITCH]: "text-text-default",
-        [DropdownItemType.ICON_STEP_SWITCH]: "text-text-default",
+        [DropdownItemType.DANGER_ICON]: 'text-text-delete',
+        [DropdownItemType.DANGER_TEXT]: 'text-text-delete',
+        [DropdownItemType.TEXT]: 'text-text-default',
+        [DropdownItemType.ICON]: 'text-text-default',
+        [DropdownItemType.IMAGE]: 'text-text-default',
+        [DropdownItemType.USER]: 'text-text-default',
+        [DropdownItemType.CHECKBOX]: 'text-text-default',
+        [DropdownItemType.SWITCH]: 'text-text-default',
+        [DropdownItemType.CHECK]: 'text-text-default',
+        [DropdownItemType.ICON_CHECK]: 'text-text-default',
+        [DropdownItemType.ICON_SWITCH]: 'text-text-default',
+        [DropdownItemType.ICON_CHECKBOX]: 'text-text-default',
+        [DropdownItemType.STEP_SWITCH]: 'text-text-default',
+        [DropdownItemType.ICON_STEP_SWITCH]: 'text-text-default',
     }
-    return typeVariant[props.type as DropdownItemType] || "text-text-default"
+    return typeVariant[props.type as DropdownItemType] || 'text-text-default'
 })
 
 const iconColorClass = computed(() => {
     const colorVariant = {
-        [DropdownItemType.DANGER_ICON]: "text-icon-delete",
-        [DropdownItemType.DANGER_TEXT]: "text-icon-delete",
-        [DropdownItemType.TEXT]: "text-icon-neutral-subtle",
-        [DropdownItemType.ICON]: "text-icon-neutral-subtle",
+        [DropdownItemType.DANGER_ICON]: 'text-icon-delete',
+        [DropdownItemType.DANGER_TEXT]: 'text-icon-delete',
+        [DropdownItemType.TEXT]: 'text-icon-neutral-subtle',
+        [DropdownItemType.ICON]: 'text-icon-neutral-subtle',
         [DropdownItemType.IMAGE]: undefined,
         [DropdownItemType.USER]: undefined,
         [DropdownItemType.CHECKBOX]: undefined,
         [DropdownItemType.SWITCH]: undefined,
         [DropdownItemType.CHECK]: undefined,
-        [DropdownItemType.ICON_CHECK]: "text-icon-neutral-subtle",
-        [DropdownItemType.ICON_SWITCH]: "text-icon-neutral-subtle",
-        [DropdownItemType.ICON_CHECKBOX]: "text-icon-neutral-subtle",
+        [DropdownItemType.ICON_CHECK]: 'text-icon-neutral-subtle',
+        [DropdownItemType.ICON_SWITCH]: 'text-icon-neutral-subtle',
+        [DropdownItemType.ICON_CHECKBOX]: 'text-icon-neutral-subtle',
         [DropdownItemType.STEP_SWITCH]: undefined,
-        [DropdownItemType.ICON_STEP_SWITCH]: "text-icon-neutral-subtle",
+        [DropdownItemType.ICON_STEP_SWITCH]: 'text-icon-neutral-subtle',
     }
-    return colorVariant[props.type as DropdownItemType] || "text-icon-neutral-subtle"
+    return colorVariant[props.type as DropdownItemType] || 'text-icon-neutral-subtle'
 })
 
 // Determine the dynamic component
@@ -298,9 +295,9 @@ const dynamicComponent = computed(() => {
         case DropdownActionType.LINK:
             return NuxtLink
         case DropdownActionType.ACTION:
-            return "div"
+            return 'div'
         default:
-            return "div"
+            return 'div'
     }
 })
 

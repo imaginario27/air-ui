@@ -1,11 +1,8 @@
-﻿
-<template>
+﻿<template>
     <Section>
         <SectionBody>
             <TabBar v-model="activeIndex" :tabs />
-            <ContentRenderer 
-                v-if="data" :value="data" 
-            />
+            <ContentRenderer v-if="data" :value="data" />
             <ContentRenderFallback v-else />
         </SectionBody>
     </Section>
@@ -15,7 +12,8 @@ definePageMeta({
     title: 'Avatar stack',
     layout: 'docs',
     overtitle: 'Components',
-    description: 'Displays a group of user avatars in a stacked layout, often used to represent a list of participants, collaborators, or team members.'
+    description:
+        'Displays a group of user avatars in a stacked layout, often used to represent a list of participants, collaborators, or team members.',
 })
 
 // Route

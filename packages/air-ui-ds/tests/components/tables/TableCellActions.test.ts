@@ -1,11 +1,9 @@
 import { mount, type VueWrapper } from '@vue/test-utils'
 import TableCellActions from '@/components/tables/TableCellActions.vue'
 
-const factory = (options?: {
-    slots?: Record<string, string>
-}): VueWrapper => {
+const factory = (options?: { slots?: Record<string, string> }): VueWrapper => {
     return mount(TableCellActions, {
-        ...options
+        ...options,
     })
 }
 
@@ -18,8 +16,8 @@ describe('TableCellActions', () => {
     it('renders slot content', () => {
         const wrapper = factory({
             slots: {
-                default: '<button>Action</button>'
-            }
+                default: '<button>Action</button>',
+            },
         })
 
         expect(wrapper.html()).toContain('<button>Action</button>')
@@ -28,8 +26,8 @@ describe('TableCellActions', () => {
     it('wraps slot content in a div with correct classes', () => {
         const wrapper = factory({
             slots: {
-                default: '<span>Icon</span>'
-            }
+                default: '<span>Icon</span>',
+            },
         })
 
         const div = wrapper.find('div')

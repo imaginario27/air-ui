@@ -2,9 +2,7 @@
     <Section>
         <SectionBody>
             <TabBar v-model="activeIndex" :tabs />
-            <ContentRenderer 
-                v-if="data" :value="data" 
-            />
+            <ContentRenderer v-if="data" :value="data" />
             <ContentRenderFallback v-else />
         </SectionBody>
     </Section>
@@ -14,7 +12,8 @@ definePageMeta({
     title: 'InfoModalDialog',
     layout: 'docs',
     overtitle: 'Components',
-    description: 'A preconfigured modal dialog for displaying informational messages with optional description and actions.',
+    description:
+        'A preconfigured modal dialog for displaying informational messages with optional description and actions.',
 })
 
 // Route

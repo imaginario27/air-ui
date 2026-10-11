@@ -1,9 +1,7 @@
 ﻿<template>
     <Section>
         <SectionBody>
-            <ContentRenderer 
-                v-if="data" :value="data" 
-            />
+            <ContentRenderer v-if="data" :value="data" />
             <ContentRenderFallback v-else />
         </SectionBody>
     </Section>
@@ -13,7 +11,8 @@ definePageMeta({
     title: 'Grid',
     layout: 'docs',
     overtitle: 'Components',
-    description: 'A responsive grid component for creating flexible layouts with customizable column counts for desktop, tablet, and mobile devices.',
+    description:
+        'A responsive grid component for creating flexible layouts with customizable column counts for desktop, tablet, and mobile devices.',
 })
 
 // Route

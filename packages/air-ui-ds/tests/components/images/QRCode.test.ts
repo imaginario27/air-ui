@@ -15,7 +15,7 @@ describe('QRCode', () => {
             props: {
                 ...defaultProps,
                 isLoading: true,
-            }
+            },
         })
 
         expect(wrapper.findComponent(Spinner).exists()).toBe(true)
@@ -24,7 +24,7 @@ describe('QRCode', () => {
 
     it('renders QrcodeVue when isLoading is false', () => {
         const wrapper = mount(QRCode, {
-            props: defaultProps
+            props: defaultProps,
         })
 
         expect(wrapper.findComponent(QrcodeVue).exists()).toBe(true)
@@ -33,7 +33,7 @@ describe('QRCode', () => {
 
     it('applies default size to wrapper div', () => {
         const wrapper = mount(QRCode, {
-            props: defaultProps
+            props: defaultProps,
         })
 
         const div = wrapper.find('div')
@@ -46,7 +46,7 @@ describe('QRCode', () => {
             props: {
                 ...defaultProps,
                 hasBorder: true,
-            }
+            },
         })
 
         const classes = wrapper.classes()
@@ -60,7 +60,7 @@ describe('QRCode', () => {
             props: {
                 ...defaultProps,
                 hasBorder: false,
-            }
+            },
         })
 
         const classes = wrapper.classes()
@@ -73,8 +73,8 @@ describe('QRCode', () => {
         const wrapper = mount(QRCode, {
             props: {
                 ...defaultProps,
-                containerClass: 'bg-gray-100'
-            }
+                containerClass: 'bg-gray-100',
+            },
         })
 
         expect(wrapper.classes()).toContain('bg-gray-100')
@@ -94,7 +94,7 @@ describe('QRCode', () => {
                 gradientType: QRGradientType.RADIAL,
                 gradientStartColor: '#123456',
                 gradientEndColor: '#654321',
-            }
+            },
         })
 
         const qr = wrapper.findComponent(QrcodeVue)
@@ -109,7 +109,7 @@ describe('QRCode', () => {
             gradientStartColor: '#123456',
             gradientEndColor: '#654321',
             margin: 10,
-            size: 276, 
+            size: 276,
         })
     })
 
@@ -117,8 +117,8 @@ describe('QRCode', () => {
         const wrapper = mount(QRCode, {
             props: {
                 ...defaultProps,
-                hasMiddleImage: true
-            }
+                hasMiddleImage: true,
+            },
         })
 
         const qr = wrapper.findComponent(QrcodeVue)
@@ -126,7 +126,7 @@ describe('QRCode', () => {
             src: 'https://github.com/scopewu.png',
             width: 30,
             height: 30,
-            excavate: true
+            excavate: true,
         })
     })
 
@@ -137,15 +137,15 @@ describe('QRCode', () => {
             height: 40,
             x: 5,
             y: 5,
-            excavate: false
+            excavate: false,
         }
 
         const wrapper = mount(QRCode, {
             props: {
                 ...defaultProps,
                 hasMiddleImage: true,
-                imageSettings: customImageSettings
-            }
+                imageSettings: customImageSettings,
+            },
         })
 
         const qr = wrapper.findComponent(QrcodeVue)
@@ -156,8 +156,8 @@ describe('QRCode', () => {
         const wrapper = mount(QRCode, {
             props: {
                 ...defaultProps,
-                hasMiddleImage: false
-            }
+                hasMiddleImage: false,
+            },
         })
 
         const qr = wrapper.findComponent(QrcodeVue)
@@ -170,8 +170,8 @@ describe('QRCode', () => {
             props: {
                 ...defaultProps,
                 size: 400,
-                imageMargin: 20
-            }
+                imageMargin: 20,
+            },
         })
 
         const qr = wrapper.findComponent(QrcodeVue)
@@ -180,7 +180,7 @@ describe('QRCode', () => {
 
     it('has role="img" with default aria-label from modelValue', () => {
         const wrapper = mount(QRCode, {
-            props: defaultProps
+            props: defaultProps,
         })
 
         const container = wrapper.find('[role="img"]')
@@ -192,8 +192,8 @@ describe('QRCode', () => {
         const wrapper = mount(QRCode, {
             props: {
                 ...defaultProps,
-                ariaLabel: 'Scan to visit site'
-            }
+                ariaLabel: 'Scan to visit site',
+            },
         })
 
         expect(wrapper.find('[role="img"]').attributes('aria-label')).toBe('Scan to visit site')

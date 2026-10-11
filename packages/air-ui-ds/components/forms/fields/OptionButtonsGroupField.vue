@@ -1,37 +1,15 @@
 <template>
-    <div 
-        :class="[ 
-            'flex flex-col', 
-            'w-full', 
-            'gap-2' 
-        ]"
-    >
+    <div :class="['flex flex-col', 'w-full', 'gap-2']">
         <!-- Label -->
-        <label
-            v-if="label"
-            :for="id"
-            :class="[
-                'text-sm',
-                'font-semibold',
-                'text-left',
-                hasError && 'text-text-error',
-            ]"
-        >
+        <label v-if="label" :for="id" :class="['text-sm', 'font-semibold', 'text-left', hasError && 'text-text-error']">
             {{ label }}
-            <span
-                v-if="!required && showOptionalLabel"
-                class="font-normal text-text-neutral-subtler"
-            >
+            <span v-if="!required && showOptionalLabel" class="font-normal text-text-neutral-subtler">
                 {{ optionalLabelText }}
             </span>
         </label>
 
         <!-- Help Text (top) -->
-        <HelpText
-            v-if="helpTextPosition === Position.TOP"
-            :text="helpText"
-            :error="error"
-        />
+        <HelpText v-if="helpTextPosition === Position.TOP" :text="helpText" :error="error" />
 
         <OptionButtonGroup
             :id
@@ -50,19 +28,15 @@
         />
 
         <!-- Help Text (bottom) -->
-        <HelpText
-            v-if="helpTextPosition === Position.BOTTOM"
-            :text="helpText"
-            :error="error"
-        />
+        <HelpText v-if="helpTextPosition === Position.BOTTOM" :text="helpText" :error="error" />
     </div>
 </template>
 
 <script setup lang="ts">
 // Props
 const props = defineProps({
-    id: { 
-        type: String as PropType<string>, 
+    id: {
+        type: String as PropType<string>,
         required: true,
     },
     label: String as PropType<string>,
@@ -77,7 +51,7 @@ const props = defineProps({
     modelValue: {
         type: [String, Array] as PropType<string | string[]>,
         required: true,
-    },  
+    },
     validator: {
         type: Function as PropType<(value: unknown) => string | null>,
         default: () => null,
@@ -89,7 +63,7 @@ const props = defineProps({
     disabled: {
         type: Boolean as PropType<boolean>,
         default: false,
-    },   
+    },
     required: {
         type: Boolean as PropType<boolean>,
         default: false,
@@ -103,9 +77,7 @@ const props = defineProps({
         default: undefined,
     },
     buttonStyle: {
-        type: String as PropType<
-            ButtonStyleType.NEUTRAL_OUTLINED | ButtonStyleType.PRIMARY_BRAND_SOFT
-        >,
+        type: String as PropType<ButtonStyleType.NEUTRAL_OUTLINED | ButtonStyleType.PRIMARY_BRAND_SOFT>,
         default: ButtonStyleType.NEUTRAL_OUTLINED,
         validator: (value: ButtonStyleType.NEUTRAL_OUTLINED | ButtonStyleType.PRIMARY_BRAND_SOFT) =>
             [ButtonStyleType.NEUTRAL_OUTLINED, ButtonStyleType.PRIMARY_BRAND_SOFT].includes(value),
@@ -139,9 +111,12 @@ const runValidation = () => {
 }
 
 // Watchers
-watch(() => props.modelValue, () => {
-    if (validationMode.value === FormValidationMode.BLUR) {
-        runValidation()
-    }
-})
+watch(
+    () => props.modelValue,
+    () => {
+        if (validationMode.value === FormValidationMode.BLUR) {
+            runValidation()
+        }
+    },
+)
 </script>

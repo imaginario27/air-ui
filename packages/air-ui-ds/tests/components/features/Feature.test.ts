@@ -21,10 +21,10 @@ describe('Feature.vue', () => {
                     Icon: {
                         name: 'Icon',
                         props: ['name', 'size', 'color', 'iconClass'],
-                        template: '<i class="icon-stub" :data-icon="name" />'
-                    }
-                }
-            }
+                        template: '<i class="icon-stub" :data-icon="name" />',
+                    },
+                },
+            },
         })
     }
 
@@ -36,7 +36,7 @@ describe('Feature.vue', () => {
     it('renders custom title and description', () => {
         const wrapper = factory({
             title: 'Custom Title',
-            description: 'Custom description'
+            description: 'Custom description',
         })
 
         expect(wrapper.text()).toContain('Custom Title')
@@ -45,7 +45,7 @@ describe('Feature.vue', () => {
 
     it('does not render description if not provided', () => {
         const wrapper = factory({
-            title: 'Title Only'
+            title: 'Title Only',
         })
 
         expect(wrapper.find('p').exists()).toBe(false)
@@ -53,7 +53,7 @@ describe('Feature.vue', () => {
 
     it('renders icon when icon prop is provided', () => {
         const wrapper = factory({
-            icon: 'check'
+            icon: 'check',
         })
 
         const icon = wrapper.findComponent(Icon)
@@ -71,7 +71,7 @@ describe('Feature.vue', () => {
     it('passes iconColor prop to Icon', () => {
         const wrapper = factory({
             icon: 'bell',
-            iconColor: ColorAccent.WARNING
+            iconColor: ColorAccent.WARNING,
         })
 
         const icon = wrapper.findComponent(Icon)
@@ -81,7 +81,7 @@ describe('Feature.vue', () => {
     it('passes iconClass prop to Icon', () => {
         const wrapper = factory({
             icon: 'alert',
-            iconClass: 'custom-class'
+            iconClass: 'custom-class',
         })
 
         const icon = wrapper.findComponent(Icon)

@@ -29,7 +29,6 @@
 </template>
 
 <script setup lang="ts">
-
 // Props
 const props = defineProps({
     modelValue: {
@@ -62,16 +61,24 @@ const props = defineProps({
 })
 
 // Emits
-const emit = defineEmits(["update:modelValue"])
+const emit = defineEmits(['update:modelValue'])
 
 // Composables
 const dsConfig = useDSConfig()
 
 // Computed
-const resolvedResultTextMultiplePages = computed(() => props.resultTextMultiplePages ?? dsConfig.pagination.resultTextMultiplePages())
-const resolvedResultTextSinglePage = computed(() => props.resultTextSinglePage ?? dsConfig.pagination.resultTextSinglePage())
-const resolvedResultTextSingleItem = computed(() => props.resultTextSingleItem ?? dsConfig.pagination.resultTextSingleItem())
-const resolvedPreviousPageAriaLabel = computed(() => props.previousPageAriaLabel ?? dsConfig.pagination.previousPageText())
+const resolvedResultTextMultiplePages = computed(
+    () => props.resultTextMultiplePages ?? dsConfig.pagination.resultTextMultiplePages(),
+)
+const resolvedResultTextSinglePage = computed(
+    () => props.resultTextSinglePage ?? dsConfig.pagination.resultTextSinglePage(),
+)
+const resolvedResultTextSingleItem = computed(
+    () => props.resultTextSingleItem ?? dsConfig.pagination.resultTextSingleItem(),
+)
+const resolvedPreviousPageAriaLabel = computed(
+    () => props.previousPageAriaLabel ?? dsConfig.pagination.previousPageText(),
+)
 const resolvedNextPageAriaLabel = computed(() => props.nextPageAriaLabel ?? dsConfig.pagination.nextPageText())
 
 const totalPages = computed(() => Math.ceil(props.totalItems / props.itemsPerPage))
@@ -88,24 +95,22 @@ const computedResultsText = computed(() => {
     }
 
     if (props.totalItems === 1) {
-        return resolvedResultTextSingleItem.value
-            .replace('{total}', '1')
+        return resolvedResultTextSingleItem.value.replace('{total}', '1')
     }
 
-    return resolvedResultTextSinglePage.value
-        .replace('{total}', props.totalItems.toString())
+    return resolvedResultTextSinglePage.value.replace('{total}', props.totalItems.toString())
 })
 
 // Handlers
 const goToPreviousPage = () => {
     if (props.modelValue > 1) {
-        emit("update:modelValue", props.modelValue - 1)
+        emit('update:modelValue', props.modelValue - 1)
     }
 }
 
 const goToNextPage = () => {
     if (props.modelValue < totalPages.value) {
-        emit("update:modelValue", props.modelValue + 1)
+        emit('update:modelValue', props.modelValue + 1)
     }
 }
 </script>

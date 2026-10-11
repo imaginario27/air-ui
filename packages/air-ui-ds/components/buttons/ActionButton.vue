@@ -21,16 +21,25 @@
         v-bind="{
             ...componentProps,
             ...$attrs,
-            ...(actionType === ButtonActionType.ACTION ? { onClick: emitClick } : {})
+            ...(actionType === ButtonActionType.ACTION ? { onClick: emitClick } : {}),
         }"
-        :disabled="ButtonActionType.ACTION && isLoading || disabled"
-        
+        :disabled="(ButtonActionType.ACTION && isLoading) || disabled"
     >
         <!-- Loading State -->
         <template v-if="isLoading">
             <Spinner :class="[iconSizeClass, spinnerColorClass]" />
-            
-            <span :class="['font-semibold', 'leading-none', '[text-box:trim-both_cap_alphabetic]', 'select-none', textSizeClass, textOffsetClass, textClass]">
+
+            <span
+                :class="[
+                    'font-semibold',
+                    'leading-none',
+                    '[text-box:trim-both_cap_alphabetic]',
+                    'select-none',
+                    textSizeClass,
+                    textOffsetClass,
+                    textClass,
+                ]"
+            >
                 {{ loadingText }}
             </span>
         </template>
@@ -39,31 +48,33 @@
         <template v-else>
             <!-- Left icon -->
             <template v-if="iconPosition === IconPosition.LEFT">
-                <Icon 
+                <Icon
                     v-if="icon"
                     :name="icon"
-                    :iconClass="[
-                        iconSizeClass, 
-                        iconColorClass, 
-                        iconClass ? iconClass : ''
-                    ]"
+                    :iconClass="[iconSizeClass, iconColorClass, iconClass ? iconClass : '']"
                 />
             </template>
 
-            <span :class="['font-semibold', 'leading-none', '[text-box:trim-both_cap_alphabetic]', 'select-none', textSizeClass, textOffsetClass, textClass]">
+            <span
+                :class="[
+                    'font-semibold',
+                    'leading-none',
+                    '[text-box:trim-both_cap_alphabetic]',
+                    'select-none',
+                    textSizeClass,
+                    textOffsetClass,
+                    textClass,
+                ]"
+            >
                 {{ text }}
             </span>
 
             <!-- Right icon -->
             <template v-if="iconPosition === IconPosition.RIGHT">
-                <Icon 
+                <Icon
                     v-if="icon"
                     :name="icon"
-                    :iconClass="[
-                        iconSizeClass, 
-                        iconColorClass, 
-                        iconClass ? iconClass : ''
-                    ]"
+                    :iconClass="[iconSizeClass, iconColorClass, iconClass ? iconClass : '']"
                 />
             </template>
         </template>
@@ -74,7 +85,7 @@
 // Imports
 import { NuxtLink } from '#components'
 
- // Component options
+// Component options
 defineOptions({
     inheritAttrs: false, // Prevents Vue from automatically applying attributes incorrectly
 })
@@ -94,12 +105,11 @@ const props = defineProps({
     type: {
         type: String as PropType<'button' | 'submit' | 'reset'>,
         default: 'button',
-        validator: (value: string) => 
-            ['button', 'submit', 'reset'].includes(value),
-    }, 
+        validator: (value: string) => ['button', 'submit', 'reset'].includes(value),
+    },
     text: {
         type: String as PropType<string>,
-        default: 'Button text'
+        default: 'Button text',
     },
     textClass: String as PropType<string>,
     size: {
@@ -109,7 +119,7 @@ const props = defineProps({
     },
     icon: {
         type: String as PropType<string>,
-        default: "mdi:help"
+        default: 'mdi:help',
     },
     iconPosition: {
         type: String as PropType<IconPosition>,
@@ -123,33 +133,33 @@ const props = defineProps({
     },
     to: {
         type: String as PropType<string>,
-        default: '/'
+        default: '/',
     },
     isExternal: {
         type: Boolean as PropType<boolean>,
-        default: false
+        default: false,
     },
     isRounded: {
         type: Boolean as PropType<boolean>,
-        default: false
+        default: false,
     },
     hasFocusRing: {
         type: Boolean as PropType<boolean>,
-        default: true
+        default: true,
     },
     isFullWidth: {
         type: Boolean as PropType<boolean>,
-        default: false
+        default: false,
     },
     isMobileFullWidth: {
         type: Boolean as PropType<boolean>,
-        default: false
+        default: false,
     },
-    isLoading: { 
+    isLoading: {
         type: Boolean as PropType<boolean>,
         default: false,
     },
-    loadingText: { 
+    loadingText: {
         type: String as PropType<string>,
         default: 'Processing...',
     },
@@ -265,16 +275,19 @@ const buttonStyleClass = computed(() => {
         ],
     }
 
-    return variant[props.styleType as ButtonStyleType]?.filter(Boolean) || [
-        'border',
-        'border-border-default',
-        'bg-background-neutral-default',
-        !props.disabled && 'hover:bg-background-neutral-hover',
-        'focus:ring-offset-2',
-        'focus:ring-2',
-        'focus:ring-border-primary-brand-default',
-        'text-text-default',
-    ].filter(Boolean)
+    return (
+        variant[props.styleType as ButtonStyleType]?.filter(Boolean) ||
+        [
+            'border',
+            'border-border-default',
+            'bg-background-neutral-default',
+            !props.disabled && 'hover:bg-background-neutral-hover',
+            'focus:ring-offset-2',
+            'focus:ring-2',
+            'focus:ring-border-primary-brand-default',
+            'text-text-default',
+        ].filter(Boolean)
+    )
 })
 
 const buttonSizeClass = computed(() => {
@@ -343,13 +356,19 @@ const iconColorClass = computed(() => {
 const spinnerColorClass = computed(() => {
     const variant = {
         [ButtonStyleType.PRIMARY_BRAND_FILLED]: 'border-x-border-neutral-on-filled! border-b-border-neutral-on-filled!',
-        [ButtonStyleType.PRIMARY_BRAND_SOFT]: 'border-x-border-primary-brand-default! border-b-border-primary-brand-default!',
-        [ButtonStyleType.PRIMARY_BRAND_TRANSPARENT]: 'border-x-border-primary-brand-default! border-b-border-primary-brand-default!',
-        [ButtonStyleType.SECONDARY_BRAND_FILLED]: 'border-x-border-neutral-on-filled! border-b-border-neutral-on-filled!',
+        [ButtonStyleType.PRIMARY_BRAND_SOFT]:
+            'border-x-border-primary-brand-default! border-b-border-primary-brand-default!',
+        [ButtonStyleType.PRIMARY_BRAND_TRANSPARENT]:
+            'border-x-border-primary-brand-default! border-b-border-primary-brand-default!',
+        [ButtonStyleType.SECONDARY_BRAND_FILLED]:
+            'border-x-border-neutral-on-filled! border-b-border-neutral-on-filled!',
         [ButtonStyleType.NEUTRAL_FILLED]: 'border-x-border-neutral-on-filled! border-b-border-neutral-on-filled!',
-        [ButtonStyleType.NEUTRAL_OUTLINED]: 'border-x-border-primary-brand-default! border-b-border-primary-brand-default!',
-        [ButtonStyleType.NEUTRAL_TRANSPARENT]: 'border-x-border-primary-brand-default! border-b-border-primary-brand-default!',
-        [ButtonStyleType.NEUTRAL_TRANSPARENT_SUBTLE]: 'border-x-border-primary-brand-default! border-b-border-primary-brand-default!',
+        [ButtonStyleType.NEUTRAL_OUTLINED]:
+            'border-x-border-primary-brand-default! border-b-border-primary-brand-default!',
+        [ButtonStyleType.NEUTRAL_TRANSPARENT]:
+            'border-x-border-primary-brand-default! border-b-border-primary-brand-default!',
+        [ButtonStyleType.NEUTRAL_TRANSPARENT_SUBTLE]:
+            'border-x-border-primary-brand-default! border-b-border-primary-brand-default!',
         [ButtonStyleType.DELETE_FILLED]: 'border-x-border-neutral-on-filled! border-b-border-neutral-on-filled!',
         [ButtonStyleType.DELETE_SOFT]: 'border-x-border-delete-default! border-b-border-delete-default!',
         [ButtonStyleType.DELETE_OUTLINED]: 'border-x-border-delete-default! border-b-border-delete-default!',

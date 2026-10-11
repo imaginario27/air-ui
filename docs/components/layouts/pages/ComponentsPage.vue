@@ -3,7 +3,7 @@
         <SectionHeader v-if="componentList.length">
             <Form>
                 <FormRow>
-                    <SearchField 
+                    <SearchField
                         id="search"
                         v-model="searchQuery"
                         placeholder="Search a component"
@@ -16,33 +16,16 @@
         </SectionHeader>
         <SectionBody>
             <template v-if="groupedComponents.length">
-                <div 
-                    v-for="group in groupedComponents" 
-                    :key="group.title" 
-                    class="mb-12"
-                >
-                    <Heading 
-                        :size="HeadingSize.SM"
-                        headingTag="h2"
-                        :class="[
-                            'mb-8',
-                            'flex',
-                            'items-center',
-                            'gap-2',
-                        ]"
-                    >
+                <div v-for="group in groupedComponents" :key="group.title" class="mb-12">
+                    <Heading :size="HeadingSize.SM" headingTag="h2" :class="['mb-8', 'flex', 'items-center', 'gap-2']">
                         <template #title>
-                            <Icon
-                                v-if="group.sectionIcon"
-                                :name="group.sectionIcon"
-                                class="relative top-[2px]"
-                            />
+                            <Icon v-if="group.sectionIcon" :name="group.sectionIcon" class="relative top-[2px]" />
                             {{ group.title }}
                         </template>
                     </Heading>
-    
+
                     <Grid :cols="4">
-                        <ContentItem 
+                        <ContentItem
                             v-for="item in group.items"
                             :key="item.to"
                             :title="item.title"
@@ -58,7 +41,7 @@
                 </div>
             </template>
 
-            <EmptyState 
+            <EmptyState
                 v-else-if="!groupedComponents.length"
                 :title="`No components found for ${searchQuery}`"
                 icon="mdi:magnify"
@@ -67,7 +50,7 @@
                 :containerStyle="EmptyPlaceholderContainerStyle.FILLED_NEUTRAL"
             />
 
-            <EmptyState 
+            <EmptyState
                 v-else-if="!componentList.length"
                 title="No components available"
                 icon="mdi:database-off"
@@ -104,9 +87,7 @@ const groupedComponents = computed<GroupedComponentPortfolioItem[]>(() => {
         } else if (currentGroup) {
             // Filter items by query match (title or description)
             const matches =
-                !query ||
-                item.title.toLowerCase().includes(query) ||
-                item.description?.toLowerCase().includes(query)
+                !query || item.title.toLowerCase().includes(query) || item.description?.toLowerCase().includes(query)
 
             if (matches) {
                 currentGroup.items.push(item)
@@ -120,8 +101,6 @@ const groupedComponents = computed<GroupedComponentPortfolioItem[]>(() => {
     }
 
     // Remove empty groups when search is active
-    return query
-        ? groups.filter(group => group.items.length > 0)
-        : groups
+    return query ? groups.filter((group) => group.items.length > 0) : groups
 })
 </script>

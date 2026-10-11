@@ -11,7 +11,7 @@ import { RepeatingFieldSortingType } from '~/models/enums/formFields'
 import type { SelectOption } from '~/models/types/selects'
 
 vi.mock('~/composables/useFormValidationMode', () => ({
-    useInjectedValidationMode: () => ref(FormValidationMode.BLUR)
+    useInjectedValidationMode: () => ref(FormValidationMode.BLUR),
 }))
 
 const itemOptions = [
@@ -63,8 +63,8 @@ describe('RulesField.vue', () => {
         expect(help.exists()).toBe(true)
         expect(help.text()).toBe('Add filters')
         const children = Array.from(wrapper.element.children)
-        const helpIdx = children.findIndex(el => el.classList.contains('text-xs'))
-        const labelIdx = children.findIndex(el => el.tagName === 'LABEL')
+        const helpIdx = children.findIndex((el) => el.classList.contains('text-xs'))
+        const labelIdx = children.findIndex((el) => el.tagName === 'LABEL')
         expect(helpIdx).toBeGreaterThan(labelIdx)
         expect(helpIdx).toBeLessThan(children.length - 1)
     })
@@ -193,9 +193,24 @@ describe('RulesField.vue', () => {
         await inputs[0]?.vm.$emit('update:modelValue', '18')
 
         expect(wrapper.emitted('update:modelValue')).toEqual([
-            [[{ item: 'age', operator: null, value: '', type: 'number' }, { item: null, operator: null, value: '' }]],
-            [[{ item: 'age', operator: 'eq', value: '', type: 'number' }, { item: null, operator: null, value: '' }]],
-            [[{ item: 'age', operator: 'eq', value: '18', type: 'number' }, { item: null, operator: null, value: '' }]],
+            [
+                [
+                    { item: 'age', operator: null, value: '', type: 'number' },
+                    { item: null, operator: null, value: '' },
+                ],
+            ],
+            [
+                [
+                    { item: 'age', operator: 'eq', value: '', type: 'number' },
+                    { item: null, operator: null, value: '' },
+                ],
+            ],
+            [
+                [
+                    { item: 'age', operator: 'eq', value: '18', type: 'number' },
+                    { item: null, operator: null, value: '' },
+                ],
+            ],
         ])
     })
 
@@ -257,7 +272,12 @@ describe('RulesField.vue', () => {
         const input = wrapper.findAllComponents(InputField)[0]
         expect(input?.props('type')).toBe('number')
         expect(wrapper.emitted('update:modelValue')).toEqual([
-            [[{ item: 'age', operator: null, value: '', type: 'number' }, { item: null, operator: null, value: '' }]],
+            [
+                [
+                    { item: 'age', operator: null, value: '', type: 'number' },
+                    { item: null, operator: null, value: '' },
+                ],
+            ],
         ])
     })
 
@@ -270,7 +290,7 @@ describe('RulesField.vue', () => {
         })
 
         const selects = wrapper.findAllComponents(SelectField)
-        
+
         // Number type row should only show 'eq' and 'gt' (not 'gt' since it has number in applicableTypes)
         const numberRowOperators = selects[1]?.props('options') as SelectOption[]
         expect(numberRowOperators).toEqual([
@@ -280,9 +300,7 @@ describe('RulesField.vue', () => {
 
         // Text type row should only show 'eq' (not 'gt' since text is not in applicableTypes)
         const textRowOperators = selects[3]?.props('options') as SelectOption[]
-        expect(textRowOperators).toEqual([
-            { value: 'eq', text: 'Equals', applicableTypes: ['text', 'number', 'date'] },
-        ])
+        expect(textRowOperators).toEqual([{ value: 'eq', text: 'Equals', applicableTypes: ['text', 'number', 'date'] }])
     })
 
     it('adds a new rule when clicking the plus icon button on the last row', async () => {
@@ -294,10 +312,12 @@ describe('RulesField.vue', () => {
         await rowButtons[0]?.vm.$emit('click')
 
         expect(wrapper.emitted('update:modelValue')).toEqual([
-            [[
-                { item: 'age', operator: 'eq', value: '30' },
-                { item: null, operator: null, value: '', type: 'text' },
-            ]],
+            [
+                [
+                    { item: 'age', operator: 'eq', value: '30' },
+                    { item: null, operator: null, value: '', type: 'text' },
+                ],
+            ],
         ])
     })
 
@@ -336,10 +356,12 @@ describe('RulesField.vue', () => {
         await inputs[0]?.trigger('keydown.enter')
 
         expect(wrapper.emitted('update:modelValue')).toEqual([
-            [[
-                { item: 'age', operator: 'eq', value: '30' },
-                { item: null, operator: null, value: '', type: 'text' },
-            ]],
+            [
+                [
+                    { item: 'age', operator: 'eq', value: '30' },
+                    { item: null, operator: null, value: '', type: 'text' },
+                ],
+            ],
         ])
     })
 
@@ -355,10 +377,12 @@ describe('RulesField.vue', () => {
         await inputs[0]?.trigger('keydown.enter')
 
         expect(wrapper.emitted('update:modelValue')).toEqual([
-            [[
-                { item: 'age', operator: 'eq', value: '30' },
-                { item: 'status', operator: 'eq', value: 'active' },
-            ]],
+            [
+                [
+                    { item: 'age', operator: 'eq', value: '30' },
+                    { item: 'status', operator: 'eq', value: 'active' },
+                ],
+            ],
         ])
     })
 
@@ -443,10 +467,10 @@ describe('RulesField.vue', () => {
     it('passes transparentInputs to SelectField and InputField children as transparent', () => {
         const wrapper = factory({ transparentInputs: true })
 
-        wrapper.findAllComponents(SelectField).forEach(field => {
+        wrapper.findAllComponents(SelectField).forEach((field) => {
             expect(field.props('transparent')).toBe(true)
         })
-        wrapper.findAllComponents(InputField).forEach(field => {
+        wrapper.findAllComponents(InputField).forEach((field) => {
             expect(field.props('transparent')).toBe(true)
         })
     })
@@ -454,10 +478,10 @@ describe('RulesField.vue', () => {
     it('passes transparent false by default to child fields', () => {
         const wrapper = factory()
 
-        wrapper.findAllComponents(SelectField).forEach(field => {
+        wrapper.findAllComponents(SelectField).forEach((field) => {
             expect(field.props('transparent')).toBe(false)
         })
-        wrapper.findAllComponents(InputField).forEach(field => {
+        wrapper.findAllComponents(InputField).forEach((field) => {
             expect(field.props('transparent')).toBe(false)
         })
     })
@@ -479,7 +503,7 @@ describe('RulesField.vue', () => {
         ]
 
         const findMoveButtons = (wrapper: ReturnType<typeof factory>, ariaLabel: string) =>
-            wrapper.findAllComponents(ActionIconButton).filter(btn => btn.props('ariaLabel') === ariaLabel)
+            wrapper.findAllComponents(ActionIconButton).filter((btn) => btn.props('ariaLabel') === ariaLabel)
 
         it('renders no sorting controls when sortingType is none (default)', () => {
             const wrapper = factory({
@@ -524,10 +548,10 @@ describe('RulesField.vue', () => {
             const moveUpButtons = findMoveButtons(wrapper, 'Move rule up')
             const moveDownButtons = findMoveButtons(wrapper, 'Move rule down')
 
-            expect(moveUpButtons.filter(btn => btn.props('disabled') === true)).toHaveLength(2)
-            expect(moveUpButtons.filter(btn => btn.props('disabled') === false)).toHaveLength(2)
-            expect(moveDownButtons.filter(btn => btn.props('disabled') === true)).toHaveLength(2)
-            expect(moveDownButtons.filter(btn => btn.props('disabled') === false)).toHaveLength(2)
+            expect(moveUpButtons.filter((btn) => btn.props('disabled') === true)).toHaveLength(2)
+            expect(moveUpButtons.filter((btn) => btn.props('disabled') === false)).toHaveLength(2)
+            expect(moveDownButtons.filter((btn) => btn.props('disabled') === true)).toHaveLength(2)
+            expect(moveDownButtons.filter((btn) => btn.props('disabled') === false)).toHaveLength(2)
         })
 
         it('emits update:modelValue with reordered rules when clicking move down', async () => {
@@ -540,11 +564,13 @@ describe('RulesField.vue', () => {
             await moveDownButtons[0]?.vm.$emit('click')
 
             expect(wrapper.emitted('update:modelValue')).toEqual([
-                [[
-                    { item: 'status', operator: 'eq', value: 'active' },
-                    { item: 'age', operator: 'eq', value: '10' },
-                    { item: 'city', operator: 'eq', value: 'ny' },
-                ]],
+                [
+                    [
+                        { item: 'status', operator: 'eq', value: 'active' },
+                        { item: 'age', operator: 'eq', value: '10' },
+                        { item: 'city', operator: 'eq', value: 'ny' },
+                    ],
+                ],
             ])
         })
 
@@ -559,11 +585,13 @@ describe('RulesField.vue', () => {
             await moveUpButtons[2]?.vm.$emit('click')
 
             expect(wrapper.emitted('update:modelValue')).toEqual([
-                [[
-                    { item: 'status', operator: 'eq', value: 'active' },
-                    { item: 'age', operator: 'eq', value: '10' },
-                    { item: 'city', operator: 'eq', value: 'ny' },
-                ]],
+                [
+                    [
+                        { item: 'status', operator: 'eq', value: 'active' },
+                        { item: 'age', operator: 'eq', value: '10' },
+                        { item: 'city', operator: 'eq', value: 'ny' },
+                    ],
+                ],
             ])
         })
 
@@ -580,7 +608,7 @@ describe('RulesField.vue', () => {
             ]
 
             expect(moveButtons.length).toBeGreaterThan(0)
-            moveButtons.forEach(btn => expect(btn.props('disabled')).toBe(true))
+            moveButtons.forEach((btn) => expect(btn.props('disabled')).toBe(true))
         })
 
         it('renders a draggable handle only on sortable rows when sortingType is drag', () => {
@@ -699,12 +727,14 @@ describe('RulesField.vue', () => {
             await rows[2]?.trigger('drop', { dataTransfer })
 
             expect(wrapper.emitted('update:modelValue')).toEqual([
-                [[
-                    { item: 'status', operator: 'eq', value: 'active' },
-                    { item: 'age', operator: 'eq', value: '10' },
-                    { item: 'city', operator: 'eq', value: 'ny' },
-                    { item: null, operator: null, value: '' },
-                ]],
+                [
+                    [
+                        { item: 'status', operator: 'eq', value: 'active' },
+                        { item: 'age', operator: 'eq', value: '10' },
+                        { item: 'city', operator: 'eq', value: 'ny' },
+                        { item: null, operator: null, value: '' },
+                    ],
+                ],
             ])
         })
 
@@ -724,12 +754,14 @@ describe('RulesField.vue', () => {
             await rows[3]?.trigger('drop', { dataTransfer })
 
             expect(wrapper.emitted('update:modelValue')).toEqual([
-                [[
-                    { item: 'status', operator: 'eq', value: 'active' },
-                    { item: 'city', operator: 'eq', value: 'ny' },
-                    { item: 'age', operator: 'eq', value: '10' },
-                    { item: null, operator: null, value: '' },
-                ]],
+                [
+                    [
+                        { item: 'status', operator: 'eq', value: 'active' },
+                        { item: 'city', operator: 'eq', value: 'ny' },
+                        { item: 'age', operator: 'eq', value: '10' },
+                        { item: null, operator: null, value: '' },
+                    ],
+                ],
             ])
         })
 
@@ -749,12 +781,14 @@ describe('RulesField.vue', () => {
             await rows[0]?.trigger('drop', { dataTransfer })
 
             expect(wrapper.emitted('update:modelValue')).toEqual([
-                [[
-                    { item: 'city', operator: 'eq', value: 'ny' },
-                    { item: 'age', operator: 'eq', value: '10' },
-                    { item: 'status', operator: 'eq', value: 'active' },
-                    { item: null, operator: null, value: '' },
-                ]],
+                [
+                    [
+                        { item: 'city', operator: 'eq', value: 'ny' },
+                        { item: 'age', operator: 'eq', value: '10' },
+                        { item: 'status', operator: 'eq', value: 'active' },
+                        { item: null, operator: null, value: '' },
+                    ],
+                ],
             ])
         })
 
@@ -781,12 +815,14 @@ describe('RulesField.vue', () => {
             await placeholder.trigger('drop', { dataTransfer })
 
             expect(wrapper.emitted('update:modelValue')).toEqual([
-                [[
-                    { item: 'status', operator: 'eq', value: 'active' },
-                    { item: 'age', operator: 'eq', value: '10' },
-                    { item: 'city', operator: 'eq', value: 'ny' },
-                    { item: null, operator: null, value: '' },
-                ]],
+                [
+                    [
+                        { item: 'status', operator: 'eq', value: 'active' },
+                        { item: 'age', operator: 'eq', value: '10' },
+                        { item: 'city', operator: 'eq', value: 'ny' },
+                        { item: null, operator: null, value: '' },
+                    ],
+                ],
             ])
         })
 
@@ -801,11 +837,13 @@ describe('RulesField.vue', () => {
             await handles[1]?.trigger('keydown', { key: 'ArrowUp' })
 
             expect(wrapper.emitted('update:modelValue')).toEqual([
-                [[
-                    { item: 'status', operator: 'eq', value: 'active' },
-                    { item: 'age', operator: 'eq', value: '10' },
-                    { item: 'city', operator: 'eq', value: 'ny' },
-                ]],
+                [
+                    [
+                        { item: 'status', operator: 'eq', value: 'active' },
+                        { item: 'age', operator: 'eq', value: '10' },
+                        { item: 'city', operator: 'eq', value: 'ny' },
+                    ],
+                ],
             ])
         })
 

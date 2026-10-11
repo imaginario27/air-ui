@@ -13,10 +13,7 @@
             {{ link.text }}
         </a>
 
-        <ul
-            v-if="link.children?.length"
-            class="mt-1 space-y-1"
-        >
+        <ul v-if="link.children?.length" class="mt-1 space-y-1">
             <TableOfContentsItem
                 v-for="(child, index) in link.children"
                 :key="index"

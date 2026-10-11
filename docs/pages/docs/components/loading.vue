@@ -2,9 +2,7 @@
     <Section>
         <SectionBody>
             <TabBar v-model="activeIndex" :tabs />
-            <ContentRenderer 
-                v-if="data" :value="data" 
-            />
+            <ContentRenderer v-if="data" :value="data" />
             <ContentRenderFallback v-else />
         </SectionBody>
     </Section>
@@ -14,7 +12,8 @@ definePageMeta({
     title: 'Loading',
     layout: 'docs',
     overtitle: 'Components',
-    description: 'A loading component that displays a spinner with animated loading text to indicate background activity.',
+    description:
+        'A loading component that displays a spinner with animated loading text to indicate background activity.',
 })
 
 // Route

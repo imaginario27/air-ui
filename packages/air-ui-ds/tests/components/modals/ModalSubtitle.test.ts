@@ -5,8 +5,8 @@ const factory = (props?: Partial<{ title: string }>) => {
     return mount(ModalSubtitle, {
         props: {
             title: 'Modal subtitle',
-            ...props
-        }
+            ...props,
+        },
     })
 }
 

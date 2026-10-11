@@ -1,4 +1,4 @@
 export enum FormValidationMode {
     SUBMIT = 'submit',
-    BLUR = 'blur'
+    BLUR = 'blur',
 }

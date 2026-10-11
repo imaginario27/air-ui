@@ -1,8 +1,5 @@
 <template>
-    <NuxtLink 
-        :to
-        class="w-full h-full"
-    >
+    <NuxtLink :to class="w-full h-full">
         <div
             :class="[
                 'flex flex-col gap-4',
@@ -14,7 +11,7 @@
                 alignClass,
             ]"
         >
-            <ContainedIcon 
+            <ContainedIcon
                 :color="ColorAccent.SECONDARY_BRAND"
                 :icon
                 :size="IconContainerSize.LG"
@@ -25,10 +22,7 @@
                 {{ label }}
             </span>
 
-            <p 
-                v-if="description"
-                class="text-sm text-text-neutral-subtle"
-            >
+            <p v-if="description" class="text-sm text-text-neutral-subtle">
                 {{ trimText(description, 80) }}
             </p>
         </div>
@@ -43,7 +37,7 @@ const props = defineProps({
     },
     icon: {
         type: String as PropType<string>,
-        default: "mdi:help"
+        default: 'mdi:help',
     },
     description: String as PropType<string>,
     to: String as PropType<string>,

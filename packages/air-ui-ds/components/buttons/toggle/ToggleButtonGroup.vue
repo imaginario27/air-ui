@@ -7,7 +7,7 @@
             'flex',
             groupStyle === ToggleButtonGroupStyle.GROUPED ? '' : 'flex-wrap gap-3',
             'w-fit',
-            'rounded-button'
+            'rounded-button',
         ]"
     >
         <template v-if="!onlyIcon">
@@ -73,8 +73,8 @@ const props = defineProps({
         validator: (value: ButtonSize) => Object.values(ButtonSize).includes(value),
     },
     onlyIcon: {
-        type: Boolean as PropType<boolean>, 
-        default: false, 
+        type: Boolean as PropType<boolean>,
+        default: false,
     },
     groupStyle: {
         type: String as PropType<ToggleButtonGroupStyle>,
@@ -102,13 +102,13 @@ const emit = defineEmits(['update:modelValue'])
 const groupedButtonClass = computed(() =>
     props.groupStyle === ToggleButtonGroupStyle.GROUPED
         ? 'border-y border-r border-border-default rounded-none first:border-l first:rounded-l-button last:rounded-r-button'
-        : false
+        : false,
 )
 
 const segmentedButtonClass = computed(() =>
     props.groupStyle === ToggleButtonGroupStyle.SEGMENTED && props.hasButtonBorder
         ? 'border border-border-default rounded-button'
-        : false
+        : false,
 )
 
 const buttonSize = (button: ToggleButtonItem) => button.size ?? props.size

@@ -1,37 +1,19 @@
 <template>
-    <div 
-        :class="[ 
-            'flex flex-col',
-            'w-full', 
-            'gap-2' 
-        ]"
-    >
+    <div :class="['flex flex-col', 'w-full', 'gap-2']">
         <!-- Label -->
-        <label 
+        <label
             v-if="label"
-            :for="id" 
-            :class="[ 
-                'text-sm', 
-                'font-semibold', 
-                'text-left', 
-                hasError ? 'text-text-error' : undefined 
-            ]"
+            :for="id"
+            :class="['text-sm', 'font-semibold', 'text-left', hasError ? 'text-text-error' : undefined]"
         >
             {{ label }}
-            <span
-                v-if="!required && showOptionalLabel"
-                class="font-normal text-text-neutral-subtler"
-            >
+            <span v-if="!required && showOptionalLabel" class="font-normal text-text-neutral-subtler">
                 {{ optionalLabelText }}
             </span>
         </label>
 
         <!-- Help Text (top) -->
-        <HelpText
-            v-if="helpTextPosition === Position.TOP"
-            :text="helpText"
-            :error="error"
-        />
+        <HelpText v-if="helpTextPosition === Position.TOP" :text="helpText" :error="error" />
 
         <BadgeStack
             v-if="multiple && hasBadgeStack && badgesSelectedOptions.length > 0"
@@ -39,7 +21,7 @@
             closeable
             @close="handleBadgeRemove"
         />
-        
+
         <DropdownSelect
             :id
             :key="computedPlaceholder"
@@ -69,19 +51,15 @@
         />
 
         <!-- Help Text (bottom) -->
-        <HelpText
-            v-if="helpTextPosition === Position.BOTTOM"
-            :text="helpText"
-            :error="error"
-        />
+        <HelpText v-if="helpTextPosition === Position.BOTTOM" :text="helpText" :error="error" />
     </div>
 </template>
 
 <script setup lang="ts">
 // Props
 const props = defineProps({
-    id: { 
-        type: String as PropType<string>, 
+    id: {
+        type: String as PropType<string>,
         required: true,
     },
     label: String as PropType<string>,
@@ -110,7 +88,7 @@ const props = defineProps({
     },
     placeholder: String as PropType<string>,
     modelValue: {
-        type: [String, Number, Array] as PropType<string | number | (string | number)[] | null>, 
+        type: [String, Number, Array] as PropType<string | number | (string | number)[] | null>,
         default: null,
     },
     type: {
@@ -170,7 +148,7 @@ const props = defineProps({
         default: true,
     },
     loadingText: String as PropType<string>,
-    loadingOptionsPlaceholder: { 
+    loadingOptionsPlaceholder: {
         type: String as PropType<string>,
         default: 'Options are being loaded',
     },
@@ -204,7 +182,9 @@ const resolvedPlaceholder = computed(() => props.placeholder ?? dsConfig.forms.s
 const resolvedSearchFieldPlaceholder = computed(() => props.searchFieldPlaceholder ?? dsConfig.forms.searchText())
 const resolvedNoResultsFoundText = computed(() => props.noResultsFoundText ?? dsConfig.forms.noResultsText())
 const resolvedLoadingText = computed(() => props.loadingText ?? dsConfig.forms.loadingOptionsText())
-const resolvedClearSelectionAriaLabel = computed(() => props.clearSelectionAriaLabel ?? dsConfig.forms.clearSelectionText())
+const resolvedClearSelectionAriaLabel = computed(
+    () => props.clearSelectionAriaLabel ?? dsConfig.forms.clearSelectionText(),
+)
 const hasOptions = computed(() => Array.isArray(props.options) && props.options.length > 0)
 
 const isLoadingOptions = computed(() => {
@@ -253,8 +233,8 @@ const badgesSelectedOptions = computed(() => {
     if (!Array.isArray(props.modelValue)) return []
 
     return props.options
-        .filter(option => (props.modelValue as (string | number)[]).includes(option.value))
-        .map(option => ({
+        .filter((option) => (props.modelValue as (string | number)[]).includes(option.value))
+        .map((option) => ({
             ...option,
             text: option.text ?? '',
         }))
@@ -263,14 +243,17 @@ const badgesSelectedOptions = computed(() => {
 const handleBadgeRemove = (item: SelectOption) => {
     if (!Array.isArray(props.modelValue)) return
 
-    const updated = props.modelValue.filter(val => val !== item.value)
+    const updated = props.modelValue.filter((val) => val !== item.value)
     emit('update:modelValue', updated)
 }
 
 // Watchers
-watch(() => props.modelValue, () => {
-    if (validationMode.value === FormValidationMode.BLUR) {
-        runValidation()
-    }
-})
+watch(
+    () => props.modelValue,
+    () => {
+        if (validationMode.value === FormValidationMode.BLUR) {
+            runValidation()
+        }
+    },
+)
 </script>

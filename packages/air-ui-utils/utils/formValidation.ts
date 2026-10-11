@@ -1,4 +1,3 @@
-
 import type {
     ArrayValidator,
     CreateRulesFieldValidatorOptions,
@@ -21,10 +20,7 @@ const FieldError = {
  * @param requiredFieldMessage - Optional custom error message to return if the value is invalid.
  * @returns A string containing the error message if invalid, or null if the value is valid.
  */
-export const validateField = (
-    value: unknown,
-    requiredFieldMessage?: string,
-): string | null => {
+export const validateField = (value: unknown, requiredFieldMessage?: string): string | null => {
     if (typeof value === 'string' && value.trim() === '') {
         return requiredFieldMessage ?? useUtilsConfig().validation.requiredFieldMessage()
     }
@@ -107,10 +103,7 @@ export const validateDateRange = (
     requiredFieldMessage = useUtilsConfig().validation.requiredFieldMessage(),
     invalidRangeMessage = useUtilsConfig().validation.invalidDateRangeMessage(),
 ): string | null => {
-    if (
-        typeof startDate !== 'string' || !startDate ||
-        typeof endDate !== 'string' || !endDate
-    ) {
+    if (typeof startDate !== 'string' || !startDate || typeof endDate !== 'string' || !endDate) {
         return requiredFieldMessage
     }
 
@@ -196,18 +189,12 @@ export const validateArrayField = (
 
     // Check minimum length
     if (typeof minLength === 'number' && value.length < minLength) {
-        return (
-            lengthErrorMessage ??
-            `At least ${minLength} item${minLength > 1 ? 's' : ''} required`
-        )
+        return lengthErrorMessage ?? `At least ${minLength} item${minLength > 1 ? 's' : ''} required`
     }
 
     // Check maximum length
     if (typeof maxLength === 'number' && value.length > maxLength) {
-        return (
-            lengthErrorMessage ??
-            `No more than ${maxLength} item${maxLength > 1 ? 's' : ''} allowed`
-        )
+        return lengthErrorMessage ?? `No more than ${maxLength} item${maxLength > 1 ? 's' : ''} allowed`
     }
 
     return null
@@ -222,9 +209,7 @@ export const validateArrayField = (
  * @param validators - List of validators to execute sequentially.
  * @returns A validator function that returns the first error message, or null if all validators pass.
  */
-export const composeArrayValidators = <T>(
-    validators: ArrayValidator<T>[],
-): ArrayValidator<T> => {
+export const composeArrayValidators = <T>(validators: ArrayValidator<T>[]): ArrayValidator<T> => {
     return (value: T[]) => {
         for (const validator of validators) {
             const error = validator(value)
@@ -250,7 +235,7 @@ export const validateAtLeastOneRule = (
     value: RuleValidationItem[],
     requiredFieldMessage = 'Add at least one complete rule.',
 ): string | null => {
-    const hasCompleteRule = value.some(rule => isRuleComplete(rule))
+    const hasCompleteRule = value.some((rule) => isRuleComplete(rule))
 
     if (!hasCompleteRule) {
         return requiredFieldMessage
@@ -272,7 +257,7 @@ export const validateRuleCompleteness = (
     value: RuleValidationItem[],
     incompleteRuleMessage = 'Complete all rule fields before continuing.',
 ): string | null => {
-    const hasIncompleteRule = value.some(rule => !isRuleEmpty(rule) && !isRuleComplete(rule))
+    const hasIncompleteRule = value.some((rule) => !isRuleEmpty(rule) && !isRuleComplete(rule))
 
     if (hasIncompleteRule) {
         return incompleteRuleMessage
@@ -337,17 +322,17 @@ export const createRulesFieldValidator = (
     const baseValidators: ArrayValidator<RuleValidationItem>[] = []
 
     if (incompleteRuleMessage) {
-        baseValidators.push(value => validateRuleCompleteness(value, incompleteRuleMessage))
+        baseValidators.push((value) => validateRuleCompleteness(value, incompleteRuleMessage))
     } else {
         baseValidators.push(validateRuleCompleteness)
     }
 
     if (required) {
-        baseValidators.push(value => validateAtLeastOneRule(value, requiredFieldMessage))
+        baseValidators.push((value) => validateAtLeastOneRule(value, requiredFieldMessage))
     }
 
     if (typeof maxRules === 'number') {
-        baseValidators.push(value => validateMaxRules(value, maxRules, maxRulesMessage))
+        baseValidators.push((value) => validateMaxRules(value, maxRules, maxRulesMessage))
     }
 
     return composeArrayValidators([...baseValidators, ...validators])

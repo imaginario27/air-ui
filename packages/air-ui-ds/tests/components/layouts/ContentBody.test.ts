@@ -4,15 +4,15 @@ import ContentBody from '@/components/layouts/ContentBody.vue'
 
 vi.mock('@/composables/useMobileSidebar', () => ({
     useMobileSidebar: () => ({
-        isMobileSidebarOpen: { value: false }
-    })
+        isMobileSidebarOpen: { value: false },
+    }),
 }))
 
 const { useIsMobileSpy } = vi.hoisted(() => ({
-    useIsMobileSpy: vi.fn(() => ({ isMobile: { value: false } }))
+    useIsMobileSpy: vi.fn(() => ({ isMobile: { value: false } })),
 }))
 vi.mock('@/composables/useIsMobile', () => ({
-    useIsMobile: useIsMobileSpy
+    useIsMobile: useIsMobileSpy,
 }))
 
 type Props = {
@@ -24,7 +24,7 @@ type Props = {
 const mountComponent = (props: Props = {}, options: MountingOptions<any> = {}) => {
     return mount(ContentBody, {
         props,
-        ...options
+        ...options,
     })
 }
 
@@ -35,11 +35,14 @@ describe('ContentBody.vue', () => {
     })
 
     it('renders default slot content', () => {
-        const wrapper = mountComponent({}, {
-            slots: {
-                default: '<p class="slot-test">Slot content</p>'
-            }
-        })
+        const wrapper = mountComponent(
+            {},
+            {
+                slots: {
+                    default: '<p class="slot-test">Slot content</p>',
+                },
+            },
+        )
 
         expect(wrapper.find('.slot-test').text()).toBe('Slot content')
     })
@@ -77,14 +80,14 @@ describe('ContentBody.vue', () => {
 
         vi.doMock('@/composables/useMobileSidebar', () => ({
             useMobileSidebar: () => ({
-                isMobileSidebarOpen: { value: true }
-            })
+                isMobileSidebarOpen: { value: true },
+            }),
         }))
 
         vi.doMock('@/composables/useIsMobile', () => ({
             useIsMobile: () => ({
-                isMobile: { value: true }
-            })
+                isMobile: { value: true },
+            }),
         }))
 
         const { default: MobileContentBody } = await import('@/components/layouts/ContentBody.vue')
@@ -92,8 +95,8 @@ describe('ContentBody.vue', () => {
         const wrapper = mount(MobileContentBody, {
             props: {
                 hasSidebar: true,
-                sidebarWidth: 300
-            }
+                sidebarWidth: 300,
+            },
         })
 
         const style = wrapper.find('div').attributes('style')
@@ -105,14 +108,14 @@ describe('ContentBody.vue', () => {
 
         vi.doMock('@/composables/useMobileSidebar', () => ({
             useMobileSidebar: () => ({
-                isMobileSidebarOpen: { value: false }
-            })
+                isMobileSidebarOpen: { value: false },
+            }),
         }))
 
         vi.doMock('@/composables/useIsMobile', () => ({
             useIsMobile: () => ({
-                isMobile: { value: true }
-            })
+                isMobile: { value: true },
+            }),
         }))
 
         const { default: MobileContentBody } = await import('@/components/layouts/ContentBody.vue')
@@ -120,8 +123,8 @@ describe('ContentBody.vue', () => {
         const wrapper = mount(MobileContentBody, {
             props: {
                 hasSidebar: true,
-                sidebarWidth: 180
-            }
+                sidebarWidth: 180,
+            },
         })
 
         const style = wrapper.find('div').attributes('style')

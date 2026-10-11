@@ -1,5 +1,5 @@
 <template>
-    <h4 
+    <h4
         :class="[
             'text-lg md:text-xl',
             'font-medium',

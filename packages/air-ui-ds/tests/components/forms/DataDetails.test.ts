@@ -5,9 +5,9 @@ import DataDetails from '~/components/forms/DataDetails.vue'
 const factory = (options = {}): VueWrapper => {
     return mount(DataDetails, {
         slots: {
-            default: '<div>Detail content</div>'
+            default: '<div>Detail content</div>',
         },
-        ...options
+        ...options,
     })
 }
 

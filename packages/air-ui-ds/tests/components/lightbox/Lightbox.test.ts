@@ -285,12 +285,17 @@ describe('Lightbox', () => {
 
         it('swaps the icon when the document enters fullscreen', async () => {
             const wrapper = factory()
-            Object.defineProperty(document, 'fullscreenElement', { configurable: true, value: document.documentElement })
+            Object.defineProperty(document, 'fullscreenElement', {
+                configurable: true,
+                value: document.documentElement,
+            })
 
             document.dispatchEvent(new Event('fullscreenchange'))
             await nextTick()
 
-            expect(wrapper.get('[aria-label="Toggle fullscreen"] i').attributes('data-name')).toBe('mdi:fullscreen-exit')
+            expect(wrapper.get('[aria-label="Toggle fullscreen"] i').attributes('data-name')).toBe(
+                'mdi:fullscreen-exit',
+            )
 
             Object.defineProperty(document, 'fullscreenElement', { configurable: true, value: null })
         })

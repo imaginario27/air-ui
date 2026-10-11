@@ -3,12 +3,12 @@ import { FormValidationMode } from '@/models/enums/formValidations'
 import { useFormValidationMode } from '@/composables/useFormValidationMode'
 
 vi.mock('@/composables/useFormValidationMode', () => ({
-    useFormValidationMode: vi.fn()
+    useFormValidationMode: vi.fn(),
 }))
 
 describe('useForm', () => {
     const mockValidationMode = {
-        currentFormValidationMode: ref(FormValidationMode.SUBMIT)
+        currentFormValidationMode: ref(FormValidationMode.SUBMIT),
     }
 
     beforeEach(() => {
@@ -21,7 +21,7 @@ describe('useForm', () => {
         useForm({
             formData,
             requiredFields: ['name'],
-            requiredFieldMessage: 'Required'
+            requiredFieldMessage: 'Required',
         })
 
         expect(mockValidationMode.currentFormValidationMode.value).toBe(FormValidationMode.SUBMIT)
@@ -33,7 +33,7 @@ describe('useForm', () => {
             formData,
             requiredFields: ['name'],
             requiredFieldMessage: 'Required',
-            validateOn: FormValidationMode.BLUR
+            validateOn: FormValidationMode.BLUR,
         })
 
         expect(mockValidationMode.currentFormValidationMode.value).toBe(FormValidationMode.BLUR)
@@ -44,7 +44,7 @@ describe('useForm', () => {
         const { formErrors, validateFormFields } = useForm({
             formData,
             requiredFields: ['name'],
-            requiredFieldMessage: 'Required'
+            requiredFieldMessage: 'Required',
         })
 
         const isValid = validateFormFields()
@@ -59,7 +59,7 @@ describe('useForm', () => {
         const { formErrors, validateFormFields } = useForm({
             formData,
             requiredFields: ['age'],
-            requiredFieldMessage: 'Required'
+            requiredFieldMessage: 'Required',
         })
 
         const isValid = validateFormFields()
@@ -77,8 +77,8 @@ describe('useForm', () => {
             requiredFields: ['email'],
             requiredFieldMessage: 'Required',
             validators: {
-                email: validator
-            }
+                email: validator,
+            },
         })
 
         const isValid = validateFormFields()
@@ -92,7 +92,7 @@ describe('useForm', () => {
         const { formErrors, validateFormFields } = useForm({
             formData,
             requiredFields: ['name'],
-            requiredFieldMessage: 'Required'
+            requiredFieldMessage: 'Required',
         })
 
         const isValid = validateFormFields()
@@ -106,7 +106,7 @@ describe('useForm', () => {
         const { formErrors, validateFormFields } = useForm({
             formData,
             requiredFields: ['user.email'],
-            requiredFieldMessage: 'Required'
+            requiredFieldMessage: 'Required',
         })
 
         const isValid = validateFormFields()
@@ -117,20 +117,20 @@ describe('useForm', () => {
         const userErrors = formErrors.user as unknown as Record<string, string>
         expect(userErrors.email).toBe('Required')
     })
-    
+
     it('resets all field types', () => {
         const formData = reactive({
             str: 'hello',
             num: 42,
             bool: true,
             arr: [1, 2, 3],
-            obj: { nested: 'value' }
+            obj: { nested: 'value' },
         })
 
         const { resetForm } = useForm({
             formData,
             requiredFields: [],
-            requiredFieldMessage: 'Required'
+            requiredFieldMessage: 'Required',
         })
 
         resetForm()
@@ -147,15 +147,15 @@ describe('useForm', () => {
             user: {
                 name: 'John',
                 profile: {
-                    email: 'john@example.com'
-                }
-            }
+                    email: 'john@example.com',
+                },
+            },
         })
 
         const { resetForm } = useForm({
             formData,
             requiredFields: [],
-            requiredFieldMessage: 'Required'
+            requiredFieldMessage: 'Required',
         })
 
         resetForm()
@@ -169,7 +169,7 @@ describe('useForm', () => {
         const { formErrors, validateFormFields, resetForm } = useForm({
             formData,
             requiredFields: ['name'],
-            requiredFieldMessage: 'Required'
+            requiredFieldMessage: 'Required',
         })
 
         validateFormFields()
@@ -185,7 +185,7 @@ describe('useForm', () => {
             formData,
             requiredFields: ['name'],
             requiredFieldMessage: 'Required',
-            validateOn: FormValidationMode.BLUR
+            validateOn: FormValidationMode.BLUR,
         })
 
         mockValidationMode.currentFormValidationMode.value = FormValidationMode.SUBMIT
@@ -199,7 +199,7 @@ describe('useForm', () => {
         const { validateField } = useForm({
             formData,
             requiredFields: ['email'],
-            requiredFieldMessage: 'Required'
+            requiredFieldMessage: 'Required',
         })
 
         const error = validateField('email')

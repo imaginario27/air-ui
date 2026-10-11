@@ -5,15 +5,15 @@ import { useDSConfig } from '@/composables/useDSConfig'
 import { nextTick, ref } from 'vue'
 
 vi.mock('~/composables/useFormValidationMode', () => ({
-    useInjectedValidationMode: () => ref('blur')
+    useInjectedValidationMode: () => ref('blur'),
 }))
 
 const factory = (props: Record<string, any> = {}) => {
     return mount(InputField, {
         props: {
             id: 'test-input',
-            ...props
-        }
+            ...props,
+        },
     })
 }
 
@@ -42,8 +42,8 @@ describe('InputField.vue', () => {
         expect(help.text()).toBe('Hint')
         // help text is a direct child of the wrapper and appears before the input container
         const children = Array.from(wrapper.element.children as HTMLCollection)
-        const helpIdx = children.findIndex(el => el.classList.contains('text-xs'))
-        const inputContainerIdx = children.findIndex(el => el.classList.contains('border'))
+        const helpIdx = children.findIndex((el) => el.classList.contains('text-xs'))
+        const inputContainerIdx = children.findIndex((el) => el.classList.contains('border'))
         expect(helpIdx).toBeGreaterThan(-1)
         expect(helpIdx).toBeLessThan(inputContainerIdx)
     })
@@ -105,9 +105,9 @@ describe('InputField.vue', () => {
 
         const emits = wrapper.emitted('update:modelValue')
         expect(emits).toBeTruthy()
-        expect(emits?.[0]?.[0]).toBe('5')   // -20 → 0 → clamped to 5
-        expect(emits?.[1]?.[0]).toBe('5')   // 3 → clamped to 5
-        expect(emits?.[2]?.[0]).toBe('10')  // 12 → clamped to 10
+        expect(emits?.[0]?.[0]).toBe('5') // -20 → 0 → clamped to 5
+        expect(emits?.[1]?.[0]).toBe('5') // 3 → clamped to 5
+        expect(emits?.[2]?.[0]).toBe('10') // 12 → clamped to 10
     })
 
     it('keeps partial decimals as typed and allows clearing a number field', async () => {
@@ -157,7 +157,7 @@ describe('InputField.vue', () => {
         const wrapper = factory({
             label: 'Password',
             linkText: 'Forgot password?',
-            linkUrl: '/forgot'
+            linkUrl: '/forgot',
         })
         const navLink = wrapper.findComponent({ name: 'NavLink' })
         expect(navLink.exists()).toBe(true)
@@ -168,16 +168,16 @@ describe('InputField.vue', () => {
     it('displays color swatch and value when type is "color"', () => {
         const wrapper = factory({
             type: 'color',
-            modelValue: '#ff0000'
+            modelValue: '#ff0000',
         })
-        const span = wrapper.findAll('span').find(el => el.text() === '#ff0000')
+        const span = wrapper.findAll('span').find((el) => el.text() === '#ff0000')
         expect(span).toBeTruthy()
     })
 
     it('applies autofocus and readonly props correctly', () => {
         const wrapper = factory({
             autofocus: true,
-            readonly: true
+            readonly: true,
         })
         const input = wrapper.find('input')
         expect(input.attributes('autofocus')).toBeDefined()
@@ -194,11 +194,11 @@ describe('InputField.vue', () => {
         const wrapper = factory({
             type: 'password',
             modelValue: 'secret',
-            hasShowPasswordButton: true
+            hasShowPasswordButton: true,
         })
 
         const buttons = wrapper.findAll('button')
-        const toggleBtn = buttons.find(btn => btn.findComponent({ name: 'Icon' }).exists())
+        const toggleBtn = buttons.find((btn) => btn.findComponent({ name: 'Icon' }).exists())
         expect(toggleBtn).toBeTruthy()
 
         const input = wrapper.find('input')

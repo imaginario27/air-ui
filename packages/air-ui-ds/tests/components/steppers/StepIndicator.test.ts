@@ -8,31 +8,31 @@ describe('StepIndicator.vue', () => {
         step: 2,
         stepIcon: 'mdi:account',
         completedIcon: 'mdi:check',
-        isHovered: false
+        isHovered: false,
     }
 
     const factory = (props = {}) => {
         return mount(StepIndicator, {
             props: {
                 ...defaultProps,
-                ...props
+                ...props,
             },
             global: {
                 stubs: {
                     Icon: {
                         name: 'Icon',
                         props: ['name', 'iconClass'],
-                        template: '<div class="icon-stub" />'
-                    }
-                }
-            }
+                        template: '<div class="icon-stub" />',
+                    },
+                },
+            },
         })
     }
 
     it('renders step number when status is NONE and type is NUMBER', () => {
         const wrapper = factory({
             status: StepStatus.NONE,
-            type: StepIndicatorType.NUMBER
+            type: StepIndicatorType.NUMBER,
         })
 
         expect(wrapper.text()).toContain('2')
@@ -42,7 +42,7 @@ describe('StepIndicator.vue', () => {
     it('renders icon when status is NONE and type is ICON', () => {
         const wrapper = factory({
             status: StepStatus.NONE,
-            type: StepIndicatorType.ICON
+            type: StepIndicatorType.ICON,
         })
 
         const icon = wrapper.findComponent(Icon)
@@ -60,7 +60,7 @@ describe('StepIndicator.vue', () => {
     it('renders step number when status is INACTIVE and type is NUMBER', () => {
         const wrapper = factory({
             status: StepStatus.INACTIVE,
-            type: StepIndicatorType.NUMBER
+            type: StepIndicatorType.NUMBER,
         })
 
         expect(wrapper.text()).toContain('2')
@@ -70,7 +70,7 @@ describe('StepIndicator.vue', () => {
     it('renders icon when status is INACTIVE and type is ICON', () => {
         const wrapper = factory({
             status: StepStatus.INACTIVE,
-            type: StepIndicatorType.ICON
+            type: StepIndicatorType.ICON,
         })
 
         const icon = wrapper.findComponent(Icon)
@@ -81,7 +81,7 @@ describe('StepIndicator.vue', () => {
     it('renders step number when status is CURRENT and type is NUMBER', () => {
         const wrapper = factory({
             status: StepStatus.CURRENT,
-            type: StepIndicatorType.NUMBER
+            type: StepIndicatorType.NUMBER,
         })
 
         expect(wrapper.text()).toContain('2')
@@ -90,7 +90,7 @@ describe('StepIndicator.vue', () => {
     it('renders icon when status is CURRENT and type is ICON', () => {
         const wrapper = factory({
             status: StepStatus.CURRENT,
-            type: StepIndicatorType.ICON
+            type: StepIndicatorType.ICON,
         })
 
         const icon = wrapper.findComponent(Icon)
@@ -101,7 +101,7 @@ describe('StepIndicator.vue', () => {
     it('renders empty circle when status is CURRENT and type is EMPTY', () => {
         const wrapper = factory({
             status: StepStatus.CURRENT,
-            type: StepIndicatorType.EMPTY
+            type: StepIndicatorType.EMPTY,
         })
 
         const circle = wrapper.find('div > span > div.rounded-full')
@@ -122,7 +122,7 @@ describe('StepIndicator.vue', () => {
     it('applies hover class for text and border when hovered and not COMPLETED', () => {
         const wrapper = factory({
             status: StepStatus.CURRENT,
-            isHovered: true
+            isHovered: true,
         })
 
         const rootDiv = wrapper.find('div')
@@ -135,7 +135,7 @@ describe('StepIndicator.vue', () => {
     it('does not apply hover styles when status is COMPLETED even if hovered', () => {
         const wrapper = factory({
             status: StepStatus.COMPLETED,
-            isHovered: true
+            isHovered: true,
         })
 
         const rootDiv = wrapper.find('div')
@@ -147,7 +147,7 @@ describe('StepIndicator.vue', () => {
         const wrapper = factory({
             status: StepStatus.CURRENT,
             type: StepIndicatorType.ICON,
-            size: StepIndicatorSize.LG
+            size: StepIndicatorSize.LG,
         })
 
         const icon = wrapper.findComponent(Icon)
@@ -161,7 +161,7 @@ describe('StepIndicator.vue', () => {
 
     it('uses correct container size classes', () => {
         const wrapper = factory({
-            size: StepIndicatorSize.MD
+            size: StepIndicatorSize.MD,
         })
 
         const rootDiv = wrapper.find('div')
@@ -174,7 +174,7 @@ describe('StepIndicator.vue', () => {
 
         const wrapper = factory({
             // @ts-expect-error intentionally invalid
-            size: 'INVALID'
+            size: 'INVALID',
         })
 
         const rootDiv = wrapper.find('div')
@@ -188,7 +188,7 @@ describe('StepIndicator.vue', () => {
         const wrapper = factory({
             type: StepIndicatorType.EMPTY,
             status: StepStatus.CURRENT,
-            isHovered: true
+            isHovered: true,
         })
 
         const circle = wrapper.find('div > span > div.rounded-full')
@@ -197,7 +197,7 @@ describe('StepIndicator.vue', () => {
 
     it('applies correct background class for COMPLETED', () => {
         const wrapper = factory({
-            status: StepStatus.COMPLETED
+            status: StepStatus.COMPLETED,
         })
 
         const rootDiv = wrapper.find('div')
@@ -206,7 +206,7 @@ describe('StepIndicator.vue', () => {
 
     it('applies correct background class for NONE', () => {
         const wrapper = factory({
-            status: StepStatus.NONE
+            status: StepStatus.NONE,
         })
 
         const rootDiv = wrapper.find('div')

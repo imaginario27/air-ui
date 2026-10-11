@@ -2,23 +2,19 @@ import { mount } from '@vue/test-utils'
 import BadgeStack from '@/components/badges/BadgeStack.vue'
 import Badge from '@/components/badges/Badge.vue'
 
-const sampleData = [
-    { text: 'Badge 1', icon: 'mdi:check' },
-    { text: 'Badge 2' },
-    { text: 'Badge 3' }
-]
+const sampleData = [{ text: 'Badge 1', icon: 'mdi:check' }, { text: 'Badge 2' }, { text: 'Badge 3' }]
 
 const factory = (props: Partial<InstanceType<typeof BadgeStack>['$props']> = {}) => {
     return mount(BadgeStack, {
         props: {
             items: sampleData,
-            ...props
+            ...props,
         },
         global: {
             components: {
-                Badge
-            }
-        }
+                Badge,
+            },
+        },
     })
 }
 
@@ -39,8 +35,8 @@ describe('BadgeStack.vue', () => {
 
         // 2 normal badges + 1 ellipsis badge
         expect(badges).toHaveLength(3)
-        
-        const visibleTexts = badges.map(b => b.text())
+
+        const visibleTexts = badges.map((b) => b.text())
         expect(visibleTexts).toContain('Badge 1')
         expect(visibleTexts).toContain('Badge 2')
         expect(visibleTexts).toContain('...')
@@ -50,7 +46,7 @@ describe('BadgeStack.vue', () => {
         const wrapper = factory({ itemsLimit: 2 })
         const badges = wrapper.findAllComponents(Badge)
 
-        const ellipsisBadge = badges.find(badge => badge.text() === '...')
+        const ellipsisBadge = badges.find((badge) => badge.text() === '...')
         expect(ellipsisBadge).toBeTruthy()
     })
 
@@ -58,7 +54,7 @@ describe('BadgeStack.vue', () => {
         const wrapper = factory({ itemsLimit: 5 })
         const badges = wrapper.findAllComponents(Badge)
 
-        const ellipsisBadge = badges.find(b => b.text() === '...')
+        const ellipsisBadge = badges.find((b) => b.text() === '...')
         expect(ellipsisBadge).toBeFalsy()
 
         expect(badges).toHaveLength(sampleData.length)
@@ -112,8 +108,18 @@ describe('BadgeStack.vue', () => {
             color: ColorAccent.NEUTRAL,
             items: [
                 { text: 'Badge 1' },
-                { text: 'Badge 2', styleType: BadgeStyle.FILLED, color: ColorAccent.DANGER, shape: BadgeShape.PILL, isTransparent: true, showDot: true, closeable: true, showIcon: true, icon: 'mdi:check' },
-            ]
+                {
+                    text: 'Badge 2',
+                    styleType: BadgeStyle.FILLED,
+                    color: ColorAccent.DANGER,
+                    shape: BadgeShape.PILL,
+                    isTransparent: true,
+                    showDot: true,
+                    closeable: true,
+                    showIcon: true,
+                    icon: 'mdi:check',
+                },
+            ],
         })
         const badges = wrapper.findAllComponents(Badge)
 

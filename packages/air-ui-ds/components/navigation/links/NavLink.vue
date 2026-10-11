@@ -2,35 +2,28 @@
     <NuxtLink
         :to="!disabled ? to : undefined"
         :target="isExternal ? '_blank' : '_self'"
-        :rel="isExternal ? 'noopener noreferrer' : undefined" 
-        :external="isExternal"   
+        :rel="isExternal ? 'noopener noreferrer' : undefined"
+        :external="isExternal"
         class="inline-flex items-center justify-center w-fit"
     >
-        <div 
+        <div
             :class="[
-            'group flex items-center justify-center',
-            'text-text-primary-brand-default',
-            'transition-colors duration-200 ease-out',
-            !props.disabled ? 'hover:text-text-primary-brand-hover' : 'opacity-disabled cursor-not-allowed',
-            gapClass,
-        ]">
+                'group flex items-center justify-center',
+                'text-text-primary-brand-default',
+                'transition-colors duration-200 ease-out',
+                !props.disabled ? 'hover:text-text-primary-brand-hover' : 'opacity-disabled cursor-not-allowed',
+                gapClass,
+            ]"
+        >
             <!-- Left icon -->
-            <Icon
-                v-if="iconPosition === IconPosition.LEFT"
-                :name="icon"
-                :iconClass="iconSizeClass"
-            />
+            <Icon v-if="iconPosition === IconPosition.LEFT" :name="icon" :iconClass="iconSizeClass" />
 
-            <span :class="[ textSizeClass, textClass ]">
+            <span :class="[textSizeClass, textClass]">
                 {{ text }}
             </span>
 
             <!-- Right icon -->
-            <Icon
-                v-if="iconPosition === IconPosition.RIGHT"
-                :name="icon"
-                :iconClass="iconSizeClass"
-            />
+            <Icon v-if="iconPosition === IconPosition.RIGHT" :name="icon" :iconClass="iconSizeClass" />
         </div>
     </NuxtLink>
 </template>
@@ -40,7 +33,7 @@
 const props = defineProps({
     text: {
         type: String as PropType<string>,
-        default: 'Link text'
+        default: 'Link text',
     },
     size: {
         type: String as PropType<NavLinkSize>,
@@ -49,7 +42,7 @@ const props = defineProps({
     },
     icon: {
         type: String as PropType<string>,
-        default: "mdi:arrow-right-thin"
+        default: 'mdi:arrow-right-thin',
     },
     iconPosition: {
         type: String as PropType<IconPosition>,
@@ -62,15 +55,15 @@ const props = defineProps({
     },
     to: {
         type: String as PropType<string>,
-        default: '/'
+        default: '/',
     },
     isExternal: {
         type: Boolean as PropType<boolean>,
-        default: false
+        default: false,
     },
     textClass: {
         type: String as PropType<string>,
-        default: 'font-semibold'
+        default: 'font-semibold',
     },
 })
 

@@ -87,9 +87,7 @@ describe('TableOfContentsItem', () => {
         const wrapper = factory({
             link: {
                 ...baseLink,
-                children: [
-                    { id: 'child-1', text: 'Child 1', depth: 2, children: [] },
-                ],
+                children: [{ id: 'child-1', text: 'Child 1', depth: 2, children: [] }],
             },
             activeId: null,
         })

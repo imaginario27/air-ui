@@ -7,7 +7,8 @@ export const utilList: UtilPortfolioItem[] = [
     {
         title: 'getStackCounterContent',
         to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.UTILS}/get-stack-counter-content`,
-        description: 'Returns the counter content for a stack display based on the number of items, counter type, and item limit.',
+        description:
+            'Returns the counter content for a stack display based on the number of items, counter type, and item limit.',
     },
 
     // DATA
@@ -28,7 +29,8 @@ export const utilList: UtilPortfolioItem[] = [
     {
         title: 'convertToSelectOptions',
         to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.UTILS}/convert-to-select-options`,
-        description: 'Converts an array of objects into SelectOption[] by mapping specified keys or transformation functions.',
+        description:
+            'Converts an array of objects into SelectOption[] by mapping specified keys or transformation functions.',
     },
 
     // DATES
@@ -224,11 +226,11 @@ export const utilList: UtilPortfolioItem[] = [
     {
         title: 'generateUsername',
         to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.UTILS}/generate-username`,
-        description: 'Generates a unique username based on the user\'s first name and last names.',
+        description: "Generates a unique username based on the user's first name and last names.",
     },
     {
         title: 'getUserDisplayName',
         to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.UTILS}/get-user-display-name`,
         description: 'Generates a display name using the first name and only the first last name.',
-    }
+    },
 ]

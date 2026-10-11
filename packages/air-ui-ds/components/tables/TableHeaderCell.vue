@@ -1,11 +1,5 @@
 <template>
-    <th
-        :scope
-        :class="[
-            ...headerClass
-        ]"
-        @click="scope === TableHeaderCellScope.ROW && handleNavigation()"
-    >
+    <th :scope :class="[...headerClass]" @click="scope === TableHeaderCellScope.ROW && handleNavigation()">
         <div class="w-full flex items-center gap-2">
             <slot />
 
@@ -23,7 +17,7 @@
 <script setup lang="ts">
 // Props
 const props = defineProps({
-    scope : {
+    scope: {
         type: String as PropType<TableHeaderCellScope>,
         default: TableHeaderCellScope.COL,
         validator: (value: TableHeaderCellScope) => Object.values(TableHeaderCellScope).includes(value),

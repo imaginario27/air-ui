@@ -25,13 +25,15 @@ export const useTreeViewClicks = (
         const hasModifier = event.shiftKey || event.ctrlKey || event.metaKey
         const togglesOnClick = props.expandOnClick && isBranch(node)
 
-        return props.renameOnClick
-            && rename.canRename.value
-            && wasOnlySelected
-            && !hasModifier
-            && !togglesOnClick
-            && !isDisabled(node)
-            && event.detail < 2
+        return (
+            props.renameOnClick &&
+            rename.canRename.value &&
+            wasOnlySelected &&
+            !hasModifier &&
+            !togglesOnClick &&
+            !isDisabled(node) &&
+            event.detail < 2
+        )
     }
 
     const onRowClick = async (node: TreeViewNode, event: MouseEvent) => {

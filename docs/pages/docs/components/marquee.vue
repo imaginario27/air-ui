@@ -1,10 +1,7 @@
 ﻿<template>
     <Section>
         <SectionBody>
-            <ContentRenderer
-                v-if="data"
-                :value="data"
-            />
+            <ContentRenderer v-if="data" :value="data" />
             <ContentRenderFallback v-else />
         </SectionBody>
     </Section>
@@ -15,7 +12,8 @@ definePageMeta({
     title: 'Marquee',
     layout: 'docs',
     overtitle: 'Components',
-    description: 'Continuously scrolls content in a loop, horizontally or vertically, with optional pause on hover and fade edges.',
+    description:
+        'Continuously scrolls content in a loop, horizontally or vertically, with optional pause on hover and fade edges.',
 })
 
 const route = useRoute()

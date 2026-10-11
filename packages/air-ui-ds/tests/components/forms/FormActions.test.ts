@@ -5,9 +5,9 @@ import FormActions from '~/components/forms/FormActions.vue'
 const factory = (options = {}): VueWrapper => {
     return mount(FormActions, {
         slots: {
-            default: '<button>Action</button>'
+            default: '<button>Action</button>',
         },
-        ...options
+        ...options,
     })
 }
 
@@ -28,8 +28,8 @@ describe('FormActions.vue', () => {
     it('applies alternate flex direction when reverseOnMobile is false', () => {
         const wrapper = factory({
             props: {
-                reverseOnMobile: false
-            }
+                reverseOnMobile: false,
+            },
         })
         const div = wrapper.find('div')
 

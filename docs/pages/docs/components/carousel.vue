@@ -1,10 +1,7 @@
 <template>
     <Section>
         <SectionBody>
-            <ContentRenderer
-                v-if="data"
-                :value="data"
-            />
+            <ContentRenderer v-if="data" :value="data" />
             <ContentRenderFallback v-else />
         </SectionBody>
     </Section>
@@ -15,7 +12,8 @@ definePageMeta({
     title: 'Carousel',
     layout: 'docs',
     overtitle: 'Components',
-    description: 'Displays a set of slides one or several at a time, with arrows, dots, swipe, keyboard navigation and optional autoplay.',
+    description:
+        'Displays a set of slides one or several at a time, with arrows, dots, swipe, keyboard navigation and optional autoplay.',
 })
 
 const route = useRoute()

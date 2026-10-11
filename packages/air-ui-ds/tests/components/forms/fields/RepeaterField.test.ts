@@ -10,7 +10,7 @@ import { Orientation } from '~/models/enums/orientations'
 import { FormValidationMode } from '~/models/enums/formValidations'
 
 vi.mock('~/composables/useFormValidationMode', () => ({
-    useInjectedValidationMode: () => ref(FormValidationMode.BLUR)
+    useInjectedValidationMode: () => ref(FormValidationMode.BLUR),
 }))
 
 const factory = (props: Record<string, unknown> = {}) => {
@@ -47,7 +47,8 @@ describe('RepeaterField.vue', () => {
                 defaultValue: { label: '' },
             },
             slots: {
-                default: ({ item }: { item: { label: string } }) => h('input', { class: 'custom-input', value: item.label }),
+                default: ({ item }: { item: { label: string } }) =>
+                    h('input', { class: 'custom-input', value: item.label }),
             },
         })
 
@@ -76,7 +77,7 @@ describe('RepeaterField.vue', () => {
 
         const buttons = wrapper.findAllComponents(ActionIconButton)
         expect(buttons).toHaveLength(3)
-        const ariaLabels = buttons.map(button => button.props('ariaLabel'))
+        const ariaLabels = buttons.map((button) => button.props('ariaLabel'))
         expect(ariaLabels).toContain('Remove item')
     })
 
@@ -89,7 +90,7 @@ describe('RepeaterField.vue', () => {
         await wrapper.vm.$nextTick()
 
         const buttons = wrapper.findAllComponents(ActionIconButton)
-        const ariaLabels = buttons.map(button => button.props('ariaLabel'))
+        const ariaLabels = buttons.map((button) => button.props('ariaLabel'))
         expect(ariaLabels).toContain('Delete this row')
         expect(ariaLabels).toContain('Add another row')
     })
@@ -97,7 +98,7 @@ describe('RepeaterField.vue', () => {
     it('does not render the remove button when there is a single item', () => {
         const wrapper = factory({ modelValue: [{ name: 'A' }] })
 
-        const ariaLabels = wrapper.findAllComponents(ActionIconButton).map(button => button.props('ariaLabel'))
+        const ariaLabels = wrapper.findAllComponents(ActionIconButton).map((button) => button.props('ariaLabel'))
         expect(ariaLabels).not.toContain('Remove item')
     })
 
@@ -110,9 +111,7 @@ describe('RepeaterField.vue', () => {
         const addButton = wrapper.findAllComponents(ActionIconButton)[0]
         await addButton?.vm.$emit('click')
 
-        expect(wrapper.emitted('update:modelValue')).toEqual([
-            [[{ name: 'A' }, { name: '' }]],
-        ])
+        expect(wrapper.emitted('update:modelValue')).toEqual([[[{ name: 'A' }, { name: '' }]]])
     })
 
     it('emits update:modelValue with the item removed when clicking a remove button', async () => {
@@ -120,12 +119,12 @@ describe('RepeaterField.vue', () => {
             modelValue: [{ name: 'A' }, { name: 'B' }],
         })
 
-        const removeButton = wrapper.findAllComponents(ActionIconButton).find(button => button.props('ariaLabel') === 'Remove item')
+        const removeButton = wrapper
+            .findAllComponents(ActionIconButton)
+            .find((button) => button.props('ariaLabel') === 'Remove item')
         await removeButton?.vm.$emit('click')
 
-        expect(wrapper.emitted('update:modelValue')).toEqual([
-            [[{ name: 'B' }]],
-        ])
+        expect(wrapper.emitted('update:modelValue')).toEqual([[[{ name: 'B' }]]])
     })
 
     it('uses neutral outlined style for add and delete soft style for remove', () => {
@@ -134,8 +133,8 @@ describe('RepeaterField.vue', () => {
         })
 
         const buttons = wrapper.findAllComponents(ActionIconButton)
-        const removeButton = buttons.find(button => button.props('ariaLabel') === 'Remove item')
-        const addButton = buttons.find(button => button.props('ariaLabel') === 'Add item')
+        const removeButton = buttons.find((button) => button.props('ariaLabel') === 'Remove item')
+        const addButton = buttons.find((button) => button.props('ariaLabel') === 'Add item')
 
         expect(removeButton?.props('styleType')).toBe(ButtonStyleType.DELETE_SOFT)
         expect(addButton?.props('styleType')).toBe(ButtonStyleType.NEUTRAL_OUTLINED)
@@ -147,7 +146,7 @@ describe('RepeaterField.vue', () => {
             disabled: true,
         })
 
-        wrapper.findAllComponents(ActionIconButton).forEach(button => {
+        wrapper.findAllComponents(ActionIconButton).forEach((button) => {
             expect(button.props('disabled')).toBe(true)
         })
     })
@@ -198,8 +197,8 @@ describe('RepeaterField.vue', () => {
         expect(help.exists()).toBe(true)
         expect(help.text()).toBe('Add filters')
         const children = Array.from(wrapper.element.children)
-        const helpIdx = children.findIndex(el => el.classList.contains('text-xs'))
-        const labelIdx = children.findIndex(el => el.tagName === 'LABEL')
+        const helpIdx = children.findIndex((el) => el.classList.contains('text-xs'))
+        const labelIdx = children.findIndex((el) => el.tagName === 'LABEL')
         expect(helpIdx).toBeGreaterThan(labelIdx)
         expect(helpIdx).toBeLessThan(children.length - 1)
     })
@@ -290,7 +289,7 @@ describe('RepeaterField.vue', () => {
 
             const textButtons = wrapper.findAllComponents(ActionButton)
             expect(textButtons.length).toBeGreaterThan(0)
-            textButtons.forEach(button => {
+            textButtons.forEach((button) => {
                 expect(button.element.closest('.md\\:hidden')).not.toBeNull()
             })
         })
@@ -305,7 +304,7 @@ describe('RepeaterField.vue', () => {
 
             const textButtons = wrapper.findAllComponents(ActionButton)
             expect(textButtons.length).toBeGreaterThan(0)
-            textButtons.forEach(button => {
+            textButtons.forEach((button) => {
                 expect(button.props('isMobileFullWidth')).toBe(true)
                 expect(button.element.closest('.md\\:hidden')).toBeNull()
             })
@@ -331,7 +330,7 @@ describe('RepeaterField.vue', () => {
                 moveDownButtonText: 'Move down',
             })
 
-            const texts = wrapper.findAllComponents(ActionButton).map(button => button.props('text'))
+            const texts = wrapper.findAllComponents(ActionButton).map((button) => button.props('text'))
             expect(texts).toContain('Move up')
             expect(texts).toContain('Move down')
         })
@@ -344,7 +343,7 @@ describe('RepeaterField.vue', () => {
                 removeButtonText: 'Remove row',
             })
 
-            const texts = wrapper.findAllComponents(ActionButton).map(button => button.props('text'))
+            const texts = wrapper.findAllComponents(ActionButton).map((button) => button.props('text'))
             expect(texts).toContain('Add row')
             expect(texts).toContain('Remove row')
         })
@@ -356,8 +355,8 @@ describe('RepeaterField.vue', () => {
         // Move controls render as an icon-only ActionIconButton in the desktop
         // vertical column, and as a text ActionButton in the horizontal/mobile row.
         const findMoveButtons = (wrapper: ReturnType<typeof factory>, ariaLabel: string, text: string) => [
-            ...wrapper.findAllComponents(ActionIconButton).filter(btn => btn.props('ariaLabel') === ariaLabel),
-            ...wrapper.findAllComponents(ActionButton).filter(btn => btn.props('text') === text),
+            ...wrapper.findAllComponents(ActionIconButton).filter((btn) => btn.props('ariaLabel') === ariaLabel),
+            ...wrapper.findAllComponents(ActionButton).filter((btn) => btn.props('text') === text),
         ]
 
         it('renders no sorting controls when sortingType is none (default)', () => {
@@ -388,10 +387,10 @@ describe('RepeaterField.vue', () => {
             const moveUpButtons = findMoveButtons(wrapper, 'Move item up', 'Move up')
             const moveDownButtons = findMoveButtons(wrapper, 'Move item down', 'Move down')
 
-            expect(moveUpButtons.filter(btn => btn.props('disabled') === true)).toHaveLength(2)
-            expect(moveUpButtons.filter(btn => btn.props('disabled') === false)).toHaveLength(4)
-            expect(moveDownButtons.filter(btn => btn.props('disabled') === true)).toHaveLength(2)
-            expect(moveDownButtons.filter(btn => btn.props('disabled') === false)).toHaveLength(4)
+            expect(moveUpButtons.filter((btn) => btn.props('disabled') === true)).toHaveLength(2)
+            expect(moveUpButtons.filter((btn) => btn.props('disabled') === false)).toHaveLength(4)
+            expect(moveDownButtons.filter((btn) => btn.props('disabled') === true)).toHaveLength(2)
+            expect(moveDownButtons.filter((btn) => btn.props('disabled') === false)).toHaveLength(4)
         })
 
         it('emits update:modelValue with reordered items when clicking move down', async () => {
@@ -403,9 +402,7 @@ describe('RepeaterField.vue', () => {
             const moveDownButtons = findMoveButtons(wrapper, 'Move item down', 'Move down')
             await moveDownButtons[0]?.vm.$emit('click')
 
-            expect(wrapper.emitted('update:modelValue')).toEqual([
-                [[{ name: 'B' }, { name: 'A' }, { name: 'C' }]],
-            ])
+            expect(wrapper.emitted('update:modelValue')).toEqual([[[{ name: 'B' }, { name: 'A' }, { name: 'C' }]]])
         })
 
         it('emits update:modelValue with reordered items when clicking move up', async () => {
@@ -420,9 +417,7 @@ describe('RepeaterField.vue', () => {
             const moveUpButtons = findMoveButtons(wrapper, 'Move item up', 'Move up')
             await moveUpButtons[1]?.vm.$emit('click')
 
-            expect(wrapper.emitted('update:modelValue')).toEqual([
-                [[{ name: 'B' }, { name: 'A' }, { name: 'C' }]],
-            ])
+            expect(wrapper.emitted('update:modelValue')).toEqual([[[{ name: 'B' }, { name: 'A' }, { name: 'C' }]]])
         })
 
         it('disables move up/down buttons when field is disabled', () => {
@@ -438,7 +433,7 @@ describe('RepeaterField.vue', () => {
             ]
 
             expect(moveButtons.length).toBeGreaterThan(0)
-            moveButtons.forEach(btn => expect(btn.props('disabled')).toBe(true))
+            moveButtons.forEach((btn) => expect(btn.props('disabled')).toBe(true))
         })
 
         it('renders a draggable handle for every item when sortingType is drag', () => {
@@ -502,9 +497,7 @@ describe('RepeaterField.vue', () => {
             await rowContainers[2]?.trigger('dragover', { dataTransfer })
             await rowContainers[2]?.trigger('drop', { dataTransfer })
 
-            expect(wrapper.emitted('update:modelValue')).toEqual([
-                [[{ name: 'B' }, { name: 'A' }, { name: 'C' }]],
-            ])
+            expect(wrapper.emitted('update:modelValue')).toEqual([[[{ name: 'B' }, { name: 'A' }, { name: 'C' }]]])
         })
 
         it('reorders when dragging an item up and dropping on an earlier item', async () => {
@@ -521,9 +514,7 @@ describe('RepeaterField.vue', () => {
             await rowContainers[0]?.trigger('dragover', { dataTransfer })
             await rowContainers[0]?.trigger('drop', { dataTransfer })
 
-            expect(wrapper.emitted('update:modelValue')).toEqual([
-                [[{ name: 'C' }, { name: 'A' }, { name: 'B' }]],
-            ])
+            expect(wrapper.emitted('update:modelValue')).toEqual([[[{ name: 'C' }, { name: 'A' }, { name: 'B' }]]])
         })
 
         it('drops an item into the last position via the trailing drop zone', async () => {
@@ -541,9 +532,7 @@ describe('RepeaterField.vue', () => {
             await trailingDropZone?.trigger('dragover', { dataTransfer })
             await trailingDropZone?.trigger('drop', { dataTransfer })
 
-            expect(wrapper.emitted('update:modelValue')).toEqual([
-                [[{ name: 'B' }, { name: 'C' }, { name: 'A' }]],
-            ])
+            expect(wrapper.emitted('update:modelValue')).toEqual([[[{ name: 'B' }, { name: 'C' }, { name: 'A' }]]])
         })
 
         it('swaps two items via drag, including into the last position', async () => {
@@ -563,9 +552,7 @@ describe('RepeaterField.vue', () => {
             await trailingDropZone?.trigger('dragover', { dataTransfer })
             await trailingDropZone?.trigger('drop', { dataTransfer })
 
-            expect(wrapper.emitted('update:modelValue')).toEqual([
-                [[{ name: 'B' }, { name: 'A' }]],
-            ])
+            expect(wrapper.emitted('update:modelValue')).toEqual([[[{ name: 'B' }, { name: 'A' }]]])
         })
 
         it('reorders via ArrowUp/ArrowDown when the drag handle is focused', async () => {
@@ -577,9 +564,7 @@ describe('RepeaterField.vue', () => {
             const handles = wrapper.findAll('button[aria-label="Drag to reorder item"]')
             await handles[1]?.trigger('keydown', { key: 'ArrowUp' })
 
-            expect(wrapper.emitted('update:modelValue')).toEqual([
-                [[{ name: 'B' }, { name: 'A' }, { name: 'C' }]],
-            ])
+            expect(wrapper.emitted('update:modelValue')).toEqual([[[{ name: 'B' }, { name: 'A' }, { name: 'C' }]]])
         })
 
         it('does not reorder via keyboard when the field is disabled', async () => {

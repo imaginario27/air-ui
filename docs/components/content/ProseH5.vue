@@ -1,5 +1,5 @@
 <template>
-    <h5 
+    <h5
         :class="[
             'text-base md:text-lg',
             'font-medium',

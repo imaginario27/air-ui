@@ -23,5 +23,5 @@ export enum SidebarTogglePosition {
 export enum Align {
     LEFT = 'left',
     CENTER = 'center',
-    RIGHT = 'right'
+    RIGHT = 'right',
 }

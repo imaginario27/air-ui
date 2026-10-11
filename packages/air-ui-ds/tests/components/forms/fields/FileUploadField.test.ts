@@ -5,7 +5,7 @@ import { Position } from '@/models/enums/positions'
 import { useDSConfig } from '@/composables/useDSConfig'
 
 vi.mock('~/composables/useFormValidationMode', () => ({
-    useInjectedValidationMode: () => ref('blur')
+    useInjectedValidationMode: () => ref('blur'),
 }))
 
 const DropzoneStub = defineComponent({
@@ -24,14 +24,7 @@ const DropzoneStub = defineComponent({
             default: false,
         },
     },
-    emits: [
-        'update:modelValue',
-        'update:totalProgress',
-        'error',
-        'file-added',
-        'file-removed',
-        'clear-all',
-    ],
+    emits: ['update:modelValue', 'update:totalProgress', 'error', 'file-added', 'file-removed', 'clear-all'],
     setup(_, { slots, attrs }) {
         return () => h('div', { 'data-test': 'dropzone', ...attrs }, slots.default?.())
     },
@@ -76,8 +69,10 @@ describe('FileUploadField.vue', () => {
         expect(help.text()).toBe('PDF only')
         // help text appears before the dropzone container
         const children = Array.from(wrapper.element.children)
-        const helpIdx = children.findIndex(el => el.classList.contains('text-xs'))
-        const dropzoneContainerIdx = children.findIndex(el => el.classList.contains('flex') && el.classList.contains('w-full'))
+        const helpIdx = children.findIndex((el) => el.classList.contains('text-xs'))
+        const dropzoneContainerIdx = children.findIndex(
+            (el) => el.classList.contains('flex') && el.classList.contains('w-full'),
+        )
         expect(helpIdx).toBeGreaterThan(-1)
         expect(helpIdx).toBeLessThan(dropzoneContainerIdx)
     })

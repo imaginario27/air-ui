@@ -1,11 +1,7 @@
 <template>
     <NuxtLink :to>
-        <component
-            :is="wrapperComponent"
-            :class="dynamicWrapperClass"
-            v-bind="cardProps"
-        >
-            <ContentItemImage 
+        <component :is="wrapperComponent" :class="dynamicWrapperClass" v-bind="cardProps">
+            <ContentItemImage
                 v-if="hasImage"
                 :src="imgUrl"
                 :alt="imgAlt"
@@ -20,27 +16,15 @@
             />
 
             <!-- Custom content-->
-            <slot 
-                v-if="$slots['content']"
-                name="content" 
-            />
+            <slot v-if="$slots['content']" name="content" />
 
             <!-- Content -->
-            <div 
-                v-else
-                class="w-full flex flex-col gap-1.5"
-            >
-                <component 
-                    :is="titleTag" 
-                    :class="titleClass"
-                >   
+            <div v-else class="w-full flex flex-col gap-1.5">
+                <component :is="titleTag" :class="titleClass">
                     {{ trimText(title, titleMaxLength) }}
                 </component>
 
-                <p
-                    v-if="description"
-                    :class="descriptionClass"
-                >
+                <p v-if="description" :class="descriptionClass">
                     {{ trimText(description, descriptionMaxLength) }}
                 </p>
             </div>
@@ -56,7 +40,7 @@ import Card from '../cards/Card.vue'
 const props = defineProps({
     type: {
         type: String as PropType<ContentItemType>,
-        default: ContentItemType.CARD
+        default: ContentItemType.CARD,
     },
     title: {
         type: String as PropType<string>,
@@ -92,7 +76,7 @@ const props = defineProps({
     imgUrl: String as PropType<string>,
     imgAlt: {
         type: String as PropType<string>,
-        default: 'Item image'
+        default: 'Item image',
     },
     imgAspectRatio: {
         type: String as PropType<AspectRatio>,
@@ -121,15 +105,11 @@ const props = defineProps({
         type: Boolean as PropType<boolean>,
         default: false,
     },
-    
 })
 
 // Computed
 const dynamicWrapperClass = computed(() => {
-    const baseClasses = [
-        'gap-4',
-        props.containerClass
-    ]
+    const baseClasses = ['gap-4', props.containerClass]
 
     if (props.type === ContentItemType.BASIC) {
         baseClasses.unshift('w-full', 'flex', 'flex-col')

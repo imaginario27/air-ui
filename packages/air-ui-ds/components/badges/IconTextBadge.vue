@@ -1,13 +1,6 @@
 <template>
-    <div 
-        :class="[ 
-            'inline-flex items-center gap-2 font-semibold text-xs'
-        ]"
-    >
-        <IconBadge 
-            :color
-            :icon
-        />
+    <div :class="['inline-flex items-center gap-2 font-semibold text-xs']">
+        <IconBadge :color :icon />
 
         <!-- Text -->
         <span :class="['whitespace-nowrap', textClass]">
@@ -26,11 +19,11 @@ const props = defineProps({
     },
     text: {
         type: String as PropType<string>,
-        default: 'Badge text'
+        default: 'Badge text',
     },
     icon: {
         type: String as PropType<string>,
-        default: 'mdi:help', 
+        default: 'mdi:help',
     },
 })
 

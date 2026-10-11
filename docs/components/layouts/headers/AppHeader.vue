@@ -13,11 +13,8 @@
     >
         <template #header-logo>
             <div :class="['flex gap-3', isMobile && 'mt-1.5']">
-                <AppLogo
-                    :src="isDark ? logoDark : logoLight"
-                    class="w-[80px]"
-                />
-                <Badge 
+                <AppLogo :src="isDark ? logoDark : logoLight" class="w-[80px]" />
+                <Badge
                     :color="isDark ? ColorAccent.NEUTRAL : ColorAccent.PRIMARY_BRAND"
                     :shape="BadgeShape.PILL"
                     :text="designSystemDetails.version"
@@ -27,7 +24,7 @@
             </div>
         </template>
 
-        <template #header-actions> 
+        <template #header-actions>
             <ActionButton
                 v-if="!isMobile"
                 icon="mdi:magnify"
@@ -49,9 +46,7 @@
                 @click="isSearchModalOpen = true"
             />
 
-            <SearchModalDialog 
-                v-model="isSearchModalOpen"
-            />
+            <SearchModalDialog v-model="isSearchModalOpen" />
 
             <ToggleButtonGroup
                 v-if="!isMobile"
@@ -72,27 +67,22 @@
         </template>
 
         <template v-if="useBottomTabsHeader" #bottom-header>
-            <div 
+            <div
                 v-if="tocLinks.length"
-                :class="[ 
-                    'px-content-side-padding-mobile',
-                    'md:px-content-side-padding',
-                    'flex',
-                    'lg:hidden',
-                ]"
+                :class="['px-content-side-padding-mobile', 'md:px-content-side-padding', 'flex', 'lg:hidden']"
             >
                 <Collapsible v-model="isTOCOpen" :title="tocTitle">
-                    <TableOfContents 
-                        :links="tocLinks" 
+                    <TableOfContents
+                        :links="tocLinks"
                         class="max-h-[200px] overflow-y-auto"
-                        @itemClick="() => isTOCOpen = false"
+                        @itemClick="() => (isTOCOpen = false)"
                     />
                 </Collapsible>
             </div>
-    
+
             <div
                 v-if="tabs.length"
-                :class="[ 
+                :class="[
                     'px-content-side-padding-mobile',
                     'md:px-content-side-padding',
                     'border-b',
@@ -104,20 +94,11 @@
                     v-model="selectedTabRoute"
                     :options="tabSelectOptions"
                     :size="SelectSize.LG"
-                    :class="[
-                        !tocLinks.length && 'mt-4',
-                        'mb-4', 
-                        'sm:hidden'
-                    ]"
+                    :class="[!tocLinks.length && 'mt-4', 'mb-4', 'sm:hidden']"
                 />
 
                 <!-- Desktop tabs -->
-                <TabBar 
-                    v-model="tabActiveIndex" 
-                    :tabs 
-                    :decoration="TabDecoration.ICON"
-                    class="hidden sm:flex"
-                />
+                <TabBar v-model="tabActiveIndex" :tabs :decoration="TabDecoration.ICON" class="hidden sm:flex" />
             </div>
         </template>
     </CompactHeader>
@@ -127,11 +108,11 @@
 import logoLight from '@/public/images/logo/air-ui-logo-color.svg?raw'
 import logoDark from '@/public/images/logo/air-ui-logo-dark-theme.svg?raw'
 
-// Props 
+// Props
 defineProps({
     useBottomTabsHeader: {
         type: Boolean as PropType<boolean>,
-        default: false
+        default: false,
     },
     showMobileMenuToggle: {
         type: Boolean as PropType<boolean>,
@@ -226,7 +207,7 @@ const tabs = computed<TabItem[]>(() => {
 const tabActiveIndex = computed(() => {
     const path = cleanPath.value
 
-    if(!path) return 0
+    if (!path) return 0
 
     switch (true) {
         case path.startsWith(`/${DocsAppSlug.DOCS}/${DocsAppSlug.GETTING_STARTED}`):
@@ -240,7 +221,7 @@ const tabActiveIndex = computed(() => {
 
         case path.startsWith(`/${DocsAppSlug.DOCS}/${DocsAppSlug.UTILS}`):
             return 3
-        
+
         default:
             return 0
     }
@@ -287,7 +268,7 @@ const { data } = await useAsyncData(
     () => queryCollection('content').path(cleanPath.value).first(),
     {
         watch: [cleanPath],
-    }
+    },
 )
 
 // Up to depth level 3 links
@@ -301,9 +282,7 @@ const tocLinks = computed(() => {
             }))
     }
 
-    return data.value?.body?.toc?.links
-        ? filterDepth(data.value.body.toc.links)
-        : []
+    return data.value?.body?.toc?.links ? filterDepth(data.value.body.toc.links) : []
 })
 
 const toggleButtonTheme = computed({

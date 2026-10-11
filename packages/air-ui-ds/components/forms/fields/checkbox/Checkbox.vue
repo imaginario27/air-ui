@@ -9,7 +9,7 @@
             :disabled="disabled"
             @change="handleNativeChange"
             @keydown.space.prevent="toggleCheckbox"
-        >
+        />
 
         <div
             role="checkbox"
@@ -21,8 +21,10 @@
                 'border',
                 'rounded',
                 'transition-colors',
-                modelValue ? 'bg-background-primary-brand-checked border-border-primary-brand-active' : 'bg-neutral-white border-border-default',
-                disabled ? 'bg-background-neutral-disabled cursor-not-allowed' : 'cursor-pointer'
+                modelValue
+                    ? 'bg-background-primary-brand-checked border-border-primary-brand-active'
+                    : 'bg-neutral-white border-border-default',
+                disabled ? 'bg-background-neutral-disabled cursor-not-allowed' : 'cursor-pointer',
             ]"
             @click="toggleCheckbox"
         >
@@ -31,7 +33,7 @@
                 name="mdi:check-bold"
                 :iconClass="[
                     checkboxIconSizeClass,
-                    disabled ? '!text-icon-neutral-disabled' : '!text-icon-neutral-on-filled-bg'
+                    disabled ? '!text-icon-neutral-disabled' : '!text-icon-neutral-on-filled-bg',
                 ]"
             />
         </div>

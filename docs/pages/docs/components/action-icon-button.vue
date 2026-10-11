@@ -2,10 +2,8 @@
     <Section>
         <SectionBody>
             <TabBar v-model="activeIndex" :tabs />
-            <ContentRenderer 
-                v-if="data" :value="data" 
-            />
-            <ContentRenderFallback v-else/>
+            <ContentRenderer v-if="data" :value="data" />
+            <ContentRenderFallback v-else />
         </SectionBody>
     </Section>
 </template>
@@ -14,7 +12,7 @@ definePageMeta({
     title: 'ActionIconButton',
     layout: 'docs',
     overtitle: 'Components',
-    description: 'An icon button element that can act as a link or trigger an action.'
+    description: 'An icon button element that can act as a link or trigger an action.',
 })
 
 // Route

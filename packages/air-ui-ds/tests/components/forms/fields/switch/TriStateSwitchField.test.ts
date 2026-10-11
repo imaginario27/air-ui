@@ -4,19 +4,19 @@ import { FormValidationMode } from '~/models/enums/formValidations'
 import { ControlFieldSize, SwitchStyle, TriStateValue } from '#imports'
 
 vi.mock('~/composables/useFormValidationMode', () => ({
-    useInjectedValidationMode: () => ref(FormValidationMode.BLUR)
+    useInjectedValidationMode: () => ref(FormValidationMode.BLUR),
 }))
 
 const defaultProps = {
-    id: 'switch-id'
+    id: 'switch-id',
 }
 
 const factory = (props: Record<string, unknown> = {}) => {
     return mount(TriStateSwitchField, {
         props: {
             ...defaultProps,
-            ...props
-        }
+            ...props,
+        },
     })
 }
 
@@ -41,7 +41,7 @@ describe('TriStateSwitchField', () => {
         const wrapper = factory({
             size: ControlFieldSize.LG,
             styleType: SwitchStyle.SUCCESS,
-            modelValue: TriStateValue.CHECKED
+            modelValue: TriStateValue.CHECKED,
         })
 
         const switchWrapper = wrapper.find('div.relative.flex.items-center')
@@ -88,7 +88,7 @@ describe('TriStateSwitchField', () => {
     it('does not emit update:modelValue when disabled', async () => {
         const wrapper = factory({
             modelValue: TriStateValue.UNCHECKED,
-            disabled: true
+            disabled: true,
         })
 
         const toggle = wrapper.find('div.relative.flex.items-center')
@@ -103,7 +103,7 @@ describe('TriStateSwitchField', () => {
         const wrapper = factory({
             modelValue: TriStateValue.UNCHECKED,
             required: true,
-            validator
+            validator,
         })
 
         const toggle = wrapper.find('div.relative.flex.items-center')
@@ -124,7 +124,7 @@ describe('TriStateSwitchField', () => {
             required: true,
             validator,
             modelValue: TriStateValue.UNCHECKED,
-            error: ''
+            error: '',
         })
 
         await wrapper.setProps({ modelValue: TriStateValue.INDETERMINATE })
@@ -139,7 +139,7 @@ describe('TriStateSwitchField', () => {
         const wrapper = factory({
             required: false,
             validator,
-            modelValue: TriStateValue.CHECKED
+            modelValue: TriStateValue.CHECKED,
         })
 
         await wrapper.setProps({ modelValue: TriStateValue.UNCHECKED })
@@ -158,12 +158,10 @@ describe('TriStateSwitchField', () => {
     it('places switch next to label when fitToContent is enabled', () => {
         const wrapper = factory({
             label: 'Enable feature',
-            fitToContent: true
+            fitToContent: true,
         })
 
-        const mainWrapper = wrapper
-            .findAll('div')
-            .find(div => div.classes().includes('items-center'))
+        const mainWrapper = wrapper.findAll('div').find((div) => div.classes().includes('items-center'))
 
         expect(mainWrapper).toBeDefined()
         expect(mainWrapper!.classes()).toContain('w-max')
@@ -212,8 +210,8 @@ describe('TriStateSwitchField', () => {
         const wrapper = mount(TriStateSwitchField, {
             props: defaultProps,
             slots: {
-                label: '<strong>Bold</strong> feature'
-            }
+                label: '<strong>Bold</strong> feature',
+            },
         })
 
         const label = wrapper.find('label')

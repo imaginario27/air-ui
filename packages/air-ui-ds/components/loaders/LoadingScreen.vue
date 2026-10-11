@@ -1,38 +1,34 @@
 <template>
     <div
         v-if="isLoading"
-        :class="[ 
-            'w-full', 
-            isFullScreen && 'h-screen', 
-            'flex', 
-            'justify-center', 
+        :class="[
+            'w-full',
+            isFullScreen && 'h-screen',
+            'flex',
+            'justify-center',
             'items-center',
             'px-content-side-padding',
             'py-4',
-            containerClass
+            containerClass,
         ]"
     >
-        <Loading 
-            :isLoading
-            :text="loadingText"
-            :spinnerSize
-        />
+        <Loading :isLoading :text="loadingText" :spinnerSize />
     </div>
-    <div 
+    <div
         v-if="!isLoading && error"
         :class="[
             'w-full',
             'px-content-side-padding',
-             isFullScreen ? 'py-[10vw] md:py-[20vw]' : 'px-content-side-padding py-8',
+            isFullScreen ? 'py-[10vw] md:py-[20vw]' : 'px-content-side-padding py-8',
             'flex',
             'flex-col',
             isSpaced ? 'gap-4' : 'gap-2',
             'items-center',
             'justify-center',
-            containerClass
+            containerClass,
         ]"
     >
-        <ContainedIcon 
+        <ContainedIcon
             v-if="!$slots['graphic']"
             :color="ColorAccent.DANGER"
             icon="mdi:alert-circle-outline"
@@ -42,16 +38,7 @@
         <!-- Can be used to replace default content icon -->
         <slot name="graphic" />
 
-        <div
-            :class="[
-                'flex',
-                'flex-col',
-                isSpaced ? 'gap-3' : 'gap-2',
-                'items-center',
-                'w-full',
-                'max-w-[800px]',
-            ]"
-        >
+        <div :class="['flex', 'flex-col', isSpaced ? 'gap-3' : 'gap-2', 'items-center', 'w-full', 'max-w-[800px]']">
             <h1 :class="titleClass">
                 {{ title }}
             </h1>
@@ -64,7 +51,7 @@
             {{ helpText }}
         </p>
 
-        <div 
+        <div
             :class="[
                 'w-full',
                 'flex',
@@ -73,11 +60,11 @@
                 'items-center',
                 'justify-center',
                 'flex-col',
-                'md:flex-row'
+                'md:flex-row',
             ]"
         >
             <template v-if="!$slots['actions']">
-                <ActionButton 
+                <ActionButton
                     v-if="hasGoBackButton"
                     :actionType="ButtonActionType.LINK"
                     :styleType="hasRetryButton ? ButtonStyleType.NEUTRAL_FILLED : undefined"
@@ -90,7 +77,7 @@
                 />
 
                 <template v-if="hasRetryButton">
-                    <ActionButton 
+                    <ActionButton
                         v-if="!retryLocked"
                         :text="retryButtonText"
                         :size="buttonSize"
@@ -101,7 +88,7 @@
                         isMobileFullWidth
                         @click="handleRetry"
                     />
-    
+
                     <p v-else class="text-xs text-text-neutral-subtle mt-4">
                         {{ retryLimitReachedText }}
                     </p>
@@ -123,7 +110,7 @@ const props = defineProps({
     },
     loadingText: {
         type: String as PropType<string>,
-        default: "Loading",
+        default: 'Loading',
     },
     error: {
         type: [String, null] as PropType<string | null>,
@@ -131,11 +118,11 @@ const props = defineProps({
     },
     title: {
         type: String as PropType<string>,
-        default: "Oops! Something went wrong!",
+        default: 'Oops! Something went wrong!',
     },
     helpText: {
         type: String as PropType<string>,
-        default: "Please try again or report the error to us. Thank you!",
+        default: 'Please try again or report the error to us. Thank you!',
     },
     hasGoBackButton: {
         type: Boolean as PropType<boolean>,
@@ -143,15 +130,15 @@ const props = defineProps({
     },
     goBackText: {
         type: String as PropType<string>,
-        default: "Go back",
+        default: 'Go back',
     },
     goBackLink: {
         type: String as PropType<string>,
-        default: "/",
+        default: '/',
     },
     goBackIcon: {
         type: String as PropType<string>,
-        default: "mdi:keyboard-backspace",
+        default: 'mdi:keyboard-backspace',
     },
     hasRetryButton: {
         type: Boolean as PropType<boolean>,
@@ -188,7 +175,7 @@ const props = defineProps({
     spinnerSize: String as PropType<LoadingSpinnerSize>,
     iconContainerSize: {
         type: String as PropType<IconContainerSize>,
-        default: IconContainerSize.XXL, 
+        default: IconContainerSize.XXL,
         validator: (value: IconContainerSize) => Object.values(IconContainerSize).includes(value),
     },
     buttonSize: String as PropType<ButtonSize>,
@@ -210,7 +197,7 @@ const props = defineProps({
     },
     containerClass: {
         type: String as PropType<string>,
-        default: "py-20",
+        default: 'py-20',
     },
 })
 
@@ -235,24 +222,26 @@ const retryButtonText = computed(() => {
 })
 
 // Combined disabled state
-const isRetryButtonDisabled = computed(() =>
-    isCoolingDown.value ||
-    retryCount.value >= props.maxRetries ||
-    temporarilyDisabled.value
+const isRetryButtonDisabled = computed(
+    () => isCoolingDown.value || retryCount.value >= props.maxRetries || temporarilyDisabled.value,
 )
 
 // Cooldown countdown timer
-const { pause, resume } = useIntervalFn(() => {
-    if (remainingSeconds.value <= 1) {
-        pause()
-        isCoolingDown.value = false
-        remainingSeconds.value = props.cooldownSeconds
-        resetRetry()
-        cycleCount.value++
-    } else {
-        remainingSeconds.value--
-    }
-}, 1000, { immediate: false })
+const { pause, resume } = useIntervalFn(
+    () => {
+        if (remainingSeconds.value <= 1) {
+            pause()
+            isCoolingDown.value = false
+            remainingSeconds.value = props.cooldownSeconds
+            resetRetry()
+            cycleCount.value++
+        } else {
+            remainingSeconds.value--
+        }
+    },
+    1000,
+    { immediate: false },
+)
 
 // Retry click handler
 const handleRetryInternal = () => {

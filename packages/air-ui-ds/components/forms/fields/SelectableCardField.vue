@@ -1,46 +1,28 @@
 <template>
     <div class="w-full flex flex-col gap-2">
         <!-- Label -->
-        <label 
+        <label
             v-if="label"
             :for="id"
-            :class="[
-                'text-sm',
-                'font-semibold',
-                'text-left',
-                hasError ? 'text-text-error' : undefined,
-            ]"
+            :class="['text-sm', 'font-semibold', 'text-left', hasError ? 'text-text-error' : undefined]"
         >
             {{ label }}
-            <span
-                v-if="!required && showOptionalLabel"
-                class="font-normal text-text-neutral-subtler"
-            >
+            <span v-if="!required && showOptionalLabel" class="font-normal text-text-neutral-subtler">
                 {{ optionalLabelText }}
             </span>
         </label>
-        
+
         <!-- Help Text (top) -->
-        <HelpText
-            v-if="helpTextPosition === Position.TOP"
-            :text="helpText"
-            :error="error"
-        />
+        <HelpText v-if="helpTextPosition === Position.TOP" :text="helpText" :error="error" />
 
-        <Loading
-            v-if="showLoadingState && isLoading" 
-            :isLoading
-            :loadingText
-            :spinnerSize="LoadingSpinnerSize.XS"
-        />
-        
+        <Loading v-if="showLoadingState && isLoading" :isLoading :loadingText :spinnerSize="LoadingSpinnerSize.XS" />
+
         <template v-if="!isLoading">
-
             <!-- Card Options -->
-            <Grid 
-                :cols="gridDesktopCols" 
-                :tabletCols="gridTabletCols" 
-                :mobileCols="gridMobileCols" 
+            <Grid
+                :cols="gridDesktopCols"
+                :tabletCols="gridTabletCols"
+                :mobileCols="gridMobileCols"
                 :gapClass="gridGapClass"
             >
                 <SelectableCard
@@ -77,13 +59,9 @@
                     @buttonClick="option.secondaryBtnCallback"
                 />
             </Grid>
-    
+
             <!-- Help Text (bottom) -->
-            <HelpText
-                v-if="helpTextPosition === Position.BOTTOM"
-                :text="helpText"
-                :error="error"
-            />
+            <HelpText v-if="helpTextPosition === Position.BOTTOM" :text="helpText" :error="error" />
         </template>
     </div>
 </template>
@@ -104,9 +82,7 @@ const props = defineProps({
         required: true,
     },
     modelValue: {
-        type: [String, Boolean, Array, null] as PropType<
-            SelectableCardValue | null | Array<SelectableCardValue>
-        >,
+        type: [String, Boolean, Array, null] as PropType<SelectableCardValue | null | Array<SelectableCardValue>>,
         required: true,
     },
     multiple: {
@@ -157,7 +133,7 @@ const props = defineProps({
     },
     loadingText: {
         type: String as PropType<string>,
-        default: 'Loading'
+        default: 'Loading',
     },
     titleClass: String as PropType<string>,
     descriptionClass: String as PropType<string>,
@@ -289,9 +265,7 @@ const toggleOption = (value: SelectableCardValue) => {
     let newValue: SelectableCardValue | null | Array<SelectableCardValue>
 
     if (props.multiple) {
-        const current = Array.isArray(props.modelValue)
-            ? [...props.modelValue]
-            : []
+        const current = Array.isArray(props.modelValue) ? [...props.modelValue] : []
 
         const index = current.indexOf(value)
 

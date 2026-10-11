@@ -1,9 +1,7 @@
 ﻿<template>
     <Section>
         <SectionBody>
-            <ContentRenderer 
-                v-if="data" :value="data" 
-            />
+            <ContentRenderer v-if="data" :value="data" />
             <ContentRenderFallback v-else />
         </SectionBody>
     </Section>
@@ -13,7 +11,8 @@ definePageMeta({
     title: 'Empty state',
     layout: 'docs',
     overtitle: 'Components',
-    description: 'A lightweight UI component used to display a placeholder when no data is found. Useful anywhere where data is fetched and no results could be returned. Can be displayed with a styled container.',
+    description:
+        'A lightweight UI component used to display a placeholder when no data is found. Useful anywhere where data is fetched and no results could be returned. Can be displayed with a styled container.',
 })
 
 // Route

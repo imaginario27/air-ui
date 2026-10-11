@@ -12,15 +12,12 @@ import ContainedIcon from '@/components/icons/ContainedIcon.vue'
 import { Orientation } from '@/models/enums/orientations'
 import { useDSConfig } from '@/composables/useDSConfig'
 
-const factory = (
-    props?: Partial<InstanceType<typeof InfoModalDialog>['$props']>,
-    slots?: Record<string, any>
-) => {
+const factory = (props?: Partial<InstanceType<typeof InfoModalDialog>['$props']>, slots?: Record<string, any>) => {
     return mount(InfoModalDialog, {
         props: {
             modelValue: true,
             buttonActionText: 'Submit',
-            ...props
+            ...props,
         },
         slots,
         global: {
@@ -32,10 +29,10 @@ const factory = (
                 ModalDescription,
                 ModalActions,
                 ActionButton,
-                ContainedIcon
-            }
+                ContainedIcon,
+            },
         },
-        attachTo: document.body
+        attachTo: document.body,
     })
 }
 
@@ -55,7 +52,7 @@ describe('InfoModalDialog.vue', () => {
     it('renders custom title and description', async () => {
         factory({
             title: 'Heads up!',
-            description: 'Please confirm your information.'
+            description: 'Please confirm your information.',
         })
         await nextTick()
 
@@ -66,7 +63,7 @@ describe('InfoModalDialog.vue', () => {
     it('renders both buttons with correct text', async () => {
         factory({
             buttonCloseText: 'Close',
-            buttonActionText: 'Submit'
+            buttonActionText: 'Submit',
         })
         await nextTick()
 
@@ -120,7 +117,7 @@ describe('InfoModalDialog.vue', () => {
         const wrapper = factory({
             closeOnClickOutside: true,
             hasCornerCloseButton: true,
-            cardClass: 'custom-card'
+            cardClass: 'custom-card',
         })
         await nextTick()
 
@@ -145,7 +142,7 @@ describe('InfoModalDialog.vue', () => {
             buttonActionText: 'Continue',
             buttonActionIcon: 'mdi:arrow-right',
             isLoading: true,
-            loadingText: 'Processing...'
+            loadingText: 'Processing...',
         })
         await nextTick()
 

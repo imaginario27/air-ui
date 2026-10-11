@@ -1,9 +1,7 @@
 ﻿<template>
     <Section>
         <SectionBody>
-            <ContentRenderer 
-                v-if="data" :value="data" 
-            />
+            <ContentRenderer v-if="data" :value="data" />
             <ContentRenderFallback v-else />
         </SectionBody>
     </Section>
@@ -13,7 +11,8 @@ definePageMeta({
     title: 'NavLink',
     layout: 'docs',
     overtitle: 'Components',
-    description: 'A versatile navigation link component used within layouts to route between pages. Ideal when navigation is needed without the visual weight of a button. Use only for routing, not for triggering actions.',
+    description:
+        'A versatile navigation link component used within layouts to route between pages. Ideal when navigation is needed without the visual weight of a button. Use only for routing, not for triggering actions.',
 })
 
 // Route

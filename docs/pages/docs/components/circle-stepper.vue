@@ -2,9 +2,7 @@
     <Section>
         <SectionBody>
             <TabBar v-model="activeIndex" :tabs />
-            <ContentRenderer 
-                v-if="data" :value="data" 
-            />
+            <ContentRenderer v-if="data" :value="data" />
             <ContentRenderFallback v-else />
         </SectionBody>
     </Section>
@@ -14,7 +12,8 @@ definePageMeta({
     title: 'Circle stepper',
     layout: 'docs',
     overtitle: 'Components',
-    description: 'A multi-step progress component that visually represents sequential steps using circular indicators, with optional interactivity and icon support.',
+    description:
+        'A multi-step progress component that visually represents sequential steps using circular indicators, with optional interactivity and icon support.',
 })
 
 // Route

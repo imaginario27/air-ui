@@ -1,16 +1,6 @@
 <template>
-    <div 
-        :class="[ 
-            'w-[24px] h-[24px] flex justify-center items-center rounded-full', 
-            colorClass 
-        ]" 
-    >
-        <Icon 
-            v-if="icon"
-            :name="icon"
-            :size="IconSize.SM"
-            :iconClass="iconColorClass"
-        />
+    <div :class="['w-[24px] h-[24px] flex justify-center items-center rounded-full', colorClass]">
+        <Icon v-if="icon" :name="icon" :size="IconSize.SM" :iconClass="iconColorClass" />
     </div>
 </template>
 
@@ -24,7 +14,7 @@ const props = defineProps({
     },
     icon: {
         type: String as PropType<string>,
-        default: 'mdi:help', 
+        default: 'mdi:help',
     },
 })
 

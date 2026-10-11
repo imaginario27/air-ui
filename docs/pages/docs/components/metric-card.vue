@@ -1,9 +1,7 @@
 ﻿<template>
     <Section>
         <SectionBody>
-            <ContentRenderer 
-                v-if="data" :value="data" 
-            />
+            <ContentRenderer v-if="data" :value="data" />
             <ContentRenderFallback v-else />
         </SectionBody>
     </Section>
@@ -13,7 +11,8 @@ definePageMeta({
     title: 'Metric card',
     layout: 'docs',
     overtitle: 'Components',
-    description: 'Displays a key metric or data point in a concise card format, often used in dashboards and analytics views to highlight performance indicators.',
+    description:
+        'Displays a key metric or data point in a concise card format, often used in dashboards and analytics views to highlight performance indicators.',
 })
 
 // Route

@@ -14,11 +14,11 @@ const factory = (props: Record<string, unknown> = {}, options: Record<string, un
         global: {
             stubs: {
                 Card: {
-                    template: '<div><slot /></div>'
-                }
-            }
+                    template: '<div><slot /></div>',
+                },
+            },
         },
-        ...options
+        ...options,
     })
 }
 
@@ -38,7 +38,7 @@ describe('FeatureCard.vue', () => {
     it('renders custom title and description', () => {
         const wrapper = factory({
             title: 'Custom Feature',
-            description: 'Custom feature description'
+            description: 'Custom feature description',
         })
 
         expect(wrapper.text()).toContain('Custom Feature')
@@ -73,7 +73,7 @@ describe('FeatureCard.vue', () => {
             icon: 'mdi:home',
             containedIconShape: IconContainerShape.SQUARE,
             containedIconStyleType: IconContainerStyleType.FILLED,
-            containedIconColor: ColorAccent.PRIMARY_BRAND
+            containedIconColor: ColorAccent.PRIMARY_BRAND,
         })
 
         const icon = wrapper.findComponent(ContainedIcon)
@@ -104,9 +104,9 @@ describe('FeatureCard.vue', () => {
             {},
             {
                 slots: {
-                    footer: '<button data-test="footer-btn">Click me</button>'
-                }
-            }
+                    footer: '<button data-test="footer-btn">Click me</button>',
+                },
+            },
         )
 
         const footer = wrapper.findComponent(CardFooter)

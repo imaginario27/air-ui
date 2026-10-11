@@ -4,7 +4,7 @@ import HelpTopicCard from '@/components/cards/specific/HelpTopicCard.vue'
 const factory = (props = {}, options = {}) => {
     return mount(HelpTopicCard, {
         props,
-        ...options
+        ...options,
     })
 }
 
@@ -23,7 +23,7 @@ describe('HelpTopicCard.vue', () => {
     it('renders custom title and description', () => {
         const wrapper = factory({
             title: 'Custom Help Title',
-            description: 'Detailed help topic description'
+            description: 'Detailed help topic description',
         })
         expect(wrapper.text()).toContain('Custom Help Title')
         expect(wrapper.text()).toContain('Detailed help topic description')
@@ -31,21 +31,17 @@ describe('HelpTopicCard.vue', () => {
 
     it('renders the ContainedIcon with correct default and custom icon', () => {
         const defaultWrapper = factory()
-        expect(
-            defaultWrapper.findComponent({ name: 'ContainedIcon' }).props('icon')
-        ).toBe('mdi:help')
+        expect(defaultWrapper.findComponent({ name: 'ContainedIcon' }).props('icon')).toBe('mdi:help')
 
         const customWrapper = factory({ icon: 'mdi:book' })
-        expect(
-            customWrapper.findComponent({ name: 'ContainedIcon' }).props('icon')
-        ).toBe('mdi:book')
+        expect(customWrapper.findComponent({ name: 'ContainedIcon' }).props('icon')).toBe('mdi:book')
     })
 
     it('renders ActionButton with correct props', () => {
         const wrapper = factory({
             to: '/support/article',
             buttonText: 'Read more',
-            buttonIcon: 'mdi:chevron-right'
+            buttonIcon: 'mdi:chevron-right',
         })
         const button = wrapper.findComponent({ name: 'ActionButton' })
 

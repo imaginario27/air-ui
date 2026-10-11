@@ -1,39 +1,13 @@
 <template>
-    <div 
-        :class="[
-            'w-full',
-            'flex items-center justify-center',
-            containerClass,
-        ]"
-    >
-        <div 
-            :class="[
-                'w-full',
-                'rounded-md',
-                'relative',
-                'group',
-                'overflow-hidden',
-                aspectRatioClass,
-                containerClass,
-            ]"
+    <div :class="['w-full', 'flex items-center justify-center', containerClass]">
+        <div
+            :class="['w-full', 'rounded-md', 'relative', 'group', 'overflow-hidden', aspectRatioClass, containerClass]"
         >
             <!-- Image or fallback -->
-            <img
-                v-if="src"
-                :src
-                :alt
-                :class="imageClass"
-            >
+            <img v-if="src" :src :alt :class="imageClass" />
 
-            <div
-                v-else
-                class="w-full h-full flex items-center justify-center bg-background-neutral-subtlest/60"
-            >
-                <Icon
-                    :name="fallbackIcon"
-                    :size="IconSize.XL"
-                    :iconClass="fallbackIconClass"
-                />
+            <div v-else class="w-full h-full flex items-center justify-center bg-background-neutral-subtlest/60">
+                <Icon :name="fallbackIcon" :size="IconSize.XL" :iconClass="fallbackIconClass" />
             </div>
 
             <!-- Hover effect -->
@@ -52,12 +26,7 @@
                         'transition-opacity duration-300',
                     ]"
                 >
-                    <Icon 
-                        v-if="hasHoverIcon"
-                        :name="hoverIcon"
-                        :size="IconSize.XL"
-                        :iconClass="hoverIconClass"
-                    />
+                    <Icon v-if="hasHoverIcon" :name="hoverIcon" :size="IconSize.XL" :iconClass="hoverIconClass" />
                 </div>
             </template>
         </div>

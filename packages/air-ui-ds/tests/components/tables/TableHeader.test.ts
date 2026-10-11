@@ -1,11 +1,9 @@
 import { mount, type VueWrapper } from '@vue/test-utils'
 import TableHeader from '@/components/tables/TableHeader.vue'
 
-const factory = (options?: {
-    slots?: Record<string, string>
-}): VueWrapper => {
+const factory = (options?: { slots?: Record<string, string> }): VueWrapper => {
     return mount(TableHeader, {
-        ...options
+        ...options,
     })
 }
 
@@ -18,8 +16,8 @@ describe('TableHeader', () => {
     it('renders slot content', () => {
         const wrapper = factory({
             slots: {
-                default: '<tr><th>Header</th></tr>'
-            }
+                default: '<tr><th>Header</th></tr>',
+            },
         })
 
         expect(wrapper.html()).toContain('<th>Header</th>')
@@ -28,8 +26,8 @@ describe('TableHeader', () => {
     it('wraps header cells in a row so the markup is valid HTML', () => {
         const wrapper = factory({
             slots: {
-                default: '<th>Header</th>'
-            }
+                default: '<th>Header</th>',
+            },
         })
 
         expect(wrapper.find('thead > tr > th').exists()).toBe(true)

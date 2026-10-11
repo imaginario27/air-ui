@@ -2,9 +2,7 @@
     <Section>
         <SectionBody>
             <TabBar v-model="activeIndex" :tabs />
-            <ContentRenderer 
-                v-if="data" :value="data" 
-            />
+            <ContentRenderer v-if="data" :value="data" />
             <ContentRenderFallback v-else />
         </SectionBody>
     </Section>
@@ -14,7 +12,8 @@ definePageMeta({
     title: 'Current active subscription card',
     layout: 'docs',
     overtitle: 'Components',
-    description: 'Displays the user’s current subscription details, including plan name, billing status, and renewal information. Commonly used in account or billing pages.',
+    description:
+        'Displays the user’s current subscription details, including plan name, billing status, and renewal information. Commonly used in account or billing pages.',
 })
 
 // Route

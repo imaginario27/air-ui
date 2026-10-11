@@ -18,8 +18,8 @@ const factory = (props = {}, slots = {}) => {
                 Icon: {
                     name: 'Icon',
                     props: ['name', 'iconClass', 'mode'],
-                    template: '<i class="stub-icon" />'
-                }
+                    template: '<i class="stub-icon" />',
+                },
             },
         },
     })
@@ -205,7 +205,7 @@ describe('LoadingScreen.vue', () => {
             },
             {
                 graphic: '<div class="custom-graphic">Custom Graphic</div>',
-            }
+            },
         )
 
         expect(wrapper.findComponent(ContainedIcon).exists()).toBe(false)
@@ -222,7 +222,7 @@ describe('LoadingScreen.vue', () => {
             },
             {
                 actions: '<div class="custom-actions">Retry Now</div>',
-            }
+            },
         )
 
         expect(wrapper.findComponent(ActionButton).exists()).toBe(false)

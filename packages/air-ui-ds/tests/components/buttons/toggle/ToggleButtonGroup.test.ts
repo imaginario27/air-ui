@@ -81,7 +81,7 @@ describe('ToggleButtonGroup', () => {
 
         const toggleButtons = wrapper.findAllComponents(ToggleButton)
 
-        toggleButtons.forEach(btn => {
+        toggleButtons.forEach((btn) => {
             expect(btn.classes()).toContain('border-y')
             expect(btn.classes()).toContain('border-r')
             expect(btn.classes()).toContain('border-border-default')
@@ -97,7 +97,7 @@ describe('ToggleButtonGroup', () => {
 
         const toggleButtons = wrapper.findAllComponents(ToggleButton)
 
-        toggleButtons.forEach(btn => {
+        toggleButtons.forEach((btn) => {
             expect(btn.props('transparent')).toBe(true)
         })
     })
@@ -107,7 +107,7 @@ describe('ToggleButtonGroup', () => {
 
         const toggleIconButtons = wrapper.findAllComponents(ToggleIconButton)
 
-        toggleIconButtons.forEach(btn => {
+        toggleIconButtons.forEach((btn) => {
             expect(btn.props('transparent')).toBe(true)
         })
     })
@@ -130,7 +130,7 @@ describe('ToggleButtonGroup', () => {
 
         const toggleButtons = wrapper.findAllComponents(ToggleButton)
 
-        toggleButtons.forEach(btn => {
+        toggleButtons.forEach((btn) => {
             expect(btn.classes()).toContain('border')
             expect(btn.classes()).toContain('rounded-button')
         })
@@ -144,7 +144,7 @@ describe('ToggleButtonGroup', () => {
 
         const toggleButtons = wrapper.findAllComponents(ToggleButton)
 
-        toggleButtons.forEach(btn => {
+        toggleButtons.forEach((btn) => {
             expect(btn.classes()).toContain('rounded-button')
             expect(btn.classes()).not.toContain('border')
         })
@@ -274,7 +274,7 @@ describe('ToggleButtonGroup', () => {
 
         const toggleButtons = wrapper.findAllComponents(ToggleButton)
 
-        toggleButtons.forEach(btn => {
+        toggleButtons.forEach((btn) => {
             expect(btn.props('size')).toBe(ButtonSize.XS)
         })
     })
@@ -291,7 +291,7 @@ describe('ToggleButtonGroup', () => {
 
         const toggleIconButtons = wrapper.findAllComponents(ToggleIconButton)
 
-        toggleIconButtons.forEach(btn => {
+        toggleIconButtons.forEach((btn) => {
             expect(btn.props('size')).toBe(ButtonSize.XXL)
         })
     })
@@ -299,9 +299,7 @@ describe('ToggleButtonGroup', () => {
     it('defaults the group size to ButtonSize.LG when neither is passed', () => {
         const wrapper = mount(ToggleButtonGroup, {
             props: {
-                buttons: [
-                    { text: 'First', value: 'first' },
-                ],
+                buttons: [{ text: 'First', value: 'first' }],
             },
             global: {
                 stubs: {

@@ -10,7 +10,7 @@
             :disabled="disabled"
             @change="toggleSwitch"
             @keydown.space.prevent="toggleSwitch"
-        >
+        />
 
         <!-- Custom Switch -->
         <div
@@ -23,7 +23,7 @@
                 'rounded-full transition-colors',
                 'border border-border-default',
                 modelValue !== TriStateValue.UNCHECKED ? checkedBackgroundClass : 'bg-background-neutral-subtle',
-                disabled ? 'bg-background-neutral-disabled cursor-not-allowed opacity-disabled' : 'cursor-pointer'
+                disabled ? 'bg-background-neutral-disabled cursor-not-allowed opacity-disabled' : 'cursor-pointer',
             ]"
             @click="toggleSwitch"
         >
@@ -166,9 +166,7 @@ const checkedBackgroundClass = computed(() => {
 const toggleSwitch = () => {
     if (props.disabled) return
 
-    const nextValue = props.modelValue === TriStateValue.CHECKED
-        ? TriStateValue.UNCHECKED
-        : TriStateValue.CHECKED
+    const nextValue = props.modelValue === TriStateValue.CHECKED ? TriStateValue.UNCHECKED : TriStateValue.CHECKED
 
     emit('update:modelValue', nextValue)
 }

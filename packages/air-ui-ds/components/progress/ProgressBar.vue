@@ -1,14 +1,8 @@
 <template>
-    <div
-        class="w-full space-y-1.5"
-    >
+    <div class="w-full space-y-1.5">
         <div
             v-if="showProgressLabel && progressLabelPosition === Position.TOP"
-            :class="[
-                'text-xs text-text-neutral-subtle',
-                labelAlignmentClass,
-                progressLabelClass,
-            ]"
+            :class="['text-xs text-text-neutral-subtle', labelAlignmentClass, progressLabelClass]"
         >
             {{ isIndeterminate ? resolvedLoadingText : `${normalizedProgress}%` }}
         </div>
@@ -57,11 +51,7 @@
 
         <div
             v-if="showProgressLabel && progressLabelPosition === Position.BOTTOM"
-            :class="[
-                'text-xs text-text-neutral-subtle',
-                labelAlignmentClass,
-                progressLabelClass,
-            ]"
+            :class="['text-xs text-text-neutral-subtle', labelAlignmentClass, progressLabelClass]"
         >
             {{ isIndeterminate ? resolvedLoadingText : `${normalizedProgress}%` }}
         </div>
@@ -76,12 +66,12 @@ const props = defineProps({
     },
     color: {
         type: String as PropType<ColorAccent>,
-        default: ColorAccent.PRIMARY_BRAND, 
+        default: ColorAccent.PRIMARY_BRAND,
         validator: (value: ColorAccent) => Object.values(ColorAccent).includes(value),
     },
     size: {
         type: String as PropType<ProgressBarSize>,
-        default: ProgressBarSize.SM, 
+        default: ProgressBarSize.SM,
         validator: (value: ProgressBarSize) => Object.values(ProgressBarSize).includes(value),
     },
     isRounded: {

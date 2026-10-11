@@ -455,7 +455,7 @@ export const componentList: ComponentPortfolioItem[] = [
         to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/table`,
         imgUrl: `/images/thumbnails/components/table.png`,
     },
-    
+
     // CARDS
     {
         isSectionTitle: true,

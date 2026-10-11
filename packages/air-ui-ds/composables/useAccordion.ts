@@ -7,6 +7,6 @@ export const useAccordion = () => {
 
     return {
         isOpen,
-        toggle
+        toggle,
     }
 }

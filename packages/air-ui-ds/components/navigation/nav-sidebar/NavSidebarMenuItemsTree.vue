@@ -1,16 +1,9 @@
 <template>
     <div :class="levelWrapperClass">
-        <div
-            v-if="showGuideLine"
-            :class="guideLineClass"
-        />
+        <div v-if="showGuideLine" :class="guideLineClass" />
 
         <template v-for="(item, index) in items" :key="getNodeKey(getNodePath(index))">
-            <Divider
-                v-if="item.isDivider"
-                class="my-2"
-                :dividerClass
-            />
+            <Divider v-if="item.isDivider" class="my-2" :dividerClass />
 
             <NavSidebarMenuSectionTitle
                 v-else-if="item.isSectionTitle"
@@ -21,9 +14,7 @@
                 :level
                 :showNestedLevelGuide
                 :showCollapseDivider
-                :class="[
-                    level > 1 && 'mt-2',
-                ]"
+                :class="[level > 1 && 'mt-2']"
             />
 
             <template v-else>
@@ -47,9 +38,7 @@
                     :moreActionsItems="item.moreActionsItems"
                     :moreActionsPosition
                     :moreActionsPositionYOffset
-                    :class="[
-                        getItemCustomClass(level),
-                    ]"
+                    :class="[getItemCustomClass(level)]"
                     @click="handleItemClick(item, getNodePath(index))"
                 >
                     <template v-if="item.suffix" #suffix>
@@ -140,7 +129,8 @@ const props = defineProps({
     truncateDepth: {
         type: Array as PropType<SidebarMenuDepth[]>,
         default: () => [],
-        validator: (value: SidebarMenuDepth[]) => value.every((level) => Object.values(SidebarMenuDepth).includes(level)),
+        validator: (value: SidebarMenuDepth[]) =>
+            value.every((level) => Object.values(SidebarMenuDepth).includes(level)),
     },
     marquee: {
         type: Boolean as PropType<boolean>,
@@ -220,7 +210,10 @@ const guideLineClass = computed(() => {
         3: 'pointer-events-none absolute left-0 top-0 bottom-0 w-[2px] bg-border-neutral-subtle/50',
     }
 
-    return variant[props.level as 2 | 3] || 'pointer-events-none absolute left-0 top-0 bottom-0 w-[2px] bg-border-neutral-subtle/70'
+    return (
+        variant[props.level as 2 | 3] ||
+        'pointer-events-none absolute left-0 top-0 bottom-0 w-[2px] bg-border-neutral-subtle/70'
+    )
 })
 
 const getItemCustomClass = (level: number) => {

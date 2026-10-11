@@ -1,4 +1,3 @@
-
 import { PageTitleFormat } from '../../air-ui-ds/models/enums/pages'
 
 /**
@@ -10,11 +9,9 @@ import { PageTitleFormat } from '../../air-ui-ds/models/enums/pages'
  * @returns {string} The formatted page title.
  */
 export const pageTitle = (
-    pageTitle = 'Page title', 
-    appName = 'App name', 
-    format: PageTitleFormat = PageTitleFormat.FULL
+    pageTitle = 'Page title',
+    appName = 'App name',
+    format: PageTitleFormat = PageTitleFormat.FULL,
 ) => {
-    return format === PageTitleFormat.FULL 
-        ? `${pageTitle} | ${appName}` 
-        : pageTitle
+    return format === PageTitleFormat.FULL ? `${pageTitle} | ${appName}` : pageTitle
 }

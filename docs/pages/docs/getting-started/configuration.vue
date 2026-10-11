@@ -1,21 +1,19 @@
 <template>
     <Section>
         <SectionBody>
-            <ContentRenderer
-                v-if="data" :value="data"
-            />
+            <ContentRenderer v-if="data" :value="data" />
             <ContentRenderFallback v-else />
 
             <ContentFooterNavigation
                 :previousPage="{
                     label: 'Installation',
                     link: `/${DocsAppSlug.DOCS}/${DocsAppSlug.GETTING_STARTED}/installation`,
-                    description: 'Learn how to install AirUI in your project.'
+                    description: 'Learn how to install AirUI in your project.',
                 }"
                 :nextPage="{
                     label: 'Theme customization',
                     link: `/${DocsAppSlug.DOCS}/${DocsAppSlug.GETTING_STARTED}/${DocsAppSlug.THEME}/theme-customization`,
-                    description: 'Learn how to customize the theme of AirUI.'
+                    description: 'Learn how to customize the theme of AirUI.',
                 }"
             />
         </SectionBody>
@@ -27,7 +25,8 @@ definePageMeta({
     title: 'Configuration',
     layout: 'docs',
     overtitle: 'Getting Started',
-    description: 'Learn how to configure AirUI globally, including translating built-in text via useDSConfig and useUtilsConfig.'
+    description:
+        'Learn how to configure AirUI globally, including translating built-in text via useDSConfig and useUtilsConfig.',
 })
 
 // Route

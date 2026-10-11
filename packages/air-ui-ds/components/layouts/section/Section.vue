@@ -12,7 +12,7 @@
             spacingClass,
             topSpacing && topSpacingClass,
             bottomSpacing && bottomSpacingClass,
-            isDark && 'dark'
+            isDark && 'dark',
         ]"
     >
         <template v-if="hasContentMaxWidth">

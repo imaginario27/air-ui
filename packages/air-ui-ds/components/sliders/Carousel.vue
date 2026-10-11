@@ -2,12 +2,7 @@
     <section
         aria-roledescription="carousel"
         :aria-label="ariaLabel"
-        :class="[
-            'relative',
-            'flex',
-            'flex-col',
-            'gap-3',
-        ]"
+        :class="['relative', 'flex', 'flex-col', 'gap-3']"
         @keydown.left.prevent="prev"
         @keydown.right.prevent="next"
         @mouseenter="isHovering = true"
@@ -47,10 +42,7 @@
                         ]"
                         :style="slideStyle"
                     >
-                        <slot
-                            :item="item"
-                            :index="index"
-                        />
+                        <slot :item="item" :index="index" />
                     </li>
                 </ul>
             </div>
@@ -79,10 +71,7 @@
             </template>
         </div>
 
-        <div
-            v-if="hasDots && pageCount > 1"
-            class="flex items-center justify-center gap-2"
-        >
+        <div v-if="hasDots && pageCount > 1" class="flex items-center justify-center gap-2">
             <button
                 v-for="page in pageCount"
                 :key="page"
@@ -193,8 +182,8 @@ let timer: ReturnType<typeof setInterval> | undefined
 // Computed
 // Fade and zoom stack the slides in one cell, so only one slide is shown at a time
 const isStacked = computed(() => [CarouselTransition.FADE, CarouselTransition.ZOOM].includes(props.transition))
-const perView = computed(() => isStacked.value ? 1 : Math.max(1, Math.floor(props.slidesPerView)))
-const duration = computed(() => props.transition === CarouselTransition.NONE ? 0 : props.speed)
+const perView = computed(() => (isStacked.value ? 1 : Math.max(1, Math.floor(props.slidesPerView))))
+const duration = computed(() => (props.transition === CarouselTransition.NONE ? 0 : props.speed))
 
 const easingValue = computed(() => {
     const easing = {
@@ -214,9 +203,7 @@ const canGoNext = computed(() => props.isLoop || current.value < pageCount.value
 const slideWidth = computed(() => `((100% - ${props.gap} * ${perView.value - 1}) / ${perView.value})`)
 
 const slideStyle = computed(() => ({
-    ...(isStacked.value
-        ? { gridArea: '1 / 1' }
-        : { flex: `0 0 calc${slideWidth.value}`, marginRight: props.gap }),
+    ...(isStacked.value ? { gridArea: '1 / 1' } : { flex: `0 0 calc${slideWidth.value}`, marginRight: props.gap }),
     transition: `opacity ${duration.value}ms ${easingValue.value}, transform ${duration.value}ms ${easingValue.value}`,
 }))
 
@@ -260,7 +247,9 @@ const slideStateClass = (index: number) => {
     const classes = {
         [CarouselTransition.SLIDE]: visible ? ['opacity-100', 'scale-100'] : ['opacity-40', 'scale-95'],
         [CarouselTransition.FADE]: visible ? ['opacity-100'] : ['opacity-0', 'pointer-events-none'],
-        [CarouselTransition.ZOOM]: visible ? ['opacity-100', 'scale-100'] : ['opacity-0', 'scale-90', 'pointer-events-none'],
+        [CarouselTransition.ZOOM]: visible
+            ? ['opacity-100', 'scale-100']
+            : ['opacity-0', 'scale-90', 'pointer-events-none'],
         [CarouselTransition.NONE]: [],
     }
     return classes[props.transition] || classes[CarouselTransition.SLIDE]
@@ -310,9 +299,13 @@ const startAutoplay = () => {
 }
 
 // Sync
-watch(() => props.modelValue, (value) => {
-    current.value = Math.min(Math.max(value, 0), pageCount.value - 1)
-}, { immediate: true })
+watch(
+    () => props.modelValue,
+    (value) => {
+        current.value = Math.min(Math.max(value, 0), pageCount.value - 1)
+    },
+    { immediate: true },
+)
 
 watch(pageCount, (count) => {
     if (current.value > count - 1) goTo(count - 1)

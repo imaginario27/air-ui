@@ -1,29 +1,9 @@
 <template>
-    <div
-        :class="[
-            'flex flex-col',
-            'w-full',
-            'gap-2',
-        ]"
-    >
-        <div
-            v-if="label"
-            class="flex items-center justify-between gap-2"
-        >
-            <label
-                :for="id"
-                :class="[
-                    'text-sm',
-                    'font-semibold',
-                    'text-left',
-                    hasError && 'text-text-error',
-                ]"
-            >
+    <div :class="['flex flex-col', 'w-full', 'gap-2']">
+        <div v-if="label" class="flex items-center justify-between gap-2">
+            <label :for="id" :class="['text-sm', 'font-semibold', 'text-left', hasError && 'text-text-error']">
                 {{ label }}
-                <span
-                    v-if="!required && showOptionalLabel"
-                    class="font-normal text-text-neutral-subtler"
-                >
+                <span v-if="!required && showOptionalLabel" class="font-normal text-text-neutral-subtler">
                     {{ optionalLabelText }}
                 </span>
             </label>
@@ -34,16 +14,9 @@
         </div>
 
         <!-- Help Text (top) -->
-        <HelpText
-            v-if="helpTextPosition === Position.TOP"
-            :text="helpText"
-            :error="error"
-        />
+        <HelpText v-if="helpTextPosition === Position.TOP" :text="helpText" :error="error" />
 
-        <div
-            v-if="showInputs && inputPosition === Position.TOP"
-            class="grid grid-cols-1 gap-2 sm:grid-cols-2"
-        >
+        <div v-if="showInputs && inputPosition === Position.TOP" class="grid grid-cols-1 gap-2 sm:grid-cols-2">
             <InputField
                 v-if="isRange"
                 :id="`${id}-min-input`"
@@ -54,9 +27,9 @@
                 :max="maxString"
                 :disabled="disabled"
                 :transparent="transparentInputs"
-                :label="showInputsLabel ? (minText.trim() || 'Min') : ''"
+                :label="showInputsLabel ? minText.trim() || 'Min' : ''"
                 :showOptionalLabel="false"
-                @update:model-value="value => handleRangeInputChange(0, value)"
+                @update:model-value="(value) => handleRangeInputChange(0, value)"
             />
 
             <InputField
@@ -69,9 +42,9 @@
                 :max="maxString"
                 :disabled="disabled"
                 :transparent="transparentInputs"
-                :label="showInputsLabel ? (maxText.trim() || 'Max') : ''"
+                :label="showInputsLabel ? maxText.trim() || 'Max' : ''"
                 :showOptionalLabel="false"
-                @update:model-value="value => handleRangeInputChange(1, value)"
+                @update:model-value="(value) => handleRangeInputChange(1, value)"
             />
 
             <InputField
@@ -84,7 +57,7 @@
                 :max="maxString"
                 :disabled="disabled"
                 :transparent="transparentInputs"
-                :label="showInputsLabel ? (label || 'Value') : ''"
+                :label="showInputsLabel ? label || 'Value' : ''"
                 :showOptionalLabel="false"
                 @update:model-value="handleSingleInputChange"
             />
@@ -107,10 +80,7 @@
             @update:model-value="handleValueUpdate"
         />
 
-        <div
-            v-if="showInputs && inputPosition === Position.BOTTOM"
-            class="grid grid-cols-1 gap-2 sm:grid-cols-2"
-        >
+        <div v-if="showInputs && inputPosition === Position.BOTTOM" class="grid grid-cols-1 gap-2 sm:grid-cols-2">
             <InputField
                 v-if="isRange"
                 :id="`${id}-min-input-bottom`"
@@ -121,9 +91,9 @@
                 :max="maxString"
                 :disabled="disabled"
                 :transparent="transparentInputs"
-                :label="showInputsLabel ? (minText.trim() || 'Min') : ''"
+                :label="showInputsLabel ? minText.trim() || 'Min' : ''"
                 :showOptionalLabel="false"
-                @update:model-value="value => handleRangeInputChange(0, value)"
+                @update:model-value="(value) => handleRangeInputChange(0, value)"
             />
 
             <InputField
@@ -136,9 +106,9 @@
                 :max="maxString"
                 :disabled="disabled"
                 :transparent="transparentInputs"
-                :label="showInputsLabel ? (maxText.trim() || 'Max') : ''"
+                :label="showInputsLabel ? maxText.trim() || 'Max' : ''"
                 :showOptionalLabel="false"
-                @update:model-value="value => handleRangeInputChange(1, value)"
+                @update:model-value="(value) => handleRangeInputChange(1, value)"
             />
 
             <InputField
@@ -151,7 +121,7 @@
                 :max="maxString"
                 :disabled="disabled"
                 :transparent="transparentInputs"
-                :label="showInputsLabel ? (label || 'Value') : ''"
+                :label="showInputsLabel ? label || 'Value' : ''"
                 :showOptionalLabel="false"
                 @update:model-value="handleSingleInputChange"
             />
@@ -163,11 +133,7 @@
         </div>
 
         <!-- Help Text (bottom) -->
-        <HelpText
-            v-if="helpTextPosition === Position.BOTTOM"
-            :text="helpText"
-            :error="error"
-        />
+        <HelpText v-if="helpTextPosition === Position.BOTTOM" :text="helpText" :error="error" />
     </div>
 </template>
 
@@ -397,10 +363,10 @@ const handleValueUpdate = (value: number | [number, number]) => {
 
 watch(
     () => props.modelValue,
-    value => {
+    (value) => {
         if (validationMode.value === FormValidationMode.BLUR) {
             runValidation(value as number | [number, number])
         }
-    }
+    },
 )
 </script>

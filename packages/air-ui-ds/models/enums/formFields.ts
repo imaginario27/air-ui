@@ -40,7 +40,7 @@ export enum FileSelectStrategy {
 export enum RepeatingFieldSortingType {
     NONE = 'none',
     BUTTONS = 'buttons',
-    DRAG = 'drag'
+    DRAG = 'drag',
 }
 
 export enum TriStateValue {
