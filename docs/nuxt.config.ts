@@ -2,6 +2,8 @@
 import tailwindcss from "@tailwindcss/vite"
 import { resolve } from 'node:path'
 
+const SITE_URL = process.env.NUXT_SITEMAP_URL || process.env.LLM_DOMAIN || "https://air-ui.netlify.app"
+
 export default defineNuxtConfig({
     compatibilityDate: "2024-11-01",
     devtools: { enabled: false },
@@ -20,7 +22,7 @@ export default defineNuxtConfig({
         },
     },
 
-    modules: ["@pinia/nuxt", "@nuxt/image", "@nuxt/eslint", "@vueuse/nuxt", "@nuxt/content", "@nuxt/icon", "nuxt-llms", "@nuxtjs/mcp-toolkit"],
+    modules: ["@pinia/nuxt", "@nuxt/image", "@nuxt/eslint", "@vueuse/nuxt", "@nuxt/content", "@nuxt/icon", "nuxt-llms", "@nuxtjs/mcp-toolkit", "@nuxtjs/sitemap", "@nuxtjs/robots"],
 
     plugins: ["@/plugins/vue3-toastify", "@/plugins/prettier"],
 
@@ -146,8 +148,19 @@ export default defineNuxtConfig({
         ],
     },
 
+    // Site identity (used by sitemap + robots for absolute URLs)
+    site: {
+        url: SITE_URL,
+        name: process.env.APP_NAME || "AirUI",
+    },
+
+    // robots.txt (Sitemap line is auto-injected from site.url)
+    robots: {
+        disallow: ["/mcp"],
+    },
+
     llms: {
-        domain: process.env.LLM_DOMAIN || 'https://air-ui.netlify.app',
+        domain: SITE_URL,
         title: 'AirUI',
         description: 'AirUI design system documentation and resources',
         sections: [
