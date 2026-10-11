@@ -206,6 +206,8 @@ const unlockScroll = () => {
 watch(
     () => props.modelValue,
     newValue => {
+        if (!import.meta.client) return
+
         if (newValue) {
             previouslyFocusedElement.value = document.activeElement as HTMLElement
             addEscListener()
