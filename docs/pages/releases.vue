@@ -112,8 +112,43 @@
                         </div>
 
                         <div class="flex flex-col gap-5">
+                            <div
+                                v-if="!getEntrySections(entry).length && getPublishedChangeGroups(entry).length"
+                                class="flex flex-col gap-3"
+                            >
+                                <div
+                                    v-for="group in getPublishedChangeGroups(entry)"
+                                    :key="`${entry.version}-published-${group.title}`"
+                                    class="flex flex-wrap items-center gap-1.5"
+                                >
+                                    <Badge
+                                        :text="group.title"
+                                        :color="group.color"
+                                        :style="BadgeStyle.FLAT"
+                                    />
+                                    <Badge
+                                        v-for="label in group.labels.slice(0, MAX_PUBLISHED_LABELS)"
+                                        :key="label"
+                                        :text="label"
+                                        :color="ColorAccent.NEUTRAL"
+                                        :style="BadgeStyle.BORDER"
+                                        class="font-mono"
+                                    />
+                                    <span
+                                        v-if="group.labels.length > MAX_PUBLISHED_LABELS"
+                                        class="text-xs text-text-neutral-subtle"
+                                    >
+                                        +{{ group.labels.length - MAX_PUBLISHED_LABELS }} more
+                                    </span>
+                                </div>
+
+                                <p class="text-sm text-text-neutral-subtle">
+                                    No commits were recorded for this release. Changes were detected by comparing the published package with the previous version.
+                                </p>
+                            </div>
+
                             <p
-                                v-if="!getEntrySections(entry).length"
+                                v-else-if="!getEntrySections(entry).length"
                                 class="text-sm text-text-neutral-subtle"
                             >
                                 {{ entry.notes[0] }}
@@ -222,6 +257,11 @@ type ReleaseEntry = {
     publishedAt: string
     releaseType: string
     notes: string[]
+    publishedChanges?: {
+        added: string[]
+        changed: string[]
+        removed: string[]
+    }
     metadata?: {
         commitCount: number
         commits: ReleaseCommit[]
@@ -279,6 +319,7 @@ const versionOptions = computed<string[]>(() => {
 const selectedFromVersion = ref<string>(versionOptions.value[0] ?? '')
 const selectedToVersion = ref<string>(versionOptions.value[0] ?? '')
 const MAX_AFFECTED_TAGS = 4
+const MAX_PUBLISHED_LABELS = 12
 
 const formatCommitCount = (count: number) => `${count} ${count === 1 ? 'commit' : 'commits'}`
 
@@ -353,6 +394,22 @@ const sectionConfig: Array<{ type: string, title: string, color: ColorAccent }> 
     { type: 'changed', title: 'Changed', color: ColorAccent.NEUTRAL },
     { type: 'maintenance', title: 'Maintenance', color: ColorAccent.WARNING },
 ]
+
+const publishedChangeConfig: Array<{ key: 'added' | 'changed' | 'removed', title: string, color: ColorAccent }> = [
+    { key: 'added', title: 'Added', color: ColorAccent.INFO },
+    { key: 'changed', title: 'Changed', color: ColorAccent.NEUTRAL },
+    { key: 'removed', title: 'Removed', color: ColorAccent.DANGER },
+]
+
+const getPublishedChangeGroups = (entry: ReleaseEntry) => {
+    const changes = entry.publishedChanges
+
+    if (!changes) return []
+
+    return publishedChangeConfig
+        .map((group) => ({ ...group, labels: changes[group.key] }))
+        .filter((group) => group.labels.length > 0)
+}
 
 const getEntrySections = (entry: ReleaseEntry) => {
     const commits = entry.metadata?.commits ?? []

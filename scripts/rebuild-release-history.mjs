@@ -1,10 +1,11 @@
 #!/usr/bin/env node
 
-import { readFileSync } from "node:fs"
+import { existsSync, readFileSync } from "node:fs"
 import { writeFile } from "node:fs/promises"
 import { execFileSync } from "node:child_process"
 import path from "node:path"
 import { fileURLToPath } from "node:url"
+import { diffPublishedPackages } from "./published-package-diff.mjs"
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -39,7 +40,7 @@ const targetPackageName = process.argv[2] ?? null
 
 const MAX_NOTES_PER_VERSION = 10
 
-function parseSemver(version) {
+const parseSemver = (version) => {
     const clean = String(version).trim().replace(/^v/, "")
     const [major = "0", minor = "0", patch = "0"] = clean.split(".")
 
@@ -51,7 +52,7 @@ function parseSemver(version) {
     }
 }
 
-function compareSemverDesc(a, b) {
+const compareSemverDesc = (a, b) => {
     const pa = parseSemver(a)
     const pb = parseSemver(b)
 
@@ -61,7 +62,7 @@ function compareSemverDesc(a, b) {
     return pb.patch - pa.patch
 }
 
-function detectReleaseType(currentVersion, previousVersion) {
+const detectReleaseType = (currentVersion, previousVersion) => {
     if (!previousVersion) return "initial"
 
     const current = parseSemver(currentVersion)
@@ -73,20 +74,20 @@ function detectReleaseType(currentVersion, previousVersion) {
     return "patch"
 }
 
-function formatDate(isoDate) {
+const formatDate = (isoDate) => {
     if (!isoDate) return "Unknown date"
 
     return String(isoDate).slice(0, 10)
 }
 
-function runGit(args) {
+const runGit = (args) => {
     return execFileSync("git", ["-C", repoRoot, ...args], {
         encoding: "utf8",
         stdio: ["ignore", "pipe", "pipe"],
     }).trim()
 }
 
-function getGithubBaseUrl() {
+const getGithubBaseUrl = () => {
     const remote = runGit(["remote", "get-url", "origin"])
     const sshMatch = remote.match(/github.com[:/](.+?)(?:\.git)?$/)
     const httpsMatch = remote.match(/https:\/\/github.com\/(.+?)(?:\.git)?$/)
@@ -95,7 +96,7 @@ function getGithubBaseUrl() {
     return repoSlug ? `https://github.com/${repoSlug}` : null
 }
 
-function stripConventionalPrefix(subject) {
+const stripConventionalPrefix = (subject) => {
     return subject.replace(/^\w+(\([^)]+\))?!?:\s*/i, "").trim()
 }
 
@@ -103,7 +104,7 @@ function stripConventionalPrefix(subject) {
 const MAINTENANCE_NOISE =
     /\brelease\b.*\bv?\d+\.\d+\.\d+|\bbumps?\b.*\bversion|\bversion\b.*\bbump|untrack|^sync\b/i
 
-function classifyCommit(subject) {
+const classifyCommit = (subject) => {
     const lower = subject.toLowerCase()
 
     if (lower.startsWith("chore")) {
@@ -118,13 +119,13 @@ function classifyCommit(subject) {
     return "changed"
 }
 
-function extractPrNumber(subject) {
+const extractPrNumber = (subject) => {
     const match = subject.match(/#(\d+)/)
 
     return match?.[1] ?? null
 }
 
-function shouldIncludeCommit(subject) {
+const shouldIncludeCommit = (subject) => {
     // Extraer el scope: type(scope):
     const scopeMatch = subject.match(/^\w+\(([^)]+)\):/)
     if (!scopeMatch) return true
@@ -143,7 +144,7 @@ function shouldIncludeCommit(subject) {
 const AFFECTED_FILE_REGEX =
     /^packages\/[^/]+\/(?:components|composables|utils)\/(?:.+\/)?([^/]+?)\.(?:vue|ts)$/
 
-function extractAffected(files) {
+const extractAffected = (files) => {
     const names = files
         .map((file) => file.trim().match(AFFECTED_FILE_REGEX)?.[1])
         .filter(Boolean)
@@ -153,7 +154,7 @@ function extractAffected(files) {
 
 // Keeps the bullet/prose lines of a commit body; drops section headings ("Docs:"), trailers and version-bump noise.
 // Hard-wrapped lines are re-joined into the bullet or paragraph they belong to.
-function extractBodyLines(body) {
+const extractBodyLines = (body) => {
     const items = []
     let current = null
 
@@ -201,7 +202,7 @@ function extractBodyLines(body) {
         )
 }
 
-function parseGitCommits(raw, githubBaseUrl) {
+const parseGitCommits = (raw, githubBaseUrl) => {
     if (!raw) return []
 
     // Records start with \x1e; fields are separated by \x1f; changed files follow the last field.
@@ -240,7 +241,7 @@ function parseGitCommits(raw, githubBaseUrl) {
 const MAX_RELEASE_COMMIT_DRIFT_MS = 12 * 60 * 60 * 1000
 
 // Maps version -> sha of its "chore(scope): release <pkg> v<version>" commit.
-function getReleaseCommits(packageName, time) {
+const getReleaseCommits = (packageName, time) => {
     const raw = runGit([
         "log",
         "--format=%H%x1f%s%x1f%ct",
@@ -273,14 +274,14 @@ function getReleaseCommits(packageName, time) {
     return releaseCommits
 }
 
-function getGitCommitsForRange({
+const getGitCommitsForRange = ({
     packagePath,
     olderRef,
     newerRef,
     olderPublishedAt,
     newerPublishedAt,
     githubBaseUrl,
-}) {
+}) => {
     const args = [
         "log",
         "--no-merges",
@@ -305,7 +306,7 @@ function getGitCommitsForRange({
     return parseGitCommits(raw, githubBaseUrl)
 }
 
-function buildNotesFromCommits(commits) {
+const buildNotesFromCommits = (commits) => {
     if (!commits.length) {
         return {
             notes: [
@@ -350,14 +351,14 @@ function buildNotesFromCommits(commits) {
 const FETCH_MAX_ATTEMPTS = 10
 const FETCH_RETRY_DELAY_MS = 3000
 
-function getLocalPackageVersion(packageJsonPath) {
+const getLocalPackageVersion = (packageJsonPath) => {
     return JSON.parse(readFileSync(path.join(repoRoot, packageJsonPath), "utf8"))
         .version
 }
 
 // The npm registry metadata lags right after a publish, so when we know which
 // version was just published we retry until it shows up instead of writing stale data.
-async function fetchPackageTime(packageName, expectedVersion = null) {
+const fetchPackageTime = async (packageName, expectedVersion = null) => {
     const encoded = encodeURIComponent(packageName)
     const url = `https://registry.npmjs.org/${encoded}`
 
@@ -375,11 +376,18 @@ async function fetchPackageTime(packageName, expectedVersion = null) {
         const metadata = await response.json()
         const time = metadata?.time || {}
         const versions = Object.keys(metadata?.versions || {})
+        const tarballs = Object.fromEntries(
+            Object.entries(metadata?.versions || {}).map(([version, info]) => [
+                version,
+                info?.dist?.tarball ?? null,
+            ]),
+        )
 
         if (!expectedVersion || (versions.includes(expectedVersion) && time[expectedVersion])) {
             return {
                 versions,
                 time,
+                tarballs,
             }
         }
 
@@ -396,14 +404,14 @@ async function fetchPackageTime(packageName, expectedVersion = null) {
     )
 }
 
-function buildEntries({
+const buildEntries = ({
     packageName,
     packagePath,
     versions,
     time,
     releaseCommits,
     githubBaseUrl,
-}) {
+}) => {
     const sorted = [...versions].sort(compareSemverDesc)
 
     return sorted.map((version, index) => {
@@ -448,7 +456,73 @@ function buildEntries({
     })
 }
 
-function buildCommitLine(commit) {
+const PUBLISHED_CHANGES_PATH = path.join(
+    repoRoot,
+    "docs",
+    "data",
+    "releases",
+    "published-changes.json",
+)
+const MAX_LABELS_IN_NOTES = 10
+
+const loadPublishedChangesCache = () => {
+    if (!existsSync(PUBLISHED_CHANGES_PATH)) return {}
+
+    return JSON.parse(readFileSync(PUBLISHED_CHANGES_PATH, "utf8"))
+}
+
+const formatLabels = (labels) => {
+    if (labels.length <= MAX_LABELS_IN_NOTES) return labels.join(", ")
+
+    return `${labels.slice(0, MAX_LABELS_IN_NOTES).join(", ")} and ${labels.length - MAX_LABELS_IN_NOTES} more`
+}
+
+const buildPublishedChangeNotes = ({ added, changed, removed }) => {
+    const notes = [
+        added.length ? `Added: ${formatLabels(added)}` : null,
+        changed.length ? `Changed: ${formatLabels(changed)}` : null,
+        removed.length ? `Removed: ${formatLabels(removed)}` : null,
+    ].filter(Boolean)
+
+    return notes.length
+        ? notes
+        : ["Republished without changes to the package contents."]
+}
+
+// Versions without commits are described by comparing their published tarball with the previous one.
+const enrichEmptyEntries = async ({ entries, tarballs, cache }) => {
+    for (const [index, entry] of entries.entries()) {
+        if (entry.metadata.commitCount > 0) continue
+
+        const older = entries[index + 1]
+
+        if (!older) {
+            entry.notes = ["Initial public release."]
+            continue
+        }
+
+        const key = `${entry.packageName}@${entry.version}`
+
+        try {
+            if (!cache[key]) {
+                const olderUrl = tarballs[older.version]
+                const newerUrl = tarballs[entry.version]
+
+                if (!olderUrl || !newerUrl) continue
+
+                cache[key] = await diffPublishedPackages(olderUrl, newerUrl)
+            }
+        } catch (error) {
+            console.warn(`Could not compare published packages for ${key}: ${error.message}`)
+            continue
+        }
+
+        entry.publishedChanges = cache[key]
+        entry.notes = buildPublishedChangeNotes(cache[key])
+    }
+}
+
+const buildCommitLine = (commit) => {
     const commitLabel = commit.url
         ? `[${commit.shortSha}](${commit.url})`
         : commit.shortSha
@@ -460,7 +534,7 @@ function buildCommitLine(commit) {
     return `${commit.normalizedSubject} (${details})`
 }
 
-function appendNumberedSection(lines, title, items) {
+const appendNumberedSection = (lines, title, items) => {
     if (!items.length) return
 
     lines.push(`### ${title}`, "")
@@ -470,7 +544,7 @@ function appendNumberedSection(lines, title, items) {
     lines.push("")
 }
 
-function appendFallbackNotesSection(lines, notes) {
+const appendFallbackNotesSection = (lines, notes) => {
     if (!notes.length) {
         lines.push(
             "### Changed",
@@ -488,7 +562,7 @@ function appendFallbackNotesSection(lines, notes) {
     lines.push("")
 }
 
-function appendEntrySection(lines, packageName, entry) {
+const appendEntrySection = (lines, packageName, entry) => {
     const commitCount = entry.metadata?.commitCount ?? 0
     const commits =
         entry.metadata?.commits?.slice(0, MAX_NOTES_PER_VERSION) ?? []
@@ -529,7 +603,7 @@ function appendEntrySection(lines, packageName, entry) {
     lines.push(`- Package: ${packageName}.`, "")
 }
 
-function buildChangelogMarkdown(packageName, entries) {
+const buildChangelogMarkdown = (packageName, entries) => {
     const lines = []
 
     lines.push(
@@ -549,7 +623,7 @@ function buildChangelogMarkdown(packageName, entries) {
     return `${lines.join("\n")}\n`
 }
 
-async function main() {
+const main = async () => {
     const packagesForDocs = []
     const githubBaseUrl = getGithubBaseUrl()
     const packagesToWrite = targetPackageName
@@ -560,13 +634,15 @@ async function main() {
         throw new Error(`Unknown package name: ${targetPackageName}`)
     }
 
+    const publishedChangesCache = loadPublishedChangesCache()
+
     for (const pkg of PACKAGES) {
         // Only the package that was just published is guaranteed to be on npm.
         const expectedVersion =
             pkg.name === targetPackageName
                 ? getLocalPackageVersion(pkg.packageJsonPath)
                 : null
-        const { versions, time } = await fetchPackageTime(
+        const { versions, time, tarballs } = await fetchPackageTime(
             pkg.name,
             expectedVersion,
         )
@@ -577,6 +653,12 @@ async function main() {
             time,
             releaseCommits: getReleaseCommits(pkg.name, time),
             githubBaseUrl,
+        })
+
+        await enrichEmptyEntries({
+            entries,
+            tarballs,
+            cache: publishedChangesCache,
         })
 
         if (packagesToWrite.some((targetPkg) => targetPkg.name === pkg.name)) {
@@ -590,6 +672,13 @@ async function main() {
             entries,
         })
     }
+
+    await writeFile(
+        PUBLISHED_CHANGES_PATH,
+        `${JSON.stringify(publishedChangesCache, null, 2)}
+`,
+        "utf8",
+    )
 
     const docsPayload = {
         generatedAt: new Date().toISOString(),

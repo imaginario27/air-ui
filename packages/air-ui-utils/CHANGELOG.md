@@ -153,7 +153,9 @@ Commits found in range: 0.
 
 ### Changed
 
-1. No user-facing changes were recorded for this release (version bump, or only chore and docs commits).
+1. Added: useNavigation
+2. Changed: strings
+3. Removed: navigation
 
 - Package: @imaginario27/air-ui-utils.
 
@@ -175,7 +177,8 @@ Commits found in range: 0.
 
 ### Changed
 
-1. No user-facing changes were recorded for this release (version bump, or only chore and docs commits).
+1. Changed: package.json
+2. Removed: pdfExport
 
 - Package: @imaginario27/air-ui-utils.
 
@@ -234,7 +237,7 @@ Commits found in range: 0.
 
 ### Changed
 
-1. No user-facing changes were recorded for this release (version bump, or only chore and docs commits).
+1. Changed: data, formValidation, package.json, pdfExport
 
 - Package: @imaginario27/air-ui-utils.
 
@@ -245,7 +248,7 @@ Commits found in range: 0.
 
 ### Changed
 
-1. No user-facing changes were recorded for this release (version bump, or only chore and docs commits).
+1. Republished without changes to the package contents.
 
 - Package: @imaginario27/air-ui-utils.
 
@@ -256,7 +259,7 @@ Commits found in range: 0.
 
 ### Changed
 
-1. No user-facing changes were recorded for this release (version bump, or only chore and docs commits).
+1. Changed: package.json
 
 - Package: @imaginario27/air-ui-utils.
 
@@ -278,7 +281,7 @@ Commits found in range: 0.
 
 ### Changed
 
-1. No user-facing changes were recorded for this release (version bump, or only chore and docs commits).
+1. Changed: README.md
 
 - Package: @imaginario27/air-ui-utils.
 
@@ -304,7 +307,7 @@ Commits found in range: 0.
 
 ### Changed
 
-1. No user-facing changes were recorded for this release (version bump, or only chore and docs commits).
+1. Initial public release.
 
 - Package: @imaginario27/air-ui-utils.
 

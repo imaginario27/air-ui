@@ -419,7 +419,7 @@ Commits found in range: 0.
 
 ### Changed
 
-1. No user-facing changes were recorded for this release (version bump, or only chore and docs commits).
+1. Changed: ButtonField, Checkbox, CheckboxField, DataField, DropdownSelect, FileUploadField, InputField, OptionButtonGroup, OptionButtonsGroupField, PinField and 16 more
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -430,7 +430,7 @@ Commits found in range: 0.
 
 ### Changed
 
-1. No user-facing changes were recorded for this release (version bump, or only chore and docs commits).
+1. Changed: InputField, NavSidebar
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -463,7 +463,7 @@ Commits found in range: 0.
 
 ### Changed
 
-1. No user-facing changes were recorded for this release (version bump, or only chore and docs commits).
+1. Changed: MetricCard
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -808,7 +808,7 @@ Commits found in range: 0.
 
 ### Changed
 
-1. No user-facing changes were recorded for this release (version bump, or only chore and docs commits).
+1. Changed: InputField, PinField, SearchField, TextareaField
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -1041,7 +1041,7 @@ Commits found in range: 0.
 
 ### Changed
 
-1. No user-facing changes were recorded for this release (version bump, or only chore and docs commits).
+1. Changed: DropdownMenu, DropdownMenuItem, dropdowns (enums), dropdowns (types), package.json
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -1077,7 +1077,7 @@ Commits found in range: 0.
 
 ### Changed
 
-1. No user-facing changes were recorded for this release (version bump, or only chore and docs commits).
+1. Changed: scripts/update-ui-theme-colors.ts
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -1100,7 +1100,7 @@ Commits found in range: 0.
 
 ### Changed
 
-1. No user-facing changes were recorded for this release (version bump, or only chore and docs commits).
+1. Changed: DropdownMenu, DropdownSelect
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -1237,7 +1237,9 @@ Commits found in range: 0.
 
 ### Changed
 
-1. No user-facing changes were recorded for this release (version bump, or only chore and docs commits).
+1. Added: Footer
+2. Changed: ContentPageHeader, Heading, headings (enums), navigation (types), Overtitle
+3. Removed: ContainerWrapper, WebAppHeader
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -1293,7 +1295,7 @@ Commits found in range: 0.
 
 ### Changed
 
-1. No user-facing changes were recorded for this release (version bump, or only chore and docs commits).
+1. Added: assets/images/logo/air-ui-logo-color.svg, assets/images/logo/air-ui-logo-white.svg
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -1304,7 +1306,7 @@ Commits found in range: 0.
 
 ### Changed
 
-1. No user-facing changes were recorded for this release (version bump, or only chore and docs commits).
+1. Changed: AppLogo, package.json
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -1315,7 +1317,7 @@ Commits found in range: 0.
 
 ### Changed
 
-1. No user-facing changes were recorded for this release (version bump, or only chore and docs commits).
+1. Republished without changes to the package contents.
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -1337,7 +1339,7 @@ Commits found in range: 0.
 
 ### Changed
 
-1. No user-facing changes were recorded for this release (version bump, or only chore and docs commits).
+1. Changed: FileUploadField
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -1348,7 +1350,7 @@ Commits found in range: 0.
 
 ### Changed
 
-1. No user-facing changes were recorded for this release (version bump, or only chore and docs commits).
+1. Changed: DropdownSelect, eslint.config.mjs, FileUploadField, package.json, useForm
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -1359,7 +1361,7 @@ Commits found in range: 0.
 
 ### Changed
 
-1. No user-facing changes were recorded for this release (version bump, or only chore and docs commits).
+1. Republished without changes to the package contents.
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -1370,7 +1372,7 @@ Commits found in range: 0.
 
 ### Changed
 
-1. No user-facing changes were recorded for this release (version bump, or only chore and docs commits).
+1. Changed: package.json, tsconfig.json
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -1381,7 +1383,8 @@ Commits found in range: 0.
 
 ### Changed
 
-1. No user-facing changes were recorded for this release (version bump, or only chore and docs commits).
+1. Added: tsconfig.typecheck.json
+2. Changed: AccordionGroup, ActionButton, ActionIconButton, CircleStepper, DataField, FileUploadField, NavFooterMenu, navigation (types), package.json, RowsPerPage and 5 more
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -1403,7 +1406,7 @@ Commits found in range: 0.
 
 ### Changed
 
-1. No user-facing changes were recorded for this release (version bump, or only chore and docs commits).
+1. Changed: README.md
 
 - Package: @imaginario27/air-ui-ds.
 
@@ -1430,7 +1433,7 @@ Commits found in range: 0.
 
 ### Changed
 
-1. No user-facing changes were recorded for this release (version bump, or only chore and docs commits).
+1. Initial public release.
 
 - Package: @imaginario27/air-ui-ds.
 

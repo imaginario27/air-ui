@@ -1,0 +1,232 @@
+{
+  "@imaginario27/air-ui-ds@1.13.8": {
+    "added": [],
+    "changed": [
+      "ButtonField",
+      "Checkbox",
+      "CheckboxField",
+      "DataField",
+      "DropdownSelect",
+      "FileUploadField",
+      "InputField",
+      "OptionButtonGroup",
+      "OptionButtonsGroupField",
+      "PinField",
+      "radio (types)",
+      "RadioButtonField",
+      "RadioField",
+      "RadioGroupField",
+      "RepeaterField",
+      "RulesField",
+      "SearchField",
+      "SelectField",
+      "Slider",
+      "SliderField",
+      "SlotField",
+      "SwitchField",
+      "TagsField",
+      "TextareaField",
+      "ToggleButtonGroup",
+      "ToggleButtonsGroupField"
+    ],
+    "removed": []
+  },
+  "@imaginario27/air-ui-ds@1.13.7": {
+    "added": [],
+    "changed": [
+      "InputField",
+      "NavSidebar"
+    ],
+    "removed": []
+  },
+  "@imaginario27/air-ui-ds@1.13.4": {
+    "added": [],
+    "changed": [
+      "MetricCard"
+    ],
+    "removed": []
+  },
+  "@imaginario27/air-ui-ds@1.2.11": {
+    "added": [],
+    "changed": [
+      "InputField",
+      "PinField",
+      "SearchField",
+      "TextareaField"
+    ],
+    "removed": []
+  },
+  "@imaginario27/air-ui-ds@1.1.11": {
+    "added": [],
+    "changed": [
+      "DropdownMenu",
+      "DropdownMenuItem",
+      "dropdowns (enums)",
+      "dropdowns (types)",
+      "package.json"
+    ],
+    "removed": []
+  },
+  "@imaginario27/air-ui-ds@1.1.8": {
+    "added": [],
+    "changed": [
+      "scripts/update-ui-theme-colors.ts"
+    ],
+    "removed": []
+  },
+  "@imaginario27/air-ui-ds@1.1.6": {
+    "added": [],
+    "changed": [
+      "DropdownMenu",
+      "DropdownSelect"
+    ],
+    "removed": []
+  },
+  "@imaginario27/air-ui-ds@1.0.17": {
+    "added": [
+      "Footer"
+    ],
+    "changed": [
+      "ContentPageHeader",
+      "Heading",
+      "headings (enums)",
+      "navigation (types)",
+      "Overtitle"
+    ],
+    "removed": [
+      "ContainerWrapper",
+      "WebAppHeader"
+    ]
+  },
+  "@imaginario27/air-ui-ds@1.0.12": {
+    "added": [
+      "assets/images/logo/air-ui-logo-color.svg",
+      "assets/images/logo/air-ui-logo-white.svg"
+    ],
+    "changed": [],
+    "removed": []
+  },
+  "@imaginario27/air-ui-ds@1.0.11": {
+    "added": [],
+    "changed": [
+      "AppLogo",
+      "package.json"
+    ],
+    "removed": []
+  },
+  "@imaginario27/air-ui-ds@1.0.10": {
+    "added": [],
+    "changed": [],
+    "removed": []
+  },
+  "@imaginario27/air-ui-ds@1.0.8": {
+    "added": [],
+    "changed": [
+      "FileUploadField"
+    ],
+    "removed": []
+  },
+  "@imaginario27/air-ui-ds@1.0.7": {
+    "added": [],
+    "changed": [
+      "DropdownSelect",
+      "eslint.config.mjs",
+      "FileUploadField",
+      "package.json",
+      "useForm"
+    ],
+    "removed": []
+  },
+  "@imaginario27/air-ui-ds@1.0.6": {
+    "added": [],
+    "changed": [],
+    "removed": []
+  },
+  "@imaginario27/air-ui-ds@1.0.5": {
+    "added": [],
+    "changed": [
+      "package.json",
+      "tsconfig.json"
+    ],
+    "removed": []
+  },
+  "@imaginario27/air-ui-ds@1.0.4": {
+    "added": [
+      "tsconfig.typecheck.json"
+    ],
+    "changed": [
+      "AccordionGroup",
+      "ActionButton",
+      "ActionIconButton",
+      "CircleStepper",
+      "DataField",
+      "FileUploadField",
+      "NavFooterMenu",
+      "navigation (types)",
+      "package.json",
+      "RowsPerPage",
+      "SecurePasswordConditions",
+      "SliderField",
+      "Step",
+      "tsconfig.json",
+      "useTableOfContents"
+    ],
+    "removed": []
+  },
+  "@imaginario27/air-ui-ds@1.0.2": {
+    "added": [],
+    "changed": [
+      "README.md"
+    ],
+    "removed": []
+  },
+  "@imaginario27/air-ui-utils@1.0.12": {
+    "added": [
+      "useNavigation"
+    ],
+    "changed": [
+      "strings"
+    ],
+    "removed": [
+      "navigation"
+    ]
+  },
+  "@imaginario27/air-ui-utils@1.0.10": {
+    "added": [],
+    "changed": [
+      "package.json"
+    ],
+    "removed": [
+      "pdfExport"
+    ]
+  },
+  "@imaginario27/air-ui-utils@1.0.6": {
+    "added": [],
+    "changed": [
+      "data",
+      "formValidation",
+      "package.json",
+      "pdfExport"
+    ],
+    "removed": []
+  },
+  "@imaginario27/air-ui-utils@1.0.5": {
+    "added": [],
+    "changed": [],
+    "removed": []
+  },
+  "@imaginario27/air-ui-utils@1.0.4": {
+    "added": [],
+    "changed": [
+      "package.json"
+    ],
+    "removed": []
+  },
+  "@imaginario27/air-ui-utils@1.0.2": {
+    "added": [],
+    "changed": [
+      "README.md"
+    ],
+    "removed": []
+  }
+}

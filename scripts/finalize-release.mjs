@@ -18,38 +18,39 @@ if (!packageName) {
     process.exit(1)
 }
 
-function runGit(args) {
+const runGit = (args) => {
     return execFileSync("git", ["-C", repoRoot, ...args], {
         encoding: "utf8",
     }).trim()
 }
 
-function getPackageVersion(pkgName) {
+const getPackageVersion = (pkgName) => {
     const wsName = pkgName.split("/")[1] // air-ui-ds o air-ui-utils
     const pkgJsonPath = path.join(repoRoot, "packages", wsName, "package.json")
     const pkgJson = JSON.parse(readFileSync(pkgJsonPath, "utf8"))
     return pkgJson.version
 }
 
-function getPackageScope(pkgName) {
+const getPackageScope = (pkgName) => {
     if (pkgName === "@imaginario27/air-ui-ds") return "ds"
     if (pkgName === "@imaginario27/air-ui-utils") return "utils"
 
     return "root"
 }
 
-function getReleaseFiles(pkgName) {
+const getReleaseFiles = (pkgName) => {
     const wsName = pkgName.split("/")[1]
 
     return [
         "package-lock.json",
         "docs/data/releases/release-history.json",
+        "docs/data/releases/published-changes.json",
         path.join("packages", wsName, "package.json"),
         path.join("packages", wsName, "CHANGELOG.md"),
     ]
 }
 
-async function askConfirmation(message) {
+const askConfirmation = async (message) => {
     const rl = readline.createInterface({
         input: process.stdin,
         output: process.stdout,
@@ -63,7 +64,7 @@ async function askConfirmation(message) {
     })
 }
 
-async function main() {
+const main = async () => {
     try {
         // Mostrar cambios pendientes
         const status = runGit(["status", "--short"])
