@@ -357,8 +357,8 @@ const buildNotesFromCommits = (commits) => {
     }
 }
 
-const FETCH_MAX_ATTEMPTS = 10
-const FETCH_RETRY_DELAY_MS = 3000
+const FETCH_MAX_ATTEMPTS = 36
+const FETCH_RETRY_DELAY_MS = 5000
 
 const getLocalPackageVersion = (packageJsonPath) => {
     return JSON.parse(readFileSync(path.join(repoRoot, packageJsonPath), "utf8"))
