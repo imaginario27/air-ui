@@ -55,7 +55,7 @@
                     :isRounded="true"
                     :hasFocusRing="false"
                     :disabled="!canGoPrev"
-                    :ariaLabel="previousAriaLabel"
+                    :ariaLabel="previousAriaLabel ?? dsConfig.slides.previousText()"
                     @click="prev"
                 />
                 <ActionIconButton
@@ -65,7 +65,7 @@
                     :isRounded="true"
                     :hasFocusRing="false"
                     :disabled="!canGoNext"
-                    :ariaLabel="nextAriaLabel"
+                    :ariaLabel="nextAriaLabel ?? dsConfig.slides.nextText()"
                     @click="next"
                 />
             </template>
@@ -76,7 +76,7 @@
                 v-for="page in pageCount"
                 :key="page"
                 type="button"
-                :aria-label="`${dotAriaLabel} ${page}`"
+                :aria-label="`${dotAriaLabel ?? dsConfig.slides.goToSlideText()} ${page}`"
                 :aria-current="current === page - 1 ? 'true' : undefined"
                 :class="[
                     'h-2',
@@ -140,9 +140,9 @@ const props = defineProps({
         validator: (value: CarouselTransition) => Object.values(CarouselTransition).includes(value),
     },
     easing: {
-        type: String as PropType<CarouselEasing>,
-        default: CarouselEasing.SMOOTH,
-        validator: (value: CarouselEasing) => Object.values(CarouselEasing).includes(value),
+        type: String as PropType<Easing>,
+        default: Easing.SMOOTH,
+        validator: (value: Easing) => Object.values(Easing).includes(value),
     },
     speed: {
         type: Number as PropType<number>,
@@ -152,23 +152,17 @@ const props = defineProps({
         type: Boolean as PropType<boolean>,
         default: true,
     },
-    previousAriaLabel: {
-        type: String as PropType<string>,
-        default: 'Previous slide',
-    },
-    nextAriaLabel: {
-        type: String as PropType<string>,
-        default: 'Next slide',
-    },
-    dotAriaLabel: {
-        type: String as PropType<string>,
-        default: 'Go to slide',
-    },
+    previousAriaLabel: String as PropType<string>,
+    nextAriaLabel: String as PropType<string>,
+    dotAriaLabel: String as PropType<string>,
     ariaLabel: String as PropType<string>,
 })
 
 // Emits
 const emit = defineEmits(['update:modelValue', 'change'])
+
+// Composables
+const dsConfig = useDSConfig()
 
 // State
 const current = ref(0)
@@ -185,15 +179,7 @@ const isStacked = computed(() => [CarouselTransition.FADE, CarouselTransition.ZO
 const perView = computed(() => (isStacked.value ? 1 : Math.max(1, Math.floor(props.slidesPerView))))
 const duration = computed(() => (props.transition === CarouselTransition.NONE ? 0 : props.speed))
 
-const easingValue = computed(() => {
-    const easing = {
-        [CarouselEasing.SMOOTH]: 'cubic-bezier(0.22, 1, 0.36, 1)',
-        [CarouselEasing.EASE_IN_OUT]: 'ease-in-out',
-        [CarouselEasing.LINEAR]: 'linear',
-        [CarouselEasing.BOUNCE]: 'cubic-bezier(0.34, 1.56, 0.64, 1)',
-    }
-    return easing[props.easing] || easing[CarouselEasing.SMOOTH]
-})
+const easingValue = computed(() => EASING_VALUES[props.easing as Easing] || EASING_VALUES[Easing.SMOOTH])
 
 const pageCount = computed(() => Math.max(1, props.items.length - perView.value + 1))
 const canGoPrev = computed(() => props.isLoop || current.value > 0)

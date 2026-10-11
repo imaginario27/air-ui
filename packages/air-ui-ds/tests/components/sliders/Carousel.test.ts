@@ -1,6 +1,8 @@
 import { mount } from '@vue/test-utils'
 import Carousel from '@/components/sliders/Carousel.vue'
-import { CarouselEasing, CarouselTransition } from '@/models/enums/sliders'
+import { CarouselTransition } from '@/models/enums/sliders'
+import { Easing } from '@/models/enums/easings'
+import { useDSConfig } from '@/composables/useDSConfig'
 
 const items = ['One', 'Two', 'Three', 'Four']
 
@@ -39,9 +41,13 @@ describe('Carousel', () => {
     })
 
     it.each([
-        [CarouselEasing.LINEAR, 'linear'],
-        [CarouselEasing.EASE_IN_OUT, 'ease-in-out'],
-        [CarouselEasing.BOUNCE, 'cubic-bezier(0.34, 1.56, 0.64, 1)'],
+        [Easing.SMOOTH, 'cubic-bezier(0.22, 1, 0.36, 1)'],
+        [Easing.EASE, 'ease'],
+        [Easing.EASE_IN, 'ease-in'],
+        [Easing.EASE_OUT, 'ease-out'],
+        [Easing.LINEAR, 'linear'],
+        [Easing.EASE_IN_OUT, 'ease-in-out'],
+        [Easing.BOUNCE, 'cubic-bezier(0.34, 1.56, 0.64, 1)'],
     ])('applies the %s easing', (easing, css) => {
         const wrapper = factory({ easing })
 
@@ -109,6 +115,47 @@ describe('Carousel', () => {
         await wrapper.setProps({ modelValue: 2 })
 
         expect(wrapper.find('button[aria-current="true"]').attributes('aria-label')).toBe('Go to slide 3')
+    })
+
+    describe('labels', () => {
+        afterEach(() => {
+            const config = useDSConfig()
+            config.slides.previousText = () => 'Previous slide'
+            config.slides.nextText = () => 'Next slide'
+            config.slides.goToSlideText = () => 'Go to slide'
+        })
+
+        it('uses the default labels from the DS config', () => {
+            const wrapper = factory()
+
+            expect(wrapper.find('[aria-label="Previous slide"]').exists()).toBe(true)
+            expect(wrapper.find('[aria-label="Next slide"]').exists()).toBe(true)
+        })
+
+        it('lets a global config override change the labels', () => {
+            const config = useDSConfig()
+            config.slides.previousText = () => 'Diapositiva anterior'
+            config.slides.nextText = () => 'Diapositiva siguiente'
+            config.slides.goToSlideText = () => 'Ir a la diapositiva'
+
+            const wrapper = factory()
+
+            expect(wrapper.find('[aria-label="Diapositiva anterior"]').exists()).toBe(true)
+            expect(wrapper.find('[aria-label="Diapositiva siguiente"]').exists()).toBe(true)
+            expect(wrapper.findAll('button[aria-label^="Ir a la diapositiva"]')).toHaveLength(4)
+        })
+
+        it('lets the props win over the global config', () => {
+            const wrapper = factory({
+                previousAriaLabel: 'Back',
+                nextAriaLabel: 'Forward',
+                dotAriaLabel: 'Slide',
+            })
+
+            expect(wrapper.find('[aria-label="Back"]').exists()).toBe(true)
+            expect(wrapper.find('[aria-label="Forward"]').exists()).toBe(true)
+            expect(wrapper.findAll('button[aria-label^="Slide "]')).toHaveLength(4)
+        })
     })
 
     it('advances automatically with autoplay', () => {

@@ -25,10 +25,3 @@ export enum CarouselTransition {
     ZOOM = 'zoom',
     NONE = 'none',
 }
-
-export enum CarouselEasing {
-    SMOOTH = 'smooth',
-    EASE_IN_OUT = 'ease-in-out',
-    LINEAR = 'linear',
-    BOUNCE = 'bounce',
-}

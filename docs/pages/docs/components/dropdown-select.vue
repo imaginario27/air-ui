@@ -35,5 +35,9 @@ const tabs: TabItem[] = [
         text: 'DropdownSelect',
         to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/dropdown-select`,
     },
+    {
+        text: 'DropdownCombobox',
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/dropdown-combobox`,
+    },
 ]
 </script>

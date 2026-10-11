@@ -38,9 +38,12 @@ const dsConfig = reactive<DesignSystemConfig>({
     lightbox: {
         dialogText: () => 'Image lightbox',
         openImageText: () => 'Open image',
-        previousText: () => 'Previous image',
-        nextText: () => 'Next image',
         fullscreenText: () => 'Toggle fullscreen',
+    },
+    slides: {
+        previousText: () => 'Previous slide',
+        nextText: () => 'Next slide',
+        goToSlideText: () => 'Go to slide',
     },
 })
 

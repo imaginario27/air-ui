@@ -1,6 +1,7 @@
 import { mount } from '@vue/test-utils'
 import { nextTick } from 'vue'
 import Lightbox from '@/components/lightbox/Lightbox.vue'
+import { Easing } from '@/models/enums/easings'
 
 const IconStub = { props: ['name', 'size'], template: '<i class="icon" :data-name="name" />' }
 
@@ -55,8 +56,8 @@ describe('Lightbox', () => {
         it('hides the navigation buttons with a single image', () => {
             const wrapper = factory({ images: [images[0]] })
 
-            expect(wrapper.find('[aria-label="Previous image"]').exists()).toBe(false)
-            expect(wrapper.find('[aria-label="Next image"]').exists()).toBe(false)
+            expect(wrapper.find('[aria-label="Previous slide"]').exists()).toBe(false)
+            expect(wrapper.find('[aria-label="Next slide"]').exists()).toBe(false)
         })
 
         it('shows the caption of the current image', () => {
@@ -71,7 +72,7 @@ describe('Lightbox', () => {
             const wrapper = factory()
 
             expect(wrapper.get('dialog').attributes('aria-label')).toBe('Image lightbox')
-            ;['Previous image', 'Next image', 'Close', 'Toggle fullscreen'].forEach((label: string) => {
+            ;['Previous slide', 'Next slide', 'Close', 'Toggle fullscreen'].forEach((label: string) => {
                 expect(wrapper.find(`[aria-label="${label}"]`).exists()).toBe(true)
             })
         })
@@ -100,7 +101,7 @@ describe('Lightbox', () => {
         it('goes to the next image and emits the new index', async () => {
             const wrapper = factory()
 
-            await wrapper.get('[aria-label="Next image"]').trigger('click')
+            await wrapper.get('[aria-label="Next slide"]').trigger('click')
 
             expect(wrapper.get('img').attributes('src')).toBe('/b.png')
             expect(wrapper.emitted('update:index')).toEqual([[1]])
@@ -109,7 +110,7 @@ describe('Lightbox', () => {
         it('goes to the previous image', async () => {
             const wrapper = factory({ initialIndex: 2 })
 
-            await wrapper.get('[aria-label="Previous image"]').trigger('click')
+            await wrapper.get('[aria-label="Previous slide"]').trigger('click')
 
             expect(wrapper.get('img').attributes('src')).toBe('/b.png')
             expect(wrapper.emitted('update:index')).toEqual([[1]])
@@ -118,17 +119,17 @@ describe('Lightbox', () => {
         it('wraps around at both ends when looping', async () => {
             const wrapper = factory()
 
-            await wrapper.get('[aria-label="Previous image"]').trigger('click')
+            await wrapper.get('[aria-label="Previous slide"]').trigger('click')
             expect(wrapper.emitted('update:index')?.[0]).toEqual([2])
 
-            await wrapper.get('[aria-label="Next image"]').trigger('click')
+            await wrapper.get('[aria-label="Next slide"]').trigger('click')
             expect(wrapper.emitted('update:index')?.[1]).toEqual([0])
         })
 
         it('stops at the ends when looping is off', async () => {
             const wrapper = factory({ loop: false })
 
-            await wrapper.get('[aria-label="Previous image"]').trigger('click')
+            await wrapper.get('[aria-label="Previous slide"]').trigger('click')
 
             expect(wrapper.emitted('update:index')).toBeUndefined()
             expect(wrapper.get('img').attributes('src')).toBe('/a.png')
@@ -193,6 +194,22 @@ describe('Lightbox', () => {
             await wrapper.get('.touch-none').trigger('click')
 
             expect(wrapper.emitted('close')).toBeUndefined()
+        })
+    })
+
+    describe('easing', () => {
+        const slideStyle = (wrapper: ReturnType<typeof factory>) => wrapper.get('img').element.parentElement!.style
+
+        it('uses the ease-out easing by default', () => {
+            expect(slideStyle(factory()).transitionTimingFunction).toBe('ease-out')
+        })
+
+        it.each([
+            [Easing.SMOOTH, 'cubic-bezier(0.22, 1, 0.36, 1)'],
+            [Easing.LINEAR, 'linear'],
+            [Easing.BOUNCE, 'cubic-bezier(0.34, 1.56, 0.64, 1)'],
+        ])('applies the %s easing to the slide transition', (easing, css) => {
+            expect(slideStyle(factory({ easing })).transitionTimingFunction).toBe(css)
         })
     })
 
@@ -262,7 +279,7 @@ describe('Lightbox', () => {
 
         it('resets to the initial index when reopened', async () => {
             const wrapper = factory({ initialIndex: 0 })
-            await wrapper.get('[aria-label="Next image"]').trigger('click')
+            await wrapper.get('[aria-label="Next slide"]').trigger('click')
 
             await wrapper.setProps({ modelValue: false })
             await wrapper.setProps({ modelValue: true })

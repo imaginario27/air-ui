@@ -575,6 +575,8 @@ const positionOffsetStyle = computed(() => {
     return style
 })
 
+defineExpose({ isOpen, open, close, toggle })
+
 onMounted(() => {
     document.addEventListener('click', handleOutsideEvent)
     window.addEventListener('resize', close)

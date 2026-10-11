@@ -38,8 +38,11 @@ export interface DesignSystemConfig {
     lightbox: {
         dialogText: () => string
         openImageText: () => string
+        fullscreenText: () => string
+    }
+    slides: {
         previousText: () => string
         nextText: () => string
-        fullscreenText: () => string
+        goToSlideText: () => string
     }
 }

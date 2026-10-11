@@ -79,7 +79,7 @@
                                 'pointer-events-none flex h-full w-full select-none items-center justify-center',
                                 imagePaddingClass,
                             ]"
-                            :style="slideOffsetStyle"
+                            :style="slideStyle"
                         >
                             <img
                                 :src="current.src"
@@ -96,7 +96,7 @@
                         v-if="hasMultipleImages"
                         type="button"
                         :class="['absolute top-1/2 left-2 -translate-y-1/2 md:left-4', navButtonClass]"
-                        :aria-label="prevLabel ?? dsConfig.lightbox.previousText()"
+                        :aria-label="prevLabel ?? dsConfig.slides.previousText()"
                         @click="prev"
                     >
                         <Icon name="mdi:chevron-left" :size="IconSize.LG" />
@@ -106,7 +106,7 @@
                         v-if="hasMultipleImages"
                         type="button"
                         :class="['absolute top-1/2 right-2 -translate-y-1/2 md:right-4', navButtonClass]"
-                        :aria-label="nextLabel ?? dsConfig.lightbox.nextText()"
+                        :aria-label="nextLabel ?? dsConfig.slides.nextText()"
                         @click="next"
                     >
                         <Icon name="mdi:chevron-right" :size="IconSize.LG" />
@@ -147,6 +147,11 @@ const props = defineProps({
     closeOnClickOutside: {
         type: Boolean as PropType<boolean>,
         default: true,
+    },
+    easing: {
+        type: String as PropType<Easing>,
+        default: Easing.EASE_OUT,
+        validator: (value: Easing) => Object.values(Easing).includes(value),
     },
     lightboxClass: String as PropType<string>,
     ariaLabel: String as PropType<string>,
@@ -198,14 +203,14 @@ const slideLeaveTo = computed(() =>
     slideDirection.value === 'left' ? '-translate-x-24 opacity-0' : 'translate-x-24 opacity-0',
 )
 
-const slideOffsetStyle = computed(() => {
-    if (!dragOffsetX.value) return undefined
-    return { transform: `translateX(${dragOffsetX.value}px)` }
-})
+const slideStyle = computed(() => ({
+    transitionTimingFunction: EASING_VALUES[props.easing as Easing] || EASING_VALUES[Easing.EASE_OUT],
+    ...(dragOffsetX.value ? { transform: `translateX(${dragOffsetX.value}px)` } : {}),
+}))
 
 // Classes
-const slideEnterActive = 'transition-all duration-250 ease-out motion-reduce:transition-none'
-const slideLeaveActive = 'transition-all duration-200 ease-in motion-reduce:transition-none'
+const slideEnterActive = 'transition-all duration-250 motion-reduce:transition-none'
+const slideLeaveActive = 'transition-all duration-200 motion-reduce:transition-none'
 
 const navButtonClass = [
     'flex h-10 w-10 items-center justify-center rounded-full',

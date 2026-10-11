@@ -238,6 +238,11 @@ export const componentList: ComponentPortfolioItem[] = [
         imgUrl: `/images/thumbnails/components/checkbox-group-field.png`,
     },
     {
+        title: 'ComboboxField',
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/combobox-field`,
+        imgUrl: `/images/thumbnails/components/select-field.png`,
+    },
+    {
         title: 'DataField',
         to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/data-field`,
         imgUrl: `/images/thumbnails/components/data-field.png`,

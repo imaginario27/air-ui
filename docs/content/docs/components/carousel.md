@@ -34,6 +34,12 @@ items:
     easing:
         - value: smooth
           text: SMOOTH
+        - value: ease
+          text: EASE
+        - value: ease-in
+          text: EASE_IN
+        - value: ease-out
+          text: EASE_OUT
         - value: ease-in-out
           text: EASE_IN_OUT
         - value: linear
@@ -42,7 +48,7 @@ items:
           text: BOUNCE
 enums:
     transition: "CarouselTransition"
-    easing: "CarouselEasing"
+    easing: "Easing"
 slots:
   default: ""
 slotComponents:
@@ -113,8 +119,8 @@ props: [
     },
     {
         "name": "easing",
-        "default": "CarouselEasing.SMOOTH",
-        "type": "CarouselEasing"
+        "default": "Easing.SMOOTH",
+        "type": "Easing"
     },
     {
         "name": "speed",
@@ -128,17 +134,14 @@ props: [
     },
     {
         "name": "previousAriaLabel",
-        "default": "'Previous slide'",
         "type": "string"
     },
     {
         "name": "nextAriaLabel",
-        "default": "'Next slide'",
         "type": "string"
     },
     {
         "name": "dotAriaLabel",
-        "default": "'Go to slide'",
         "type": "string"
     },
     {
@@ -331,26 +334,29 @@ options: [
 
 ### easing
 
-Sets the timing curve of the transition via the `CarouselEasing` enum.
+Sets the timing curve of the transition via the shared `Easing` enum, which the [Lightbox](/docs/components/lightbox#easing) also uses.
 
 ```vue
 <template>
-    <Carousel :items="slides" :easing="CarouselEasing.BOUNCE" />
+    <Carousel :items="slides" :easing="Easing.BOUNCE" />
 </template>
 ```
 
-- **Type:** `CarouselEasing`
-- **Default:** `CarouselEasing.SMOOTH`
+- **Type:** `Easing`
+- **Default:** `Easing.SMOOTH`
 
 #### Options
 
 ::options-table
 ---
 options: [
-    { value: "SMOOTH", description: "smooth" },
-    { value: "EASE_IN_OUT", description: "ease-in-out" },
-    { value: "LINEAR", description: "linear" },
-    { value: "BOUNCE", description: "bounce" },
+    { value: "SMOOTH", description: "Fast start with a long, gentle finish" },
+    { value: "EASE", description: "CSS `ease`" },
+    { value: "EASE_IN", description: "CSS `ease-in`" },
+    { value: "EASE_OUT", description: "CSS `ease-out`" },
+    { value: "EASE_IN_OUT", description: "CSS `ease-in-out`" },
+    { value: "LINEAR", description: "Constant speed" },
+    { value: "BOUNCE", description: "Slightly overshoots the target before settling" },
 ]
 ---
 ::
@@ -383,7 +389,7 @@ Pauses autoplay while the pointer is over the carousel or it has focus.
 
 ### previousAriaLabel
 
-Sets the `aria-label` of the previous button.
+Sets the `aria-label` of the previous button. Falls back to `useDSConfig().slides.previousText()`.
 
 ```vue
 <template>
@@ -392,11 +398,10 @@ Sets the `aria-label` of the previous button.
 ```
 
 - **Type:** `string`
-- **Default:** `'Previous slide'`
 
 ### nextAriaLabel
 
-Sets the `aria-label` of the next button.
+Sets the `aria-label` of the next button. Falls back to `useDSConfig().slides.nextText()`.
 
 ```vue
 <template>
@@ -405,11 +410,10 @@ Sets the `aria-label` of the next button.
 ```
 
 - **Type:** `string`
-- **Default:** `'Next slide'`
 
 ### dotAriaLabel
 
-Sets the prefix of each indicator's `aria-label`. The page number is appended.
+Sets the prefix of each indicator's `aria-label`. The page number is appended. Falls back to `useDSConfig().slides.goToSlideText()`.
 
 ```vue
 <template>
@@ -418,7 +422,6 @@ Sets the prefix of each indicator's `aria-label`. The page number is appended.
 ```
 
 - **Type:** `string`
-- **Default:** `'Go to slide'`
 
 ### ariaLabel
 

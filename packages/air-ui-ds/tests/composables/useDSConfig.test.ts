@@ -30,9 +30,10 @@ describe('useDSConfig', () => {
         expect(config.gallery.loadMoreText()).toBe('Load more')
         expect(config.lightbox.dialogText()).toBe('Image lightbox')
         expect(config.lightbox.openImageText()).toBe('Open image')
-        expect(config.lightbox.previousText()).toBe('Previous image')
-        expect(config.lightbox.nextText()).toBe('Next image')
         expect(config.lightbox.fullscreenText()).toBe('Toggle fullscreen')
+        expect(config.slides.previousText()).toBe('Previous slide')
+        expect(config.slides.nextText()).toBe('Next slide')
+        expect(config.slides.goToSlideText()).toBe('Go to slide')
     })
 
     it('is reactive and allows overriding the resolver function', () => {

@@ -417,6 +417,10 @@ options: [
         value: "HOVER",
         description: "Opens the dropdown on hover and closes when pointer leaves activator/dropdown.",
     },
+    {
+        value: "MANUAL",
+        description: "The activator does not open or close the dropdown. Control it through the exposed `open`, `close` and `toggle` methods.",
+    },
 ]
 ---
 ::

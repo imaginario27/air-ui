@@ -87,6 +87,26 @@ describe('DropdownMenu.vue', () => {
         expect((wrapper.vm as any).isOpen).toBe(false)
     })
 
+    it('ignores activator clicks when trigger is manual and opens through exposed methods', async () => {
+        const wrapper = factory({
+            props: {
+                trigger: 'manual',
+                items: [{ text: 'Item' }],
+            },
+        })
+
+        await wrapper.find('.dropdown-activator').trigger('click')
+        expect((wrapper.vm as any).isOpen).toBe(false)
+
+        wrapper.vm.open()
+        await nextTick()
+        expect((wrapper.vm as any).isOpen).toBe(true)
+
+        wrapper.vm.close()
+        await nextTick()
+        expect((wrapper.vm as any).isOpen).toBe(false)
+    })
+
     it('calls callback and closes dropdown on item click', async () => {
         const mockCallback = vi.fn()
 
