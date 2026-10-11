@@ -17,7 +17,7 @@ if (!packageName) {
     process.exit(1)
 }
 
-function runGit(args) {
+const runGit = (args) => {
     try {
         return execFileSync("git", ["-C", repoRoot, ...args], {
             encoding: "utf8",
@@ -27,7 +27,7 @@ function runGit(args) {
     }
 }
 
-function getLastPublishedPackage() {
+const getLastPublishedPackage = () => {
     // Get the last 10 commit messages to find the last publish
     const log = runGit(["log", "--oneline", "-20"])
     
@@ -60,13 +60,13 @@ function getLastPublishedPackage() {
     return null
 }
 
-function getPackageDisplayName(pkg) {
+const getPackageDisplayName = (pkg) => {
     if (pkg === "@imaginario27/air-ui-ds") return "Design System (ds)"
     if (pkg === "@imaginario27/air-ui-utils") return "Utils (utils)"
     return pkg
 }
 
-async function askConfirmation(message) {
+const askConfirmation = async (message) => {
     const rl = readline.createInterface({
         input: process.stdin,
         output: process.stdout,
@@ -80,7 +80,7 @@ async function askConfirmation(message) {
     })
 }
 
-async function main() {
+const main = async () => {
     try {
         const lastPackage = getLastPublishedPackage()
         

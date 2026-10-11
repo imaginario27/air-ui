@@ -8,7 +8,7 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 const repoRoot = path.resolve(__dirname, "..")
 
-function runGit(args) {
+const runGit = (args) => {
     try {
         return execFileSync("git", ["-C", repoRoot, ...args], {
             encoding: "utf8",
@@ -18,7 +18,7 @@ function runGit(args) {
     }
 }
 
-function areaFromFile(filePath) {
+const areaFromFile = (filePath) => {
     const normalizedPath = filePath.replaceAll("\\", "/")
 
     // Generated release metadata is shared repo state, not docs-area work.
@@ -31,13 +31,13 @@ function areaFromFile(filePath) {
     return null
 }
 
-function isGeneralRootChange(filePath) {
+const isGeneralRootChange = (filePath) => {
     const normalizedPath = filePath.replaceAll("\\", "/")
 
     return !normalizedPath.includes("/")
 }
 
-function main() {
+const main = () => {
     const output = runGit(["diff", "--cached", "--name-only", "--diff-filter=ACMR"])
 
     if (!output) process.exit(0)
