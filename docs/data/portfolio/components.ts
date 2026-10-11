@@ -66,6 +66,10 @@ export const componentList: ComponentPortfolioItem[] = [
         imgUrl: `/images/thumbnails/components/action-button.png`,
     },
     {
+        title: 'Calendar',
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/calendar`,
+    },
+    {
         title: 'Carousel',
         to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/carousel`,
         imgUrl: `/images/thumbnails/components/carousel.png`,
@@ -246,6 +250,10 @@ export const componentList: ComponentPortfolioItem[] = [
         title: 'DataField',
         to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/data-field`,
         imgUrl: `/images/thumbnails/components/data-field.png`,
+    },
+    {
+        title: 'DatePickerField',
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/date-picker-field`,
     },
     {
         title: 'FileUploadField',

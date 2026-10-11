@@ -4,7 +4,7 @@ AirUI exposes a small set of behaviors as shared, reactive configuration instead
 
 There are two config composables, one per package:
 
-- `useDSConfig` (from `@imaginario27/air-ui-ds`): text used by components, grouped under `forms`, `actions`, `common`, `pagination`, `gallery`, `lightbox` and `slides`.
+- `useDSConfig` (from `@imaginario27/air-ui-ds`): text used by components, grouped under `forms`, `actions`, `common`, `pagination`, `gallery`, `lightbox`, `calendar` and `slides`.
 - `useUtilsConfig` (from `@imaginario27/air-ui-utils`): messages used by the framework-agnostic form validators in `air-ui-utils`, grouped under `validation`.
 
 <br/>
@@ -82,6 +82,16 @@ export default defineNuxtPlugin(() => {
         dialogText: () => 'Image lightbox',
         openImageText: () => 'Open image',
         fullscreenText: () => 'Toggle fullscreen',
+    })
+
+    /* Text used by the Calendar and the date InputField */
+    Object.assign(dsConfig.calendar, {
+        previousMonthText: () => 'Previous month',
+        nextMonthText: () => 'Next month',
+        previousYearText: () => 'Previous year',
+        nextYearText: () => 'Next year',
+        openText: () => 'Open calendar',
+        placeholderText: () => 'Select a date',
     })
 
     /* Navigation text shared by the Carousel and the Lightbox */

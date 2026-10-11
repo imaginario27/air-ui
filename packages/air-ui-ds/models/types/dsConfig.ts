@@ -40,6 +40,14 @@ export interface DesignSystemConfig {
         openImageText: () => string
         fullscreenText: () => string
     }
+    calendar: {
+        previousMonthText: () => string
+        nextMonthText: () => string
+        previousYearText: () => string
+        nextYearText: () => string
+        openText: () => string
+        placeholderText: () => string
+    }
     slides: {
         previousText: () => string
         nextText: () => string

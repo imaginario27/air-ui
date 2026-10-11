@@ -286,4 +286,104 @@ describe('InputField.vue', () => {
         const input = wrapper.find('input')
         expect(input.classes()).not.toContain('custom-input-class')
     })
+
+    describe('type date', () => {
+        const dateFactory = (props: Record<string, any> = {}) =>
+            factory({ type: 'date', modelValue: '2026-10-15', ...props })
+
+        it('shows the formatted date in a read-only text input', () => {
+            const input = dateFactory().find('input')
+
+            expect(input.attributes('type')).toBe('text')
+            expect(input.attributes('readonly')).toBeDefined()
+            expect((input.element as HTMLInputElement).value).toBe('10/15/2026')
+        })
+
+        it('formats the date with the locale prop', () => {
+            const input = dateFactory({ locale: 'es-ES' }).find('input')
+
+            expect((input.element as HTMLInputElement).value).toBe('15/10/2026')
+        })
+
+        it('opens the calendar when the input is clicked', async () => {
+            const wrapper = dateFactory()
+            expect(wrapper.findComponent({ name: 'Calendar' }).exists()).toBe(false)
+
+            await wrapper.find('input').trigger('click')
+
+            expect(wrapper.findComponent({ name: 'Calendar' }).exists()).toBe(true)
+        })
+
+        it('opens the calendar from the calendar button', async () => {
+            const wrapper = dateFactory()
+
+            await wrapper.find('button[aria-label="Open calendar"]').trigger('click')
+
+            expect(wrapper.findComponent({ name: 'Calendar' }).exists()).toBe(true)
+        })
+
+        it.each(['Enter', ' ', 'ArrowDown'])('opens the calendar with the %j key', async (key) => {
+            const wrapper = dateFactory()
+
+            await wrapper.find('input').trigger('keydown', { key })
+
+            expect(wrapper.findComponent({ name: 'Calendar' }).exists()).toBe(true)
+        })
+
+        it('emits the ISO date and closes when a day is picked', async () => {
+            const wrapper = dateFactory()
+            await wrapper.find('input').trigger('click')
+
+            await wrapper.find('[data-date="2026-10-20"]').trigger('click')
+
+            expect(wrapper.emitted('update:modelValue')![0]).toEqual(['2026-10-20'])
+            expect(wrapper.findComponent({ name: 'Calendar' }).exists()).toBe(false)
+        })
+
+        it('closes the calendar with Escape', async () => {
+            const wrapper = dateFactory()
+            await wrapper.find('input').trigger('click')
+
+            await wrapper.find('input').trigger('keydown', { key: 'Escape' })
+
+            expect(wrapper.findComponent({ name: 'Calendar' }).exists()).toBe(false)
+        })
+
+        it('passes min and max to the calendar', async () => {
+            const wrapper = dateFactory({ min: '2026-10-10', max: '2026-10-20' })
+            await wrapper.find('input').trigger('click')
+
+            const calendar = wrapper.findComponent({ name: 'Calendar' })
+
+            expect(calendar.props('min')).toBe('2026-10-10')
+            expect(calendar.props('max')).toBe('2026-10-20')
+        })
+
+        it('clears the value', async () => {
+            const wrapper = dateFactory()
+
+            await wrapper.find('button[aria-label="Clear selection"]').trigger('click')
+
+            expect(wrapper.emitted('update:modelValue')![0]).toEqual([''])
+        })
+
+        it('does not show the clear button without a value', () => {
+            expect(dateFactory({ modelValue: '' }).find('button[aria-label="Clear selection"]').exists()).toBe(false)
+        })
+
+        it.each([{ disabled: true }, { readonly: true }])('does not open the calendar when %j', async (props) => {
+            const wrapper = dateFactory(props)
+
+            await wrapper.find('input').trigger('click')
+
+            expect(wrapper.findComponent({ name: 'Calendar' }).exists()).toBe(false)
+        })
+
+        it('keeps the native behavior for other types', () => {
+            const wrapper = factory({ type: 'time' })
+
+            expect(wrapper.find('input').attributes('type')).toBe('time')
+            expect(wrapper.find('button[aria-label="Open calendar"]').exists()).toBe(false)
+        })
+    })
 })

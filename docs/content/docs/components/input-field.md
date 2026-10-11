@@ -140,6 +140,11 @@ props: [
         "type": "boolean",
     },
     {
+        "name": "locale",
+        "default": "'en-US'",
+        "type": "string",
+    },
+    {
         "name": "min",
         "type": "string",
     },
@@ -233,6 +238,18 @@ Sets the label of the field.
 Sets the type of the input field. It uses the `AllowedInputType` type.
 
 For the rest of native HTML input types, please use the specific components provided by AirUI.
+
+With `type="date"`, the field renders a [DatePickerField](/docs/components/date-picker-field): it shows the date formatted for the [locale](#locale) in a read-only input and opens a [Calendar](/docs/components/calendar) to pick it. Use `DatePickerField` directly to control the calendar (color, range, inline variant and more). The value stays an ISO string (`YYYY-MM-DD`), as with the native date input, and [min](#min) and [max](#max) limit the selectable dates. Click the input, or press `Enter`, `Space` or `ArrowDown`, to open it, and `Escape` to close it. Typing a date is not supported.
+
+```vue
+<template>
+    <InputField v-model="birthDate" id="birth-date" type="date" label="Birth date" />
+</template>
+
+<script setup lang="ts">
+const birthDate = ref('2026-10-15')
+</script>
+```
 
 ```vue
 <template>
@@ -484,6 +501,19 @@ Sets whether to show the "show password" button (only for type `password`).
 
 - **Type:** `boolean`
 - **Default:** `true`
+
+### locale
+
+Sets the BCP 47 locale used to format the date shown in the field and the names in the calendar. Only applies to `type="date"`.
+
+```vue
+<template>
+    <InputField type="date" locale="es-ES" />
+</template>
+```
+
+- **Type:** `string`
+- **Default:** `'en-US'`
 
 ### min
 

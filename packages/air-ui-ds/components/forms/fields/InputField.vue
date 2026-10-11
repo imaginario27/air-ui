@@ -1,5 +1,31 @@
 <template>
-    <div :class="['flex flex-col', 'w-full', 'gap-2']">
+    <DatePickerField
+        v-if="isDateType"
+        :id
+        :label
+        :ariaLabel
+        :helpText
+        :helpTextPosition
+        :icon
+        :size
+        :modelValue="dateValue"
+        :placeholder
+        :validator
+        :error
+        :min
+        :max
+        :locale
+        :readonly
+        :disabled
+        :required
+        :showOptionalLabel
+        :optionalLabel
+        :transparent
+        @update:modelValue="handleDateUpdate"
+        @update:error="emit('update:error', $event)"
+    />
+
+    <div v-else :class="['flex flex-col', 'w-full', 'gap-2']">
         <div v-if="label" class="w-full flex gap-2 justify-between">
             <!-- Label -->
             <label
@@ -180,6 +206,10 @@ const props = defineProps({
         type: Boolean as PropType<boolean>,
         default: true,
     },
+    locale: {
+        type: String as PropType<string>,
+        default: 'en-US',
+    },
     min: String as PropType<string>,
     max: String as PropType<string>,
     step: String as PropType<string>,
@@ -236,6 +266,14 @@ const passwordInputType = computed(() => {
     if (props.type !== 'password') return props.type
     return showPassword.value ? 'text' : 'password'
 })
+
+// Date type (delegated to DatePickerField)
+const isDateType = computed(() => props.type === 'date')
+const dateValue = computed(() => (props.modelValue === null ? null : String(props.modelValue)))
+
+const handleDateUpdate = (value: unknown) => {
+    emit('update:modelValue', (value as string | null) ?? '')
+}
 
 // Computed classes
 const inputSizeClass = computed(() => {

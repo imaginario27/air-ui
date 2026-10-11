@@ -40,6 +40,14 @@ const dsConfig = reactive<DesignSystemConfig>({
         openImageText: () => 'Open image',
         fullscreenText: () => 'Toggle fullscreen',
     },
+    calendar: {
+        previousMonthText: () => 'Previous month',
+        nextMonthText: () => 'Next month',
+        previousYearText: () => 'Previous year',
+        nextYearText: () => 'Next year',
+        openText: () => 'Open calendar',
+        placeholderText: () => 'Select a date',
+    },
     slides: {
         previousText: () => 'Previous slide',
         nextText: () => 'Next slide',
