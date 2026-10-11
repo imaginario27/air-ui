@@ -238,7 +238,6 @@
 
                                         <List
                                             v-if="item.body.length && !isItemCollapsed(item)"
-                                            class="gap-1!"
                                         >
                                             <ListItem
                                                 v-for="line in item.body"
