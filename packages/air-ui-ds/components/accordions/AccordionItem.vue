@@ -16,7 +16,7 @@
                 :icon="isOpen ? 'mdi:minus' : 'mdi:plus'"
                 :styleType="ButtonStyleType.NEUTRAL_TRANSPARENT"
                 :size="ButtonSize.MD"
-                tabindex="-1"
+                isDecorative
                 aria-hidden="true"
             />
         </button>

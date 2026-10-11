@@ -131,4 +131,21 @@ describe('ActionIconButton.vue', () => {
         const wrapper = factory()
         expect(wrapper.find('button').attributes('aria-label')).toBeUndefined()
     })
+
+    it('renders a span instead of a button when isDecorative is true', () => {
+        const wrapper = factory({ isDecorative: true })
+
+        expect(wrapper.find('button').exists()).toBe(false)
+        expect(wrapper.element.tagName).toBe('SPAN')
+    })
+
+    it('does not emit click or set type/disabled when isDecorative is true', async () => {
+        const wrapper = factory({ isDecorative: true, disabled: true })
+
+        await wrapper.trigger('click')
+
+        expect(wrapper.emitted('click')).toBeUndefined()
+        expect(wrapper.attributes('type')).toBeUndefined()
+        expect(wrapper.attributes('disabled')).toBeUndefined()
+    })
 })
