@@ -53,7 +53,7 @@ Before writing any new util, composable, store, component, enum, or type, **sear
 4. Create the docs page content at `docs/content/docs/components/<kebab-name>.md` starting with `## Component` + `::component-code` MDC block — no front matter.
 5. Create the matching route at `docs/pages/docs/components/<kebab-name>.vue` with `definePageMeta({ title, layout: 'docs', overtitle: 'Components', description })`.
 6. Register the page in [docs/data/portfolio/components.ts](docs/data/portfolio/components.ts) (the sidebar in [docs/data/menu-items/sidebar/](docs/data/menu-items/sidebar/) derives from it). Keep entries in alphabetical order by `title` within their section (same for [docs/data/portfolio/utils.ts](docs/data/portfolio/utils.ts) when adding utils). Use the `docs-page` skill for steps 4–6.
-7. Add a changeset: `npm run changeset`.
+7. Do NOT add a changeset: it is generated automatically on publish (see GUARDRAILS #22).
 
 ## Common Claude mistakes to avoid
 

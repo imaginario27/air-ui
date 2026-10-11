@@ -22,3 +22,4 @@
 19. NEVER skip husky/commitlint with `--no-verify`. Commits must follow `<type>(ds|utils|docs|root): <subject>`.
 20. ALWAYS import test subjects via the `@/` alias (e.g. `import Alert from '@/components/alerts/Alert.vue'`), never relative paths.
 21. ALWAYS declare functions as arrow functions (`const name = (…) => { … }`), in components, composables, utils, scripts and tests. NEVER use `function name() { … }` declarations. Define each arrow function before its first use, since `const` is not hoisted.
+22. NEVER create a changeset (`npm run changeset`, `.changeset/*.md`) while implementing a change. Changesets are generated automatically by the publish pipeline (`npm run publish:ds|utils:*`), so leave `.changeset/` alone and do not suggest adding one.
