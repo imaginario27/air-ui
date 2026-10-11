@@ -1,25 +1,22 @@
 /* eslint-disable no-undef */
+// Shared by every format request, so concurrent calls wait for the plugins too
+let loadingPrettier = null
+
+const loadPrettier = () => {
+    loadingPrettier ??= Promise.all([
+        import("https://cdn.jsdelivr.net/npm/prettier@3.5.2/standalone.js"),
+        import("https://cdn.jsdelivr.net/npm/prettier@3.5.2/plugins/babel.js"),
+        import("https://cdn.jsdelivr.net/npm/prettier@3.5.2/plugins/estree.js"),
+        import("https://cdn.jsdelivr.net/npm/prettier@3.5.2/plugins/html.js"),
+        import("https://cdn.jsdelivr.net/npm/prettier@3.5.2/plugins/markdown.js"),
+        import("https://cdn.jsdelivr.net/npm/prettier@3.5.2/plugins/typescript.js"),
+    ])
+
+    return loadingPrettier
+}
+
 const handleFormatMessage = async (message) => {
-    if (!globalThis.prettier) {
-        await Promise.all([
-            import("https://cdn.jsdelivr.net/npm/prettier@3.5.2/standalone.js"),
-            import(
-                "https://cdn.jsdelivr.net/npm/prettier@3.5.2/plugins/babel.js"
-            ),
-            import(
-                "https://cdn.jsdelivr.net/npm/prettier@3.5.2/plugins/estree.js"
-            ),
-            import(
-                "https://cdn.jsdelivr.net/npm/prettier@3.5.2/plugins/html.js"
-            ),
-            import(
-                "https://cdn.jsdelivr.net/npm/prettier@3.5.2/plugins/markdown.js"
-            ),
-            import(
-                "https://cdn.jsdelivr.net/npm/prettier@3.5.2/plugins/typescript.js"
-            ),
-        ])
-    }
+    await loadPrettier()
 
     const { options, source } = message
     const formatted = await prettier.format(source, {
