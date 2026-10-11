@@ -22,7 +22,7 @@ props:
     cooldownSeconds: 60
     isFullScreen: false
     spinnerSize: 'lg'
-    iconContainerSize: 'xxl'
+    iconContainerSize: '2xl'
     buttonSize: 'lg'
     isSpaced: true
     titleClass: 'font-semibold text-xl md:text-2xl text-center leading-6'
