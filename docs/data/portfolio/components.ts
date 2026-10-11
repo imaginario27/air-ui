@@ -66,6 +66,11 @@ export const componentList: ComponentPortfolioItem[] = [
         imgUrl: `/images/thumbnails/components/action-button.png`,
     },
     {
+        title: 'Carousel',
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/carousel`,
+        imgUrl: `/images/thumbnails/components/carousel.png`,
+    },
+    {
         title: 'Collapsible',
         to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/collapsible`,
         imgUrl: `/images/thumbnails/components/collapsible.png`,

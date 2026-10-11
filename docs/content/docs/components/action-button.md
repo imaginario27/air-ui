@@ -13,6 +13,7 @@ props:
     iconPosition: "none"
     iconClass: ""
     isRounded: false
+    hasFocusRing: true
     isFullWidth: false
     isMobileFullWidth: false
     disabled: false
@@ -152,6 +153,11 @@ props: [
     {
         "name": "isRounded",
         "default": "false",
+        "type": "boolean"
+    },
+    {
+        "name": "hasFocusRing",
+        "default": "true",
         "type": "boolean"
     },
     {
@@ -505,6 +511,19 @@ Makes the button fully rounded.
 - **Type:** `boolean`
 - **Default:** `false`
 
+
+### hasFocusRing
+
+Shows or hides the focus ring. Disable it only when the focus state is already visible some other way, for example when the button sits inside a container that highlights on focus.
+
+```vue
+<template>
+    <ActionButton :hasFocusRing="false" />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `true`
 
 ### isFullWidth and isMobileFullWidth
 

@@ -18,3 +18,17 @@ export enum AngleSliderSize {
     XL = 'xl',
     XXL = '2xl',
 }
+
+export enum CarouselTransition {
+    SLIDE = 'slide',
+    FADE = 'fade',
+    ZOOM = 'zoom',
+    NONE = 'none',
+}
+
+export enum CarouselEasing {
+    SMOOTH = 'smooth',
+    EASE_IN_OUT = 'ease-in-out',
+    LINEAR = 'linear',
+    BOUNCE = 'bounce',
+}

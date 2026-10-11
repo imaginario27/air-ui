@@ -7,6 +7,7 @@
             'flex items-center justify-center rounded-button',
             isRounded ? 'rounded-full' : 'rounded-button',
             'aspect-square',
+            !hasFocusRing && 'focus:!ring-0 focus:!ring-offset-0',
             'transition-colors duration-200 ease-out',
             ...buttonStyleClass,
             buttonSizeClass,
@@ -79,6 +80,10 @@ const props = defineProps({
     isRounded: {
         type: Boolean as PropType<boolean>,
         default: false
+    },
+    hasFocusRing: {
+        type: Boolean as PropType<boolean>,
+        default: true
     },
     isExternal: {
         type: Boolean as PropType<boolean>,

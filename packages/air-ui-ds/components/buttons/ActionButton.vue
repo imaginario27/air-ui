@@ -13,6 +13,7 @@
             horizontalPaddingClass,
             gapClass,
             'self-start',
+            !hasFocusRing && 'focus:!ring-0 focus:!ring-offset-0',
             isFullWidth && 'w-full',
             isMobileFullWidth && 'w-full md:w-auto',
             disabled && 'opacity-disabled cursor-not-allowed pointer-events-none',
@@ -131,6 +132,10 @@ const props = defineProps({
     isRounded: {
         type: Boolean as PropType<boolean>,
         default: false
+    },
+    hasFocusRing: {
+        type: Boolean as PropType<boolean>,
+        default: true
     },
     isFullWidth: {
         type: Boolean as PropType<boolean>,
