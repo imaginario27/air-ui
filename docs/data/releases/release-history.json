@@ -1,12 +1,51 @@
 {
-  "generatedAt": "2026-10-11T14:31:15.991Z",
+  "generatedAt": "2026-10-11T14:56:44.386Z",
   "source": "github-git-history+npm-publish-dates",
   "githubBaseUrl": "https://github.com/imaginario27/air-ui",
   "packages": [
     {
       "packageName": "@imaginario27/air-ui-ds",
-      "latestVersion": "1.22.1",
+      "latestVersion": "1.22.2",
       "entries": [
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.22.2",
+          "publishedAt": "2026-10-11",
+          "releaseType": "patch",
+          "notes": [
+            "prevent dark theme flash on client-side navigation"
+          ],
+          "metadata": {
+            "commitCount": 1,
+            "commits": [
+              {
+                "sha": "8a2e62d08eed65ea034f3490bdffcf4c65c29546",
+                "shortSha": "8a2e62d",
+                "date": "2026-10-11",
+                "subject": "fix(ds): prevent dark theme flash on client-side navigation",
+                "normalizedSubject": "prevent dark theme flash on client-side navigation",
+                "type": "fixed",
+                "body": [
+                  "skip the `watchEffect` in `useDarkMode` until the component is hydrated",
+                  "stop applying the `system` default before the stored `color-mode` loads"
+                ],
+                "affected": [
+                  "useDarkMode"
+                ],
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/8a2e62d08eed65ea034f3490bdffcf4c65c29546",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 0,
+              "fixed": 1,
+              "changed": 0,
+              "maintenance": 0,
+              "breaking": 0
+            }
+          }
+        },
         {
           "packageName": "@imaginario27/air-ui-ds",
           "version": "1.22.1",
