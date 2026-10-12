@@ -15,6 +15,7 @@ props:
     size: "md"
     clearable: true
     pickerPosition: "bottom"
+    autoFlip: true
     locale: "en-US"
     hourFormat: "12"
     hasSeconds: false
@@ -134,6 +135,11 @@ props: [
         "name": "pickerPosition",
         "type": "Position",
         "default": "Position.BOTTOM"
+    },
+    {
+        "name": "autoFlip",
+        "default": "true",
+        "type": "boolean"
     },
     {
         "name": "locale",
@@ -428,6 +434,20 @@ options: [
 ]
 ---
 ::
+
+
+### autoFlip
+
+Moves the picker to the other side when it does not fit in the window. If it would be cut off at the bottom or the top edge of the screen and there is more room on the other side, it opens there instead. The position is checked when it opens, and `pickerPosition` is only the starting point. Set it to `false` to always keep the position as given.
+
+```vue
+<template>
+    <TimePickerField v-model="time" id="time" :autoFlip="false" />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `true`
 
 ### locale
 

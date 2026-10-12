@@ -34,6 +34,7 @@ props:
     activeStyle: "check"
     modelValue: "item-1"
     dropdownPosition: "bottom"
+    autoFlip: true
     selectBoxClass: "bg-background-container-surface"
     filterable: false
     searchFieldPlaceholder: "Search..."
@@ -129,6 +130,11 @@ props: [
         "name": "dropdownPosition",
         "default": "DropdownPosition.BOTTOM",
         "type": "DropdownPosition",
+    },
+    {
+        "name": "autoFlip",
+        "default": "true",
+        "type": "boolean"
     },
     {
         "name": "selectBoxClass",
@@ -429,6 +435,19 @@ options: [
 ]
 ---
 ::
+
+### autoFlip
+
+Moves the dropdown to the other side when it does not fit in the window. If it would be cut off at the bottom or the top edge of the screen and there is more room on the other side, it opens there instead. The position is checked when it opens, and `dropdownPosition` is only the starting point. Set it to `false` to always keep the position as given.
+
+```vue
+<template>
+    <DropdownSelect id="select" :options="options" :autoFlip="false" />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `true`
 
 ### selectBoxClass
 Sets the class of the select box. Customizes and overrides the select box styles.

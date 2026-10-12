@@ -18,6 +18,7 @@ props:
     closeOnSelect: true
     clearable: true
     calendarPosition: "bottom"
+    autoFlip: true
     min: null
     max: null
     locale: "en-US"
@@ -176,6 +177,11 @@ props: [
         "name": "calendarPosition",
         "type": "Position",
         "default": "Position.BOTTOM"
+    },
+    {
+        "name": "autoFlip",
+        "default": "true",
+        "type": "boolean"
     },
     {
         "name": "min",
@@ -631,6 +637,20 @@ options: [
 ]
 ---
 ::
+
+
+### autoFlip
+
+Moves the calendar to the other side when it does not fit in the window. If it would be cut off at the bottom or the top edge of the screen and there is more room on the other side, it opens there instead. The position is checked when it opens, and `calendarPosition` is only the starting point. Set it to `false` to always keep the position as given.
+
+```vue
+<template>
+    <DatePickerField v-model="date" id="date" :autoFlip="false" />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `true`
 
 ### min
 

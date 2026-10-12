@@ -27,6 +27,7 @@ props:
     size: "md"
     activeStyle: "check"
     dropdownPosition: "bottom"
+    autoFlip: true
     filterable: false
     searchFieldPlaceholder: "Search..."
     noResultsFoundText: "No results found"
@@ -157,6 +158,11 @@ props: [
         "name": "dropdownPosition",
         "default": "Position.BOTTOM",
         "type": "Position",
+    },
+    {
+        "name": "autoFlip",
+        "default": "true",
+        "type": "boolean"
     },
     {
         "name": "filterable",
@@ -579,6 +585,20 @@ options: [
 ]
 ---
 ::
+
+
+### autoFlip
+
+Moves the dropdown to the other side when it does not fit in the window. If it would be cut off at the bottom or the top edge of the screen and there is more room on the other side, it opens there instead. The position is checked when it opens, and `dropdownPosition` is only the starting point. Set it to `false` to always keep the position as given.
+
+```vue
+<template>
+    <SelectField v-model="value" id="select" :options="options" :autoFlip="false" />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `true`
 
 ### filterable
 
