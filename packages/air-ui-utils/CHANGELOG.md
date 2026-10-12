@@ -5,6 +5,17 @@ All notable changes to this package are documented in this file.
 Historical releases were reconstructed from git history (GitHub repository) and npm publish dates.
 Future releases will include detailed entries generated with Changesets.
 
+## 1.4.2 - 2026-10-12
+
+Release type: patch.
+Commits found in range: 1.
+
+### Changed
+
+1. format codebase with prettier ([6516dfc](https://github.com/imaginario27/air-ui/commit/6516dfc831961c291b25a79be9ad219cf6284bb3))
+
+- Package: @imaginario27/air-ui-utils.
+
 ## 1.4.1 - 2026-10-11
 
 Release type: patch.

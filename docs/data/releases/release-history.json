@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-12T11:30:51.239Z",
+  "generatedAt": "2026-10-12T11:34:10.269Z",
   "source": "github-git-history+npm-publish-dates",
   "githubBaseUrl": "https://github.com/imaginario27/air-ui",
   "packages": [
@@ -7233,8 +7233,61 @@
     },
     {
       "packageName": "@imaginario27/air-ui-utils",
-      "latestVersion": "1.4.1",
+      "latestVersion": "1.4.2",
       "entries": [
+        {
+          "packageName": "@imaginario27/air-ui-utils",
+          "version": "1.4.2",
+          "publishedAt": "2026-10-12",
+          "releaseType": "patch",
+          "notes": [
+            "format codebase with prettier"
+          ],
+          "metadata": {
+            "commitCount": 1,
+            "commits": [
+              {
+                "sha": "6516dfc831961c291b25a79be9ad219cf6284bb3",
+                "shortSha": "6516dfc",
+                "date": "2026-10-11",
+                "subject": "style(root): format codebase with prettier",
+                "normalizedSubject": "format codebase with prettier",
+                "type": "changed",
+                "body": [
+                  "run `npm run format` across `packages` and `docs`"
+                ],
+                "affected": [
+                  "useNavigation",
+                  "counters",
+                  "data",
+                  "dates",
+                  "encoding",
+                  "errors",
+                  "events",
+                  "formFilters",
+                  "formValidation",
+                  "grids",
+                  "numbers",
+                  "pages",
+                  "passwords",
+                  "rating",
+                  "strings",
+                  "users"
+                ],
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/6516dfc831961c291b25a79be9ad219cf6284bb3",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 0,
+              "fixed": 0,
+              "changed": 1,
+              "maintenance": 0,
+              "breaking": 0
+            }
+          }
+        },
         {
           "packageName": "@imaginario27/air-ui-utils",
           "version": "1.4.1",
