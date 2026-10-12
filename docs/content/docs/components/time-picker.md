@@ -6,6 +6,7 @@ srcDir: 'time-pickers/TimePicker.vue'
 props:
     modelValue: "19:30"
     locale: "en-US"
+    hourFormat: "12"
     hasSeconds: false
     minuteStep: 1
     secondStep: 1
@@ -18,12 +19,18 @@ props:
     readonly: false
     ariaLabel: "Choose a time"
 items:
+    hourFormat:
+        - value: "12"
+          text: HOURS_12
+        - value: "24"
+          text: HOURS_24
     color:
         - value: primary-brand
           text: PRIMARY_BRAND
         - value: secondary-brand
           text: SECONDARY_BRAND
 enums:
+    hourFormat: "HourFormat"
     color: "ColorAccent"
 propsSettingsExcludedProps: ["modelValue"]
 ---

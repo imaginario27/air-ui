@@ -21,6 +21,7 @@ props:
     min: null
     max: null
     locale: "en-US"
+    hourFormat: "12"
     firstDayOfWeek: 0
     color: "primary-brand"
     hasYearControls: false
@@ -62,6 +63,11 @@ items:
           text: MD
         - value: lg
           text: LG
+    hourFormat:
+        - value: "12"
+          text: HOURS_12
+        - value: "24"
+          text: HOURS_24
     color:
         - value: primary-brand
           text: PRIMARY_BRAND
@@ -82,6 +88,7 @@ enums:
     variant: "PickerVariant"
     mode: "CalendarMode"
     size: "InputSize"
+    hourFormat: "HourFormat"
     color: "ColorAccent"
     helpTextPosition: "Position"
     calendarPosition: "Position"
@@ -90,26 +97,6 @@ previewContentMaxWidth: 400
 propsSettingsExcludedProps: ['modelValue', 'validator', 'isDateDisabled', 'displayFormat']
 ---
 ::
-
-The date picker comes in two variants. With `INPUT`, a read-only field shows the date and opens a [Calendar](/docs/components/calendar) in a popup. With `INLINE`, the calendar is shown in place of the field. Both show the label, help text and error, and both accept every [Calendar](/docs/components/calendar) option. Dates are ISO strings (`YYYY-MM-DD`).
-
-```vue
-<template>
-    <DatePickerField v-model="date" id="birth-date" label="Birth date" />
-    <DatePickerField
-        v-model="range"
-        id="stay"
-        label="Stay"
-        :mode="CalendarMode.RANGE"
-        :variant="PickerVariant.INLINE"
-    />
-</template>
-
-<script setup lang="ts">
-const date = ref<string | null>(null)
-const range = ref({ start: null, end: null })
-</script>
-```
 
 ## Props
 
@@ -249,6 +236,39 @@ props: [
         "default": "true"
     },
     {
+        "name": "markers",
+        "default": "{}",
+        "type": "Record<string, CalendarMarker[]>"
+    },
+    {
+        "name": "maxMarkers",
+        "default": "3",
+        "type": "number"
+    },
+    {
+        "name": "dayPopoverTrigger",
+        "default": "Trigger.MANUAL",
+        "type": "Trigger"
+    },
+    {
+        "name": "hasDayPopover",
+        "type": "(date: string) => boolean"
+    },
+    {
+        "name": "dayPopoverPosition",
+        "default": "Position.BOTTOM",
+        "type": "Position"
+    },
+    {
+        "name": "dayPopoverAlign",
+        "type": "Align"
+    },
+    {
+        "name": "dayPopoverAutoFlip",
+        "default": "true",
+        "type": "boolean"
+    },
+    {
         "name": "hourFormat",
         "type": "HourFormat"
     },
@@ -314,6 +334,19 @@ props: [
         "name": "openAriaLabel",
         "type": "string"
     }
+]
+---
+::
+
+## Slots
+
+::slots-table
+---
+slots: [
+    {
+        "name": "day-popover",
+        "description": "Content of the panel of a day in the calendar, shown according to `dayPopoverTrigger`. Receives `date` (the ISO date), `markers` (the markers of the day) and `close` (a function that closes the panel)."
+    },
 ]
 ---
 ::
@@ -444,7 +477,7 @@ options: [
 
 ### modelValue
 
-Sets the selected value. Its format depends on the [type](#type). For `DATE` it is an ISO date (`YYYY-MM-DD`) in `SINGLE` mode, an array in `MULTIPLE` mode and a `CalendarRange` in `RANGE` mode. For the other types it is a string. Bind it with `v-model`.
+Sets the selected value. In `SINGLE` mode it is a string, in `MULTIPLE` mode an array of strings and in `RANGE` mode a `CalendarRange`. The format of each string depends on the [type](#type): a date (`2026-10-15`), a month (`2026-10`), an ISO week (`2026-W41`) or a date and time (`2026-10-15T19:30`). Bind it with `v-model`.
 
 ```vue
 <template>
@@ -466,7 +499,7 @@ export interface CalendarRange {
 
 ### mode
 
-Sets how dates are selected, via the `CalendarMode` enum. See the [Calendar](/docs/components/calendar#mode) for how each mode behaves. It only applies to the `DATE` [type](#type); the other types select a month, a week or a date and a time. `WEEK` and `MONTH` are set by the type, not here.
+Sets how many selections can be made, via the `CalendarMode` enum. See the [Calendar](/docs/components/calendar#mode) for how each mode behaves. It combines with the [type](#type): a range of months, several weeks... The `DATETIME_LOCAL` type always takes one.
 
 ```vue
 <template>
@@ -764,6 +797,162 @@ Adds the border and background to the calendar. Only applies to the `INLINE` var
 - **Type:** `boolean`
 - **Default:** `true`
 
+### markers
+
+Shows dots under the days of the calendar, such as events or tasks. It is passed to the [Calendar](/docs/components/calendar#markers). It maps ISO dates to a list of markers. A marker can have a `color`, from the `ColorAccent` enum (`PRIMARY_BRAND` by default), and a `label`, which is added to the `aria-label` of the day so screen readers get it too. The dots follow the design system colors, and on a selected day they use the color of the text on filled backgrounds so they stay visible.
+
+```vue
+<template>
+    <DatePickerField v-model="date" id="date" :markers="events" />
+</template>
+
+<script setup lang="ts">
+const events = {
+    '2026-10-15': [{ color: ColorAccent.DANGER, label: 'Deploy' }],
+    '2026-10-20': [{ label: 'Review' }, { color: ColorAccent.SUCCESS, label: 'Release' }],
+}
+</script>
+```
+
+- **Type:** `Record<string, CalendarMarker[]>`
+- **Default:** `{}`
+
+#### TypeScript Interface
+
+```ts
+export interface CalendarMarker {
+    color?: ColorAccent
+    label?: string
+}
+```
+
+### maxMarkers
+
+Sets how many dots are drawn under a day. The labels of all its markers are still part of the `aria-label`.
+
+```vue
+<template>
+    <DatePickerField v-model="date" id="date" :markers="events" :maxMarkers="2" />
+</template>
+```
+
+- **Type:** `number`
+- **Default:** `3`
+
+### dayPopoverTrigger
+
+Sets when the panel of a day opens, via the `Trigger` enum. See the [Calendar](/docs/components/calendar#daypopovertrigger) for the details. The `CLICK` trigger selects the day too, which closes the popup unless [closeOnSelect](#closeonselect) is off or the selection takes more picks, so `HOVER` is usually the better fit for a date field. The content of the panel is the `day-popover` slot, which receives the date, its markers and a `close` function. By default the panel opens only for days with [markers](#markers), and [hasDayPopover](#hasdaypopover) changes that. It also closes with `Escape`, with a click outside, and when the visible month changes. Without the slot, or with `MANUAL`, no panel is shown.
+
+```vue
+<template>
+    <DatePickerField v-model="date" id="date" :markers="events" :dayPopoverTrigger="Trigger.HOVER">
+        <template #day-popover="{ date, markers, close }">
+            <p v-for="marker in markers" :key="marker.label">{{ marker.label }}</p>
+        </template>
+    </DatePickerField id="date">
+</template>
+```
+
+- **Type:** `Trigger`
+- **Default:** `Trigger.MANUAL`
+
+#### Options
+
+::options-table
+---
+options: [
+    { value: "CLICK", description: "click: a click opens the panel (and a second click closes it). The click still selects the day." },
+    { value: "HOVER", description: "hover: the panel opens while the pointer or the keyboard focus is on the day, and stays open while the pointer is over it." },
+    { value: "MANUAL", description: "manual: the panel never opens. This is the default." },
+]
+---
+::
+
+The panel opens below the day, towards the inside of the calendar for the first and last columns. It is not repositioned near the edge of the screen and can be clipped by a parent with `overflow: hidden`.
+
+### hasDayPopover
+
+Receives each day as an ISO string and returns `true` when it has a panel. It replaces the default rule of opening only for days with [markers](#markers), so you can show a panel on any day, such as an empty state with an add button.
+
+```vue
+<template>
+    <DatePickerField v-model="date" id="date" :dayPopoverTrigger="Trigger.CLICK" :hasDayPopover="isWorkday">
+        <template #day-popover="{ date }">
+            <ActionButton text="Add task" @click="addTask(date)" />
+        </template>
+    </DatePickerField id="date">
+</template>
+```
+
+- **Type:** `(date: string) => boolean`
+
+### dayPopoverPosition
+
+Sets whether the panel of a day opens below or above it, via the `Position` enum. See the [Calendar](/docs/components/calendar#daypopoverposition) for the details. It is not the position of the calendar popup, which is [calendarPosition](#calendarposition). With [dayPopoverAutoFlip](#daypopoverautoflip), it goes to the other side when it does not fit.
+
+```vue
+<template>
+    <DatePickerField v-model="date" id="date" :markers="events" :dayPopoverTrigger="Trigger.HOVER" :dayPopoverPosition="Position.TOP">
+        <template #day-popover="{ date }">{{ date }}</template>
+    </DatePickerField v-model="date" id="date">
+</template>
+```
+
+- **Type:** `Position`
+- **Default:** `Position.BOTTOM`
+
+#### Options
+
+::options-table
+---
+options: [
+    { value: "BOTTOM", description: "bottom" },
+    { value: "TOP", description: "top" },
+]
+---
+::
+
+### dayPopoverAlign
+
+Sets how the panel is aligned with its day, via the `Align` enum. Without it, the panel is centered under the day, and the first two and last two columns align it inwards (`LEFT` and `RIGHT`) so it stays inside the calendar.
+
+```vue
+<template>
+    <DatePickerField v-model="date" id="date" :markers="events" :dayPopoverTrigger="Trigger.HOVER" :dayPopoverAlign="Align.LEFT">
+        <template #day-popover="{ date }">{{ date }}</template>
+    </DatePickerField v-model="date" id="date">
+</template>
+```
+
+- **Type:** `Align`
+
+#### Options
+
+::options-table
+---
+options: [
+    { value: "LEFT", description: "left: the left edge of the panel is aligned with the left edge of the day" },
+    { value: "CENTER", description: "center: the panel is centered on the day" },
+    { value: "RIGHT", description: "right: the right edge of the panel is aligned with the right edge of the day" },
+]
+---
+::
+
+### dayPopoverAutoFlip
+
+Moves the panel when it does not fit in the window. It goes to the other side, above or below, when it would be cut off and there is more room there, and it aligns to the right or the left when it would overflow horizontally. The position is checked when the panel opens, and a position or align that you set is only the starting point. Set it to `false` to always keep the placement as given.
+
+```vue
+<template>
+    <DatePickerField v-model="date" id="date" :markers="events" :dayPopoverTrigger="Trigger.HOVER" :dayPopoverAutoFlip="false">
+        <template #day-popover="{ date }">{{ date }}</template>
+    </DatePickerField v-model="date" id="date">
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `true`
+
 ### hourFormat
 
 Sets the 12 or 24 hour clock of the time picker via the `HourFormat` enum. Defaults to the one of the [locale](#locale). Only applies to the `DATETIME_LOCAL` type.
@@ -973,7 +1162,11 @@ Inside the calendar, the arrow keys, `Home`, `End` and `PageUp` / `PageDown` mov
 ::options-table
 ---
 options: [
-    { value: "@update:modelValue", description: "Emitted with the new value when it changes: a string for every type, and for the `DATE` type also an array of dates or a `CalendarRange`, depending on the mode. Clearing emits `null`, `[]` or `{ start: null, end: null }`." },
+    { value: "@update:modelValue", description: "Emitted with the new value when it changes: a string, an array of strings or a `CalendarRange`, depending on the mode. Clearing emits `null`, `[]` or `{ start: null, end: null }`." },
+    { value: "@day-click", description: "Emitted with `{ date, key, isDisabled }` when a day of the calendar is clicked, also for disabled days and when the calendar is readonly. `key` is what the click would select: the date, its ISO week or its month, depending on the `unit`." },
+    { value: "@day-hover", description: "Emitted with `{ date, key, isDisabled }` when the pointer enters a day." },
+    { value: "@day-hover-end", description: "Emitted when the pointer leaves the grid of days." },
+    { value: "@month-change", description: "Emitted with `{ year, month, from, to }` when the visible month changes, by the buttons, the month and year pickers or the keyboard. `month` goes from 1 to 12, and `from` and `to` are the first and last day of the month as ISO dates, so you can load its events." },
     { value: "@update:error", description: "Emitted with the validation message, or an empty string, when the validator runs." },
 ]
 ---

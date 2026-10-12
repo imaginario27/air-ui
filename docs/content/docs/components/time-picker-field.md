@@ -16,6 +16,7 @@ props:
     clearable: true
     pickerPosition: "bottom"
     locale: "en-US"
+    hourFormat: "12"
     hasSeconds: false
     minuteStep: 1
     secondStep: 1
@@ -41,6 +42,11 @@ items:
           text: MD
         - value: lg
           text: LG
+    hourFormat:
+        - value: "12"
+          text: HOURS_12
+        - value: "24"
+          text: HOURS_24
     color:
         - value: primary-brand
           text: PRIMARY_BRAND
@@ -59,6 +65,7 @@ items:
 enums:
     variant: "PickerVariant"
     size: "InputSize"
+    hourFormat: "HourFormat"
     color: "ColorAccent"
     helpTextPosition: "Position"
     pickerPosition: "Position"
