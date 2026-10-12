@@ -97,6 +97,8 @@ export default defineNuxtPlugin(() => {
         dateTimePlaceholderText: () => 'Select a date and time',
         weekText: () => 'Week',
         weekAbbreviationText: () => 'Wk',
+        todayText: () => 'Today',
+        moreText: () => 'more',
     })
 
     /* Text used by the TimePicker and the time InputField */
