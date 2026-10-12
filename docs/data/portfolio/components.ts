@@ -68,6 +68,7 @@ export const componentList: ComponentPortfolioItem[] = [
     {
         title: 'Calendar',
         to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/calendar`,
+        imgUrl: `/images/thumbnails/components/calendar.png`,
     },
     {
         title: 'Carousel',
@@ -162,6 +163,7 @@ export const componentList: ComponentPortfolioItem[] = [
     {
         title: 'TimePicker',
         to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/time-picker`,
+        imgUrl: `/images/thumbnails/components/time-picker.png`,
     },
     {
         title: 'TreeView',
@@ -258,6 +260,7 @@ export const componentList: ComponentPortfolioItem[] = [
     {
         title: 'DatePickerField',
         to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/date-picker-field`,
+        imgUrl: `/images/thumbnails/components/date-picker-field.png`,
     },
     {
         title: 'FileUploadField',
@@ -357,6 +360,7 @@ export const componentList: ComponentPortfolioItem[] = [
     {
         title: 'TimePickerField',
         to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/time-picker-field`,
+        imgUrl: `/images/thumbnails/components/time-picker-field.png`,
     },
     {
         title: 'ToggleButtonsGroupField',
