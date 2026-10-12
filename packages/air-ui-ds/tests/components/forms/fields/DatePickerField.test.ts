@@ -1,7 +1,7 @@
 import { mount } from '@vue/test-utils'
 import { nextTick, ref } from 'vue'
 import DatePickerField from '@/components/forms/fields/DatePickerField.vue'
-import { CalendarMode, PickerVariant } from '@/models/enums/calendars'
+import { CalendarMode, CalendarUnit, PickerVariant } from '@/models/enums/calendars'
 import { Position } from '@/models/enums/positions'
 import { useDSConfig } from '@/composables/useDSConfig'
 
@@ -338,7 +338,7 @@ describe('DatePickerField.vue', () => {
                 expect(display(wrapper)).toBe('October 2026')
 
                 await wrapper.find('input').trigger('click')
-                expect(wrapper.findComponent({ name: 'Calendar' }).props('mode')).toBe(CalendarMode.MONTH)
+                expect(wrapper.findComponent({ name: 'Calendar' }).props('unit')).toBe(CalendarUnit.MONTH)
                 await wrapper
                     .findAll('button')
                     .find((button) => button.text() === 'Mar')!
@@ -361,7 +361,7 @@ describe('DatePickerField.vue', () => {
 
                 await wrapper.find('input').trigger('click')
                 expect(wrapper.findComponent({ name: 'Calendar' }).props()).toMatchObject({
-                    mode: CalendarMode.WEEK,
+                    unit: CalendarUnit.WEEK,
                     hasWeekNumbers: true,
                 })
 
@@ -448,10 +448,126 @@ describe('DatePickerField.vue', () => {
             })
         })
 
-        it('ignores the mode for the types that have their own selection', () => {
-            const wrapper = typed('month', { mode: CalendarMode.RANGE, modelValue: '2026-10' })
+        it('combines the mode with the type', async () => {
+            const months = typed('month', {
+                mode: CalendarMode.RANGE,
+                modelValue: { start: '2026-10', end: '2026-12' },
+            })
+            expect(display(months)).toBe('October 2026 – December 2026')
 
-            expect(display(wrapper)).toBe('October 2026')
+            const weeks = typed('week', { mode: CalendarMode.MULTIPLE, modelValue: ['2026-W41', '2026-W43'] })
+            expect(display(weeks)).toBe('Week 41, 2026, Week 43, 2026')
+
+            const week = typed('week', { mode: CalendarMode.RANGE, modelValue: { start: '2026-W41', end: null } })
+            expect(display(week)).toBe('Week 41, 2026 –')
+        })
+
+        it('picks a range of months and closes when the range is complete', async () => {
+            const wrapper = typed('month', { mode: CalendarMode.RANGE, modelValue: { start: '2026-03', end: null } })
+            await wrapper.find('input').trigger('click')
+
+            await wrapper
+                .findAll('button')
+                .find((button) => button.text() === 'Jun')!
+                .trigger('click')
+
+            expect(wrapper.emitted('update:modelValue')![0]).toEqual([{ start: '2026-03', end: '2026-06' }])
+            expect(calendarExists(wrapper)).toBe(false)
+        })
+
+        it('stays open while picking several weeks', async () => {
+            const wrapper = typed('week', { mode: CalendarMode.MULTIPLE, modelValue: ['2026-W41'] })
+            await wrapper.find('input').trigger('click')
+
+            await dayButton(wrapper, '2026-10-21').trigger('click')
+
+            expect(wrapper.emitted('update:modelValue')![0]).toEqual([['2026-W41', '2026-W43']])
+            expect(calendarExists(wrapper)).toBe(true)
+        })
+
+        it('clears a range of months to an empty range', async () => {
+            const wrapper = typed('month', {
+                mode: CalendarMode.RANGE,
+                modelValue: { start: '2026-03', end: '2026-06' },
+            })
+
+            await wrapper.find('button[aria-label="Clear selection"]').trigger('click')
+
+            expect(wrapper.emitted('update:modelValue')![0]).toEqual([{ start: null, end: null }])
+        })
+
+        it('keeps date and time as a single selection whatever the mode is', () => {
+            const wrapper = typed('datetime-local', { mode: CalendarMode.RANGE, modelValue: '2026-10-15T19:30' })
+
+            expect(display(wrapper)).toBe('10/15/2026 07:30 PM')
+        })
+    })
+
+    describe('calendar markers, popover and events', () => {
+        const markers = { '2026-10-20': [{ label: 'Review' }] }
+
+        it('forwards the markers and the popover options to the calendar', async () => {
+            const wrapper = factory({ markers, maxMarkers: 2, dayPopoverTrigger: 'click' })
+            await wrapper.find('input').trigger('click')
+
+            expect(wrapper.findComponent({ name: 'Calendar' }).props()).toMatchObject({
+                markers,
+                maxMarkers: 2,
+                dayPopoverTrigger: 'click',
+            })
+            expect(dayButton(wrapper, '2026-10-20').findAll('span.rounded-full')).toHaveLength(1)
+        })
+
+        it('forwards the placement of the day popover to the calendar', async () => {
+            const wrapper = factory({
+                markers,
+                dayPopoverPosition: 'top',
+                dayPopoverAlign: 'right',
+                dayPopoverAutoFlip: false,
+            })
+            await wrapper.find('input').trigger('click')
+
+            expect(wrapper.findComponent({ name: 'Calendar' }).props()).toMatchObject({
+                dayPopoverPosition: 'top',
+                dayPopoverAlign: 'right',
+                dayPopoverAutoFlip: false,
+            })
+        })
+
+        it('renders the day-popover slot inside the calendar', async () => {
+            const wrapper = mount(DatePickerField, {
+                props: { id: 'date', modelValue: null, markers, dayPopoverTrigger: 'click', closeOnSelect: false },
+                slots: {
+                    'day-popover': '<template #day-popover="{ date }"><p data-test="content">{{ date }}</p></template>',
+                },
+                attachTo: document.body,
+            })
+            await wrapper.find('input').trigger('click')
+
+            await dayButton(wrapper, '2026-10-20').trigger('click')
+
+            expect(wrapper.find('[data-test="content"]').text()).toBe('2026-10-20')
+        })
+
+        it('re-emits the calendar events', async () => {
+            const wrapper = factory({ closeOnSelect: false })
+            await wrapper.find('input').trigger('click')
+
+            await dayButton(wrapper, '2026-10-20').trigger('click')
+            dayButton(wrapper, '2026-10-21').element.parentElement!.dispatchEvent(new MouseEvent('mouseenter'))
+            await wrapper.find('[role="grid"]').trigger('mouseleave')
+            await wrapper.find('button[aria-label="Next month"]').trigger('click')
+
+            expect(wrapper.emitted('day-click')![0]).toEqual([
+                { date: '2026-10-20', key: '2026-10-20', isDisabled: false },
+            ])
+            expect(wrapper.emitted('day-hover')![0]).toEqual([
+                { date: '2026-10-21', key: '2026-10-21', isDisabled: false },
+            ])
+            expect(wrapper.emitted('day-hover-end')).toHaveLength(1)
+            expect(wrapper.emitted('month-change')![0]).toEqual([
+                { year: 2026, month: 11, from: '2026-11-01', to: '2026-11-30' },
+            ])
         })
     })
 })

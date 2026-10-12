@@ -31,8 +31,7 @@
                     'pr-3',
                     inputSizeClass,
                     hasError ? 'border-border-error text-text-error' : 'border-border-default',
-                    (isFocused || isOpen) &&
-                        'ring-2 focus-within:ring-inset focus-within:ring-border-primary-brand-default',
+                    (isFocused || isOpen) && 'ring-2 ring-inset ring-border-primary-brand-default',
                     disabled ? 'bg-background-neutral-disabled' : !transparent && 'bg-background-container-surface',
                     disabled && 'cursor-not-allowed',
                 ]"

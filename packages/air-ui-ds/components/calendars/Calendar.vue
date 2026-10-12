@@ -17,6 +17,7 @@
                   ? 'w-[20.5rem]'
                   : 'w-[18rem]',
         ]"
+        @keydown.esc="handleEscape"
     >
         <!-- Header -->
         <div class="flex items-center justify-between gap-1">
@@ -46,7 +47,7 @@
                         type="button"
                         :disabled="isNavigationDisabled"
                         :class="headerButtonClass"
-                        @click="view = CalendarView.MONTHS"
+                        @click="openMonths"
                     >
                         {{ monthLabel }}
                     </button>
@@ -99,7 +100,7 @@
             :aria-label="`${monthLabel} ${viewYear}`"
             :aria-readonly="readonly || undefined"
             @keydown="handleDayKeydown"
-            @mouseleave="hoverISO = null"
+            @mouseleave="handleGridLeave"
         >
             <div role="row" :class="['grid', gridColumnsClass]">
                 <span
@@ -129,38 +130,89 @@
                     {{ week.number }}
                 </span>
                 <template v-for="day in week.days" :key="day.iso">
-                    <button
+                    <div
                         v-if="day.isInMonth || hasOutsideDays"
-                        type="button"
-                        role="gridcell"
-                        :data-date="day.iso"
-                        :disabled
-                        :tabindex="day.iso === focusedISO ? 0 : -1"
-                        :aria-label="day.label"
-                        :aria-selected="day.isSelected"
-                        :aria-disabled="day.isDisabled || undefined"
-                        :aria-current="day.isToday ? 'date' : undefined"
-                        :class="dayClass(day)"
-                        @click="selectDay(day)"
-                        @mouseenter="handleDayHover(day)"
+                        role="presentation"
+                        class="relative"
+                        @mouseenter="handleCellEnter(day)"
+                        @mouseleave="handleCellLeave"
+                        @focusin="handleCellFocus(day)"
+                        @focusout="handleCellBlur"
                     >
-                        {{ day.number }}
-                    </button>
+                        <button
+                            type="button"
+                            role="gridcell"
+                            :data-date="day.iso"
+                            :disabled
+                            :tabindex="day.iso === focusedISO ? 0 : -1"
+                            :aria-label="dayLabel(day)"
+                            :aria-selected="day.isSelected"
+                            :aria-disabled="day.isDisabled || undefined"
+                            :aria-current="day.isToday ? 'date' : undefined"
+                            :aria-haspopup="canOpenPopover(day) ? 'dialog' : undefined"
+                            :aria-expanded="canOpenPopover(day) ? popoverDate === day.iso : undefined"
+                            :class="dayClass(day)"
+                            @click="handleDayClick(day)"
+                        >
+                            {{ day.number }}
+                            <span
+                                v-if="day.markers.length"
+                                aria-hidden="true"
+                                class="pointer-events-none absolute inset-x-0 bottom-1 flex justify-center gap-0.5"
+                            >
+                                <span
+                                    v-for="(marker, markerIndex) in visibleMarkers(day)"
+                                    :key="markerIndex"
+                                    :class="['h-1 w-1 rounded-full', markerClass(marker, day)]"
+                                />
+                            </span>
+                        </button>
+
+                        <Transition
+                            enter-active-class="transition duration-150 ease-out"
+                            enter-from-class="opacity-0"
+                            leave-active-class="transition duration-100 ease-in"
+                            leave-to-class="opacity-0"
+                        >
+                            <div
+                                v-if="popoverDate === day.iso"
+                                :ref="setPopoverElement"
+                                :class="['absolute z-50', popoverPlacementClass]"
+                            >
+                                <div
+                                    role="dialog"
+                                    :aria-label="day.label"
+                                    class="min-w-[14rem] max-w-[20rem] rounded-lg border border-border-default bg-background-surface p-3 text-left text-sm font-normal text-text-default shadow-lg"
+                                >
+                                    <slot
+                                        name="day-popover"
+                                        :date="day.iso"
+                                        :markers="day.markers"
+                                        :close="closePopover"
+                                    />
+                                </div>
+                            </div>
+                        </Transition>
+                    </div>
                     <span v-else role="gridcell" aria-hidden="true" />
                 </template>
             </div>
         </div>
 
         <!-- Months -->
-        <div v-else-if="view === CalendarView.MONTHS" class="grid grid-cols-3 gap-1">
+        <div v-else-if="view === CalendarView.MONTHS" class="grid grid-cols-3 gap-1" @mouseleave="clearHover">
             <button
                 v-for="month in months"
                 :key="month.index"
                 type="button"
                 :disabled="disabled || month.isDisabled"
                 :aria-current="month.isCurrent ? 'true' : undefined"
-                :class="cellButtonClass(month.isCurrent, disabled || month.isDisabled)"
-                @click="selectMonth(month.index)"
+                :aria-pressed="isMonth ? month.isSelected : undefined"
+                :class="
+                    cellButtonClass(month.isSelected || month.isCurrent, disabled || month.isDisabled, month.isInRange)
+                "
+                @click="selectMonth(month)"
+                @mouseenter="handleMonthHover(month)"
             >
                 {{ month.label }}
             </button>
@@ -184,21 +236,6 @@
 </template>
 
 <script setup lang="ts">
-interface CalendarDay {
-    iso: string
-    number: number
-    label: string
-    isInMonth: boolean
-    isToday: boolean
-    isDisabled: boolean
-    isSelected: boolean
-    isRangeStart: boolean
-    isRangeEnd: boolean
-    isInRange: boolean
-}
-
-const YEARS_PER_PAGE = 12
-
 // Props
 const props = defineProps({
     modelValue: {
@@ -209,6 +246,11 @@ const props = defineProps({
         type: String as PropType<CalendarMode>,
         default: CalendarMode.SINGLE,
         validator: (value: CalendarMode) => Object.values(CalendarMode).includes(value),
+    },
+    unit: {
+        type: String as PropType<CalendarUnit>,
+        default: CalendarUnit.DAY,
+        validator: (value: CalendarUnit) => Object.values(CalendarUnit).includes(value),
     },
     min: String as PropType<string>,
     max: String as PropType<string>,
@@ -254,6 +296,33 @@ const props = defineProps({
         type: Boolean as PropType<boolean>,
         default: true,
     },
+    markers: {
+        type: Object as PropType<Record<string, CalendarMarker[]>>,
+        default: () => ({}),
+    },
+    maxMarkers: {
+        type: Number as PropType<number>,
+        default: 3,
+    },
+    dayPopoverTrigger: {
+        type: String as PropType<Trigger>,
+        default: Trigger.MANUAL,
+        validator: (value: Trigger) => Object.values(Trigger).includes(value),
+    },
+    hasDayPopover: Function as PropType<(date: string) => boolean>,
+    dayPopoverPosition: {
+        type: String as PropType<Position>,
+        default: Position.BOTTOM,
+        validator: (value: Position) => Object.values(Position).includes(value),
+    },
+    dayPopoverAlign: {
+        type: String as PropType<Align>,
+        validator: (value: Align) => Object.values(Align).includes(value),
+    },
+    dayPopoverAutoFlip: {
+        type: Boolean as PropType<boolean>,
+        default: true,
+    },
     disabled: {
         type: Boolean as PropType<boolean>,
         default: false,
@@ -270,465 +339,77 @@ const props = defineProps({
 })
 
 // Emits
-const emit = defineEmits(['update:modelValue'])
-
-// Composables
-const dsConfig = useDSConfig()
-
-// Refs
-const root = ref<HTMLElement | null>(null)
-
-// Navigation (arrows, year controls, month and year buttons) is off when disabled or locked
-const isNavigationDisabled = computed(() => props.disabled || props.isNavigationLocked)
-
-// Value helpers
-const isRange = computed(() => props.mode === CalendarMode.RANGE)
-const isMultiple = computed(() => props.mode === CalendarMode.MULTIPLE)
-const isWeek = computed(() => props.mode === CalendarMode.WEEK)
-const isMonth = computed(() => props.mode === CalendarMode.MONTH)
-
-// Weeks are always Monday to Sunday (ISO 8601) in week mode
-const firstDay = computed(() => (isWeek.value ? 1 : props.firstDayOfWeek))
-
-// The bounds can be a date, a month (YYYY-MM) or a week (YYYY-Www): they are normalized to dates
-const minISO = computed(() => toBoundISO(props.min, 'start'))
-const maxISO = computed(() => toBoundISO(props.max, 'end'))
-
-const singleValue = computed(() => (typeof props.modelValue === 'string' && props.modelValue ? props.modelValue : null))
-
-const multipleValue = computed(() => (Array.isArray(props.modelValue) ? props.modelValue : []))
-
-const rangeValue = computed<CalendarRange>(() => {
-    const value = props.modelValue
-    if (value && typeof value === 'object' && !Array.isArray(value)) {
-        return { start: value.start ?? null, end: value.end ?? null }
-    }
-
-    return { start: null, end: null }
-})
-
-// Week mode: the Monday and Sunday of the selected week
-const weekBounds = computed(() => {
-    const monday = parseISOWeek(singleValue.value)
-    if (!isWeek.value || !monday) return null
-
-    return {
-        from: toISODate(monday),
-        to: toISODate(new Date(monday.getFullYear(), monday.getMonth(), monday.getDate() + 6)),
-    }
-})
-
-// Month mode: the first day of the selected month
-const monthValue = computed(() => (isMonth.value ? parseISOMonth(singleValue.value) : null))
-
-const anchorISO = computed(() => {
-    if (isRange.value) return rangeValue.value.start
-    if (isMultiple.value) return multipleValue.value[0] ?? null
-    if (isWeek.value) return weekBounds.value?.from ?? null
-    if (isMonth.value) return monthValue.value ? toISODate(monthValue.value) : null
-
-    return singleValue.value
-})
-
-const clampISO = (iso: string) => {
-    if (minISO.value && iso < minISO.value) return minISO.value
-    if (maxISO.value && iso > maxISO.value) return maxISO.value
-
-    return iso
-}
-
-const startOfMonth = (date: Date) => new Date(date.getFullYear(), date.getMonth(), 1)
-
-const initialDate = parseISODate(clampISO(parseISODate(anchorISO.value) ? anchorISO.value! : toISODate(new Date())))!
+const emit = defineEmits(['update:modelValue', 'day-click', 'day-hover', 'day-hover-end', 'month-change'])
 
 // States
-const view = ref<CalendarView>(isMonth.value ? CalendarView.MONTHS : CalendarView.DAYS)
-const viewDate = ref(startOfMonth(initialDate))
-const focusedISO = ref(toISODate(initialDate))
-const hoverISO = ref<string | null>(null)
-const yearsStart = ref(0)
-
-// Computed
-const todayISO = toISODate(new Date())
-const viewYear = computed(() => viewDate.value.getFullYear())
-const viewMonth = computed(() => viewDate.value.getMonth())
-
-const monthFormatter = computed(() => new Intl.DateTimeFormat(props.locale, { month: 'long' }))
-const shortMonthFormatter = computed(() => new Intl.DateTimeFormat(props.locale, { month: 'short' }))
-const labelFormatter = computed(() => new Intl.DateTimeFormat(props.locale, { dateStyle: 'full' }))
-
-const monthLabel = computed(() => monthFormatter.value.format(viewDate.value))
-
-const previousYearLabel = computed(() => props.previousYearAriaLabel ?? dsConfig.calendar.previousYearText())
-const nextYearLabel = computed(() => props.nextYearAriaLabel ?? dsConfig.calendar.nextYearText())
-
-const previousLabel = computed(() =>
-    view.value === CalendarView.DAYS
-        ? (props.previousMonthAriaLabel ?? dsConfig.calendar.previousMonthText())
-        : previousYearLabel.value,
-)
-
-const nextLabel = computed(() =>
-    view.value === CalendarView.DAYS
-        ? (props.nextMonthAriaLabel ?? dsConfig.calendar.nextMonthText())
-        : nextYearLabel.value,
-)
-
-const weekAbbreviation = computed(() => dsConfig.calendar.weekAbbreviationText())
-
-const gridColumnsClass = computed(() =>
-    props.hasWeekNumbers ? 'grid-cols-[2.5rem_repeat(7,minmax(0,1fr))]' : 'grid-cols-7',
-)
-
-const weekdays = computed(() => {
-    const shortFormatter = new Intl.DateTimeFormat(props.locale, { weekday: 'short' })
-    const longFormatter = new Intl.DateTimeFormat(props.locale, { weekday: 'long' })
-
-    return Array.from({ length: 7 }, (_, index) => {
-        // 2023-01-01 is a Sunday
-        const date = new Date(2023, 0, 1 + ((firstDay.value + index) % 7))
-
-        return { short: shortFormatter.format(date), long: longFormatter.format(date) }
-    })
-})
-
-// Range preview: while only the start is picked, the hovered day previews the range
-const rangeBounds = computed(() => {
-    const { start, end } = rangeValue.value
-    if (!isRange.value || !start) return null
-
-    const other = end ?? hoverISO.value ?? start
-
-    return start <= other ? { from: start, to: other } : { from: other, to: start }
-})
-
-const bandBounds = computed(() => (isWeek.value ? weekBounds.value : rangeBounds.value))
-
-const isDisabled = (iso: string) =>
-    Boolean((minISO.value && iso < minISO.value) || (maxISO.value && iso > maxISO.value) || props.isDateDisabled(iso))
-
-const isDaySelected = (iso: string, bounds: { from: string; to: string } | null) => {
-    if (isWeek.value) return Boolean(bounds && iso >= bounds.from && iso <= bounds.to)
-    if (isRange.value) return iso === bounds?.from || iso === bounds?.to
-    if (isMultiple.value) return multipleValue.value.includes(iso)
-
-    return iso === singleValue.value
-}
-
-const weeks = computed(() => {
-    const firstOfMonth = viewDate.value
-    const offset = (firstOfMonth.getDay() - firstDay.value + 7) % 7
-    const bounds = bandBounds.value
-
-    const days: CalendarDay[] = Array.from({ length: 42 }, (_, index) => {
-        const date = new Date(firstOfMonth.getFullYear(), firstOfMonth.getMonth(), 1 - offset + index)
-        const iso = toISODate(date)
-
-        return {
-            iso,
-            number: date.getDate(),
-            label: labelFormatter.value.format(date),
-            isInMonth: date.getMonth() === firstOfMonth.getMonth(),
-            isToday: iso === todayISO,
-            isDisabled: isDisabled(iso) || (props.isNavigationLocked && date.getMonth() !== firstOfMonth.getMonth()),
-            isSelected: isDaySelected(iso, bounds),
-            isRangeStart: iso === bounds?.from,
-            isRangeEnd: iso === bounds?.to,
-            isInRange: Boolean(!isWeek.value && bounds && iso > bounds.from && iso < bounds.to),
-        }
-    })
-
-    // The ISO week number of a row is the one of its Thursday
-    const thursdayIndex = (4 - firstDay.value + 7) % 7
-
-    return Array.from({ length: 6 }, (_, index) => {
-        const weekDays = days.slice(index * 7, index * 7 + 7)
-
-        return { number: getISOWeek(parseISODate(weekDays[thursdayIndex]!.iso)!).week, days: weekDays }
-    })
-})
-
-const months = computed(() =>
-    Array.from({ length: 12 }, (_, index) => {
-        const first = toISODate(new Date(viewYear.value, index, 1))
-        const last = toISODate(new Date(viewYear.value, index + 1, 0))
-
-        return {
-            index,
-            label: shortMonthFormatter.value.format(new Date(viewYear.value, index, 1)),
-            isCurrent: monthValue.value
-                ? monthValue.value.getFullYear() === viewYear.value && monthValue.value.getMonth() === index
-                : index === viewMonth.value,
-            isDisabled: Boolean((minISO.value && last < minISO.value) || (maxISO.value && first > maxISO.value)),
-        }
-    }),
-)
-
-const years = computed(() =>
-    Array.from({ length: YEARS_PER_PAGE }, (_, index) => {
-        const value = yearsStart.value + index
-        const first = toISODate(new Date(value, 0, 1))
-        const last = toISODate(new Date(value, 11, 31))
-
-        return {
-            value,
-            isCurrent: value === viewYear.value,
-            isDisabled: Boolean((minISO.value && last < minISO.value) || (maxISO.value && first > maxISO.value)),
-        }
-    }),
-)
-
-const yearsRangeLabel = computed(() => `${yearsStart.value} – ${yearsStart.value + YEARS_PER_PAGE - 1}`)
-
-// Navigation limits
-const canGoPrevious = computed(() => {
-    if (!minISO.value) return true
-
-    if (view.value === CalendarView.DAYS) return toISODate(new Date(viewYear.value, viewMonth.value, 0)) >= minISO.value
-    if (view.value === CalendarView.MONTHS) return toISODate(new Date(viewYear.value - 1, 11, 31)) >= minISO.value
-
-    return toISODate(new Date(yearsStart.value - 1, 11, 31)) >= minISO.value
-})
-
-const canGoNext = computed(() => {
-    if (!maxISO.value) return true
-
-    if (view.value === CalendarView.DAYS)
-        return toISODate(new Date(viewYear.value, viewMonth.value + 1, 1)) <= maxISO.value
-    if (view.value === CalendarView.MONTHS) return toISODate(new Date(viewYear.value + 1, 0, 1)) <= maxISO.value
-
-    return toISODate(new Date(yearsStart.value + YEARS_PER_PAGE, 0, 1)) <= maxISO.value
-})
-
-// Same month in the previous / next year
-const canGoPreviousYear = computed(
-    () => !minISO.value || toISODate(new Date(viewYear.value - 1, viewMonth.value + 1, 0)) >= minISO.value,
-)
-
-const canGoNextYear = computed(
-    () => !maxISO.value || toISODate(new Date(viewYear.value + 1, viewMonth.value, 1)) <= maxISO.value,
-)
-
-// Classes
-const accent = computed(() => getCalendarAccent(props.color))
-
-const radius = computed(() =>
-    props.isRounded
-        ? { all: 'rounded-full', left: 'rounded-l-full', right: 'rounded-r-full' }
-        : { all: 'rounded', left: 'rounded-l', right: 'rounded-r' },
-)
-
-const headerButtonClass = computed(() => [
-    'px-2 py-1',
-    'rounded',
-    'text-sm font-semibold',
-    'transition-colors',
-    'focus-visible:outline-none focus-visible:ring-2',
-    accent.value.ring,
-    isNavigationDisabled.value ? 'cursor-not-allowed' : 'cursor-pointer hover:bg-background-neutral-hover',
-])
-
-// Range days are joined into a band: only its ends are rounded
-const dayRadius = (day: CalendarDay) => {
-    const bounds = bandBounds.value
-    const hasSpan = (isRange.value || isWeek.value) && bounds !== null && bounds.from !== bounds.to
-
-    if (!hasSpan) return radius.value.all
-    if (day.isRangeStart) return radius.value.left
-    if (day.isRangeEnd) return radius.value.right
-
-    return day.isInRange || isWeek.value ? '' : radius.value.all
-}
-
-const dayCursor = (day: CalendarDay) => {
-    if (props.disabled) return 'cursor-not-allowed'
-    // Nothing can be picked in readonly, so no day gets an interactive cursor
-    if (props.readonly) return 'cursor-default'
-
-    return day.isDisabled ? 'cursor-not-allowed' : 'cursor-pointer'
-}
-
-const dayClass = (day: CalendarDay) => {
-    const isEdge = day.isSelected && (!isRange.value || day.isRangeStart || day.isRangeEnd)
-    const isInteractive = !props.disabled && !props.readonly && !day.isDisabled
-
-    return [
-        'flex items-center justify-center',
-        'w-full aspect-square',
-        'text-sm',
-        'transition-colors',
-        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset',
-        accent.value.ring,
-        dayRadius(day),
-        dayCursor(day),
-        day.isDisabled && 'text-text-neutral-disabled',
-        isEdge && !day.isDisabled && accent.value.filled,
-        isEdge && isInteractive && accent.value.filledHover,
-        day.isInRange && accent.value.soft,
-        !isEdge && !day.isInRange && isInteractive && 'hover:bg-background-neutral-hover',
-        !isEdge && !day.isInMonth && !day.isDisabled && 'text-text-neutral-subtler',
-        day.isToday && !isEdge && [accent.value.today, 'font-semibold'],
-    ]
-}
-
-const cellButtonClass = (isCurrent: boolean, isDisabled: boolean) => [
-    'flex items-center justify-center',
-    'h-10',
-    radius.value.all,
-    'text-sm',
-    'transition-colors',
-    'focus-visible:outline-none focus-visible:ring-2',
-    accent.value.ring,
-    isDisabled ? 'cursor-not-allowed text-text-neutral-disabled' : 'cursor-pointer',
-    isCurrent
-        ? [accent.value.filled, !isDisabled && accent.value.filledHover]
-        : !isDisabled && 'hover:bg-background-neutral-hover',
-]
-
-// Methods
-const focusDay = () => {
-    nextTick(() => root.value?.querySelector<HTMLElement>(`[data-date="${focusedISO.value}"]`)?.focus())
-}
-
-const focus = () => {
-    if (props.disabled) return
-
-    if (view.value === CalendarView.DAYS) {
-        focusDay()
-        return
-    }
-
-    nextTick(() => root.value?.querySelector<HTMLElement>('button:not([disabled])')?.focus())
-}
-
-// Shows the given month and keeps the focused day in it (same day of month, clamped)
-const showMonth = (year: number, month: number) => {
-    const current = parseISODate(focusedISO.value) ?? viewDate.value
-    const target = addMonths(current, (year - current.getFullYear()) * 12 + (month - current.getMonth()))
-
-    viewDate.value = startOfMonth(target)
-    focusedISO.value = toISODate(target)
-}
-
-const openYears = () => {
-    yearsStart.value = Math.floor(viewYear.value / YEARS_PER_PAGE) * YEARS_PER_PAGE
-    view.value = CalendarView.YEARS
-}
-
-// Handlers
-const goPrevious = () => {
-    if (view.value === CalendarView.DAYS) showMonth(viewYear.value, viewMonth.value - 1)
-    else if (view.value === CalendarView.MONTHS) showMonth(viewYear.value - 1, viewMonth.value)
-    else yearsStart.value -= YEARS_PER_PAGE
-}
-
-const goNext = () => {
-    if (view.value === CalendarView.DAYS) showMonth(viewYear.value, viewMonth.value + 1)
-    else if (view.value === CalendarView.MONTHS) showMonth(viewYear.value + 1, viewMonth.value)
-    else yearsStart.value += YEARS_PER_PAGE
-}
-
-const goYear = (amount: number) => showMonth(viewYear.value + amount, viewMonth.value)
-
-// In month mode the months are the final step, so they are selected and the days are never shown
-const selectMonth = (month: number) => {
-    showMonth(viewYear.value, month)
-
-    if (!isMonth.value) {
-        view.value = CalendarView.DAYS
-    } else if (!props.readonly) {
-        emit('update:modelValue', toISOMonth(new Date(viewYear.value, month, 1)))
-    }
-}
-
-// Picking a year goes straight back to the days of the current month (or the months in month mode)
-const selectYear = (year: number) => {
-    showMonth(year, viewMonth.value)
-    view.value = isMonth.value ? CalendarView.MONTHS : CalendarView.DAYS
-}
-
-const toggleMultiple = (iso: string) => {
-    const selected = multipleValue.value
-    const next = selected.includes(iso) ? selected.filter((value) => value !== iso) : [...selected, iso]
-
-    emit('update:modelValue', next.sort())
-}
-
-const pickRangeDate = (iso: string) => {
-    const { start, end } = rangeValue.value
-
-    // First click, a new range after a complete one, or a click before the start: (re)start the range
-    if (!start || end || iso < start) {
-        emit('update:modelValue', { start: iso, end: null })
-    } else {
-        emit('update:modelValue', { start, end: iso })
-    }
-}
-
-const selectDay = (day: CalendarDay) => {
-    if (day.isDisabled || props.disabled || props.readonly) return
-
-    focusedISO.value = day.iso
-
-    if (!day.isInMonth) viewDate.value = startOfMonth(parseISODate(day.iso)!)
-
-    if (isMultiple.value) toggleMultiple(day.iso)
-    else if (isRange.value) pickRangeDate(day.iso)
-    else if (isWeek.value) emit('update:modelValue', toISOWeek(parseISODate(day.iso)!))
-    else emit('update:modelValue', day.iso)
-}
-
-// The range preview follows the pointer only while picking is possible
-const handleDayHover = (day: CalendarDay) => {
-    if (!props.disabled && !props.readonly) hoverISO.value = day.iso
-}
-
-const handleDayKeydown = (event: KeyboardEvent) => {
-    const current = parseISODate(focusedISO.value)
-    if (!current) return
-
-    const step = (days: number) => new Date(current.getFullYear(), current.getMonth(), current.getDate() + days)
-
-    const targets: Record<string, () => Date> = {
-        ArrowLeft: () => step(-1),
-        ArrowRight: () => step(1),
-        ArrowUp: () => step(-7),
-        ArrowDown: () => step(7),
-        Home: () => new Date(current.getFullYear(), current.getMonth(), 1),
-        End: () => new Date(current.getFullYear(), current.getMonth() + 1, 0),
-        PageUp: () => addMonths(current, event.shiftKey ? -12 : -1),
-        PageDown: () => addMonths(current, event.shiftKey ? 12 : 1),
-    }
-
-    const target = targets[event.key]?.()
-    if (!target) return
-
-    event.preventDefault()
-
-    // Moving to another month would navigate
-    if (
-        props.isNavigationLocked &&
-        (target.getMonth() !== viewMonth.value || target.getFullYear() !== viewYear.value)
-    ) {
-        return
-    }
-
-    focusedISO.value = toISODate(target)
-    viewDate.value = startOfMonth(target)
-    focusDay()
-}
-
-// Follow external changes of the value
-watch(anchorISO, (iso) => {
-    // Toggling dates in multiple mode must not move the view
-    if (isMultiple.value) return
-
-    const date = parseISODate(iso)
-    if (!date || (date.getFullYear() === viewYear.value && date.getMonth() === viewMonth.value)) return
-
-    viewDate.value = startOfMonth(date)
-    focusedISO.value = iso!
-})
+const slots = useSlots()
+const root = ref<HTMLElement | null>(null)
+
+// Logic, grouped under composables/calendar
+const selection = useCalendarSelection(props, emit)
+const calendarView = useCalendarView(props, emit, root, selection)
+const styles = useCalendarStyles(props)
+const popover = useCalendarDayPopover(props, emit, slots, root, calendarView, selection)
+const { handleDayKeydown } = useCalendarKeyboard(props, calendarView)
+
+// What the template reads
+const { isMonth, clearHover } = selection
+
+const {
+    view,
+    viewYear,
+    focusedISO,
+    monthLabel,
+    yearsRangeLabel,
+    weekAbbreviation,
+    previousLabel,
+    nextLabel,
+    previousYearLabel,
+    nextYearLabel,
+    weekdays,
+    weeks,
+    months,
+    years,
+    canGoPrevious,
+    canGoNext,
+    canGoPreviousYear,
+    canGoNextYear,
+    openMonths,
+    openYears,
+    goPrevious,
+    goNext,
+    goYear,
+    selectMonth,
+    selectYear,
+    focus,
+} = calendarView
+
+const {
+    isNavigationDisabled,
+    gridColumnsClass,
+    headerButtonClass,
+    dayClass,
+    cellButtonClass,
+    visibleMarkers,
+    markerClass,
+    dayLabel,
+} = styles
+
+const {
+    popoverDate,
+    popoverPlacementClass,
+    canOpenPopover,
+    setPopoverElement,
+    closePopover,
+    handleCellEnter,
+    handleCellLeave,
+    handleCellFocus,
+    handleCellBlur,
+    handleGridLeave,
+    handleDayClick,
+    handleEscape,
+    handleMonthHover,
+} = popover
 
 defineExpose({ focus })
 </script>

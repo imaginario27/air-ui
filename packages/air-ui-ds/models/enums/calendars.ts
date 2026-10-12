@@ -2,6 +2,11 @@ export enum CalendarMode {
     SINGLE = 'single',
     MULTIPLE = 'multiple',
     RANGE = 'range',
+}
+
+// What each selection covers. It combines with the mode: a range of weeks, several months...
+export enum CalendarUnit {
+    DAY = 'day',
     WEEK = 'week',
     MONTH = 'month',
 }

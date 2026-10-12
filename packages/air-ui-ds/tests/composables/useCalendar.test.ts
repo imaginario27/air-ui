@@ -9,7 +9,10 @@ import {
     toISODate,
     toISOMonth,
     toISOWeek,
+    toUnitKey,
+    getUnitBounds,
 } from '@/composables/useCalendar'
+import { CalendarUnit } from '@/models/enums/calendars'
 
 describe('useCalendar', () => {
     describe('parseISODate', () => {
@@ -120,6 +123,37 @@ describe('useCalendar', () => {
 
         it('returns undefined for no value', () => {
             expect(toBoundISO(undefined, 'start')).toBeUndefined()
+        })
+    })
+
+    describe('units', () => {
+        it.each([
+            [CalendarUnit.DAY, '2026-10-15'],
+            [CalendarUnit.WEEK, '2026-W42'],
+            [CalendarUnit.MONTH, '2026-10'],
+        ])('the key of a date for %s is %s', (unit, expected) => {
+            expect(toUnitKey(new Date(2026, 9, 15), unit)).toBe(expected)
+        })
+
+        it.each([
+            [CalendarUnit.DAY, '2026-10-15', { from: '2026-10-15', to: '2026-10-15' }],
+            [CalendarUnit.WEEK, '2026-W41', { from: '2026-10-05', to: '2026-10-11' }],
+            [CalendarUnit.MONTH, '2026-10', { from: '2026-10-01', to: '2026-10-31' }],
+        ])('the days covered by a %s key are %j', (unit, key, expected) => {
+            expect(getUnitBounds(key, unit)).toEqual(expected)
+        })
+
+        it.each([
+            [CalendarUnit.DAY, '2026-10'],
+            [CalendarUnit.DAY, '2026-W41'],
+            [CalendarUnit.WEEK, '2026-10-15'],
+            [CalendarUnit.WEEK, '2025-W53'],
+            [CalendarUnit.MONTH, '2026-10-15'],
+            [CalendarUnit.MONTH, '2026-13'],
+            [CalendarUnit.DAY, ''],
+            [CalendarUnit.DAY, null],
+        ])('a %s key does not accept %j', (unit, key) => {
+            expect(getUnitBounds(key, unit)).toBeNull()
         })
     })
 })

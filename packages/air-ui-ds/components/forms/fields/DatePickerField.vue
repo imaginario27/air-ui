@@ -31,8 +31,7 @@
                     'pr-3',
                     inputSizeClass,
                     hasError ? 'border-border-error text-text-error' : 'border-border-default',
-                    (isFocused || isOpen) &&
-                        'ring-2 focus-within:ring-inset focus-within:ring-border-primary-brand-default',
+                    (isFocused || isOpen) && 'ring-2 ring-inset ring-border-primary-brand-default',
                     disabled ? 'bg-background-neutral-disabled' : !transparent && 'bg-background-container-surface',
                     disabled && 'cursor-not-allowed',
                 ]"
@@ -106,7 +105,15 @@
                         :isBoxed="isCalendarBoxed"
                         :class="isInline && !isDateTime && hasError && '!border-border-error'"
                         @update:modelValue="handleCalendarSelect"
-                    />
+                        @day-click="emit('day-click', $event)"
+                        @day-hover="emit('day-hover', $event)"
+                        @day-hover-end="emit('day-hover-end')"
+                        @month-change="emit('month-change', $event)"
+                    >
+                        <template v-if="$slots['day-popover']" #day-popover="slotProps">
+                            <slot name="day-popover" v-bind="slotProps" />
+                        </template>
+                    </Calendar>
                     <TimePicker
                         v-if="isDateTime"
                         v-bind="timePickerProps"
@@ -221,6 +228,33 @@ const props = defineProps({
         type: Boolean as PropType<boolean>,
         default: true,
     },
+    markers: {
+        type: Object as PropType<Record<string, CalendarMarker[]>>,
+        default: () => ({}),
+    },
+    maxMarkers: {
+        type: Number as PropType<number>,
+        default: 3,
+    },
+    dayPopoverTrigger: {
+        type: String as PropType<Trigger>,
+        default: Trigger.MANUAL,
+        validator: (value: Trigger) => Object.values(Trigger).includes(value),
+    },
+    hasDayPopover: Function as PropType<(date: string) => boolean>,
+    dayPopoverPosition: {
+        type: String as PropType<Position>,
+        default: Position.BOTTOM,
+        validator: (value: Position) => Object.values(Position).includes(value),
+    },
+    dayPopoverAlign: {
+        type: String as PropType<Align>,
+        validator: (value: Align) => Object.values(Align).includes(value),
+    },
+    dayPopoverAutoFlip: {
+        type: Boolean as PropType<boolean>,
+        default: true,
+    },
     hourFormat: {
         type: String as PropType<HourFormat>,
         validator: (value: HourFormat) => Object.values(HourFormat).includes(value),
@@ -271,7 +305,14 @@ const props = defineProps({
 })
 
 // Emits
-const emit = defineEmits(['update:modelValue', 'update:error'])
+const emit = defineEmits([
+    'update:modelValue',
+    'update:error',
+    'day-click',
+    'day-hover',
+    'day-hover-end',
+    'month-change',
+])
 
 // Composables
 const validationMode = useInjectedValidationMode()
@@ -290,17 +331,19 @@ const isFocused = ref(false)
 const isInline = computed(() => props.variant === PickerVariant.INLINE)
 const isDateTime = computed(() => props.type === DatePickerType.DATETIME_LOCAL)
 
-// The mode only applies to the date type: month, week and date and time have their own selection
-const calendarMode = computed(() => {
-    const modeVariant = {
-        [DatePickerType.DATE]: props.mode,
-        [DatePickerType.MONTH]: CalendarMode.MONTH,
-        [DatePickerType.WEEK]: CalendarMode.WEEK,
-        [DatePickerType.DATETIME_LOCAL]: CalendarMode.SINGLE,
+// The type decides what each selection covers, and the mode how many can be picked. Date and time takes one.
+const calendarUnit = computed(() => {
+    const unitVariant = {
+        [DatePickerType.DATE]: CalendarUnit.DAY,
+        [DatePickerType.MONTH]: CalendarUnit.MONTH,
+        [DatePickerType.WEEK]: CalendarUnit.WEEK,
+        [DatePickerType.DATETIME_LOCAL]: CalendarUnit.DAY,
     }
 
-    return modeVariant[props.type as DatePickerType] ?? props.mode
+    return unitVariant[props.type as DatePickerType] ?? CalendarUnit.DAY
 })
+
+const calendarMode = computed(() => (isDateTime.value ? CalendarMode.SINGLE : props.mode))
 
 const pickerIcon = computed(() => {
     const iconVariant = {
@@ -377,6 +420,7 @@ const timeValue = computed(() => dateTimeParts.value.time)
 
 const calendarProps = computed(() => ({
     mode: calendarMode.value,
+    unit: calendarUnit.value,
     min: isDateTime.value ? (dateTimeBounds.value.min.date ?? undefined) : props.min,
     max: isDateTime.value ? (dateTimeBounds.value.max.date ?? undefined) : props.max,
     isDateDisabled: props.isDateDisabled,
@@ -388,6 +432,13 @@ const calendarProps = computed(() => ({
     hasWeekNumbers: props.hasWeekNumbers || props.type === DatePickerType.WEEK,
     isRounded: props.isRounded,
     isNavigationLocked: props.isNavigationLocked,
+    markers: props.markers,
+    maxMarkers: props.maxMarkers,
+    dayPopoverTrigger: props.dayPopoverTrigger,
+    hasDayPopover: props.hasDayPopover,
+    dayPopoverPosition: props.dayPopoverPosition,
+    dayPopoverAlign: props.dayPopoverAlign,
+    dayPopoverAutoFlip: props.dayPopoverAutoFlip,
     disabled: props.disabled,
     readonly: props.readonly,
     ariaLabel: props.label ?? props.ariaLabel,
@@ -452,6 +503,14 @@ const formatWeek = (value: string | null) => {
     return `${dsConfig.calendar.weekText()} ${week}, ${year}`
 }
 
+// Each key is written for what it covers: a date, a week or a month
+const formatKey = (key: string | null) => {
+    if (props.type === DatePickerType.MONTH) return formatMonth(key)
+    if (props.type === DatePickerType.WEEK) return formatWeek(key)
+
+    return formatISODate(key, props.locale, props.displayFormat)
+}
+
 const formatDateTime = () => {
     const { date, time } = dateTimeParts.value
     const formattedTime = formatTime(time, props.locale, props.hasSeconds, props.hourFormat)
@@ -459,28 +518,18 @@ const formatDateTime = () => {
     return [formatISODate(date, props.locale, props.displayFormat), formattedTime].filter(Boolean).join(' ')
 }
 
-const formatDates = () => {
-    const format = (iso: string | null) => formatISODate(iso, props.locale, props.displayFormat)
-
+const formatKeys = () => {
     if (calendarMode.value === CalendarMode.RANGE) {
         const { start, end } = rangeValue.value
         if (!start) return ''
 
-        return end ? `${format(start)} – ${format(end)}` : `${format(start)} –`
+        return end ? `${formatKey(start)} – ${formatKey(end)}` : `${formatKey(start)} –`
     }
 
-    return selectedDates.value.map(format).join(', ')
+    return selectedDates.value.map(formatKey).join(', ')
 }
 
-const displayValue = computed(() => {
-    const value = typeof props.modelValue === 'string' ? props.modelValue : null
-
-    if (props.type === DatePickerType.MONTH) return formatMonth(value)
-    if (props.type === DatePickerType.WEEK) return formatWeek(value)
-    if (isDateTime.value) return formatDateTime()
-
-    return formatDates()
-})
+const displayValue = computed(() => (isDateTime.value ? formatDateTime() : formatKeys()))
 
 const iconButtonClass = [
     'text-icon-default',

@@ -80,6 +80,30 @@ export const toBoundISO = (value: string | undefined, edge: 'start' | 'end'): st
     return value
 }
 
+// The key of a date for a unit: the date itself (DAY), its ISO week (WEEK) or its month (MONTH)
+export const toUnitKey = (date: Date, unit: CalendarUnit): string => {
+    if (unit === CalendarUnit.WEEK) return toISOWeek(date)
+
+    return unit === CalendarUnit.MONTH ? toISOMonth(date) : toISODate(date)
+}
+
+// The first and last day a key covers. Returns null when the key is not valid for the unit.
+export const getUnitBounds = (
+    key: string | null | undefined,
+    unit: CalendarUnit,
+): { from: string; to: string } | null => {
+    if (!key) return null
+
+    const isValid = {
+        [CalendarUnit.DAY]: () => parseISODate(key),
+        [CalendarUnit.WEEK]: () => parseISOWeek(key),
+        [CalendarUnit.MONTH]: () => parseISOMonth(key),
+    }[unit]()
+
+    // A date, a month and a week bound are normalized to the dates they cover
+    return isValid ? { from: toBoundISO(key, 'start')!, to: toBoundISO(key, 'end')! } : null
+}
+
 const DEFAULT_DISPLAY_FORMAT: Intl.DateTimeFormatOptions = { year: 'numeric', month: '2-digit', day: '2-digit' }
 
 // Formats a YYYY-MM-DD string for display using the given locale. Returns '' when the value is not a valid date.
@@ -93,6 +117,8 @@ export const formatISODate = (
 
     return new Intl.DateTimeFormat(locale, options).format(date)
 }
+
+export const getMonthStart = (date: Date): Date => new Date(date.getFullYear(), date.getMonth(), 1)
 
 // Adds months keeping the day of the month, clamped to the last day of the target month (Jan 31 + 1 = Feb 28/29)
 export const addMonths = (date: Date, amount: number): Date => {
@@ -123,4 +149,19 @@ export const getCalendarAccent = (color?: string) => {
     }
 
     return variants[color as keyof typeof variants] ?? variants[ColorAccent.PRIMARY_BRAND]
+}
+
+// The color of the dot of a marker. Markers are primary brand unless they say otherwise.
+export const getMarkerColorClass = (color?: string): string => {
+    const variants: Record<string, string> = {
+        [ColorAccent.NEUTRAL]: 'bg-icon-neutral-subtle',
+        [ColorAccent.SUCCESS]: 'bg-icon-success',
+        [ColorAccent.WARNING]: 'bg-icon-warning',
+        [ColorAccent.DANGER]: 'bg-icon-danger',
+        [ColorAccent.INFO]: 'bg-icon-info',
+        [ColorAccent.PRIMARY_BRAND]: 'bg-icon-primary-brand-default',
+        [ColorAccent.SECONDARY_BRAND]: 'bg-icon-secondary-brand-default',
+    }
+
+    return variants[color ?? ''] ?? variants[ColorAccent.PRIMARY_BRAND]!
 }
