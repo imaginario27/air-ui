@@ -16,6 +16,34 @@ export interface CalendarMarker {
     label?: string
 }
 
+// An event of the full calendar. Dates are ISO strings; `end` is the last day (inclusive) of a multi-day event.
+// An event with a `time` (HH:mm) on a single day is shown as a dot, any other one as a bar.
+export interface FullCalendarEvent {
+    id?: string
+    title: string
+    start: string
+    end?: string
+    time?: string
+    color?: ColorAccent
+}
+
+// Payload of more-click: the day and all of its events
+export interface FullCalendarMoreEvent {
+    date: string
+    events: FullCalendarEvent[]
+}
+
+// The part of an event that falls in one week row, placed on the 7-column grid (columns and lanes are 0-based)
+export interface FullCalendarSegment {
+    event: FullCalendarEvent
+    column: number
+    span: number
+    lane: number
+    isBar: boolean
+    continuesBefore: boolean
+    continuesAfter: boolean
+}
+
 // Payload of the day events: the ISO date, the key that a click would select and whether the day is disabled
 export interface CalendarDayEvent {
     date: string

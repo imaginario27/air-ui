@@ -187,7 +187,7 @@ describe('TimePicker.vue', () => {
     })
 
     it.each([
-        ['primary-brand', 'bg-background-primary-brand-default'],
+        ['primary-brand', 'bg-background-primary-brand-active'],
         ['secondary-brand', 'bg-background-secondary-brand-default'],
     ])('colors the selected option for %s', (color, expected) => {
         expect(option(factory({ color }), 'Hours', '19').classes()).toContain(expected)

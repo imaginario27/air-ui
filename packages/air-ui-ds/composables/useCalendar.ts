@@ -133,7 +133,7 @@ export const addMonths = (date: Date, amount: number): Date => {
 export const getCalendarAccent = (color?: string) => {
     const variants = {
         [ColorAccent.PRIMARY_BRAND]: {
-            filled: 'bg-background-primary-brand-default text-text-neutral-on-filled',
+            filled: 'bg-background-primary-brand-active text-text-neutral-on-filled',
             filledHover: 'hover:bg-background-primary-brand-hover',
             soft: 'bg-background-primary-brand-soft text-text-primary-brand-on-soft-bg',
             today: 'border border-border-primary-brand-default',

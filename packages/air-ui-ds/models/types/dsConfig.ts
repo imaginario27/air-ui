@@ -52,6 +52,8 @@ export interface DesignSystemConfig {
         dateTimePlaceholderText: () => string
         weekText: () => string
         weekAbbreviationText: () => string
+        todayText: () => string
+        moreText: () => string
     }
     timePicker: {
         openText: () => string

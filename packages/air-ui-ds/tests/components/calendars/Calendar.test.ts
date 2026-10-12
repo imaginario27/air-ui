@@ -289,7 +289,7 @@ describe('Calendar.vue', () => {
 
     describe('color', () => {
         it.each([
-            ['primary-brand', 'bg-background-primary-brand-default'],
+            ['primary-brand', 'bg-background-primary-brand-active'],
             ['secondary-brand', 'bg-background-secondary-brand-default'],
         ])('colors the selected day for %s', (color, expected) => {
             const wrapper = factory({ color })
@@ -300,7 +300,7 @@ describe('Calendar.vue', () => {
         it('falls back to primary brand for an unknown color', () => {
             const wrapper = factory({ color: 'unknown' })
 
-            expect(dayButton(wrapper, '2026-10-15').classes()).toContain('bg-background-primary-brand-default')
+            expect(dayButton(wrapper, '2026-10-15').classes()).toContain('bg-background-primary-brand-active')
         })
     })
 

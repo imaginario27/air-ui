@@ -52,6 +52,8 @@ const dsConfig = reactive<DesignSystemConfig>({
         dateTimePlaceholderText: () => 'Select a date and time',
         weekText: () => 'Week',
         weekAbbreviationText: () => 'Wk',
+        todayText: () => 'Today',
+        moreText: () => 'more',
     },
     timePicker: {
         openText: () => 'Open time picker',

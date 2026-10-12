@@ -42,6 +42,8 @@ describe('useDSConfig', () => {
         expect(config.calendar.dateTimePlaceholderText()).toBe('Select a date and time')
         expect(config.calendar.weekText()).toBe('Week')
         expect(config.calendar.weekAbbreviationText()).toBe('Wk')
+        expect(config.calendar.todayText()).toBe('Today')
+        expect(config.calendar.moreText()).toBe('more')
         expect(config.timePicker.openText()).toBe('Open time picker')
         expect(config.timePicker.placeholderText()).toBe('Select a time')
         expect(config.timePicker.hoursText()).toBe('Hours')
