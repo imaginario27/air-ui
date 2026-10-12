@@ -99,6 +99,15 @@ export default defineNuxtPlugin(() => {
         weekAbbreviationText: () => 'Wk',
         todayText: () => 'Today',
         moreText: () => 'more',
+        dayText: () => 'Day',
+        monthText: () => 'Month',
+        yearText: () => 'Year',
+        agendaText: () => 'Agenda',
+        viewText: () => 'Calendar view',
+        allDayText: () => 'All day',
+        noEventsText: () => 'No events',
+        previousText: () => 'Previous',
+        nextText: () => 'Next',
     })
 
     /* Text used by the TimePicker and the time InputField */

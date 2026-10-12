@@ -81,6 +81,10 @@ slotComponents:
         srcDir: 'placeholders/ContentPlaceholder.vue'
         slotProps:
             date: "text"
+external:
+    - markers
+externalTypes:
+    - Record<string, CalendarMarker[]>
 propsSettingsExcludedProps: ["modelValue", "isDateDisabled", "markers"]
 ---
 ::

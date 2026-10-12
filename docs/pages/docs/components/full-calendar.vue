@@ -14,7 +14,7 @@ definePageMeta({
     layout: 'docs',
     overtitle: 'Components',
     description:
-        'Displays a month view like a planner, with the events laid over the days, multi-day bars and a +N more button when a day has too many.',
+        'Displays dates like a planner in day, week, month, year and agenda views, with events, multi-day bars, a sticky header while the hours scroll and a +N more panel.',
 })
 
 // Route
