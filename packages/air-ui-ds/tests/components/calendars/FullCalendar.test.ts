@@ -1,5 +1,6 @@
 import { mount } from '@vue/test-utils'
 import FullCalendar from '@/components/calendars/FullCalendar.vue'
+import { ColorAccent } from '@/models/enums/colors'
 
 const events = [
     { id: 'a', title: 'Birthday', start: '2026-10-12' },
@@ -7,10 +8,11 @@ const events = [
     { id: 'c', title: 'Haircut', start: '2026-10-27', time: '16:30' },
 ]
 
-const factory = (props: Record<string, any> = {}) =>
+const factory = (props: Record<string, any> = {}, hasTransitionStub = false) =>
     mount(FullCalendar, {
         props: { modelValue: '2026-10-12', events, ...props },
         attachTo: document.body,
+        ...(hasTransitionStub && { global: { stubs: { transition: true } } }),
     })
 
 const dayButton = (wrapper: ReturnType<typeof factory>, iso: string) => wrapper.find(`[data-date="${iso}"]`)
@@ -25,6 +27,11 @@ describe('FullCalendar.vue', () => {
         expect(wrapper.find('h2').text()).toBe('October 2026')
         expect(wrapper.findAll('[data-date]')).toHaveLength(35)
         expect(wrapper.findAll('span[abbr]')).toHaveLength(7)
+    })
+
+    it('renders the title as the given heading tag', () => {
+        expect(factory().find('h2').exists()).toBe(true)
+        expect(factory({ headingTag: 'h4' }).find('h4').text()).toBe('October 2026')
     })
 
     it('starts the week on the given day', () => {
@@ -125,6 +132,135 @@ describe('FullCalendar.vue', () => {
         const payload = wrapper.emitted('more-click')![0]![0] as { date: string; events: unknown[] }
         expect(payload.date).toBe('2026-10-15')
         expect(payload.events).toHaveLength(5)
+    })
+
+    it('uses getEventColor over the color of the event', () => {
+        const wrapper = factory({
+            events: [{ title: 'Trip', start: '2026-10-14', end: '2026-10-16', color: ColorAccent.SUCCESS }],
+            getEventColor: () => ColorAccent.DANGER,
+        })
+
+        expect(eventButton(wrapper, 'Trip').classes()).toContain('bg-background-danger-bold')
+    })
+
+    it('keeps the meta of an event in the event-click payload and the event slot', async () => {
+        const wrapper = mount(FullCalendar, {
+            props: { modelValue: '2026-10-12', events: [{ title: 'Review', start: '2026-10-12', meta: { team: 'ux' } }] },
+            slots: { event: '<template #event="{ event }">{{ event.title }} / {{ event.meta.team }}</template>' },
+            attachTo: document.body,
+        })
+
+        await eventButton(wrapper, 'Review').trigger('click')
+
+        expect(eventButton(wrapper, 'Review').text()).toBe('Review / ux')
+        expect(wrapper.emitted('event-click')![0]![0]).toMatchObject({ meta: { team: 'ux' } })
+    })
+
+    describe('+N more popover', () => {
+        const crowded = ['One', 'Two', 'Three', 'Four', 'Five'].map((title) => ({ title, start: '2026-10-15' }))
+
+        const open = async () => {
+            const wrapper = factory({ events: crowded, maxEvents: 3 }, true)
+            await eventButton(wrapper, '+2 more').trigger('click')
+
+            return wrapper
+        }
+
+        it('lists all the events of the day', async () => {
+            const wrapper = await open()
+            const dialog = wrapper.find('[role="dialog"]')
+
+            expect(dialog.exists()).toBe(true)
+            expect(dialog.attributes('aria-label')).toContain('October 15, 2026')
+            expect(dialog.findAll('button').filter((button) => button.attributes('aria-label')?.match(/^[A-Z]/))).toHaveLength(6)
+            expect(dialog.text()).toContain('Three')
+            expect(dialog.text()).toContain('Four')
+        })
+
+        it('emits event-click and closes when an event of the popover is clicked', async () => {
+            const wrapper = await open()
+
+            await wrapper.find('[role="dialog"]').findAll('button').find((button) => button.text() === 'Four')!.trigger('click')
+
+            expect(wrapper.emitted('event-click')![0]![0]).toMatchObject({ title: 'Four' })
+            expect(wrapper.find('[role="dialog"]').exists()).toBe(false)
+        })
+
+        it('replaces its content with the more-popover slot', async () => {
+            const wrapper = mount(FullCalendar, {
+                props: { modelValue: '2026-10-12', events: crowded, maxEvents: 3 },
+                slots: {
+                    'more-popover':
+                        '<template #more-popover="{ date, events }"><p class="custom">{{ date }} {{ events.length }}</p></template>',
+                },
+                global: { stubs: { transition: true } },
+                attachTo: document.body,
+            })
+
+            await eventButton(wrapper, '+2 more').trigger('click')
+
+            expect(wrapper.find('[role="dialog"] .custom').text()).toBe('2026-10-15 5')
+        })
+
+        describe('auto flip', () => {
+            // jsdom has no layout: the rectangles are set by role
+            const mockRects = (panel: Partial<DOMRect>) =>
+                vi.spyOn(HTMLElement.prototype, 'getBoundingClientRect').mockImplementation(function (this: HTMLElement) {
+                    const role = this.getAttribute('role')
+                    const rect =
+                        role === 'group'
+                            ? { top: 0, left: 0, right: 700, bottom: 600 }
+                            : role === 'dialog'
+                              ? { top: 400, left: 0, right: 224, bottom: 700, ...panel }
+                              : this.querySelector(':scope > [role="dialog"]')
+                                ? { top: 480, left: 0, right: 700, bottom: 600 }
+                                : { top: 0, left: 0, right: 0, bottom: 0 }
+
+                    return { ...rect, width: 0, height: 0, x: 0, y: 0, toJSON: () => ({}) }
+                })
+
+            afterEach(() => vi.restoreAllMocks())
+
+            it('opens upwards when the panel goes below the calendar', async () => {
+                mockRects({})
+                const wrapper = await open()
+
+                expect(wrapper.find('[role="dialog"]').classes()).toContain('bottom-0')
+            })
+
+            it('opens towards the left when the panel goes out on the right', async () => {
+                mockRects({ right: 800 })
+                const wrapper = await open()
+
+                expect(wrapper.find('[role="dialog"]').attributes('style')).toContain('right')
+            })
+
+            it('stays where it opens without morePopoverAutoFlip', async () => {
+                mockRects({})
+                const wrapper = factory({ events: crowded, maxEvents: 3, morePopoverAutoFlip: false }, true)
+                await eventButton(wrapper, '+2 more').trigger('click')
+
+                expect(wrapper.find('[role="dialog"]').classes()).toContain('top-0')
+            })
+        })
+
+        it('closes with the close button, Escape, a day click or a month change', async () => {
+            let wrapper = await open()
+            await wrapper.find('button[aria-label="Close"]').trigger('click')
+            expect(wrapper.find('[role="dialog"]').exists()).toBe(false)
+
+            wrapper = await open()
+            await wrapper.trigger('keydown', { key: 'Escape' })
+            expect(wrapper.find('[role="dialog"]').exists()).toBe(false)
+
+            wrapper = await open()
+            await dayButton(wrapper, '2026-10-20').trigger('click')
+            expect(wrapper.find('[role="dialog"]').exists()).toBe(false)
+
+            wrapper = await open()
+            await wrapper.find('button[aria-label="Next month"]').trigger('click')
+            expect(wrapper.find('[role="dialog"]').exists()).toBe(false)
+        })
     })
 
     it('ignores events with an invalid start', () => {

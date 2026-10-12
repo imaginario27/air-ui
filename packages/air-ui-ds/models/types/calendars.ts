@@ -25,6 +25,8 @@ export interface FullCalendarEvent {
     end?: string
     time?: string
     color?: ColorAccent
+    // Anything else you need back in the event handlers and slots, such as a category or an id from your API
+    meta?: Record<string, unknown>
 }
 
 // Payload of more-click: the day and all of its events

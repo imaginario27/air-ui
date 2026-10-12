@@ -6,12 +6,12 @@
         :class="[
             'flex flex-col',
             'w-full max-w-full',
-            'overflow-hidden',
             'rounded-lg border border-border-default bg-background-container-surface',
             'text-text-default',
             disabled && 'opacity-disabled',
         ]"
         @keydown.capture="handleKeydown"
+        @keydown.esc="handleEscape"
     >
         <!-- Header -->
         <div class="flex items-center gap-2 p-3">
@@ -40,7 +40,9 @@
                     @click="goNext"
                 />
             </div>
-            <h2 class="text-lg font-semibold" aria-live="polite">{{ monthLabel }} {{ viewYear }}</h2>
+            <component :is="headingTag" class="text-lg font-semibold" aria-live="polite">
+                {{ monthLabel }} {{ viewYear }}
+            </component>
         </div>
 
         <!-- Weekdays -->
@@ -122,11 +124,72 @@
                             accent.ring,
                         ]"
                         :style="{ gridColumn: item.column + 1, gridRow: maxEvents + 1 }"
-                        @click.stop="emit('more-click', { date: item.date, events: getDayEvents(item.date) })"
+                        :aria-haspopup="'dialog'"
+                        :aria-expanded="moreDate === item.date"
+                        @click.stop="openMore(item.date)"
                     >
                         +{{ item.count }} {{ moreLabel }}
                     </button>
                 </div>
+
+                <!-- All the events of a day -->
+                <Transition
+                    enter-active-class="transition duration-150 ease-out"
+                    enter-from-class="opacity-0"
+                    leave-active-class="transition duration-100 ease-in"
+                    leave-to-class="opacity-0"
+                >
+                    <div
+                        v-if="moreColumn(week) >= 0"
+                        :ref="setMoreElement"
+                        role="dialog"
+                        :aria-label="moreDay?.label"
+                        :class="[
+                            'absolute z-50',
+                            morePlacement.vertical === 'top' ? 'top-0' : 'bottom-0',
+                            'min-w-56 max-h-72 overflow-y-auto',
+                            'rounded-lg border border-border-default bg-background-surface p-2 shadow-lg',
+                        ]"
+                        :style="morePanelStyle(moreColumn(week))"
+                    >
+                        <slot
+                            name="more-popover"
+                            :date="moreDate"
+                            :label="moreDay?.label"
+                            :events="moreEvents"
+                            :close="closeMore"
+                        >
+                            <div class="flex items-center justify-between gap-2 pb-1 pl-1">
+                                <span class="text-sm font-semibold">{{ moreDay?.label }}</span>
+                                <ActionIconButton
+                                    icon="mdi:close"
+                                    :size="ButtonSize.SM"
+                                    :styleType="ButtonStyleType.NEUTRAL_TRANSPARENT"
+                                    :ariaLabel="closeLabel"
+                                    @click="closeMore"
+                                />
+                            </div>
+                            <div class="flex flex-col gap-0.5">
+                                <button
+                                    v-for="(event, eventIndex) in moreEvents"
+                                    :key="`${event.id ?? event.title}-${eventIndex}`"
+                                    type="button"
+                                    :aria-label="eventLabel(event)"
+                                    :class="[eventClass(toSegment(event)), 'h-6']"
+                                    @click="handleMoreEventClick(event)"
+                                >
+                                    <slot name="event" :event="event">
+                                        <span v-if="!isBar(event)" :class="['h-2 w-2 shrink-0 rounded-full', dotClass(event)]" />
+                                        <span v-if="!isBar(event) && event.time" class="shrink-0 text-text-neutral-subtle">
+                                            {{ event.time }}
+                                        </span>
+                                        <span class="truncate">{{ event.title }}</span>
+                                    </slot>
+                                </button>
+                            </div>
+                        </slot>
+                    </div>
+                </Transition>
             </div>
         </div>
     </div>
@@ -160,6 +223,16 @@ const props = defineProps({
         type: String as PropType<ColorAccent>,
         default: ColorAccent.PRIMARY_BRAND,
         validator: (value: ColorAccent) => [ColorAccent.PRIMARY_BRAND, ColorAccent.SECONDARY_BRAND].includes(value),
+    },
+    getEventColor: Function as PropType<(event: FullCalendarEvent) => ColorAccent | undefined>,
+    morePopoverAutoFlip: {
+        type: Boolean as PropType<boolean>,
+        default: true,
+    },
+    headingTag: {
+        type: String as PropType<HeadingTag>,
+        default: 'h2',
+        validator: (value: string) => ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'].includes(value),
     },
     disabled: {
         type: Boolean as PropType<boolean>,
@@ -231,9 +304,97 @@ const goToday = () => {
     focusedISO.value = toISODate(today)
 }
 
+// The panel with all the events of a day, opened by +N more
+const moreDate = ref<string | null>(null)
+const closeLabel = computed(() => dsConfig.actions.closeText())
+const moreEvents = computed(() => (moreDate.value ? getDayEvents(moreDate.value) : []))
+const moreDay = computed(() => visibleWeeks.value.flatMap((week) => week.days).find((day) => day.iso === moreDate.value))
+
+const moreColumn = (week: CalendarWeek) => week.days.findIndex((day) => day.iso === moreDate.value)
+
+// The panel starts at the column of the day. Without room it opens inwards: the last columns to the left, and the last rows upwards
+const morePlacement = ref({ vertical: 'top', horizontal: 'left' })
+let moreElement: HTMLElement | null = null
+
+const setMoreElement = (element: unknown) => {
+    moreElement = element as HTMLElement | null
+}
+
+const morePanelStyle = (column: number) =>
+    morePlacement.value.horizontal === 'left'
+        ? { left: `calc(${column} / 7 * 100%)` }
+        : { right: `calc(${6 - column} / 7 * 100%)` }
+
+// Moves the panel to the other side when it goes out of the calendar and there is more room there
+const flipMore = () => {
+    const container = root.value
+
+    if (!moreElement || !container) return
+
+    const panel = moreElement.getBoundingClientRect()
+    const bounds = container.getBoundingClientRect()
+    const row = moreElement.parentElement!.getBoundingClientRect()
+    let { vertical, horizontal } = morePlacement.value
+
+    if (panel.bottom > bounds.bottom && row.bottom - bounds.top > bounds.bottom - row.top) vertical = 'bottom'
+
+    if (panel.right > bounds.right) horizontal = 'right'
+    else if (panel.left < bounds.left) horizontal = 'left'
+
+    morePlacement.value = { vertical, horizontal }
+}
+
+const isBar = (event: FullCalendarEvent) => !event.time || Boolean(event.end && event.end > event.start)
+
+const toSegment = (event: FullCalendarEvent): FullCalendarSegment => ({
+    event,
+    column: 0,
+    span: 1,
+    lane: 0,
+    isBar: isBar(event),
+    continuesBefore: false,
+    continuesAfter: false,
+})
+
+const openMore = (date: string) => {
+    const column = visibleWeeks.value.flatMap((week) => week.days).findIndex((day) => day.iso === date) % 7
+
+    morePlacement.value = { vertical: 'top', horizontal: column <= 4 ? 'left' : 'right' }
+    moreDate.value = date
+
+    // Measured once it renders and before the browser paints, so it never shows on the wrong side
+    if (props.morePopoverAutoFlip) nextTick(flipMore)
+
+    emit('more-click', { date, events: getDayEvents(date) } satisfies FullCalendarMoreEvent)
+}
+
+const closeMore = () => {
+    moreDate.value = null
+}
+
+const handleMoreEventClick = (event: FullCalendarEvent) => {
+    closeMore()
+    emit('event-click', event)
+}
+
+// Escape closes the panel first, so a parent that closes on Escape stays open
+const handleEscape = (event: KeyboardEvent) => {
+    if (moreDate.value === null) return
+
+    event.stopPropagation()
+    closeMore()
+    focus()
+}
+
+// The day of the panel may be gone when the month changes
+watch([viewYear, () => viewDate.value.getMonth()], closeMore)
+
+onClickOutside(root, closeMore)
+
 const handleDayClick = (day: CalendarDay) => {
     if (props.disabled) return
 
+    closeMore()
     selectDay(day)
     emit('day-click', { date: day.iso, key: day.key, isDisabled: false } satisfies CalendarDayEvent)
 }
@@ -254,7 +415,10 @@ const fillClasses: Record<string, string> = {
     [ColorAccent.SECONDARY_BRAND]: 'bg-background-secondary-brand-default',
 }
 
-const dotClass = (event: FullCalendarEvent) => getMarkerColorClass(event.color)
+// The color of an event: the one from getEventColor, or its own
+const resolveColor = (event: FullCalendarEvent) => props.getEventColor?.(event) ?? event.color
+
+const dotClass = (event: FullCalendarEvent) => getMarkerColorClass(resolveColor(event))
 
 const dayNumberClass = (day: CalendarDay) => [
     'flex h-7 min-w-7 items-center justify-center rounded-full px-1',
@@ -276,7 +440,7 @@ const eventClass = (segment: FullCalendarSegment) => [
     props.disabled ? 'cursor-not-allowed' : 'cursor-pointer',
     segment.isBar
         ? [
-              fillClasses[segment.event.color ?? ColorAccent.PRIMARY_BRAND] ?? fillClasses[ColorAccent.PRIMARY_BRAND],
+              fillClasses[resolveColor(segment.event) ?? ColorAccent.PRIMARY_BRAND] ?? fillClasses[ColorAccent.PRIMARY_BRAND],
               'text-text-neutral-on-filled font-semibold hover:opacity-90',
               segment.continuesBefore ? 'rounded-l-none' : 'rounded-l ml-0.5',
               segment.continuesAfter ? 'rounded-r-none' : 'rounded-r mr-0.5',
