@@ -1,9 +1,5 @@
 <template>
-    <AppLogo
-        :src="isDark ? logoDark : logoLight"
-        to=""
-        class="max-w-[80px]"
-    />
+    <AppLogo :src="isDark ? logoDark : logoLight" to="" class="max-w-[80px]" />
 </template>
 <script setup lang="ts">
 // Imports

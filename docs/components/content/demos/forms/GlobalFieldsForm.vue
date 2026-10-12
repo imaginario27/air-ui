@@ -1,12 +1,9 @@
 <template>
     <Section>
         <SectionBody>
-            <Form 
-                @submit="handleSubmit"
-                @reset="resetForm"
-            >
+            <Form @submit="handleSubmit" @reset="resetForm">
                 <FormRow>
-                    <InputField 
+                    <InputField
                         id="full-name"
                         v-model="formData.fullName"
                         v-model:error="formErrors.fullName"
@@ -16,7 +13,7 @@
                         :validator="validateField"
                     />
 
-                    <InputField 
+                    <InputField
                         id="location"
                         v-model="formData.location"
                         v-model:error="formErrors.location"
@@ -26,7 +23,7 @@
                         required
                     />
 
-                    <InputField 
+                    <InputField
                         id="years"
                         v-model="formData.years"
                         v-model:error="formErrors.years"
@@ -38,10 +35,9 @@
                         :validator="validateField"
                         required
                     />
-
                 </FormRow>
                 <FormRow>
-                    <InputField 
+                    <InputField
                         id="email"
                         v-model="formData.email"
                         v-model:error="formErrors.email"
@@ -52,7 +48,7 @@
                     />
                 </FormRow>
                 <FormRow>
-                    <InputField 
+                    <InputField
                         id="password"
                         v-model="formData.password"
                         v-model:error="formErrors.password"
@@ -61,7 +57,7 @@
                         type="password"
                         required
                     />
-                    <InputField 
+                    <InputField
                         id="password-repeat"
                         v-model="formData.passwordRepeat"
                         v-model:error="formErrors.passwordRepeat"
@@ -72,7 +68,7 @@
                     />
                 </FormRow>
                 <FormRow>
-                    <InputField 
+                    <InputField
                         id="start-date"
                         v-model="formData.startDate"
                         v-model:error="formErrors.startDate"
@@ -81,7 +77,7 @@
                         type="date"
                         required
                     />
-                    <InputField 
+                    <InputField
                         id="end-date"
                         v-model="formData.endDate"
                         v-model:error="formErrors.endDate"
@@ -92,7 +88,7 @@
                     />
                 </FormRow>
                 <FormRow>
-                    <InputField 
+                    <InputField
                         id="datetime-local"
                         v-model="formData.datetimeLocal"
                         v-model:error="formErrors.datetimeLocal"
@@ -103,7 +99,7 @@
                     />
                 </FormRow>
                 <FormRow>
-                    <InputField 
+                    <InputField
                         id="url"
                         v-model="formData.url"
                         v-model:error="formErrors.url"
@@ -114,121 +110,117 @@
                     />
                 </FormRow>
                 <FormRow>
-                    <InputField 
+                    <InputField
                         id="color"
                         v-model="formData.color"
                         v-model:error="formErrors.color"
                         label="Color"
-                        type="color" 
-                        :validator="validateField"      
+                        type="color"
+                        :validator="validateField"
                     />
                 </FormRow>
                 <FormRow>
-                    <TextareaField 
+                    <TextareaField
                         id="description"
                         v-model="formData.description"
                         v-model:error="formErrors.description"
                         label="Description"
                         :maxLength="255"
-                        :validator="validateField"    
-                        required  
+                        :validator="validateField"
+                        required
                     />
                 </FormRow>
                 <FormRow>
-                    <InputField 
+                    <InputField
                         id="phone"
                         v-model="formData.phone"
                         v-model:error="formErrors.phone"
                         label="Phone"
-                        :validator="validateField"  
-                        required    
+                        :validator="validateField"
+                        required
                     />
                 </FormRow>
                 <FormRow>
-                    <CheckboxField 
+                    <CheckboxField
                         id="accept-conditions"
                         v-model="formData.acceptConditions"
                         v-model:error="formErrors.acceptConditions"
                         label="Accept conditions"
-                        :validator="validateBooleanField"  
-                        required    
+                        :validator="validateBooleanField"
+                        required
                     />
                 </FormRow>
                 <FormRow>
-                    <ButtonField 
-                        id="button-field"
-                        label="Button Field" 
-                    />
+                    <ButtonField id="button-field" label="Button Field" />
                 </FormRow>
                 <FormRow>
-                    <SwitchField 
+                    <SwitchField
                         id="enable-feature"
                         v-model="formData.enableFeature"
                         v-model:error="formErrors.enableFeature"
                         label="Accept conditions"
-                        :validator="validateBooleanField"  
-                        required    
+                        :validator="validateBooleanField"
+                        required
                     />
                 </FormRow>
                 <FormRow>
-                    <SelectField 
+                    <SelectField
                         id="single-choice"
                         v-model="formData.type"
                         v-model:error="formErrors.type"
                         :options="exampleTypes"
                         label="Type"
-                        :validator="validateField"  
-                        required    
+                        :validator="validateField"
+                        required
                     />
                 </FormRow>
                 <FormRow>
-                    <SelectField 
+                    <SelectField
                         id="multi-choice"
                         v-model="formData.technologies"
                         v-model:error="formErrors.technologies"
                         :options="exampleTechnologies"
                         label="Technologies"
-                        :validator="validateArrayField"  
+                        :validator="validateArrayField"
                         multiple
-                        required    
+                        required
                     />
                 </FormRow>
                 <FormRow>
-                    <OptionButtonsGroupField 
+                    <OptionButtonsGroupField
                         id="technolgies"
                         v-model="formData.technologiesOptions"
                         v-model:error="formErrors.technologiesOptions"
                         :buttons="exampleButtonOptionsTechnologies"
                         label="Technology options"
-                        :validator="validateArrayField"  
+                        :validator="validateArrayField"
                         isRounded
                         isMultiple
                         required
                     />
                 </FormRow>
                 <FormRow>
-                    <ToggleButtonsGroupField 
+                    <ToggleButtonsGroupField
                         id="sorting"
                         v-model="formData.sorting"
                         :buttons="exampleSortingButtons"
                         label="Sorting"
-
                     />
                 </FormRow>
                 <FormRow>
-                    <RadioGroupField 
+                    <RadioGroupField
                         id="purchase-option"
                         v-model="formData.purchaseOption"
                         v-model:error="formErrors.purchaseOption"
                         :options="examplePurchaseOptions"
                         name="purchase-option"
                         label="Purchase options"
-                        :validator="validateField"  
+                        :validator="validateField"
                         required
                     />
                 </FormRow>
                 <FormRow>
-                    <RadioGroupField 
+                    <RadioGroupField
                         id="device-option"
                         v-model="formData.deviceOption"
                         v-model:error="formErrors.deviceOption"
@@ -236,17 +228,17 @@
                         :type="RadioType.BUTTON"
                         name="device-option"
                         label="Device options"
-                        :validator="validateField"  
+                        :validator="validateField"
                         required
                     />
                 </FormRow>
                 <FormRow>
-                    <FileUploadField 
+                    <FileUploadField
                         id="file"
                         v-model="formData.file"
                         v-model:error="formErrors.file"
                         label="File"
-                        :validator="validateArrayField"  
+                        :validator="validateArrayField"
                         required
                         multiple
                         :maxFiles="5"
@@ -255,15 +247,8 @@
                     />
                 </FormRow>
                 <FormActions>
-                    <ActionButton 
-                        type="submit" 
-                        text="Submit"
-                        :styleType="ButtonStyleType.PRIMARY_BRAND_FILLED"
-                    />
-                    <ActionButton 
-                        type="reset" 
-                        text="Reset"
-                    />
+                    <ActionButton type="submit" text="Submit" :styleType="ButtonStyleType.PRIMARY_BRAND_FILLED" />
+                    <ActionButton type="reset" text="Reset" />
                 </FormActions>
             </Form>
         </SectionBody>
@@ -368,7 +353,7 @@ const examplePurchaseOptions: RadioOption[] = [
         id: 'bank-account',
         label: 'Bank account',
         value: 'bank-account',
-    }
+    },
 ]
 
 const exampleDeviceOptions: RadioOption[] = [
@@ -381,9 +366,8 @@ const exampleDeviceOptions: RadioOption[] = [
         id: 'mobile',
         label: 'Mobile',
         value: 'mobile',
-    }
+    },
 ]
-
 
 const formData = reactive({
     fullName: '',
@@ -397,7 +381,7 @@ const formData = reactive({
     url: '',
     image: '',
     color: '',
-    datetimeLocal:'',
+    datetimeLocal: '',
     description: '',
     phone: '',
     acceptConditions: false,
@@ -414,9 +398,9 @@ const formData = reactive({
 const { formErrors, resetForm, validateFormFields } = useForm({
     formData,
     requiredFields: [
-        'fullName', 
-        'location', 
-        'email', 
+        'fullName',
+        'location',
+        'email',
         'years',
         'password',
         'passwordRepeat',
@@ -442,9 +426,9 @@ const { formErrors, resetForm, validateFormFields } = useForm({
         years: validateField,
         email: validateEmail,
         password: validateField,
-        passwordRepeat: value => validatePasswordMatch(formData.password, value),
-        startDate: value => validateField(value),
-        endDate: value => validateDateRange(formData.startDate, value),
+        passwordRepeat: (value) => validatePasswordMatch(formData.password, value),
+        startDate: (value) => validateField(value),
+        endDate: (value) => validateDateRange(formData.startDate, value),
         url: validateUrl,
         color: validateField,
         datetimeLocal: validateField,

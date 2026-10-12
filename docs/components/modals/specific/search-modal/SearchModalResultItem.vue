@@ -1,6 +1,6 @@
 <template>
-    <div 
-        :class="[ 
+    <div
+        :class="[
             'py-4',
             'px-6',
             'border border-border-neutral-subtle',
@@ -11,11 +11,7 @@
         @click="handleClick"
     >
         <div class="flex flex-col gap-2 w-full">
-            <Badge 
-                :text="badgeText" 
-                :color="badgeColor" 
-                :style="badgeStyle"
-            />
+            <Badge :text="badgeText" :color="badgeColor" :style="badgeStyle" />
             <span v-if="breadcrumbs" class="text-sm text-text-neutral-subtle">
                 {{ breadcrumbs }}
             </span>
@@ -23,7 +19,7 @@
                 {{ text }}
             </h3>
         </div>
-        <ActionIconButton 
+        <ActionIconButton
             icon="mdi:chevron-right"
             :size="ButtonSize.LG"
             :styleType="ButtonStyleType.NEUTRAL_TRANSPARENT"

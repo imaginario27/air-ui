@@ -1,9 +1,7 @@
 ﻿<template>
     <Section>
         <SectionBody>
-            <ContentRenderer 
-                v-if="data" :value="data" 
-            />
+            <ContentRenderer v-if="data" :value="data" />
             <ContentRenderFallback v-else />
         </SectionBody>
     </Section>
@@ -13,7 +11,8 @@ definePageMeta({
     title: 'Hero',
     layout: 'docs',
     overtitle: 'Blocks',
-    description: 'The Hero block is a versatile and visually impactful section designed to capture users\' attention and convey key messages effectively. It is ideal for highlighting important content, promotions, or calls to action.'
+    description:
+        "The Hero block is a versatile and visually impactful section designed to capture users' attention and convey key messages effectively. It is ideal for highlighting important content, promotions, or calls to action.",
 })
 
 // Route

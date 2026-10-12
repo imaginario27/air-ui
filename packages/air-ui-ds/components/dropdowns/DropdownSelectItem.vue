@@ -1,5 +1,5 @@
 <template>
-    <component 
+    <component
         :is="dynamicComponent"
         v-bind="componentProps"
         :class="[
@@ -8,25 +8,26 @@
             'text-sm',
             'w-full',
             sizeClass,
-            disabled
-                ? 'cursor-not-allowed opacity-disabled'
-                : 'hover:cursor-pointer',
-            !disabled && (isSelected && activeStyle === SelectActiveStyle.FILL ?
-                'bg-background-primary-brand-active hover:background-primary-brand-active hover:text-text-neutral-on-filled'
-                : 'hover:bg-background-neutral-hover-subtle'),
+            disabled ? 'cursor-not-allowed opacity-disabled' : 'hover:cursor-pointer',
+            !disabled &&
+                (isSelected && activeStyle === SelectActiveStyle.FILL
+                    ? 'bg-background-primary-brand-active hover:background-primary-brand-active hover:text-text-neutral-on-filled'
+                    : 'hover:bg-background-neutral-hover-subtle'),
         ]"
         @click="emitClick"
     >
         <div class="flex justify-between items-center gap-3 w-full">
             <div class="flex items-center gap-3">
-                <Icon 
+                <Icon
                     v-if="type === SelectType.ICON"
                     :name="icon"
                     :iconClass="[
-                        isSelected && activeStyle === SelectActiveStyle.FILL ? '!text-icon-on-filled' : '!text-icon-neutral-subtle'
+                        isSelected && activeStyle === SelectActiveStyle.FILL
+                            ? '!text-icon-on-filled'
+                            : '!text-icon-neutral-subtle',
                     ]"
                 />
-        
+
                 <template v-if="type === SelectType.IMAGE">
                     <img
                         v-if="imgUrl && isImageLoaded"
@@ -35,45 +36,36 @@
                         class="w-[24px] h-[24px] rounded"
                         @load="handleImageLoad"
                         @error="handleImageError"
-                    >
-                    <img
-                        v-else
-                        :src="missingImagePlaceholder"
-                        :alt
-                        class="w-[24px] h-[24px] rounded"
-                    >
+                    />
+                    <img v-else :src="missingImagePlaceholder" :alt class="w-[24px] h-[24px] rounded" />
                 </template>
 
-                <span 
-                    v-if="type !== SelectType.USER" 
+                <span
+                    v-if="type !== SelectType.USER"
                     :class="[
                         'text-sm text-left',
                         isSelected ? 'font-semibold' : '',
-                        isSelected && activeStyle === SelectActiveStyle.FILL 
-                            ? 'text-text-neutral-on-filled' : ''
+                        isSelected && activeStyle === SelectActiveStyle.FILL ? 'text-text-neutral-on-filled' : '',
                     ]"
                 >
                     {{ text }}
                 </span>
 
-                <User 
+                <User
                     v-if="type === SelectType.USER"
                     :displayName="userDisplayName"
-                    :imgUrl="userProfileImg" 
+                    :imgUrl="userProfileImg"
                     :size="AvatarSize.XS"
                     :class="isSelected && activeStyle === SelectActiveStyle.FILL ? '!text-text-neutral-on-filled' : ''"
                 />
             </div>
-            <Icon 
+            <Icon
                 v-if="isSelected && activeStyle === SelectActiveStyle.CHECK"
                 name="mdi:check"
                 iconClass="!text-icon-primary-brand-active"
             />
         </div>
-        <p 
-            v-if="helpText"
-            class="text-xs text-text-neutral-subtle mt-2"
-        >
+        <p v-if="helpText" class="text-xs text-text-neutral-subtle mt-2">
             {{ helpText }}
         </p>
     </component>
@@ -157,7 +149,7 @@ const handleImageError = () => {
     isImageLoaded.value = false
 }
 
-// Computed 
+// Computed
 const sizeClass = computed(() => {
     const sizeVariant = {
         [SelectSize.MD]: 'py-2',
@@ -167,14 +159,14 @@ const sizeClass = computed(() => {
 })
 
 const dynamicComponent = computed(() => {
-    return props.to ? 'a': 'div'
+    return props.to ? 'a' : 'div'
 })
 
 const componentProps = computed(() => {
     if (props.to) {
         return {
             href: props.to,
-            ...(props.isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {}),
+            ...(props.isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {}),
         }
     } else {
         return {}

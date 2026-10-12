@@ -2,9 +2,7 @@
     <Section>
         <SectionBody>
             <TabBar v-model="activeIndex" :tabs />
-            <ContentRenderer 
-                v-if="data" :value="data" 
-            />
+            <ContentRenderer v-if="data" :value="data" />
             <ContentRenderFallback v-else />
         </SectionBody>
     </Section>
@@ -14,7 +12,8 @@ definePageMeta({
     title: 'CompactHeader',
     layout: 'docs',
     overtitle: 'Components',
-    description: 'A component which provides a compact and functional page header layout, supporting navigation menus, user profiles, and responsive design.',
+    description:
+        'A component which provides a compact and functional page header layout, supporting navigation menus, user profiles, and responsive design.',
 })
 
 // Route

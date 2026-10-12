@@ -1,9 +1,7 @@
 ﻿<template>
     <Section>
         <SectionBody>
-            <ContentRenderer 
-                v-if="data" :value="data" 
-            />
+            <ContentRenderer v-if="data" :value="data" />
             <ContentRenderFallback v-else />
         </SectionBody>
     </Section>
@@ -13,7 +11,8 @@ definePageMeta({
     title: 'Confirmation details card',
     layout: 'docs',
     overtitle: 'Components',
-    description: 'Displays a scope label and a title in a compact card, used to summarise a single confirmation detail with optional alignment and custom styling.',
+    description:
+        'Displays a scope label and a title in a compact card, used to summarise a single confirmation detail with optional alignment and custom styling.',
 })
 
 // Route

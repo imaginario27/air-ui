@@ -8,11 +8,7 @@
             'select-none',
         ]"
     >
-        <Icon
-            v-if="icon"
-            :name="icon"
-            iconClass="!text-icon-neutral-subtle"
-        />
+        <Icon v-if="icon" :name="icon" iconClass="!text-icon-neutral-subtle" />
 
         <span>{{ text }}</span>
     </div>

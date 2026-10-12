@@ -19,19 +19,13 @@ export const useFuseContentSearch = () => {
         const router = useRouter()
         const routes = router.getRoutes()
 
-        const docsRoutes = routes.filter((route) =>
-            route.path.startsWith('/docs'),
-        )
+        const docsRoutes = routes.filter((route) => route.path.startsWith('/docs'))
 
         const items: SearchIndexItem[] = docsRoutes.map((route) => {
             const segments = route.path.split('/').filter(Boolean)
 
             const breadcrumbs = segments
-                .map((segment) =>
-                    segment
-                        .replace(/-/g, ' ')
-                        .replace(/\b\w/g, (c) => c.toUpperCase()),
-                )
+                .map((segment) => segment.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()))
                 .join(' > ')
 
             return {
@@ -39,10 +33,7 @@ export const useFuseContentSearch = () => {
                 content: (route.meta.description as string) ?? '',
                 path: route.path,
                 breadcrumbs,
-                category:
-                    (route.meta.overtitle as string) ??
-                    (route.meta.category as string) ??
-                    'Docs',
+                category: (route.meta.overtitle as string) ?? (route.meta.category as string) ?? 'Docs',
             }
         })
 

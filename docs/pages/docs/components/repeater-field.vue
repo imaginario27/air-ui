@@ -1,10 +1,7 @@
 <template>
     <Section>
         <SectionBody>
-            <ContentRenderer
-                v-if="data"
-                :value="data"
-            />
+            <ContentRenderer v-if="data" :value="data" />
             <ContentRenderFallback v-else />
         </SectionBody>
     </Section>
@@ -15,7 +12,8 @@ definePageMeta({
     title: 'RepeaterField',
     layout: 'docs',
     overtitle: 'Components',
-    description: 'Form field component for repeating an arbitrary slot template over a list, with add, remove, and optional row reordering.',
+    description:
+        'Form field component for repeating an arbitrary slot template over a list, with add, remove, and optional row reordering.',
 })
 
 const route = useRoute()

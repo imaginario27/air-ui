@@ -1,9 +1,7 @@
 ﻿<template>
     <Section>
         <SectionBody>
-            <ContentRenderer 
-                v-if="data" :value="data" 
-            />
+            <ContentRenderer v-if="data" :value="data" />
             <ContentRenderFallback v-else />
         </SectionBody>
     </Section>
@@ -13,7 +11,7 @@ definePageMeta({
     title: 'QRCode',
     layout: 'docs',
     overtitle: 'Components',
-    description: 'A flexible QR code component with support for styling, images, and loading states.'
+    description: 'A flexible QR code component with support for styling, images, and loading states.',
 })
 
 // Route

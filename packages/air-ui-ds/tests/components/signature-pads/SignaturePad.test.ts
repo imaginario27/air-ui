@@ -55,7 +55,9 @@ describe('SignaturePad.vue', () => {
 
     it('applies the min width', () => {
         expect(factory().find('[data-testid="signature-pad-root"]').attributes('style')).toContain('min-width: 240px')
-        expect(factory({ minWidth: 320 }).find('[data-testid="signature-pad-root"]').attributes('style')).toContain('min-width: 320px')
+        expect(factory({ minWidth: 320 }).find('[data-testid="signature-pad-root"]').attributes('style')).toContain(
+            'min-width: 320px',
+        )
     })
 
     it('emits draw, update:modelValue and draw-end after a stroke', async () => {
@@ -110,7 +112,11 @@ describe('SignaturePad.vue', () => {
         const wrapper = factory({ modelValue: ['M 0 0 L 5 5'] })
 
         expect(wrapper.find('[data-testid="signature-pad-clear"]').attributes('aria-label')).toBe('Clear signature')
-        expect(factory({ modelValue: ['M 0 0 L 5 5'], clearAriaLabel: 'Reset' }).find('[data-testid="signature-pad-clear"]').attributes('aria-label')).toBe('Reset')
+        expect(
+            factory({ modelValue: ['M 0 0 L 5 5'], clearAriaLabel: 'Reset' })
+                .find('[data-testid="signature-pad-clear"]')
+                .attributes('aria-label'),
+        ).toBe('Reset')
     })
 
     it('passes clearIcon to the clear button', () => {

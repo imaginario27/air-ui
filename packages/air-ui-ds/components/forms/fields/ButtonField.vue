@@ -1,18 +1,10 @@
 <template>
-    <div :class="[ 'flex flex-col', 'w-full', 'gap-2' ]">
+    <div :class="['flex flex-col', 'w-full', 'gap-2']">
         <!-- Label -->
-        <label 
-            v-if="label"
-            :for="id" 
-            :class="[ 
-                'text-sm', 
-                'font-semibold', 
-                'text-left', 
-            ]"
-        >
+        <label v-if="label" :for="id" :class="['text-sm', 'font-semibold', 'text-left']">
             {{ label }}
         </label>
-        <ActionButton 
+        <ActionButton
             :aria-label="!label ? ariaLabel : undefined"
             :text
             :size
@@ -36,8 +28,8 @@
 <script setup lang="ts">
 // Props
 const props = defineProps({
-    id: { 
-        type: String as PropType<string>, 
+    id: {
+        type: String as PropType<string>,
         required: true,
     },
     label: String as PropType<string>,
@@ -54,7 +46,7 @@ const props = defineProps({
     },
     text: {
         type: String as PropType<string>,
-        default: 'Button text'
+        default: 'Button text',
     },
     size: {
         type: String as PropType<ButtonSize>,
@@ -63,7 +55,7 @@ const props = defineProps({
     },
     icon: {
         type: String as PropType<string>,
-        default: "mdi:help"
+        default: 'mdi:help',
     },
     iconPosition: {
         type: String as PropType<IconPosition>,
@@ -76,32 +68,32 @@ const props = defineProps({
     },
     to: {
         type: String as PropType<string>,
-        default: ''
+        default: '',
     },
     isExternal: {
         type: Boolean as PropType<boolean>,
-        default: false
+        default: false,
     },
     isRounded: {
         type: Boolean as PropType<boolean>,
-        default: false
+        default: false,
     },
     isFullWidth: {
         type: Boolean as PropType<boolean>,
-        default: false
+        default: false,
     },
     isMobileFullWidth: {
         type: Boolean as PropType<boolean>,
-        default: false
+        default: false,
     },
-    isLoading: { 
+    isLoading: {
         type: Boolean as PropType<boolean>,
         default: false,
     },
-    loadingText: { 
+    loadingText: {
         type: String as PropType<string>,
         default: 'Processing...',
-    }, 
+    },
 })
 
 // Emits

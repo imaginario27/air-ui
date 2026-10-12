@@ -1,13 +1,7 @@
 import type { UploadApiResponse, UploadApiErrorResponse } from 'cloudinary'
 import { getCloudinary } from './cloudinary'
 
-export const uploadFeedbackImage = async (
-    file: {
-        data: Buffer
-        filename?: string
-        type?: string
-    },
-) => {
+export const uploadFeedbackImage = async (file: { data: Buffer; filename?: string; type?: string }) => {
     const cloudinary = getCloudinary()
 
     const originalName = file.filename || 'screenshot'

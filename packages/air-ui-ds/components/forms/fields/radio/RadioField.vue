@@ -1,12 +1,12 @@
 <template>
-    <div :class="[ 'flex flex-col', 'w-full', 'gap-2' ]">
+    <div :class="['flex flex-col', 'w-full', 'gap-2']">
         <!-- Radio Button with Label -->
         <div
             :class="[
                 'flex items-center gap-3',
                 'text-sm',
                 'text-text-default',
-                disabled ? 'cursor-not-allowed' : 'cursor-pointer'
+                disabled ? 'cursor-not-allowed' : 'cursor-pointer',
             ]"
             @click="handleRowClick"
         >
@@ -14,60 +14,58 @@
             <label
                 v-if="inverse && ($slots.label || label)"
                 :for="id"
-                :class="[
-                    disabled ? 'text-text-neutral-disabled cursor-not-allowed' : 'cursor-pointer',
-                    labelSizeClass
-                ]"
+                :class="[disabled ? 'text-text-neutral-disabled cursor-not-allowed' : 'cursor-pointer', labelSizeClass]"
             >
                 <slot name="label">{{ label }}</slot>
             </label>
 
             <!-- Hidden Native Radio Button -->
-            <input 
-                :id="id" 
-                type="radio" 
+            <input
+                :id="id"
+                type="radio"
                 :name="name"
                 :value="value"
-                :checked="modelValue === value" 
+                :checked="modelValue === value"
                 class="sr-only"
                 :aria-label="!label ? ariaLabel : undefined"
                 :disabled="disabled"
                 @change="selectRadio"
-            >
-            
+            />
+
             <!-- Custom Radio Button -->
             <div
-                :class="[ 
-                    radioSizeClass, 
+                :class="[
+                    radioSizeClass,
                     'aspect-square',
-                    'border', 
-                    'rounded-full', 
+                    'border',
+                    'rounded-full',
                     'flex items-center justify-center',
                     'transition-colors duration-200 ease-out',
-                    modelValue === value ? 'bg-background-primary-brand-checked border-0' : 'bg-neutral-white border-border-default',
-                    modelValue === value && disabled && '!bg-background-neutral-disabled !border-border-neutral-disabled',
-                    disabled ? 'bg-background-neutral-disabled cursor-not-allowed' : 'cursor-pointer'
+                    modelValue === value
+                        ? 'bg-background-primary-brand-checked border-0'
+                        : 'bg-neutral-white border-border-default',
+                    modelValue === value &&
+                        disabled &&
+                        '!bg-background-neutral-disabled !border-border-neutral-disabled',
+                    disabled ? 'bg-background-neutral-disabled cursor-not-allowed' : 'cursor-pointer',
                 ]"
                 @click="selectRadio"
             >
                 <div
                     v-if="modelValue === value"
-                    :class="[ 
+                    :class="[
                         'rounded-full',
-                        'w-[50%] h-[50%]', 
-                        disabled ? 'bg-icon-neutral-disabled' : 'bg-icon-neutral-on-filled-bg' 
+                        'w-[50%] h-[50%]',
+                        disabled ? 'bg-icon-neutral-disabled' : 'bg-icon-neutral-on-filled-bg',
                     ]"
                 />
             </div>
-            
+
             <!-- Label (natural position) -->
             <label
                 v-if="!inverse && ($slots.label || label)"
                 :for="id"
-                :class="[
-                    disabled ? 'text-text-neutral-disabled cursor-not-allowed' : 'cursor-pointer',
-                    labelSizeClass
-                ]"
+                :class="[disabled ? 'text-text-neutral-disabled cursor-not-allowed' : 'cursor-pointer', labelSizeClass]"
             >
                 <slot name="label">{{ label }}</slot>
             </label>
@@ -81,23 +79,25 @@
 <script setup lang="ts">
 // Props
 const props = defineProps({
-    id: { 
-        type: String as PropType<string>, 
-        required: true, 
-    },
-    name: { // Group name for radio buttons
+    id: {
         type: String as PropType<string>,
         required: true,
     },
-    value: { // Value of the radio button
+    name: {
+        // Group name for radio buttons
+        type: String as PropType<string>,
+        required: true,
+    },
+    value: {
+        // Value of the radio button
         type: [String, Number, Boolean] as PropType<string | number | boolean>,
         required: true,
     },
     label: String as PropType<string>,
     ariaLabel: String as PropType<string>,
     helpText: String as PropType<string>,
-    required: { 
-        type: Boolean as PropType<boolean>, 
+    required: {
+        type: Boolean as PropType<boolean>,
         default: false,
     },
     modelValue: {
@@ -117,7 +117,8 @@ const props = defineProps({
         default: ControlFieldSize.MD,
         validator: (value: ControlFieldSize) => Object.values(ControlFieldSize).includes(value),
     },
-    inverse: { // Sets the radio button on the right side of the text
+    inverse: {
+        // Sets the radio button on the right side of the text
         type: Boolean as PropType<boolean>,
         default: false,
     },

@@ -1,45 +1,26 @@
 <template>
-    <div :class="[ 'flex flex-col', 'w-full', 'gap-2' ]">
+    <div :class="['flex flex-col', 'w-full', 'gap-2']">
         <!-- Label -->
-        <legend
-            v-if="legend"
-            :class="[
-                'text-sm',
-                'font-semibold',
-                'text-left',
-            ]"
-        >
+        <legend v-if="legend" :class="['text-sm', 'font-semibold', 'text-left']">
             {{ legend }}
-            <span
-                v-if="!required && showOptionalLabel"
-                class="font-normal text-text-neutral-subtler"
-            >
+            <span v-if="!required && showOptionalLabel" class="font-normal text-text-neutral-subtler">
                 {{ optionalLabelText }}
             </span>
         </legend>
         <!-- Checkbox with Label -->
-        <div
-            :class="[
-                'flex items-center gap-3',
-                'text-sm',
-                hasError ? 'text-text-error' : 'text-text-default'
-            ]"
-        >
+        <div :class="['flex items-center gap-3', 'text-sm', hasError ? 'text-text-error' : 'text-text-default']">
             <!-- Label (inverted)-->
             <label
                 v-if="inverse && ($slots.label || label)"
                 :for="id"
-                :class="[
-                    disabled && 'text-text-neutral-disabled',
-                    labelSizeClass,
-                ]"
+                :class="[disabled && 'text-text-neutral-disabled', labelSizeClass]"
             >
                 <slot name="label">{{ label }}</slot>
             </label>
 
             <TriStateCheckbox
                 :id="id"
-                :ariaLabel="!label ? (ariaLabel || legend) : undefined"
+                :ariaLabel="!label ? ariaLabel || legend : undefined"
                 :modelValue="modelValue"
                 :disabled="disabled"
                 :size="size"
@@ -50,10 +31,7 @@
             <label
                 v-if="!inverse && ($slots.label || label)"
                 :for="id"
-                :class="[
-                    disabled && 'text-text-neutral-disabled',
-                    labelSizeClass,
-                ]"
+                :class="[disabled && 'text-text-neutral-disabled', labelSizeClass]"
             >
                 <slot name="label">{{ label }}</slot>
             </label>
@@ -112,7 +90,8 @@ const props = defineProps({
         default: ControlFieldSize.MD,
         validator: (value: ControlFieldSize) => Object.values(ControlFieldSize).includes(value),
     },
-    inverse: { // Sets the checkbox on the right side of the text
+    inverse: {
+        // Sets the checkbox on the right side of the text
         type: Boolean as PropType<boolean>,
         default: false,
     },
@@ -162,11 +141,11 @@ const runValidation = () => {
 // Watchers
 watch(
     () => props.modelValue,
-    value => {
+    (value) => {
         if (validationMode.value === FormValidationMode.BLUR && props.validator) {
             const result = props.validator(value)
             emit('update:error', result ?? '')
         }
-    }
+    },
 )
 </script>

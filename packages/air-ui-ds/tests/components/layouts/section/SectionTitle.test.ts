@@ -30,6 +30,6 @@ describe('SectionTitle.vue', () => {
         (tag) => {
             const wrapper = factory({ headingTag: tag })
             expect(wrapper.find(tag).exists()).toBe(true)
-        }
+        },
     )
 })

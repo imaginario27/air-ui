@@ -32,7 +32,7 @@ const createPrettierWorkerApi = (worker: Worker): SimplePrettier => {
     return {
         format(source: string, options?: Options) {
             return postMessage({ type: 'format', source, options })
-        }
+        },
     }
 }
 
@@ -47,16 +47,19 @@ export default defineNuxtPlugin(async () => {
         const prettierModule = await import('prettier')
         prettier = {
             format(source, options = {}) {
-                return prettierModule.format(source, defu(options, {
-                    parser: 'markdown'
-                }))
-            }
+                return prettierModule.format(
+                    source,
+                    defu(options, {
+                        parser: 'markdown',
+                    }),
+                )
+            },
         }
     }
 
     return {
         provide: {
-            prettier
-        }
+            prettier,
+        },
     }
 })

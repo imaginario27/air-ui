@@ -1,30 +1,15 @@
 <template>
     <div class="w-full flex flex-col gap-2">
         <!-- Label -->
-        <div
-            v-if="label"
-            :class="[
-                'text-sm',
-                'font-semibold',
-                'text-left',
-                hasError ? 'text-text-error' : undefined
-            ]"
-        >
+        <div v-if="label" :class="['text-sm', 'font-semibold', 'text-left', hasError ? 'text-text-error' : undefined]">
             {{ label }}
-            <span
-                v-if="!required && showOptionalLabel"
-                class="font-normal text-text-neutral-subtler"
-            >
+            <span v-if="!required && showOptionalLabel" class="font-normal text-text-neutral-subtler">
                 {{ optionalLabelText }}
             </span>
         </div>
 
         <!-- Help Text or Error Message (top) -->
-        <HelpText
-            v-if="helpTextPosition === Position.TOP"
-            :text="helpText"
-            :error="error"
-        />
+        <HelpText v-if="helpTextPosition === Position.TOP" :text="helpText" :error="error" />
 
         <Grid
             v-if="layout === ListLayout.GRID"
@@ -54,16 +39,11 @@
             :class="[
                 orientation === Orientation.VERTICAL
                     ? ['flex flex-col gap-4', listClass]
-                    : ['flex flex-wrap gap-6', listClass]
+                    : ['flex flex-wrap gap-6', listClass],
             ]"
         >
-            <template
-                v-for="(option, index) in options"
-                :key="option.id"
-            >
-                <div
-                    :class="orientation === Orientation.HORIZONTAL ? 'w-fit' : 'w-full'"
-                >
+            <template v-for="(option, index) in options" :key="option.id">
+                <div :class="orientation === Orientation.HORIZONTAL ? 'w-fit' : 'w-full'">
                     <CheckboxField
                         :id="option.id.toString()"
                         :modelValue="isChecked(option.value)"
@@ -86,11 +66,7 @@
         </div>
 
         <!-- Help Text or Error Message (bottom) -->
-        <HelpText
-            v-if="helpTextPosition === Position.BOTTOM"
-            :text="helpText"
-            :error="error"
-        />
+        <HelpText v-if="helpTextPosition === Position.BOTTOM" :text="helpText" :error="error" />
     </div>
 </template>
 
@@ -102,7 +78,12 @@ const props = defineProps({
         type: Array as PropType<CheckboxOption[]>,
         required: true,
         validator: (value: CheckboxOption[]) =>
-            value.every((option) => option.id !== undefined && option.value !== undefined && (option.label !== undefined || option.ariaLabel !== undefined)),
+            value.every(
+                (option) =>
+                    option.id !== undefined &&
+                    option.value !== undefined &&
+                    (option.label !== undefined || option.ariaLabel !== undefined),
+            ),
     },
     modelValue: {
         type: Array as PropType<(string | number | boolean)[]>,
@@ -195,9 +176,7 @@ const optionalLabelText = computed(() => props.optionalLabel ?? dsConfig.forms.o
 const isChecked = (value: string | number | boolean) => props.modelValue.includes(value)
 
 const handleChange = (value: string | number | boolean, checked: boolean) => {
-    const updated = checked
-        ? [...props.modelValue, value]
-        : props.modelValue.filter(v => v !== value)
+    const updated = checked ? [...props.modelValue, value] : props.modelValue.filter((v) => v !== value)
 
     emit('update:modelValue', updated)
     runValidation(updated)

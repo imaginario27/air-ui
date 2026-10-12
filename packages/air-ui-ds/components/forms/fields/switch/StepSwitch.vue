@@ -13,7 +13,7 @@
             :aria-valuetext="selectedStep?.label ?? String(selectedStep?.value ?? '')"
             :disabled="disabled"
             @input="handleNativeInput"
-        >
+        />
 
         <!-- Custom Step Switch -->
         <div
@@ -26,7 +26,7 @@
                 'border border-border-default',
                 'bg-background-neutral-subtle',
                 'peer-focus-visible:ring-2 peer-focus-visible:ring-border-primary-brand-default',
-                disabled ? 'bg-background-neutral-disabled cursor-not-allowed opacity-disabled' : 'cursor-pointer'
+                disabled ? 'bg-background-neutral-disabled cursor-not-allowed opacity-disabled' : 'cursor-pointer',
             ]"
             :style="{
                 width: `${trackWidth}px`,
@@ -131,7 +131,7 @@ const dragCenter = ref(0)
 const visibleSteps = computed(() => props.steps.slice(0, props.maxSteps))
 
 const selectedIndex = computed(() => {
-    const index = visibleSteps.value.findIndex(step => step.value === props.modelValue)
+    const index = visibleSteps.value.findIndex((step) => step.value === props.modelValue)
     return Math.max(index, 0)
 })
 

@@ -1,9 +1,7 @@
 ﻿<template>
     <Section>
         <SectionBody>
-            <ContentRenderer 
-                v-if="data" :value="data" 
-            />
+            <ContentRenderer v-if="data" :value="data" />
             <ContentRenderFallback v-else />
         </SectionBody>
     </Section>
@@ -13,7 +11,8 @@ definePageMeta({
     title: 'SelectableCardField',
     layout: 'docs',
     overtitle: 'Components',
-    description: 'A form field that allows users to select an option by clicking on a card, often used in surveys, quizzes, or preference settings.',
+    description:
+        'A form field that allows users to select an option by clicking on a card, often used in surveys, quizzes, or preference settings.',
 })
 
 // Route

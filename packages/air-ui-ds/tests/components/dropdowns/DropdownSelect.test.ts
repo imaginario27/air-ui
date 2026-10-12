@@ -8,20 +8,20 @@ import { nextTick } from 'vue'
 import { useDSConfig } from '@/composables/useDSConfig'
 
 vi.mock('@/assets/images/placeholders/missing-image-placeholder.png', () => ({
-    default: '/mocked/missing-image.png'
+    default: '/mocked/missing-image.png',
 }))
 
 const options = [
     { text: 'Option 1', value: '1' },
     { text: 'Option 2', value: '2' },
-    { text: 'Option 3', value: '3' }
+    { text: 'Option 3', value: '3' },
 ]
 
 const factory = (props: Record<string, any> = {}) => {
     return mount(DropdownSelect, {
         props: {
             options,
-            ...props
+            ...props,
         },
         global: {
             stubs: {
@@ -41,12 +41,12 @@ const factory = (props: Record<string, any> = {}) => {
                         'to',
                         'isExternal',
                         'type',
-                        'disabled'
-                    ]
+                        'disabled',
+                    ],
                 },
                 DropdownSectionItem: {
                     template: '<div class="stubbed-section-item">{{ text }}</div>',
-                    props: ['text', 'icon']
+                    props: ['text', 'icon'],
                 },
                 DropdownMenu: {
                     template: `
@@ -54,14 +54,14 @@ const factory = (props: Record<string, any> = {}) => {
                             <slot name="activator" :onClick="() => {}" :isOpen="true" />
                             <slot name="items" :onClose="() => {}" />
                         </div>
-                    `
+                    `,
                 },
                 User: {
-                    template: '<div class="stubbed-user" />'
+                    template: '<div class="stubbed-user" />',
                 },
-                Icon
-            }
-        }
+                Icon,
+            },
+        },
     })
 }
 
@@ -94,7 +94,7 @@ describe('DropdownSelect.vue', () => {
     it('handles multiple selection with deselect', async () => {
         const wrapper = factory({
             multiple: true,
-            modelValue: ['1']
+            modelValue: ['1'],
         })
 
         await wrapper.find('.select-box').trigger('click')
@@ -107,7 +107,7 @@ describe('DropdownSelect.vue', () => {
     it('adds option in multiple selection mode', async () => {
         const wrapper = factory({
             multiple: true,
-            modelValue: []
+            modelValue: [],
         })
 
         await wrapper.find('.select-box').trigger('click')
@@ -142,14 +142,12 @@ describe('DropdownSelect.vue', () => {
     })
 
     it('renders icon when type is ICON', async () => {
-        const iconOptions = [
-            { text: 'With Icon', value: 'icon-1', icon: 'mdi:star' }
-        ]
+        const iconOptions = [{ text: 'With Icon', value: 'icon-1', icon: 'mdi:star' }]
 
         const wrapper = factory({
             options: iconOptions,
             modelValue: 'icon-1',
-            type: SelectType.ICON
+            type: SelectType.ICON,
         })
 
         await nextTick()
@@ -160,14 +158,12 @@ describe('DropdownSelect.vue', () => {
     })
 
     it('renders custom image when type is IMAGE', async () => {
-        const imgOptions = [
-            { text: 'With Img', value: 'img-1', imgUrl: 'path/to/img.png', alt: 'Alt text' }
-        ]
+        const imgOptions = [{ text: 'With Img', value: 'img-1', imgUrl: 'path/to/img.png', alt: 'Alt text' }]
 
         const wrapper = factory({
             options: imgOptions,
             modelValue: 'img-1',
-            type: SelectType.IMAGE
+            type: SelectType.IMAGE,
         })
 
         await nextTick()
@@ -179,14 +175,12 @@ describe('DropdownSelect.vue', () => {
     })
 
     it('renders fallback image when image load fails', async () => {
-        const imgOptions = [
-            { text: 'With Img', value: 'img-1', imgUrl: 'broken.png', alt: 'fallback alt' }
-        ]
+        const imgOptions = [{ text: 'With Img', value: 'img-1', imgUrl: 'broken.png', alt: 'fallback alt' }]
 
         const wrapper = factory({
             options: imgOptions,
             modelValue: 'img-1',
-            type: SelectType.IMAGE
+            type: SelectType.IMAGE,
         })
 
         await nextTick()
@@ -200,14 +194,12 @@ describe('DropdownSelect.vue', () => {
     })
 
     it('renders user profile when type is USER', async () => {
-        const userOptions = [
-            { userDisplayName: 'testuser', userProfileImg: 'avatar.png', value: 'user-1' }
-        ]
+        const userOptions = [{ userDisplayName: 'testuser', userProfileImg: 'avatar.png', value: 'user-1' }]
 
         const wrapper = factory({
             options: userOptions,
             modelValue: 'user-1',
-            type: SelectType.USER
+            type: SelectType.USER,
         })
 
         await nextTick()
@@ -217,7 +209,7 @@ describe('DropdownSelect.vue', () => {
     it('clears selected options when clear button is clicked', async () => {
         const wrapper = factory({
             multiple: true,
-            modelValue: ['1', '2']
+            modelValue: ['1', '2'],
         })
 
         await wrapper.find('.select-box').trigger('click')
@@ -245,7 +237,7 @@ describe('DropdownSelect.vue', () => {
     it('deselects single option if allowDeselect is true and option is reselected', async () => {
         const wrapper = factory({
             modelValue: '1',
-            allowDeselect: true
+            allowDeselect: true,
         })
 
         await wrapper.find('.select-box').trigger('click')

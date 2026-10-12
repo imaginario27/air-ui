@@ -8,19 +8,30 @@ const factory = (props = {}) => {
         props,
         global: {
             components: {
-                Icon
+                Icon,
             },
             stubs: {
                 NuxtLink: {
                     template: '<a :href="to" :target="target" :rel="rel"><slot /></a>',
-                    props: ['to', 'target', 'rel']
-                }
-            }
-        }
+                    props: ['to', 'target', 'rel'],
+                },
+            },
+        },
     })
 }
 
 describe('ActionIconButton.vue', () => {
+    it('shows the focus ring by default', () => {
+        const wrapper = factory()
+        expect(wrapper.find('button').classes()).not.toContain('focus:!ring-0')
+    })
+
+    it('removes the focus ring when hasFocusRing is false', () => {
+        const wrapper = factory({ hasFocusRing: false })
+        expect(wrapper.find('button').classes()).toContain('focus:!ring-0')
+        expect(wrapper.find('button').classes()).toContain('focus:!ring-offset-0')
+    })
+
     it('renders as a button when actionType is ACTION', () => {
         const wrapper = factory({ actionType: ButtonActionType.ACTION })
         expect(wrapper.find('button').exists()).toBe(true)
@@ -29,7 +40,7 @@ describe('ActionIconButton.vue', () => {
     it('renders as a link when actionType is LINK', () => {
         const wrapper = factory({
             actionType: ButtonActionType.LINK,
-            to: '/home'
+            to: '/home',
         })
 
         const link = wrapper.find('a')
@@ -41,7 +52,7 @@ describe('ActionIconButton.vue', () => {
         const wrapper = factory({
             actionType: ButtonActionType.LINK,
             to: 'https://external.com',
-            isExternal: true
+            isExternal: true,
         })
 
         const link = wrapper.find('a')
@@ -58,7 +69,7 @@ describe('ActionIconButton.vue', () => {
         const wrapper = factory({
             actionType: ButtonActionType.LINK,
             to: '/home',
-            disabled: true
+            disabled: true,
         })
         expect(wrapper.find('span').exists()).toBe(true)
         expect(wrapper.find('a').exists()).toBe(false)
@@ -100,23 +111,22 @@ describe('ActionIconButton.vue', () => {
         expect(wrapper.emitted('click')).toBeFalsy()
     })
 
-    it.each([
-        ['button' as const],
-        ['submit' as const],
-        ['reset' as const]
-    ])('sets the type attribute to "%s" when actionType is ACTION', (buttonType) => {
-        const wrapper = factory({
-            actionType: ButtonActionType.ACTION,
-            type: buttonType
-        })
+    it.each([['button' as const], ['submit' as const], ['reset' as const]])(
+        'sets the type attribute to "%s" when actionType is ACTION',
+        (buttonType) => {
+            const wrapper = factory({
+                actionType: ButtonActionType.ACTION,
+                type: buttonType,
+            })
 
-        expect(wrapper.find('button').attributes('type')).toBe(buttonType)
-    })
+            expect(wrapper.find('button').attributes('type')).toBe(buttonType)
+        },
+    )
 
     it('does not set type attribute when actionType is LINK', () => {
         const wrapper = factory({
             actionType: ButtonActionType.LINK,
-            type: 'submit'
+            type: 'submit',
         })
 
         expect(wrapper.find('a').attributes('type')).toBeUndefined()

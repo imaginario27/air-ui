@@ -44,13 +44,7 @@
                 </template>
             </DropdownMenu>
 
-            <NavMenuItem
-                v-else
-                :text="item.text"
-                :to="item.to"
-                :detectActive="props.detectActive"
-                :prefetchOn
-            />
+            <NavMenuItem v-else :text="item.text" :to="item.to" :detectActive="props.detectActive" :prefetchOn />
         </template>
     </nav>
 </template>
@@ -61,19 +55,19 @@ const props = defineProps({
         type: Array as PropType<MenuItem[]>,
         default: () => [
             {
-                'text': 'Menu item 1',
-                'to': '/',
+                text: 'Menu item 1',
+                to: '/',
             },
             {
-                'text': 'Menu item 2',
-                'to': '/',
+                text: 'Menu item 2',
+                to: '/',
             },
             {
-                'text': 'Menu item 3',
-                'to': '/',
+                text: 'Menu item 3',
+                to: '/',
             },
         ],
-    }, 
+    },
     detectActive: {
         type: Boolean as PropType<boolean>,
         default: true,

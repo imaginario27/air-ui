@@ -1,16 +1,15 @@
-
 export enum Order {
-    ASC = "asc",
-    DESC = "desc",
+    ASC = 'asc',
+    DESC = 'desc',
 }
 
 export enum OrderPosition {
-    START = "start",
-    END = "end",
+    START = 'start',
+    END = 'end',
 }
 
 export enum SortOrder {
-    NONE = "none",
-    ASC = "asc",
-    DESC = "desc",
+    NONE = 'none',
+    ASC = 'asc',
+    DESC = 'desc',
 }

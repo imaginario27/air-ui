@@ -10,15 +10,12 @@
                     <TableCell>{{ item.col2 }}</TableCell>
                     <TableCell>{{ item.col3 }}</TableCell>
                     <TableCellActions>
-                        <ActionIconButton 
-                            :size="ButtonSize.MD"
-                            icon="mdi:eye-outline"
-                        />
+                        <ActionIconButton :size="ButtonSize.MD" icon="mdi:eye-outline" />
                     </TableCellActions>
                 </TableRow>
             </TableBody>
         </Table>
-        <ButtonPagination 
+        <ButtonPagination
             v-model:modelValue="currentPage"
             v-model:items-per-page="currentItemsPerPage"
             :totalItems="exampleTableData.length"
@@ -44,7 +41,5 @@ const exampleTableData = [
 ]
 
 // Computed
-const paginatedData = computed(() =>
-    getPaginatedData(exampleTableData, currentPage.value, currentItemsPerPage.value)
-)
+const paginatedData = computed(() => getPaginatedData(exampleTableData, currentPage.value, currentItemsPerPage.value))
 </script>

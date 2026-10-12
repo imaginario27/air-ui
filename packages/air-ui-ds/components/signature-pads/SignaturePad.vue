@@ -1,10 +1,6 @@
 <template>
     <div
-        :class="[
-            'flex flex-col',
-            'gap-2',
-            'w-full',
-        ]"
+        :class="['flex flex-col', 'gap-2', 'w-full']"
         :style="{ minWidth: `${minWidth}px` }"
         data-testid="signature-pad-root"
     >
@@ -84,10 +80,7 @@
             </svg>
 
             <!-- Clear button -->
-            <div
-                v-if="showClearButton && !isEmpty"
-                class="absolute top-2 right-2"
-            >
+            <div v-if="showClearButton && !isEmpty" class="absolute top-2 right-2">
                 <ActionIconButton
                     :icon="clearIcon"
                     :styleType="ButtonStyleType.NEUTRAL_TRANSPARENT"
@@ -106,7 +99,7 @@
             :name="name"
             :value="serializedValue"
             data-testid="signature-pad-hidden-input"
-        >
+        />
     </div>
 </template>
 
@@ -291,7 +284,7 @@ const getDataUrl = (type = 'image/png', quality?: number) => {
     context.lineCap = 'round'
     context.lineJoin = 'round'
 
-    props.modelValue.forEach(path => context.stroke(new Path2D(path)))
+    props.modelValue.forEach((path) => context.stroke(new Path2D(path)))
 
     return canvas.toDataURL(type, quality)
 }

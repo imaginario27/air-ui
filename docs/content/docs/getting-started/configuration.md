@@ -4,7 +4,7 @@ AirUI exposes a small set of behaviors as shared, reactive configuration instead
 
 There are two config composables, one per package:
 
-- `useDSConfig` (from `@imaginario27/air-ui-ds`): text used by components, grouped under `forms`, `actions`, `common`, `pagination`, `gallery` and `lightbox`.
+- `useDSConfig` (from `@imaginario27/air-ui-ds`): text used by components, grouped under `forms`, `actions`, `common`, `pagination`, `gallery`, `lightbox`, `calendar`, `timePicker` and `slides`.
 - `useUtilsConfig` (from `@imaginario27/air-ui-utils`): messages used by the framework-agnostic form validators in `air-ui-utils`, grouped under `validation`.
 
 <br/>
@@ -81,9 +81,50 @@ export default defineNuxtPlugin(() => {
     Object.assign(dsConfig.lightbox, {
         dialogText: () => 'Image lightbox',
         openImageText: () => 'Open image',
-        previousText: () => 'Previous image',
-        nextText: () => 'Next image',
         fullscreenText: () => 'Toggle fullscreen',
+    })
+
+    /* Text used by the Calendar, the DatePickerField and the date InputField */
+    Object.assign(dsConfig.calendar, {
+        previousMonthText: () => 'Previous month',
+        nextMonthText: () => 'Next month',
+        previousYearText: () => 'Previous year',
+        nextYearText: () => 'Next year',
+        openText: () => 'Open calendar',
+        placeholderText: () => 'Select a date',
+        monthPlaceholderText: () => 'Select a month',
+        weekPlaceholderText: () => 'Select a week',
+        dateTimePlaceholderText: () => 'Select a date and time',
+        weekText: () => 'Week',
+        weekAbbreviationText: () => 'Wk',
+        todayText: () => 'Today',
+        moreText: () => 'more',
+        dayText: () => 'Day',
+        monthText: () => 'Month',
+        yearText: () => 'Year',
+        agendaText: () => 'Agenda',
+        viewText: () => 'Calendar view',
+        allDayText: () => 'All day',
+        noEventsText: () => 'No events',
+        previousText: () => 'Previous',
+        nextText: () => 'Next',
+    })
+
+    /* Text used by the TimePicker and the time InputField */
+    Object.assign(dsConfig.timePicker, {
+        openText: () => 'Open time picker',
+        placeholderText: () => 'Select a time',
+        hoursText: () => 'Hours',
+        minutesText: () => 'Minutes',
+        secondsText: () => 'Seconds',
+        periodText: () => 'AM/PM',
+    })
+
+    /* Navigation text shared by the Carousel and the Lightbox */
+    Object.assign(dsConfig.slides, {
+        previousText: () => 'Previous slide',
+        nextText: () => 'Next slide',
+        goToSlideText: () => 'Go to slide',
     })
 })
 ```

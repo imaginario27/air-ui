@@ -1,7 +1,7 @@
 import { mount } from '@vue/test-utils'
 import VerticalStepper from '@/components/steppers/vertical-stepper/VerticalStepper.vue'
 import VerticalStep from '@/components/steppers/vertical-stepper/VerticalStep.vue'
-import { StepIndicatorType, StepIndicatorSize, StepStatus} from '@/models/enums/steppers'
+import { StepIndicatorType, StepIndicatorSize, StepStatus } from '@/models/enums/steppers'
 import type { VerticalStepperItem } from '@/models/types/steppers'
 
 describe('VerticalStepper.vue', () => {
@@ -88,7 +88,7 @@ describe('VerticalStepper.vue', () => {
             { items: [] },
             {
                 default: '<div class="custom-slot">Custom Content</div>',
-            }
+            },
         )
 
         expect(wrapper.findAllComponents(VerticalStep)).toHaveLength(0)

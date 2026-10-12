@@ -1,9 +1,7 @@
 ﻿<template>
     <Section>
         <SectionBody>
-            <ContentRenderer 
-                v-if="data" :value="data" 
-            />
+            <ContentRenderer v-if="data" :value="data" />
             <ContentRenderFallback v-else />
         </SectionBody>
     </Section>
@@ -13,7 +11,8 @@ definePageMeta({
     title: 'Overtitle',
     layout: 'docs',
     overtitle: 'Components',
-    description: 'A simple and customizable Overtitle component for displaying section headings with optional uppercase styling and color variants.',
+    description:
+        'A simple and customizable Overtitle component for displaying section headings with optional uppercase styling and color variants.',
 })
 
 // Route

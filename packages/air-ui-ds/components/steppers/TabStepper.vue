@@ -1,12 +1,12 @@
 <template>
-    <div 
+    <div
         :class="[
             'flex gap-4 flex-col sm:flex-row',
             'border border-border-default',
             'rounded',
             'py-4 sm:py-0',
             isFullWidth ? 'w-full' : 'w-fit',
-            hasDivider && justifySteps && 'justify-between'
+            hasDivider && justifySteps && 'justify-between',
         ]"
     >
         <template v-for="(item, index) in stepItems" :key="index">
@@ -20,23 +20,17 @@
                 :stepIcon="item.icon"
                 :completedIcon
                 :isInteractive
-                :class="[
-                    '!py-0 sm:!py-4 px-6',
-                    justifySteps && 'grow',
-                ]"
+                :class="['!py-0 sm:!py-4 px-6', justifySteps && 'grow']"
                 @click="handleStepClick(index)"
             />
 
             <!-- Chevron divider -->
-            <div 
-                v-if="hasDivider && index < stepItems.length - 1"
-                class="lg:flex justify-center items-center hidden"
-            >
-                <svg 
-                    width="22" 
-                    height="74" 
-                    viewBox="0 0 22 74" 
-                    fill="none" 
+            <div v-if="hasDivider && index < stepItems.length - 1" class="lg:flex justify-center items-center hidden">
+                <svg
+                    width="22"
+                    height="74"
+                    viewBox="0 0 22 74"
+                    fill="none"
                     xmlns="http://www.w3.org/2000/svg"
                     class="text-border-default"
                 >
@@ -92,7 +86,7 @@ const props = defineProps({
     isFullWidth: {
         type: Boolean as PropType<boolean>,
         default: true,
-    }
+    },
 })
 
 // Computed step status

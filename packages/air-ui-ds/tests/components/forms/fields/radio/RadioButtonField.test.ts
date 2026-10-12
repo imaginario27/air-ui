@@ -10,7 +10,7 @@ const defaultProps = {
     modelValue: null,
     label: 'Option 1',
     helpText: 'Helpful info',
-    icon: 'mdi:help'
+    icon: 'mdi:help',
 }
 
 describe('RadioButtonField', () => {
@@ -18,13 +18,13 @@ describe('RadioButtonField', () => {
         return mount(RadioButtonField, {
             props: {
                 ...defaultProps,
-                ...props
+                ...props,
             },
             global: {
                 components: {
-                    Icon
-                }
-            }
+                    Icon,
+                },
+            },
         })
     }
 
@@ -83,7 +83,7 @@ describe('RadioButtonField', () => {
     it('applies correct styling based on danger color accent', () => {
         const wrapper = factory({
             modelValue: 'option1',
-            type: ColorAccent.DANGER
+            type: ColorAccent.DANGER,
         })
 
         expect(wrapper.find('.bg-background-danger-subtlest').exists()).toBe(true)
@@ -93,7 +93,7 @@ describe('RadioButtonField', () => {
     it('does not render label or helpText when not provided', () => {
         const wrapper = factory({
             label: undefined,
-            helpText: undefined
+            helpText: undefined,
         })
 
         expect(wrapper.find('label').exists()).toBe(false)
@@ -124,11 +124,11 @@ describe('RadioButtonField', () => {
         const wrapper = mount(RadioButtonField, {
             props: defaultProps,
             slots: {
-                label: '<strong>Bold</strong> label'
+                label: '<strong>Bold</strong> label',
             },
             global: {
-                components: { Icon }
-            }
+                components: { Icon },
+            },
         })
 
         const label = wrapper.find('label')

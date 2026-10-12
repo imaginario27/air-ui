@@ -10,7 +10,7 @@
             :disabled="disabled"
             @change="handleNativeChange"
             @keydown.space.prevent="toggleSwitch"
-        >
+        />
 
         <!-- Custom Switch -->
         <div
@@ -23,7 +23,7 @@
                 'rounded-full transition-colors',
                 'border border-border-default',
                 modelValue ? checkedBackgroundClass : 'bg-background-neutral-subtle',
-                disabled ? 'bg-background-neutral-disabled cursor-not-allowed opacity-disabled' : 'cursor-pointer'
+                disabled ? 'bg-background-neutral-disabled cursor-not-allowed opacity-disabled' : 'cursor-pointer',
             ]"
             @click="toggleSwitch"
         >
@@ -33,7 +33,7 @@
                     'aspect-square',
                     controlFieldHandlerSizeClass,
                     modelValue ? controlFieldHandlerCheckedOffsetClass : controlFieldHandlerUncheckedOffsetClass,
-                    'bg-icon-neutral-on-filled-bg'
+                    'bg-icon-neutral-on-filled-bg',
                 ]"
             />
         </div>

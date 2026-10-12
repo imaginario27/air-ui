@@ -50,10 +50,7 @@
                     <TableCell>{{ item.col2 }}</TableCell>
                     <TableCell>{{ item.col3 }}</TableCell>
                     <TableCellActions>
-                        <ActionIconButton
-                            :size="ButtonSize.MD"
-                            icon="mdi:eye-outline"
-                        />
+                        <ActionIconButton :size="ButtonSize.MD" icon="mdi:eye-outline" />
                     </TableCellActions>
                 </TableRow>
             </TableBody>
@@ -109,13 +106,11 @@ const exampleTableData = [
 ]
 
 // Computed
-const paginatedData = computed(() =>
-    getPaginatedData(exampleTableData, currentPage.value, currentItemsPerPage.value)
-)
+const paginatedData = computed(() => getPaginatedData(exampleTableData, currentPage.value, currentItemsPerPage.value))
 
 const isAllSelected = computed(() => {
     if (exampleTableData.length === 0) return false
-    return exampleTableData.every(item => selectedRows.value.has(getItemKey(item)))
+    return exampleTableData.every((item) => selectedRows.value.has(getItemKey(item)))
 })
 
 // Helpers
@@ -123,7 +118,7 @@ const getItemKey = (item: any) => `${item.col1}-${item.col2}`
 
 const toggleSelectAll = (shouldSelect: boolean) => {
     if (shouldSelect) {
-        exampleTableData.forEach(item => {
+        exampleTableData.forEach((item) => {
             selectedRows.value.add(getItemKey(item))
         })
     } else {

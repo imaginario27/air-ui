@@ -36,7 +36,7 @@ export const useTreeViewSelection = (
 
         anchorValue.value = node.value
         selected.value = isSelected(node)
-            ? selected.value.filter(value => value !== node.value)
+            ? selected.value.filter((value) => value !== node.value)
             : [...selected.value, node.value]
     }
 
@@ -47,12 +47,12 @@ export const useTreeViewSelection = (
 
         selected.value = rows.value
             .slice(Math.min(anchorIndex, targetIndex), Math.max(anchorIndex, targetIndex) + 1)
-            .filter(item => !isDisabled(item.node))
-            .map(item => item.node.value)
+            .filter((item) => !isDisabled(item.node))
+            .map((item) => item.node.value)
     }
 
     const selectAllEnabled = () => {
-        selected.value = rows.value.filter(item => !isDisabled(item.node)).map(item => item.node.value)
+        selected.value = rows.value.filter((item) => !isDisabled(item.node)).map((item) => item.node.value)
     }
 
     const handleRowClick = async (node: TreeViewNode, event?: MouseEvent) => {

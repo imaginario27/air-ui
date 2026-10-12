@@ -8,10 +8,7 @@ export const useSearchStore = defineStore('search', () => {
     const results = ref<SearchItem[]>([])
 
     // Local storage
-    const recentSearches = useLocalStorage<SearchItem[]>(
-        'docs-recent-searches',
-        [],
-    )
+    const recentSearches = useLocalStorage<SearchItem[]>('docs-recent-searches', [])
 
     // Methods
     const setResults = (items: SearchItem[]) => {
@@ -32,9 +29,7 @@ export const useSearchStore = defineStore('search', () => {
 
     const addToRecentSearch = (item: SearchItem) => {
         // Remove duplicate first
-        recentSearches.value = recentSearches.value.filter(
-            (r) => r.to !== item.to,
-        )
+        recentSearches.value = recentSearches.value.filter((r) => r.to !== item.to)
 
         // Add to top
         recentSearches.value.unshift(item)

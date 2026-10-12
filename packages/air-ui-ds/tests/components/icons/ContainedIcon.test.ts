@@ -11,10 +11,10 @@ const factory = (props = {}) => {
                 Icon: {
                     name: 'Icon',
                     props: ['name', 'mode', 'iconClass', 'size'],
-                    template: '<div class="mock-icon" />'
-                }
-            }
-        }
+                    template: '<div class="mock-icon" />',
+                },
+            },
+        },
     })
 }
 
@@ -32,11 +32,11 @@ describe('ContainedIcon.vue', () => {
         const iconClass = icon.props('iconClass') as string[]
         expect(iconClass).toEqual(
             expect.arrayContaining([
-            'w-[24px] h-[24px] min-w-[24px] min-h-[24px]',
-            '!text-icon-neutral-subtle-on-subtler-bg'
-            ])
+                'w-[24px] h-[24px] min-w-[24px] min-h-[24px]',
+                '!text-icon-neutral-subtle-on-subtler-bg',
+            ]),
         )
-        })
+    })
 
     it('renders square shape when shape is SQUARE', () => {
         const wrapper = factory({ shape: IconContainerShape.SQUARE })
@@ -48,38 +48,38 @@ describe('ContainedIcon.vue', () => {
         const colorMap = {
             [ColorAccent.NEUTRAL]: {
                 bg: 'bg-background-neutral-subtler',
-                icon: '!text-icon-neutral-subtle-on-subtler-bg'
+                icon: '!text-icon-neutral-subtle-on-subtler-bg',
             },
             [ColorAccent.SUCCESS]: {
                 bg: 'bg-background-success-subtler',
-                icon: '!text-icon-success'
+                icon: '!text-icon-success',
             },
             [ColorAccent.WARNING]: {
                 bg: 'bg-background-warning-subtler',
-                icon: '!text-icon-warning-on-bg'
+                icon: '!text-icon-warning-on-bg',
             },
             [ColorAccent.DANGER]: {
                 bg: 'bg-background-danger-subtler',
-                icon: '!text-icon-danger'
+                icon: '!text-icon-danger',
             },
             [ColorAccent.INFO]: {
                 bg: 'bg-background-info-subtler',
-                icon: '!text-icon-info'
+                icon: '!text-icon-info',
             },
             [ColorAccent.PRIMARY_BRAND]: {
                 bg: 'bg-background-primary-brand-soft',
-                icon: '!text-icon-primary-brand-default'
+                icon: '!text-icon-primary-brand-default',
             },
             [ColorAccent.SECONDARY_BRAND]: {
                 bg: 'bg-background-secondary-brand-soft',
-                icon: '!text-icon-secondary-brand-default'
-            }
+                icon: '!text-icon-secondary-brand-default',
+            },
         }
 
         for (const color of Object.values(ColorAccent)) {
             const wrapper = factory({
                 color,
-                styleType: IconContainerStyleType.FLAT
+                styleType: IconContainerStyleType.FLAT,
             })
 
             const container = wrapper.find('div')
@@ -95,7 +95,7 @@ describe('ContainedIcon.vue', () => {
     it('applies correct filled background and icon color (FILLED style)', () => {
         const wrapper = factory({
             color: ColorAccent.DANGER,
-            styleType: IconContainerStyleType.FILLED
+            styleType: IconContainerStyleType.FILLED,
         })
 
         const container = wrapper.find('div')
@@ -111,28 +111,28 @@ describe('ContainedIcon.vue', () => {
         const sizeMap = {
             [IconContainerSize.SM]: {
                 container: ['w-[24px]', 'h-[24px]'],
-                icon: 'w-[16px]'
+                icon: 'w-[16px]',
             },
             [IconContainerSize.MD]: {
                 container: ['w-[32px]', 'h-[32px]'],
-                icon: 'w-[20px]'
+                icon: 'w-[20px]',
             },
             [IconContainerSize.LG]: {
                 container: ['w-[40px]', 'h-[40px]'],
-                icon: 'w-[24px]'
+                icon: 'w-[24px]',
             },
             [IconContainerSize.XL]: {
                 container: ['w-[48px]', 'h-[48px]'],
-                icon: 'w-[24px]'
+                icon: 'w-[24px]',
             },
             [IconContainerSize.XXL]: {
                 container: ['w-[56px]', 'h-[56px]'],
-                icon: 'w-[40px]'
+                icon: 'w-[40px]',
             },
             [IconContainerSize.XXXL]: {
                 container: ['w-[80px]', 'h-[80px]'],
-                icon: 'w-[48px]'
-            }
+                icon: 'w-[48px]',
+            },
         }
 
         for (const size of Object.values(IconContainerSize)) {
@@ -143,7 +143,7 @@ describe('ContainedIcon.vue', () => {
             expect(container.classes()).toEqual(expect.arrayContaining(sizeMap[size].container))
 
             const iconClass = icon.props('iconClass') as string[]
-            expect(iconClass.some(cls => cls.includes(sizeMap[size].icon))).toBe(true)
+            expect(iconClass.some((cls) => cls.includes(sizeMap[size].icon))).toBe(true)
         }
     })
 

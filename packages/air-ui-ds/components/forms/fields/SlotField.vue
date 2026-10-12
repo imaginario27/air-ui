@@ -1,54 +1,23 @@
 <template>
     <div :class="['flex flex-col', 'w-full', 'gap-2']">
         <!-- Label -->
-        <label 
-            v-if="label" 
-            :for="id" 
-                :class="[
-                'text-sm',
-                'font-semibold',
-                'text-left',
-                hasError && 'text-text-error',
-            ]"
-        >
+        <label v-if="label" :for="id" :class="['text-sm', 'font-semibold', 'text-left', hasError && 'text-text-error']">
             {{ label }}
-            <span
-                v-if="!required && showOptionalLabel"
-                class="font-normal text-text-neutral-subtler"
-            >
+            <span v-if="!required && showOptionalLabel" class="font-normal text-text-neutral-subtler">
                 {{ optionalLabelText }}
             </span>
         </label>
 
         <!-- Help Text (top) -->
-        <HelpText
-            v-if="helpTextPosition === Position.TOP"
-            :text="helpText"
-            :error="error"
-        />
+        <HelpText v-if="helpTextPosition === Position.TOP" :text="helpText" :error="error" />
 
         <!-- Slot container -->
-        <div
-            :id
-            :class="[disabled && 'cursor-not-allowed opacity-disabled']"
-        >
-            <slot 
-                :id
-                :ariaLabel
-                :error
-                :hasError 
-                :helpText
-                :disabled
-                :required
-            />
+        <div :id :class="[disabled && 'cursor-not-allowed opacity-disabled']">
+            <slot :id :ariaLabel :error :hasError :helpText :disabled :required />
         </div>
 
         <!-- Help Text (bottom) -->
-        <HelpText
-            v-if="helpTextPosition === Position.BOTTOM"
-            :text="helpText"
-            :error="error"
-        />
+        <HelpText v-if="helpTextPosition === Position.BOTTOM" :text="helpText" :error="error" />
     </div>
 </template>
 

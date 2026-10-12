@@ -1,21 +1,19 @@
 ﻿<template>
     <Section>
         <SectionBody>
-            <ContentRenderer 
-                v-if="data" :value="data" 
-            />
+            <ContentRenderer v-if="data" :value="data" />
             <ContentRenderFallback v-else />
 
-            <ContentFooterNavigation 
+            <ContentFooterNavigation
                 :previousPage="{
                     label: 'Design tokens',
                     link: `/${DocsAppSlug.DOCS}/${DocsAppSlug.GETTING_STARTED}/${DocsAppSlug.THEME}/design-tokens`,
-                    description: 'Learn how to customize the design tokens of AirUI.'
+                    description: 'Learn how to customize the design tokens of AirUI.',
                 }"
                 :nextPage="{
                     label: 'LLMs.txt',
                     link: `/${DocsAppSlug.DOCS}/${DocsAppSlug.GETTING_STARTED}/${DocsAppSlug.AGENTS}/llms-txt`,
-                    description: 'Learn about the LLMs.txt file and how to use it with AirUI.'
+                    description: 'Learn about the LLMs.txt file and how to use it with AirUI.',
                 }"
             />
         </SectionBody>
@@ -27,7 +25,7 @@ definePageMeta({
     title: 'MCP Server',
     layout: 'docs',
     overtitle: 'Getting Started',
-    description: 'Use Air UI docs directly inside AI assistants with Model Context Protocol (MCP).'
+    description: 'Use Air UI docs directly inside AI assistants with Model Context Protocol (MCP).',
 })
 
 // Route

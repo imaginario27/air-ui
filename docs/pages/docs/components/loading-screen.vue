@@ -2,9 +2,7 @@
     <Section>
         <SectionBody>
             <TabBar v-model="activeIndex" :tabs />
-            <ContentRenderer 
-                v-if="data" :value="data" 
-            />
+            <ContentRenderer v-if="data" :value="data" />
             <ContentRenderFallback v-else />
         </SectionBody>
     </Section>
@@ -14,7 +12,8 @@ definePageMeta({
     title: 'Loading',
     layout: 'docs',
     overtitle: 'Components',
-    description: 'A loading screen component that shows the loading status or in the event of an error, it displays the error message.',
+    description:
+        'A loading screen component that shows the loading status or in the event of an error, it displays the error message.',
 })
 
 // Route

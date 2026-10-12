@@ -16,10 +16,7 @@
         @click="emitClick"
     >
         <!-- Left icon -->
-        <Icon
-            :name="icon"
-            :iconClass="iconSizeClass"
-        />
+        <Icon :name="icon" :iconClass="iconSizeClass" />
     </button>
 </template>
 <script setup lang="ts">
@@ -61,7 +58,7 @@ const emitClick = () => {
 const buttonStyleClass = computed(() =>
     props.active
         ? ['bg-background-primary-brand-subtle-active', 'text-text-primary-brand-on-soft-bg']
-        : ['text-text-neutral-inactive', !props.disabled && 'hover:text-text-primary-brand-hover']
+        : ['text-text-neutral-inactive', !props.disabled && 'hover:text-text-primary-brand-hover'],
 )
 
 const buttonSizeClass = computed(() => {

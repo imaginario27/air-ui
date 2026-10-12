@@ -15,8 +15,9 @@ export const useTreeViewKeyboard = (
             return
         }
 
-        const closed = siblingsOf(row)
-            .filter(sibling => isBranch(sibling) && !isExpanded(sibling) && !isDisabled(sibling))
+        const closed = siblingsOf(row).filter(
+            (sibling) => isBranch(sibling) && !isExpanded(sibling) && !isDisabled(sibling),
+        )
 
         await Promise.all(closed.map(expansion.expandNode))
     }
@@ -40,9 +41,8 @@ export const useTreeViewKeyboard = (
             case 'ArrowUp': {
                 event.preventDefault()
 
-                const target = event.key === 'ArrowDown'
-                    ? Math.min(index + 1, rows.value.length - 1)
-                    : Math.max(index - 1, 0)
+                const target =
+                    event.key === 'ArrowDown' ? Math.min(index + 1, rows.value.length - 1) : Math.max(index - 1, 0)
 
                 if (event.shiftKey && selection.isMultiple.value) {
                     selection.selectRange(target, index)

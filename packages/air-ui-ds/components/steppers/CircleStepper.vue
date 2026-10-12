@@ -1,10 +1,5 @@
 <template>
-    <div 
-        :class="[
-            'flex items-center',
-            isFullWidth ? 'w-full' : 'w-fit',
-        ]"
-    >
+    <div :class="['flex items-center', isFullWidth ? 'w-full' : 'w-fit']">
         <template v-for="(item, index) in stepItems" :key="index">
             <StepIndicator
                 :type
@@ -21,13 +16,13 @@
             />
 
             <!-- Line divider -->
-            <Divider 
+            <Divider
                 v-if="index < stepItems.length - 1"
                 :class="[
                     'min-w-[20px] sm:min-w-[40px]',
                     'border-2',
                     item.status === StepStatus.COMPLETED && '!border-border-primary-brand-active',
-                    dividerClass
+                    dividerClass,
                 ]"
             />
         </template>
@@ -80,18 +75,18 @@ const stepItems = computed(() => {
     const activeIndex = props.modelValue > 0 ? props.modelValue - 1 : 0
 
     const stepsArray: CircleStep[] = Array.isArray(props.steps)
-        ? props.steps as CircleStep[]
+        ? (props.steps as CircleStep[])
         : Array.from({ length: props.steps }, () => ({}))
 
     return stepsArray.map((step, index) => {
-        let status: StepStatus;
+        let status: StepStatus
 
         if (index < activeIndex) {
-            status = StepStatus.COMPLETED;
+            status = StepStatus.COMPLETED
         } else if (index === activeIndex) {
-            status = StepStatus.CURRENT;
+            status = StepStatus.CURRENT
         } else {
-            status = StepStatus.INACTIVE;
+            status = StepStatus.INACTIVE
         }
 
         return {
@@ -100,7 +95,6 @@ const stepItems = computed(() => {
         }
     })
 })
-
 
 // Handlers
 const handleStepClick = (index: number) => {

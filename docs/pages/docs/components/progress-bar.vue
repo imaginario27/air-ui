@@ -1,9 +1,7 @@
 ﻿<template>
     <Section>
         <SectionBody>
-            <ContentRenderer 
-                v-if="data" :value="data" 
-            />
+            <ContentRenderer v-if="data" :value="data" />
             <ContentRenderFallback v-else />
         </SectionBody>
     </Section>
@@ -13,7 +11,8 @@ definePageMeta({
     title: 'ProgressBar',
     layout: 'docs',
     overtitle: 'Components',
-    description: 'A visual indicator that represents the completion status of a task or process, typically displayed as a horizontal bar that fills up as progress is made.',
+    description:
+        'A visual indicator that represents the completion status of a task or process, typically displayed as a horizontal bar that fills up as progress is made.',
 })
 
 // Route

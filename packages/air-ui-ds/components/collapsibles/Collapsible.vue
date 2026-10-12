@@ -27,7 +27,6 @@
                     aria-hidden="true"
                 />
             </div>
-            
         </button>
 
         <VerticalExpansionTransition v-show="isOpen">

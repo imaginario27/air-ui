@@ -6,9 +6,10 @@
 
 <script setup lang="ts">
 const props = defineProps({
-    cols: { // Desktop
+    cols: {
+        // Desktop
         type: Number as PropType<number>,
-        default: 3, 
+        default: 3,
     },
     tabletCols: {
         type: Number as PropType<number>,

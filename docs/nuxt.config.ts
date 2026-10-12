@@ -1,11 +1,11 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-import tailwindcss from "@tailwindcss/vite"
+import tailwindcss from '@tailwindcss/vite'
 import { resolve } from 'node:path'
 
-const SITE_URL = process.env.NUXT_SITEMAP_URL || process.env.LLM_DOMAIN || "https://air-ui.netlify.app"
+const SITE_URL = process.env.NUXT_SITEMAP_URL || process.env.LLM_DOMAIN || 'https://air-ui.netlify.app'
 
 export default defineNuxtConfig({
-    compatibilityDate: "2024-11-01",
+    compatibilityDate: '2024-11-01',
     devtools: { enabled: false },
     ssr: true,
 
@@ -13,7 +13,7 @@ export default defineNuxtConfig({
         prerender: {
             // Prerender every page reachable from the sidebar/header links; /api and /mcp stay server routes
             crawlLinks: true,
-            routes: ["/", "/sitemap.xml", "/robots.txt", "/llms.txt"],
+            routes: ['/', '/sitemap.xml', '/robots.txt', '/llms.txt'],
         },
     },
 
@@ -30,7 +30,20 @@ export default defineNuxtConfig({
         },
     },
 
-    modules: ["@pinia/nuxt", "@nuxt/image", "@nuxt/eslint", "@vueuse/nuxt", "@nuxt/content", "@nuxt/icon", "@nuxt/fonts", "nuxt-llms", "@nuxtjs/mcp-toolkit", "@nuxtjs/sitemap", "@nuxtjs/robots", "nuxt-gtag"],
+    modules: [
+        '@pinia/nuxt',
+        '@nuxt/image',
+        '@nuxt/eslint',
+        '@vueuse/nuxt',
+        '@nuxt/content',
+        '@nuxt/icon',
+        '@nuxt/fonts',
+        'nuxt-llms',
+        '@nuxtjs/mcp-toolkit',
+        '@nuxtjs/sitemap',
+        '@nuxtjs/robots',
+        'nuxt-gtag',
+    ],
 
     // Google Analytics (GA4). Only active in production builds
     gtag: {
@@ -44,24 +57,18 @@ export default defineNuxtConfig({
         },
     },
 
-    plugins: ["@/plugins/vue3-toastify", "@/plugins/prettier"],
+    plugins: ['@/plugins/vue3-toastify', '@/plugins/prettier'],
 
-    extends: [
-        '../packages/air-ui-ds',
-        '../packages/air-ui-utils',
-    ],
+    extends: ['../packages/air-ui-ds', '../packages/air-ui-utils'],
 
     imports: {
-        dirs: [
-            "models/**",
-            "data/**"
-        ],
+        dirs: ['models/**', 'data/**'],
     },
 
     components: [
         // Auto-import components based only on its name, not path,
         {
-            path: "@/components",
+            path: '@/components',
             pathPrefix: false,
         },
     ],
@@ -73,51 +80,50 @@ export default defineNuxtConfig({
     app: {
         head: {
             htmlAttrs: {
-                lang: "en",
+                lang: 'en',
             },
             link: [
                 // Icons
                 {
-                    rel: "apple-touch-icon",
-                    sizes: "180x180",
-                    href: "/images/favicon/apple-touch-icon.png",
+                    rel: 'apple-touch-icon',
+                    sizes: '180x180',
+                    href: '/images/favicon/apple-touch-icon.png',
                 },
                 {
-                    rel: "icon",
-                    type: "image/png",
-                    sizes: "192x192",
-                    href: "/images/favicon/android-chrome-192x192.png",
+                    rel: 'icon',
+                    type: 'image/png',
+                    sizes: '192x192',
+                    href: '/images/favicon/android-chrome-192x192.png',
                 },
                 {
-                    rel: "icon",
-                    type: "image/png",
-                    sizes: "512x512",
-                    href: "/images/favicon/android-chrome-512x512.png",
+                    rel: 'icon',
+                    type: 'image/png',
+                    sizes: '512x512',
+                    href: '/images/favicon/android-chrome-512x512.png',
                 },
                 {
-                    rel: "icon",
-                    type: "image/png",
-                    sizes: "32x32",
-                    href: "/images/favicon/favicon-32x32.png",
+                    rel: 'icon',
+                    type: 'image/png',
+                    sizes: '32x32',
+                    href: '/images/favicon/favicon-32x32.png',
                 },
                 {
-                    rel: "icon",
-                    type: "image/png",
-                    sizes: "16x16",
-                    href: "/images/favicon/favicon-16x16.png",
+                    rel: 'icon',
+                    type: 'image/png',
+                    sizes: '16x16',
+                    href: '/images/favicon/favicon-16x16.png',
                 },
                 {
-                    rel: "icon",
-                    type: "image/x-icon",
-                    href: "/images/favicon/favicon.ico",
+                    rel: 'icon',
+                    type: 'image/x-icon',
+                    href: '/images/favicon/favicon.ico',
                 },
             ],
 
             meta: [
                 {
-                    name: "viewport",
-                    content:
-                        "width=device-width, initial-scale=1.0",
+                    name: 'viewport',
+                    content: 'width=device-width, initial-scale=1.0',
                 },
             ],
 
@@ -131,27 +137,27 @@ export default defineNuxtConfig({
     content: {
         build: {
             markdown: {
-                toc: { // Table of content Header depth
-                    depth: 3, 
+                toc: {
+                    // Table of content Header depth
+                    depth: 3,
                 },
                 highlight: {
                     theme: {
                         default: 'github-dark', //light theme: github-light
                         dark: 'github-dark',
-                    }
+                    },
                 },
-                
             },
-        }
+        },
     },
 
     fonts: {
         families: [
             {
-                name: "Inter",
-                provider: "google",
-                weights: ["100 900"],
-                styles: ["normal", "italic"],
+                name: 'Inter',
+                provider: 'google',
+                weights: ['100 900'],
+                styles: ['normal', 'italic'],
             },
         ],
     },
@@ -170,12 +176,12 @@ export default defineNuxtConfig({
     // Site identity (used by sitemap + robots for absolute URLs)
     site: {
         url: SITE_URL,
-        name: process.env.APP_NAME || "AirUI",
+        name: process.env.APP_NAME || 'AirUI',
     },
 
     // robots.txt (Sitemap line is auto-injected from site.url)
     robots: {
-        disallow: ["/mcp"],
+        disallow: ['/mcp'],
     },
 
     llms: {
@@ -187,35 +193,27 @@ export default defineNuxtConfig({
                 title: 'Getting Started',
                 description: 'Introduction and setup instructions for AirUI',
                 contentCollection: 'content',
-                contentFilters: [
-                    { field: 'path', operator: 'LIKE', value: '/docs/getting-started%' }
-                ]
+                contentFilters: [{ field: 'path', operator: 'LIKE', value: '/docs/getting-started%' }],
             },
             {
                 title: 'Components',
                 description: 'Documentation for Air UI components',
                 contentCollection: 'content',
-                contentFilters: [
-                    { field: 'path', operator: 'LIKE', value: '/docs/components%' }
-                ]
+                contentFilters: [{ field: 'path', operator: 'LIKE', value: '/docs/components%' }],
             },
             {
                 title: 'Utilities',
                 description: 'Documentation for Air UI utilities',
                 contentCollection: 'content',
-                contentFilters: [
-                    { field: 'path', operator: 'LIKE', value: '/docs/utils%' }
-                ]
+                contentFilters: [{ field: 'path', operator: 'LIKE', value: '/docs/utils%' }],
             },
             {
                 title: 'Blocks',
                 description: 'Documentation for Air UI blocks',
                 contentCollection: 'content',
-                contentFilters: [
-                    { field: 'path', operator: 'LIKE', value: '/docs/blocks%' }
-                ]
-            }
-        ]
+                contentFilters: [{ field: 'path', operator: 'LIKE', value: '/docs/blocks%' }],
+            },
+        ],
     },
 
     mcp: {
@@ -223,28 +221,21 @@ export default defineNuxtConfig({
         route: '/mcp',
         version: '1.0.0',
     },
-  
+
     eslint: {
         // options here
     },
 
     experimental: {
-        asyncContext: true
+        asyncContext: true,
     },
 
-    css: ["~/assets/css/main.css", "~/assets/css/docs.css"],
+    css: ['~/assets/css/main.css', '~/assets/css/docs.css'],
 
     vite: {
         plugins: [tailwindcss() as any],
         optimizeDeps: {
-            include: [
-                'fuse.js',
-                'prettier',
-                'qrcode.vue',
-                'shiki',
-                'vue3-toastify',
-            ]
-        }
+            include: ['fuse.js', 'prettier', 'qrcode.vue', 'shiki', 'vue3-toastify'],
+        },
     },
 })
-

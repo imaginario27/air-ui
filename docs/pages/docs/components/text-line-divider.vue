@@ -2,9 +2,7 @@
     <Section>
         <SectionBody>
             <TabBar v-model="activeIndex" :tabs />
-            <ContentRenderer 
-                v-if="data" :value="data" 
-            />
+            <ContentRenderer v-if="data" :value="data" />
             <ContentRenderFallback v-else />
         </SectionBody>
     </Section>
@@ -14,7 +12,8 @@ definePageMeta({
     title: 'Text line divider',
     layout: 'docs',
     overtitle: 'Components',
-    description: 'Displays a horizontal line with optional centered text. Ideal for visually separating sections while adding context or labels.'
+    description:
+        'Displays a horizontal line with optional centered text. Ideal for visually separating sections while adding context or labels.',
 })
 
 // Route

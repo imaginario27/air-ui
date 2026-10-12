@@ -10,7 +10,7 @@ vi.mock('shiki', async () => ({
 describe('useShikiHighlighter', () => {
     beforeEach(() => {
         vi.clearAllMocks()
-        vi.resetModules() 
+        vi.resetModules()
     })
 
     it('creates the highlighter on first call', async () => {

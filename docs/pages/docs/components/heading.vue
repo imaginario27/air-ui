@@ -1,9 +1,7 @@
 ﻿<template>
     <Section>
         <SectionBody>
-            <ContentRenderer 
-                v-if="data" :value="data" 
-            />
+            <ContentRenderer v-if="data" :value="data" />
             <ContentRenderFallback v-else />
         </SectionBody>
     </Section>
@@ -13,7 +11,8 @@ definePageMeta({
     title: 'Heading',
     layout: 'docs',
     overtitle: 'Components',
-    description: 'A versatile Heading component for displaying titles, overtitles, and descriptions with customizable sizes, alignments, and spacing options.',
+    description:
+        'A versatile Heading component for displaying titles, overtitles, and descriptions with customizable sizes, alignments, and spacing options.',
 })
 
 // Route

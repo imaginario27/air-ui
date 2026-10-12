@@ -1,9 +1,7 @@
 ﻿<template>
     <Section>
         <SectionBody>
-            <ContentRenderer 
-                v-if="data" :value="data" 
-            />
+            <ContentRenderer v-if="data" :value="data" />
             <ContentRenderFallback v-else />
         </SectionBody>
     </Section>
@@ -13,7 +11,8 @@ definePageMeta({
     title: 'Testimonial card',
     layout: 'docs',
     overtitle: 'Components',
-    description: 'Showcases user feedback or customer quotes in a styled card layout, commonly used in marketing pages to build trust and credibility.',
+    description:
+        'Showcases user feedback or customer quotes in a styled card layout, commonly used in marketing pages to build trust and credibility.',
 })
 
 // Route

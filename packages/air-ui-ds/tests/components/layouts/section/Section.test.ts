@@ -8,13 +8,13 @@ const factory = (props = {}, slots = {}) => {
         props,
         global: {
             stubs: {
-                MaxWidthContainer: false
-            }
+                MaxWidthContainer: false,
+            },
         },
         slots: {
             default: '<p class="slot-content">Section Content</p>',
-            ...slots
-        }
+            ...slots,
+        },
     })
 }
 
@@ -42,7 +42,7 @@ describe('Section.vue', () => {
     it('applies top and bottom spacing when provided', () => {
         const wrapper = factory({
             topSpacing: SectionSpacing.LG,
-            bottomSpacing: SectionSpacing.SM
+            bottomSpacing: SectionSpacing.SM,
         })
 
         const section = wrapper.find('section')
@@ -96,12 +96,12 @@ describe('Section.vue', () => {
             attrs: { class: 'custom-class' },
             global: {
                 stubs: {
-                    MaxWidthContainer: false
-                }
+                    MaxWidthContainer: false,
+                },
             },
             slots: {
-                default: '<p class="slot-content">Section Content</p>'
-            }
+                default: '<p class="slot-content">Section Content</p>',
+            },
         })
 
         const container = wrapper.findComponent(MaxWidthContainer)

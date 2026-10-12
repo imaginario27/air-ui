@@ -5,7 +5,7 @@ import AngleSlider from '~/components/sliders/AngleSlider.vue'
 import { Position } from '@/models/enums/positions'
 
 vi.mock('~/composables/useFormValidationMode', () => ({
-    useInjectedValidationMode: () => ref('blur')
+    useInjectedValidationMode: () => ref('blur'),
 }))
 
 const factory = (props: Record<string, unknown> = {}) => {
@@ -34,7 +34,14 @@ describe('AngleSliderField.vue', () => {
     })
 
     it('passes slider props to the AngleSlider component', () => {
-        const wrapper = factory({ step: 5, isRounded: true, showMarkers: true, showValue: false, valueLabel: 'deg', readOnly: true })
+        const wrapper = factory({
+            step: 5,
+            isRounded: true,
+            showMarkers: true,
+            showValue: false,
+            valueLabel: 'deg',
+            readOnly: true,
+        })
         const slider = wrapper.findComponent(AngleSlider)
 
         expect(slider.props('modelValue')).toBe(90)

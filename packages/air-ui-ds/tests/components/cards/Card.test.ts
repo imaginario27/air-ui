@@ -18,12 +18,12 @@ const factory = (options: MountOptions = {}) => {
             hasShadow: true,
             hasBorder: true,
             hasBackgroundHover: false,
-            ...options.props
+            ...options.props,
         },
         slots: {
             default: '<p>Default Slot Content</p>',
-            ...options.slots
-        }
+            ...options.slots,
+        },
     })
 }
 
@@ -38,8 +38,8 @@ describe('Card.vue', () => {
     it('renders default slot content', () => {
         const wrapper = factory({
             slots: {
-                default: '<p>Card Content</p>'
-            }
+                default: '<p>Card Content</p>',
+            },
         })
         expect(wrapper.html()).toContain('Card Content')
     })
@@ -85,7 +85,7 @@ describe('Card.vue', () => {
         expect(wrapper.props()).toMatchObject({
             hasShadow: true,
             hasBorder: true,
-            hasBackgroundHover: false
+            hasBackgroundHover: false,
         })
     })
 })

@@ -9,8 +9,8 @@ describe('TextLineDivider.vue', () => {
         return mount(TextLineDivider, {
             props: {
                 text: 'Test Label',
-                ...props
-            }
+                ...props,
+            },
         })
     }
 

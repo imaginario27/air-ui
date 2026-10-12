@@ -1,11 +1,11 @@
 <template>
-    <Card 
-        :hasBorder 
-        :hasShadow 
+    <Card
+        :hasBorder
+        :hasShadow
         :class="[
             hasShadow ? '!shadow-sm' : undefined,
             '!p-6',
-            orientation === Orientation.HORIZONTAL ? 'md:!flex-row' : undefined
+            orientation === Orientation.HORIZONTAL ? 'md:!flex-row' : undefined,
         ]"
     >
         <div class="flex flex-col gap-2 w-full">
@@ -44,6 +44,6 @@ defineProps({
     hasBorder: {
         type: Boolean as PropType<boolean>,
         default: false,
-    }
+    },
 })
 </script>

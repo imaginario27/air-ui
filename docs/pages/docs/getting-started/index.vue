@@ -1,16 +1,14 @@
 ﻿<template>
     <Section>
         <SectionBody>
-            <ContentRenderer 
-                v-if="data" :value="data" 
-            />
+            <ContentRenderer v-if="data" :value="data" />
             <ContentRenderFallback v-else />
 
-            <ContentFooterNavigation 
+            <ContentFooterNavigation
                 :nextPage="{
                     label: 'Installation',
                     link: `/${DocsAppSlug.DOCS}/${DocsAppSlug.GETTING_STARTED}/installation`,
-                    description: 'Learn how to install AirUI in your Nuxt project.'
+                    description: 'Learn how to install AirUI in your Nuxt project.',
                 }"
             />
         </SectionBody>
@@ -22,7 +20,8 @@ definePageMeta({
     title: 'Introduction',
     layout: 'docs',
     overtitle: 'Getting Started',
-    description: 'AirUI is a flexible design system and UI library for Nuxt applications, offering a scalable foundation of fully styled components, theming tools, and developer-friendly utilities.'
+    description:
+        'AirUI is a flexible design system and UI library for Nuxt applications, offering a scalable foundation of fully styled components, theming tools, and developer-friendly utilities.',
 })
 
 // Route

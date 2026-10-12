@@ -2,9 +2,7 @@
     <Section>
         <SectionBody>
             <TabBar v-model="activeIndex" :tabs />
-            <ContentRenderer 
-                v-if="data" :value="data" 
-            />
+            <ContentRenderer v-if="data" :value="data" />
             <ContentRenderFallback v-else />
         </SectionBody>
     </Section>
@@ -14,7 +12,8 @@ definePageMeta({
     title: 'Icon text badge',
     layout: 'docs',
     overtitle: 'Components',
-    description: 'Badges that combine icons and text to convey status, labels, or contextual meaning in a compact format.',
+    description:
+        'Badges that combine icons and text to convey status, labels, or contextual meaning in a compact format.',
 })
 
 // Route

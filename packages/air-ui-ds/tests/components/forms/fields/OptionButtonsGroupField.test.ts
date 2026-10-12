@@ -5,7 +5,7 @@ import { FormValidationMode } from '~/models/enums/formValidations'
 import { Position } from '@/models/enums/positions'
 
 vi.mock('~/composables/useFormValidationMode', () => ({
-    useInjectedValidationMode: () => ref(FormValidationMode.BLUR)
+    useInjectedValidationMode: () => ref(FormValidationMode.BLUR),
 }))
 
 const defaultProps = {
@@ -13,16 +13,16 @@ const defaultProps = {
     modelValue: 'val1',
     buttons: [
         { label: 'Option 1', value: 'val1', text: 'Option 1' },
-        { label: 'Option 2', value: 'val2', text: 'Option 2' }
-    ]
+        { label: 'Option 2', value: 'val2', text: 'Option 2' },
+    ],
 }
 
 describe('OptionButtonsGroupField', () => {
     it('renders correctly with minimal required props', () => {
         const wrapper = mount(OptionButtonsGroupField, {
             props: {
-                ...defaultProps
-            }
+                ...defaultProps,
+            },
         })
 
         expect(wrapper.find('label').exists()).toBe(false)
@@ -34,8 +34,8 @@ describe('OptionButtonsGroupField', () => {
             props: {
                 ...defaultProps,
                 label: 'My Label',
-                required: true
-            }
+                required: true,
+            },
         })
 
         const label = wrapper.find('label')
@@ -47,8 +47,8 @@ describe('OptionButtonsGroupField', () => {
     it('emits update:modelValue when OptionButtonGroup emits', async () => {
         const wrapper = mount(OptionButtonsGroupField, {
             props: {
-                ...defaultProps
-            }
+                ...defaultProps,
+            },
         })
 
         const optionGroup = wrapper.findComponent(OptionButtonGroup)
@@ -61,8 +61,8 @@ describe('OptionButtonsGroupField', () => {
         const wrapper = mount(OptionButtonsGroupField, {
             props: {
                 ...defaultProps,
-                error: 'Something went wrong'
-            }
+                error: 'Something went wrong',
+            },
         })
 
         const errorText = wrapper.find('p')
@@ -75,8 +75,8 @@ describe('OptionButtonsGroupField', () => {
         const wrapper = mount(OptionButtonsGroupField, {
             props: {
                 ...defaultProps,
-                helpText: 'Helpful tip here'
-            }
+                helpText: 'Helpful tip here',
+            },
         })
 
         const helpText = wrapper.find('p')
@@ -92,15 +92,15 @@ describe('OptionButtonsGroupField', () => {
                 label: 'Options',
                 helpText: 'Pick one',
                 helpTextPosition: Position.TOP,
-            }
+            },
         })
 
         const help = wrapper.find('p.text-xs')
         expect(help.exists()).toBe(true)
         expect(help.text()).toBe('Pick one')
         const children = Array.from(wrapper.element.children)
-        const helpIdx = children.findIndex(el => el.classList.contains('text-xs'))
-        const labelIdx = children.findIndex(el => el.tagName === 'LABEL')
+        const helpIdx = children.findIndex((el) => el.classList.contains('text-xs'))
+        const labelIdx = children.findIndex((el) => el.tagName === 'LABEL')
         expect(helpIdx).toBeGreaterThan(labelIdx)
         expect(helpIdx).toBeLessThan(children.length - 1)
     })
@@ -110,8 +110,8 @@ describe('OptionButtonsGroupField', () => {
             props: {
                 ...defaultProps,
                 helpText: '',
-                error: ''
-            }
+                error: '',
+            },
         })
 
         expect(wrapper.find('p').exists()).toBe(false)
@@ -125,8 +125,8 @@ describe('OptionButtonsGroupField', () => {
                 ...defaultProps,
                 validator,
                 required: true,
-                error: ''
-            }
+                error: '',
+            },
         })
 
         await wrapper.setProps({ modelValue: 'val2' })
@@ -142,8 +142,8 @@ describe('OptionButtonsGroupField', () => {
             props: {
                 ...defaultProps,
                 validator,
-                required: false
-            }
+                required: false,
+            },
         })
 
         await wrapper.setProps({ modelValue: 'val2' })
@@ -157,8 +157,8 @@ describe('OptionButtonsGroupField', () => {
             props: {
                 ...defaultProps,
                 required: true,
-                validator: undefined
-            }
+                validator: undefined,
+            },
         })
 
         await wrapper.setProps({ modelValue: 'val2' })
@@ -172,7 +172,7 @@ describe('OptionButtonsGroupField', () => {
                 ...defaultProps,
                 label: '',
                 ariaLabel: 'Accessible options group',
-            }
+            },
         })
 
         const optionGroup = wrapper.findComponent(OptionButtonGroup)

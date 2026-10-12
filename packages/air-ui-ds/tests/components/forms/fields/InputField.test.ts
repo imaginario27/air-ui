@@ -5,15 +5,15 @@ import { useDSConfig } from '@/composables/useDSConfig'
 import { nextTick, ref } from 'vue'
 
 vi.mock('~/composables/useFormValidationMode', () => ({
-    useInjectedValidationMode: () => ref('blur')
+    useInjectedValidationMode: () => ref('blur'),
 }))
 
 const factory = (props: Record<string, any> = {}) => {
     return mount(InputField, {
         props: {
             id: 'test-input',
-            ...props
-        }
+            ...props,
+        },
     })
 }
 
@@ -42,8 +42,8 @@ describe('InputField.vue', () => {
         expect(help.text()).toBe('Hint')
         // help text is a direct child of the wrapper and appears before the input container
         const children = Array.from(wrapper.element.children as HTMLCollection)
-        const helpIdx = children.findIndex(el => el.classList.contains('text-xs'))
-        const inputContainerIdx = children.findIndex(el => el.classList.contains('border'))
+        const helpIdx = children.findIndex((el) => el.classList.contains('text-xs'))
+        const inputContainerIdx = children.findIndex((el) => el.classList.contains('border'))
         expect(helpIdx).toBeGreaterThan(-1)
         expect(helpIdx).toBeLessThan(inputContainerIdx)
     })
@@ -105,9 +105,9 @@ describe('InputField.vue', () => {
 
         const emits = wrapper.emitted('update:modelValue')
         expect(emits).toBeTruthy()
-        expect(emits?.[0]?.[0]).toBe('5')   // -20 → 0 → clamped to 5
-        expect(emits?.[1]?.[0]).toBe('5')   // 3 → clamped to 5
-        expect(emits?.[2]?.[0]).toBe('10')  // 12 → clamped to 10
+        expect(emits?.[0]?.[0]).toBe('5') // -20 → 0 → clamped to 5
+        expect(emits?.[1]?.[0]).toBe('5') // 3 → clamped to 5
+        expect(emits?.[2]?.[0]).toBe('10') // 12 → clamped to 10
     })
 
     it('keeps partial decimals as typed and allows clearing a number field', async () => {
@@ -157,7 +157,7 @@ describe('InputField.vue', () => {
         const wrapper = factory({
             label: 'Password',
             linkText: 'Forgot password?',
-            linkUrl: '/forgot'
+            linkUrl: '/forgot',
         })
         const navLink = wrapper.findComponent({ name: 'NavLink' })
         expect(navLink.exists()).toBe(true)
@@ -168,16 +168,16 @@ describe('InputField.vue', () => {
     it('displays color swatch and value when type is "color"', () => {
         const wrapper = factory({
             type: 'color',
-            modelValue: '#ff0000'
+            modelValue: '#ff0000',
         })
-        const span = wrapper.findAll('span').find(el => el.text() === '#ff0000')
+        const span = wrapper.findAll('span').find((el) => el.text() === '#ff0000')
         expect(span).toBeTruthy()
     })
 
     it('applies autofocus and readonly props correctly', () => {
         const wrapper = factory({
             autofocus: true,
-            readonly: true
+            readonly: true,
         })
         const input = wrapper.find('input')
         expect(input.attributes('autofocus')).toBeDefined()
@@ -194,11 +194,11 @@ describe('InputField.vue', () => {
         const wrapper = factory({
             type: 'password',
             modelValue: 'secret',
-            hasShowPasswordButton: true
+            hasShowPasswordButton: true,
         })
 
         const buttons = wrapper.findAll('button')
-        const toggleBtn = buttons.find(btn => btn.findComponent({ name: 'Icon' }).exists())
+        const toggleBtn = buttons.find((btn) => btn.findComponent({ name: 'Icon' }).exists())
         expect(toggleBtn).toBeTruthy()
 
         const input = wrapper.find('input')
@@ -285,5 +285,137 @@ describe('InputField.vue', () => {
         const wrapper = factory()
         const input = wrapper.find('input')
         expect(input.classes()).not.toContain('custom-input-class')
+    })
+
+    describe('type date', () => {
+        const dateFactory = (props: Record<string, any> = {}) =>
+            factory({ type: 'date', modelValue: '2026-10-15', ...props })
+
+        it('shows the formatted date in a read-only text input', () => {
+            const input = dateFactory().find('input')
+
+            expect(input.attributes('type')).toBe('text')
+            expect(input.attributes('readonly')).toBeDefined()
+            expect((input.element as HTMLInputElement).value).toBe('10/15/2026')
+        })
+
+        it('formats the date with the locale prop', () => {
+            const input = dateFactory({ locale: 'es-ES' }).find('input')
+
+            expect((input.element as HTMLInputElement).value).toBe('15/10/2026')
+        })
+
+        it('opens the calendar when the input is clicked', async () => {
+            const wrapper = dateFactory()
+            expect(wrapper.findComponent({ name: 'Calendar' }).exists()).toBe(false)
+
+            await wrapper.find('input').trigger('click')
+
+            expect(wrapper.findComponent({ name: 'Calendar' }).exists()).toBe(true)
+        })
+
+        it('opens the calendar from the calendar button', async () => {
+            const wrapper = dateFactory()
+
+            await wrapper.find('button[aria-label="Open calendar"]').trigger('click')
+
+            expect(wrapper.findComponent({ name: 'Calendar' }).exists()).toBe(true)
+        })
+
+        it.each(['Enter', ' ', 'ArrowDown'])('opens the calendar with the %j key', async (key) => {
+            const wrapper = dateFactory()
+
+            await wrapper.find('input').trigger('keydown', { key })
+
+            expect(wrapper.findComponent({ name: 'Calendar' }).exists()).toBe(true)
+        })
+
+        it('emits the ISO date and closes when a day is picked', async () => {
+            const wrapper = dateFactory()
+            await wrapper.find('input').trigger('click')
+
+            await wrapper.find('[data-date="2026-10-20"]').trigger('click')
+
+            expect(wrapper.emitted('update:modelValue')![0]).toEqual(['2026-10-20'])
+            expect(wrapper.findComponent({ name: 'Calendar' }).exists()).toBe(false)
+        })
+
+        it('closes the calendar with Escape', async () => {
+            const wrapper = dateFactory()
+            await wrapper.find('input').trigger('click')
+
+            await wrapper.find('input').trigger('keydown', { key: 'Escape' })
+
+            expect(wrapper.findComponent({ name: 'Calendar' }).exists()).toBe(false)
+        })
+
+        it('passes min and max to the calendar', async () => {
+            const wrapper = dateFactory({ min: '2026-10-10', max: '2026-10-20' })
+            await wrapper.find('input').trigger('click')
+
+            const calendar = wrapper.findComponent({ name: 'Calendar' })
+
+            expect(calendar.props('min')).toBe('2026-10-10')
+            expect(calendar.props('max')).toBe('2026-10-20')
+        })
+
+        it('clears the value', async () => {
+            const wrapper = dateFactory()
+
+            await wrapper.find('button[aria-label="Clear selection"]').trigger('click')
+
+            expect(wrapper.emitted('update:modelValue')![0]).toEqual([''])
+        })
+
+        it('does not show the clear button without a value', () => {
+            expect(dateFactory({ modelValue: '' }).find('button[aria-label="Clear selection"]').exists()).toBe(false)
+        })
+
+        it.each([{ disabled: true }, { readonly: true }])('does not open the calendar when %j', async (props) => {
+            const wrapper = dateFactory(props)
+
+            await wrapper.find('input').trigger('click')
+
+            expect(wrapper.findComponent({ name: 'Calendar' }).exists()).toBe(false)
+        })
+
+        it('keeps the native behavior for other types', () => {
+            const wrapper = factory({ type: 'text' })
+
+            expect(wrapper.find('input').attributes('type')).toBe('text')
+            expect(wrapper.find('button[aria-label="Open calendar"]').exists()).toBe(false)
+        })
+    })
+
+    describe.each([
+        ['month', '2026-10', 'October 2026', 'Calendar'],
+        ['week', '2026-W41', 'Week 41, 2026', 'Calendar'],
+        ['datetime-local', '2026-10-15T19:30', '10/15/2026 07:30 PM', 'Calendar'],
+        ['time', '19:30', '07:30 PM', 'TimePicker'],
+    ])('type %s', (type, value, expected, pickerName) => {
+        it('renders a read-only text input with the formatted value', () => {
+            const wrapper = factory({ type, modelValue: value })
+            const input = wrapper.find('input')
+
+            expect(input.attributes('type')).toBe('text')
+            expect(input.attributes('readonly')).toBeDefined()
+            expect((input.element as HTMLInputElement).value).toBe(expected)
+        })
+
+        it('opens the picker instead of the native one', async () => {
+            const wrapper = factory({ type, modelValue: value })
+
+            await wrapper.find('input').trigger('click')
+
+            expect(wrapper.findComponent({ name: pickerName }).exists()).toBe(true)
+        })
+
+        it('emits an empty string when cleared', async () => {
+            const wrapper = factory({ type, modelValue: value })
+
+            await wrapper.find('button[aria-label="Clear selection"]').trigger('click')
+
+            expect(wrapper.emitted('update:modelValue')![0]).toEqual([''])
+        })
     })
 })

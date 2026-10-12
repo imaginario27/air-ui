@@ -1,18 +1,14 @@
 <template>
-    <Card 
-        :class="[
-            'lg:py-7 lg:px-8',
-        ]"
-    >
+    <Card :class="['lg:py-7 lg:px-8']">
         <CardHeader :class="['!flex-col', align === Align.CENTER && 'items-center']">
-            <ContainedIcon 
+            <ContainedIcon
                 v-if="icon"
                 :icon
                 :shape="containedIconShape"
                 :styleType="containedIconStyleType"
                 :color="containedIconColor"
             />
-            <CardTitle :title :class="[align === Align.CENTER && 'text-center']"/>
+            <CardTitle :title :class="[align === Align.CENTER && 'text-center']" />
         </CardHeader>
         <CardBody class="flex-1">
             <p :class="['text-sm', align === Align.CENTER && 'text-center']">
@@ -20,7 +16,7 @@
             </p>
         </CardBody>
         <CardFooter v-if="$slots.footer">
-            <slot name="footer"/>
+            <slot name="footer" />
         </CardFooter>
     </Card>
 </template>
@@ -29,11 +25,11 @@
 defineProps({
     title: {
         type: String as PropType<string>,
-        default: 'Feature title'
+        default: 'Feature title',
     },
     description: {
         type: String as PropType<string>,
-        default: 'Feature description'
+        default: 'Feature description',
     },
     icon: String as PropType<string>,
     containedIconShape: {
@@ -48,7 +44,7 @@ defineProps({
     },
     containedIconColor: {
         type: String as PropType<ColorAccent>,
-        default: ColorAccent.SECONDARY_BRAND, 
+        default: ColorAccent.SECONDARY_BRAND,
         validator: (value: ColorAccent) => Object.values(ColorAccent).includes(value),
     },
     align: {

@@ -19,7 +19,7 @@
             @mouseenter="onMouseEnter(index)"
             @mouseleave="onMouseLeave"
         />
-        <AvatarStackCounter 
+        <AvatarStackCounter
             v-if="Number.isFinite(itemsLimit) && itemsLimit && items.length > itemsLimit"
             :text="counterContent"
             :shape
@@ -27,7 +27,6 @@
             class="-ml-4"
         />
     </div>
-    
 </template>
 <script setup lang="ts">
 // Props
@@ -42,15 +41,15 @@ const props = defineProps({
                 displayName: 'Sarah Penny',
             },
             {
-                displayName: 'Rachel Kross'
+                displayName: 'Rachel Kross',
             },
             {
-                displayName: 'Jadie Miller'
+                displayName: 'Jadie Miller',
             },
             {
                 displayName: 'Alicia Mels',
-            }, 
-        ]
+            },
+        ],
     },
     shape: {
         type: String as PropType<AvatarShape>,
@@ -65,13 +64,13 @@ const props = defineProps({
     isInteractive: Boolean as PropType<boolean>,
     itemsLimit: {
         type: Number as PropType<number | null>,
-        default: null
+        default: null,
     },
     counterType: {
         type: String as PropType<StackCounterType>,
         default: StackCounterType.ELLIPSIS,
         validator: (value: StackCounterType) => Object.values(StackCounterType).includes(value),
-    }
+    },
 })
 
 // Computed
@@ -81,7 +80,9 @@ const filteredItems = computed(() => {
         : props.items
 })
 
-const counterContent = computed(() => getStackCounterContent(props.items, props.counterType, props.itemsLimit ? props.itemsLimit : null))
+const counterContent = computed(() =>
+    getStackCounterContent(props.items, props.counterType, props.itemsLimit ? props.itemsLimit : null),
+)
 
 // States
 const hoveredIndex = ref<number | null>(null)

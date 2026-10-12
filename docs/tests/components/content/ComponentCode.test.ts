@@ -4,10 +4,7 @@ import ComponentCode from '@/components/content/ComponentCode.vue'
 
 mockNuxtImport('useDocsShikiHighlighter', () => {
     return async () => ({
-        codeToHtml: (code: string) => code
-            .replace(/&/g, '&amp;')
-            .replace(/</g, '&lt;')
-            .replace(/>/g, '&gt;'),
+        codeToHtml: (code: string) => code.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'),
     })
 })
 
@@ -267,7 +264,12 @@ describe('ComponentCode.vue', () => {
 
         it('copies the rendered component to the clipboard as an image', async () => {
             const write = vi.fn().mockResolvedValue(undefined)
-            vi.stubGlobal('ClipboardItem', class { constructor(public items: Record<string, Blob>) {} })
+            vi.stubGlobal(
+                'ClipboardItem',
+                class {
+                    constructor(public items: Record<string, Blob>) {}
+                },
+            )
             Object.defineProperty(navigator, 'clipboard', { value: { write }, configurable: true })
             const wrapper = await mountPreview()
 

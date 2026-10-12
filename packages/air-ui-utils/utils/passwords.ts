@@ -1,4 +1,3 @@
-
 /**
  * Evaluates secure password conditions.
  * @param password - The password string to evaluate.
@@ -61,7 +60,10 @@ export const generateSecurePassword = (length: number = 12): string => {
     }
 
     // Shuffle the password to make it less predictable
-    password = password.split('').sort(() => Math.random() - 0.5).join('')
+    password = password
+        .split('')
+        .sort(() => Math.random() - 0.5)
+        .join('')
 
     // Ensure the password meets all conditions
     const conditions = evaluateSecurePasswordConditions(password)

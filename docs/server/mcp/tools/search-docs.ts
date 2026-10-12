@@ -5,23 +5,18 @@ export default defineMcpTool({
     name: 'search_docs',
     description: 'Search documentation pages by keyword',
     inputSchema: {
-        query: z
-            .string()
-            .min(1)
-            .max(200),
+        query: z.string().min(1).max(200),
     },
 
     async handler(input: { query: string }) {
         const event = useEvent()
 
-        const allDocs = await queryCollection(event, 'content')
-            .select('title', 'path', 'description', 'body')
-            .all()
+        const allDocs = await queryCollection(event, 'content').select('title', 'path', 'description', 'body').all()
 
         const query = input.query.toLowerCase()
 
         const results = allDocs
-            .filter(doc => {
+            .filter((doc) => {
                 const title = (doc.title || '').toLowerCase()
                 const description = (doc.description || '').toLowerCase()
                 const path = (doc.path || '').toLowerCase()
@@ -38,7 +33,7 @@ export default defineMcpTool({
                 return false
             })
             .slice(0, 10)
-            .map(doc => ({
+            .map((doc) => ({
                 title: doc.title,
                 path: doc.path,
                 description: doc.description,

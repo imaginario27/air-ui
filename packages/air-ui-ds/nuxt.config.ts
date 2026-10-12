@@ -1,30 +1,25 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-import tailwindcss from "@tailwindcss/vite"
+import tailwindcss from '@tailwindcss/vite'
 
 export default defineNuxtConfig({
-    compatibilityDate: "2024-11-01",
+    compatibilityDate: '2024-11-01',
     devtools: { enabled: false },
     ssr: false,
 
-    extends: [
-        '../air-ui-utils',
-    ],
+    extends: ['../air-ui-utils'],
 
-    modules: ["@nuxt/image", "@nuxt/eslint", '@vueuse/nuxt', "@nuxt/icon"],
+    modules: ['@nuxt/image', '@nuxt/eslint', '@vueuse/nuxt', '@nuxt/icon'],
 
-    plugins: ["@/plugins/vue3-toastify"],
+    plugins: ['@/plugins/vue3-toastify'],
 
     imports: {
-        dirs: [
-            "models/**",
-            "composables/**",
-        ],
+        dirs: ['models/**', 'composables/**'],
     },
 
     components: [
         // Auto-import components based only on its name, not path,
         {
-            path: "./components",
+            path: './components',
             pathPrefix: false,
         },
     ],
@@ -32,15 +27,15 @@ export default defineNuxtConfig({
     icon: {
         componentName: 'NuxtIcon',
         serverBundle: {
-            collections: ['mdi']
-        }
+            collections: ['mdi'],
+        },
     },
 
     eslint: {
         // options here
     },
 
-    css: ["~/assets/css/main.css"],
+    css: ['~/assets/css/main.css'],
 
     vite: {
         plugins: [tailwindcss() as any],

@@ -1,16 +1,6 @@
 <template>
-    <div 
-        :class="[
-            'w-full',
-            'flex',
-            'gap-4',
-            'mt-8',
-            'pt-8',
-            'border-t border-border-neutral-subtle',
-            justifyClass,
-        ]"
-    >
-        <ContentFooterNavigator 
+    <div :class="['w-full', 'flex', 'gap-4', 'mt-8', 'pt-8', 'border-t border-border-neutral-subtle', justifyClass]">
+        <ContentFooterNavigator
             v-if="previousPage"
             :label="previousPage.label"
             :description="previousPage.description"
@@ -19,7 +9,7 @@
             :iconPosition="IconPosition.LEFT"
         />
 
-        <ContentFooterNavigator 
+        <ContentFooterNavigator
             v-if="nextPage"
             :label="nextPage.label"
             :description="nextPage.description"

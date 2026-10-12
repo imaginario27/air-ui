@@ -3,7 +3,7 @@
         :class="[
             'inline-flex items-center font-semibold',
             isInteractive && 'group hover:cursor-pointer',
-            containerClass
+            containerClass,
         ]"
     >
         <Avatar

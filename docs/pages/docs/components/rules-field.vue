@@ -1,10 +1,7 @@
 ﻿<template>
     <Section>
         <SectionBody>
-            <ContentRenderer
-                v-if="data"
-                :value="data"
-            />
+            <ContentRenderer v-if="data" :value="data" />
             <ContentRenderFallback v-else />
         </SectionBody>
     </Section>
@@ -15,7 +12,8 @@ definePageMeta({
     title: 'RulesField',
     layout: 'docs',
     overtitle: 'Components',
-    description: 'Form field component for building conditional rule rows with customizable placeholders, actions, and optional row reordering.',
+    description:
+        'Form field component for building conditional rule rows with customizable placeholders, actions, and optional row reordering.',
 })
 
 const route = useRoute()

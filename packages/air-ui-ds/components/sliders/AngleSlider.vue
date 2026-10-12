@@ -1,10 +1,7 @@
 <template>
     <div
         ref="dialRef"
-        :class="[
-            'relative select-none touch-none',
-            disabled && 'cursor-not-allowed opacity-disabled',
-        ]"
+        :class="['relative select-none touch-none', disabled && 'cursor-not-allowed opacity-disabled']"
         :style="{ width: `${dialSizePx}px`, height: `${dialSizePx}px` }"
         data-testid="angle-slider-root"
         @pointerdown="handleDialPointerDown"
@@ -54,21 +51,12 @@
             class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none"
         >
             <slot :value="normalizedValue">
-                <span
-                    :class="[
-                        'font-semibold text-text-default',
-                        valueTextSizeClass,
-                    ]"
-                    data-testid="angle-slider-value"
-                >
+                <span :class="['font-semibold text-text-default', valueTextSizeClass]" data-testid="angle-slider-value">
                     {{ normalizedValue }}°
                 </span>
                 <span
                     v-if="valueLabel"
-                    :class="[
-                        'text-text-neutral-subtle',
-                        valueLabelSizeClass,
-                    ]"
+                    :class="['text-text-neutral-subtle', valueLabelSizeClass]"
                     data-testid="angle-slider-value-label"
                 >
                     {{ valueLabel }}
@@ -88,7 +76,7 @@
             ]"
             :style="thumbStyle"
             :disabled
-            :aria-label="ariaLabelledby ? undefined : (ariaLabel || 'Angle slider')"
+            :aria-label="ariaLabelledby ? undefined : ariaLabel || 'Angle slider'"
             :aria-labelledby="ariaLabelledby"
             :aria-valuemin="0"
             :aria-valuemax="MAX_ANGLE"

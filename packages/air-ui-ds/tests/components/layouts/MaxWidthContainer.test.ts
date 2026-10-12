@@ -10,8 +10,8 @@ describe('MaxWidthContainer.vue', () => {
     it('renders default slot content', () => {
         const wrapper = mount(MaxWidthContainer, {
             slots: {
-                default: '<p class="test-slot">Hello World</p>'
-            }
+                default: '<p class="test-slot">Hello World</p>',
+            },
         })
 
         expect(wrapper.find('.test-slot').exists()).toBe(true)

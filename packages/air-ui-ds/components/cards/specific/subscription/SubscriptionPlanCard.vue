@@ -1,40 +1,28 @@
 <template>
-    <Card 
-        :class="[
-            '!gap-5', 
-            'lg:py-7 lg:px-8',
-        ]"
-    >
+    <Card :class="['!gap-5', 'lg:py-7 lg:px-8']">
         <CardHeader class="!flex-col !justify-normal !gap-3 relative">
             <template v-if="isFeatured && !isActive">
                 <div class="w-full flex justify-between gap-3">
-                    <CardTitle 
-                        :title="uppercaseFirstLetter(title)" 
-                        class="text-text-primary-brand-default"
-                    />
-                    <Badge 
-                        v-if="isFeatured" 
-                        :text="featuredBadgeText" 
-                        :color="ColorAccent.PRIMARY_BRAND"
-                    />
+                    <CardTitle :title="uppercaseFirstLetter(title)" class="text-text-primary-brand-default" />
+                    <Badge v-if="isFeatured" :text="featuredBadgeText" :color="ColorAccent.PRIMARY_BRAND" />
                 </div>
             </template>
 
             <template v-else>
-                <CardTitle :title="uppercaseFirstLetter(title)" class="text-text-primary-brand-default"/>
-            </template>     
+                <CardTitle :title="uppercaseFirstLetter(title)" class="text-text-primary-brand-default" />
+            </template>
 
             <span class="text-4xl font-semibold">
-                {{ computedAmount }}{{ currencySymbol }}<span class="text-text-neutral-subtle font-normal text-lg">/{{ computedPeriodicity }}</span>
+                {{ computedAmount }}{{ currencySymbol
+                }}<span class="text-text-neutral-subtle font-normal text-lg">/{{ computedPeriodicity }}</span>
             </span>
 
-            <Icon 
+            <Icon
                 v-if="isActive && !isFeatured"
                 name="mdi:check-circle"
                 :size="IconSize.LG"
                 iconClass="active-icon absolute top-0 right-0 text-icon-primary-brand-active"
             />
-          
         </CardHeader>
 
         <CardBody class="h-full">
@@ -42,13 +30,14 @@
                 <p v-if="description" class="text-sm">
                     {{ description }}
                 </p>
-                <List 
-                    v-if="features.length" 
+                <List
+                    v-if="features.length"
                     :hasSeparator="hasFeatureListSeparator"
                     :class="[!hasFeatureListSeparator && 'gap-5']"
                 >
-                    <ListItem 
-                        v-for="feature in features" :key="feature"
+                    <ListItem
+                        v-for="feature in features"
+                        :key="feature"
                         icon="mdi:check"
                         :spaced="hasFeatureListSeparator"
                     >
@@ -57,13 +46,8 @@
                 </List>
             </div>
 
-            <div 
-                :class="[
-                    'mt-auto flex',
-                    alignClass
-                ]"
-            >
-                <ActionButton 
+            <div :class="['mt-auto flex', alignClass]">
+                <ActionButton
                     v-if="!isActive && showSelectButton"
                     :text="selectButtonText"
                     :styleType="isFeatured ? featuredButtonStyle : buttonStyle"
@@ -78,64 +62,60 @@
 const props = defineProps({
     isActive: {
         type: Boolean as PropType<boolean>,
-        default: false
+        default: false,
     },
     isFeatured: {
         type: Boolean as PropType<boolean>,
-        default: false
+        default: false,
     },
     title: {
         type: String as PropType<string>,
-        default: 'Plan name'
+        default: 'Plan name',
     },
     description: String as PropType<string>,
     monthlyAmount: {
         type: Number as PropType<number>,
-        default: 0
+        default: 0,
     },
     yearlyAmount: {
         type: Number as PropType<number>,
-        default: 0
+        default: 0,
     },
     currencySymbol: {
         type: String as PropType<string>,
-        default: '€'
+        default: '€',
     },
     featuredBadgeText: {
         type: String as PropType<string>,
-        default: 'Recommended'
+        default: 'Recommended',
     },
     features: {
         type: Array as PropType<Array<string>>,
-        default: () => [
-            'Feature 1',
-            'Feature 2', 
-            'Feature 3'
-        ]
+        default: () => ['Feature 1', 'Feature 2', 'Feature 3'],
     },
     hasFeatureListSeparator: {
         type: Boolean as PropType<boolean>,
-        default: false
+        default: false,
     },
     isYearly: {
         type: Boolean as PropType<boolean>,
-        default: false
+        default: false,
     },
     monthlyText: {
         type: String as PropType<string>,
-        default: 'monthly'
+        default: 'monthly',
     },
     yearlyText: {
         type: String as PropType<string>,
-        default: 'yearly'
+        default: 'yearly',
     },
     showSelectButton: {
         type: Boolean as PropType<boolean>,
-        default: true
+        default: true,
     },
     selectButtonText: {
         type: String as PropType<string>,
-        default: 'Get started today'
+        default: 'Get started today',
     },
     alignSelectButton: {
         type: String as PropType<Align>,
@@ -160,19 +140,18 @@ defineEmits(['update:modelValue'])
 // Computed classes
 const alignClass = computed(() => {
     const alignVariant: Record<Align, string> = {
-        [Align.LEFT]: "justify-start",
-        [Align.CENTER]: "justify-center",
-        [Align.RIGHT]: "justify-end",
+        [Align.LEFT]: 'justify-start',
+        [Align.CENTER]: 'justify-center',
+        [Align.RIGHT]: 'justify-end',
     }
 
-    return alignVariant[props.alignSelectButton as Align] || "justify-center"
+    return alignVariant[props.alignSelectButton as Align] || 'justify-center'
 })
 
 // Computed functions
 const computedAmount = computed(() => {
-    return props.isYearly 
-        ? props.yearlyAmount : props.monthlyAmount
+    return props.isYearly ? props.yearlyAmount : props.monthlyAmount
 })
 
-const computedPeriodicity = computed(() => props.isYearly ? props.yearlyText : props.monthlyText)
+const computedPeriodicity = computed(() => (props.isYearly ? props.yearlyText : props.monthlyText))
 </script>

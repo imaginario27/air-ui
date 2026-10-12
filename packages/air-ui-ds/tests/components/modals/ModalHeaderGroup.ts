@@ -5,16 +5,16 @@ const factory = (props?: Partial<{ centered: boolean }>, slots?: { default?: str
     return mount(ModalHeaderGroup, {
         props: {
             centered: false,
-            ...props
+            ...props,
         },
-        slots
+        slots,
     })
 }
 
 describe('ModalHeaderGroup', () => {
     it('renders slot content', () => {
         const wrapper = factory(undefined, {
-            default: '<p>Description here</p>'
+            default: '<p>Description here</p>',
         })
 
         expect(wrapper.html()).toContain('<p>Description here</p>')

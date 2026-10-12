@@ -17,14 +17,11 @@
  * formatNumberWithThousands(1234.56, 'de-DE')
  * // "1.234,56"
  */
-export const formatNumberWithThousands = (
-    value: number,
-    locale: string = 'en-GB'
-): string => {
+export const formatNumberWithThousands = (value: number, locale: string = 'en-GB'): string => {
     if (!Number.isFinite(value)) return 'Not a valid number'
 
     return value.toLocaleString(locale, {
         minimumFractionDigits: 0,
-        maximumFractionDigits: 20
+        maximumFractionDigits: 20,
     })
 }

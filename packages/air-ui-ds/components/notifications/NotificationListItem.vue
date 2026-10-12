@@ -1,14 +1,13 @@
 <template>
-    <div 
+    <div
         :class="[
-            'w-full', 
-            'flex', 
-            'gap-2', 
-            'py-2 px-3', 
+            'w-full',
+            'flex',
+            'gap-2',
+            'py-2 px-3',
             'cursor-pointer',
-            !modelValue && 'bg-background-neutral-subtlest'
-        ]" 
-
+            !modelValue && 'bg-background-neutral-subtlest',
+        ]"
         @click="onItemClick"
     >
         <!-- Icon -->
@@ -20,12 +19,7 @@
             :shape="containedIconShape"
             :styleType="containedStyleType"
         />
-        <Icon
-            v-else-if="icon && !isIconContained"
-            :name="icon"
-            :size="iconSize"
-            :color="iconColor"
-        />
+        <Icon v-else-if="icon && !isIconContained" :name="icon" :size="iconSize" :color="iconColor" />
 
         <!-- Content -->
         <slot name="content" />
@@ -52,21 +46,13 @@
 
             <div class="w-full flex gap-5">
                 <div class="flex gap-1">
-                    <Icon
-                        :name="timeAgoIcon"
-                        :size="IconSize.XS"
-                        iconClass="text-icon-neutral-subtle"
-                    />
+                    <Icon :name="timeAgoIcon" :size="IconSize.XS" iconClass="text-icon-neutral-subtle" />
                     <span class="text-xs text-text-neutral-subtle whitespace-nowrap select-none">
                         {{ timeAgo }}
                     </span>
                 </div>
                 <div class="flex gap-1">
-                    <Icon
-                        :name="authorIcon"
-                        :size="IconSize.XS"
-                        iconClass="text-icon-neutral-subtle"
-                    />
+                    <Icon :name="authorIcon" :size="IconSize.XS" iconClass="text-icon-neutral-subtle" />
                     <span class="text-xs text-text-neutral-subtle whitespace-nowrap select-none">
                         {{ author }}
                     </span>

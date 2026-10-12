@@ -6,24 +6,21 @@ import { Position } from '@/models/enums/positions'
 const defaultProps = {
     id: 'pin-input',
     modelValue: '',
-    length: 4
+    length: 4,
 }
 
-const factory = (
-    props: Record<string, unknown> = {},
-    options: Record<string, unknown> = {}
-) => {
+const factory = (props: Record<string, unknown> = {}, options: Record<string, unknown> = {}) => {
     return mount(PinField, {
         props: {
             ...defaultProps,
-            ...props
+            ...props,
         },
         global: {
             provide: {
-                formValidationMode: ref('blur')
+                formValidationMode: ref('blur'),
             },
-            ...options
-        }
+            ...options,
+        },
     })
 }
 
@@ -40,7 +37,7 @@ describe('PinField.vue', () => {
 
     it('applies error styling when error is present', () => {
         const wrapper = factory({ error: 'Invalid code' })
-        wrapper.findAll('input').forEach(input => {
+        wrapper.findAll('input').forEach((input) => {
             expect(input.classes()).toContain('border-border-error')
         })
         const message = wrapper.find('p')
@@ -50,7 +47,7 @@ describe('PinField.vue', () => {
 
     it('disables inputs if disabled is true', () => {
         const wrapper = factory({ disabled: true })
-        wrapper.findAll('input').forEach(input => {
+        wrapper.findAll('input').forEach((input) => {
             expect((input.element as HTMLInputElement).disabled).toBe(true)
         })
     })
@@ -69,8 +66,10 @@ describe('PinField.vue', () => {
         expect(help.text()).toBe('Enter your code')
         // help text appears before the inputs container
         const children = Array.from(wrapper.element.children)
-        const helpIdx = children.findIndex(el => el.classList.contains('text-xs'))
-        const inputsIdx = children.findIndex(el => el.classList.contains('flex') && Array.from(el.querySelectorAll('input')).length > 0)
+        const helpIdx = children.findIndex((el) => el.classList.contains('text-xs'))
+        const inputsIdx = children.findIndex(
+            (el) => el.classList.contains('flex') && Array.from(el.querySelectorAll('input')).length > 0,
+        )
         expect(helpIdx).toBeGreaterThan(-1)
         expect(helpIdx).toBeLessThan(inputsIdx)
     })
@@ -78,7 +77,7 @@ describe('PinField.vue', () => {
     it('masks input when mask is true', async () => {
         const wrapper = factory({ mask: true, modelValue: '1234' })
         await nextTick()
-        wrapper.findAll('input').forEach(input => {
+        wrapper.findAll('input').forEach((input) => {
             expect((input.element as HTMLInputElement).value).toBe('•')
         })
     })
@@ -108,7 +107,7 @@ describe('PinField.vue', () => {
         const wrapper = factory({
             modelValue: '1234',
             validator: validatorMock,
-            required: true
+            required: true,
         })
         await wrapper.find('input').trigger('blur')
         expect(validatorMock).toHaveBeenCalledWith('1234')
@@ -156,7 +155,7 @@ describe('PinField.vue', () => {
     })
 
     it('focuses first input if autofocus is enabled', async () => {
-        vi.stubGlobal('requestAnimationFrame', fn => fn())
+        vi.stubGlobal('requestAnimationFrame', (fn) => fn())
         const focusMock = vi.fn()
         const wrapper = factory({ autofocus: true })
         await nextTick()
@@ -178,28 +177,28 @@ describe('PinField.vue', () => {
 
     it('applies bg-background-container-surface when transparent is false', () => {
         const wrapper = factory({ transparent: false })
-        wrapper.findAll('input').forEach(input => {
+        wrapper.findAll('input').forEach((input) => {
             expect(input.classes()).toContain('bg-background-container-surface')
         })
     })
 
     it('does not apply background when transparent is true', () => {
         const wrapper = factory({ transparent: true })
-        wrapper.findAll('input').forEach(input => {
+        wrapper.findAll('input').forEach((input) => {
             expect(input.classes()).not.toContain('bg-background-container-surface')
         })
     })
 
     it('applies inputClass to each input element', () => {
         const wrapper = factory({ inputClass: 'custom-pin-class' })
-        wrapper.findAll('input').forEach(input => {
+        wrapper.findAll('input').forEach((input) => {
             expect(input.classes()).toContain('custom-pin-class')
         })
     })
 
     it('does not apply inputClass when not provided', () => {
         const wrapper = factory()
-        wrapper.findAll('input').forEach(input => {
+        wrapper.findAll('input').forEach((input) => {
             expect(input.classes()).not.toContain('custom-pin-class')
         })
     })

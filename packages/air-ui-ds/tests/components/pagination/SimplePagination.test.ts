@@ -8,8 +8,8 @@ const factory = (props = {}) => {
             modelValue: 2,
             totalItems: 50,
             itemsPerPage: 10,
-            ...props
-        }
+            ...props,
+        },
     })
 }
 
@@ -23,7 +23,7 @@ describe('SimplePagination', () => {
 
     it('renders custom resultTextMultiplePages if provided', () => {
         const wrapper = factory({
-            resultTextMultiplePages: 'Page {from}–{to} of {total} entries'
+            resultTextMultiplePages: 'Page {from}–{to} of {total} entries',
         })
         const summary = wrapper.find('p.text-sm')
         expect(summary.text()).toBe('Page 11–20 of 50 entries')
@@ -34,7 +34,7 @@ describe('SimplePagination', () => {
             modelValue: 1,
             totalItems: 1,
             itemsPerPage: 10,
-            resultTextSingleItem: 'Only {total} record found'
+            resultTextSingleItem: 'Only {total} record found',
         })
         const summary = wrapper.find('p.text-sm')
         expect(summary.text()).toBe('Only 1 record found')
@@ -45,7 +45,7 @@ describe('SimplePagination', () => {
             modelValue: 1,
             totalItems: 5,
             itemsPerPage: 10,
-            resultTextSinglePage: 'Displaying all {total} items'
+            resultTextSinglePage: 'Displaying all {total} items',
         })
         const summary = wrapper.find('p.text-sm')
         expect(summary.text()).toBe('Displaying all 5 items')

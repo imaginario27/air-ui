@@ -1,9 +1,7 @@
 ﻿<template>
     <Section>
         <SectionBody>
-            <ContentRenderer 
-                v-if="data" :value="data" 
-            />
+            <ContentRenderer v-if="data" :value="data" />
             <ContentRenderFallback v-else />
         </SectionBody>
     </Section>
@@ -13,7 +11,8 @@ definePageMeta({
     title: 'Contact details card',
     layout: 'docs',
     overtitle: 'Components',
-    description: 'Displays a user’s contact information in a structured card layout, typically used in profiles, directories, or support views.',
+    description:
+        'Displays a user’s contact information in a structured card layout, typically used in profiles, directories, or support views.',
 })
 
 // Route

@@ -1,9 +1,7 @@
 ﻿<template>
     <Section>
         <SectionBody>
-            <ContentRenderer 
-                v-if="data" :value="data" 
-            />
+            <ContentRenderer v-if="data" :value="data" />
             <ContentRenderFallback v-else />
         </SectionBody>
     </Section>
@@ -13,7 +11,8 @@ definePageMeta({
     title: 'Table',
     layout: 'docs',
     overtitle: 'Components',
-    description: 'A flexible and responsive Table component for displaying structured data, supporting slots for custom headers, rows and more.',
+    description:
+        'A flexible and responsive Table component for displaying structured data, supporting slots for custom headers, rows and more.',
 })
 
 // Route

@@ -1,4 +1,3 @@
-
 import type { AllowedInputType } from './forms'
 import type { ColorAccent } from '../enums/colors'
 import type { IconPosition } from '../enums/icons'

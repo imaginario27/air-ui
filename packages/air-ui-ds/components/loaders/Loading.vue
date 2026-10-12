@@ -1,16 +1,10 @@
 <template>
-    <div
-        v-if="isLoading"
-        role="status"
-        aria-live="polite"
-        class="flex flex-col items-center gap-4"
-    >
+    <div v-if="isLoading" role="status" aria-live="polite" class="flex flex-col items-center gap-4">
         <Spinner :class="[spinnerSizeClass, spinnerClass]" />
         <span>{{ animatedText }}</span>
     </div>
 </template>
 <script setup lang="ts">
-
 // Props
 const props = defineProps({
     isLoading: {
@@ -19,7 +13,7 @@ const props = defineProps({
     },
     text: {
         type: String as PropType<string>,
-        default: "Loading",
+        default: 'Loading',
     },
     spinnerSize: {
         type: String as PropType<LoadingSpinnerSize>,
@@ -42,7 +36,6 @@ const spinnerSizeClass = computed(() => {
     }
     return variants[props.spinnerSize as LoadingSpinnerSize] || 'w-[36px] h-[36px] border-2'
 })
-
 
 // Reactive state for animated ellipsis
 const animatedText = ref(props.text)
@@ -67,7 +60,7 @@ const stopAnimation = () => {
     }
 }
 
-// Watch 
+// Watch
 watch(
     () => props.isLoading,
     (newLoading) => {
@@ -77,7 +70,7 @@ watch(
             stopAnimation()
         }
     },
-    { immediate: true }
+    { immediate: true },
 )
 
 // Clear interval on unmount

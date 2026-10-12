@@ -13,7 +13,17 @@ const stepX = (index: number) => index * 28 + 14 + 1
 
 const mockTrackRect = (wrapper: VueWrapper) => {
     const track = wrapper.find('div[aria-hidden="true"]')
-    track.element.getBoundingClientRect = () => ({ left: 0, top: 0, right: 86, bottom: 24, width: 86, height: 24, x: 0, y: 0, toJSON: () => ({}) })
+    track.element.getBoundingClientRect = () => ({
+        left: 0,
+        top: 0,
+        right: 86,
+        bottom: 24,
+        width: 86,
+        height: 24,
+        x: 0,
+        y: 0,
+        toJSON: () => ({}),
+    })
     return track
 }
 
@@ -50,9 +60,7 @@ describe('StepSwitch.vue', () => {
 
     it('limits rendered steps to maxSteps', () => {
         const wrapper = factory({
-            steps: [
-                { value: 1 }, { value: 2 }, { value: 3 }, { value: 4 }, { value: 5 }, { value: 6 },
-            ],
+            steps: [{ value: 1 }, { value: 2 }, { value: 3 }, { value: 4 }, { value: 5 }, { value: 6 }],
             modelValue: 1,
         })
 
@@ -250,7 +258,7 @@ describe('StepSwitch.vue', () => {
         expect(dots[0]!.classes()).toContain('bg-icon-neutral-on-filled-bg')
         expect(dots[1]!.classes()).toContain('bg-icon-neutral-on-filled-bg')
         expect(dots[2]!.classes()).toContain('bg-icon-neutral-subtlest')
-        dots.forEach(dot => expect(dot.classes()).not.toContain('opacity-0'))
+        dots.forEach((dot) => expect(dot.classes()).not.toContain('opacity-0'))
     })
 
     it('falls back to "Select step" as aria-label when ariaLabel is not provided', () => {

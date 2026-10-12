@@ -9,20 +9,20 @@ const defaultProps: Partial<InstanceType<typeof ContentItemImage>['$props']> = {
     alt: 'Sample image',
     aspectRatio: AspectRatio.AR_16_9,
     hoverEffect: ImageHoverEffect.ZOOM_IN,
-    hoverIcon: 'mdi:eye-circle-outline'
+    hoverIcon: 'mdi:eye-circle-outline',
 }
 
 const factory = (props = {}) => {
     return mount(ContentItemImage, {
         props: {
             ...defaultProps,
-            ...props
+            ...props,
         },
         global: {
             stubs: {
-                Icon
-            }
-        }
+                Icon,
+            },
+        },
     })
 }
 
@@ -41,7 +41,7 @@ describe('ContentItemImage.vue', () => {
             const wrapper = factory()
             const icons = wrapper.findAllComponents(Icon)
 
-            const hoverIcon = icons.find(icon => icon.props('name') === defaultProps.hoverIcon)
+            const hoverIcon = icons.find((icon) => icon.props('name') === defaultProps.hoverIcon)
             expect(hoverIcon).toBeTruthy()
         })
 

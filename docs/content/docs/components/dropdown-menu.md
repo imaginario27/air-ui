@@ -33,6 +33,7 @@ props:
     nestedMenuGap: 8
     zIndex: "50"
     isSticky: false
+    autoFlip: false
     class: "min-w-[200px]"
 items:
     position:
@@ -160,6 +161,11 @@ props: [
         "name": "isSticky",
         "default": "false",
         "type": "boolean",
+    },
+    {
+        "name": "autoFlip",
+        "default": "false",
+        "type": "boolean"
     },
 ]
 ---
@@ -416,6 +422,10 @@ options: [
     {
         value: "HOVER",
         description: "Opens the dropdown on hover and closes when pointer leaves activator/dropdown.",
+    },
+    {
+        value: "MANUAL",
+        description: "The activator does not open or close the dropdown. Control it through the exposed `open`, `close` and `toggle` methods.",
     },
 ]
 ---
@@ -674,6 +684,21 @@ When `true`, the teleported dropdown panel uses `position: fixed` instead of `po
     <DropdownMenu
         isSticky
     >
+        ....
+    </DropdownMenu>
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `false`
+
+### autoFlip
+
+Moves the menu to the other side when it does not fit in the window. If a menu that opens below the activator would be cut off at the bottom edge of the screen and there is more room above, it opens above instead, and the other way around for a menu that opens above. It only applies to the `top-*` and `bottom-*` positions, and the position is checked when the menu opens. Set it to `true` to enable it.
+
+```vue
+<template>
+    <DropdownMenu :items="items" autoFlip>
         ....
     </DropdownMenu>
 </template>

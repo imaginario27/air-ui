@@ -2,9 +2,7 @@
     <Section>
         <SectionBody>
             <TabBar v-model="activeIndex" :tabs />
-            <ContentRenderer 
-                v-if="data" :value="data" 
-            />
+            <ContentRenderer v-if="data" :value="data" />
             <ContentRenderFallback v-else />
         </SectionBody>
     </Section>
@@ -14,7 +12,8 @@ definePageMeta({
     title: 'ContentPageHeader',
     layout: 'docs',
     overtitle: 'Components',
-    description: 'The content page header component that displays the title, overtitle, and description of a page, with customizable styles and optional navigation features. It is useful for content pages.',
+    description:
+        'The content page header component that displays the title, overtitle, and description of a page, with customizable styles and optional navigation features. It is useful for content pages.',
 })
 
 // Route

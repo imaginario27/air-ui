@@ -1,11 +1,5 @@
 <template>
-    <p
-        v-if="error || text"
-        :class="[
-            'text-xs text-left',
-            error ? 'text-text-error' : 'text-text-neutral-subtle',
-        ]"
-    >
+    <p v-if="error || text" :class="['text-xs text-left', error ? 'text-text-error' : 'text-text-neutral-subtle']">
         {{ error || text }}
     </p>
 </template>

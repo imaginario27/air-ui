@@ -2,9 +2,7 @@
     <Section>
         <SectionBody>
             <TabBar v-model="activeIndex" :tabs />
-            <ContentRenderer 
-                v-if="data" :value="data" 
-            />
+            <ContentRenderer v-if="data" :value="data" />
             <ContentRenderFallback v-else />
         </SectionBody>
     </Section>
@@ -14,7 +12,8 @@ definePageMeta({
     title: 'Vertical stepper',
     layout: 'docs',
     overtitle: 'Components',
-    description: 'Display a vertical sequence of steps with optional labels and content, useful for process flows and form wizards.',
+    description:
+        'Display a vertical sequence of steps with optional labels and content, useful for process flows and form wizards.',
 })
 
 // Route

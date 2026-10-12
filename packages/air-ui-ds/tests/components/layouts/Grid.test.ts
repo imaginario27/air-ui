@@ -5,9 +5,9 @@ const factory = (props = {}, options = {}) => {
     return mount(Grid, {
         props,
         slots: {
-            default: '<div>Grid item</div>'
+            default: '<div>Grid item</div>',
         },
-        ...options
+        ...options,
     })
 }
 
@@ -26,7 +26,7 @@ describe('Grid.vue', () => {
         const wrapper = factory()
         const classList = wrapper.classes().join(' ')
         expect(classList).toContain('grid')
-        expect(classList).toContain('gap-6') 
+        expect(classList).toContain('gap-6')
         expect(classList).toContain('w-full')
         expect(classList).toContain('grid-cols-1') // mobileCols default
         expect(classList).toContain('sm:grid-cols-2') // tabletCols default

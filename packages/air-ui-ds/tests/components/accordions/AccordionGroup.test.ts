@@ -6,20 +6,20 @@ import { OrderPosition } from '@/models/enums/order'
 const defaultItems = [
     { id: 1, title: 'Item 1', content: 'Content 1', group: 'Group A' },
     { id: 2, title: 'Item 2', content: 'Content 2', group: 'Group B' },
-    { id: 3, title: 'Item 3', content: 'Content 3' } // goes to default group
+    { id: 3, title: 'Item 3', content: 'Content 3' }, // goes to default group
 ]
 
 const factory = (props?: Partial<InstanceType<typeof AccordionGroup>['$props']>) => {
     return mount(AccordionGroup, {
         props: {
             items: defaultItems,
-            ...props
+            ...props,
         },
         global: {
             components: {
-                Accordion
-            }
-        }
+                Accordion,
+            },
+        },
     })
 }
 
@@ -32,7 +32,7 @@ describe('AccordionGroup (integration)', () => {
 
     it('renders correct group headers with default group at the start', () => {
         const wrapper = factory({
-            defaultGroupPosition: OrderPosition.START
+            defaultGroupPosition: OrderPosition.START,
         })
 
         const headers = wrapper.findAll('h3') // default titleTag = 'h3'
@@ -45,7 +45,7 @@ describe('AccordionGroup (integration)', () => {
 
     it('renders correct group headers with default group at the end', () => {
         const wrapper = factory({
-            defaultGroupPosition: OrderPosition.END
+            defaultGroupPosition: OrderPosition.END,
         })
 
         const headers = wrapper.findAll('h3')
@@ -61,7 +61,7 @@ describe('AccordionGroup (integration)', () => {
         const headers = wrapper.findAll('h5')
 
         expect(headers).toHaveLength(3)
-        headers.forEach(header => {
+        headers.forEach((header) => {
             expect(header.text()).toBeTruthy()
         })
     })
@@ -70,7 +70,7 @@ describe('AccordionGroup (integration)', () => {
         const customClass = 'text-blue-600'
         const wrapper = factory({ titleCustomClass: customClass })
         const headers = wrapper.findAll('h3')
-        headers.forEach(header => {
+        headers.forEach((header) => {
             expect(header.classes()).toContain(customClass)
         })
     })
@@ -89,17 +89,11 @@ describe('AccordionGroup (integration)', () => {
         const accordions = wrapper.findAllComponents(Accordion)
         expect(accordions).toHaveLength(3)
 
-        const itemsPerGroup = accordions.map(acc => acc.props('items'))
+        const itemsPerGroup = accordions.map((acc) => acc.props('items'))
 
-        expect(itemsPerGroup).toContainEqual([
-            { id: 1, title: 'Item 1', content: 'Content 1', group: 'Group A' }
-        ])
-        expect(itemsPerGroup).toContainEqual([
-            { id: 2, title: 'Item 2', content: 'Content 2', group: 'Group B' }
-        ])
-        expect(itemsPerGroup).toContainEqual([
-            { id: 3, title: 'Item 3', content: 'Content 3' }
-        ])
+        expect(itemsPerGroup).toContainEqual([{ id: 1, title: 'Item 1', content: 'Content 1', group: 'Group A' }])
+        expect(itemsPerGroup).toContainEqual([{ id: 2, title: 'Item 2', content: 'Content 2', group: 'Group B' }])
+        expect(itemsPerGroup).toContainEqual([{ id: 3, title: 'Item 3', content: 'Content 3' }])
     })
 
     it('renders nothing if items array is empty', () => {

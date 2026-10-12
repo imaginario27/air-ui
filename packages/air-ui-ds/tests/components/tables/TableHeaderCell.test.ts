@@ -6,7 +6,7 @@ import { TableHeaderCellScope } from '@/models/enums/tables'
 import { navigateTo } from '#app'
 
 vi.mock('#app', () => ({
-    navigateTo: vi.fn()
+    navigateTo: vi.fn(),
 }))
 
 type Props = {
@@ -22,18 +22,15 @@ type Props = {
     sortAriaLabel?: string
 }
 
-const factory = (
-    props?: Props,
-    slots?: Record<string, string>
-): VueWrapper => {
+const factory = (props?: Props, slots?: Record<string, string>): VueWrapper => {
     return mount(TableHeaderCell, {
         props,
         slots,
         global: {
             stubs: {
-                ActionIconButton
-            }
-        }
+                ActionIconButton,
+            },
+        },
     })
 }
 
@@ -77,7 +74,7 @@ describe('TableHeaderCell.vue', () => {
     it('applies w-[1%] when scope is ROW and fitToContent is true', () => {
         const wrapper = factory({
             scope: TableHeaderCellScope.ROW,
-            fitToContent: true
+            fitToContent: true,
         })
 
         expect(wrapper.find('th').classes()).toContain('w-[1%]')
@@ -86,7 +83,7 @@ describe('TableHeaderCell.vue', () => {
     it('applies w-auto when scope is ROW and fitToContent is false', () => {
         const wrapper = factory({
             scope: TableHeaderCellScope.ROW,
-            fitToContent: false
+            fitToContent: false,
         })
 
         expect(wrapper.find('th').classes()).toContain('w-auto')
@@ -95,7 +92,7 @@ describe('TableHeaderCell.vue', () => {
     it('adds hover cursor when scope is ROW and to is provided', () => {
         const wrapper = factory({
             scope: TableHeaderCellScope.ROW,
-            to: '/route'
+            to: '/route',
         })
 
         expect(wrapper.find('th').classes()).toContain('hover:cursor-pointer')
@@ -109,7 +106,7 @@ describe('TableHeaderCell.vue', () => {
     it('does not render ActionIconButton when scope is ROW', () => {
         const wrapper = factory({
             sorteable: true,
-            scope: TableHeaderCellScope.ROW
+            scope: TableHeaderCellScope.ROW,
         })
 
         expect(wrapper.findComponent(ActionIconButton).exists()).toBe(false)
@@ -118,7 +115,7 @@ describe('TableHeaderCell.vue', () => {
     it('renders ActionIconButton when sorteable is true and scope is COL', () => {
         const wrapper = factory({
             sorteable: true,
-            scope: TableHeaderCellScope.COL
+            scope: TableHeaderCellScope.COL,
         })
 
         expect(wrapper.findComponent(ActionIconButton).exists()).toBe(true)
@@ -127,7 +124,7 @@ describe('TableHeaderCell.vue', () => {
     it('renders arrow-up icon when sortAsc is true', () => {
         const wrapper = factory({
             sorteable: true,
-            sortAsc: true
+            sortAsc: true,
         })
 
         const button = wrapper.findComponent(ActionIconButton)
@@ -137,7 +134,7 @@ describe('TableHeaderCell.vue', () => {
     it('renders arrow-down icon when sortAsc is false', () => {
         const wrapper = factory({
             sorteable: true,
-            sortAsc: false
+            sortAsc: false,
         })
 
         const button = wrapper.findComponent(ActionIconButton)
@@ -148,7 +145,7 @@ describe('TableHeaderCell.vue', () => {
         const wrapper = factory({
             sorteable: true,
             sortKey: 'name',
-            columnKey: 'name'
+            columnKey: 'name',
         })
 
         const button = wrapper.findComponent(ActionIconButton)
@@ -159,7 +156,7 @@ describe('TableHeaderCell.vue', () => {
         const wrapper = factory({
             sorteable: true,
             sortKey: 'name',
-            columnKey: 'email'
+            columnKey: 'email',
         })
 
         const button = wrapper.findComponent(ActionIconButton)
@@ -171,7 +168,7 @@ describe('TableHeaderCell.vue', () => {
 
         const wrapper = factory({
             sorteable: true,
-            onToggleSort
+            onToggleSort,
         })
 
         const button = wrapper.findComponent(ActionIconButton)
@@ -182,7 +179,7 @@ describe('TableHeaderCell.vue', () => {
 
     it('does not throw when onToggleSort is undefined', async () => {
         const wrapper = factory({
-            sorteable: true
+            sorteable: true,
         })
 
         const button = wrapper.findComponent(ActionIconButton)
@@ -192,7 +189,7 @@ describe('TableHeaderCell.vue', () => {
     it('does not call navigateTo when scope is COL', async () => {
         const wrapper = factory({
             scope: TableHeaderCellScope.COL,
-            to: '/details'
+            to: '/details',
         })
 
         await wrapper.find('th').trigger('click')
@@ -202,7 +199,7 @@ describe('TableHeaderCell.vue', () => {
 
     it('does not call navigateTo when to is undefined', async () => {
         const wrapper = factory({
-            scope: TableHeaderCellScope.ROW
+            scope: TableHeaderCellScope.ROW,
         })
 
         await wrapper.find('th').trigger('click')
@@ -213,7 +210,7 @@ describe('TableHeaderCell.vue', () => {
     it('does not apply whitespace-nowrap when scope is ROW and noWrap is false', () => {
         const wrapper = factory({
             scope: TableHeaderCellScope.ROW,
-            noWrap: false
+            noWrap: false,
         })
 
         expect(wrapper.find('th').classes()).not.toContain('whitespace-nowrap')
@@ -222,7 +219,7 @@ describe('TableHeaderCell.vue', () => {
     it('applies whitespace-nowrap when scope is ROW and noWrap is true', () => {
         const wrapper = factory({
             scope: TableHeaderCellScope.ROW,
-            noWrap: true
+            noWrap: true,
         })
 
         expect(wrapper.find('th').classes()).toContain('whitespace-nowrap')

@@ -2,9 +2,7 @@
     <Section>
         <SectionBody>
             <TabBar v-model="activeIndex" :tabs />
-            <ContentRenderer 
-                v-if="data" :value="data" 
-            />
+            <ContentRenderer v-if="data" :value="data" />
             <ContentRenderFallback v-else />
         </SectionBody>
     </Section>
@@ -14,7 +12,8 @@ definePageMeta({
     title: 'Tab stepper',
     layout: 'docs',
     overtitle: 'Components',
-    description: 'A horizontal stepper component that visually guides users through multi-step processes using labeled tabs.'
+    description:
+        'A horizontal stepper component that visually guides users through multi-step processes using labeled tabs.',
 })
 
 // Route

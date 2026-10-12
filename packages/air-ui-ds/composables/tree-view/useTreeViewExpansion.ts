@@ -36,12 +36,12 @@ export const useTreeViewExpansion = (
         }
 
         return siblingsOf(row)
-            .filter(sibling => sibling.value !== node.value)
-            .flatMap(sibling => [sibling.value, ...descendantValues(sibling)])
+            .filter((sibling) => sibling.value !== node.value)
+            .flatMap((sibling) => [sibling.value, ...descendantValues(sibling)])
     }
 
     const expandNode = async (node: TreeViewNode) => {
-        errorValues.value = errorValues.value.filter(value => value !== node.value)
+        errorValues.value = errorValues.value.filter((value) => value !== node.value)
 
         if (needsLoad(node)) {
             if (isLoading(node)) {
@@ -57,18 +57,18 @@ export const useTreeViewExpansion = (
                 emit('load-error', { value: node.value, error })
                 return
             } finally {
-                loadingValues.value = loadingValues.value.filter(value => value !== node.value)
+                loadingValues.value = loadingValues.value.filter((value) => value !== node.value)
             }
         }
 
         const closing = getSiblingsToClose(node)
 
-        expanded.value = [...expanded.value.filter(value => !closing.includes(value)), node.value]
+        expanded.value = [...expanded.value.filter((value) => !closing.includes(value)), node.value]
         lastOpenedValue.value = node.value
     }
 
     const collapseNode = (node: TreeViewNode) => {
-        expanded.value = expanded.value.filter(value => value !== node.value)
+        expanded.value = expanded.value.filter((value) => value !== node.value)
     }
 
     const toggleExpanded = async (node: TreeViewNode) => {
@@ -113,7 +113,7 @@ export const useTreeViewExpansion = (
         const wasExpanded = expandedSet.value.has(value)
 
         Reflect.deleteProperty(loadedChildren, value)
-        errorValues.value = errorValues.value.filter(item => item !== value)
+        errorValues.value = errorValues.value.filter((item) => item !== value)
 
         if (wasExpanded) {
             collapseNode(node)

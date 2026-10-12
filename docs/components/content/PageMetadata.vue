@@ -37,16 +37,7 @@ defineProps({
 })
 
 // Shared classes
-const labelCellClass = [
-    'pr-4',
-    'align-top',
-    'font-semibold',
-    'text-left',
-    'whitespace-nowrap',
-    'w-[1%]',
-]
+const labelCellClass = ['pr-4', 'align-top', 'font-semibold', 'text-left', 'whitespace-nowrap', 'w-[1%]']
 
-const cellClass = [
-    'py-1.5',
-]
+const cellClass = ['py-1.5']
 </script>

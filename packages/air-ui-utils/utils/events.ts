@@ -14,7 +14,6 @@ export const copyToClipboard = async (text: string): Promise<boolean> => {
     }
 }
 
-
 /**
  * Opens the default email app with the given email address pre-filled.
  * @param email - The email address to open in the default email client.

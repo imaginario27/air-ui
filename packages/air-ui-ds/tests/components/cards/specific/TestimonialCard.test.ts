@@ -9,9 +9,9 @@ const factory = (props = {}, slots = {}) => {
             displayName: 'Test User',
             role: 'Developer',
             imgUrl: '/img.jpg',
-            ...props
+            ...props,
         },
-        slots
+        slots,
     })
 }
 
@@ -36,7 +36,7 @@ describe('TestimonialCard.vue', () => {
         const wrapper = factory({
             text: 'Fantastic support!',
             ratingValue: 5,
-            ratingStarColor: RatingItemColor.PRIMARY_BRAND
+            ratingStarColor: RatingItemColor.PRIMARY_BRAND,
         })
 
         expect(wrapper.find('p.text-sm').text()).toBe('Fantastic support!')
@@ -44,7 +44,7 @@ describe('TestimonialCard.vue', () => {
         const rating = wrapper.findComponent({ name: 'Rating' })
         expect(rating.props()).toMatchObject({
             modelValue: 5,
-            color: RatingItemColor.PRIMARY_BRAND
+            color: RatingItemColor.PRIMARY_BRAND,
         })
     })
 

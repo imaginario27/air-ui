@@ -1,12 +1,5 @@
 <template>
-    <span 
-        :class="[
-            colorClass,
-            'text-sm',
-            'font-medium',
-            isUppercase && 'uppercase',
-        ]"
-    >
+    <span :class="[colorClass, 'text-sm', 'font-medium', isUppercase && 'uppercase']">
         {{ title }}
     </span>
 </template>
@@ -15,26 +8,22 @@
 const props = defineProps({
     title: {
         type: String as PropType<string>,
-        default: 'Overtitle'
+        default: 'Overtitle',
     },
     isUppercase: {
         type: Boolean as PropType<boolean>,
         default: true,
     },
     color: {
-        type: String as PropType<
-            ColorAccent.PRIMARY_BRAND
-            | ColorAccent.SECONDARY_BRAND
-            | ColorAccent.NEUTRAL
-        >,
+        type: String as PropType<ColorAccent.PRIMARY_BRAND | ColorAccent.SECONDARY_BRAND | ColorAccent.NEUTRAL>,
         default: ColorAccent.SECONDARY_BRAND,
         validator: (value: unknown): value is ColorAccent => {
-            return typeof value === 'string' &&
-                [
-                    ColorAccent.PRIMARY_BRAND,
-                    ColorAccent.SECONDARY_BRAND,
-                    ColorAccent.NEUTRAL,
-                ].includes(value as ColorAccent)
+            return (
+                typeof value === 'string' &&
+                [ColorAccent.PRIMARY_BRAND, ColorAccent.SECONDARY_BRAND, ColorAccent.NEUTRAL].includes(
+                    value as ColorAccent,
+                )
+            )
         },
     },
 })

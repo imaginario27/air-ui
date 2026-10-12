@@ -1,9 +1,7 @@
 ﻿<template>
     <Section>
         <SectionBody>
-            <ContentRenderer 
-                v-if="data" :value="data" 
-            />
+            <ContentRenderer v-if="data" :value="data" />
             <ContentRenderFallback v-else />
         </SectionBody>
     </Section>
@@ -13,7 +11,7 @@ definePageMeta({
     title: 'List',
     layout: 'docs',
     overtitle: 'Components',
-    description: 'List component for showing items in a list.'
+    description: 'List component for showing items in a list.',
 })
 
 // Route

@@ -10,30 +10,22 @@
             'self-start',
             'text-sm',
             'hover:opacity-75',
-            textIconClass
+            textIconClass,
         ]"
         v-bind="{
             ...componentProps,
             ...$attrs,
-            ...(actionType === ButtonActionType.ACTION ? { onClick: emitClick } : {})
+            ...(actionType === ButtonActionType.ACTION ? { onClick: emitClick } : {}),
         }"
         :disabled
     >
         <!-- Left icon -->
-        <Icon 
-            v-if="iconPosition === IconPosition.LEFT"
-            :name="icon"
-            :iconClass="textIconClass"
-        />
-        <span :class="[ 'font-semibold' ]">
+        <Icon v-if="iconPosition === IconPosition.LEFT" :name="icon" :iconClass="textIconClass" />
+        <span :class="['font-semibold']">
             {{ text }}
         </span>
         <!-- Right icon -->
-        <Icon
-            v-if="iconPosition === IconPosition.RIGHT"
-            :name="icon"
-            :iconClass="textIconClass"
-        />
+        <Icon v-if="iconPosition === IconPosition.RIGHT" :name="icon" :iconClass="textIconClass" />
     </component>
 </template>
 
@@ -41,7 +33,7 @@
 // Imports
 import { NuxtLink } from '#components'
 
- // Component options
+// Component options
 defineOptions({
     inheritAttrs: false, // Prevents Vue from automatically applying attributes incorrectly
 })
@@ -60,11 +52,11 @@ const props = defineProps({
     },
     text: {
         type: String as PropType<string>,
-        default: 'Button text'
+        default: 'Button text',
     },
     icon: {
         type: String as PropType<string>,
-        default: "mdi:help"
+        default: 'mdi:help',
     },
     iconPosition: {
         type: String as PropType<IconPosition>,
@@ -77,11 +69,11 @@ const props = defineProps({
     },
     to: {
         type: String as PropType<string>,
-        default: '/'
+        default: '/',
     },
     isExternal: {
         type: Boolean as PropType<boolean>,
-        default: false
+        default: false,
     },
 })
 

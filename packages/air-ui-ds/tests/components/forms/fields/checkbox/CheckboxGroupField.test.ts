@@ -5,7 +5,7 @@ import Divider from '~/components/dividers/Divider.vue'
 import { FormValidationMode } from '~/models/enums/formValidations'
 
 vi.mock('~/composables/useFormValidationMode', () => ({
-    useInjectedValidationMode: () => ref(FormValidationMode.BLUR)
+    useInjectedValidationMode: () => ref(FormValidationMode.BLUR),
 }))
 
 const defaultOptions = [
@@ -43,7 +43,7 @@ describe('CheckboxGroupField', () => {
         })
 
         const helpParagraphs = wrapper.findAll('p.text-text-neutral-subtle')
-        const groupHelp = helpParagraphs.find(p => p.text() === 'Helpful text')
+        const groupHelp = helpParagraphs.find((p) => p.text() === 'Helpful text')
         expect(groupHelp).toBeTruthy()
     })
 
@@ -58,8 +58,9 @@ describe('CheckboxGroupField', () => {
         expect(errorText.exists()).toBe(true)
         expect(errorText.text()).toBe('Required field')
 
-        const label = wrapper.findAll('div')
-            .find(div => div.classes().includes('font-semibold') && div.text() === 'My Label')
+        const label = wrapper
+            .findAll('div')
+            .find((div) => div.classes().includes('font-semibold') && div.text() === 'My Label')
 
         expect(label).toBeTruthy()
         expect(label!.classes()).toContain('text-text-error')
@@ -133,13 +134,13 @@ describe('CheckboxGroupField', () => {
 
     it('applies vertical flex layout by default', () => {
         const wrapper = factory()
-        const container = wrapper.findAll('div').find(div => div.classes().includes('flex-col'))
+        const container = wrapper.findAll('div').find((div) => div.classes().includes('flex-col'))
         expect(container?.classes()).toContain('flex-col')
     })
 
     it('applies flex-wrap layout when orientation is horizontal and layout is list', () => {
         const wrapper = factory({ orientation: 'horizontal', layout: 'list' })
-        const container = wrapper.findAll('div').find(div => div.classes().includes('flex-wrap'))
+        const container = wrapper.findAll('div').find((div) => div.classes().includes('flex-wrap'))
         expect(container?.classes()).toContain('flex-wrap')
     })
 
@@ -173,7 +174,7 @@ describe('CheckboxGroupField', () => {
 
     it('applies listClass to the list container', () => {
         const wrapper = factory({ listClass: 'custom-class' })
-        const container = wrapper.findAll('div').find(div => div.classes().includes('custom-class'))
+        const container = wrapper.findAll('div').find((div) => div.classes().includes('custom-class'))
         expect(container).toBeTruthy()
     })
 

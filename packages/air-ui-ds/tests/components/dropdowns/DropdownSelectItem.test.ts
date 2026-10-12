@@ -4,7 +4,7 @@ import Icon from '@/components/icons/Icon.vue'
 import { SelectType, SelectActiveStyle } from '@/models/enums/selects'
 
 vi.mock('@/assets/images/placeholders/missing-image-placeholder.png', () => ({
-    default: '/mocked/missing-image.png'
+    default: '/mocked/missing-image.png',
 }))
 
 const factory = (props: Record<string, any> = {}) => {
@@ -12,9 +12,9 @@ const factory = (props: Record<string, any> = {}) => {
         props,
         global: {
             stubs: {
-                Icon
-            }
-        }
+                Icon,
+            },
+        },
     })
 }
 
@@ -32,7 +32,7 @@ describe('DropdownSelectItem.vue', () => {
     it('renders an icon when type is ICON', () => {
         const wrapper = factory({
             type: SelectType.ICON,
-            icon: 'mdi:check'
+            icon: 'mdi:check',
         })
 
         const icon = wrapper.findComponent(Icon)
@@ -43,7 +43,7 @@ describe('DropdownSelectItem.vue', () => {
     it('renders a user component when type is USER', () => {
         const wrapper = factory({
             type: SelectType.USER,
-            userDisplayName: 'John Doe'
+            userDisplayName: 'John Doe',
         })
 
         expect(wrapper.text()).toContain('John Doe')
@@ -53,7 +53,7 @@ describe('DropdownSelectItem.vue', () => {
         const wrapper = factory({
             type: SelectType.IMAGE,
             imgUrl: 'https://example.com/image.png',
-            alt: 'Test image'
+            alt: 'Test image',
         })
 
         const img = wrapper.find('img')
@@ -66,7 +66,7 @@ describe('DropdownSelectItem.vue', () => {
         const wrapper = factory({
             type: SelectType.IMAGE,
             imgUrl: 'broken.png',
-            alt: 'Broken'
+            alt: 'Broken',
         })
 
         const img = wrapper.find('img')
@@ -82,7 +82,7 @@ describe('DropdownSelectItem.vue', () => {
 
     it('renders fallback image when imgUrl is not provided', () => {
         const wrapper = factory({
-            type: SelectType.IMAGE
+            type: SelectType.IMAGE,
         })
 
         const img = wrapper.find('img')
@@ -93,7 +93,7 @@ describe('DropdownSelectItem.vue', () => {
     it('applies selected styling when isSelected is true and activeStyle is FILL', () => {
         const wrapper = factory({
             isSelected: true,
-            activeStyle: SelectActiveStyle.FILL
+            activeStyle: SelectActiveStyle.FILL,
         })
 
         expect(wrapper.classes()).toContain('bg-background-primary-brand-active')
@@ -102,7 +102,7 @@ describe('DropdownSelectItem.vue', () => {
     it('renders check icon when isSelected and activeStyle is CHECK', () => {
         const wrapper = factory({
             isSelected: true,
-            activeStyle: SelectActiveStyle.CHECK
+            activeStyle: SelectActiveStyle.CHECK,
         })
 
         const icon = wrapper.findComponent(Icon)
@@ -112,7 +112,7 @@ describe('DropdownSelectItem.vue', () => {
 
     it('renders as an anchor tag when "to" prop is provided', () => {
         const wrapper = factory({
-            to: '/home'
+            to: '/home',
         })
 
         expect(wrapper.element.tagName).toBe('A')

@@ -3,7 +3,7 @@ const withLabel = (nodes: TreeViewNode[], value: string, label: string): TreeVie
     let found = false
 
     const walk = (list: TreeViewNode[]): TreeViewNode[] => {
-        return list.map(node => {
+        return list.map((node) => {
             if (node.value === value) {
                 found = true
 
@@ -52,8 +52,9 @@ export const useTreeViewRename = (
 
         // Deferred so the closing "more actions" menu does not take the focus back
         setTimeout(() => {
-            const input = rootRef.value?.$el
-                ?.querySelector<HTMLInputElement>(`[data-value="${CSS.escape(value)}"] input`)
+            const input = rootRef.value?.$el?.querySelector<HTMLInputElement>(
+                `[data-value="${CSS.escape(value)}"] input`,
+            )
 
             input?.focus()
             input?.select()

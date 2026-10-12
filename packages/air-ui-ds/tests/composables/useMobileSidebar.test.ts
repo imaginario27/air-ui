@@ -9,16 +9,16 @@ const fullPath = ref('/')
 // Mock dependencies
 vi.mock('~/composables/useIsMobile', () => ({
     useIsMobile: () => ({
-        isMobile
-    })
+        isMobile,
+    }),
 }))
 
 vi.mock('#app', () => ({
     useRoute: () => ({
         get fullPath() {
             return fullPath.value
-        }
-    })
+        },
+    }),
 }))
 
 describe('useMobileSidebar', () => {
@@ -28,8 +28,8 @@ describe('useMobileSidebar', () => {
                 setup() {
                     return useMobileSidebar()
                 },
-                template: '<div />'
-            })
+                template: '<div />',
+            }),
         )
 
     beforeEach(() => {

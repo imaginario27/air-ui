@@ -2,11 +2,8 @@
     <Card class="!py-6">
         <CardHeader class="!justify-center items-center flex-col gap-4">
             <!-- Icon -->
-            <ContainedIcon 
-                :icon
-                :color="ColorAccent.PRIMARY_BRAND"
-            />
-            
+            <ContainedIcon :icon :color="ColorAccent.PRIMARY_BRAND" />
+
             <!-- Title -->
             <h4 class="font-semibold">
                 {{ title }}
@@ -18,7 +15,7 @@
                     {{ description }}
                 </p>
                 <div class="w-full flex justify-center">
-                    <ActionButton 
+                    <ActionButton
                         :styleType="ButtonStyleType.NEUTRAL_TRANSPARENT"
                         :actionType="ButtonActionType.LINK"
                         :iconPosition="IconPosition.RIGHT"
@@ -36,27 +33,27 @@
 defineProps({
     icon: {
         type: String as PropType<string>,
-        default: 'mdi:help'
+        default: 'mdi:help',
     },
     title: {
         type: String as PropType<string>,
-        default: 'Title'
+        default: 'Title',
     },
     description: {
         type: String as PropType<string>,
-        default: 'Description'
+        default: 'Description',
     },
     to: {
         type: String as PropType<string>,
-        default: '/'
+        default: '/',
     },
     buttonText: {
         type: String as PropType<string>,
-        default: 'Learn more' 
+        default: 'Learn more',
     },
     buttonIcon: {
         type: String as PropType<string>,
-        default: 'mdi:arrow-right'
+        default: 'mdi:arrow-right',
     },
 })
 </script>

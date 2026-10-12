@@ -11,6 +11,7 @@ props:
     placeholder: "Placeholder"
     helpText: "Help text example"
     helpTextPosition: "bottom"
+    autoFlip: true
     icon: null
     suffixIcon: null
     linkText: null
@@ -90,6 +91,11 @@ props: [
         "type": "Position",
     },
     {
+        "name": "autoFlip",
+        "default": "true",
+        "type": "boolean"
+    },
+    {
         "name": "icon",
         "type": "string",
     },
@@ -138,6 +144,11 @@ props: [
     {
         "name": "hasShowPasswordButton",
         "type": "boolean",
+    },
+    {
+        "name": "locale",
+        "default": "'en-US'",
+        "type": "string",
     },
     {
         "name": "min",
@@ -233,6 +244,34 @@ Sets the label of the field.
 Sets the type of the input field. It uses the `AllowedInputType` type.
 
 For the rest of native HTML input types, please use the specific components provided by AirUI.
+
+These types do not use the native browser picker. The field renders a custom one, so it looks the same in every browser, and the value keeps the format of the native input. They are built with [DatePickerField](/docs/components/date-picker-field) and [TimePickerField](/docs/components/time-picker-field):
+
+::options-table
+---
+options: [
+    { value: "date", description: ["Opens a calendar to pick a date. The value looks like", { type: "code", content: "2026-10-15" }] },
+    { value: "month", description: ["Opens a calendar to pick a month. The value looks like", { type: "code", content: "2026-10" }] },
+    { value: "week", description: ["Opens a calendar to pick a week. The value looks like", { type: "code", content: "2026-W41" }] },
+    { value: "datetime-local", description: ["Opens a calendar and a time picker to pick a date and a time. The value looks like", { type: "code", content: "2026-10-15T19:30" }] },
+    { value: "time", description: ["Opens a time picker. The value looks like", { type: "code", content: "19:30" }] },
+]
+---
+::
+
+<br />
+
+The text shown follows the [locale](#locale), [min](#min) and [max](#max) limit the selectable values, and clearing the field emits an empty string. Click the input, or press `Enter`, `Space` or `ArrowDown`, to open the picker, and `Escape` to close it. Typing a value is not supported. Use `DatePickerField` or `TimePickerField` directly to control the picker (color, range, inline variant, seconds and more).
+
+```vue
+<template>
+    <InputField v-model="birthDate" id="birth-date" type="date" label="Birth date" />
+</template>
+
+<script setup lang="ts">
+const birthDate = ref('2026-10-15')
+</script>
+```
 
 ```vue
 <template>
@@ -484,6 +523,32 @@ Sets whether to show the "show password" button (only for type `password`).
 
 - **Type:** `boolean`
 - **Default:** `true`
+
+### autoFlip
+
+Moves the picker to the other side when it does not fit in the window. If it would be cut off at the bottom of the screen and there is more room above, it opens above the input instead. Set it to `false` to always keep it below. Only applies to the date and time types (`date`, `month`, `week`, `datetime-local` and `time`).
+
+```vue
+<template>
+    <InputField type="date" :autoFlip="false" />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `true`
+
+### locale
+
+Sets the BCP 47 locale used to format the date shown in the field and the names in the calendar. Only applies to the date and time types (`date`, `month`, `week`, `datetime-local` and `time`).
+
+```vue
+<template>
+    <InputField type="date" locale="es-ES" />
+</template>
+```
+
+- **Type:** `string`
+- **Default:** `'en-US'`
 
 ### min
 

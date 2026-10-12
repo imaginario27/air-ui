@@ -1,26 +1,14 @@
 <template>
-    <div
-        :class="hasContainer && containerClasses"
-    >
-        <div 
-            :class="[
-                'py-3',
-                'flex',
-                'items-center',
-                orientationClass,
-            ]"
-        >
+    <div :class="hasContainer && containerClasses">
+        <div :class="['py-3', 'flex', 'items-center', orientationClass]">
             <!-- Icon -->
-            <Icon 
+            <Icon
                 v-if="icon"
                 :name="icon"
-                :iconClass="[
-                    hasContainer ? isContainedIconClass : iconClass,
-                    iconSizeClass,
-                ]"
+                :iconClass="[hasContainer ? isContainedIconClass : iconClass, iconSizeClass]"
             />
-  
-            <div 
+
+            <div
                 :class="[
                     'flex gap-2 flex-col',
                     'max-w-[400px]',
@@ -32,21 +20,13 @@
                 <span :class="['font-semibold', titleClass && titleClass]">
                     {{ title }}
                 </span>
-                <p 
-                    v-if="description"
-                    :class="descriptionClass"
-                >
+                <p v-if="description" :class="descriptionClass">
                     {{ description }}
                 </p>
             </div>
-            
-            <div
-                v-if="buttonText"
-                :class="[
-                    orientation === Orientation.VERTICAL ? 'pt-4' : 'pt-4 sm:pt-0 sm:ml-4'
-                ]"
-            >
-                <ActionButton 
+
+            <div v-if="buttonText" :class="[orientation === Orientation.VERTICAL ? 'pt-4' : 'pt-4 sm:pt-0 sm:ml-4']">
+                <ActionButton
                     :text="buttonText"
                     :styleType="buttonStyleType"
                     :icon="buttonIcon"
@@ -58,7 +38,6 @@
     </div>
 </template>
 <script setup lang="ts">
-
 // Props
 const props = defineProps({
     title: {
@@ -92,16 +71,17 @@ const props = defineProps({
     },
     buttonStyleType: {
         type: String as PropType<ButtonStyleType>,
-        default: ButtonStyleType.PRIMARY_BRAND_FILLED
+        default: ButtonStyleType.PRIMARY_BRAND_FILLED,
     },
     hasContainer: {
         type: Boolean as PropType<boolean>,
-        default: false
+        default: false,
     },
     containerStyle: {
         type: String as PropType<EmptyPlaceholderContainerStyle>,
-        default: EmptyPlaceholderContainerStyle.FILLED_NEUTRAL, 
-        validator: (value: EmptyPlaceholderContainerStyle) => Object.values(EmptyPlaceholderContainerStyle).includes(value),
+        default: EmptyPlaceholderContainerStyle.FILLED_NEUTRAL,
+        validator: (value: EmptyPlaceholderContainerStyle) =>
+            Object.values(EmptyPlaceholderContainerStyle).includes(value),
     },
     styledContainerClass: String as PropType<string>,
 })
@@ -137,7 +117,7 @@ const containerClasses = computed(() => {
         'rounded-md',
         'p-[5vw]',
         customContainerClass.value,
-        props.styledContainerClass
+        props.styledContainerClass,
     ]
 })
 
@@ -146,7 +126,6 @@ const customContainerClass = computed(() => {
         [EmptyPlaceholderContainerStyle.DASHED]: '!border-2 border-dashed border-border-default',
         [EmptyPlaceholderContainerStyle.FILLED_NEUTRAL]: '!bg-background-neutral-subtlest',
         [EmptyPlaceholderContainerStyle.FILLED_PRIMARY_BRAND]: '!bg-background-primary-brand-soft',
-
     }
     return variant[props.containerStyle as EmptyPlaceholderContainerStyle] || '!bg-background-neutral-subtlest'
 })
@@ -156,9 +135,7 @@ const isContainedIconClass = computed(() => {
         [EmptyPlaceholderContainerStyle.DASHED]: '!text-icon-neutral-subtlest',
         [EmptyPlaceholderContainerStyle.FILLED_NEUTRAL]: '!text-icon-neutral-on-subtlest-bg',
         [EmptyPlaceholderContainerStyle.FILLED_PRIMARY_BRAND]: '!text-icon-neutral-on-primary-brand-soft-bg',
-
     }
     return variant[props.containerStyle as EmptyPlaceholderContainerStyle] || '!text-icon-neutral-on-subtlest-bg'
 })
-
 </script>

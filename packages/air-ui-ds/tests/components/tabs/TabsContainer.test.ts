@@ -5,8 +5,8 @@ describe('TabsContainer', () => {
     it('renders slot content', () => {
         const wrapper = mount(TabsContainer, {
             slots: {
-                default: '<div>Inner Content</div>'
-            }
+                default: '<div>Inner Content</div>',
+            },
         })
 
         expect(wrapper.text()).toContain('Inner Content')

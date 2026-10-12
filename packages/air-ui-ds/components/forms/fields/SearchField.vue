@@ -1,33 +1,16 @@
 <template>
-    <div 
-        :class="[
-            'flex flex-col',
-            'w-full', 
-            'gap-2' 
-        ]"
-    >
+    <div :class="['flex flex-col', 'w-full', 'gap-2']">
         <!-- Label -->
-        <label
-            v-if="label"
-            :for="id"
-            :class="[
-                'text-sm',
-                'font-semibold',
-                'text-left',
-            ]"
-        >
+        <label v-if="label" :for="id" :class="['text-sm', 'font-semibold', 'text-left']">
             {{ label }}
         </label>
 
         <!-- Help Text (top) -->
-        <HelpText
-            v-if="helpTextPosition === Position.TOP"
-            :text="helpText"
-        />
+        <HelpText v-if="helpTextPosition === Position.TOP" :text="helpText" />
 
         <!-- Input Container -->
-        <div 
-            :class="[ 
+        <div
+            :class="[
                 'flex gap-2',
                 'items-center',
                 'border',
@@ -39,39 +22,38 @@
                 'border-border-default',
                 inputCustomClass,
                 isFocused && 'ring-2 ring-inset ring-border-primary-brand-default',
-                disabled ? 'bg-background-neutral-disabled cursor-not-allowed' : (!transparent && 'bg-background-container-surface'),
+                disabled
+                    ? 'bg-background-neutral-disabled cursor-not-allowed'
+                    : !transparent && 'bg-background-container-surface',
             ]"
         >
             <!-- Icon -->
-            <Icon
-                :name="icon"
-                iconClass="text-icon-neutral-subtler"
-            />
+            <Icon :name="icon" iconClass="text-icon-neutral-subtler" />
 
             <!-- Input -->
-            <input 
-                :id 
+            <input
+                :id
                 :aria-label="!label ? ariaLabel : undefined"
-                :placeholder 
-                :value="modelValue" 
+                :placeholder
+                :value="modelValue"
                 :maxlength="maxLength"
                 :readonly
                 :autocomplete
                 :autofocus
                 :disabled
-                :class="[ 
+                :class="[
                     'w-full',
                     'outline-none',
                     'bg-transparent',
                     'placeholder-text-neutral-subtler',
                     'text-sm',
                     disabled ? 'cursor-not-allowed' : undefined,
-                inputClass,
+                    inputClass,
                 ]"
-                @focus="handleFocus" 
+                @focus="handleFocus"
                 @blur="handleBlur"
                 @input="handleInput"
-            >
+            />
 
             <!-- Clear button -->
             <ActionIconButton
@@ -85,24 +67,21 @@
         </div>
 
         <!-- Help Text (bottom) -->
-        <HelpText
-            v-if="helpTextPosition === Position.BOTTOM"
-            :text="helpText"
-        />
+        <HelpText v-if="helpTextPosition === Position.BOTTOM" :text="helpText" />
     </div>
 </template>
 
 <script setup lang="ts">
 const props = defineProps({
-    id: { 
-        type: String as PropType<string>, 
-        required: true, 
+    id: {
+        type: String as PropType<string>,
+        required: true,
     },
     label: String as PropType<string>,
     ariaLabel: String as PropType<string>,
-    placeholder: { 
-        type: String as PropType<string>, 
-        default: 'Search', 
+    placeholder: {
+        type: String as PropType<string>,
+        default: 'Search',
     },
     helpText: String as PropType<string>,
     helpTextPosition: {
@@ -119,16 +98,16 @@ const props = defineProps({
         default: InputSize.MD,
         validator: (value: InputSize) => Object.values(InputSize).includes(value),
     },
-    modelValue: { 
-        type: String as PropType<string>, 
+    modelValue: {
+        type: String as PropType<string>,
         default: '',
     },
     maxLength: {
         type: Number as PropType<number>,
         required: true,
     },
-    filterAlphabetic: { 
-        type: Boolean as PropType<boolean>, 
+    filterAlphabetic: {
+        type: Boolean as PropType<boolean>,
         default: false,
     },
     readonly: {
@@ -183,9 +162,9 @@ const filled = computed(() => !!props.modelValue.trim())
 // Methods
 const handleInput = (event: Event) => {
     if (props.disabled) return
-    
+
     const target = event.target as HTMLInputElement
-    let value = target.value 
+    let value = target.value
 
     // Apply optional filtering
     if (props.filterAlphabetic) {

@@ -7,13 +7,9 @@
         :cardClass
         @update:modelValue="updateModelValue"
     >
-        <ModalContent class="!gap-6 items-center">   
+        <ModalContent class="!gap-6 items-center">
             <template v-if="orientation === Orientation.VERTICAL">
-                <ContainedIcon 
-                    :color="ColorAccent.INFO"
-                    :size="IconContainerSize.XL"
-                    :icon
-                />
+                <ContainedIcon :color="ColorAccent.INFO" :size="IconContainerSize.XL" :icon />
 
                 <ModalHeaderGroup centered>
                     <ModalTitle :title />
@@ -24,12 +20,8 @@
             </template>
             <template v-else>
                 <div class="w-full flex gap-4 flex-col sm:flex-row items-center sm:items-start">
-                    <ContainedIcon 
-                        :color="ColorAccent.INFO"
-                        :size="IconContainerSize.LG"
-                        :icon
-                    />
-                    
+                    <ContainedIcon :color="ColorAccent.INFO" :size="IconContainerSize.LG" :icon />
+
                     <ModalHeaderGroup centered class="sm:text-left">
                         <ModalTitle :title />
                         <ModalDescription v-if="description">
@@ -41,29 +33,25 @@
 
             <slot />
 
-            <ModalActions 
+            <ModalActions
                 v-if="showModalActions"
                 :class="{
                     'justify-end': orientation === Orientation.HORIZONTAL,
                 }"
             >
-                <ActionButton 
+                <ActionButton
                     :text="buttonCloseText"
-                    :class="[
-                        orientation === Orientation.HORIZONTAL ? 'w-full md:w-auto' : 'w-full',
-                    ]"
+                    :class="[orientation === Orientation.HORIZONTAL ? 'w-full md:w-auto' : 'w-full']"
                     @click="handleClose"
                 />
-                <ActionButton 
+                <ActionButton
                     :styleType="ButtonStyleType.PRIMARY_BRAND_FILLED"
                     :iconPosition="buttonActionIcon ? IconPosition.RIGHT : IconPosition.NONE"
                     :icon="buttonActionIcon"
                     :text="buttonActionText"
                     :isLoading
                     :loadingText
-                    :class="[
-                        orientation === Orientation.HORIZONTAL ? 'w-full md:w-auto' : 'w-full'
-                    ]"
+                    :class="[orientation === Orientation.HORIZONTAL ? 'w-full md:w-auto' : 'w-full']"
                     @click="handleMainAction"
                 />
             </ModalActions>
@@ -93,11 +81,11 @@ const props = defineProps({
     },
     buttonActionText: String as PropType<string>,
     buttonActionIcon: String as PropType<string>,
-    isLoading: { 
+    isLoading: {
         type: Boolean as PropType<boolean>,
         default: false,
     },
-    loadingText: { 
+    loadingText: {
         type: String as PropType<string>,
         default: 'Processing...',
     },

@@ -1,5 +1,5 @@
 <template>
-    <div 
+    <div
         :class="[
             'w-full',
             'flex flex-col justify-center items-center',
@@ -9,19 +9,8 @@
             'bg-diagonal-stripes',
         ]"
     >
-        <div 
-            :class="[
-            'bg-[#f3f4f6]',
-            'px-2',
-            'py-1',
-            'rounded',
-            textWrapperClass,
-        ]">
-            <span 
-                :class="[
-                'text-text-neutral-subtle-on-subtler-bg',
-                textClass,
-            ]">
+        <div :class="['bg-[#f3f4f6]', 'px-2', 'py-1', 'rounded', textWrapperClass]">
+            <span :class="['text-text-neutral-subtle-on-subtler-bg', textClass]">
                 {{ text }}
             </span>
         </div>

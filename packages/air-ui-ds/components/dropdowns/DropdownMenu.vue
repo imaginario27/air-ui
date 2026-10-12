@@ -1,10 +1,5 @@
-
 <template>
-    <div
-        ref="dropdownContainer"
-        data-test="dropdown-container"
-        :class="[isRelative && 'relative']"
-    >
+    <div ref="dropdownContainer" data-test="dropdown-container" :class="[isRelative && 'relative']">
         <!-- Activator Wrapper -->
         <div
             ref="activatorWrapper"
@@ -13,13 +8,10 @@
             @mouseenter="onActivatorMouseEnter"
             @mouseleave="onActivatorMouseLeave"
         >
-            <slot
-                name="activator"
-                :isOpen="isOpen"
-            />
+            <slot name="activator" :isOpen="isOpen" />
         </div>
 
-        <template v-if="shouldTeleport">    
+        <template v-if="shouldTeleport">
             <!-- Teleported Dropdown Menu -->
             <teleport :to="teleportTo">
                 <Transition
@@ -43,28 +35,17 @@
                             hasBorder && 'border border-border-default',
                             dropdownClass,
                         ]"
-                        :style="{ 
-                            ...computedTeleportStyle, 
-                            zIndex: zIndex 
+                        :style="{
+                            ...computedTeleportStyle,
+                            zIndex: zIndex,
                         }"
                         @mouseenter="onDropdownMouseEnter"
                         @mouseleave="onDropdownMouseLeave"
                     >
-                        <slot
-                            v-if="$slots.items"
-                            name="items"
-                            :onClose="close"
-                        />
+                        <slot v-if="$slots.items" name="items" :onClose="close" />
                         <template v-else-if="items?.length">
-                            <template
-                                v-for="(item, index) in items"
-                                :key="index"
-                            >
-                                <DropdownSectionItem
-                                    v-if="item.sectionTitle"
-                                    :text="item.text"
-                                    :icon="item.icon"
-                                />
+                            <template v-for="(item, index) in items" :key="index">
+                                <DropdownSectionItem v-if="item.sectionTitle" :text="item.text" :icon="item.icon" />
 
                                 <DropdownMenu
                                     v-else-if="canOpenNested(item)"
@@ -137,11 +118,11 @@
                 leave-active-class="transition-all duration-150 ease-in"
                 leave-to-class="opacity-0 scale-95"
             >
-                <div 
+                <div
                     v-if="isOpen"
                     ref="dropdown"
                     data-dropdown-menu-panel
-                    v-bind="$attrs" 
+                    v-bind="$attrs"
                     :class="[
                         'bg-background-surface',
                         'py-1',
@@ -153,28 +134,17 @@
                         positionClass ? positionClass : dropdownPositionClass,
                         dropdownClass,
                     ]"
-                    :style="{ 
-                        ...(!positionClass ? positionOffsetStyle : {}), 
-                        zIndex: zIndex 
+                    :style="{
+                        ...(!positionClass ? positionOffsetStyle : flippedStyle),
+                        zIndex: zIndex,
                     }"
                     @mouseenter="onDropdownMouseEnter"
                     @mouseleave="onDropdownMouseLeave"
                 >
-                    <slot 
-                        v-if="$slots['items']"
-                        name="items"
-                        :onClose="toggle"
-                    />
+                    <slot v-if="$slots['items']" name="items" :onClose="toggle" />
                     <template v-else-if="items?.length && !$slots['items']">
-                        <template
-                            v-for="(item, index) in items"
-                            :key="index"
-                        >
-                            <DropdownSectionItem
-                                v-if="item.sectionTitle"
-                                :text="item.text"
-                                :icon="item.icon"
-                            />
+                        <template v-for="(item, index) in items" :key="index">
+                            <DropdownSectionItem v-if="item.sectionTitle" :text="item.text" :icon="item.icon" />
 
                             <DropdownMenu
                                 v-else-if="canOpenNested(item)"
@@ -316,6 +286,10 @@ const props = defineProps({
         type: Boolean as PropType<boolean>,
         default: false,
     },
+    autoFlip: {
+        type: Boolean as PropType<boolean>,
+        default: false,
+    },
 })
 
 // Refs
@@ -328,11 +302,13 @@ const closeTimer = ref<ReturnType<typeof setTimeout> | null>(null)
 const isPositioned = ref(false)
 const activatorRect = ref<DOMRect | null>(null)
 const dropdownRect = ref<DOMRect | null>(null)
+const isFlipped = ref(false)
 
 // Methods
 const close = () => {
     isOpen.value = false
     isPositioned.value = false
+    isFlipped.value = false
 }
 
 const MAX_NESTED_LEVELS = 3
@@ -392,7 +368,7 @@ const getActivatorElement = () => {
 }
 
 const onActivatorClick = (event: MouseEvent) => {
-    if(props.disabled) return
+    if (props.disabled) return
 
     if (props.trigger !== Trigger.CLICK) return
     if (!activatorWrapper.value) return
@@ -403,7 +379,7 @@ const onActivatorClick = (event: MouseEvent) => {
 }
 
 const onActivatorMouseEnter = () => {
-    if(props.disabled) return
+    if (props.disabled) return
 
     if (props.trigger !== Trigger.HOVER) return
 
@@ -412,7 +388,7 @@ const onActivatorMouseEnter = () => {
 }
 
 const onActivatorMouseLeave = () => {
-    if(props.disabled) return
+    if (props.disabled) return
 
     if (props.trigger !== Trigger.HOVER) return
 
@@ -433,6 +409,20 @@ const updateRects = () => {
 
     activatorRect.value = activatorEl.getBoundingClientRect()
     dropdownRect.value = dropdown.value.getBoundingClientRect()
+
+    // Only the menus that open above or below the activator flip
+    const [primary] = props.position.split('-')
+    const isVertical = primary === 'top' || primary === 'bottom'
+
+    isFlipped.value =
+        props.autoFlip &&
+        isVertical &&
+        shouldFlipVertically(
+            primary as Position,
+            activatorRect.value,
+            dropdownRect.value.height,
+            Number(props.positionYOffset) || 0,
+        )
 }
 
 const isToggleItem = (item: DropdownMenuItem) => {
@@ -489,6 +479,25 @@ const handleKeydown = (event: KeyboardEvent) => {
 }
 
 // Computed
+const resolvedPosition = computed(() => {
+    if (!isFlipped.value) return props.position
+
+    const [primary, secondary] = props.position.split('-')
+
+    return `${primary === 'top' ? 'bottom' : 'top'}-${secondary}` as DropdownPosition
+})
+
+// The menus with their own position class keep it, so the flipped side is set with styles
+const flippedStyle = computed<CSSProperties>(() => {
+    if (!isFlipped.value || !props.positionClass) return {}
+
+    const gap = `${Number(props.positionYOffset) || 0}px`
+
+    return resolvedPosition.value.startsWith('top')
+        ? { top: 'auto', bottom: '100%', marginTop: '0px', marginBottom: gap }
+        : { top: '100%', bottom: 'auto', marginTop: gap, marginBottom: '0px' }
+})
+
 const computedTeleportStyle = computed<CSSProperties>(() => {
     if (!isPositioned.value || !activatorRect.value || !dropdownRect.value) {
         return {
@@ -505,7 +514,7 @@ const computedTeleportStyle = computed<CSSProperties>(() => {
     const x = Number(props.positionXOffset) || 0
     const y = Number(props.positionYOffset) || 0
 
-    const [primary, secondary] = props.position.toLowerCase().split('-')
+    const [primary, secondary] = resolvedPosition.value.toLowerCase().split('-')
 
     let top = 0
     let left = 0
@@ -522,21 +531,21 @@ const computedTeleportStyle = computed<CSSProperties>(() => {
 
     return props.isSticky
         ? {
-            position: 'fixed',
-            top: `${top}px`,
-            left: `${left}px`,
-            width: `${a.width}px`,
-            visibility: 'visible',
-            zIndex: props.zIndex,
-        }
+              position: 'fixed',
+              top: `${top}px`,
+              left: `${left}px`,
+              width: `${a.width}px`,
+              visibility: 'visible',
+              zIndex: props.zIndex,
+          }
         : {
-            position: 'absolute',
-            top: `${top + window.scrollY}px`,
-            left: `${left + window.scrollX}px`,
-            width: `${a.width}px`,
-            visibility: 'visible',
-            zIndex: props.zIndex,
-        }
+              position: 'absolute',
+              top: `${top + window.scrollY}px`,
+              left: `${left + window.scrollX}px`,
+              width: `${a.width}px`,
+              visibility: 'visible',
+              zIndex: props.zIndex,
+          }
 })
 
 // Styles for non-teleported dropdown
@@ -552,7 +561,7 @@ const dropdownPositionClass = computed(() => {
         [DropdownPosition.BOTTOM_RIGHT]: 'absolute right-0 top-full',
     }
 
-    return variant[props.position as DropdownPosition] || 'absolute right-0 top-full'
+    return variant[resolvedPosition.value as DropdownPosition] || 'absolute right-0 top-full'
 })
 
 const positionOffsetStyle = computed(() => {
@@ -564,70 +573,48 @@ const positionOffsetStyle = computed(() => {
 
     const x = props.positionXOffset
     const y = props.positionYOffset
-    const position = props.position as DropdownPosition
+    const position = resolvedPosition.value as DropdownPosition
 
     const style: Record<string, string> = {}
 
     // Vertical alignment
-    if (
-        position === DropdownPosition.TOP_LEFT ||
-        position === DropdownPosition.TOP_RIGHT
-    ) {
+    if (position === DropdownPosition.TOP_LEFT || position === DropdownPosition.TOP_RIGHT) {
         style.marginBottom = normalizeOffset(y)
     }
 
-    if (
-        position === DropdownPosition.BOTTOM_LEFT ||
-        position === DropdownPosition.BOTTOM_RIGHT
-    ) {
+    if (position === DropdownPosition.BOTTOM_LEFT || position === DropdownPosition.BOTTOM_RIGHT) {
         style.marginTop = normalizeOffset(y)
     }
 
-    if (
-        position === DropdownPosition.LEFT_TOP ||
-        position === DropdownPosition.RIGHT_TOP
-    ) {
+    if (position === DropdownPosition.LEFT_TOP || position === DropdownPosition.RIGHT_TOP) {
         style.marginTop = normalizeOffset(y)
     }
 
-    if (
-        position === DropdownPosition.LEFT_BOTTOM ||
-        position === DropdownPosition.RIGHT_BOTTOM
-    ) {
+    if (position === DropdownPosition.LEFT_BOTTOM || position === DropdownPosition.RIGHT_BOTTOM) {
         style.marginBottom = normalizeOffset(y)
     }
 
     // Horizontal alignment
-    if (
-        position === DropdownPosition.TOP_LEFT ||
-        position === DropdownPosition.BOTTOM_LEFT
-    ) {
+    if (position === DropdownPosition.TOP_LEFT || position === DropdownPosition.BOTTOM_LEFT) {
         style.marginLeft = normalizeOffset(x)
     }
 
-    if (
-        position === DropdownPosition.TOP_RIGHT ||
-        position === DropdownPosition.BOTTOM_RIGHT
-    ) {
+    if (position === DropdownPosition.TOP_RIGHT || position === DropdownPosition.BOTTOM_RIGHT) {
         style.marginRight = normalizeOffset(x)
     }
 
-    if (
-        position === DropdownPosition.LEFT_TOP ||
-        position === DropdownPosition.LEFT_BOTTOM
-    ) {
+    if (position === DropdownPosition.LEFT_TOP || position === DropdownPosition.LEFT_BOTTOM) {
         style.marginRight = normalizeOffset(x)
     }
 
-    if (
-        position === DropdownPosition.RIGHT_TOP ||
-        position === DropdownPosition.RIGHT_BOTTOM
-    ) {
+    if (position === DropdownPosition.RIGHT_TOP || position === DropdownPosition.RIGHT_BOTTOM) {
         style.marginLeft = normalizeOffset(x)
     }
 
     return style
 })
+
+defineExpose({ isOpen, open, close, toggle })
 
 onMounted(() => {
     document.addEventListener('click', handleOutsideEvent)

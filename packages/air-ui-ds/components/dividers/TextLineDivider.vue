@@ -1,14 +1,7 @@
 <template>
     <div class="w-full flex items-center gap-4">
-        <Divider v-if="align === Align.CENTER"/>
-        <span 
-            :class="[
-                'font-semibold',
-                'text-nowrap',
-                textSizeClass, 
-                textColorClass
-            ]"
-        >
+        <Divider v-if="align === Align.CENTER" />
+        <span :class="['font-semibold', 'text-nowrap', textSizeClass, textColorClass]">
             {{ text }}
         </span>
         <Divider />
@@ -17,7 +10,7 @@
 <script setup lang="ts">
 // Props
 const props = defineProps({
-    text: { 
+    text: {
         type: String as PropType<string>,
         default: 'Text',
     },

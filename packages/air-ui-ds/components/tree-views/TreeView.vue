@@ -38,13 +38,11 @@
                 'rounded',
                 'transition-colors',
                 'focus:outline-none focus-visible:ring-2 focus-visible:ring-border-primary-brand-default',
-                isDisabled(row.node)
-                    ? 'opacity-disabled cursor-not-allowed'
-                    : 'cursor-pointer',
+                isDisabled(row.node) ? 'opacity-disabled cursor-not-allowed' : 'cursor-pointer',
                 !isDisabled(row.node) && 'hover:bg-background-neutral-subtlest',
                 draggedValue === row.node.value && 'opacity-50',
-                isDropContainer(row.node)
-                    && 'bg-background-primary-brand-soft ring-2 ring-inset ring-border-primary-brand-default',
+                isDropContainer(row.node) &&
+                    'bg-background-primary-brand-soft ring-2 ring-inset ring-border-primary-brand-default',
             ]"
             :style="{ paddingLeft: `${BASE_PADDING_PX + row.level * sizeConfig.indent}px` }"
             data-testid="tree-view-item"
@@ -64,7 +62,9 @@
                     v-for="guideLevel in row.level"
                     :key="guideLevel"
                     class="absolute top-0 bottom-0 w-px bg-border-neutral-subtle"
-                    :style="{ left: `${BASE_PADDING_PX + (guideLevel - 1) * sizeConfig.indent + CHEVRON_SIZE_PX / 2}px` }"
+                    :style="{
+                        left: `${BASE_PADDING_PX + (guideLevel - 1) * sizeConfig.indent + CHEVRON_SIZE_PX / 2}px`,
+                    }"
                     data-testid="tree-view-indent-guide"
                 />
             </template>
@@ -81,7 +81,9 @@
                 :style="{ left: `${BASE_PADDING_PX + row.level * sizeConfig.indent}px` }"
                 data-testid="tree-view-drop-indicator"
             >
-                <span class="h-[8px] w-[8px] shrink-0 rounded-full border-2 border-border-primary-brand-default bg-background-surface" />
+                <span
+                    class="h-[8px] w-[8px] shrink-0 rounded-full border-2 border-border-primary-brand-default bg-background-surface"
+                />
                 <span class="h-[2px] flex-1 bg-border-primary-brand-default" />
             </span>
 
@@ -100,18 +102,11 @@
                 <Icon
                     v-else-if="isBranch(row.node)"
                     name="mdi:chevron-right"
-                    :iconClass="[
-                        'transition-transform duration-200',
-                        isExpanded(row.node) ? 'rotate-90' : '',
-                    ]"
+                    :iconClass="['transition-transform duration-200', isExpanded(row.node) ? 'rotate-90' : '']"
                 />
             </span>
 
-            <span
-                v-if="showCheckboxes"
-                class="flex shrink-0"
-                @click.stop
-            >
+            <span v-if="showCheckboxes" class="flex shrink-0" @click.stop>
                 <TriStateCheckbox
                     :id="`${baseId}-check-${row.node.value}`"
                     :modelValue="getCheckState(row.node)"
@@ -133,10 +128,7 @@
                 >
                     <Icon
                         :name="getIcon(row.node)"
-                        :iconClass="[
-                            'shrink-0',
-                            isActive(row.node) ? activeIconColorClass : 'text-icon-default',
-                        ]"
+                        :iconClass="['shrink-0', isActive(row.node) ? activeIconColorClass : 'text-icon-default']"
                     />
                 </slot>
             </template>
@@ -158,13 +150,10 @@
                 @keydown.enter.prevent="commitRename(row.node.value, true)"
                 @keydown.esc.prevent="cancelRename(true)"
                 @blur="commitRename(row.node.value, false)"
-            >
+            />
             <span
                 v-else
-                :class="[
-                    'min-w-0 flex-1 truncate',
-                    isActive(row.node) && activeLabelClass,
-                ]"
+                :class="['min-w-0 flex-1 truncate', isActive(row.node) && activeLabelClass]"
                 data-testid="tree-view-label"
             >
                 <slot
@@ -179,11 +168,7 @@
                 </slot>
             </span>
 
-            <span
-                v-if="$slots.trailing"
-                class="flex shrink-0 items-center"
-                data-testid="tree-view-trailing"
-            >
+            <span v-if="$slots.trailing" class="flex shrink-0 items-center" data-testid="tree-view-trailing">
                 <slot
                     name="trailing"
                     :node="row.node"
@@ -216,29 +201,13 @@
                     :style="{ minWidth: `${moreActionsMenuWidth}px` }"
                 >
                     <template #activator>
-                        <button
-                            type="button"
-                            :aria-label="moreActionsAriaLabel"
-                            :class="moreActionsButtonClass"
-                        >
-                            <Icon
-                                name="mdi:dots-vertical"
-                                iconClass="w-[16px] h-[16px]"
-                            />
+                        <button type="button" :aria-label="moreActionsAriaLabel" :class="moreActionsButtonClass">
+                            <Icon name="mdi:dots-vertical" iconClass="w-[16px] h-[16px]" />
                         </button>
                     </template>
                 </DropdownMenu>
-                <button
-                    v-else
-                    type="button"
-                    tabindex="-1"
-                    aria-hidden="true"
-                    :class="moreActionsButtonClass"
-                >
-                    <Icon
-                        name="mdi:dots-vertical"
-                        iconClass="w-[16px] h-[16px]"
-                    />
+                <button v-else type="button" tabindex="-1" aria-hidden="true" :class="moreActionsButtonClass">
+                    <Icon name="mdi:dots-vertical" iconClass="w-[16px] h-[16px]" />
                 </button>
             </div>
         </div>
@@ -284,19 +253,13 @@ const props = defineProps({
         default: () => [],
     },
     color: {
-        type: String as PropType<
-            ColorAccent.PRIMARY_BRAND
-            | ColorAccent.SECONDARY_BRAND
-            | ColorAccent.NEUTRAL
-        >,
+        type: String as PropType<ColorAccent.PRIMARY_BRAND | ColorAccent.SECONDARY_BRAND | ColorAccent.NEUTRAL>,
         default: ColorAccent.PRIMARY_BRAND,
         validator: (value: unknown) =>
             typeof value === 'string' &&
-            [
-                ColorAccent.PRIMARY_BRAND,
-                ColorAccent.SECONDARY_BRAND,
-                ColorAccent.NEUTRAL,
-            ].includes(value as ColorAccent),
+            [ColorAccent.PRIMARY_BRAND, ColorAccent.SECONDARY_BRAND, ColorAccent.NEUTRAL].includes(
+                value as ColorAccent,
+            ),
     },
     size: {
         type: String as PropType<ControlFieldSize>,
@@ -473,13 +436,7 @@ const {
     handleDrop,
 } = dragDrop
 const { sizeConfig, isActive, activeLabelClass, activeIconColorClass, getIcon, animateRow } = appearance
-const {
-    moreActionsPositions,
-    moreActionsByValue,
-    toDropdownPosition,
-    isActionsArmed,
-    activateActions,
-} = moreActions
+const { moreActionsPositions, moreActionsByValue, toDropdownPosition, isActionsArmed, activateActions } = moreActions
 
 const scrollToNode = async (value: string) => {
     await expansion.expandTo(value)

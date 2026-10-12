@@ -2,9 +2,7 @@
     <Section>
         <SectionBody>
             <TabBar v-model="activeIndex" :tabs />
-            <ContentRenderer 
-                v-if="data" :value="data" 
-            />
+            <ContentRenderer v-if="data" :value="data" />
             <ContentRenderFallback v-else />
         </SectionBody>
     </Section>
@@ -14,7 +12,8 @@ definePageMeta({
     title: 'Button pagination',
     layout: 'docs',
     overtitle: 'Components',
-    description: 'Explore the ButtonPagination component for navigating paginated data using interactive buttons and customizable controls.',
+    description:
+        'Explore the ButtonPagination component for navigating paginated data using interactive buttons and customizable controls.',
 })
 
 // Route

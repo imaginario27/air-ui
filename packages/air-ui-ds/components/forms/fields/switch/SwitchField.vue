@@ -1,61 +1,34 @@
 <template>
-    <div 
-        :class="[
-            'flex flex-col',
-            'w-full',
-            'gap-2',
-        ]"
-    >
+    <div :class="['flex flex-col', 'w-full', 'gap-2']">
         <!-- Legend -->
-        <legend 
-            v-if="legend"
-            :class="[ 
-                'text-sm', 
-                'font-semibold', 
-                'text-left',
-            ]"
-        >
+        <legend v-if="legend" :class="['text-sm', 'font-semibold', 'text-left']">
             {{ legend }}
-            <span
-                v-if="!required && showOptionalLabel"
-                class="font-normal text-text-neutral-subtler"
-            >
+            <span v-if="!required && showOptionalLabel" class="font-normal text-text-neutral-subtler">
                 {{ optionalLabelText }}
             </span>
         </legend>
 
         <!-- Main wrapper -->
-        <div 
-            :class="[ 
+        <div
+            :class="[
                 'flex items-center gap-3',
-                ($slots.label || label) || icon ? 'justify-between' : 'justify-end',
+                $slots.label || label || icon ? 'justify-between' : 'justify-end',
                 fitToContent && 'w-max',
                 'text-sm w-full',
                 hasError ? 'text-text-error' : 'text-text-default',
-                checkboxWrapperClass && checkboxWrapperClass
+                checkboxWrapperClass && checkboxWrapperClass,
             ]"
         >
             <!-- Label + Icon block (only if present) -->
-            <div
-                v-if="$slots.label || label || icon"
-                class="flex gap-2.5 w-full"
-            >
+            <div v-if="$slots.label || label || icon" class="flex gap-2.5 w-full">
                 <!-- Icon -->
-                <Icon
-                    v-if="icon"
-                    :name="icon"
-                    :iconClass="iconSizeClass"
-                />
+                <Icon v-if="icon" :name="icon" :iconClass="iconSizeClass" />
 
                 <!-- Label -->
                 <label
                     v-if="$slots.label || label"
                     :for="id"
-                    :class="[
-                        disabled && 'text-text-neutral-disabled',
-                        labelSizeClass,
-                        labelClass && labelClass
-                    ]"
+                    :class="[disabled && 'text-text-neutral-disabled', labelSizeClass, labelClass && labelClass]"
                 >
                     <slot name="label">{{ label }}</slot>
                 </label>
@@ -126,7 +99,7 @@ const props = defineProps({
         type: String as PropType<SwitchStyle>,
         default: SwitchStyle.BRAND,
         validator: (value: SwitchStyle) => Object.values(SwitchStyle).includes(value),
-    },    
+    },
     fitToContent: {
         type: Boolean as PropType<boolean>,
         default: false,
@@ -189,11 +162,11 @@ const runValidation = () => {
 // Watchers
 watch(
     () => props.modelValue,
-    value => {
+    (value) => {
         if (validationMode.value === FormValidationMode.BLUR && props.validator && props.required) {
             const result = props.validator(value)
             emit('update:error', result ?? '')
         }
-    }
+    },
 )
 </script>

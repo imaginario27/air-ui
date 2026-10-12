@@ -3,25 +3,16 @@
         <ProseTable v-if="items.length">
             <ProseThead>
                 <ProseTr>
-                    <ProseTh>
-                        Theme palette
-                    </ProseTh>
-                    <ProseTh>
-                        Description
-                    </ProseTh>
-                    <ProseTh>
-                        Usage
-                    </ProseTh>
+                    <ProseTh> Theme palette </ProseTh>
+                    <ProseTh> Description </ProseTh>
+                    <ProseTh> Usage </ProseTh>
                 </ProseTr>
             </ProseThead>
 
             <ProseTbody>
                 <ProseTr v-for="(item, index) in items" :key="index">
                     <ProseTd>
-                        <ProseCode 
-                            :color="item.color"
-                            class="font-semibold"
-                        >
+                        <ProseCode :color="item.color" class="font-semibold">
                             {{ item.name }}
                         </ProseCode>
                     </ProseTd>
@@ -49,7 +40,7 @@ interface ThemePaletteTableItem {
 defineProps({
     items: {
         type: Array as PropType<ThemePaletteTableItem[]>,
-        default: () => []
-    }
+        default: () => [],
+    },
 })
 </script>

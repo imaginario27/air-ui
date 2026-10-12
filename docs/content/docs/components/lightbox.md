@@ -66,6 +66,11 @@ props: [
         "type": "boolean",
     },
     {
+        "name": "easing",
+        "default": "Easing.EASE_OUT",
+        "type": "Easing",
+    },
+    {
         "name": "lightboxClass",
         "type": "string",
     },
@@ -191,6 +196,35 @@ Closes the lightbox when you click the backdrop around the image.
 - **Type:** `boolean`
 - **Default:** `true`
 
+### easing
+
+Sets the timing curve of the slide transition between images via the shared `Easing` enum, which the [Carousel](/docs/components/carousel#easing) also uses.
+
+```vue
+<template>
+    <Lightbox v-model="showLightbox" :images :easing="Easing.SMOOTH" />
+</template>
+```
+
+- **Type:** `Easing`
+- **Default:** `Easing.EASE_OUT`
+
+#### Options
+
+::options-table
+---
+options: [
+    { value: "SMOOTH", description: "Fast start with a long, gentle finish" },
+    { value: "EASE", description: "CSS `ease`" },
+    { value: "EASE_IN", description: "CSS `ease-in`" },
+    { value: "EASE_OUT", description: "CSS `ease-out`" },
+    { value: "EASE_IN_OUT", description: "CSS `ease-in-out`" },
+    { value: "LINEAR", description: "Constant speed" },
+    { value: "BOUNCE", description: "Slightly overshoots the target before settling" },
+]
+---
+::
+
 ### lightboxClass
 
 Adds custom classes to the dialog element.
@@ -217,7 +251,7 @@ Sets the accessible name of the dialog. Falls back to `useDSConfig().lightbox.di
 
 ### prevLabel
 
-Sets the accessible name of the previous button. Falls back to `useDSConfig().lightbox.previousText()`.
+Sets the accessible name of the previous button. Falls back to `useDSConfig().slides.previousText()`.
 
 ```vue
 <template>
@@ -229,7 +263,7 @@ Sets the accessible name of the previous button. Falls back to `useDSConfig().li
 
 ### nextLabel
 
-Sets the accessible name of the next button. Falls back to `useDSConfig().lightbox.nextText()`.
+Sets the accessible name of the next button. Falls back to `useDSConfig().slides.nextText()`.
 
 ```vue
 <template>

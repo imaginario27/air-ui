@@ -1,5 +1,5 @@
 <template>
-    <div 
+    <div
         v-if="items"
         :class="[
             'flex',
@@ -10,14 +10,10 @@
             'divide-border-neutral-subtle',
             'border-t',
             'border-b',
-            'border-border-neutral-subtle'
+            'border-border-neutral-subtle',
         ]"
     >
-        <AccordionItem 
-            v-for="item in items" :key="item.id" 
-            :title="item.title"
-            :content="item.content"
-        />
+        <AccordionItem v-for="item in items" :key="item.id" :title="item.title" :content="item.content" />
     </div>
 </template>
 <script setup lang="ts">
@@ -25,7 +21,7 @@
 defineProps({
     items: {
         type: Array as PropType<AccordionItem[]>,
-        required: true
-    }
+        required: true,
+    },
 })
 </script>

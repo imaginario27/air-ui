@@ -15,15 +15,7 @@
         <slot name="visual-left" />
 
         <!-- Body -->
-        <div
-            :class="[
-                'w-full',
-                'gap-9',
-                'flex',
-                'flex-col',
-                contentAlignmentClass,
-            ]"
-        >
+        <div :class="['w-full', 'gap-9', 'flex', 'flex-col', contentAlignmentClass]">
             <slot name="visual-top" />
 
             <ContainedIcon
@@ -33,16 +25,9 @@
                 :size="IconContainerSize.XXL"
             />
 
-            <div 
+            <div
                 v-if="!$slots['description']"
-                :class="[
-                    'flex',
-                    'flex-col',
-                    'gap-4',
-                    contentAlignmentClass,
-                    'w-full',
-                    'max-w-[600px]',
-                ]"
+                :class="['flex', 'flex-col', 'gap-4', contentAlignmentClass, 'w-full', 'max-w-[600px]']"
             >
                 <Heading
                     :title="resolvedErrorMapping.title"
@@ -53,14 +38,7 @@
                     headingTag="h1"
                 />
 
-                <p
-                    :class="[
-                        'text-text-neutral-subtle',
-                        'font-semibold',
-                        textAlignmentClass,
-                        'leading-6',
-                    ]"
-                >
+                <p :class="['text-text-neutral-subtle', 'font-semibold', textAlignmentClass, 'leading-6']">
                     {{ resolvedErrorMapping.message }}
                 </p>
             </div>
@@ -68,13 +46,13 @@
             <slot name="description" />
 
             <!-- Actions -->
-            <div 
+            <div
                 :class="[
-                    'w-full', 
-                    'flex', 
-                    'gap-3', 
-                    actionsAlignmentClass, 
-                    'flex-col', 
+                    'w-full',
+                    'flex',
+                    'gap-3',
+                    actionsAlignmentClass,
+                    'flex-col',
                     'md:flex-row',
                     'mb-4 md:mb-10', // Visual fix to push content a bit up
                 ]"
@@ -160,7 +138,9 @@ const props = defineProps({
 
 // Runtime constants
 const config = useRuntimeConfig()
-const { public: { appName } } = config
+const {
+    public: { appName },
+} = config
 
 // Constants
 const defaultErrorMappings: ErrorMapping[] = [
@@ -238,9 +218,8 @@ const defaultErrorMappings: ErrorMapping[] = [
         statusCode: -1,
         title: 'Unexpected error',
         message: 'An unknown error occurred. Please try again.',
-    }
+    },
 ]
-
 
 // Computed
 const resolvedErrorMapping = computed(() => {
@@ -249,8 +228,8 @@ const resolvedErrorMapping = computed(() => {
     const combined = [...props.errorMappings, ...defaultErrorMappings]
 
     return (
-        combined.find(mapping => mapping.statusCode === code) ??
-        combined.find(mapping => mapping.statusCode === -1)!
+        combined.find((mapping) => mapping.statusCode === code) ??
+        combined.find((mapping) => mapping.statusCode === -1)!
     )
 })
 
@@ -270,10 +249,9 @@ const contentAlignmentClass = computed(() => {
         [Align.RIGHT]: 'md:items-end',
     }
 
-    return [
-        props.isMobileCentered ? 'items-center' : '',
-        base[props.alignContent as Align] || 'md:items-center',
-    ].join(' ').trim()
+    return [props.isMobileCentered ? 'items-center' : '', base[props.alignContent as Align] || 'md:items-center']
+        .join(' ')
+        .trim()
 })
 
 const actionsAlignmentClass = computed(() => {
@@ -286,7 +264,9 @@ const actionsAlignmentClass = computed(() => {
     return [
         props.isMobileCentered ? 'items-center justify-center' : '',
         base[props.alignContent as Align] || 'md:items-center md:justify-center',
-    ].join(' ').trim()
+    ]
+        .join(' ')
+        .trim()
 })
 
 const textAlignmentClass = computed(() => {
@@ -296,9 +276,8 @@ const textAlignmentClass = computed(() => {
         [Align.RIGHT]: 'md:text-right',
     }
 
-    return [
-        props.isMobileCentered ? 'text-center' : '',
-        base[props.alignContent as Align] || 'md:text-center',
-    ].join(' ').trim()
+    return [props.isMobileCentered ? 'text-center' : '', base[props.alignContent as Align] || 'md:text-center']
+        .join(' ')
+        .trim()
 })
 </script>

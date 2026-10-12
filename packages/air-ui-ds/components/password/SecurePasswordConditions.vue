@@ -1,12 +1,5 @@
 <template>
-    <div 
-        :class="[
-            'flex',
-            'flex-col',
-            'items-start',
-            'gap-2',
-        ]"
-    >
+    <div :class="['flex', 'flex-col', 'items-start', 'gap-2']">
         <SecurePasswordCondition
             v-if="enabledConditions.includes('length')"
             :label="'Password should be at least 12 characters long.'"
@@ -51,9 +44,7 @@ const props = defineProps({
 })
 
 // Emits
-const emit = defineEmits([
-    'conditions-checked',
-])
+const emit = defineEmits(['conditions-checked'])
 
 // Computed states
 const conditions = computed(() => evaluateSecurePasswordConditions(props.password))

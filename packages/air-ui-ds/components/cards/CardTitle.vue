@@ -7,7 +7,7 @@
 defineProps({
     title: {
         type: String as PropType<string>,
-        default: 'Card title'
-    }
+        default: 'Card title',
+    },
 })
 </script>

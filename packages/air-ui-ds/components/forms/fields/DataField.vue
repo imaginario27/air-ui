@@ -1,45 +1,21 @@
 <template>
-    <div 
-        :class="[ 
-            'flex flex-col', 
-            'w-full', 
-            'gap-2' 
-        ]"
-    >
+    <div :class="['flex flex-col', 'w-full', 'gap-2']">
         <!-- Label -->
-        <label 
-            v-if="label"
-            :for="id" 
-            :class="[ 
-                'text-sm', 
-                'font-semibold', 
-                'text-left',
-            ]"
-        >
+        <label v-if="label" :for="id" :class="['text-sm', 'font-semibold', 'text-left']">
             {{ label }}
         </label>
 
         <!-- Help Text (top) -->
-        <HelpText
-            v-if="helpTextPosition === Position.TOP"
-            :text="helpText"
-        />
+        <HelpText v-if="helpTextPosition === Position.TOP" :text="helpText" />
 
         <template v-if="!$slots.default">
             <template v-if="!isEmpty">
-                <div 
-                    v-if="text"
-                    class="flex gap-2 items-center"
-                >
-                    <p 
-                        :class="[
-                            'text-sm',
-                        ]"
-                    >
+                <div v-if="text" class="flex gap-2 items-center">
+                    <p :class="['text-sm']">
                         {{ text }}
                     </p>
 
-                    <ActionIconButton 
+                    <ActionIconButton
                         v-if="hasCopyToClipboardButton"
                         icon="mdi:content-copy"
                         :size="ButtonSize.XS"
@@ -49,11 +25,7 @@
                 </div>
             </template>
             <template v-else>
-                <p 
-                    :class="[
-                        'text-sm text-text-neutral-subtle',
-                    ]"
-                >
+                <p :class="['text-sm text-text-neutral-subtle']">
                     {{ emptyText }}
                 </p>
             </template>
@@ -61,28 +33,25 @@
 
         <!-- Slot for other type of items -->
         <slot />
-       
+
         <!-- Help Text (bottom) -->
-        <HelpText
-            v-if="helpTextPosition === Position.BOTTOM"
-            :text="helpText"
-        />
+        <HelpText v-if="helpTextPosition === Position.BOTTOM" :text="helpText" />
     </div>
 </template>
 
 <script setup lang="ts">
 // Props
 const props = defineProps({
-    id: { 
-        type: String as PropType<string>, 
-        required: true, 
+    id: {
+        type: String as PropType<string>,
+        required: true,
     },
     label: String as PropType<string>,
     ariaLabel: String as PropType<string>,
     text: [String, Number] as PropType<string | number>,
     emptyText: {
         type: String as PropType<string>,
-        default: 'Not defined'
+        default: 'Not defined',
     },
     helpText: String as PropType<string>,
     helpTextPosition: {
@@ -92,15 +61,15 @@ const props = defineProps({
     },
     hasCopyToClipboardButton: {
         type: Boolean as PropType<boolean>,
-        default: false
+        default: false,
     },
     copyToClipboardMessage: {
         type: String as PropType<string>,
-        default: 'Copied to clipboard'
+        default: 'Copied to clipboard',
     },
     copyToClipboardErrorMessage: {
         type: String as PropType<string>,
-        default: 'Failed to copy to clipboard'
+        default: 'Failed to copy to clipboard',
     },
 })
 

@@ -1,26 +1,23 @@
 <template>
-    <div 
-        :class="[ 
+    <div
+        :class="[
             'flex justify-center items-center',
             'bg-background-primary-brand-soft',
             'aspect-square',
             'overflow-hidden',
             shapeClass,
             sizeClass,
-            hasBorder && [
-                'border border-border-primary-brand-hover',
-                borderSizeClass,
-            ],
+            hasBorder && ['border border-border-primary-brand-hover', borderSizeClass],
             isInteractive && [
                 hoverBorderSizeClass,
-                'border-border-primary-brand-hover cursor-pointer transition-[border-width] duration-200 ease-out'
+                'border-border-primary-brand-hover cursor-pointer transition-[border-width] duration-200 ease-out',
             ],
         ]"
     >
         <!-- Show initials if imgUrl is not provided or image fails to load -->
-        <span 
+        <span
             v-if="!props.imgUrl || !isImageLoaded"
-            :class="[ 
+            :class="[
                 'flex items-center justify-center text-text-primary-brand-on-soft-bg font-bold select-none',
                 textSizeClass,
             ]"
@@ -29,14 +26,14 @@
         </span>
 
         <!-- Show the image if it loads successfully -->
-        <img 
+        <img
             v-else
-            :src="props.imgUrl" 
+            :src="props.imgUrl"
             :alt="`${props.displayName} avatar`"
             class="object-cover w-full h-full aspect-square"
             @load="handleImageLoad"
             @error="handleImageError"
-        >
+        />
     </div>
 </template>
 

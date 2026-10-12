@@ -1,9 +1,7 @@
 ﻿<template>
     <Section>
         <SectionBody>
-            <ContentRenderer 
-                v-if="data" :value="data" 
-            />
+            <ContentRenderer v-if="data" :value="data" />
             <ContentRenderFallback v-else />
         </SectionBody>
     </Section>
@@ -13,7 +11,8 @@ definePageMeta({
     title: 'Content item',
     layout: 'docs',
     overtitle: 'Components',
-    description: 'Renders a customizable content item from the content collection. Suitable for posts, news, portfolio items, and other dynamic content.',
+    description:
+        'Renders a customizable content item from the content collection. Suitable for posts, news, portfolio items, and other dynamic content.',
 })
 
 // Route

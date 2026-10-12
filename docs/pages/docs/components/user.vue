@@ -1,11 +1,8 @@
-﻿
-<template>
+﻿<template>
     <Section>
         <SectionBody>
             <TabBar v-model="activeIndex" :tabs />
-            <ContentRenderer 
-                v-if="data" :value="data" 
-            />
+            <ContentRenderer v-if="data" :value="data" />
             <ContentRenderFallback v-else />
         </SectionBody>
     </Section>
@@ -15,7 +12,8 @@ definePageMeta({
     title: 'User',
     layout: 'docs',
     overtitle: 'Components',
-    description: 'A lightweight User component for displaying a user avatar and name. It is used to display users in tables, lists, and other places where user information is needed.'
+    description:
+        'A lightweight User component for displaying a user avatar and name. It is used to display users in tables, lists, and other places where user information is needed.',
 })
 
 // Route

@@ -1,6 +1,6 @@
 <template>
-    <button 
-        :class="[ 
+    <button
+        :class="[
             styleType === ButtonPaginationStyle.BUTTON ? 'border' : 'border-t',
             'border-border-default',
             styleType === ButtonPaginationStyle.BUTTON && 'first:rounded-l last:rounded-r',
@@ -13,7 +13,7 @@
             'font-semibold',
             'transition-colors duration-200 ease-out',
             'hover:bg-background-neutral-hover',
-            props.disabled ? 'opacity-50 hover:cursor-not-allowed hover:bg-transparent' : 'hover:cursor-pointer'
+            props.disabled ? 'opacity-50 hover:cursor-not-allowed hover:bg-transparent' : 'hover:cursor-pointer',
         ]"
         :disabled="props.disabled"
         :aria-label="ariaLabel"

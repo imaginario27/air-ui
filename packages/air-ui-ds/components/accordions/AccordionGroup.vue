@@ -1,26 +1,16 @@
-<template >
-    <div 
-        v-if="Object.keys(groupedAccordeons).length"
-        class="flex flex-col gap-3 w-full"
-    >
-        <div 
-            v-for="(groupKey, index) in sortedGroupKeys" 
+<template>
+    <div v-if="Object.keys(groupedAccordeons).length" class="flex flex-col gap-3 w-full">
+        <div
+            v-for="(groupKey, index) in sortedGroupKeys"
             :key="groupKey"
             class="accordion-group flex flex-col gap-3 w-full"
         >
-            <component
-                :is="titleTag"
-                :class="[
-                    titleCustomClass,
-                    { 'mt-4': index !== 0 }
-                ]"
-            >
+            <component :is="titleTag" :class="[titleCustomClass, { 'mt-4': index !== 0 }]">
                 {{ groupKey }}
             </component>
             <Accordion :items="groupedAccordeons[groupKey] ?? []" />
         </div>
     </div>
-    
 </template>
 
 <script setup lang="ts">
@@ -28,11 +18,11 @@
 const props = defineProps({
     items: {
         type: Array as PropType<AccordionItem[]>,
-        required: true
+        required: true,
     },
     defaultGroupName: {
         type: String as PropType<string>,
-        default: 'Group title'
+        default: 'Group title',
     },
     defaultGroupPosition: {
         type: String as PropType<OrderPosition>,
@@ -41,7 +31,7 @@ const props = defineProps({
     },
     titleCustomClass: {
         type: String as PropType<string>,
-        default: 'font-semibold text-lg text-text-neutral-subtle'
+        default: 'font-semibold text-lg text-text-neutral-subtle',
     },
     titleTag: {
         type: String as PropType<'h3' | 'h4' | 'h5' | 'h6'>,
@@ -52,14 +42,17 @@ const props = defineProps({
 
 // Groups accordion items by their `group` property
 const groupedAccordeons = computed(() => {
-    return props.items.reduce((acc, item) => {
-        const groupKey = item.group || props.defaultGroupName
-        if (!acc[groupKey]) {
-            acc[groupKey] = []
-        }
-        acc[groupKey].push(item)
-        return acc
-    }, {} as Record<string, AccordionItem[]>)
+    return props.items.reduce(
+        (acc, item) => {
+            const groupKey = item.group || props.defaultGroupName
+            if (!acc[groupKey]) {
+                acc[groupKey] = []
+            }
+            acc[groupKey].push(item)
+            return acc
+        },
+        {} as Record<string, AccordionItem[]>,
+    )
 })
 
 // Sorts the group keys based on the `defaultGroupPosition` prop
@@ -74,5 +67,4 @@ const sortedGroupKeys = computed(() => {
 
     return keys.sort(compare)
 })
-
 </script>

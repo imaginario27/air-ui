@@ -1,5 +1,5 @@
 <template>
-    <DangerModalDialog 
+    <DangerModalDialog
         v-model="showModal"
         :icon
         :title
@@ -14,11 +14,7 @@
         :closeOnClickOutside
         :hasCornerCloseButton
     />
-    <ActionButton 
-        :styleType="ButtonStyleType.NEUTRAL_FILLED"
-        text="Open Danger Modal"
-        @click="showModal = true"
-    />
+    <ActionButton :styleType="ButtonStyleType.NEUTRAL_FILLED" text="Open Danger Modal" @click="showModal = true" />
 </template>
 <script setup lang="ts">
 // States
@@ -47,7 +43,7 @@ defineProps({
         type: String as PropType<string>,
         default: 'mdi:delete-forever-outline',
     },
-    isLoading: { 
+    isLoading: {
         type: Boolean as PropType<boolean>,
         default: false,
     },

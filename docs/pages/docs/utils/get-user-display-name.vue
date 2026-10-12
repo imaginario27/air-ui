@@ -1,9 +1,7 @@
 ﻿<template>
     <Section>
         <SectionBody>
-            <ContentRenderer 
-                v-if="data" :value="data" 
-            />
+            <ContentRenderer v-if="data" :value="data" />
             <ContentRenderFallback v-else />
         </SectionBody>
     </Section>
@@ -13,7 +11,7 @@ definePageMeta({
     title: 'getUserDisplayName',
     layout: 'docs',
     overtitle: 'Utils',
-    description: 'Generates a unique username based on the user\'s first name and last names.',
+    description: "Generates a unique username based on the user's first name and last names.",
     category: 'Users',
 })
 

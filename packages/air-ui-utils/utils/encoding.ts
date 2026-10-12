@@ -1,4 +1,3 @@
-
 /**
  * Encodes an SVG string to a Data URI.
  *
@@ -7,9 +6,6 @@
  */
 export const encodeSvgToDataURI = (svg: string): string => {
     return `data:image/svg+xml;charset=utf8,${encodeURIComponent(
-        svg.replace(
-            '<svg',
-            svg.includes('xmlns') ? '<svg' : '<svg xmlns="http://www.w3.org/2000/svg"'
-        )
+        svg.replace('<svg', svg.includes('xmlns') ? '<svg' : '<svg xmlns="http://www.w3.org/2000/svg"'),
     )}`
 }

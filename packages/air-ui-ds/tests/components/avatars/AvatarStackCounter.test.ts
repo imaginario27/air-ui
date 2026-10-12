@@ -11,7 +11,7 @@ describe('AvatarStackCounter', () => {
 
     it('renders default text and classes', () => {
         const wrapper = factory()
-        
+
         expect(wrapper.text()).toBe('...')
         expect(wrapper.classes()).toContain('flex')
         expect(wrapper.classes()).toContain('justify-center')
@@ -59,5 +59,4 @@ describe('AvatarStackCounter', () => {
         const wrapper = factory({ text: '+5' })
         expect(wrapper.text()).toBe('+5')
     })
-
 })

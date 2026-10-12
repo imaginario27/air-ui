@@ -1,9 +1,7 @@
 ﻿<template>
     <Section>
         <SectionBody>
-            <ContentRenderer 
-                v-if="data" :value="data" 
-            />
+            <ContentRenderer v-if="data" :value="data" />
             <ContentRenderFallback v-else />
         </SectionBody>
     </Section>
@@ -13,7 +11,8 @@ definePageMeta({
     title: 'getStackCounterContent',
     layout: 'docs',
     overtitle: 'Utils',
-    description: 'Returns the counter content for a stack display based on the number of items, counter type, and item limit.',
+    description:
+        'Returns the counter content for a stack display based on the number of items, counter type, and item limit.',
     category: 'Counters',
 })
 

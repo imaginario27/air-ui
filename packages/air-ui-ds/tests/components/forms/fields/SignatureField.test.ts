@@ -5,7 +5,7 @@ import SignaturePad from '~/components/signature-pads/SignaturePad.vue'
 import { Position } from '@/models/enums/positions'
 
 vi.mock('~/composables/useFormValidationMode', () => ({
-    useInjectedValidationMode: () => ref('blur')
+    useInjectedValidationMode: () => ref('blur'),
 }))
 
 const factory = (props: Record<string, unknown> = {}) => {
@@ -30,11 +30,20 @@ describe('SignatureField.vue', () => {
         const wrapper = factory({ label: 'Signature' })
 
         expect(wrapper.find('label').attributes('id')).toBe('signature-label')
-        expect(wrapper.find('[data-testid="signature-pad-surface"]').attributes('aria-labelledby')).toBe('signature-label')
+        expect(wrapper.find('[data-testid="signature-pad-surface"]').attributes('aria-labelledby')).toBe(
+            'signature-label',
+        )
     })
 
     it('passes pad props to the SignaturePad component', () => {
-        const wrapper = factory({ height: 300, strokeSize: 3, showGuide: false, placeholder: 'Sign', readOnly: true, name: 'sig' })
+        const wrapper = factory({
+            height: 300,
+            strokeSize: 3,
+            showGuide: false,
+            placeholder: 'Sign',
+            readOnly: true,
+            name: 'sig',
+        })
         const pad = wrapper.findComponent(SignaturePad)
 
         expect(pad.props('height')).toBe(300)

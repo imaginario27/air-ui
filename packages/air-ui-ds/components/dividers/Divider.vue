@@ -1,25 +1,12 @@
 <template>
-    <hr 
-        :class="[ 
+    <hr
+        :class="[
             orientation === Orientation.VERTICAL
-                ? [
-                    'h-full',
-                    'min-h-[16px]',
-                    'w-px',
-                    'border-none',
-                    'bg-border-default',
-                    'mx-2',
-                    dividerClass
-                  ]
-                : [
-                    'w-full',
-                    'border-xs',
-                    'border-border-default',
-                    dividerClass
-                  ],
+                ? ['h-full', 'min-h-[16px]', 'w-px', 'border-none', 'bg-border-default', 'mx-2', dividerClass]
+                : ['w-full', 'border-xs', 'border-border-default', dividerClass],
             hideOnMobile && 'hidden md:block',
         ]"
-    >
+    />
 </template>
 
 <script setup lang="ts">

@@ -1,5 +1,5 @@
 <template>
-    <ul 
+    <ul
         :class="[
             'w-full flex flex-col gap-2',
             hasSeparator && 'gap-0 divide-y divide-border-neutral-subtle border-y border-border-neutral-subtle',
@@ -7,8 +7,9 @@
         ]"
     >
         <template v-if="items.length && !$slots.default">
-            <ListItem 
-                v-for="(item, index) in items" :key="index" 
+            <ListItem
+                v-for="(item, index) in items"
+                :key="index"
                 :markerIcon="listItemIcon"
                 :markerIconClass="listItemIconClass"
                 :size="listItemSize"
@@ -25,7 +26,7 @@
 const props = defineProps({
     items: {
         type: Array as PropType<any>,
-        default: () => ["Item 1", "Item 2", "Item 3"],
+        default: () => ['Item 1', 'Item 2', 'Item 3'],
     },
     hasSeparator: {
         type: Boolean as PropType<boolean>,
@@ -36,9 +37,10 @@ const props = defineProps({
         default: ListLayout.LIST,
         validator: (value: ListLayout) => Object.values(ListLayout).includes(value),
     },
-    cols: { // Desktop
+    cols: {
+        // Desktop
         type: Number as PropType<number>,
-        default: 2, 
+        default: 2,
     },
     tabletCols: {
         type: Number as PropType<number>,
@@ -55,16 +57,16 @@ const props = defineProps({
     listItemIcon: String as PropType<string>,
     listItemIconClass: {
         type: String as PropType<string>,
-        default: 'text-icon-secondary-brand-default'
+        default: 'text-icon-secondary-brand-default',
     },
     listItemSize: {
         type: String as PropType<ListItemSize>,
-        default: ListItemSize.SM, 
+        default: ListItemSize.SM,
         validator: (value: ListItemSize) => Object.values(ListItemSize).includes(value),
     },
     spaced: {
         type: Boolean as PropType<boolean>,
-        default: false
+        default: false,
     },
 })
 

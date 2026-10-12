@@ -8,14 +8,8 @@
  * @returns A string with the appropriate message.
  *
  */
-export const getEnvErrorMessage = (
-    devErrorMessage: string | Error,
-    prodErrorMessage: string
-): string => {
-    const devMessage =
-        typeof devErrorMessage === 'string'
-            ? devErrorMessage
-            : devErrorMessage.message
+export const getEnvErrorMessage = (devErrorMessage: string | Error, prodErrorMessage: string): string => {
+    const devMessage = typeof devErrorMessage === 'string' ? devErrorMessage : devErrorMessage.message
 
     return import.meta.dev ? devMessage : prodErrorMessage
 }

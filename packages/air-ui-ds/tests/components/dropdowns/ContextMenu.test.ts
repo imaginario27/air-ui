@@ -74,7 +74,7 @@ describe('ContextMenu.vue', () => {
 
     afterEach(() => {
         vi.unstubAllGlobals()
-        wrappers.splice(0).forEach(wrapper => wrapper.unmount())
+        wrappers.splice(0).forEach((wrapper) => wrapper.unmount())
         document.body.style.overflow = ''
         document.documentElement.style.overflow = ''
         document.body.innerHTML = ''
@@ -114,9 +114,7 @@ describe('ContextMenu.vue', () => {
         const wrapper = factory()
 
         document.body.style.paddingRight = '8px'
-        vi.spyOn(document.documentElement, 'clientWidth', 'get')
-            .mockReturnValueOnce(1180)
-            .mockReturnValueOnce(1200)
+        vi.spyOn(document.documentElement, 'clientWidth', 'get').mockReturnValueOnce(1180).mockReturnValueOnce(1200)
 
         await openContextMenu(wrapper)
 
@@ -134,9 +132,7 @@ describe('ContextMenu.vue', () => {
         const wrapper = factory()
 
         document.body.style.paddingRight = '8px'
-        vi.spyOn(document.documentElement, 'clientWidth', 'get')
-            .mockReturnValueOnce(1180)
-            .mockReturnValueOnce(1180)
+        vi.spyOn(document.documentElement, 'clientWidth', 'get').mockReturnValueOnce(1180).mockReturnValueOnce(1180)
 
         await openContextMenu(wrapper)
 
@@ -156,11 +152,7 @@ describe('ContextMenu.vue', () => {
 
     it('renders divider entries in the fallback item tree', async () => {
         const wrapper = factory({
-            items: [
-                { text: 'Rename' },
-                { divider: true },
-                { text: 'Delete' },
-            ],
+            items: [{ text: 'Rename' }, { divider: true }, { text: 'Delete' }],
         })
 
         await openContextMenu(wrapper)

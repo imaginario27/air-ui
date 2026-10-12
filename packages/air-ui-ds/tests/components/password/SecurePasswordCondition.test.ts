@@ -14,10 +14,10 @@ const factory = (props: Props): VueWrapper => {
                 Icon: {
                     name: 'Icon',
                     template: '<div />',
-                    props: ['name', 'iconClass', 'size']
-                }
-            }
-        }
+                    props: ['name', 'iconClass', 'size'],
+                },
+            },
+        },
     })
 }
 
@@ -25,7 +25,7 @@ describe('SecurePasswordCondition', () => {
     it('renders valid state', () => {
         const wrapper = factory({
             label: 'At least 8 characters',
-            isValid: true
+            isValid: true,
         })
 
         const icon = wrapper.findComponent({ name: 'Icon' })
@@ -41,7 +41,7 @@ describe('SecurePasswordCondition', () => {
     it('renders invalid state', () => {
         const wrapper = factory({
             label: 'Contains a number',
-            isValid: false
+            isValid: false,
         })
 
         const icon = wrapper.findComponent({ name: 'Icon' })
@@ -56,7 +56,7 @@ describe('SecurePasswordCondition', () => {
 
     it('renders default label when label is not provided', () => {
         const wrapper = factory({
-            isValid: false
+            isValid: false,
         })
 
         const text = wrapper.find('span')

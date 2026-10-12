@@ -7,4 +7,3 @@
 export const filterAlphabetic = (value: string): string => {
     return value.replace(/[^a-zA-ZÀ-ÿ\s]/g, '') // Removes non-alphabetic characters
 }
-

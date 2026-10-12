@@ -6,13 +6,13 @@ const factory = (props: Record<string, any> = {}) => {
     return mount(ButtonField, {
         props: {
             id: 'test-button',
-            ...props
+            ...props,
         },
         global: {
             components: {
-                ActionButton
-            }
-        }
+                ActionButton,
+            },
+        },
     })
 }
 
@@ -71,7 +71,7 @@ describe('ButtonField.vue', () => {
             isFullWidth: true,
             isMobileFullWidth: true,
             to: '/path',
-            isExternal: true
+            isExternal: true,
         }
 
         const wrapper = factory(props)
@@ -91,7 +91,7 @@ describe('ButtonField.vue', () => {
             isFullWidth: true,
             isMobileFullWidth: true,
             to: '/path',
-            isExternal: true
+            isExternal: true,
         })
     })
 
@@ -105,5 +105,4 @@ describe('ButtonField.vue', () => {
         expect(wrapper.find('label').exists()).toBe(false)
         expect(button.attributes('aria-label')).toBe('Submit form action')
     })
-
 })

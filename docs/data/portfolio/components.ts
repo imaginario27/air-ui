@@ -66,6 +66,16 @@ export const componentList: ComponentPortfolioItem[] = [
         imgUrl: `/images/thumbnails/components/action-button.png`,
     },
     {
+        title: 'Calendar',
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/calendar`,
+        imgUrl: `/images/thumbnails/components/calendar.png`,
+    },
+    {
+        title: 'Carousel',
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/carousel`,
+        imgUrl: `/images/thumbnails/components/carousel.png`,
+    },
+    {
         title: 'Collapsible',
         to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/collapsible`,
         imgUrl: `/images/thumbnails/components/collapsible.png`,
@@ -151,6 +161,11 @@ export const componentList: ComponentPortfolioItem[] = [
         imgUrl: `/images/thumbnails/components/rating.png`,
     },
     {
+        title: 'TimePicker',
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/time-picker`,
+        imgUrl: `/images/thumbnails/components/time-picker.png`,
+    },
+    {
         title: 'TreeView',
         to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/tree-view`,
         imgUrl: `/images/thumbnails/components/tree-view.png`,
@@ -233,9 +248,19 @@ export const componentList: ComponentPortfolioItem[] = [
         imgUrl: `/images/thumbnails/components/checkbox-group-field.png`,
     },
     {
+        title: 'ComboboxField',
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/combobox-field`,
+        imgUrl: `/images/thumbnails/components/combobox-field.png`,
+    },
+    {
         title: 'DataField',
         to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/data-field`,
         imgUrl: `/images/thumbnails/components/data-field.png`,
+    },
+    {
+        title: 'DatePickerField',
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/date-picker-field`,
+        imgUrl: `/images/thumbnails/components/date-picker-field.png`,
     },
     {
         title: 'FileUploadField',
@@ -331,6 +356,11 @@ export const componentList: ComponentPortfolioItem[] = [
         title: 'TextareaField',
         to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/textarea-field`,
         imgUrl: `/images/thumbnails/components/textarea-field.png`,
+    },
+    {
+        title: 'TimePickerField',
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/time-picker-field`,
+        imgUrl: `/images/thumbnails/components/time-picker-field.png`,
     },
     {
         title: 'ToggleButtonsGroupField',
@@ -450,7 +480,7 @@ export const componentList: ComponentPortfolioItem[] = [
         to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/table`,
         imgUrl: `/images/thumbnails/components/table.png`,
     },
-    
+
     // CARDS
     {
         isSectionTitle: true,

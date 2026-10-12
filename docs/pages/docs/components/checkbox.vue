@@ -1,9 +1,7 @@
 ﻿<template>
     <Section>
         <SectionBody>
-            <ContentRenderer 
-                v-if="data" :value="data" 
-            />
+            <ContentRenderer v-if="data" :value="data" />
             <ContentRenderFallback v-else />
         </SectionBody>
     </Section>
@@ -13,7 +11,8 @@ definePageMeta({
     title: 'Checkbox',
     layout: 'docs',
     overtitle: 'Components',
-    description: 'Standalone checkbox control for capturing boolean input, usable independently or within custom form layouts.',
+    description:
+        'Standalone checkbox control for capturing boolean input, usable independently or within custom form layouts.',
 })
 
 // Route

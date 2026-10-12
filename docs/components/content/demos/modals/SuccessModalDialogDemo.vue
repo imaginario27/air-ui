@@ -1,5 +1,5 @@
 <template>
-    <SuccessModalDialog 
+    <SuccessModalDialog
         v-model="showModal"
         :icon
         :title
@@ -9,11 +9,7 @@
         :closeOnClickOutside
         :hasCornerCloseButton
     />
-    <ActionButton 
-        :styleType="ButtonStyleType.NEUTRAL_FILLED"
-        text="Open Success Modal"
-        @click="showModal = true"
-    />
+    <ActionButton :styleType="ButtonStyleType.NEUTRAL_FILLED" text="Open Success Modal" @click="showModal = true" />
 </template>
 <script setup lang="ts">
 // States

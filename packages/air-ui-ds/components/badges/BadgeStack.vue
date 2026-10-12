@@ -1,7 +1,5 @@
 <template>
-    <div
-        class="flex flex-wrap gap-2"
-    >
+    <div class="flex flex-wrap gap-2">
         <Badge
             v-for="(item, index) in visibleBadges"
             :key="item.text || index"
@@ -17,8 +15,8 @@
             :class="badgeClass"
             @close="() => emit('close', item)"
         />
-        <Badge 
-            v-if="showEllipsisBadge" 
+        <Badge
+            v-if="showEllipsisBadge"
             :text="counterContent"
             :style="BadgeStyle.BORDER"
             :shape="BadgeShape.BADGE"
@@ -34,7 +32,7 @@
 const props = defineProps({
     items: {
         type: Array as PropType<Badge[]>,
-            default: () => [
+        default: () => [
             {
                 text: 'Badge 1',
             },
@@ -42,15 +40,15 @@ const props = defineProps({
                 text: 'Badge 2',
             },
             {
-                text: 'Badge 3'
+                text: 'Badge 3',
             },
             {
-                text: 'Badge 4'
+                text: 'Badge 4',
             },
             {
-                text: 'Badge 5'
-            }, 
-        ]
+                text: 'Badge 5',
+            },
+        ],
     },
     styleType: {
         type: String as PropType<BadgeStyle>,
@@ -59,12 +57,12 @@ const props = defineProps({
     },
     shape: {
         type: String as PropType<BadgeShape>,
-        default: BadgeShape.BADGE, 
+        default: BadgeShape.BADGE,
         validator: (value: BadgeShape) => Object.values(BadgeShape).includes(value),
     },
     color: {
         type: String as PropType<ColorAccent>,
-        default: ColorAccent.NEUTRAL, 
+        default: ColorAccent.NEUTRAL,
         validator: (value: ColorAccent) => Object.values(ColorAccent).includes(value),
     },
     showDot: {
@@ -100,15 +98,18 @@ const props = defineProps({
 const emit = defineEmits(['close'])
 
 // Computed functions
-const visibleBadges = computed(() => 
+const visibleBadges = computed(() =>
     // Only apply slicing if itemsLimit is provided and is a valid number
-    Number.isFinite(props.itemsLimit) ? props.items.slice(0, props.itemsLimit) : props.items
+    Number.isFinite(props.itemsLimit) ? props.items.slice(0, props.itemsLimit) : props.items,
 )
 
-const showEllipsisBadge = computed(() => 
-    // Only show ellipsis if itemsLimit is provided and the items exceeds the max itemsLimit
-    Number.isFinite(props.itemsLimit) && props.items.length > props.itemsLimit
+const showEllipsisBadge = computed(
+    () =>
+        // Only show ellipsis if itemsLimit is provided and the items exceeds the max itemsLimit
+        Number.isFinite(props.itemsLimit) && props.items.length > props.itemsLimit,
 )
 
-const counterContent = computed(() => getStackCounterContent(props.items, props.counterType, props.itemsLimit ? props.itemsLimit : null))
+const counterContent = computed(() =>
+    getStackCounterContent(props.items, props.counterType, props.itemsLimit ? props.itemsLimit : null),
+)
 </script>

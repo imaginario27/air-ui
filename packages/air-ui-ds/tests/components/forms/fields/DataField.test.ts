@@ -6,9 +6,9 @@ const factory = (props: Record<string, any> = {}, slots?: Record<string, any>) =
     return mount(DataField, {
         props: {
             id: 'test-data-field',
-            ...props
+            ...props,
         },
-        slots
+        slots,
     })
 }
 
@@ -55,10 +55,7 @@ describe('DataField.vue', () => {
     })
 
     it('does not render text or emptyText if slot is provided', () => {
-        const wrapper = factory(
-            { text: 'Should be hidden' },
-            { default: '<span>Slot content</span>' }
-        )
+        const wrapper = factory({ text: 'Should be hidden' }, { default: '<span>Slot content</span>' })
 
         expect(wrapper.find('p.text-sm').exists()).toBe(false)
         expect(wrapper.find('p.text-sm.text-text-neutral-subtle').exists()).toBe(false)
@@ -73,13 +70,18 @@ describe('DataField.vue', () => {
     })
 
     it('renders help text before the value when helpTextPosition is top', () => {
-        const wrapper = factory({ label: 'Email', text: 'user@example.com', helpText: 'Read-only', helpTextPosition: Position.TOP })
+        const wrapper = factory({
+            label: 'Email',
+            text: 'user@example.com',
+            helpText: 'Read-only',
+            helpTextPosition: Position.TOP,
+        })
         const help = wrapper.find('p.text-xs')
         expect(help.exists()).toBe(true)
         expect(help.text()).toBe('Read-only')
         const children = Array.from(wrapper.element.children)
-        const helpIdx = children.findIndex(el => el.classList.contains('text-xs'))
-        const labelIdx = children.findIndex(el => el.tagName === 'LABEL')
+        const helpIdx = children.findIndex((el) => el.classList.contains('text-xs'))
+        const labelIdx = children.findIndex((el) => el.tagName === 'LABEL')
         expect(helpIdx).toBeGreaterThan(labelIdx)
         expect(helpIdx).toBeLessThan(children.length - 1)
     })
@@ -87,7 +89,7 @@ describe('DataField.vue', () => {
     it('renders copy button when hasCopyToClipboardButton is true and text is present', () => {
         const wrapper = factory({
             text: 'Copy this text',
-            hasCopyToClipboardButton: true
+            hasCopyToClipboardButton: true,
         })
 
         const copyBtn = wrapper.findComponent({ name: 'ActionIconButton' })
@@ -99,7 +101,7 @@ describe('DataField.vue', () => {
     it('does not render copy button if hasCopyToClipboardButton is true but text is empty', () => {
         const wrapper = factory({
             text: '',
-            hasCopyToClipboardButton: true
+            hasCopyToClipboardButton: true,
         })
 
         const copyBtn = wrapper.findComponent({ name: 'ActionIconButton' })
@@ -109,7 +111,7 @@ describe('DataField.vue', () => {
     it('does not render copy button if hasCopyToClipboardButton is false', () => {
         const wrapper = factory({
             text: 'Something',
-            hasCopyToClipboardButton: false
+            hasCopyToClipboardButton: false,
         })
 
         const copyBtn = wrapper.findComponent({ name: 'ActionIconButton' })

@@ -24,34 +24,25 @@
         @mouseenter="onRowMouseEnter"
         @mouseleave="onRowMouseLeave"
     >
-        <div
-            :class="[
-                'w-full',
-                'flex',
-                'items-center',
-                truncate && 'min-w-0',
-                gapClass,
-            ]"
-        >
+        <div :class="['w-full', 'flex', 'items-center', truncate && 'min-w-0', gapClass]">
             <Icon
                 v-if="icon"
                 :name="icon"
-                :iconClass="[
-                    iconClass || 'text-icon-neutral-subtler',
-                    'group-hover:text-icon-default',
-                    isActive ? '!text-icon-primary-brand-on-neutral-hover-bg' : '',
-                    iconSizeClass,
-                ].filter(Boolean)"
+                :iconClass="
+                    [
+                        iconClass || 'text-icon-neutral-subtler',
+                        'group-hover:text-icon-default',
+                        isActive ? '!text-icon-primary-brand-on-neutral-hover-bg' : '',
+                        iconSizeClass,
+                    ].filter(Boolean)
+                "
             />
 
             <template v-if="!isCollapsed">
                 <div
                     v-if="truncate"
                     ref="textWrapperEl"
-                    :class="[
-                        'relative min-w-0 flex-1 overflow-hidden',
-                        isMarqueeEnabled && hasMoreActions && 'mr-2',
-                    ]"
+                    :class="['relative min-w-0 flex-1 overflow-hidden', isMarqueeEnabled && hasMoreActions && 'mr-2']"
                 >
                     <span
                         ref="textEl"
@@ -79,17 +70,11 @@
                     />
                 </div>
 
-                <span
-                    v-else
-                    :class="[disabled && 'select-none', textClass]"
-                >
+                <span v-else :class="[disabled && 'select-none', textClass]">
                     {{ text }}
                 </span>
 
-                <span
-                    v-if="$slots['text-suffix']"
-                    class="flex shrink-0 items-center"
-                >
+                <span v-if="$slots['text-suffix']" class="flex shrink-0 items-center">
                     <slot name="text-suffix" />
                 </span>
             </template>
@@ -131,10 +116,7 @@
                                 'transition-colors duration-150',
                             ]"
                         >
-                            <Icon
-                                name="mdi:dots-vertical"
-                                iconClass="w-[16px] h-[16px]"
-                            />
+                            <Icon name="mdi:dots-vertical" iconClass="w-[16px] h-[16px]" />
                         </button>
                     </template>
                 </DropdownMenu>
@@ -149,18 +131,18 @@ import { NuxtLink } from '#components'
 const props = defineProps({
     text: {
         type: String as PropType<string>,
-        default: 'Item text'
+        default: 'Item text',
     },
     icon: String as PropType<string>,
     to: {
         type: String as PropType<string>,
-        default: null
+        default: null,
     },
     styleType: {
         type: String as PropType<SidebarNavMenuItemStyleType>,
-        default: SidebarNavMenuItemStyleType.COMPACT, 
+        default: SidebarNavMenuItemStyleType.COMPACT,
         validator: (value: SidebarNavMenuItemStyleType) => Object.values(SidebarNavMenuItemStyleType).includes(value),
-    },    
+    },
     detectActive: {
         type: Boolean as PropType<boolean>,
         default: true,
@@ -314,7 +296,6 @@ const gapClass = computed(() => {
     return variant[props.styleType as SidebarNavMenuItemStyleType] || 'gap-3'
 })
 
-
 const iconSizeClass = computed(() => {
     if (props.isCollapsed) {
         const collapsedVariant = {
@@ -322,7 +303,10 @@ const iconSizeClass = computed(() => {
             [SidebarNavMenuItemStyleType.COMPACT]: 'w-[20px] h-[20px] min-w-[20px] min-h-[20px]',
         }
 
-        return collapsedVariant[props.styleType as SidebarNavMenuItemStyleType] || 'w-[20px] h-[20px] min-w-[20px] min-h-[20px]'
+        return (
+            collapsedVariant[props.styleType as SidebarNavMenuItemStyleType] ||
+            'w-[20px] h-[20px] min-w-[20px] min-h-[20px]'
+        )
     }
 
     // Regular size

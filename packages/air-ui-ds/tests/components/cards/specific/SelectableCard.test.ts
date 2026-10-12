@@ -32,9 +32,12 @@ describe('SelectableCard', () => {
     })
 
     it('renders slot content instead of description when default slot is used', () => {
-        const wrapper = factory({}, {
-            default: '<div class="custom-content">Custom Slot</div>',
-        })
+        const wrapper = factory(
+            {},
+            {
+                default: '<div class="custom-content">Custom Slot</div>',
+            },
+        )
 
         expect(wrapper.find('.custom-content').exists()).toBe(true)
         expect(wrapper.text()).toContain('Custom Slot')
@@ -122,9 +125,12 @@ describe('SelectableCard', () => {
     })
 
     it('renders footer slot when provided', () => {
-        const wrapper = factory({}, {
-            footer: '<div class="custom-footer">Footer Slot</div>',
-        })
+        const wrapper = factory(
+            {},
+            {
+                footer: '<div class="custom-footer">Footer Slot</div>',
+            },
+        )
 
         const footer = wrapper.find('.custom-footer')
         expect(footer.exists()).toBe(true)

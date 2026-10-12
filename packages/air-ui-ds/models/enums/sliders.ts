@@ -1,6 +1,6 @@
 export enum SliderType {
     SINGLE = 'single',
-    RANGE = 'range'
+    RANGE = 'range',
 }
 
 export enum SliderSize {
@@ -17,4 +17,11 @@ export enum AngleSliderSize {
     LG = 'lg',
     XL = 'xl',
     XXL = '2xl',
+}
+
+export enum CarouselTransition {
+    SLIDE = 'slide',
+    FADE = 'fade',
+    ZOOM = 'zoom',
+    NONE = 'none',
 }

@@ -1,9 +1,6 @@
 <template>
-    <ModalDialog 
-        :model-value="props.modelValue"
-        @update:model-value="updateModelValue"
-    >
-        <ModalContent>  
+    <ModalDialog :model-value="props.modelValue" @update:model-value="updateModelValue">
+        <ModalContent>
             <ModalTitle :title="modalTitle" />
 
             <p class="text-sm text-text-secondary">
@@ -20,7 +17,7 @@
                     tabindex="-1"
                     aria-hidden="true"
                     class="sr-only"
-                >
+                />
                 <FormRow>
                     <InputField
                         id="subject"
@@ -59,7 +56,7 @@
                     />
                 </FormRow>
                 <FormRow>
-                    <FileUploadField 
+                    <FileUploadField
                         id="files"
                         v-model="formData.files"
                         label="Screenshots (optional)"
@@ -72,30 +69,26 @@
                 <FormRow v-if="turnstileEnabled">
                     <Card>
                         <CardHeader>
-                            <h3 class="text-sm font-medium text-text-default">
-                                Security Check
-                            </h3>
+                            <h3 class="text-sm font-medium text-text-default">Security Check</h3>
                         </CardHeader>
                         <CardBody>
-                           <div 
-                                ref="turnstileWidgetContainer" 
-                                class="turnstile-widget-container flex w-full justify-center" 
+                            <div
+                                ref="turnstileWidgetContainer"
+                                class="turnstile-widget-container flex w-full justify-center"
                             />
 
-                            <p v-if="turnstileError"
-                                class="mt-2 rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-status-danger">
+                            <p
+                                v-if="turnstileError"
+                                class="mt-2 rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-status-danger"
+                            >
                                 {{ turnstileError }}
                             </p>
                         </CardBody>
                     </Card>
                 </FormRow>
                 <FormActions class="justify-end">
-                    <ActionButton 
-                        text="Cancel"
-                        isMobileFullWidth
-                        @click="handleClose"
-                    />
-                    <ActionButton 
+                    <ActionButton text="Cancel" isMobileFullWidth @click="handleClose" />
+                    <ActionButton
                         :styleType="ButtonStyleType.PRIMARY_BRAND_FILLED"
                         :text="submitButtonText"
                         type="submit"
@@ -109,10 +102,7 @@
     </ModalDialog>
 </template>
 <script setup lang="ts">
-import type {
-    FeedbackFormData,
-    FeedbackMetadata,
-} from '@/models/types/feedbackModal'
+import type { FeedbackFormData, FeedbackMetadata } from '@/models/types/feedbackModal'
 
 // Props
 const props = defineProps({
@@ -158,14 +148,8 @@ const isSubmitting = ref(false)
 const formStartedAt = ref(Date.now())
 const turnstileWidgetContainer = ref<HTMLElement | null>(null)
 
-const turnstileSiteKey = computed(() => config.public.turnstileSiteKey as string || '')
-const {
-    turnstileEnabled,
-    turnstileToken,
-    turnstileError,
-    renderTurnstile,
-    clearTurnstileState,
-} = useTurnstile({
+const turnstileSiteKey = computed(() => (config.public.turnstileSiteKey as string) || '')
+const { turnstileEnabled, turnstileToken, turnstileError, renderTurnstile, clearTurnstileState } = useTurnstile({
     siteKey: turnstileSiteKey,
     theme: 'auto',
     size: 'flexible',
@@ -175,10 +159,7 @@ const {
 // Validation
 const { formErrors, resetForm, validateFormFields } = useForm({
     formData,
-    requiredFields: [
-        'title', 
-        'description', 
-    ],
+    requiredFields: ['title', 'description'],
     validators: {
         title: validateField,
         description: validateField,
@@ -235,7 +216,7 @@ const subjectTitlePlaceholder = computed(() => {
     }
 
     return 'What improvement would you like to see?'
-}) 
+})
 
 const descriptionPlaceholder = computed(() => {
     if (props.type === FeedbackType.BUG) {
@@ -263,11 +244,10 @@ const submitMessage = computed(() => {
     }
 
     return 'Suggestion submitted successfully'
-}) 
+})
 
 const hasRequiredFields = computed(() => {
-    return Boolean(formData.title.trim())
-        && Boolean(formData.description.trim())
+    return Boolean(formData.title.trim()) && Boolean(formData.description.trim())
 })
 
 const hasValidTurnstile = computed(() => {
@@ -363,19 +343,22 @@ onMounted(() => {
     }
 })
 
-watch(() => props.modelValue, (isOpen) => {
-    if (!isOpen) {
-        clearTurnstileState()
+watch(
+    () => props.modelValue,
+    (isOpen) => {
+        if (!isOpen) {
+            clearTurnstileState()
+            formStartedAt.value = Date.now()
+            return
+        }
+
         formStartedAt.value = Date.now()
-        return
-    }
 
-    formStartedAt.value = Date.now()
-
-    if (turnstileEnabled.value) {
-        renderTurnstile(turnstileWidgetContainer.value)
-    }
-})
+        if (turnstileEnabled.value) {
+            renderTurnstile(turnstileWidgetContainer.value)
+        }
+    },
+)
 </script>
 
 <style scoped>

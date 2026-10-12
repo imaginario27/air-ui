@@ -3,7 +3,7 @@ export enum ProgressBarSize {
     SM = 'sm',
     MD = 'md',
     LG = 'lg',
-    XL = 'xl'
+    XL = 'xl',
 }
 
 export enum ProgressCircleSize {

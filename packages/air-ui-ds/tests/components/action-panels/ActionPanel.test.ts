@@ -10,11 +10,11 @@ const factory = (
         hasShadow: boolean
         hasBorder: boolean
     }>,
-    slots?: { actions?: string }
+    slots?: { actions?: string },
 ) => {
     return mount(ActionPanel, {
         props,
-        slots
+        slots,
     })
 }
 
@@ -31,7 +31,7 @@ describe('ActionPanel', () => {
     it('renders custom title and description', () => {
         const wrapper = factory({
             title: 'Custom Title',
-            description: 'Custom description content.'
+            description: 'Custom description content.',
         })
 
         expect(wrapper.text()).toContain('Custom Title')
@@ -40,7 +40,7 @@ describe('ActionPanel', () => {
 
     it('applies horizontal orientation class when orientation is HORIZONTAL', () => {
         const wrapper = factory({
-            orientation: Orientation.HORIZONTAL
+            orientation: Orientation.HORIZONTAL,
         })
 
         expect(wrapper.findComponent(ActionPanel).classes()).toContain('md:!flex-row')
@@ -48,7 +48,7 @@ describe('ActionPanel', () => {
 
     it('does not apply horizontal class when orientation is VERTICAL', () => {
         const wrapper = factory({
-            orientation: Orientation.VERTICAL
+            orientation: Orientation.VERTICAL,
         })
 
         expect(wrapper.findComponent(ActionPanel).classes()).not.toContain('md:!flex-row')
@@ -56,7 +56,7 @@ describe('ActionPanel', () => {
 
     it('applies shadow-sm class when hasShadow is true', () => {
         const wrapper = factory({
-            hasShadow: true
+            hasShadow: true,
         })
 
         expect(wrapper.findComponent(ActionPanel).classes()).toContain('!shadow-sm')
@@ -64,7 +64,7 @@ describe('ActionPanel', () => {
 
     it('does not apply shadow-sm class when hasShadow is false', () => {
         const wrapper = factory({
-            hasShadow: false
+            hasShadow: false,
         })
 
         expect(wrapper.findComponent(ActionPanel).classes()).not.toContain('!shadow-sm')
@@ -72,7 +72,7 @@ describe('ActionPanel', () => {
 
     it('renders actions slot if provided', () => {
         const wrapper = factory(undefined, {
-            actions: '<button>Click me</button>'
+            actions: '<button>Click me</button>',
         })
 
         const actions = wrapper.find('button')

@@ -1,15 +1,10 @@
 <template>
-    <div 
-        :class="[
-            'flex gap-5',
-            'select-none',
-            !description && 'items-center',
-            isInteractive && 'cursor-pointer group',
-        ]"
+    <div
+        :class="['flex gap-5', 'select-none', !description && 'items-center', isInteractive && 'cursor-pointer group']"
         @mouseenter="isInteractive && (isHovered = true)"
-        @mouseleave="isInteractive && (isHovered = false)"  
+        @mouseleave="isInteractive && (isHovered = false)"
     >
-        <StepIndicator 
+        <StepIndicator
             :type
             :status
             :size
@@ -20,19 +15,10 @@
             class="!group-hover:border-red-500"
         />
         <div class="flex flex-col w-full text-sm">
-            <span
-                :class="[
-                    'font-semibold',
-                    'transition-colors duration-200 ease-out',
-                    titleClass,
-                ]"
-            >
+            <span :class="['font-semibold', 'transition-colors duration-200 ease-out', titleClass]">
                 {{ title }}
             </span>
-            <p 
-                v-if="description"
-                class="text-text-neutral-inactive"
-            >
+            <p v-if="description" class="text-text-neutral-inactive">
                 {{ description }}
             </p>
         </div>

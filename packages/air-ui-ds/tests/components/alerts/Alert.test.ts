@@ -3,7 +3,7 @@ import Alert from '@/components/alerts/Alert.vue'
 import AlertButton from '@/components/buttons/AlertButton.vue'
 import AlertIconButton from '@/components/buttons/AlertIconButton.vue'
 import Icon from '@/components/icons/Icon.vue'
-import { AlertType } from '@/models/enums/alerts' 
+import { AlertType } from '@/models/enums/alerts'
 import { ButtonActionType } from '@/models/enums/buttons'
 import { IconPosition } from '@/models/enums/icons'
 
@@ -20,15 +20,15 @@ const defaultProps = {
             iconPosition: IconPosition.LEFT,
             disabled: false,
             to: '',
-            isExternal: false
-        }
-    ]
+            isExternal: false,
+        },
+    ],
 }
 
 describe('Alert.vue', () => {
     it('renders with description', () => {
         const wrapper = mount(Alert, {
-            props: defaultProps
+            props: defaultProps,
         })
 
         expect(wrapper.text()).toContain(defaultProps.title)
@@ -42,8 +42,8 @@ describe('Alert.vue', () => {
             props: {
                 title: 'No Description',
                 description: '',
-                buttons: defaultProps.buttons
-            }
+                buttons: defaultProps.buttons,
+            },
         })
 
         expect(wrapper.text()).toContain('No Description')
@@ -55,11 +55,11 @@ describe('Alert.vue', () => {
         const wrapper = mount(Alert, {
             props: {
                 title: 'Slot Test',
-                description: 'Prop description'
+                description: 'Prop description',
             },
             slots: {
-                description: '<span class="custom-desc">Slot description</span>'
-            }
+                description: '<span class="custom-desc">Slot description</span>',
+            },
         })
 
         expect(wrapper.find('.custom-desc').exists()).toBe(true)
@@ -71,8 +71,8 @@ describe('Alert.vue', () => {
         const wrapper = mount(Alert, {
             props: { title: 'Slot Only' },
             slots: {
-                description: '<span class="custom-desc">Slot description</span>'
-            }
+                description: '<span class="custom-desc">Slot description</span>',
+            },
         })
 
         expect(wrapper.find('.custom-desc').exists()).toBe(true)
@@ -82,7 +82,7 @@ describe('Alert.vue', () => {
 
     it('uses compact padding when neither description prop nor description slot is provided', () => {
         const wrapper = mount(Alert, {
-            props: { title: 'No Description' }
+            props: { title: 'No Description' },
         })
 
         expect(wrapper.classes()).toContain('px-4')
@@ -91,7 +91,7 @@ describe('Alert.vue', () => {
 
     it('uses full padding when the description prop is provided', () => {
         const wrapper = mount(Alert, {
-            props: { title: 'With Description', description: 'Some description' }
+            props: { title: 'With Description', description: 'Some description' },
         })
 
         expect(wrapper.classes()).toContain('p-4')
@@ -103,8 +103,8 @@ describe('Alert.vue', () => {
                 title: 'No Buttons',
                 description: 'Some description',
                 hasActionButtons: true,
-                buttons: []
-            }
+                buttons: [],
+            },
         })
 
         expect(wrapper.findComponent(AlertButton).exists()).toBe(false)
@@ -115,8 +115,8 @@ describe('Alert.vue', () => {
             props: {
                 title: 'With Description',
                 description: 'Some description',
-                buttons: defaultProps.buttons
-            }
+                buttons: defaultProps.buttons,
+            },
         })
 
         expect(wrapper.findComponent(AlertButton).exists()).toBe(false)
@@ -127,8 +127,8 @@ describe('Alert.vue', () => {
             props: {
                 title: 'No Description',
                 description: '',
-                buttons: defaultProps.buttons
-            }
+                buttons: defaultProps.buttons,
+            },
         })
 
         expect(wrapper.findComponent(AlertButton).exists()).toBe(false)
@@ -140,8 +140,8 @@ describe('Alert.vue', () => {
                 title: 'No Description',
                 description: '',
                 hasActionButtons: true,
-                buttons: defaultProps.buttons
-            }
+                buttons: defaultProps.buttons,
+            },
         })
 
         expect(wrapper.findComponent(AlertButton).exists()).toBe(true)
@@ -152,8 +152,8 @@ describe('Alert.vue', () => {
             props: {
                 title: 'With Close',
                 description: '',
-                hasCloseButton: true
-            }
+                hasCloseButton: true,
+            },
         })
 
         expect(wrapper.findComponent(AlertIconButton).exists()).toBe(true)
@@ -164,8 +164,8 @@ describe('Alert.vue', () => {
             props: {
                 title: 'Without Close',
                 description: '',
-                hasCloseButton: false
-            }
+                hasCloseButton: false,
+            },
         })
 
         expect(wrapper.findComponent(AlertIconButton).exists()).toBe(false)
@@ -176,8 +176,8 @@ describe('Alert.vue', () => {
             props: {
                 title: 'With Close',
                 description: 'Some description',
-                hasCloseButton: true
-            }
+                hasCloseButton: true,
+            },
         })
 
         expect(wrapper.findComponent(AlertIconButton).exists()).toBe(true)
@@ -188,8 +188,8 @@ describe('Alert.vue', () => {
             props: {
                 title: 'Without Close',
                 description: 'Some description',
-                hasCloseButton: false
-            }
+                hasCloseButton: false,
+            },
         })
 
         expect(wrapper.findComponent(AlertIconButton).exists()).toBe(false)
@@ -200,8 +200,8 @@ describe('Alert.vue', () => {
             props: {
                 title: 'Emit Close',
                 description: '',
-                hasCloseButton: true
-            }
+                hasCloseButton: true,
+            },
         })
 
         const closeBtn = wrapper.findComponent(AlertIconButton)
@@ -216,8 +216,8 @@ describe('Alert.vue', () => {
             props: {
                 title: 'Emit Close',
                 description: 'Some description',
-                hasCloseButton: true
-            }
+                hasCloseButton: true,
+            },
         })
 
         const closeBtn = wrapper.findComponent(AlertIconButton)
@@ -231,14 +231,14 @@ describe('Alert.vue', () => {
         [AlertType.WARNING, 'mdi:alert-outline'],
         [AlertType.DANGER, 'mdi:close-octagon-outline'],
         [AlertType.SUCCESS, 'mdi:check-circle-outline'],
-        [AlertType.INFO, 'mdi:information-outline']
+        [AlertType.INFO, 'mdi:information-outline'],
     ])('renders correct icon for alert type %s', (type, expectedIcon) => {
         const wrapper = mount(Alert, {
             props: {
                 title: 'Icon Test',
                 description: 'Test',
-                type
-            }
+                type,
+            },
         })
 
         const icon = wrapper.findComponent(Icon)
@@ -247,7 +247,7 @@ describe('Alert.vue', () => {
 
     it('has role="alert" for screen reader announcement', () => {
         const wrapper = mount(Alert, {
-            props: { title: 'A11y Test' }
+            props: { title: 'A11y Test' },
         })
 
         expect(wrapper.find('[role="alert"]').exists()).toBe(true)

@@ -6,19 +6,19 @@ import Icon from '@/components/icons/Icon.vue'
 import { PrefetchOn } from '@/models/enums/prefetch'
 
 vi.mock('@/assets/images/placeholders/missing-image-placeholder.png', () => ({
-    default: '/mocked/missing-image.png'
+    default: '/mocked/missing-image.png',
 }))
 
 const defaultProps = {
     actionType: DropdownActionType.ACTION,
-    text: 'Test Item'
+    text: 'Test Item',
 }
 
 const factory = (props?: Record<string, any>) => {
     return mount(DropdownMenuItem, {
         props: {
             ...defaultProps,
-            ...props
+            ...props,
         },
         global: {
             stubs: {
@@ -27,9 +27,9 @@ const factory = (props?: Record<string, any>) => {
                     template: '<a><slot /></a>',
                     props: ['to', 'target', 'rel', 'external', 'prefetchOn'],
                 },
-                Icon
-            }
-        }
+                Icon,
+            },
+        },
     })
 }
 
@@ -42,7 +42,7 @@ describe('DropdownMenuItem.vue', () => {
     it('renders as a NuxtLink when actionType is LINK', () => {
         const wrapper = factory({
             actionType: DropdownActionType.LINK,
-            to: '/test'
+            to: '/test',
         })
         expect(wrapper.findComponent(NuxtLink).exists()).toBe(true)
     })
@@ -96,7 +96,7 @@ describe('DropdownMenuItem.vue', () => {
         it('renders Icon when type is ICON and icon prop is provided', () => {
             const wrapper = factory({
                 type: DropdownItemType.ICON,
-                icon: 'mdi:account'
+                icon: 'mdi:account',
             })
 
             const icon = wrapper.findComponent(Icon)
@@ -107,7 +107,7 @@ describe('DropdownMenuItem.vue', () => {
         it('renders Icon when type is DANGER_ICON and icon is provided', () => {
             const wrapper = factory({
                 type: DropdownItemType.DANGER_ICON,
-                icon: 'mdi:delete'
+                icon: 'mdi:delete',
             })
 
             const icon = wrapper.findComponent(Icon)
@@ -120,7 +120,7 @@ describe('DropdownMenuItem.vue', () => {
         it('renders imgUrl when provided and image loads', () => {
             const wrapper = factory({
                 type: DropdownItemType.IMAGE,
-                imgUrl: 'https://example.com/image.jpg'
+                imgUrl: 'https://example.com/image.jpg',
             })
 
             const img = wrapper.find('img')
@@ -131,7 +131,7 @@ describe('DropdownMenuItem.vue', () => {
         it('renders fallback image when original image fails to load', async () => {
             const wrapper = factory({
                 type: DropdownItemType.IMAGE,
-                imgUrl: 'broken-image.jpg'
+                imgUrl: 'broken-image.jpg',
             })
 
             const originalImg = wrapper.find('img')
@@ -235,7 +235,7 @@ describe('DropdownMenuItem.vue', () => {
         it('renders a check Icon when type is CHECK and checked is true', () => {
             const wrapper = factory({ type: DropdownItemType.CHECK, checked: true })
             const icons = wrapper.findAllComponents(Icon)
-            const checkIcon = icons.find(icon => icon.props('name') === 'mdi:check')
+            const checkIcon = icons.find((icon) => icon.props('name') === 'mdi:check')
 
             expect(checkIcon).toBeTruthy()
         })
@@ -243,7 +243,7 @@ describe('DropdownMenuItem.vue', () => {
         it('does not render a check Icon when type is CHECK and checked is false', () => {
             const wrapper = factory({ type: DropdownItemType.CHECK, checked: false })
             const icons = wrapper.findAllComponents(Icon)
-            const checkIcon = icons.find(icon => icon.props('name') === 'mdi:check')
+            const checkIcon = icons.find((icon) => icon.props('name') === 'mdi:check')
 
             expect(checkIcon).toBeFalsy()
         })
@@ -276,7 +276,7 @@ describe('DropdownMenuItem.vue', () => {
         it('renders the leading Icon when type is ICON_CHECK', () => {
             const wrapper = factory({ type: DropdownItemType.ICON_CHECK, icon: 'mdi:star' })
             const icons = wrapper.findAllComponents(Icon)
-            const leadingIcon = icons.find(icon => icon.props('name') === 'mdi:star')
+            const leadingIcon = icons.find((icon) => icon.props('name') === 'mdi:star')
 
             expect(leadingIcon).toBeTruthy()
         })
@@ -284,7 +284,7 @@ describe('DropdownMenuItem.vue', () => {
         it('renders a check Icon when type is ICON_CHECK and checked is true', () => {
             const wrapper = factory({ type: DropdownItemType.ICON_CHECK, icon: 'mdi:star', checked: true })
             const icons = wrapper.findAllComponents(Icon)
-            const checkIcon = icons.find(icon => icon.props('name') === 'mdi:check')
+            const checkIcon = icons.find((icon) => icon.props('name') === 'mdi:check')
 
             expect(checkIcon).toBeTruthy()
         })
@@ -292,7 +292,7 @@ describe('DropdownMenuItem.vue', () => {
         it('does not render a check Icon when type is ICON_CHECK and checked is false', () => {
             const wrapper = factory({ type: DropdownItemType.ICON_CHECK, icon: 'mdi:star', checked: false })
             const icons = wrapper.findAllComponents(Icon)
-            const checkIcon = icons.find(icon => icon.props('name') === 'mdi:check')
+            const checkIcon = icons.find((icon) => icon.props('name') === 'mdi:check')
 
             expect(checkIcon).toBeFalsy()
         })
@@ -310,7 +310,7 @@ describe('DropdownMenuItem.vue', () => {
         it('renders the leading Icon when type is ICON_SWITCH', () => {
             const wrapper = factory({ type: DropdownItemType.ICON_SWITCH, icon: 'mdi:star' })
             const icons = wrapper.findAllComponents(Icon)
-            const leadingIcon = icons.find(icon => icon.props('name') === 'mdi:star')
+            const leadingIcon = icons.find((icon) => icon.props('name') === 'mdi:star')
 
             expect(leadingIcon).toBeTruthy()
         })
@@ -335,7 +335,7 @@ describe('DropdownMenuItem.vue', () => {
         it('renders the leading Icon when type is ICON_CHECKBOX', () => {
             const wrapper = factory({ type: DropdownItemType.ICON_CHECKBOX, icon: 'mdi:star' })
             const icons = wrapper.findAllComponents(Icon)
-            const leadingIcon = icons.find(icon => icon.props('name') === 'mdi:star')
+            const leadingIcon = icons.find((icon) => icon.props('name') === 'mdi:star')
 
             expect(leadingIcon).toBeTruthy()
         })
@@ -363,23 +363,23 @@ describe('DropdownMenuItem.vue', () => {
             { value: 'high', label: 'High' },
         ]
 
-        it.each([
-            DropdownItemType.STEP_SWITCH,
-            DropdownItemType.ICON_STEP_SWITCH,
-        ])('renders a StepSwitch with the given steps when type is %s', (type) => {
-            const wrapper = factory({ type, icon: 'mdi:star', steps, stepValue: 'medium' })
-            const stepSwitch = wrapper.findComponent({ name: 'StepSwitch' })
+        it.each([DropdownItemType.STEP_SWITCH, DropdownItemType.ICON_STEP_SWITCH])(
+            'renders a StepSwitch with the given steps when type is %s',
+            (type) => {
+                const wrapper = factory({ type, icon: 'mdi:star', steps, stepValue: 'medium' })
+                const stepSwitch = wrapper.findComponent({ name: 'StepSwitch' })
 
-            expect(stepSwitch.exists()).toBe(true)
-            expect(stepSwitch.props('steps')).toEqual(steps)
-            expect(stepSwitch.props('modelValue')).toBe('medium')
-        })
+                expect(stepSwitch.exists()).toBe(true)
+                expect(stepSwitch.props('steps')).toEqual(steps)
+                expect(stepSwitch.props('modelValue')).toBe('medium')
+            },
+        )
 
         it('renders the leading Icon only when type is ICON_STEP_SWITCH', () => {
             const withIcon = factory({ type: DropdownItemType.ICON_STEP_SWITCH, icon: 'mdi:star', steps })
             const withoutIcon = factory({ type: DropdownItemType.STEP_SWITCH, icon: 'mdi:star', steps })
             const hasLeadingIcon = (wrapper: ReturnType<typeof factory>) =>
-                wrapper.findAllComponents({ name: 'Icon' }).some(icon => icon.props('name') === 'mdi:star')
+                wrapper.findAllComponents({ name: 'Icon' }).some((icon) => icon.props('name') === 'mdi:star')
 
             expect(hasLeadingIcon(withIcon)).toBe(true)
             expect(hasLeadingIcon(withoutIcon)).toBe(false)
@@ -416,7 +416,7 @@ describe('DropdownMenuItem.vue', () => {
         it('applies danger text style when type is DANGER_TEXT', () => {
             const wrapper = factory({
                 type: DropdownItemType.DANGER_TEXT,
-                text: 'Delete item'
+                text: 'Delete item',
             })
 
             const root = wrapper.find('[class*="text-text-delete"]')
@@ -437,7 +437,7 @@ describe('DropdownMenuItem.vue', () => {
     it('renders right chevron when hasNestedLevels is true', () => {
         const wrapper = factory({ hasNestedLevels: true })
         const icons = wrapper.findAllComponents(Icon)
-        const chevronIcon = icons.find(icon => icon.props('name') === 'mdi:chevron-right')
+        const chevronIcon = icons.find((icon) => icon.props('name') === 'mdi:chevron-right')
 
         expect(chevronIcon).toBeTruthy()
     })

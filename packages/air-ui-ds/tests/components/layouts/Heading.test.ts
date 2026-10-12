@@ -4,13 +4,10 @@ import Heading from '@/components/layouts/Heading.vue'
 import { HeadingSize, HeadingSpacing } from '@/models/enums/headings'
 import { Align } from '@/models/enums/positions'
 
-const factory = (
-    props: Record<string, unknown> = {},
-    slots: Record<string, string> = {}
-): VueWrapper => {
+const factory = (props: Record<string, unknown> = {}, slots: Record<string, string> = {}): VueWrapper => {
     return mount(Heading, {
         props: { headingTag: 'h1', ...props },
-        slots
+        slots,
     })
 }
 
@@ -32,7 +29,7 @@ describe('Heading.vue', () => {
     it.concurrent('falls back to h1 when invalid headingTag is passed', () => {
         const wrapper = factory({
             // @ts-expect-error testing invalid tag
-            headingTag: 'invalid'
+            headingTag: 'invalid',
         })
 
         expect(wrapper.find('h1').exists()).toBe(true)
@@ -60,7 +57,7 @@ describe('Heading.vue', () => {
     it.concurrent('adds uppercase class to overtitle when isOverTitleUppercase is true', () => {
         const wrapper = factory({
             overtitle: 'Upper Overtitle',
-            isOverTitleUppercase: true
+            isOverTitleUppercase: true,
         })
 
         expect(wrapper.find('span').classes()).toContain('uppercase')
@@ -80,7 +77,7 @@ describe('Heading.vue', () => {
     it.concurrent('applies mobile-centered classes when isMobileCentered is true', () => {
         const wrapper = factory({
             align: Align.LEFT,
-            isMobileCentered: true
+            isMobileCentered: true,
         })
 
         const classes = wrapper.find('div').classes()
@@ -101,7 +98,7 @@ describe('Heading.vue', () => {
         const wrapper = factory({
             description: 'Spaced description',
             size: HeadingSize.LG,
-            spacing: HeadingSpacing.SPACED
+            spacing: HeadingSpacing.SPACED,
         })
 
         expect(wrapper.find('p').classes()).toContain('mt-9')
@@ -113,7 +110,7 @@ describe('Heading.vue', () => {
             overtitleClass: 'custom-overtitle',
             titleClass: 'custom-title',
             description: 'With class',
-            descriptionClass: 'custom-description'
+            descriptionClass: 'custom-description',
         })
 
         expect(wrapper.find('span').classes()).toContain('custom-overtitle')
@@ -124,7 +121,7 @@ describe('Heading.vue', () => {
     it.concurrent('renders overtitle slot content when provided', () => {
         const wrapper = factory(
             { overtitle: 'Fallback' },
-            { overtitle: '<span data-test="slot-overtitle">Slot Overtitle</span>' }
+            { overtitle: '<span data-test="slot-overtitle">Slot Overtitle</span>' },
         )
 
         expect(wrapper.find('[data-test="slot-overtitle"]').exists()).toBe(true)
@@ -134,7 +131,7 @@ describe('Heading.vue', () => {
     it.concurrent('renders title slot content when provided', () => {
         const wrapper = factory(
             { title: 'Fallback Title' },
-            { title: '<span data-test="slot-title">Slot Title</span>' }
+            { title: '<span data-test="slot-title">Slot Title</span>' },
         )
 
         expect(wrapper.find('[data-test="slot-title"]').exists()).toBe(true)
@@ -144,7 +141,7 @@ describe('Heading.vue', () => {
     it.concurrent('renders description slot content when provided', () => {
         const wrapper = factory(
             { description: 'Fallback Description' },
-            { description: '<span data-test="slot-description">Slot Description</span>' }
+            { description: '<span data-test="slot-description">Slot Description</span>' },
         )
 
         expect(wrapper.find('[data-test="slot-description"]').exists()).toBe(true)
@@ -157,7 +154,7 @@ describe('Heading.vue', () => {
             size: 'invalid',
             // @ts-expect-error testing invalid spacing
             spacing: 'invalid',
-            description: 'Check spacing'
+            description: 'Check spacing',
         })
 
         const heading = wrapper.find('h1')

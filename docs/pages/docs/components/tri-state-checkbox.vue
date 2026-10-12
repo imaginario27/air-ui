@@ -1,9 +1,7 @@
 <template>
     <Section>
         <SectionBody>
-            <ContentRenderer
-                v-if="data" :value="data"
-            />
+            <ContentRenderer v-if="data" :value="data" />
             <ContentRenderFallback v-else />
         </SectionBody>
     </Section>
@@ -13,7 +11,8 @@ definePageMeta({
     title: 'TriStateCheckbox',
     layout: 'docs',
     overtitle: 'Components',
-    description: 'Standalone checkbox control supporting an indeterminate state, usable independently or within custom form layouts.',
+    description:
+        'Standalone checkbox control supporting an indeterminate state, usable independently or within custom form layouts.',
 })
 
 // Route

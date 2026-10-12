@@ -1,30 +1,14 @@
 <template>
     <div :class="['flex flex-col', 'w-full', 'gap-2']">
-        <label
-            v-if="label"
-            :for="id"
-            :class="[
-                'text-sm',
-                'font-semibold',
-                'text-left',
-                hasError && 'text-text-error'
-            ]"
-        >
+        <label v-if="label" :for="id" :class="['text-sm', 'font-semibold', 'text-left', hasError && 'text-text-error']">
             {{ label }}
-            <span
-                v-if="!required && showOptionalLabel"
-                class="font-normal text-text-neutral-subtler"
-            >
+            <span v-if="!required && showOptionalLabel" class="font-normal text-text-neutral-subtler">
                 {{ optionalLabelText }}
             </span>
         </label>
 
         <!-- Help Text (top) -->
-        <HelpText
-            v-if="helpTextPosition === Position.TOP"
-            :text="helpText"
-            :error="error"
-        />
+        <HelpText v-if="helpTextPosition === Position.TOP" :text="helpText" :error="error" />
 
         <div class="flex w-full gap-4">
             <div
@@ -41,17 +25,10 @@
                     :alt="label || ariaLabel || 'Preview'"
                     class="w-full h-full object-cover rounded-md"
                     @error="handlePreviewError"
-                >
+                />
             </div>
 
-            <div
-                :class="[
-                    'flex flex-col gap-2',
-                    showPreview && previewImageUrl
-                        ? 'flex-1'
-                        : 'w-full',
-                ]"
-            >
+            <div :class="['flex flex-col gap-2', showPreview && previewImageUrl ? 'flex-1' : 'w-full']">
                 <Dropzone
                     v-model="selectedFiles"
                     v-model:total-progress="localTotalProgress"
@@ -117,11 +94,7 @@
                 />
 
                 <!-- Help Text (bottom) -->
-                <HelpText
-                    v-if="helpTextPosition === Position.BOTTOM"
-                    :text="helpText"
-                    :error="error"
-                />
+                <HelpText v-if="helpTextPosition === Position.BOTTOM" :text="helpText" :error="error" />
             </div>
         </div>
     </div>
@@ -360,7 +333,9 @@ const hasError = computed(() => props.error !== '')
 const optionalLabelText = computed(() => props.optionalLabel ?? dsConfig.forms.optionalLabelText())
 const resolvedTitle = computed(() => props.title ?? dsConfig.forms.fileUpload.dragDropText())
 const resolvedButtonText = computed(() => props.buttonText ?? dsConfig.forms.fileUpload.selectFilesText())
-const resolvedUploadingStatusText = computed(() => props.uploadingStatusText ?? dsConfig.forms.fileUpload.uploadingText())
+const resolvedUploadingStatusText = computed(
+    () => props.uploadingStatusText ?? dsConfig.forms.fileUpload.uploadingText(),
+)
 const resolvedSuccessStatusText = computed(() => props.successStatusText ?? dsConfig.forms.fileUpload.uploadedText())
 const resolvedErrorStatusText = computed(() => props.errorStatusText ?? dsConfig.forms.fileUpload.uploadFailedText())
 const resolvedRemoveAriaLabel = computed(() => props.removeAriaLabel ?? dsConfig.forms.fileUpload.removeFileText())
@@ -372,7 +347,7 @@ const acceptedFileTypes = computed(() => {
     if (acceptList.includes('*')) return props.allFilesTypeText
 
     return acceptList
-        .map(entry => {
+        .map((entry) => {
             if (entry.startsWith('.')) return entry.slice(1).toUpperCase()
 
             const [typePart, slashPart] = entry.split('/')
@@ -388,10 +363,7 @@ const acceptedFileTypes = computed(() => {
 })
 
 const computedTitleText = computed(() => {
-    const isReplacingExisting =
-        props.showPreview &&
-        props.previewImageUrl &&
-        selectedFiles.value.length === 0
+    const isReplacingExisting = props.showPreview && props.previewImageUrl && selectedFiles.value.length === 0
 
     if (isReplacingExisting) {
         return props.replaceTitleText
@@ -401,10 +373,7 @@ const computedTitleText = computed(() => {
 })
 
 const computedButtonText = computed(() => {
-    const isReplacingExisting =
-        props.showPreview &&
-        props.previewImageUrl &&
-        selectedFiles.value.length === 0
+    const isReplacingExisting = props.showPreview && props.previewImageUrl && selectedFiles.value.length === 0
 
     if (isReplacingExisting) {
         return props.replaceButtonText
@@ -456,14 +425,14 @@ watch(
             runValidation(newFiles)
         }
     },
-    { deep: true }
+    { deep: true },
 )
 
 watch(
     () => props.totalProgress,
     (value) => {
         localTotalProgress.value = value
-    }
+    },
 )
 
 watch(localTotalProgress, (value) => {

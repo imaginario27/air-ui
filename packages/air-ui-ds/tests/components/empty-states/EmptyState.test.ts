@@ -11,9 +11,9 @@ const factory = (props?: Partial<InstanceType<typeof EmptyStatePlaceholder>['$pr
         global: {
             stubs: {
                 Icon,
-                ActionButton
-            }
-        }
+                ActionButton,
+            },
+        },
     })
 }
 
@@ -50,7 +50,7 @@ describe('EmptyStatePlaceholder', () => {
             descriptionClass: 'custom-desc',
         })
 
-        const titleEl = wrapper.find('span.font-semibold') 
+        const titleEl = wrapper.find('span.font-semibold')
         const descEl = wrapper.find('p')
 
         expect(titleEl.classes()).toContain('custom-title')
@@ -76,7 +76,7 @@ describe('EmptyStatePlaceholder', () => {
         })
 
         const outer = wrapper.findAll('div')[0]
-        const classes = outer.classes().join(' ') 
+        const classes = outer.classes().join(' ')
 
         expect(classes).toContain('bg-background-primary-brand-soft')
     })

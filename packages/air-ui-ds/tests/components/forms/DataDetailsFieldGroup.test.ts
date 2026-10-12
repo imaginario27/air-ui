@@ -5,9 +5,9 @@ import DataDetailsFieldGroup from '~/components/forms/DataDetailsFieldGroup.vue'
 const factory = (options = {}): VueWrapper => {
     return mount(DataDetailsFieldGroup, {
         slots: {
-            default: '<div data-test="slot">Detail group content</div>'
+            default: '<div data-test="slot">Detail group content</div>',
         },
-        ...options
+        ...options,
     })
 }
 
@@ -24,8 +24,8 @@ describe('DataDetailsFieldGroup.vue', () => {
     it.concurrent('renders custom title when provided', () => {
         const wrapper = factory({
             props: {
-                title: 'Details'
-            }
+                title: 'Details',
+            },
         })
 
         expect(wrapper.find('h3').text()).toBe('Details')
@@ -41,8 +41,8 @@ describe('DataDetailsFieldGroup.vue', () => {
     it.concurrent('applies titleClass when provided', () => {
         const wrapper = factory({
             props: {
-                titleClass: 'text-blue-500'
-            }
+                titleClass: 'text-blue-500',
+            },
         })
 
         expect(wrapper.find('h3').classes()).toContain('text-blue-500')
@@ -51,11 +51,11 @@ describe('DataDetailsFieldGroup.vue', () => {
     it.concurrent('renders correct heading tag when valid headingTag is provided', () => {
         const tags = ['h1', 'h2', 'h4', 'h5', 'h6'] as const
 
-        tags.forEach(tag => {
+        tags.forEach((tag) => {
             const wrapper = factory({
                 props: {
-                    headingTag: tag
-                }
+                    headingTag: tag,
+                },
             })
 
             expect(wrapper.find(tag).exists()).toBe(true)
@@ -65,8 +65,8 @@ describe('DataDetailsFieldGroup.vue', () => {
     it.concurrent('falls back to h3 when invalid headingTag is passed', () => {
         const wrapper = factory({
             props: {
-                headingTag: 'invalid-tag'
-            }
+                headingTag: 'invalid-tag',
+            },
         })
 
         expect(wrapper.find('h3').exists()).toBe(true)
@@ -76,24 +76,14 @@ describe('DataDetailsFieldGroup.vue', () => {
     it.concurrent('renders static container classes', () => {
         const wrapper = factory()
 
-        expect(wrapper.classes()).toEqual(
-            expect.arrayContaining([
-                'flex',
-                'flex-col',
-                'gap-4',
-                'mt-2'
-            ])
-        )
+        expect(wrapper.classes()).toEqual(expect.arrayContaining(['flex', 'flex-col', 'gap-4', 'mt-2']))
     })
 
     it.concurrent('renders static heading classes', () => {
         const wrapper = factory()
 
         expect(wrapper.find('h3').classes()).toEqual(
-            expect.arrayContaining([
-                'font-semibold',
-                'text-text-neutral-subtle'
-            ])
+            expect.arrayContaining(['font-semibold', 'text-text-neutral-subtle']),
         )
     })
 })

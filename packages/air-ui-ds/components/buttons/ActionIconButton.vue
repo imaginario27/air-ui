@@ -7,6 +7,7 @@
             'flex items-center justify-center rounded-button',
             isRounded ? 'rounded-full' : 'rounded-button',
             'aspect-square',
+            !hasFocusRing && 'focus:!ring-0 focus:!ring-offset-0',
             'transition-colors duration-200 ease-out',
             ...buttonStyleClass,
             buttonSizeClass,
@@ -15,19 +16,12 @@
         v-bind="{
             ...componentProps,
             ...$attrs,
-            ...(!isDecorative && actionType === ButtonActionType.ACTION ? { onClick: emitClick } : {})
+            ...(!isDecorative && actionType === ButtonActionType.ACTION ? { onClick: emitClick } : {}),
         }"
         :disabled="isDecorative ? undefined : disabled"
         :aria-label="ariaLabel"
     >
-        <Icon 
-            :name="icon"
-            :iconClass="[
-                iconSizeClass, 
-                iconColorClass, 
-                iconClass ? iconClass : ''
-            ]"
-        />
+        <Icon :name="icon" :iconClass="[iconSizeClass, iconColorClass, iconClass ? iconClass : '']" />
     </component>
 </template>
 
@@ -35,8 +29,8 @@
 // Imports
 import { NuxtLink } from '#components'
 
- // Component options
- defineOptions({
+// Component options
+defineOptions({
     inheritAttrs: false, // Prevents Vue from automatically applying attributes incorrectly
 })
 
@@ -55,9 +49,8 @@ const props = defineProps({
     type: {
         type: String as PropType<'button' | 'submit' | 'reset'>,
         default: 'button',
-        validator: (value: string) => 
-            ['button', 'submit', 'reset'].includes(value),
-    }, 
+        validator: (value: string) => ['button', 'submit', 'reset'].includes(value),
+    },
     size: {
         type: String as PropType<ButtonSize>,
         default: ButtonSize.LG,
@@ -65,7 +58,7 @@ const props = defineProps({
     },
     icon: {
         type: String as PropType<string>,
-        default: "mdi:help"
+        default: 'mdi:help',
     },
     iconClass: String as PropType<string>,
     disabled: {
@@ -74,19 +67,23 @@ const props = defineProps({
     },
     to: {
         type: String as PropType<string>,
-        default: '/'
+        default: '/',
     },
     isRounded: {
         type: Boolean as PropType<boolean>,
-        default: false
+        default: false,
+    },
+    hasFocusRing: {
+        type: Boolean as PropType<boolean>,
+        default: true,
     },
     isExternal: {
         type: Boolean as PropType<boolean>,
-        default: false
+        default: false,
     },
     isDecorative: {
         type: Boolean as PropType<boolean>,
-        default: false
+        default: false,
     },
     id: String as PropType<string>,
     ariaLabel: String as PropType<string>,
@@ -201,16 +198,19 @@ const buttonStyleClass = computed(() => {
         ],
     }
 
-    return variant[props.styleType as ButtonStyleType]?.filter(Boolean) || [
-        'border',
-        'border-border-default',
-        'bg-background-neutral-default',
-        !props.disabled && 'hover:bg-background-neutral-hover',
-        'focus:ring-offset-2',
-        'focus:ring-2',
-        'focus:ring-border-primary-brand-default',
-        'text-text-default',
-    ].filter(Boolean)
+    return (
+        variant[props.styleType as ButtonStyleType]?.filter(Boolean) ||
+        [
+            'border',
+            'border-border-default',
+            'bg-background-neutral-default',
+            !props.disabled && 'hover:bg-background-neutral-hover',
+            'focus:ring-offset-2',
+            'focus:ring-2',
+            'focus:ring-border-primary-brand-default',
+            'text-text-default',
+        ].filter(Boolean)
+    )
 })
 
 const buttonSizeClass = computed(() => {

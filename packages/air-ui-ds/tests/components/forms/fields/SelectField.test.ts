@@ -7,7 +7,7 @@ import { Position } from '@/models/enums/positions'
 import { useDSConfig } from '@/composables/useDSConfig'
 
 vi.mock('~/composables/useFormValidationMode', () => ({
-    useInjectedValidationMode: () => ref(FormValidationMode.BLUR)
+    useInjectedValidationMode: () => ref(FormValidationMode.BLUR),
 }))
 
 const defaultProps = {
@@ -15,16 +15,16 @@ const defaultProps = {
     maxLength: 50,
     options: [
         { label: 'Option A', value: 'A', text: 'Option A' },
-        { label: 'Option B', value: 'B', text: 'Option B' }
-    ]
+        { label: 'Option B', value: 'B', text: 'Option B' },
+    ],
 }
 
 describe('SelectField', () => {
     it('renders with minimal props', () => {
         const wrapper = mount(SelectField, {
             props: {
-                ...defaultProps
-            }
+                ...defaultProps,
+            },
         })
 
         const dropdown = wrapper.findComponent(DropdownSelect)
@@ -37,8 +37,8 @@ describe('SelectField', () => {
             props: {
                 ...defaultProps,
                 label: 'Choose',
-                required: true
-            }
+                required: true,
+            },
         })
 
         const label = wrapper.find('label')
@@ -51,8 +51,8 @@ describe('SelectField', () => {
         const wrapper = mount(SelectField, {
             props: {
                 ...defaultProps,
-                helpText: 'Helpful'
-            }
+                helpText: 'Helpful',
+            },
         })
 
         const help = wrapper.find('p')
@@ -68,15 +68,15 @@ describe('SelectField', () => {
                 label: 'Choose',
                 helpText: 'Pick one',
                 helpTextPosition: Position.TOP,
-            }
+            },
         })
 
         const help = wrapper.find('p.text-xs')
         expect(help.exists()).toBe(true)
         expect(help.text()).toBe('Pick one')
         const children = Array.from(wrapper.element.children)
-        const helpIdx = children.findIndex(el => el.classList.contains('text-xs'))
-        const labelIdx = children.findIndex(el => el.tagName === 'LABEL')
+        const helpIdx = children.findIndex((el) => el.classList.contains('text-xs'))
+        const labelIdx = children.findIndex((el) => el.tagName === 'LABEL')
         expect(helpIdx).toBeGreaterThan(labelIdx)
         expect(helpIdx).toBeLessThan(children.length - 1)
     })
@@ -85,8 +85,8 @@ describe('SelectField', () => {
         const wrapper = mount(SelectField, {
             props: {
                 ...defaultProps,
-                error: 'Something went wrong'
-            }
+                error: 'Something went wrong',
+            },
         })
 
         const error = wrapper.find('p')
@@ -99,8 +99,8 @@ describe('SelectField', () => {
         const wrapper = mount(SelectField, {
             props: {
                 ...defaultProps,
-                error: 'Something went wrong'
-            }
+                error: 'Something went wrong',
+            },
         })
 
         const dropdown = wrapper.findComponent(DropdownSelect)
@@ -111,8 +111,8 @@ describe('SelectField', () => {
     it('emits update:modelValue on value change', async () => {
         const wrapper = mount(SelectField, {
             props: {
-                ...defaultProps
-            }
+                ...defaultProps,
+            },
         })
 
         const dropdown = wrapper.findComponent(DropdownSelect)
@@ -126,8 +126,8 @@ describe('SelectField', () => {
             props: {
                 ...defaultProps,
                 modelValue: 'A',
-                allowDeselect: true
-            }
+                allowDeselect: true,
+            },
         })
 
         const dropdown = wrapper.findComponent(DropdownSelect)
@@ -142,8 +142,8 @@ describe('SelectField', () => {
                 ...defaultProps,
                 multiple: true,
                 hasBadgeStack: true,
-                modelValue: ['A', 'B']
-            }
+                modelValue: ['A', 'B'],
+            },
         })
 
         const badges = wrapper.findComponent(BadgeStack)
@@ -157,8 +157,8 @@ describe('SelectField', () => {
                 ...defaultProps,
                 multiple: true,
                 hasBadgeStack: true,
-                modelValue: ['A', 'B']
-            }
+                modelValue: ['A', 'B'],
+            },
         })
 
         const badgeStack = wrapper.findComponent(BadgeStack)
@@ -174,8 +174,8 @@ describe('SelectField', () => {
                 options: [],
                 isLoading: true,
                 showLoadingState: true,
-                loadingOptionsPlaceholder: 'Loading...'
-            }
+                loadingOptionsPlaceholder: 'Loading...',
+            },
         })
 
         const dropdown = wrapper.findComponent(DropdownSelect)
@@ -188,8 +188,8 @@ describe('SelectField', () => {
             props: {
                 ...defaultProps,
                 placeholder: 'Pick one',
-                isLoading: false
-            }
+                isLoading: false,
+            },
         })
 
         const dropdown = wrapper.findComponent(DropdownSelect)
@@ -205,8 +205,8 @@ describe('SelectField', () => {
                 validator,
                 required: true,
                 modelValue: 'A',
-                error: ''
-            }
+                error: '',
+            },
         })
 
         await wrapper.setProps({ modelValue: 'B' })
@@ -222,8 +222,8 @@ describe('SelectField', () => {
             props: {
                 ...defaultProps,
                 validator,
-                required: false
-            }
+                required: false,
+            },
         })
 
         await wrapper.setProps({ modelValue: 'A' })
@@ -236,8 +236,8 @@ describe('SelectField', () => {
         const wrapper = mount(SelectField, {
             props: {
                 ...defaultProps,
-                required: true
-            }
+                required: true,
+            },
         })
 
         await wrapper.setProps({ modelValue: 'A' })
@@ -251,7 +251,7 @@ describe('SelectField', () => {
                 ...defaultProps,
                 label: '',
                 ariaLabel: 'Accessible select field',
-            }
+            },
         })
 
         const dropdown = wrapper.findComponent(DropdownSelect)
@@ -265,7 +265,7 @@ describe('SelectField', () => {
             props: {
                 ...defaultProps,
                 clearSelectionAriaLabel: 'Limpiar selección',
-            }
+            },
         })
 
         const dropdown = wrapper.findComponent(DropdownSelect)
@@ -274,7 +274,7 @@ describe('SelectField', () => {
 
     it('forwards transparent prop to DropdownSelect', () => {
         const wrapper = mount(SelectField, {
-            props: { ...defaultProps, transparent: true }
+            props: { ...defaultProps, transparent: true },
         })
 
         const dropdown = wrapper.findComponent(DropdownSelect)

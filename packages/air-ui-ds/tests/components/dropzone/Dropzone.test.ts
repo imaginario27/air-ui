@@ -14,10 +14,15 @@ const ActionButtonStub = defineComponent({
     },
     emits: ['click'],
     setup(props, { emit }) {
-        return () => h('button', {
-            'data-test': `action-button-${props.text}`,
-            onClick: (event: MouseEvent) => emit('click', event),
-        }, props.text)
+        return () =>
+            h(
+                'button',
+                {
+                    'data-test': `action-button-${props.text}`,
+                    onClick: (event: MouseEvent) => emit('click', event),
+                },
+                props.text,
+            )
     },
 })
 
@@ -25,10 +30,11 @@ const ActionIconButtonStub = defineComponent({
     name: 'ActionIconButton',
     emits: ['click'],
     setup(_, { emit }) {
-        return () => h('button', {
-            'data-test': 'action-icon-button',
-            onClick: (event: MouseEvent) => emit('click', event),
-        })
+        return () =>
+            h('button', {
+                'data-test': 'action-icon-button',
+                onClick: (event: MouseEvent) => emit('click', event),
+            })
     },
 })
 

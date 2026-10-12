@@ -1,9 +1,7 @@
 ﻿<template>
     <Section>
         <SectionBody>
-            <ContentRenderer
-                v-if="data" :value="data"
-            />
+            <ContentRenderer v-if="data" :value="data" />
             <ContentRenderFallback v-else />
         </SectionBody>
     </Section>
@@ -14,7 +12,8 @@ definePageMeta({
     title: 'Slider',
     layout: 'docs',
     overtitle: 'Components',
-    description: 'Standalone slider component with single and range modes, orientation support, and configurable sizing.',
+    description:
+        'Standalone slider component with single and range modes, orientation support, and configurable sizing.',
 })
 
 // Route

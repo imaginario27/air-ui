@@ -4,19 +4,19 @@ import { FormValidationMode } from '~/models/enums/formValidations'
 import { ControlFieldSize, SwitchStyle } from '#imports'
 
 vi.mock('~/composables/useFormValidationMode', () => ({
-    useInjectedValidationMode: () => ref(FormValidationMode.BLUR)
+    useInjectedValidationMode: () => ref(FormValidationMode.BLUR),
 }))
 
 const defaultProps = {
-    id: 'switch-id'
+    id: 'switch-id',
 }
 
 const factory = (props: Record<string, unknown> = {}) => {
     return mount(SwitchField, {
         props: {
             ...defaultProps,
-            ...props
-        }
+            ...props,
+        },
     })
 }
 
@@ -41,7 +41,7 @@ describe('SwitchField', () => {
         const wrapper = factory({
             size: ControlFieldSize.LG,
             styleType: SwitchStyle.SUCCESS,
-            modelValue: true
+            modelValue: true,
         })
 
         const switchWrapper = wrapper.find('div.relative.flex.items-center')
@@ -79,7 +79,7 @@ describe('SwitchField', () => {
     it('does not emit update:modelValue when disabled', async () => {
         const wrapper = factory({
             modelValue: false,
-            disabled: true
+            disabled: true,
         })
 
         const toggle = wrapper.find('div.relative.flex.items-center')
@@ -94,7 +94,7 @@ describe('SwitchField', () => {
         const wrapper = factory({
             modelValue: false,
             required: true,
-            validator
+            validator,
         })
 
         const toggle = wrapper.find('div.relative.flex.items-center')
@@ -115,7 +115,7 @@ describe('SwitchField', () => {
             required: true,
             validator,
             modelValue: false,
-            error: ''
+            error: '',
         })
 
         await wrapper.setProps({ modelValue: true })
@@ -130,7 +130,7 @@ describe('SwitchField', () => {
         const wrapper = factory({
             required: false,
             validator,
-            modelValue: true
+            modelValue: true,
         })
 
         await wrapper.setProps({ modelValue: false })
@@ -149,12 +149,10 @@ describe('SwitchField', () => {
     it('places switch next to label when fitToContent is enabled', () => {
         const wrapper = factory({
             label: 'Enable feature',
-            fitToContent: true
+            fitToContent: true,
         })
 
-        const mainWrapper = wrapper
-            .findAll('div')
-            .find(div => div.classes().includes('items-center'))
+        const mainWrapper = wrapper.findAll('div').find((div) => div.classes().includes('items-center'))
 
         expect(mainWrapper).toBeDefined()
         expect(mainWrapper!.classes()).toContain('w-max')
@@ -196,8 +194,8 @@ describe('SwitchField', () => {
         const wrapper = mount(SwitchField, {
             props: defaultProps,
             slots: {
-                label: '<strong>Bold</strong> feature'
-            }
+                label: '<strong>Bold</strong> feature',
+            },
         })
 
         const label = wrapper.find('label')

@@ -1,44 +1,22 @@
 <template>
     <div :class="['flex flex-col', 'gap-2']">
         <!-- Label -->
-        <label
-            v-if="label"
-            :for="id"
-            :class="[
-                'text-sm',
-                'font-semibold',
-                hasError && 'text-text-error',
-            ]"
-        >
+        <label v-if="label" :for="id" :class="['text-sm', 'font-semibold', hasError && 'text-text-error']">
             {{ label }}
-            <span
-                v-if="!required && showOptionalLabel"
-                class="font-normal text-text-neutral-subtler"
-            >
+            <span v-if="!required && showOptionalLabel" class="font-normal text-text-neutral-subtler">
                 {{ optionalLabelText }}
             </span>
         </label>
 
         <!-- Help Text (top) -->
-        <HelpText
-            v-if="helpTextPosition === Position.TOP"
-            :text="helpText"
-            :error="error"
-        />
+        <HelpText v-if="helpTextPosition === Position.TOP" :text="helpText" :error="error" />
 
         <!-- Inputs -->
-        <div
-            :id
-            :class="[
-                'flex',
-                fieldsGapClass,
-                hasError && 'text-text-error',
-            ]"
-        >
+        <div :id :class="['flex', fieldsGapClass, hasError && 'text-text-error']">
             <input
                 v-for="(value, index) in values"
                 :key="index"
-                :ref="el => setInputRef(el, index)"
+                :ref="(el) => setInputRef(el, index)"
                 type="text"
                 :aria-label="getInputAriaLabel(index)"
                 :inputmode="type === 'number' ? 'numeric' : 'text'"
@@ -54,28 +32,23 @@
                     'outline-none',
                     'transition-all',
                     'placeholder-text-neutral-subtler',
-                    hasError
-                        ? 'border-border-error'
-                        : 'border-border-default',
-                    focusedIndex === index && 'ring-2 focus-within:ring-inset focus-within:ring-border-primary-brand-default',
+                    hasError ? 'border-border-error' : 'border-border-default',
+                    focusedIndex === index &&
+                        'ring-2 focus-within:ring-inset focus-within:ring-border-primary-brand-default',
                     disabled
                         ? 'bg-background-neutral-disabled cursor-not-allowed'
-                        : (!transparent && 'bg-background-container-surface'),
+                        : !transparent && 'bg-background-container-surface',
                     inputClass,
                 ]"
                 @focus="handleFocus(index)"
                 @blur="handleBlur"
                 @input="onInput($event, index)"
                 @keydown.backspace="onBackspace($event, index)"
-            >
+            />
         </div>
 
         <!-- Help Text (bottom) -->
-        <HelpText
-            v-if="helpTextPosition === Position.BOTTOM"
-            :text="helpText"
-            :error="error"
-        />
+        <HelpText v-if="helpTextPosition === Position.BOTTOM" :text="helpText" :error="error" />
     </div>
 </template>
 
@@ -203,13 +176,10 @@ const fieldsGapClass = computed(() => {
 // Sync v-model → inputs
 watch(
     () => props.modelValue,
-    value => {
+    (value) => {
         const chars = value.split('').slice(0, props.length)
 
-        values.value = Array.from(
-            { length: props.length },
-            (_, i) => chars[i] ?? '',
-        )
+        values.value = Array.from({ length: props.length }, (_, i) => chars[i] ?? '')
     },
     { immediate: true },
 )
@@ -238,7 +208,7 @@ const onInput = (event: Event, index: number) => {
         const chars = value
             .slice(0, props.length)
             .split('')
-            .map(char => {
+            .map((char) => {
                 let result = char
 
                 if (props.type === 'number') {
@@ -252,10 +222,7 @@ const onInput = (event: Event, index: number) => {
                 return result
             })
 
-        values.value = Array.from(
-            { length: props.length },
-            (_, i) => chars[i] ?? '',
-        )
+        values.value = Array.from({ length: props.length }, (_, i) => chars[i] ?? '')
 
         emit('update:modelValue', values.value.join(''))
 
@@ -343,7 +310,7 @@ const runValidation = () => {
 // Watchers
 watch(
     () => props.modelValue,
-    value => {
+    (value) => {
         if (validationMode.value === FormValidationMode.BLUR && props.validator) {
             const result = props.validator(value)
             emit('update:error', result ?? '')
@@ -353,13 +320,10 @@ watch(
 
 watch(
     () => props.length,
-    newLength => {
+    (newLength) => {
         const current = values.value.join('')
 
-        values.value = Array.from(
-            { length: newLength },
-            (_, i) => current[i] ?? '',
-        )
+        values.value = Array.from({ length: newLength }, (_, i) => current[i] ?? '')
 
         emit('update:modelValue', values.value.join(''))
     },
@@ -373,7 +337,7 @@ onMounted(() => {
 
 watch(
     () => props.autofocus,
-    enabled => {
+    (enabled) => {
         if (!enabled) return
         focusFirst()
     },

@@ -2,7 +2,7 @@ export interface ComponentPortfolioItem {
     title: string
     to?: string
     isSectionTitle?: boolean
-    sectionIcon?: string 
+    sectionIcon?: string
     imgUrl?: string
     description?: string
 }
@@ -27,6 +27,6 @@ export interface UtilPortfolioItem {
     title: string
     to?: string
     isSectionTitle?: boolean
-    sectionIcon?: string 
+    sectionIcon?: string
     description?: string
 }

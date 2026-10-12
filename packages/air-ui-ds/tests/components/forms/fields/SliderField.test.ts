@@ -6,7 +6,7 @@ import { SliderType } from '@/models/enums/sliders'
 import { Position } from '@/models/enums/positions'
 
 vi.mock('~/composables/useFormValidationMode', () => ({
-    useInjectedValidationMode: () => ref('blur')
+    useInjectedValidationMode: () => ref('blur'),
 }))
 
 const factory = (props: Record<string, unknown> = {}) => {
@@ -74,8 +74,8 @@ describe('SliderField.vue', () => {
         expect(help.exists()).toBe(true)
         expect(help.text()).toBe('Drag to set')
         const children = Array.from(wrapper.element.children)
-        const helpIdx = children.findIndex(el => el.classList.contains('text-xs'))
-        const labelIdx = children.findIndex(el => el.tagName === 'DIV' && el.querySelector('label'))
+        const helpIdx = children.findIndex((el) => el.classList.contains('text-xs'))
+        const labelIdx = children.findIndex((el) => el.tagName === 'DIV' && el.querySelector('label'))
         expect(helpIdx).toBeGreaterThan(labelIdx)
         expect(helpIdx).toBeLessThan(children.length - 1)
     })
@@ -122,7 +122,7 @@ describe('SliderField.vue', () => {
             modelValue: [10, 20],
         })
 
-        const labels = wrapper.findAll('label').map(label => label.text())
+        const labels = wrapper.findAll('label').map((label) => label.text())
         expect(labels).not.toContain('Min:')
         expect(labels).not.toContain('Max:')
     })
@@ -137,7 +137,7 @@ describe('SliderField.vue', () => {
             maxText: 'Max:',
         })
 
-        const labels = wrapper.findAll('label').map(label => label.text())
+        const labels = wrapper.findAll('label').map((label) => label.text())
         expect(labels).toContain('Min:')
         expect(labels).toContain('Max:')
     })
@@ -196,7 +196,7 @@ describe('SliderField.vue', () => {
         })
 
         const inputFields = wrapper.findAllComponents({ name: 'InputField' })
-        inputFields.forEach(field => {
+        inputFields.forEach((field) => {
             expect(field.props('transparent')).toBe(true)
         })
     })
@@ -205,7 +205,7 @@ describe('SliderField.vue', () => {
         const wrapper = factory({ showInputs: true })
 
         const inputFields = wrapper.findAllComponents({ name: 'InputField' })
-        inputFields.forEach(field => {
+        inputFields.forEach((field) => {
             expect(field.props('transparent')).toBe(false)
         })
     })

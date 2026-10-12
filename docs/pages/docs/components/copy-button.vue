@@ -2,10 +2,8 @@
     <Section>
         <SectionBody>
             <TabBar v-model="activeIndex" :tabs />
-            <ContentRenderer 
-                v-if="data" :value="data" 
-            />
-            <ContentRenderFallback v-else/>
+            <ContentRenderer v-if="data" :value="data" />
+            <ContentRenderFallback v-else />
         </SectionBody>
     </Section>
 </template>
@@ -14,7 +12,7 @@ definePageMeta({
     title: 'CopyButton',
     layout: 'docs',
     overtitle: 'Components',
-    description: 'A button component that copies text to the clipboard when clicked.'
+    description: 'A button component that copies text to the clipboard when clicked.',
 })
 
 // Route

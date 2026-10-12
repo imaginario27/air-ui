@@ -1,12 +1,12 @@
 <template>
-    <ModalDialog 
-        :modelValue="modelValue" 
+    <ModalDialog
+        :modelValue="modelValue"
         cardClass="!p-0 max-w-[700px] max-h-[400px]"
         containerClass="items-start md:items-center"
         :hasCornerCloseButton="false"
         @update:modelValue="updateModelValue"
     >
-        <div class="flex flex-col gap-6">   
+        <div class="flex flex-col gap-6">
             <!-- Search Input -->
             <SearchModalInput
                 v-model="searchValue"
@@ -18,11 +18,7 @@
             <!-- Recent searches -->
             <div
                 v-if="recentSearches.length && searchValue === ''"
-                :class="[
-                    'pb-6',
-                    'overflow-y-auto',
-                    'max-h-[300px]',
-                ]"
+                :class="['pb-6', 'overflow-y-auto', 'max-h-[300px]']"
             >
                 <h2 class="font-semibold mb-6 px-6">
                     {{ recentsTitle }}
@@ -41,24 +37,11 @@
             </div>
 
             <!-- Results / Empty states -->
-            <div
-                v-else
-                :class="[
-                    'pb-6',
-                    'px-6',
-                    'overflow-y-auto',
-                    'max-h-[300px]',
-                ]"
-            >
+            <div v-else :class="['pb-6', 'px-6', 'overflow-y-auto', 'max-h-[300px]']">
                 <!-- Empty state: no recents + not searching -->
                 <div
                     v-if="searchValue === '' && !recentSearches.length"
-                    :class="[
-                        'flex',
-                        'items-center',
-                        'justify-center',
-                        'py-16',
-                    ]"
+                    :class="['flex', 'items-center', 'justify-center', 'py-16']"
                 >
                     <p class="text-text-neutral-subtle text-center">
                         {{ noRecentsSearchesText }}
@@ -120,19 +103,9 @@ const props = defineProps({
 // Store
 const searchStore = useSearchStore()
 
-const {
-    searchValue,
-    debouncedSearchValue,
-    recentSearches,
-    results,
-} = storeToRefs(searchStore)
+const { searchValue, debouncedSearchValue, recentSearches, results } = storeToRefs(searchStore)
 
-const {
-    setResults,
-    clearResults,
-    addToRecentSearch,
-    removeRecentSearchItem,
-} = searchStore
+const { setResults, clearResults, addToRecentSearch, removeRecentSearchItem } = searchStore
 
 // Fuse composable
 const { init, search } = useFuseContentSearch()
@@ -153,7 +126,6 @@ const handleResultClick = async (item: SearchItem) => {
 
     await navigateTo(item.to)
 }
-
 
 const handleCloseSearchModalKey = (event: KeyboardEvent) => {
     if (event.key === 'Escape') {

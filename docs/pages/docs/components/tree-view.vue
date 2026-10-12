@@ -1,9 +1,7 @@
 <template>
     <Section>
         <SectionBody>
-            <ContentRenderer
-                v-if="data" :value="data"
-            />
+            <ContentRenderer v-if="data" :value="data" />
             <ContentRenderFallback v-else />
         </SectionBody>
     </Section>
@@ -14,7 +12,8 @@ definePageMeta({
     title: 'TreeView',
     layout: 'docs',
     overtitle: 'Components',
-    description: 'Hierarchical list of expandable nodes with selection, optional checkboxes, lazy loading and keyboard navigation.',
+    description:
+        'Hierarchical list of expandable nodes with selection, optional checkboxes, lazy loading and keyboard navigation.',
 })
 
 // Route

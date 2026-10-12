@@ -1,5 +1,5 @@
 <template>
-    <div 
+    <div
         :class="[
             'py-4',
             'px-6',
@@ -13,11 +13,7 @@
         @click="handleClick"
     >
         <div class="flex flex-col gap-2 w-full">
-            <Badge
-                :text="badgeText"
-                :color="badgeColor"
-                :style="badgeStyle"
-            />
+            <Badge :text="badgeText" :color="badgeColor" :style="badgeStyle" />
             <span v-if="breadcrumbs" class="text-sm text-text-neutral-subtle">
                 {{ breadcrumbs }}
             </span>

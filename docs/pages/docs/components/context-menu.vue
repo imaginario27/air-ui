@@ -1,9 +1,7 @@
 ﻿<template>
     <Section>
         <SectionBody>
-            <ContentRenderer 
-                v-if="data" :value="data" 
-            />
+            <ContentRenderer v-if="data" :value="data" />
             <ContentRenderFallback v-else />
         </SectionBody>
     </Section>
@@ -13,7 +11,8 @@ definePageMeta({
     title: 'Context menu',
     layout: 'docs',
     overtitle: 'Components',
-    description: 'Displays a compact contextual action menu on right click, with support for nested menus, divider items, and keyboard shortcut keycaps.',
+    description:
+        'Displays a compact contextual action menu on right click, with support for nested menus, divider items, and keyboard shortcut keycaps.',
 })
 
 const route = useRoute()

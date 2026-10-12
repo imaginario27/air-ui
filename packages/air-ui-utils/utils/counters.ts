@@ -10,17 +10,15 @@ import { StackCounterType } from '../../air-ui-ds/models/enums/counters'
  * @returns A string representing the counter content
  */
 
-export const getStackCounterContent = (
-    items: unknown[],
-    counterType: StackCounterType,
-    itemsLimit?: number | null,
-) => {
+export const getStackCounterContent = (items: unknown[], counterType: StackCounterType, itemsLimit?: number | null) => {
     const ellipsis = '...'
 
-    if (!items.length && (itemsLimit === null || itemsLimit === undefined) || counterType === StackCounterType.ELLIPSIS) {
+    if (
+        (!items.length && (itemsLimit === null || itemsLimit === undefined)) ||
+        counterType === StackCounterType.ELLIPSIS
+    ) {
         return ellipsis
     }
-
 
     if (counterType === StackCounterType.COUNTER) {
         const additionalItems = items.length - (itemsLimit ?? 0)

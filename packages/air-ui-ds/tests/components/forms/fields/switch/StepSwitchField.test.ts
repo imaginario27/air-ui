@@ -4,7 +4,7 @@ import { FormValidationMode } from '~/models/enums/formValidations'
 import { ControlFieldSize, SwitchStyle } from '#imports'
 
 vi.mock('~/composables/useFormValidationMode', () => ({
-    useInjectedValidationMode: () => ref(FormValidationMode.BLUR)
+    useInjectedValidationMode: () => ref(FormValidationMode.BLUR),
 }))
 
 const steps = [
@@ -18,7 +18,17 @@ const stepX = (index: number) => index * 28 + 14 + 1
 
 const mockTrackRect = (wrapper: VueWrapper) => {
     const track = wrapper.find('div[aria-hidden="true"]')
-    track.element.getBoundingClientRect = () => ({ left: 0, top: 0, right: 86, bottom: 24, width: 86, height: 24, x: 0, y: 0, toJSON: () => ({}) })
+    track.element.getBoundingClientRect = () => ({
+        left: 0,
+        top: 0,
+        right: 86,
+        bottom: 24,
+        width: 86,
+        height: 24,
+        x: 0,
+        y: 0,
+        toJSON: () => ({}),
+    })
     return track
 }
 
@@ -36,8 +46,8 @@ const factory = (props: Record<string, unknown> = {}) => {
     return mount(StepSwitchField, {
         props: {
             ...defaultProps,
-            ...props
-        }
+            ...props,
+        },
     })
 }
 
@@ -169,7 +179,7 @@ describe('StepSwitchField', () => {
 
         const mainWrapper = wrapper
             .findAll('div')
-            .find(div => div.classes().includes('items-center') && div.classes().includes('gap-3'))
+            .find((div) => div.classes().includes('items-center') && div.classes().includes('gap-3'))
 
         expect(mainWrapper).toBeDefined()
         expect(mainWrapper!.classes()).toContain('w-max')
@@ -186,8 +196,8 @@ describe('StepSwitchField', () => {
         const wrapper = mount(StepSwitchField, {
             props: defaultProps,
             slots: {
-                label: '<strong>Bold</strong> effort'
-            }
+                label: '<strong>Bold</strong> effort',
+            },
         })
 
         const label = wrapper.find('label')

@@ -1,9 +1,7 @@
 ﻿<template>
     <Section>
         <SectionBody>
-            <ContentRenderer 
-                v-if="data" :value="data" 
-            />
+            <ContentRenderer v-if="data" :value="data" />
             <ContentRenderFallback v-else />
         </SectionBody>
     </Section>
@@ -13,7 +11,8 @@ definePageMeta({
     title: 'Popover',
     layout: 'docs',
     overtitle: 'Components',
-    description: 'A floating panel that appears on hover or click, used to display contextual content related to a trigger element.',
+    description:
+        'A floating panel that appears on hover or click, used to display contextual content related to a trigger element.',
 })
 
 // Route

@@ -4,7 +4,7 @@ import Icon from '~/components/icons/Icon.vue'
 
 const factory = (props = {}) => {
     return mount(Badge, {
-        props
+        props,
     })
 }
 

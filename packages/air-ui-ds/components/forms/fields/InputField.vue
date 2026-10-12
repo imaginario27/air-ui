@@ -1,39 +1,77 @@
 <template>
-    <div :class="['flex flex-col', 'w-full', 'gap-2']">
+    <DatePickerField
+        v-if="isDateType"
+        :id
+        :type="datePickerType"
+        :label
+        :ariaLabel
+        :helpText
+        :helpTextPosition
+        :icon
+        :size
+        :modelValue="dateValue"
+        :placeholder
+        :validator
+        :error
+        :min
+        :max
+        :locale
+        :readonly
+        :disabled
+        :required
+        :showOptionalLabel
+        :optionalLabel
+        :transparent
+        :autoFlip
+        @update:modelValue="handleDateUpdate"
+        @update:error="emit('update:error', $event)"
+    />
+
+    <TimePickerField
+        v-else-if="isTimeType"
+        :id
+        :label
+        :ariaLabel
+        :helpText
+        :helpTextPosition
+        :icon
+        :size
+        :modelValue="dateValue"
+        :placeholder
+        :validator
+        :error
+        :min
+        :max
+        :locale
+        :readonly
+        :disabled
+        :required
+        :showOptionalLabel
+        :optionalLabel
+        :transparent
+        :autoFlip
+        @update:modelValue="handleDateUpdate"
+        @update:error="emit('update:error', $event)"
+    />
+
+    <div v-else :class="['flex flex-col', 'w-full', 'gap-2']">
         <div v-if="label" class="w-full flex gap-2 justify-between">
             <!-- Label -->
             <label
                 v-if="label"
                 :for="id"
-                :class="[
-                    'text-sm',
-                    'font-semibold',
-                    'text-left',
-                    hasError && 'text-text-error',
-                ]"
+                :class="['text-sm', 'font-semibold', 'text-left', hasError && 'text-text-error']"
             >
                 {{ label }}
-                <span
-                    v-if="!required && showOptionalLabel"
-                    class="font-normal text-text-neutral-subtler"
-                >
+                <span v-if="!required && showOptionalLabel" class="font-normal text-text-neutral-subtler">
                     {{ optionalLabelText }}
                 </span>
             </label>
-            <NavLink
-                v-if="linkText && linkUrl"
-                :text="linkText"
-                :to="linkUrl"
-                textClass="font-normal"
-            />
+            <NavLink v-if="linkText && linkUrl" :text="linkText" :to="linkUrl" textClass="font-normal" />
         </div>
 
         <!-- Help Text (top) -->
-        <HelpText
-            v-if="helpTextPosition === Position.TOP"
-            :text="helpText"
-            :error="error"
-        />
+        <HelpText v-if="helpTextPosition === Position.TOP" :text="helpText" :error="error" />
 
         <!-- Input Container -->
         <div
@@ -50,16 +88,12 @@
                 type === 'color' && 'w-fit',
                 hasError ? 'border-border-error text-text-error' : 'border-border-default',
                 isFocused && 'ring-2 focus-within:ring-inset focus-within:ring-border-primary-brand-default',
-                disabled ? 'bg-background-neutral-disabled' : (!transparent && 'bg-background-container-surface'),
+                disabled ? 'bg-background-neutral-disabled' : !transparent && 'bg-background-container-surface',
                 disabled && 'cursor-not-allowed',
             ]"
         >
             <!-- Icon -->
-            <Icon
-                v-if="icon"
-                :name="icon"
-                iconClass="text-icon-neutral-subtler"
-            />
+            <Icon v-if="icon" :name="icon" iconClass="text-icon-neutral-subtler" />
 
             <!-- Input -->
             <input
@@ -81,7 +115,7 @@
                     'placeholder-text-neutral-subtler',
                     type === 'color' && '!w-[40px] rounded-full border-0 hover:cursor-pointer',
                     disabled && 'cursor-not-allowed',
-                inputClass,
+                    inputClass,
                 ]"
                 v-bind="{
                     ...dynamicProps,
@@ -89,13 +123,10 @@
                 @focus="handleFocus"
                 @blur="handleBlur"
                 @input="handleInput"
-            >
+            />
 
             <!-- Color info -->
-            <span 
-                v-if="type === 'color'"
-                class="text-sm"
-            >
+            <span v-if="type === 'color'" class="text-sm">
                 {{ modelValue }}
             </span>
 
@@ -110,14 +141,11 @@
                     'focus:outline-none',
                     'transition-colors',
                     'cursor-pointer',
-                    'h-[20px]'
+                    'h-[20px]',
                 ]"
                 @click="handleSuffixClick"
             >
-                <Icon
-                    v-if="suffixIcon"
-                    :name="suffixIcon"  
-                />
+                <Icon v-if="suffixIcon" :name="suffixIcon" />
             </button>
 
             <!-- Show / Hide password -->
@@ -131,29 +159,19 @@
                     'focus:outline-none',
                     'transition-colors',
                     'cursor-pointer',
-                    'h-[20px]'
+                    'h-[20px]',
                 ]"
-                @click="() => showPassword = !showPassword"
+                @click="() => (showPassword = !showPassword)"
             >
-                <Icon
-                    :name="showPassword ? 'mdi:eye-off-outline' : 'mdi:eye-outline'"
-                />
+                <Icon :name="showPassword ? 'mdi:eye-off-outline' : 'mdi:eye-outline'" />
             </button>
 
             <!-- Error Icon -->
-            <Icon
-                v-if="hasError && !suffixIcon"
-                name="mdi:alert-circle-outline"
-                iconClass="text-icon-error"
-            />
+            <Icon v-if="hasError && !suffixIcon" name="mdi:alert-circle-outline" iconClass="text-icon-error" />
         </div>
 
         <!-- Help Text (bottom) -->
-        <HelpText
-            v-if="helpTextPosition === Position.BOTTOM"
-            :text="helpText"
-            :error="error"
-        />
+        <HelpText v-if="helpTextPosition === Position.BOTTOM" :text="helpText" :error="error" />
     </div>
 </template>
 
@@ -180,10 +198,14 @@ const props = defineProps({
         default: Position.BOTTOM,
         validator: (value: Position) => Object.values(Position).includes(value),
     },
+    autoFlip: {
+        type: Boolean as PropType<boolean>,
+        default: true,
+    },
     icon: String as PropType<string>,
     suffixIcon: String as PropType<string>,
     linkText: String as PropType<string>,
-    linkUrl: String as PropType<string>,       
+    linkUrl: String as PropType<string>,
     size: {
         type: String as PropType<InputSize>,
         default: InputSize.MD,
@@ -216,7 +238,11 @@ const props = defineProps({
     hasShowPasswordButton: {
         type: Boolean as PropType<boolean>,
         default: true,
-    }, 
+    },
+    locale: {
+        type: String as PropType<string>,
+        default: 'en-US',
+    },
     min: String as PropType<string>,
     max: String as PropType<string>,
     step: String as PropType<string>,
@@ -273,6 +299,16 @@ const passwordInputType = computed(() => {
     if (props.type !== 'password') return props.type
     return showPassword.value ? 'text' : 'password'
 })
+
+// Date, month, week and date and time types are delegated to DatePickerField, and time to TimePickerField
+const isDateType = computed(() => ['date', 'month', 'week', 'datetime-local'].includes(props.type))
+const isTimeType = computed(() => props.type === 'time')
+const datePickerType = computed(() => props.type as DatePickerType)
+const dateValue = computed(() => (props.modelValue === null ? null : String(props.modelValue)))
+
+const handleDateUpdate = (value: unknown) => {
+    emit('update:modelValue', (value as string | null) ?? '')
+}
 
 // Computed classes
 const inputSizeClass = computed(() => {
@@ -376,26 +412,19 @@ const runValidation = () => {
 // Watchers
 watch(
     () => props.modelValue,
-    value => {
+    (value) => {
         if (validationMode.value === FormValidationMode.BLUR && props.validator) {
             const result = props.validator(value)
             emit('update:error', result ?? '')
         }
-    }
+    },
 )
 
 // Props for the dynamic component
 const dynamicProps = computed(() => {
-    const specificFields = [
-        'number',
-        'date',
-        'datetime-local',
-        'time',
-        'month',
-        'week'
-    ]
+    const specificFields = ['number', 'date', 'datetime-local', 'time', 'month', 'week']
 
-    if(specificFields.includes(props.type)) {
+    if (specificFields.includes(props.type)) {
         return {
             type: props.type,
             placeholder: props.placeholder,
@@ -404,7 +433,7 @@ const dynamicProps = computed(() => {
             step: props.step,
             pattern: props.pattern,
         }
-    } else if(props.type === 'tel') {
+    } else if (props.type === 'tel') {
         return {
             pattern: props.pattern,
         }

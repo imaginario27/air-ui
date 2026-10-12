@@ -5,18 +5,10 @@
             <label
                 v-if="label"
                 :for="id"
-                :class="[
-                    'text-sm',
-                    'font-semibold',
-                    'text-left',
-                    hasError && 'text-text-error',
-                ]"
+                :class="['text-sm', 'font-semibold', 'text-left', hasError && 'text-text-error']"
             >
                 {{ label }}
-                <span
-                    v-if="!required && showOptionalLabel"
-                    class="font-normal text-text-neutral-subtler"
-                >
+                <span v-if="!required && showOptionalLabel" class="font-normal text-text-neutral-subtler">
                     {{ optionalLabelText }}
                 </span>
             </label>
@@ -31,11 +23,7 @@
         </div>
 
         <!-- Help Text (top) -->
-        <HelpText
-            v-if="helpTextPosition === Position.TOP"
-            :text="helpText"
-            :error="error"
-        />
+        <HelpText v-if="helpTextPosition === Position.TOP" :text="helpText" :error="error" />
 
         <!-- Input Container -->
         <div
@@ -50,16 +38,13 @@
                 hasError ? 'pr-3' : 'pr-4',
                 hasError ? 'border-border-error text-text-error' : 'border-border-default',
                 isFocused && 'ring-2 focus-within:ring-inset focus-within:ring-border-primary-brand-default',
-                disabled ? 'bg-background-neutral-disabled' : (!transparent && 'bg-background-container-surface'),
+                disabled ? 'bg-background-neutral-disabled' : !transparent && 'bg-background-container-surface',
                 disabled && 'cursor-not-allowed',
             ]"
         >
             <!-- Icon -->
             <span v-if="icon" class="mt-1.75">
-                <Icon
-                    :name="icon"
-                    iconClass="text-icon-neutral-subtler"
-                />
+                <Icon :name="icon" iconClass="text-icon-neutral-subtler" />
             </span>
 
             <!-- Tags -->
@@ -97,25 +82,17 @@
                     @blur="handleBlur"
                     @input="handleInput"
                     @keydown="handleKeydown"
-                >
+                />
             </div>
 
             <!-- Error Icon -->
             <span class="mt-1.75">
-                <Icon
-                    v-if="hasError"
-                    name="mdi:alert-circle-outline"
-                    iconClass="text-icon-error"
-                />
+                <Icon v-if="hasError" name="mdi:alert-circle-outline" iconClass="text-icon-error" />
             </span>
         </div>
 
         <!-- Help Text (bottom) -->
-        <HelpText
-            v-if="helpTextPosition === Position.BOTTOM"
-            :text="helpText"
-            :error="error"
-        />
+        <HelpText v-if="helpTextPosition === Position.BOTTOM" :text="helpText" :error="error" />
     </div>
 </template>
 
@@ -142,7 +119,7 @@ const props = defineProps({
         default: Position.BOTTOM,
         validator: (value: Position) => Object.values(Position).includes(value),
     },
-    icon: String as PropType<string>,    
+    icon: String as PropType<string>,
     modelValue: {
         type: Array as PropType<string[]>,
         default: () => [],
@@ -198,8 +175,12 @@ const dsConfig = useDSConfig()
 // Computed States
 const hasError = computed(() => props.error !== '')
 const optionalLabelText = computed(() => props.optionalLabel ?? dsConfig.forms.optionalLabelText())
-const isMaxTagsReached = computed(() => Number.isFinite(props.maxTags) && props.modelValue.length >= (props.maxTags as number))
-const showClearButton = computed(() => !props.disabled && (props.modelValue.length > 0 || inputValue.value.trim().length > 0))
+const isMaxTagsReached = computed(
+    () => Number.isFinite(props.maxTags) && props.modelValue.length >= (props.maxTags as number),
+)
+const showClearButton = computed(
+    () => !props.disabled && (props.modelValue.length > 0 || inputValue.value.trim().length > 0),
+)
 
 const computedPlaceholder = computed(() => {
     if (props.modelValue.length > 0) return undefined
@@ -229,7 +210,7 @@ const updateTags = (tags: string[]) => {
 const addTagsFromRawValue = (rawValue: string) => {
     const candidates = rawValue
         .split(/[\n,]/)
-        .map(value => value.trim())
+        .map((value) => value.trim())
         .filter(Boolean)
 
     if (!candidates.length) return
@@ -284,7 +265,7 @@ const handleKeydown = (event: KeyboardEvent) => {
 }
 
 const handleBadgeRemove = (tagToRemove: string) => {
-    const updatedTags = props.modelValue.filter(tag => tag !== tagToRemove)
+    const updatedTags = props.modelValue.filter((tag) => tag !== tagToRemove)
     updateTags(updatedTags)
 }
 
@@ -311,11 +292,11 @@ const runValidation = () => {
 // Watchers
 watch(
     () => props.modelValue,
-    value => {
+    (value) => {
         if (validationMode.value === FormValidationMode.BLUR && props.validator) {
             const result = props.validator(value)
             emit('update:error', result ?? '')
         }
-    }
+    },
 )
 </script>

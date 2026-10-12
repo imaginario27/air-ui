@@ -2,11 +2,7 @@
     <template v-for="(item, index) in items" :key="`${item.text ?? 'divider'}-${index}`">
         <Divider v-if="item.divider" class="my-1" />
 
-        <DropdownSectionItem
-            v-else-if="item.sectionTitle"
-            :text="item.text"
-            :icon="item.icon"
-        />
+        <DropdownSectionItem v-else-if="item.sectionTitle" :text="item.text" :icon="item.icon" />
 
         <DropdownMenu
             v-else-if="canOpenNested(item)"

@@ -9,20 +9,16 @@
             'self-start',
             'aspect-square',
             'hover:opacity-75',
-            iconClass
+            iconClass,
         ]"
         v-bind="{
             ...componentProps,
             ...$attrs,
-            ...(actionType === ButtonActionType.ACTION ? { onClick: emitClick } : {})
+            ...(actionType === ButtonActionType.ACTION ? { onClick: emitClick } : {}),
         }"
         :disabled
     >
-        <Icon 
-            v-if="icon"
-            :name="icon"
-            :iconClass
-        />
+        <Icon v-if="icon" :name="icon" :iconClass />
     </component>
 </template>
 
@@ -30,7 +26,7 @@
 // Imports
 import { NuxtLink } from '#components'
 
- // Component options
+// Component options
 defineOptions({
     inheritAttrs: false, // Prevents Vue from automatically applying attributes incorrectly
 })
@@ -49,11 +45,11 @@ const props = defineProps({
     },
     text: {
         type: String as PropType<string>,
-        default: 'Button text'
+        default: 'Button text',
     },
     icon: {
         type: String as PropType<string>,
-        default: "mdi:help"
+        default: 'mdi:help',
     },
     disabled: {
         type: Boolean as PropType<boolean>,
@@ -61,11 +57,11 @@ const props = defineProps({
     },
     to: {
         type: String as PropType<string>,
-        default: '/'
+        default: '/',
     },
     isExternal: {
         type: Boolean as PropType<boolean>,
-        default: false
+        default: false,
     },
 })
 

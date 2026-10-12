@@ -13,15 +13,15 @@ const factory = ({ props = {}, slots = {} }: MountOptions = {}) => {
     return mount(ErrorDisplay, {
         props: {
             statusCode: 404,
-            ...props
+            ...props,
         },
         slots,
         global: {
             components: {
                 ContainedIcon,
-                ActionButton
-            }
-        }
+                ActionButton,
+            },
+        },
     })
 }
 
@@ -31,14 +31,16 @@ describe('ErrorDisplay.vue', () => {
 
         expect(wrapper.text()).toContain('Page not found')
         expect(wrapper.text()).toContain('404')
-        expect(wrapper.find('p').text()).toContain('The page you are looking for does not exist or may have been moved.')
+        expect(wrapper.find('p').text()).toContain(
+            'The page you are looking for does not exist or may have been moved.',
+        )
         expect(wrapper.findComponent(ContainedIcon).exists()).toBe(true)
         expect(wrapper.findComponent(ActionButton).exists()).toBe(true)
     })
 
     it('does not render icon if showIcon is false', () => {
         const wrapper = factory({
-            props: { showIcon: false }
+            props: { showIcon: false },
         })
 
         expect(wrapper.findComponent(ContainedIcon).exists()).toBe(false)
@@ -46,7 +48,7 @@ describe('ErrorDisplay.vue', () => {
 
     it('does not render error code if showErrorCode is false', () => {
         const wrapper = factory({
-            props: { showErrorCode: false }
+            props: { showErrorCode: false },
         })
 
         expect(wrapper.text()).not.toContain('404')
@@ -54,7 +56,7 @@ describe('ErrorDisplay.vue', () => {
 
     it('uses fallback error mapping if statusCode is unknown', () => {
         const wrapper = factory({
-            props: { statusCode: 9999 }
+            props: { statusCode: 9999 },
         })
 
         expect(wrapper.text()).toContain('Unexpected error')
@@ -69,10 +71,10 @@ describe('ErrorDisplay.vue', () => {
                     {
                         statusCode: 401,
                         title: 'Custom Unauthorized',
-                        message: 'Custom unauthorized message'
-                    }
-                ]
-            }
+                        message: 'Custom unauthorized message',
+                    },
+                ],
+            },
         })
 
         expect(wrapper.text()).toContain('Custom Unauthorized')
@@ -84,10 +86,10 @@ describe('ErrorDisplay.vue', () => {
             slots: {
                 'visual-left': '<div id="left-visual">Left Visual</div>',
                 'visual-top': '<div id="top-visual">Top Visual</div>',
-                'description': '<p id="custom-description">Custom description</p>',
-                'actions': '<button id="custom-action">Custom Action</button>',
-                'visual-right': '<div id="right-visual">Right Visual</div>'
-            }
+                description: '<p id="custom-description">Custom description</p>',
+                actions: '<button id="custom-action">Custom Action</button>',
+                'visual-right': '<div id="right-visual">Right Visual</div>',
+            },
         })
 
         expect(wrapper.find('#left-visual').exists()).toBe(true)
@@ -101,8 +103,8 @@ describe('ErrorDisplay.vue', () => {
         const wrapper = factory({
             slots: {
                 'visual-top': '<div>Top Slot</div>',
-                'actions': '<div>Actions Slot</div>'
-            }
+                actions: '<div>Actions Slot</div>',
+            },
         })
 
         expect(wrapper.findComponent(ContainedIcon).exists()).toBe(false)
@@ -123,8 +125,8 @@ describe('ErrorDisplay.vue', () => {
         factory({
             props: {
                 statusCode: 403,
-                setPageTitle: false
-            }
+                setPageTitle: false,
+            },
         })
 
         await nextTick()

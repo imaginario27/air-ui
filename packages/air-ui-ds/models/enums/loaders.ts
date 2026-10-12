@@ -1,4 +1,3 @@
-
 export enum LoadingSpinnerSize {
     XS = 'xs',
     SM = 'sm',

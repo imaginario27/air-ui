@@ -87,7 +87,7 @@ describe('Image', () => {
         it('adds no effect by default', () => {
             const image = factory().get('img')
 
-            expect(image.classes().some(name => name.startsWith('group-hover'))).toBe(false)
+            expect(image.classes().some((name) => name.startsWith('group-hover'))).toBe(false)
         })
 
         it('shows the overlay with a zoom icon when the lightbox is on', () => {
@@ -118,8 +118,14 @@ describe('Image', () => {
         })
 
         it('moves the split layers along the chosen direction', () => {
-            const horizontal = factory({ hoverEffect: ImageHoverEffect.SPLIT_ZOOM, hoverSplitDirection: ImageHoverSplitDirection.HORIZONTAL })
-            const vertical = factory({ hoverEffect: ImageHoverEffect.SPLIT_ZOOM, hoverSplitDirection: ImageHoverSplitDirection.VERTICAL })
+            const horizontal = factory({
+                hoverEffect: ImageHoverEffect.SPLIT_ZOOM,
+                hoverSplitDirection: ImageHoverSplitDirection.HORIZONTAL,
+            })
+            const vertical = factory({
+                hoverEffect: ImageHoverEffect.SPLIT_ZOOM,
+                hoverSplitDirection: ImageHoverSplitDirection.VERTICAL,
+            })
 
             expect(horizontal.html()).toContain('group-hover:-translate-x-1.5')
             expect(horizontal.html()).not.toContain('translate-y')
@@ -141,8 +147,16 @@ describe('Image', () => {
         })
 
         it('renders the caption over the image for the other placements', () => {
-            const hover = factory({ caption: 'A good dog', showCaption: true, captionPlacement: ImageCaptionPlacement.HOVER })
-            const overlay = factory({ caption: 'A good dog', showCaption: true, captionPlacement: ImageCaptionPlacement.OVERLAY_BOTTOM })
+            const hover = factory({
+                caption: 'A good dog',
+                showCaption: true,
+                captionPlacement: ImageCaptionPlacement.HOVER,
+            })
+            const overlay = factory({
+                caption: 'A good dog',
+                showCaption: true,
+                captionPlacement: ImageCaptionPlacement.OVERLAY_BOTTOM,
+            })
 
             expect(hover.find('figcaption').exists()).toBe(false)
             expect(hover.get('.group').text()).toContain('A good dog')
@@ -150,7 +164,11 @@ describe('Image', () => {
         })
 
         it('hides the caption with the none placement', () => {
-            const wrapper = factory({ caption: 'A good dog', showCaption: true, captionPlacement: ImageCaptionPlacement.NONE })
+            const wrapper = factory({
+                caption: 'A good dog',
+                showCaption: true,
+                captionPlacement: ImageCaptionPlacement.NONE,
+            })
 
             expect(wrapper.text()).not.toContain('A good dog')
         })
@@ -159,7 +177,9 @@ describe('Image', () => {
     describe('lightbox', () => {
         it('wraps the image in a button labelled from the DS config', () => {
             expect(factory({ useLightbox: true }).get('button').attributes('aria-label')).toBe('Open image')
-            expect(factory({ useLightbox: true, openAriaLabel: 'Zoom' }).get('button').attributes('aria-label')).toBe('Zoom')
+            expect(factory({ useLightbox: true, openAriaLabel: 'Zoom' }).get('button').attributes('aria-label')).toBe(
+                'Zoom',
+            )
         })
 
         it('stays closed until clicked', async () => {
@@ -210,7 +230,14 @@ describe('Image', () => {
     })
 
     it('applies the custom classes', () => {
-        const wrapper = factory({ containerClass: 'c-root', wrapperClass: 'c-wrap', imageClass: 'c-img', caption: 'x', showCaption: true, captionClass: 'c-cap' })
+        const wrapper = factory({
+            containerClass: 'c-root',
+            wrapperClass: 'c-wrap',
+            imageClass: 'c-img',
+            caption: 'x',
+            showCaption: true,
+            captionClass: 'c-cap',
+        })
 
         expect(wrapper.get('figure').classes()).toContain('c-root')
         expect(wrapper.get('.group').classes()).toContain('c-wrap')

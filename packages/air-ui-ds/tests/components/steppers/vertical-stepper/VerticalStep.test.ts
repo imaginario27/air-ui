@@ -60,8 +60,10 @@ describe('VerticalStep.vue', () => {
 
     it('renders vertical line when not last step and showLine is true', () => {
         const wrapper = factory({ isLast: false, showLine: true })
-        const lines = wrapper.findAll('div').filter(div => {
-            return div.classes().some(c => c.includes('bg-border-default') || c.includes('bg-background-primary-brand-default'))
+        const lines = wrapper.findAll('div').filter((div) => {
+            return div
+                .classes()
+                .some((c) => c.includes('bg-border-default') || c.includes('bg-background-primary-brand-default'))
         })
         expect(lines.length).toBeGreaterThan(0)
     })
@@ -87,7 +89,7 @@ describe('VerticalStep.vue', () => {
     it('does not apply gap class when hasStepperGap is false', () => {
         const wrapper = factory({ hasStepperGap: false })
         const gapDiv = wrapper.find('div.flex-1')
-        expect(gapDiv.classes().some(cls => cls.startsWith('my-'))).toBe(false)
+        expect(gapDiv.classes().some((cls) => cls.startsWith('my-'))).toBe(false)
     })
 
     it('renders slot content instead of description if description is not provided', () => {
@@ -95,7 +97,7 @@ describe('VerticalStep.vue', () => {
             { description: undefined },
             {
                 default: '<p class="custom-desc">Custom content here</p>',
-            }
+            },
         )
 
         expect(wrapper.find('.custom-desc').exists()).toBe(true)

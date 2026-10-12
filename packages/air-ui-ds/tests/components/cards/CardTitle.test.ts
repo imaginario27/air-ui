@@ -14,7 +14,7 @@ describe('CardTitle.vue', () => {
 
     it('renders a custom title when passed as a prop', () => {
         const wrapper = mount(CardTitle, {
-            props: { title: 'Custom Title' }
+            props: { title: 'Custom Title' },
         })
         expect(wrapper.text()).toBe('Custom Title')
     })

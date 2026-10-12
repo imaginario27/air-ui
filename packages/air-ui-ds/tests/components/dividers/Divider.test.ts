@@ -16,8 +16,8 @@ describe('Divider.vue', () => {
     it('renders a vertical divider when orientation is vertical', () => {
         const wrapper = mount(Divider, {
             props: {
-                orientation: Orientation.VERTICAL
-            }
+                orientation: Orientation.VERTICAL,
+            },
         })
 
         const hr = wrapper.find('hr')
@@ -29,8 +29,8 @@ describe('Divider.vue', () => {
     it('applies `hidden md:block` class when `hideOnMobile` is true', () => {
         const wrapper = mount(Divider, {
             props: {
-                hideOnMobile: true
-            }
+                hideOnMobile: true,
+            },
         })
 
         const hr = wrapper.find('hr')
@@ -41,8 +41,8 @@ describe('Divider.vue', () => {
     it('does not apply `hidden` class when `hideOnMobile` is false', () => {
         const wrapper = mount(Divider, {
             props: {
-                hideOnMobile: false
-            }
+                hideOnMobile: false,
+            },
         })
 
         const hr = wrapper.find('hr')

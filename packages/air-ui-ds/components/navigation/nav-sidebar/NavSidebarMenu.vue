@@ -18,6 +18,6 @@ defineProps({
     isCollapsed: {
         type: Boolean as PropType<boolean>,
         default: false,
-    }, 
+    },
 })
 </script>

@@ -7,13 +7,9 @@
         :cardClass
         @update:modelValue="updateModelValue"
     >
-        <ModalContent class="!gap-6 items-center">   
-            <ContainedIcon
-                :color="ColorAccent.SUCCESS"
-                :size="IconContainerSize.XL"
-                :icon
-            />
-            
+        <ModalContent class="!gap-6 items-center">
+            <ContainedIcon :color="ColorAccent.SUCCESS" :size="IconContainerSize.XL" :icon />
+
             <ModalHeaderGroup centered>
                 <ModalTitle :title />
                 <ModalDescription v-if="description">
@@ -22,9 +18,9 @@
             </ModalHeaderGroup>
 
             <slot />
-           
+
             <ModalActions v-if="showModalActions">
-                <ActionButton 
+                <ActionButton
                     :styleType="ButtonStyleType.PRIMARY_BRAND_FILLED"
                     :text="buttonText"
                     class="w-full"

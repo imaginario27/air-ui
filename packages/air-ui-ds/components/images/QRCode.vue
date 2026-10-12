@@ -119,7 +119,7 @@ const computedImageSettings = computed(() => {
     }
 })
 
-const containerPaddingPx = 4 
+const containerPaddingPx = 4
 
 const qrSize = computed(() => {
     return props.size - props.imageMargin * 2 - containerPaddingPx

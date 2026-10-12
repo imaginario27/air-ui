@@ -1,10 +1,5 @@
 <template>
-    <div
-        :class="[
-            'w-full flex flex-col',
-            alignmentClasses,
-        ]"
-    >
+    <div :class="['w-full flex flex-col', alignmentClasses]">
         <!-- Overtitle -->
         <span
             v-if="overtitle"
@@ -21,41 +16,28 @@
                 {{ overtitle }}
             </template>
 
-            <slot name="overtitle"/>
+            <slot name="overtitle" />
         </span>
 
         <!-- Dynamic title -->
-        <component
-            :is="resolvedHeadingTag"
-            :class="[
-                titleSizeClass, 
-                'font-semibold', 
-                'text-text-default',
-                titleClass,
-            ]"
-        >
+        <component :is="resolvedHeadingTag" :class="[titleSizeClass, 'font-semibold', 'text-text-default', titleClass]">
             <template v-if="!$slots.title">
                 {{ title }}
             </template>
 
-            <slot name="title"/>
+            <slot name="title" />
         </component>
 
         <!-- Description -->
         <p
             v-if="description"
-            :class="[
-                descriptionSizeClass, 
-                'text-text-neutral-subtle', 
-                spaceDescriptionClass,
-                descriptionClass,
-            ]"
+            :class="[descriptionSizeClass, 'text-text-neutral-subtle', spaceDescriptionClass, descriptionClass]"
         >
             <template v-if="!$slots.description">
                 {{ description }}
             </template>
-            
-            <slot name="description"/>
+
+            <slot name="description" />
         </p>
     </div>
 </template>
@@ -68,9 +50,9 @@ const props = defineProps({
         type: Boolean as PropType<boolean>,
         default: false,
     },
-    title: { 
-        type: String as PropType<string>, 
-        default: 'Heading title' 
+    title: {
+        type: String as PropType<string>,
+        default: 'Heading title',
     },
     description: String as PropType<string>,
     align: {
@@ -81,19 +63,17 @@ const props = defineProps({
     size: {
         type: String as PropType<HeadingSize>,
         default: HeadingSize.LG,
-        validator: (value: string) =>
-            Object.values(HeadingSize).includes(value as HeadingSize),
+        validator: (value: string) => Object.values(HeadingSize).includes(value as HeadingSize),
     },
     spacing: {
         type: String as PropType<HeadingSpacing>,
         default: HeadingSpacing.NORMAL,
-        validator: (value: string) =>
-            Object.values(HeadingSpacing).includes(value as HeadingSpacing),
+        validator: (value: string) => Object.values(HeadingSpacing).includes(value as HeadingSpacing),
     },
     headingTag: {
         type: String as PropType<HeadingTag>,
         required: true,
-        validator: (value: string ) => ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'].includes(value as string)
+        validator: (value: string) => ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'].includes(value as string),
     },
     isMobileCentered: {
         type: Boolean as PropType<boolean>,
@@ -193,14 +173,10 @@ const spaceDescriptionClass = computed(() => {
         [HeadingSize.XL]: 'mt-5',
     }
 
-    return props.spacing === HeadingSpacing.SPACED
-        ? spaced[props.size]
-        : normal[props.size] || 'mt-6'
+    return props.spacing === HeadingSpacing.SPACED ? spaced[props.size] : normal[props.size] || 'mt-6'
 })
 
 const resolvedHeadingTag = computed(() =>
-    ['h1','h2','h3','h4','h5','h6'].includes(props.headingTag)
-        ? props.headingTag
-        : 'h1'
+    ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'].includes(props.headingTag) ? props.headingTag : 'h1',
 )
 </script>

@@ -1,11 +1,11 @@
 <template>
-    <Section 
+    <Section
         :spacing="SectionSpacing.MD"
         :class="[isDark ? 'bg-background-primary-brand-default/20' : 'bg-background-primary-brand-default']"
         isDark
     >
         <SectionBody>
-            <Heading 
+            <Heading
                 :title
                 description="Explore the official AirUI component library, including buttons, forms, modals, and more."
                 :align="Align.CENTER"
@@ -15,7 +15,7 @@
     </Section>
 
     <div class="flex justify-center pt-[5vh]">
-        <ComponentsPage class="max-w-[1200px]"/>
+        <ComponentsPage class="max-w-[1200px]" />
     </div>
 </template>
 <script setup lang="ts">

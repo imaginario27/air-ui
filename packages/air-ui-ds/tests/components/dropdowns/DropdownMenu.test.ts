@@ -8,10 +8,12 @@ import { DropdownPosition } from '@/models/enums/positions'
 import { PrefetchOn } from '@/models/enums/prefetch'
 import { DropdownItemType } from '@/models/enums/dropdowns'
 
-const factory = (options: {
-    props?: Record<string, unknown>
-    slots?: Record<string, any>
-} = {}): VueWrapper => {
+const factory = (
+    options: {
+        props?: Record<string, unknown>
+        slots?: Record<string, any>
+    } = {},
+): VueWrapper => {
     return mount(DropdownMenu, {
         props: {
             items: [],
@@ -82,6 +84,26 @@ describe('DropdownMenu.vue', () => {
         const activator = wrapper.find('.dropdown-activator')
         await activator.trigger('mouseenter')
 
+        expect((wrapper.vm as any).isOpen).toBe(false)
+    })
+
+    it('ignores activator clicks when trigger is manual and opens through exposed methods', async () => {
+        const wrapper = factory({
+            props: {
+                trigger: 'manual',
+                items: [{ text: 'Item' }],
+            },
+        })
+
+        await wrapper.find('.dropdown-activator').trigger('click')
+        expect((wrapper.vm as any).isOpen).toBe(false)
+
+        wrapper.vm.open()
+        await nextTick()
+        expect((wrapper.vm as any).isOpen).toBe(true)
+
+        wrapper.vm.close()
+        await nextTick()
         expect((wrapper.vm as any).isOpen).toBe(false)
     })
 
@@ -366,9 +388,7 @@ describe('DropdownMenu.vue', () => {
                 items: [
                     {
                         text: 'Parent',
-                        children: [
-                            { text: 'Child 1', callback: vi.fn() },
-                        ],
+                        children: [{ text: 'Child 1', callback: vi.fn() }],
                     },
                 ],
             },
@@ -386,5 +406,41 @@ describe('DropdownMenu.vue', () => {
         const dropdownPanels = document.body.querySelectorAll('[data-dropdown-menu-panel]')
         expect(dropdownPanels.length).toBeGreaterThanOrEqual(2)
         expect((wrapper.vm as any).isOpen).toBe(true)
+    })
+
+    describe('autoFlip', () => {
+        const openNearTheBottom = async (props: Record<string, unknown>) => {
+            const wrapper = factory({
+                props: { items: [{ text: 'Item' }], position: DropdownPosition.BOTTOM_LEFT, ...props },
+            })
+            const activator = wrapper.find('.dropdown-activator').element as HTMLElement
+            const rect = (top: number, height: number) =>
+                ({ top, bottom: top + height, height, left: 0, right: 100, width: 100 }) as DOMRect
+
+            activator.getBoundingClientRect = () => rect(window.innerHeight - 60, 36)
+            vi.spyOn(HTMLElement.prototype, 'getBoundingClientRect').mockImplementation(() => rect(0, 300))
+
+            await wrapper.find('.dropdown-activator').trigger('click')
+            await new Promise((resolve) => requestAnimationFrame(() => resolve(null)))
+            await nextTick()
+
+            return wrapper
+        }
+
+        afterEach(() => {
+            vi.restoreAllMocks()
+        })
+
+        it('opens above the activator when it does not fit below', async () => {
+            const wrapper = await openNearTheBottom({ autoFlip: true })
+
+            expect(wrapper.find('[data-dropdown-menu-panel]').classes()).toContain('bottom-full')
+        })
+
+        it('keeps the position when autoFlip is false', async () => {
+            const wrapper = await openNearTheBottom({ autoFlip: false })
+
+            expect(wrapper.find('[data-dropdown-menu-panel]').classes()).toContain('top-full')
+        })
     })
 })

@@ -22,7 +22,7 @@ export const trimText = (
     readMoreText: string = 'Read more',
     readMoreLink?: string,
     readMoreType: 'link' | 'toggle' = 'link',
-    isExpanded: boolean = false
+    isExpanded: boolean = false,
 ): string => {
     if (typeof inputString !== 'string') {
         throw new Error('The inputString parameter must be a text string')
@@ -48,7 +48,6 @@ export const trimText = (
     return readMoreType === 'link' && readMoreLink
         ? `${trimmedText} <a href="${readMoreLink}" target="_blank" rel="noopener noreferrer" class="text-text-primary hover:text-text-hover">(${readMoreText})</a>`
         : trimmedText
-
 }
 
 /**
@@ -70,7 +69,7 @@ export const convertStringIntoSlugFormat = (text: string): string => {
 
 /**
  * Converts the first letter of a string to lowercase while keeping the rest unchanged.
- * 
+ *
  * @param {string} str - The input string.
  * @returns {string} The transformed string with the first letter in lowercase.
  */
@@ -81,7 +80,7 @@ export const lowercaseFirstLetter = (str: string): string => {
 
 /**
  * Converts the first letter of a string to upperrcase while keeping the rest unchanged.
- * 
+ *
  * @param {string} str - The input string.
  * @returns {string} The transformed string with the first letter in uppercase.
  */
@@ -136,16 +135,17 @@ export const getFullName = (firstName: string, lastName: string): string => {
  *
  * @param input - The input string to generate initials from
  * @returns A string with the initials in uppercase (e.g., "John Doe" -> "JD")
- * 
+ *
  */
 export const getInitials = (input: string): string => {
     const words = input?.split(' ').filter(Boolean)
-  
+
     if (!words?.length) return 'TU'
-  
-    const initials = words.slice(0, 2).map(word => word[0]?.toUpperCase()).join('')
-  
+
+    const initials = words
+        .slice(0, 2)
+        .map((word) => word[0]?.toUpperCase())
+        .join('')
+
     return initials || 'TU'
 }
-  
-  

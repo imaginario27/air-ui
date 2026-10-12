@@ -6,10 +6,7 @@ import { ButtonActionType } from '@/models/enums/buttons'
 
 type MountOptions = Parameters<typeof mount<InstanceType<typeof AlertIconButton>>>[1]
 
-const factory = (
-    props?: Record<string, any>,
-    options?: MountOptions
-): VueWrapper => {
+const factory = (props?: Record<string, any>, options?: MountOptions): VueWrapper => {
     return mount(AlertIconButton, {
         props,
         global: {
@@ -21,12 +18,12 @@ const factory = (
                         <a :href="to" :target="target" :rel="rel">
                             <slot />
                         </a>
-                    `
-                }
+                    `,
+                },
             },
-            ...options?.global
+            ...options?.global,
         },
-        ...options
+        ...options,
     })
 }
 
@@ -55,7 +52,7 @@ describe('AlertIconButton.vue', () => {
     it('renders as <NuxtLink> when actionType is LINK', () => {
         const wrapper = factory({
             actionType: ButtonActionType.LINK,
-            to: '/about'
+            to: '/about',
         })
 
         const link = wrapper.find('a')
@@ -67,7 +64,7 @@ describe('AlertIconButton.vue', () => {
         const wrapper = factory({
             actionType: ButtonActionType.LINK,
             to: 'https://external.com',
-            isExternal: true
+            isExternal: true,
         })
 
         const link = wrapper.find('a')
@@ -85,7 +82,7 @@ describe('AlertIconButton.vue', () => {
     it('does not emit click when disabled is true', async () => {
         const wrapper = factory({
             actionType: ButtonActionType.ACTION,
-            disabled: true
+            disabled: true,
         })
 
         await wrapper.trigger('click')
@@ -94,7 +91,7 @@ describe('AlertIconButton.vue', () => {
 
     it('renders a button with a type attribute when actionType is ACTION', () => {
         const wrapper = factory({
-            actionType: ButtonActionType.ACTION
+            actionType: ButtonActionType.ACTION,
         })
 
         const type = wrapper.find('button').attributes('type')
@@ -104,7 +101,7 @@ describe('AlertIconButton.vue', () => {
     it('does not render type attribute when actionType is LINK', () => {
         const wrapper = factory({
             actionType: ButtonActionType.LINK,
-            to: '/about'
+            to: '/about',
         })
 
         expect(wrapper.find('a').attributes('type')).toBeUndefined()

@@ -3,27 +3,24 @@ import { nextTick } from 'vue'
 import ModalDialog from '@/components/modals/ModalDialog.vue'
 import { useDSConfig } from '@/composables/useDSConfig'
 
-const factory = (
-    props?: Partial<InstanceType<typeof ModalDialog>['$props']>,
-    slots?: { default?: string }
-) => {
+const factory = (props?: Partial<InstanceType<typeof ModalDialog>['$props']>, slots?: { default?: string }) => {
     return mount(ModalDialog, {
         props: {
             modelValue: true,
-            ...props
+            ...props,
         },
         slots: {
-            default: slots?.default ?? '<p>Modal content</p>'
+            default: slots?.default ?? '<p>Modal content</p>',
         },
         attachTo: document.body,
         global: {
             stubs: {
                 ActionIconButton: {
                     props: ['ariaLabel'],
-                    template: '<button data-test="close-btn" :aria-label="ariaLabel" @click="$emit(\'click\')" />'
-                }
-            }
-        }
+                    template: '<button data-test="close-btn" :aria-label="ariaLabel" @click="$emit(\'click\')" />',
+                },
+            },
+        },
     })
 }
 
@@ -51,7 +48,7 @@ describe('ModalDialog', () => {
             id: 'my-modal',
             overlayClass: 'custom-overlay',
             containerClass: 'custom-container',
-            cardClass: 'custom-card'
+            cardClass: 'custom-card',
         })
 
         const overlay = document.querySelector('#my-modal')
@@ -113,7 +110,7 @@ describe('ModalDialog', () => {
     it('closes on Escape key when enabled', async () => {
         const wrapper = factory({
             closeOnClickOutside: true,
-            modelValue: false
+            modelValue: false,
         })
 
         // Trigger watcher to register ESC listener
@@ -167,9 +164,7 @@ describe('ModalDialog', () => {
         const wrapper = factory({ modelValue: false })
 
         document.body.style.paddingRight = '8px'
-        vi.spyOn(document.documentElement, 'clientWidth', 'get')
-            .mockReturnValueOnce(1180)
-            .mockReturnValueOnce(1200)
+        vi.spyOn(document.documentElement, 'clientWidth', 'get').mockReturnValueOnce(1180).mockReturnValueOnce(1200)
 
         await wrapper.setProps({ modelValue: true })
         await nextTick()
@@ -186,9 +181,7 @@ describe('ModalDialog', () => {
         const wrapper = factory({ modelValue: false })
 
         document.body.style.paddingRight = '8px'
-        vi.spyOn(document.documentElement, 'clientWidth', 'get')
-            .mockReturnValueOnce(1180)
-            .mockReturnValueOnce(1180)
+        vi.spyOn(document.documentElement, 'clientWidth', 'get').mockReturnValueOnce(1180).mockReturnValueOnce(1180)
 
         await wrapper.setProps({ modelValue: true })
         await nextTick()
@@ -235,10 +228,7 @@ describe('ModalDialog', () => {
     })
 
     it('focuses the first focusable element in the slot content, not the corner close button', async () => {
-        factory(
-            { hasCornerCloseButton: true },
-            { default: '<button data-test="confirm-btn">Confirm</button>' }
-        )
+        factory({ hasCornerCloseButton: true }, { default: '<button data-test="confirm-btn">Confirm</button>' })
         await nextTick()
         await nextTick()
 

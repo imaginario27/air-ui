@@ -3,16 +3,16 @@ import MainContent from '@/components/layouts/MainContent.vue'
 
 // Default: desktop mode
 const { useIsMobileSpy } = vi.hoisted(() => ({
-    useIsMobileSpy: vi.fn(() => ({ isMobile: false }))
+    useIsMobileSpy: vi.fn(() => ({ isMobile: false })),
 }))
 vi.mock('@/composables/useIsMobile', () => ({
-    useIsMobile: useIsMobileSpy
+    useIsMobile: useIsMobileSpy,
 }))
 
 const factory = (props = {}, slots = {}) => {
     return mount(MainContent, {
         props,
-        slots
+        slots,
     })
 }
 
@@ -22,18 +22,16 @@ describe('MainContent.vue', () => {
         const main = wrapper.find('main')
 
         expect(main.exists()).toBe(true)
-        expect(main.classes()).toEqual(expect.arrayContaining([
-            'flex',
-            'flex-col',
-            'gap-3',
-            'w-full'
-        ]))
+        expect(main.classes()).toEqual(expect.arrayContaining(['flex', 'flex-col', 'gap-3', 'w-full']))
     })
 
     it('renders slot content', () => {
-        const wrapper = factory({}, {
-            default: '<div class="slot-test">Main Content</div>'
-        })
+        const wrapper = factory(
+            {},
+            {
+                default: '<div class="slot-test">Main Content</div>',
+            },
+        )
 
         expect(wrapper.find('.slot-test').exists()).toBe(true)
         expect(wrapper.text()).toContain('Main Content')
@@ -67,8 +65,8 @@ describe('MainContent.vue', () => {
 
         vi.doMock('@/composables/useIsMobile', () => ({
             useIsMobile: () => ({
-                isMobile: true
-            })
+                isMobile: true,
+            }),
         }))
 
         const { default: MobileMainContent } = await import('@/components/layouts/MainContent.vue')

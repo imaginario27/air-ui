@@ -19,7 +19,7 @@ export const useTableOfContents = () => {
             {
                 rootMargin: '0px 0px -70% 0px',
                 threshold: 0.1,
-            }
+            },
         )
 
         const headings = document.querySelectorAll('h2, h3')
@@ -55,7 +55,7 @@ export const useTableOfContents = () => {
         () => route.path,
         () => {
             setupObserver()
-        }
+        },
     )
 
     onBeforeUnmount(() => {

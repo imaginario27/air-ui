@@ -38,8 +38,43 @@ export interface DesignSystemConfig {
     lightbox: {
         dialogText: () => string
         openImageText: () => string
+        fullscreenText: () => string
+    }
+    calendar: {
+        previousMonthText: () => string
+        nextMonthText: () => string
+        previousYearText: () => string
+        nextYearText: () => string
+        openText: () => string
+        placeholderText: () => string
+        monthPlaceholderText: () => string
+        weekPlaceholderText: () => string
+        dateTimePlaceholderText: () => string
+        weekText: () => string
+        weekAbbreviationText: () => string
+        todayText: () => string
+        moreText: () => string
+        dayText: () => string
+        monthText: () => string
+        yearText: () => string
+        agendaText: () => string
+        viewText: () => string
+        allDayText: () => string
+        noEventsText: () => string
         previousText: () => string
         nextText: () => string
-        fullscreenText: () => string
+    }
+    timePicker: {
+        openText: () => string
+        placeholderText: () => string
+        hoursText: () => string
+        minutesText: () => string
+        secondsText: () => string
+        periodText: () => string
+    }
+    slides: {
+        previousText: () => string
+        nextText: () => string
+        goToSlideText: () => string
     }
 }

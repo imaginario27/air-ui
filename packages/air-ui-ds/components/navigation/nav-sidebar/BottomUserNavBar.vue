@@ -1,13 +1,9 @@
 <template>
     <div class="w-full hidden lg:block">
-        <DropdownMenu 
-            class="border border-border-default"
-            positionClass="absolute bottom-[64px]"
-        >
+        <DropdownMenu class="border border-border-default" positionClass="absolute bottom-[64px]">
             <template #activator>
-
-                 <!-- User Wrapper -->
-                <div 
+                <!-- User Wrapper -->
+                <div
                     :class="[
                         'w-full min-h-[64px]',
                         'py-3',
@@ -19,16 +15,13 @@
                         'bg-background-surface',
                     ]"
                 >
-                    <User 
-                        :displayName="userDisplayName" 
-                        isInteractive
-                        :imgUrl= "userAvatarUrl"
-                    />
+                    <User :displayName="userDisplayName" isInteractive :imgUrl="userAvatarUrl" />
                 </div>
             </template>
             <template #items="{ onClose }">
-                <DropdownMenuItem 
-                    v-for="item in menuItems" :key="item.text"
+                <DropdownMenuItem
+                    v-for="item in menuItems"
+                    :key="item.text"
                     :text="item.text"
                     :actionType="item.actionType"
                     :to="item.to"
@@ -37,12 +30,14 @@
                     :imgUrl="item.imgUrl"
                     :alt="item.alt"
                     class="px-6 w-full"
-                    @click="() => {
-                        if(item.callback) {
-                            item.callback()
+                    @click="
+                        () => {
+                            if (item.callback) {
+                                item.callback()
+                            }
+                            onClose()
                         }
-                        onClose()
-                    }"
+                    "
                 />
             </template>
         </DropdownMenu>
@@ -50,11 +45,11 @@
 </template>
 
 <script setup lang="ts">
-// Props 
+// Props
 defineProps({
     userDisplayName: {
         type: String as PropType<string>,
-        default: 'Test user'
+        default: 'Test user',
     },
     userAvatarUrl: String as PropType<string>,
     menuItems: {

@@ -1,10 +1,5 @@
 <template>
-    <NuxtIcon 
-        :name
-        :mode
-        :customize="svgCustomize"
-        :class="finalIconClasses"
-    />
+    <NuxtIcon :name :mode :customize="svgCustomize" :class="finalIconClasses" />
 </template>
 
 <script setup lang="ts">
@@ -31,21 +26,13 @@ const props = defineProps({
 
 // Normalize iconClass into array
 const normalizedIconClass = computed(() => {
-    return Array.isArray(props.iconClass)
-        ? props.iconClass
-        : props.iconClass?.split(' ').filter(Boolean) || []
+    return Array.isArray(props.iconClass) ? props.iconClass : props.iconClass?.split(' ').filter(Boolean) || []
 })
 
 // Detect overrides
-const hasTextClass = computed(() =>
-    normalizedIconClass.value.some(cls => cls.startsWith('text-'))
-)
+const hasTextClass = computed(() => normalizedIconClass.value.some((cls) => cls.startsWith('text-')))
 
-const hasSizeClass = computed(() =>
-    normalizedIconClass.value.some(cls =>
-        /^(w-|h-|min-w-|min-h-)/.test(cls)
-    )
-)
+const hasSizeClass = computed(() => normalizedIconClass.value.some((cls) => /^(w-|h-|min-w-|min-h-)/.test(cls)))
 
 // Size classes (skipped if overridden)
 const iconSizeClass = computed(() => {
@@ -84,11 +71,7 @@ const iconColorClass = computed(() => {
 
 // Final class list (deduplicated)
 const finalIconClasses = computed(() => {
-    const classes = [
-        iconSizeClass.value,
-        iconColorClass.value,
-        ...normalizedIconClass.value,
-    ].filter(Boolean)
+    const classes = [iconSizeClass.value, iconColorClass.value, ...normalizedIconClass.value].filter(Boolean)
 
     return [...new Set(classes)]
 })

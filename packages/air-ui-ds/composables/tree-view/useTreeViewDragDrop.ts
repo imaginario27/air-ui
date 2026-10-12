@@ -6,8 +6,8 @@ const countNodes = (nodes: TreeViewNode[]): number => {
 
 const withoutNode = (nodes: TreeViewNode[], value: string): TreeViewNode[] => {
     return nodes
-        .filter(node => node.value !== value)
-        .map(node => node.children ? { ...node, children: withoutNode(node.children, value) } : node)
+        .filter((node) => node.value !== value)
+        .map((node) => (node.children ? { ...node, children: withoutNode(node.children, value) } : node))
 }
 
 const insertNode = (
@@ -16,9 +16,11 @@ const insertNode = (
     targetValue: string,
     position: TreeViewDropPosition,
 ): TreeViewNode[] => {
-    return nodes.flatMap(node => {
+    return nodes.flatMap((node) => {
         if (node.value !== targetValue) {
-            return [node.children ? { ...node, children: insertNode(node.children, moved, targetValue, position) } : node]
+            return [
+                node.children ? { ...node, children: insertNode(node.children, moved, targetValue, position) } : node,
+            ]
         }
 
         if (position === TreeViewDropPosition.INSIDE) {
@@ -168,10 +170,11 @@ export const useTreeViewDragDrop = (
     const handleDragLeave = (event: DragEvent, node: TreeViewNode) => {
         // `relatedTarget` is unreliable in drag events, so compare the pointer with the row bounds instead
         const rect = (event.currentTarget as HTMLElement).getBoundingClientRect()
-        const isOutside = event.clientX <= rect.left
-            || event.clientX >= rect.right
-            || event.clientY <= rect.top
-            || event.clientY >= rect.bottom
+        const isOutside =
+            event.clientX <= rect.left ||
+            event.clientX >= rect.right ||
+            event.clientY <= rect.top ||
+            event.clientY >= rect.bottom
 
         if (dropTarget.value?.value === node.value && isOutside) {
             dropTarget.value = null

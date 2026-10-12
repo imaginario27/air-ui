@@ -44,7 +44,9 @@ describe('trimText', () => {
     it('appends a "Read more" link in link mode when readMoreLink is provided', () => {
         const result = trimText('Lorem ipsum dolor sit amet', 10, 'Read more', '/article')
 
-        expect(result).toBe('Lorem ipsu... <a href="/article" target="_blank" rel="noopener noreferrer" class="text-text-primary hover:text-text-hover">(Read more)</a>')
+        expect(result).toBe(
+            'Lorem ipsu... <a href="/article" target="_blank" rel="noopener noreferrer" class="text-text-primary hover:text-text-hover">(Read more)</a>',
+        )
     })
 
     it('ignores readMoreLink when readMoreType is toggle', () => {

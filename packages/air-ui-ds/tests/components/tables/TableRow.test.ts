@@ -6,13 +6,10 @@ type Props = {
     isStripped?: boolean
 }
 
-const factory = (
-    props?: Props,
-    slots?: Record<string, string>
-): VueWrapper => {
+const factory = (props?: Props, slots?: Record<string, string>): VueWrapper => {
     return mount(TableRow, {
         props,
-        slots
+        slots,
     })
 }
 
@@ -24,7 +21,7 @@ describe('TableRow.vue', () => {
 
     it('renders default slot content', () => {
         const wrapper = factory(undefined, {
-            default: '<td>Row Content</td>'
+            default: '<td>Row Content</td>',
         })
         expect(wrapper.html()).toContain('<td>Row Content</td>')
     })
@@ -52,7 +49,7 @@ describe('TableRow.vue', () => {
     it('applies both hover and stripped classes when both props are true', () => {
         const wrapper = factory({
             isHoverable: true,
-            isStripped: true
+            isStripped: true,
         })
 
         const classes = wrapper.classes()

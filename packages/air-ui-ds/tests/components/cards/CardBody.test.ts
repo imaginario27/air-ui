@@ -10,8 +10,8 @@ describe('CardBody.vue', () => {
     it('renders default slot content', () => {
         const wrapper = mount(CardBody, {
             slots: {
-                default: '<p>Body Content</p>'
-            }
+                default: '<p>Body Content</p>',
+            },
         })
         expect(wrapper.html()).toContain('Body Content')
     })

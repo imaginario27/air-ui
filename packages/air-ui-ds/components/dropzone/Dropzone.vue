@@ -14,9 +14,7 @@
                 isDraggingOver &&
                     !disabled &&
                     'border-border-primary-brand-default bg-background-primary-brand-soft/20',
-                disabled
-                    ? 'cursor-not-allowed opacity-disabled'
-                    : 'cursor-pointer',
+                disabled ? 'cursor-not-allowed opacity-disabled' : 'cursor-pointer',
                 dropzoneClass,
             ]"
             @dragenter.prevent="handleDragEnter"
@@ -32,14 +30,10 @@
                 :accept="inputAccept"
                 :disabled="disabled"
                 @change="handleInputChange"
-            >
+            />
 
             <div class="flex flex-col items-center text-center gap-2">
-                <Icon
-                    :name="icon"
-                    :size="IconSize.LG"
-                    :iconClass="iconClass"
-                />
+                <Icon :name="icon" :size="IconSize.LG" :iconClass="iconClass" />
 
                 <p :class="['text-base font-medium text-text-default', titleClass]">
                     {{ resolvedTitle }}
@@ -49,16 +43,7 @@
                     {{ resolvedDescription }}
                 </p>
 
-                <div
-                    :class="[
-                        'flex',
-                        'flex-wrap',
-                        'gap-2',
-                        'justify-center',
-                        'mt-2',
-                        actionsClass,
-                    ]"
-                >
+                <div :class="['flex', 'flex-wrap', 'gap-2', 'justify-center', 'mt-2', actionsClass]">
                     <ActionButton
                         v-if="showSelectButton"
                         :text="resolvedSelectButtonText"
@@ -80,29 +65,14 @@
 
         <div
             v-if="internalFiles.length"
-            :class="[
-                'w-full',
-                hasListItemsContainerScroll && 'overflow-y-auto',
-            ]"
+            :class="['w-full', hasListItemsContainerScroll && 'overflow-y-auto']"
             :style="itemsContainerStyle"
         >
             <div
                 :class="[
                     itemsLayout === DropzoneLayout.GRID
-                        ? [
-                            'grid',
-                            'grid-cols-1',
-                            'sm:grid-cols-2',
-                            'lg:grid-cols-3',
-                            'gap-2',
-                            gridClass,
-                        ]
-                        : [
-                            'flex',
-                            'flex-col',
-                            'gap-2',
-                            listClass,
-                        ],
+                        ? ['grid', 'grid-cols-1', 'sm:grid-cols-2', 'lg:grid-cols-3', 'gap-2', gridClass]
+                        : ['flex', 'flex-col', 'gap-2', listClass],
                 ]"
             >
                 <article
@@ -120,53 +90,120 @@
                         fileItemClass,
                     ]"
                 >
-                <template v-if="itemsLayout === DropzoneLayout.GRID">
-                    <div class="absolute inset-0">
-                        <img
-                            v-if="getPreviewUrl(file)"
-                            :src="getPreviewUrl(file)"
-                            :alt="file.name"
-                            class="w-full h-full object-cover"
-                        >
+                    <template v-if="itemsLayout === DropzoneLayout.GRID">
+                        <div class="absolute inset-0">
+                            <img
+                                v-if="getPreviewUrl(file)"
+                                :src="getPreviewUrl(file)"
+                                :alt="file.name"
+                                class="w-full h-full object-cover"
+                            />
+
+                            <div
+                                v-else
+                                class="w-full h-full flex items-center justify-center bg-background-neutral-subtle"
+                            >
+                                <Icon :name="getFileIcon(file)" :size="IconSize.XXL" :color="ColorAccent.NEUTRAL" />
+                            </div>
+                        </div>
 
                         <div
-                            v-else
-                            class="w-full h-full flex items-center justify-center bg-background-neutral-subtle"
+                            :class="[
+                                'relative',
+                                'z-10',
+                                'h-full',
+                                'flex',
+                                'flex-col',
+                                'justify-end',
+                                'p-3',
+                                'bg-linear-to-t',
+                                'from-background-neutral-filled-default/60',
+                                'to-transparent',
+                            ]"
                         >
-                            <Icon
-                                :name="getFileIcon(file)"
-                                :size="IconSize.XXL"
-                                :color="ColorAccent.NEUTRAL"
-                            />
-                        </div>
-                    </div>
-
-                    <div
-                        :class="[
-                            'relative',
-                            'z-10',
-                            'h-full',
-                            'flex',
-                            'flex-col',
-                            'justify-end',
-                            'p-3',
-                            'bg-linear-to-t',
-                            'from-background-neutral-filled-default/60',
-                            'to-transparent',
-                        ]"
-                    >
-                        <p :class="['text-sm text-white truncate', fileNameClass]">
-                            {{ file.name }}
-                        </p>
-
-                        <p :class="['text-xs text-white/80', fileMetaClass]">
-                            {{ getFileLabel(file) }} · {{ formatFileSize(file.size) }}
-                        </p>
-
-                        <div class="mt-2 flex items-center justify-between gap-2">
-                            <p :class="['text-xs', getUploadStatusClass(file, true)]">
-                                {{ getUploadStatusText(file) }}
+                            <p :class="['text-sm text-white truncate', fileNameClass]">
+                                {{ file.name }}
                             </p>
+
+                            <p :class="['text-xs text-white/80', fileMetaClass]">
+                                {{ getFileLabel(file) }} · {{ formatFileSize(file.size) }}
+                            </p>
+
+                            <div class="mt-2 flex items-center justify-between gap-2">
+                                <p :class="['text-xs', getUploadStatusClass(file, true)]">
+                                    {{ getUploadStatusText(file) }}
+                                </p>
+
+                                <div class="flex items-center gap-1">
+                                    <ActionIconButton
+                                        v-if="canRetry(file)"
+                                        :icon="retryIcon"
+                                        :size="ButtonSize.XS"
+                                        :styleType="retryButtonStyleType"
+                                        :class="retryButtonClass"
+                                        :iconClass="normalizedRetryIconClass"
+                                        :ariaLabel="retryAriaLabel"
+                                        @click.stop="retryUpload(file)"
+                                    />
+
+                                    <ActionIconButton
+                                        v-if="!disabled"
+                                        :icon="removeIcon"
+                                        :size="ButtonSize.XS"
+                                        :styleType="removeButtonStyleType"
+                                        :class="removeButtonClass"
+                                        :iconClass="normalizedRemoveIconClass"
+                                        :ariaLabel="resolvedRemoveAriaLabel"
+                                        @click.stop="removeFile(file)"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+
+                    <template v-else>
+                        <div class="flex items-center gap-2">
+                            <div
+                                :class="[
+                                    'w-10',
+                                    'h-10',
+                                    'rounded-md',
+                                    'bg-background-neutral-subtle',
+                                    'flex',
+                                    'items-center',
+                                    'justify-center',
+                                    'overflow-hidden',
+                                    'shrink-0',
+                                ]"
+                            >
+                                <img
+                                    v-if="getPreviewUrl(file)"
+                                    :src="getPreviewUrl(file)"
+                                    :alt="file.name"
+                                    class="w-full h-full object-cover"
+                                />
+
+                                <Icon
+                                    v-else
+                                    :name="getFileIcon(file)"
+                                    :size="IconSize.LG"
+                                    :color="ColorAccent.NEUTRAL"
+                                />
+                            </div>
+
+                            <div class="min-w-0 flex-1">
+                                <p :class="['text-sm font-medium text-text-default truncate', fileNameClass]">
+                                    {{ file.name }}
+                                </p>
+
+                                <p :class="['text-xs text-text-neutral-subtle', fileMetaClass]">
+                                    {{ getFileLabel(file) }} · {{ formatFileSize(file.size) }}
+                                </p>
+
+                                <p :class="['text-xs mt-1', getUploadStatusClass(file, false)]">
+                                    {{ getUploadStatusText(file) }}
+                                </p>
+                            </div>
 
                             <div class="flex items-center gap-1">
                                 <ActionIconButton
@@ -176,7 +213,6 @@
                                     :styleType="retryButtonStyleType"
                                     :class="retryButtonClass"
                                     :iconClass="normalizedRetryIconClass"
-                                    :ariaLabel="retryAriaLabel"
                                     @click.stop="retryUpload(file)"
                                 />
 
@@ -187,81 +223,11 @@
                                     :styleType="removeButtonStyleType"
                                     :class="removeButtonClass"
                                     :iconClass="normalizedRemoveIconClass"
-                                    :ariaLabel="resolvedRemoveAriaLabel"
                                     @click.stop="removeFile(file)"
                                 />
                             </div>
                         </div>
-                    </div>
-                </template>
-
-                <template v-else>
-                    <div class="flex items-center gap-2">
-                        <div
-                            :class="[
-                                'w-10',
-                                'h-10',
-                                'rounded-md',
-                                'bg-background-neutral-subtle',
-                                'flex',
-                                'items-center',
-                                'justify-center',
-                                'overflow-hidden',
-                                'shrink-0',
-                            ]"
-                        >
-                            <img
-                                v-if="getPreviewUrl(file)"
-                                :src="getPreviewUrl(file)"
-                                :alt="file.name"
-                                class="w-full h-full object-cover"
-                            >
-
-                            <Icon
-                                v-else
-                                :name="getFileIcon(file)"
-                                :size="IconSize.LG"
-                                :color="ColorAccent.NEUTRAL"
-                            />
-                        </div>
-
-                        <div class="min-w-0 flex-1">
-                            <p :class="['text-sm font-medium text-text-default truncate', fileNameClass]">
-                                {{ file.name }}
-                            </p>
-
-                            <p :class="['text-xs text-text-neutral-subtle', fileMetaClass]">
-                                {{ getFileLabel(file) }} · {{ formatFileSize(file.size) }}
-                            </p>
-
-                            <p :class="['text-xs mt-1', getUploadStatusClass(file, false)]">
-                                {{ getUploadStatusText(file) }}
-                            </p>
-                        </div>
-
-                        <div class="flex items-center gap-1">
-                            <ActionIconButton
-                                v-if="canRetry(file)"
-                                :icon="retryIcon"
-                                :size="ButtonSize.XS"
-                                :styleType="retryButtonStyleType"
-                                :class="retryButtonClass"
-                                :iconClass="normalizedRetryIconClass"
-                                @click.stop="retryUpload(file)"
-                            />
-
-                            <ActionIconButton
-                                v-if="!disabled"
-                                :icon="removeIcon"
-                                :size="ButtonSize.XS"
-                                :styleType="removeButtonStyleType"
-                                :class="removeButtonClass"
-                                :iconClass="normalizedRemoveIconClass"
-                                @click.stop="removeFile(file)"
-                            />
-                        </div>
-                    </div>
-                </template>
+                    </template>
                 </article>
             </div>
         </div>
@@ -468,7 +434,9 @@ const dsConfig = useDSConfig()
 // Computed: global-config-backed text (an explicit prop always wins)
 const resolvedDragDropText = computed(() => props.title ?? dsConfig.forms.fileUpload.dragDropText())
 const resolvedSelectFilesText = computed(() => props.buttonText ?? dsConfig.forms.fileUpload.selectFilesText())
-const resolvedUploadingStatusText = computed(() => props.uploadingStatusText ?? dsConfig.forms.fileUpload.uploadingText())
+const resolvedUploadingStatusText = computed(
+    () => props.uploadingStatusText ?? dsConfig.forms.fileUpload.uploadingText(),
+)
 const resolvedSuccessStatusText = computed(() => props.successStatusText ?? dsConfig.forms.fileUpload.uploadedText())
 const resolvedErrorStatusText = computed(() => props.errorStatusText ?? dsConfig.forms.fileUpload.uploadFailedText())
 const resolvedRemoveAriaLabel = computed(() => props.removeAriaLabel ?? dsConfig.forms.fileUpload.removeFileText())
@@ -481,7 +449,7 @@ const iconMap = computed<Record<string, string>>(() => ({
 
 const normalizedAcceptList = computed(() => {
     const value = Array.isArray(props.accept) ? props.accept : [props.accept]
-    return value.map(item => item.trim().toLowerCase()).filter(Boolean)
+    return value.map((item) => item.trim().toLowerCase()).filter(Boolean)
 })
 
 const inputAccept = computed(() => {
@@ -495,7 +463,7 @@ const acceptedTypeLabels = computed(() => {
     }
 
     return normalizedAcceptList.value
-        .map(entry => {
+        .map((entry) => {
             if (entry.startsWith('.')) {
                 return entry.slice(1).toUpperCase()
             }
@@ -524,16 +492,11 @@ const resolvedSelectButtonText = computed(() => {
 })
 
 const canShowClearAllButton = computed(() => {
-    return (
-        props.showClearAllButton &&
-        !props.useServerUpload &&
-        internalFiles.value.length > 0
-    )
+    return props.showClearAllButton && !props.useServerUpload && internalFiles.value.length > 0
 })
 
 const hasListItemsContainerScroll = computed(() => {
-    return Number.isFinite(props.maxItemsContainerHeight)
-        && props.itemsLayout === DropzoneLayout.LIST
+    return Number.isFinite(props.maxItemsContainerHeight) && props.itemsLayout === DropzoneLayout.LIST
 })
 
 const normalizedRetryIconClass = computed(() => {
@@ -576,7 +539,7 @@ const dropzoneStateClass = computed(() => {
     }
 
     const borderClass = borderVariants[props.state] || borderVariants[DropzoneState.DEFAULT]
-    const bgClass = props.transparent ? '' : (bgVariants[props.state] || bgVariants[DropzoneState.DEFAULT])
+    const bgClass = props.transparent ? '' : bgVariants[props.state] || bgVariants[DropzoneState.DEFAULT]
 
     return [borderClass, bgClass].filter(Boolean).join(' ')
 })
@@ -584,7 +547,7 @@ const dropzoneStateClass = computed(() => {
 const totalProgressComputed = computed(() => {
     if (internalFiles.value.length === 0) return 0
 
-    const progressList = internalFiles.value.map(file => {
+    const progressList = internalFiles.value.map((file) => {
         const fileId = getFileId(file)
         return uploadMetaMap[fileId]?.progress ?? 0
     })
@@ -753,11 +716,8 @@ const formatFileSize = (bytes: number) => {
     if (bytes <= 0) return '0 B'
 
     const units = ['B', 'KB', 'MB', 'GB']
-    const index = Math.min(
-        Math.floor(Math.log(bytes) / Math.log(1024)),
-        units.length - 1
-    )
-    const value = bytes / (1024 ** index)
+    const index = Math.min(Math.floor(Math.log(bytes) / Math.log(1024)), units.length - 1)
+    const value = bytes / 1024 ** index
 
     return `${value.toFixed(value >= 10 || index === 0 ? 0 : 1)} ${units[index]}`
 }
@@ -767,7 +727,7 @@ const isAcceptedFile = (file: File) => {
 
     const extension = `.${file.name.split('.').pop()?.toLowerCase() ?? ''}`
 
-    return normalizedAcceptList.value.some(acceptEntry => {
+    return normalizedAcceptList.value.some((acceptEntry) => {
         if (acceptEntry.startsWith('.')) {
             return acceptEntry === extension
         }
@@ -812,9 +772,7 @@ const buildNextFiles = (incomingFiles: File[]) => {
         baseFiles = shouldReplace ? [] : [...internalFiles.value]
     }
 
-    const nextFiles = props.multiple
-        ? [...baseFiles, ...validated]
-        : validated.slice(0, 1)
+    const nextFiles = props.multiple ? [...baseFiles, ...validated] : validated.slice(0, 1)
 
     if (nextFiles.length > props.maxFiles) {
         emit('error', props.fileUploadErrorMessage)
@@ -945,7 +903,7 @@ const addFiles = async (incomingFiles: File[]) => {
     if (props.disabled || incomingFiles.length === 0) return
 
     const nextFiles = buildNextFiles(incomingFiles)
-    const previousIds = new Set(internalFiles.value.map(file => getFileId(file)))
+    const previousIds = new Set(internalFiles.value.map((file) => getFileId(file)))
 
     for (const file of nextFiles) {
         ensureUploadMeta(file)
@@ -954,7 +912,7 @@ const addFiles = async (incomingFiles: File[]) => {
 
     updateModelValue(nextFiles)
 
-    const addedFiles = nextFiles.filter(file => !previousIds.has(getFileId(file)))
+    const addedFiles = nextFiles.filter((file) => !previousIds.has(getFileId(file)))
     for (const file of addedFiles) {
         emit('file-added', file)
 
@@ -1016,9 +974,7 @@ const handleDrop = async (event: DragEvent) => {
 const removeFile = async (fileToRemove: File) => {
     if (props.disabled) return
 
-    const nextFiles = internalFiles.value.filter(
-        file => getFileId(file) !== getFileId(fileToRemove)
-    )
+    const nextFiles = internalFiles.value.filter((file) => getFileId(file) !== getFileId(fileToRemove))
 
     updateModelValue(nextFiles)
     emit('file-removed', fileToRemove)
@@ -1056,7 +1012,7 @@ watch(
             ensurePreviewUrl(file)
         }
     },
-    { deep: true }
+    { deep: true },
 )
 
 watch(
@@ -1064,7 +1020,7 @@ watch(
     (value) => {
         emit('update:totalProgress', value)
     },
-    { immediate: true }
+    { immediate: true },
 )
 
 onUnmounted(() => {

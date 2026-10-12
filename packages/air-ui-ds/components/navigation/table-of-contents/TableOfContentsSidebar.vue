@@ -1,5 +1,5 @@
 <template>
-    <aside 
+    <aside
         :class="[
             'flex',
             'flex-col',
@@ -17,12 +17,8 @@
             height: `calc(100vh - ${topOffset}px)`,
         }"
     >
-        <TableOfContents
-            :title
-            :links
-        />
+        <TableOfContents :title :links />
     </aside>
-    
 </template>
 <script setup lang="ts">
 defineProps({

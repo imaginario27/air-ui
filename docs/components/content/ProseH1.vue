@@ -1,7 +1,7 @@
 <template>
-    <h1 
+    <h1
         :class="[
-            'text-3xl md:text-4xl', 
+            'text-3xl md:text-4xl',
             'font-semibold',
             'leading-tight',
             'mt-12 first:mt-0',

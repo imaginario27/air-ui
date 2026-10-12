@@ -3,15 +3,15 @@ import TableCell from '@/components/tables/TableCell.vue'
 import { navigateTo } from '#app'
 
 vi.mock('#app', () => ({
-    navigateTo: vi.fn()
+    navigateTo: vi.fn(),
 }))
 
 const factory = (props?: { fitToContent?: boolean; to?: string; noWrap?: boolean }) => {
     return mount(TableCell, {
         props,
         slots: {
-            default: 'Cell Content'
-        }
+            default: 'Cell Content',
+        },
     })
 }
 

@@ -1,9 +1,7 @@
 ﻿<template>
     <Section>
         <SectionBody>
-            <ContentRenderer 
-                v-if="data" :value="data" 
-            />
+            <ContentRenderer v-if="data" :value="data" />
             <ContentRenderFallback v-else />
         </SectionBody>
     </Section>
@@ -13,7 +11,8 @@ definePageMeta({
     title: 'getRatingIndicator',
     layout: 'docs',
     overtitle: 'Utils',
-    description: 'Returns a visual indicator (e.g., stars) representing a rating value, commonly used in reviews and feedback systems.',
+    description:
+        'Returns a visual indicator (e.g., stars) representing a rating value, commonly used in reviews and feedback systems.',
     category: 'Ratings',
 })
 

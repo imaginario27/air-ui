@@ -10,8 +10,8 @@ describe('TableWrapper', () => {
     it('renders slot content', () => {
         const wrapper = mount(TableWrapper, {
             slots: {
-                default: '<p>Wrapped content</p>'
-            }
+                default: '<p>Wrapped content</p>',
+            },
         })
         expect(wrapper.html()).toContain('<p>Wrapped content</p>')
     })

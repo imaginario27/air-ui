@@ -1,8 +1,5 @@
 <template>
-    <Section
-        :spacing="SectionSpacing.XL"
-        class="bg-background-primary-brand-soft/30"
-    >
+    <Section :spacing="SectionSpacing.XL" class="bg-background-primary-brand-soft/30">
         <SectionBody>
             <Heading
                 :title
@@ -17,33 +14,26 @@
         <SectionBody>
             <div class="flex flex-col gap-6">
                 <div class="flex flex-col gap-4">
-                    <h2 class="text-xl font-semibold">
-                        Select package
-                    </h2>
+                    <h2 class="text-xl font-semibold">Select package</h2>
 
                     <div class="flex flex-wrap gap-2">
                         <ActionButton
                             v-for="pkg in packageOptions"
                             :key="pkg.value"
                             :text="pkg.text"
-                            :styleType="selectedPackageName === pkg.value
-                                ? ButtonStyleType.PRIMARY_BRAND_FILLED
-                                : ButtonStyleType.NEUTRAL_FILLED"
+                            :styleType="
+                                selectedPackageName === pkg.value
+                                    ? ButtonStyleType.PRIMARY_BRAND_FILLED
+                                    : ButtonStyleType.NEUTRAL_FILLED
+                            "
                             :size="ButtonSize.MD"
                             @click="selectedPackageName = pkg.value"
                         />
                     </div>
                 </div>
 
-                <div
-                    v-if="selectedPackage"
-                    class="flex flex-col gap-4"
-                >
-                    <Heading
-                        title="Version range"
-                        :size="HeadingSize.XS"
-                        headingTag="h1"
-                    />
+                <div v-if="selectedPackage" class="flex flex-col gap-4">
+                    <Heading title="Version range" :size="HeadingSize.XS" headingTag="h1" />
 
                     <Form class="max-w-3xl w-full">
                         <FormRow class="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -66,12 +56,10 @@
                     </Form>
                 </div>
 
-                <div
-                    v-if="rangedEntries.length && selectedPackage"
-                    class="flex flex-col gap-4"
-                >
+                <div v-if="rangedEntries.length && selectedPackage" class="flex flex-col gap-4">
                     <p class="text-sm text-text-neutral-subtle">
-                        Showing {{ rangedEntries.length }} versions from {{ rangedEntries[0]?.version }} to {{ rangedEntries[rangedEntries.length - 1]?.version }}.
+                        Showing {{ rangedEntries.length }} versions from {{ rangedEntries[0]?.version }} to
+                        {{ rangedEntries[rangedEntries.length - 1]?.version }}.
                     </p>
 
                     <section
@@ -97,7 +85,9 @@
                                 />
                                 <span class="text-sm text-text-neutral-subtle">
                                     {{ entry.publishedAt }}
-                                    <template v-if="entry.metadata?.commitCount">· {{ formatCommitCount(entry.metadata.commitCount) }}</template>
+                                    <template v-if="entry.metadata?.commitCount"
+                                        >· {{ formatCommitCount(entry.metadata.commitCount) }}</template
+                                    >
                                 </span>
                             </div>
 
@@ -123,11 +113,7 @@
                                     :key="`${entry.version}-published-${group.title}`"
                                     class="flex flex-wrap items-center gap-1.5"
                                 >
-                                    <Badge
-                                        :text="group.title"
-                                        :color="group.color"
-                                        :style="BadgeStyle.FLAT"
-                                    />
+                                    <Badge :text="group.title" :color="group.color" :style="BadgeStyle.FLAT" />
                                     <Badge
                                         v-for="label in group.labels.slice(0, MAX_PUBLISHED_LABELS)"
                                         :key="label"
@@ -145,14 +131,12 @@
                                 </div>
 
                                 <p class="text-sm text-text-neutral-subtle">
-                                    No commits were recorded for this release. Changes were detected by comparing the published package with the previous version.
+                                    No commits were recorded for this release. Changes were detected by comparing the
+                                    published package with the previous version.
                                 </p>
                             </div>
 
-                            <p
-                                v-else-if="!getEntrySections(entry).length"
-                                class="text-sm text-text-neutral-subtle"
-                            >
+                            <p v-else-if="!getEntrySections(entry).length" class="text-sm text-text-neutral-subtle">
                                 {{ entry.notes[0] }}
                             </p>
 
@@ -162,13 +146,10 @@
                                 class="flex flex-col gap-2"
                             >
                                 <div class="flex items-center gap-2">
-                                    <Badge
-                                        :text="section.title"
-                                        :color="section.color"
-                                        :style="BadgeStyle.FLAT"
-                                    />
+                                    <Badge :text="section.title" :color="section.color" :style="BadgeStyle.FLAT" />
                                     <span class="text-sm text-text-neutral-subtle">
-                                        {{ section.items.length }} {{ section.items.length === 1 ? 'change' : 'changes' }}
+                                        {{ section.items.length }}
+                                        {{ section.items.length === 1 ? 'change' : 'changes' }}
                                     </span>
                                 </div>
 
@@ -185,10 +166,7 @@
                                                     v-for="(part, partIndex) in splitInlineCode(item.label)"
                                                     :key="partIndex"
                                                 >
-                                                    <ProseCode
-                                                        v-if="part.isCode"
-                                                        :class="INLINE_CODE_CLASS"
-                                                    >
+                                                    <ProseCode v-if="part.isCode" :class="INLINE_CODE_CLASS">
                                                         {{ part.text }}
                                                     </ProseCode>
                                                     <template v-else>{{ part.text }}</template>
@@ -207,10 +185,14 @@
                                                 />
                                                 <ActionIconButton
                                                     v-if="hasItemDetails(item)"
-                                                    :icon="isItemCollapsed(item) ? 'mdi:chevron-down' : 'mdi:chevron-up'"
+                                                    :icon="
+                                                        isItemCollapsed(item) ? 'mdi:chevron-down' : 'mdi:chevron-up'
+                                                    "
                                                     :styleType="ButtonStyleType.NEUTRAL_TRANSPARENT"
                                                     :size="ButtonSize.XS"
-                                                    :ariaLabel="isItemCollapsed(item) ? 'Expand details' : 'Collapse details'"
+                                                    :ariaLabel="
+                                                        isItemCollapsed(item) ? 'Expand details' : 'Collapse details'
+                                                    "
                                                     @click="toggleItem(item)"
                                                 />
                                             </div>
@@ -236,9 +218,7 @@
                                             </span>
                                         </div>
 
-                                        <List
-                                            v-if="item.body.length && !isItemCollapsed(item)"
-                                        >
+                                        <List v-if="item.body.length && !isItemCollapsed(item)">
                                             <ListItem
                                                 v-for="line in item.body"
                                                 :key="line"
@@ -249,10 +229,7 @@
                                                     v-for="(part, partIndex) in splitInlineCode(line)"
                                                     :key="partIndex"
                                                 >
-                                                    <ProseCode
-                                                        v-if="part.isCode"
-                                                        :class="INLINE_CODE_CLASS"
-                                                    >
+                                                    <ProseCode v-if="part.isCode" :class="INLINE_CODE_CLASS">
                                                         {{ part.text }}
                                                     </ProseCode>
                                                     <template v-else>{{ part.text }}</template>
@@ -266,11 +243,7 @@
                     </section>
                 </div>
 
-                <ContentPlaceholder
-                    v-else
-                    text="No release information available."
-                    class="h-30"
-                />
+                <ContentPlaceholder v-else text="No release information available." class="h-30" />
             </div>
         </SectionBody>
     </Section>
@@ -322,7 +295,7 @@ type ReleasePackage = {
 }
 
 // Computed
-const title = computed(() => ('Releases'))
+const title = computed(() => 'Releases')
 
 const packages = computed<ReleasePackage[]>(() => releaseHistory.packages ?? [])
 
@@ -364,7 +337,7 @@ const splitInlineCode = (text: string) => {
         .filter((part) => part.text)
 }
 
-const hasItemDetails =(item: { affected: string[], body: string[] }) => {
+const hasItemDetails = (item: { affected: string[]; body: string[] }) => {
     return item.affected.length > 0 || item.body.length > 0
 }
 
@@ -425,7 +398,7 @@ const getReleaseTypeColor = (releaseType: string): ColorAccent => {
     }
 }
 
-const sectionConfig: Array<{ type: string, title: string, color: ColorAccent }> = [
+const sectionConfig: Array<{ type: string; title: string; color: ColorAccent }> = [
     { type: 'breaking', title: 'Breaking Changes', color: ColorAccent.DANGER },
     { type: 'added', title: 'Added', color: ColorAccent.INFO },
     { type: 'fixed', title: 'Fixed', color: ColorAccent.SUCCESS },
@@ -433,7 +406,7 @@ const sectionConfig: Array<{ type: string, title: string, color: ColorAccent }> 
     { type: 'maintenance', title: 'Maintenance', color: ColorAccent.WARNING },
 ]
 
-const publishedChangeConfig: Array<{ key: 'added' | 'changed' | 'removed', title: string, color: ColorAccent }> = [
+const publishedChangeConfig: Array<{ key: 'added' | 'changed' | 'removed'; title: string; color: ColorAccent }> = [
     { key: 'added', title: 'Added', color: ColorAccent.INFO },
     { key: 'changed', title: 'Changed', color: ColorAccent.NEUTRAL },
     { key: 'removed', title: 'Removed', color: ColorAccent.DANGER },

@@ -33,7 +33,7 @@ const arm = async (wrapper: ReturnType<typeof factory>, ...rowValues: string[]) 
         await item(wrapper, value).trigger('mouseenter')
     }
 }
-const values = (wrapper: ReturnType<typeof factory>) => items(wrapper).map(row => row.attributes('data-value'))
+const values = (wrapper: ReturnType<typeof factory>) => items(wrapper).map((row) => row.attributes('data-value'))
 
 describe('TreeView', () => {
     describe('rendering', () => {
@@ -84,19 +84,24 @@ describe('TreeView', () => {
         })
 
         it('renders one indent guide per level and none when disabled', () => {
-            const guides = (props = {}) => item(factory({ expandedValue: ['src'], ...props }), 'app')
-                .findAll('[data-testid="tree-view-indent-guide"]')
+            const guides = (props = {}) =>
+                item(factory({ expandedValue: ['src'], ...props }), 'app').findAll(
+                    '[data-testid="tree-view-indent-guide"]',
+                )
 
             expect(guides()).toHaveLength(1)
             expect(guides({ showIndentGuides: false })).toHaveLength(0)
         })
 
         it('renders the label slot with the node and state', () => {
-            const wrapper = factory({}, {
-                label: '<template #label="{ node, isBranch }"><b data-testid="custom">{{ node.label }}-{{ isBranch }}</b></template>',
-            })
+            const wrapper = factory(
+                {},
+                {
+                    label: '<template #label="{ node, isBranch }"><b data-testid="custom">{{ node.label }}-{{ isBranch }}</b></template>',
+                },
+            )
 
-            expect(wrapper.findAll('[data-testid="custom"]').map(el => el.text())).toContain('src-true')
+            expect(wrapper.findAll('[data-testid="custom"]').map((el) => el.text())).toContain('src-true')
         })
     })
 
@@ -143,7 +148,9 @@ describe('TreeView', () => {
         })
 
         it('follows the last opened folder and colors only its icon and label, not the chevron', async () => {
-            const wrapper = factory({ nodes: [...nodes, { value: 'docs', label: 'docs', children: [{ value: 'guide', label: 'guide' }] }] })
+            const wrapper = factory({
+                nodes: [...nodes, { value: 'docs', label: 'docs', children: [{ value: 'guide', label: 'guide' }] }],
+            })
 
             await item(wrapper, 'src').trigger('click')
             expect(labelClasses(wrapper, 'src')).toContain(active)
@@ -222,8 +229,14 @@ describe('TreeView', () => {
             expect(actions(wrapper, 'src').exists()).toBe(true)
             expect(actions(wrapper, 'package').exists()).toBe(true)
             expect(actions(wrapper, 'app').exists()).toBe(false)
-            expect(resolver).toHaveBeenCalledWith(expect.objectContaining({ value: 'app' }), { isBranch: false, level: 1 })
-            expect(resolver).toHaveBeenCalledWith(expect.objectContaining({ value: 'src' }), { isBranch: true, level: 0 })
+            expect(resolver).toHaveBeenCalledWith(expect.objectContaining({ value: 'app' }), {
+                isBranch: false,
+                level: 1,
+            })
+            expect(resolver).toHaveBeenCalledWith(expect.objectContaining({ value: 'src' }), {
+                isBranch: true,
+                level: 0,
+            })
 
             await arm(wrapper, 'src')
             expect(wrapper.findComponent({ name: 'DropdownMenu' }).props('items')).toEqual([{ text: 'New file' }])
@@ -295,8 +308,9 @@ describe('TreeView', () => {
             await wrapper.find('[aria-label="More options"]').trigger('click')
             await flushPromises()
 
-            const menuItem = Array.from(document.body.querySelectorAll<HTMLElement>('[data-dropdown-menu-panel] *'))
-                .find(element => element.children.length === 0 && element.textContent?.trim() === 'Rename')
+            const menuItem = Array.from(
+                document.body.querySelectorAll<HTMLElement>('[data-dropdown-menu-panel] *'),
+            ).find((element) => element.children.length === 0 && element.textContent?.trim() === 'Rename')
             expect(menuItem).toBeDefined()
 
             menuItem!.click()
@@ -323,11 +337,12 @@ describe('TreeView', () => {
     })
 
     describe('transition', () => {
-        const mountWithTransition = () => mount(TreeView, {
-            props: { nodes },
-            attachTo: document.body,
-            global: { stubs: { TransitionGroup: false } },
-        })
+        const mountWithTransition = () =>
+            mount(TreeView, {
+                props: { nodes },
+                attachTo: document.body,
+                global: { stubs: { TransitionGroup: false } },
+            })
 
         afterEach(() => {
             delete (HTMLElement.prototype as Partial<HTMLElement>).animate
@@ -396,7 +411,11 @@ describe('TreeView', () => {
                 value: 'a',
                 label: 'a',
                 children: [
-                    { value: 'a1', label: 'a1', children: [{ value: 'a1x', label: 'a1x', children: [{ value: 'a1x1', label: 'a1x1' }] }] },
+                    {
+                        value: 'a1',
+                        label: 'a1',
+                        children: [{ value: 'a1x', label: 'a1x', children: [{ value: 'a1x1', label: 'a1x1' }] }],
+                    },
                     { value: 'a2', label: 'a2', children: [{ value: 'a2x', label: 'a2x' }] },
                 ],
             },
@@ -497,10 +516,12 @@ describe('TreeView', () => {
 
             expect(row.find('[data-testid="tree-view-label"]').classes()).toContain('text-text-primary-brand-default')
             expect(row.html()).toContain('text-icon-primary-brand-default')
-            expect(unselected.find('[data-testid="tree-view-label"]').classes()).not.toContain('text-text-primary-brand-default')
+            expect(unselected.find('[data-testid="tree-view-label"]').classes()).not.toContain(
+                'text-text-primary-brand-default',
+            )
 
             // The row itself keeps the default look
-            expect(row.classes().some(cls => cls.startsWith('bg-') || cls.startsWith('text-text-'))).toBe(false)
+            expect(row.classes().some((cls) => cls.startsWith('bg-') || cls.startsWith('text-text-'))).toBe(false)
         })
 
         it('ignores clicks on disabled nodes and when the tree is disabled', async () => {
@@ -540,7 +561,11 @@ describe('TreeView', () => {
         })
 
         it('shows the branch as checked when all its leaves are checked and unchecks them together', async () => {
-            const wrapper = factory({ showCheckboxes: true, expandedValue: ['src'], checkedValue: ['app', 'index', 'package'] })
+            const wrapper = factory({
+                showCheckboxes: true,
+                expandedValue: ['src'],
+                checkedValue: ['app', 'index', 'package'],
+            })
 
             expect(checkbox(wrapper, 'src').attributes('aria-checked')).toBe('true')
 
@@ -582,7 +607,12 @@ describe('TreeView', () => {
 
         it('shows a spinner while the children load', async () => {
             let resolve: (nodes: TreeViewNode[]) => void = () => {}
-            const loadChildren = vi.fn(() => new Promise<TreeViewNode[]>(r => { resolve = r }))
+            const loadChildren = vi.fn(
+                () =>
+                    new Promise<TreeViewNode[]>((r) => {
+                        resolve = r
+                    }),
+            )
             const wrapper = factory({ nodes: lazyNodes, loadChildren })
 
             await item(wrapper, 'remote').trigger('click')
@@ -733,11 +763,19 @@ describe('TreeView', () => {
 
         it('expands down to defaultExpandedDepth and ignores it when expandedValue is provided', () => {
             const deep: TreeViewNode[] = [
-                { value: 'a', label: 'a', children: [{ value: 'b', label: 'b', children: [{ value: 'c', label: 'c' }] }] },
+                {
+                    value: 'a',
+                    label: 'a',
+                    children: [{ value: 'b', label: 'b', children: [{ value: 'c', label: 'c' }] }],
+                },
             ]
 
             expect(values(factory({ nodes: deep, defaultExpandedDepth: 1 }))).toEqual(['a', 'b'])
-            expect(values(factory({ nodes: deep, defaultExpandedDepth: 1, expandedValue: ['a', 'b'] }))).toEqual(['a', 'b', 'c'])
+            expect(values(factory({ nodes: deep, defaultExpandedDepth: 1, expandedValue: ['a', 'b'] }))).toEqual([
+                'a',
+                'b',
+                'c',
+            ])
         })
     })
 
@@ -761,10 +799,14 @@ describe('TreeView', () => {
 
     describe('slots, size and icons', () => {
         it('renders the icon and trailing slots', () => {
-            const wrapper = factory({}, {
-                icon: '<template #icon="{ node }"><i data-testid="custom-icon">{{ node.value }}</i></template>',
-                trailing: '<template #trailing="{ node }"><b data-testid="custom-trailing">{{ node.value }}</b></template>',
-            })
+            const wrapper = factory(
+                {},
+                {
+                    icon: '<template #icon="{ node }"><i data-testid="custom-icon">{{ node.value }}</i></template>',
+                    trailing:
+                        '<template #trailing="{ node }"><b data-testid="custom-trailing">{{ node.value }}</b></template>',
+                },
+            )
 
             expect(wrapper.find('[data-testid="custom-icon"]').exists()).toBe(true)
             expect(item(wrapper, 'package').find('[data-testid="custom-trailing"]').text()).toBe('package')
@@ -776,7 +818,12 @@ describe('TreeView', () => {
         })
 
         it('uses custom icons for files and folders', () => {
-            const wrapper = factory({ leafIcon: 'mdi:star', collapsedIcon: 'mdi:plus', expandedIcon: 'mdi:minus', expandedValue: ['src'] })
+            const wrapper = factory({
+                leafIcon: 'mdi:star',
+                collapsedIcon: 'mdi:plus',
+                expandedIcon: 'mdi:minus',
+                expandedValue: ['src'],
+            })
 
             expect(item(wrapper, 'package').html()).toContain('mdi:star')
             expect(item(wrapper, 'src').html()).toContain('mdi:minus')
@@ -839,7 +886,8 @@ describe('TreeView', () => {
         })
 
         it('shows an error state on a failed load and retries on the next expand', async () => {
-            const loadChildren = vi.fn()
+            const loadChildren = vi
+                .fn()
                 .mockRejectedValueOnce(new Error('boom'))
                 .mockResolvedValueOnce([{ value: 'child', label: 'child' }])
             const wrapper = factory({ nodes: [{ value: 'remote', label: 'remote', hasChildren: true }], loadChildren })
@@ -860,7 +908,7 @@ describe('TreeView', () => {
                 await arm(wrapper, 'a')
                 const menu = wrapper.findComponent({ name: 'DropdownMenu' })
 
-                return menu.exists() ? (menu.props('items') as DropdownMenuItem[]).map(entry => entry.text) : []
+                return menu.exists() ? (menu.props('items') as DropdownMenuItem[]).map((entry) => entry.text) : []
             }
 
             it('adds a Rename item to the more actions only when isRenamable and not readOnly', async () => {
@@ -901,7 +949,7 @@ describe('TreeView', () => {
                 await input.trigger('keydown', { key: 'Enter' })
 
                 const renamed = wrapper.emitted('update:nodes')?.[0]?.[0] as TreeViewNode[]
-                expect(renamed[0]!.children!.map(node => node.label)).toEqual(['main.tsx', 'index.ts'])
+                expect(renamed[0]!.children!.map((node) => node.label)).toEqual(['main.tsx', 'index.ts'])
                 expect(wrapper.props('nodes')[0]!.children![0]!.label).toBe('app.tsx')
 
                 const loadChildren = vi.fn(async () => [{ value: 'child', label: 'child' }])
@@ -960,7 +1008,9 @@ describe('TreeView', () => {
         it('is not draggable unless isReorderable is set and not readOnly', () => {
             expect(item(factory(), 'package').attributes('draggable')).toBe('false')
             expect(item(factory({ isReorderable: true }), 'package').attributes('draggable')).toBe('true')
-            expect(item(factory({ isReorderable: true, readOnly: true }), 'package').attributes('draggable')).toBe('false')
+            expect(item(factory({ isReorderable: true, readOnly: true }), 'package').attributes('draggable')).toBe(
+                'false',
+            )
             expect(item(factory({ isReorderable: true }), 'readme').attributes('draggable')).toBe('false')
         })
 
@@ -1000,8 +1050,8 @@ describe('TreeView', () => {
             await dropOn(wrapper, 'package', 'src', 0.5)
 
             const moved = wrapper.emitted('update:nodes')?.[0]?.[0] as TreeViewNode[]
-            expect(moved.map(node => node.value)).toEqual(['src', 'readme'])
-            expect(moved[0]!.children!.map(node => node.value)).toEqual(['app', 'index', 'package'])
+            expect(moved.map((node) => node.value)).toEqual(['src', 'readme'])
+            expect(moved[0]!.children!.map((node) => node.value)).toEqual(['app', 'index', 'package'])
             expect(wrapper.emitted('update:expandedValue')?.at(-1)).toEqual([['src']])
         })
 
@@ -1023,7 +1073,10 @@ describe('TreeView', () => {
         it('does not emit update:nodes when the move involves lazy-loaded nodes', async () => {
             const loadChildren = vi.fn(async () => [{ value: 'child', label: 'child' }])
             const wrapper = factory({
-                nodes: [{ value: 'remote', label: 'remote', hasChildren: true }, { value: 'file', label: 'file' }],
+                nodes: [
+                    { value: 'remote', label: 'remote', hasChildren: true },
+                    { value: 'file', label: 'file' },
+                ],
                 loadChildren,
                 isReorderable: true,
             })
@@ -1039,8 +1092,13 @@ describe('TreeView', () => {
         it('keeps the drop placeholder while the pointer stays inside the row and clears it when it leaves', async () => {
             const wrapper = factory({ isReorderable: true, expandedValue: ['src'] })
             const target = item(wrapper, 'index')
-            vi.spyOn(target.element, 'getBoundingClientRect')
-                .mockReturnValue({ top: 0, bottom: 100, left: 0, right: 200, height: 100 } as DOMRect)
+            vi.spyOn(target.element, 'getBoundingClientRect').mockReturnValue({
+                top: 0,
+                bottom: 100,
+                left: 0,
+                right: 200,
+                height: 100,
+            } as DOMRect)
 
             await item(wrapper, 'package').trigger('dragstart')
             await target.trigger('dragover', { clientX: 50, clientY: 90 })
@@ -1067,7 +1125,14 @@ describe('TreeView', () => {
         const unsorted: TreeViewNode[] = [
             { value: 'b', label: 'b.txt', meta: { size: 30 } },
             { value: 'a10', label: 'A10.txt', meta: { size: 10 } },
-            { value: 'dir', label: 'Zeta', children: [{ value: 'child-b', label: 'b' }, { value: 'child-a', label: 'a' }] },
+            {
+                value: 'dir',
+                label: 'Zeta',
+                children: [
+                    { value: 'child-b', label: 'b' },
+                    { value: 'child-a', label: 'a' },
+                ],
+            },
             { value: 'a2', label: 'a2.txt', meta: { size: 20 } },
         ]
 
@@ -1090,15 +1155,24 @@ describe('TreeView', () => {
 
         it('puts folders first and keeps the order inside each group', () => {
             expect(values(factory({ nodes: unsorted, foldersFirst: true }))).toEqual(['dir', 'b', 'a10', 'a2'])
-            expect(values(factory({ nodes: unsorted, foldersFirst: true, sortOrder: SortOrder.ASC })))
-                .toEqual(['dir', 'a2', 'a10', 'b'])
+            expect(values(factory({ nodes: unsorted, foldersFirst: true, sortOrder: SortOrder.ASC }))).toEqual([
+                'dir',
+                'a2',
+                'a10',
+                'b',
+            ])
         })
 
         it('uses sortCompare over sortOrder', () => {
-            const sortCompare = (a: TreeViewNode, b: TreeViewNode) => Number(a.meta?.size ?? 0) - Number(b.meta?.size ?? 0)
+            const sortCompare = (a: TreeViewNode, b: TreeViewNode) =>
+                Number(a.meta?.size ?? 0) - Number(b.meta?.size ?? 0)
 
-            expect(values(factory({ nodes: unsorted, sortCompare, sortOrder: SortOrder.DESC })))
-                .toEqual(['dir', 'a10', 'a2', 'b'])
+            expect(values(factory({ nodes: unsorted, sortCompare, sortOrder: SortOrder.DESC }))).toEqual([
+                'dir',
+                'a10',
+                'a2',
+                'b',
+            ])
         })
 
         it('never changes nodes', () => {
@@ -1150,7 +1224,7 @@ describe('TreeView', () => {
                 { value: 'a', targetValue: 'src', position: TreeViewDropPosition.INSIDE, parentValue: 'src' },
             ])
             const moved = wrapper.emitted('update:nodes')?.[0]?.[0] as TreeViewNode[]
-            expect(moved.find(node => node.value === 'src')?.children?.map(node => node.value)).toEqual(['a'])
+            expect(moved.find((node) => node.value === 'src')?.children?.map((node) => node.value)).toEqual(['a'])
         })
 
         it('moves a node into the list of a folder when dropped on one of its files', async () => {
@@ -1167,8 +1241,11 @@ describe('TreeView', () => {
                 { value: 'a', targetValue: 'readme', position: TreeViewDropPosition.AFTER, parentValue: 'docs' },
             ])
             const moved = wrapper.emitted('update:nodes')?.[0]?.[0] as TreeViewNode[]
-            expect(moved.find(node => node.value === 'docs')?.children?.map(node => node.value)).toEqual(['readme', 'a'])
-            expect(moved.map(node => node.value)).toEqual(['docs', 'src', 'b'])
+            expect(moved.find((node) => node.value === 'docs')?.children?.map((node) => node.value)).toEqual([
+                'readme',
+                'a',
+            ])
+            expect(moved.map((node) => node.value)).toEqual(['docs', 'src', 'b'])
         })
 
         it('moves a node to the root level when dropped on a root file, highlighting the whole list', async () => {
@@ -1184,7 +1261,7 @@ describe('TreeView', () => {
                 { value: 'readme', targetValue: 'b', position: TreeViewDropPosition.AFTER, parentValue: null },
             ])
             const moved = wrapper.emitted('update:nodes')?.[0]?.[0] as TreeViewNode[]
-            expect(moved.map(node => node.value)).toEqual(['docs', 'src', 'a', 'b', 'readme'])
+            expect(moved.map((node) => node.value)).toEqual(['docs', 'src', 'a', 'b', 'readme'])
             expect(wrapper.find('[data-testid="tree-view-root"]').classes()).not.toContain('ring-inset')
         })
 
@@ -1215,17 +1292,22 @@ describe('TreeView', () => {
 
     describe('meta', () => {
         it('lets slots read the free-form meta of a node', () => {
-            const wrapper = factory({
-                nodes: [{ value: 'file', label: 'file.txt', meta: { size: 2048 } }],
-            }, {
-                trailing: '<template #trailing="{ node }"><span data-testid="size">{{ node.meta?.size }} B</span></template>',
-            })
+            const wrapper = factory(
+                {
+                    nodes: [{ value: 'file', label: 'file.txt', meta: { size: 2048 } }],
+                },
+                {
+                    trailing:
+                        '<template #trailing="{ node }"><span data-testid="size">{{ node.meta?.size }} B</span></template>',
+                },
+            )
 
             expect(wrapper.find('[data-testid="size"]').text()).toBe('2048 B')
         })
     })
     describe('double click and rename on click', () => {
-        const renameInput = (wrapper: ReturnType<typeof factory>) => wrapper.find('[data-testid="tree-view-rename-input"]')
+        const renameInput = (wrapper: ReturnType<typeof factory>) =>
+            wrapper.find('[data-testid="tree-view-rename-input"]')
 
         afterEach(() => {
             vi.useRealTimers()
@@ -1238,7 +1320,9 @@ describe('TreeView', () => {
             await item(wrapper, 'readme').trigger('dblclick')
 
             expect(wrapper.emitted('node-dblclick')).toHaveLength(1)
-            expect(wrapper.emitted('node-dblclick')?.[0]).toEqual([{ node: expect.objectContaining({ value: 'package' }) }])
+            expect(wrapper.emitted('node-dblclick')?.[0]).toEqual([
+                { node: expect.objectContaining({ value: 'package' }) },
+            ])
         })
 
         it('does not toggle a branch back on the second click of a double click', async () => {
@@ -1300,7 +1384,12 @@ describe('TreeView', () => {
 
         it('does not rename on click when readOnly', async () => {
             vi.useFakeTimers()
-            const wrapper = factory({ isRenamable: true, renameOnClick: true, readOnly: true, selectedValue: ['package'] })
+            const wrapper = factory({
+                isRenamable: true,
+                renameOnClick: true,
+                readOnly: true,
+                selectedValue: ['package'],
+            })
 
             await item(wrapper, 'package').trigger('click', { detail: 1 })
             await vi.advanceTimersByTimeAsync(600)

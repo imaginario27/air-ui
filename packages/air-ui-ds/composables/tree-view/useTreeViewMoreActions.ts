@@ -22,32 +22,33 @@ export const useTreeViewMoreActions = (
     const moreActionsByValue = computed<Record<string, DropdownMenuItem[]>>(() => {
         const resolve = props.moreActionsItems
 
-        return Object.fromEntries(rows.value.map(row => {
-            if (isDisabled(row.node)) {
-                return [row.node.value, []]
-            }
+        return Object.fromEntries(
+            rows.value.map((row) => {
+                if (isDisabled(row.node)) {
+                    return [row.node.value, []]
+                }
 
-            const custom = (typeof resolve === 'function'
-                ? resolve(row.node, { isBranch: isBranch(row.node), level: row.level })
-                : resolve) ?? []
+                const custom =
+                    (typeof resolve === 'function'
+                        ? resolve(row.node, { isBranch: isBranch(row.node), level: row.level })
+                        : resolve) ?? []
 
-            const renameItem: DropdownMenuItem = {
-                text: props.renameLabel,
-                icon: 'mdi:pencil-outline',
-                type: DropdownItemType.ICON,
-                actionType: DropdownActionType.ACTION,
-                callback: () => rename.startRename(row.node.value),
-            }
+                const renameItem: DropdownMenuItem = {
+                    text: props.renameLabel,
+                    icon: 'mdi:pencil-outline',
+                    type: DropdownItemType.ICON,
+                    actionType: DropdownActionType.ACTION,
+                    callback: () => rename.startRename(row.node.value),
+                }
 
-            return [row.node.value, rename.canRename.value ? [renameItem, ...custom] : custom]
-        }))
+                return [row.node.value, rename.canRename.value ? [renameItem, ...custom] : custom]
+            }),
+        )
     })
 
     // Only one row at a time mounts its dropdown: the hovered / focused one, plus the active ones for touch
     const isActionsArmed = (node: TreeViewNode) => {
-        return actionsValue.value === node.value
-            || focus.focusedValue.value === node.value
-            || appearance.isActive(node)
+        return actionsValue.value === node.value || focus.focusedValue.value === node.value || appearance.isActive(node)
     }
 
     // The dropdown always anchors to the right; only top/bottom flips based on the available space
@@ -60,7 +61,8 @@ export const useTreeViewMoreActions = (
             return
         }
 
-        const menuHeight = (moreActionsByValue.value[node.value]?.length ?? 0) * MORE_ACTIONS_ITEM_HEIGHT + MORE_ACTIONS_MENU_PADDING
+        const menuHeight =
+            (moreActionsByValue.value[node.value]?.length ?? 0) * MORE_ACTIONS_ITEM_HEIGHT + MORE_ACTIONS_MENU_PADDING
         const rect = rowElement.getBoundingClientRect()
         const fitsBelow = window.innerHeight - rect.bottom >= menuHeight
         const fitsAbove = rect.top >= menuHeight

@@ -6,16 +6,13 @@ export default defineMcpTool({
     async handler() {
         const event = useEvent()
 
-        const allDocs = await queryCollection(event, 'content')
-            .select('title', 'path', 'description')
-            .all()
+        const allDocs = await queryCollection(event, 'content').select('title', 'path', 'description').all()
 
-        const results = allDocs
-            .map(doc => ({
-                title: doc.title,
-                path: doc.path,
-                description: doc.description,
-            }))
+        const results = allDocs.map((doc) => ({
+            title: doc.title,
+            path: doc.path,
+            description: doc.description,
+        }))
 
         return {
             content: [

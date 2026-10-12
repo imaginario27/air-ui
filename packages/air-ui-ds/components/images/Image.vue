@@ -9,17 +9,13 @@
                 aspectRatioClass,
                 useLightbox && 'cursor-zoom-in',
                 !useLightbox && isClickable && 'cursor-pointer',
-                isClickable && 'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-border-primary-brand-default',
+                isClickable &&
+                    'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-border-primary-brand-default',
                 wrapperClass,
             ]"
             @click="onClick"
         >
-            <component
-                :is="imageTag"
-                v-bind="imageAttrs"
-                :alt="cleanImageAlt(alt)"
-                :class="imageClasses"
-            />
+            <component :is="imageTag" v-bind="imageAttrs" :alt="cleanImageAlt(alt)" :class="imageClasses" />
 
             <!-- Split chromatic layers -->
             <template v-if="hoverEffect === ImageHoverEffect.SPLIT_ZOOM">
@@ -34,12 +30,7 @@
                         layer.class,
                     ]"
                 >
-                    <component
-                        :is="imageTag"
-                        v-bind="imageAttrs"
-                        alt=""
-                        :class="[...baseImageClasses, 'h-full']"
-                    />
+                    <component :is="imageTag" v-bind="imageAttrs" alt="" :class="[...baseImageClasses, 'h-full']" />
                 </span>
             </template>
 
@@ -94,11 +85,7 @@
             {{ caption }}
         </figcaption>
 
-        <Lightbox
-            v-if="useLightbox"
-            v-model="isOpen"
-            :images="lightboxImages"
-        />
+        <Lightbox v-if="useLightbox" v-model="isOpen" :images="lightboxImages" />
     </figure>
 </template>
 

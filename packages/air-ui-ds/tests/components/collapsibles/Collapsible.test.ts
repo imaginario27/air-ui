@@ -13,8 +13,8 @@ const factory = (props?: {
     return mount(Collapsible, {
         props,
         slots: {
-            default: '<div>Collapsible Content</div>'
-        }
+            default: '<div>Collapsible Content</div>',
+        },
     })
 }
 
@@ -28,7 +28,7 @@ describe('Collapsible', () => {
 
     it('renders with custom title and content', () => {
         const wrapper = factory({
-            title: 'Custom Title'
+            title: 'Custom Title',
         })
 
         expect(wrapper.text()).toContain('Custom Title')

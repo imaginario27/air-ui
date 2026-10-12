@@ -2,9 +2,7 @@
     <Section>
         <SectionBody>
             <TabBar v-model="activeIndex" :tabs />
-            <ContentRenderer 
-                v-if="data" :value="data" 
-            />
+            <ContentRenderer v-if="data" :value="data" />
             <ContentRenderFallback v-else />
         </SectionBody>
     </Section>
@@ -14,7 +12,8 @@ definePageMeta({
     title: 'Dropdown menu',
     layout: 'docs',
     overtitle: 'Components',
-    description: 'Displays a list of selectable actions or links, commonly used for navigation or contextual actions. Uses a trigger element to display the menu.',
+    description:
+        'Displays a list of selectable actions or links, commonly used for navigation or contextual actions. Uses a trigger element to display the menu.',
 })
 
 // Route
@@ -35,6 +34,10 @@ const tabs: TabItem[] = [
     {
         text: 'DropdownSelect',
         to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/dropdown-select`,
+    },
+    {
+        text: 'DropdownCombobox',
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/dropdown-combobox`,
     },
 ]
 </script>

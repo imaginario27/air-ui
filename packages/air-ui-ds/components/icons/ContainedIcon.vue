@@ -1,6 +1,6 @@
 <template>
-    <div 
-        :class="[ 
+    <div
+        :class="[
             'flex',
             'items-center',
             'justify-center',
@@ -11,12 +11,7 @@
             iconContainerSizeClass,
         ]"
     >
-        <Icon
-            :name="icon"
-            :mode
-            :iconClass="finalIconClass"
-            v-bind="iconSizeProps"
-        />
+        <Icon :name="icon" :mode :iconClass="finalIconClass" v-bind="iconSizeProps" />
     </div>
 </template>
 <script setup lang="ts">
@@ -43,12 +38,12 @@ const props = defineProps({
     },
     color: {
         type: String as PropType<ColorAccent>,
-        default: ColorAccent.NEUTRAL, 
+        default: ColorAccent.NEUTRAL,
         validator: (value: ColorAccent) => Object.values(ColorAccent).includes(value),
     },
     size: {
         type: String as PropType<IconContainerSize>,
-        default: IconContainerSize.XL, 
+        default: IconContainerSize.XL,
         validator: (value: IconContainerSize) => Object.values(IconContainerSize).includes(value),
     },
     iconSize: {
@@ -70,21 +65,11 @@ const iconContainerClass = computed(() => {
     const filled = props.styleType === IconContainerStyleType.FILLED
 
     const colorVariants: Record<ColorAccent, string> = {
-        [ColorAccent.NEUTRAL]: filled
-            ? 'bg-background-neutral-bold'
-            : 'bg-background-neutral-subtler',
-        [ColorAccent.SUCCESS]: filled
-            ? 'bg-background-success-bold'
-            : 'bg-background-success-subtler',
-        [ColorAccent.WARNING]: filled
-            ? 'bg-background-warning-bold'
-            : 'bg-background-warning-subtler',
-        [ColorAccent.DANGER]: filled
-            ? 'bg-background-danger-bold'
-            : 'bg-background-danger-subtler',
-        [ColorAccent.INFO]: filled
-            ? 'bg-background-info-bold'
-            : 'bg-background-info-subtler',
+        [ColorAccent.NEUTRAL]: filled ? 'bg-background-neutral-bold' : 'bg-background-neutral-subtler',
+        [ColorAccent.SUCCESS]: filled ? 'bg-background-success-bold' : 'bg-background-success-subtler',
+        [ColorAccent.WARNING]: filled ? 'bg-background-warning-bold' : 'bg-background-warning-subtler',
+        [ColorAccent.DANGER]: filled ? 'bg-background-danger-bold' : 'bg-background-danger-subtler',
+        [ColorAccent.INFO]: filled ? 'bg-background-info-bold' : 'bg-background-info-subtler',
         [ColorAccent.PRIMARY_BRAND]: filled
             ? 'bg-background-primary-brand-default'
             : 'bg-background-primary-brand-soft',
@@ -93,9 +78,10 @@ const iconContainerClass = computed(() => {
             : 'bg-background-secondary-brand-soft',
     }
 
-    return colorVariants[props.color as ColorAccent] || (filled
-        ? 'bg-background-neutral-bold'
-        : 'bg-background-neutral-subtler')
+    return (
+        colorVariants[props.color as ColorAccent] ||
+        (filled ? 'bg-background-neutral-bold' : 'bg-background-neutral-subtler')
+    )
 })
 
 const iconColorClass = computed(() => {
@@ -140,13 +126,9 @@ const iconSizeClass = computed(() => {
     return sizeVariants[props.size as IconContainerSize] || 'w-[24px] h-[24px] min-w-[24px] min-h-[24px]'
 })
 
-const finalIconClass = computed(() => props.iconSize
-    ? [iconColorClass.value]
-    : [iconSizeClass.value, iconColorClass.value]
+const finalIconClass = computed(() =>
+    props.iconSize ? [iconColorClass.value] : [iconSizeClass.value, iconColorClass.value],
 )
 
-const iconSizeProps = computed(() => (props.iconSize
-    ? { size: props.iconSize }
-    : {}
-))
+const iconSizeProps = computed(() => (props.iconSize ? { size: props.iconSize } : {}))
 </script>

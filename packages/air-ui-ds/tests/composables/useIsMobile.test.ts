@@ -20,13 +20,15 @@ describe('useIsMobile', () => {
     it('sets isMobile to true when window.innerWidth is less than default breakpoint', async () => {
         window.innerWidth = 500
 
-        const wrapper = mount(defineComponent({
-            setup() {
-                const { isMobile } = useIsMobile()
-                return { isMobile }
-            },
-            template: '<div />',
-        }))
+        const wrapper = mount(
+            defineComponent({
+                setup() {
+                    const { isMobile } = useIsMobile()
+                    return { isMobile }
+                },
+                template: '<div />',
+            }),
+        )
 
         await wrapper.vm.$nextTick()
         window.dispatchEvent(new Event('resize'))
@@ -38,13 +40,15 @@ describe('useIsMobile', () => {
     it('sets isMobile to false when window.innerWidth is greater than or equal to default breakpoint', async () => {
         window.innerWidth = 1200
 
-        const wrapper = mount(defineComponent({
-            setup() {
-                const { isMobile } = useIsMobile()
-                return { isMobile }
-            },
-            template: '<div />',
-        }))
+        const wrapper = mount(
+            defineComponent({
+                setup() {
+                    const { isMobile } = useIsMobile()
+                    return { isMobile }
+                },
+                template: '<div />',
+            }),
+        )
 
         await wrapper.vm.$nextTick()
         window.dispatchEvent(new Event('resize'))
@@ -56,13 +60,15 @@ describe('useIsMobile', () => {
     it('supports custom breakpoint', async () => {
         window.innerWidth = 800
 
-        const wrapper = mount(defineComponent({
-            setup() {
-                const { isMobile } = useIsMobile(900)
-                return { isMobile }
-            },
-            template: '<div />',
-        }))
+        const wrapper = mount(
+            defineComponent({
+                setup() {
+                    const { isMobile } = useIsMobile(900)
+                    return { isMobile }
+                },
+                template: '<div />',
+            }),
+        )
 
         await wrapper.vm.$nextTick()
         window.dispatchEvent(new Event('resize'))
@@ -75,13 +81,15 @@ describe('useIsMobile', () => {
         window.innerWidth = 800
         const breakpoint = ref(700)
 
-        const wrapper = mount(defineComponent({
-            setup() {
-                const { isMobile } = useIsMobile(breakpoint)
-                return { isMobile }
-            },
-            template: '<div />',
-        }))
+        const wrapper = mount(
+            defineComponent({
+                setup() {
+                    const { isMobile } = useIsMobile(breakpoint)
+                    return { isMobile }
+                },
+                template: '<div />',
+            }),
+        )
 
         await wrapper.vm.$nextTick()
         expect(wrapper.vm.isMobile).toBe(false) // 800 >= 700
@@ -95,13 +103,15 @@ describe('useIsMobile', () => {
         window.innerWidth = 800
         const breakpoint = ref(700)
 
-        const wrapper = mount(defineComponent({
-            setup() {
-                const { isMobile } = useIsMobile(() => breakpoint.value)
-                return { isMobile }
-            },
-            template: '<div />',
-        }))
+        const wrapper = mount(
+            defineComponent({
+                setup() {
+                    const { isMobile } = useIsMobile(() => breakpoint.value)
+                    return { isMobile }
+                },
+                template: '<div />',
+            }),
+        )
 
         await wrapper.vm.$nextTick()
         expect(wrapper.vm.isMobile).toBe(false)
@@ -112,13 +122,15 @@ describe('useIsMobile', () => {
     })
 
     it('adds and removes resize event listener on mount and unmount', async () => {
-        const wrapper = mount(defineComponent({
-            setup() {
-                const { isMobile } = useIsMobile()
-                return { isMobile }
-            },
-            template: '<div />',
-        }))
+        const wrapper = mount(
+            defineComponent({
+                setup() {
+                    const { isMobile } = useIsMobile()
+                    return { isMobile }
+                },
+                template: '<div />',
+            }),
+        )
 
         expect(addEventListenerSpy).toHaveBeenCalledWith('resize', expect.any(Function))
 

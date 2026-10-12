@@ -2,26 +2,23 @@
     <Section>
         <SectionBody>
             <TabBar v-model="activeIndex" :tabs />
-            <ContentRenderer 
-                v-if="data" :value="data" 
-            />
+            <ContentRenderer v-if="data" :value="data" />
             <ContentRenderFallback v-else />
 
-            <ContentFooterNavigation 
+            <ContentFooterNavigation
                 :previousPage="{
                     label: 'Introduction',
                     link: `/${DocsAppSlug.DOCS}/${DocsAppSlug.GETTING_STARTED}`,
-                    description: 'Get started with AirUI.'
+                    description: 'Get started with AirUI.',
                 }"
                 :nextPage="{
                     label: 'Configuration',
                     link: `/${DocsAppSlug.DOCS}/${DocsAppSlug.GETTING_STARTED}/configuration`,
-                    description: 'Learn how to configure AirUI globally.'
+                    description: 'Learn how to configure AirUI globally.',
                 }"
             />
         </SectionBody>
     </Section>
-    
 </template>
 
 <script setup lang="ts">
@@ -29,7 +26,7 @@ definePageMeta({
     title: 'Installation',
     layout: 'docs',
     overtitle: 'Getting Started',
-    description: 'Learn how to install and configure AirUI with Nuxt application.'
+    description: 'Learn how to install and configure AirUI with Nuxt application.',
 })
 
 // States
@@ -41,15 +38,9 @@ const contentPath = computed(() => {
         : `/${DocsAppSlug.DOCS}/${DocsAppSlug.GETTING_STARTED}/installation-from-existing`
 })
 
-const { data } = await useAsyncData(
-    () =>
-        queryCollection('content')
-            .path(contentPath.value)
-            .first(),
-    {
-        watch: [contentPath],
-    }
-)
+const { data } = await useAsyncData(() => queryCollection('content').path(contentPath.value).first(), {
+    watch: [contentPath],
+})
 
 // Tabs
 const tabs: TabItem[] = [

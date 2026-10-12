@@ -40,7 +40,7 @@ export const useTreeViewCheckboxes = (
         }
 
         const leaves = leafValues(node)
-        const checkedCount = leaves.filter(value => checkedSet.value.has(value)).length
+        const checkedCount = leaves.filter((value) => checkedSet.value.has(value)).length
 
         if (!leaves.length || checkedCount === 0) {
             return TriStateValue.UNCHECKED
@@ -57,11 +57,11 @@ export const useTreeViewCheckboxes = (
         const targets = props.checkStrictly ? [node.value] : leafValues(node)
 
         if (getCheckState(node) === TriStateValue.CHECKED) {
-            checked.value = checked.value.filter(value => !targets.includes(value))
+            checked.value = checked.value.filter((value) => !targets.includes(value))
             return
         }
 
-        checked.value = [...checked.value, ...targets.filter(value => !checkedSet.value.has(value))]
+        checked.value = [...checked.value, ...targets.filter((value) => !checkedSet.value.has(value))]
     }
 
     return { isCheckDisabled, getCheckState, toggleChecked }

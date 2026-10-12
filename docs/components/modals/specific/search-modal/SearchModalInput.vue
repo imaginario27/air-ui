@@ -1,42 +1,21 @@
 <template>
     <div class="relative w-full">
-        <div 
-            :class="[ 
-                'flex',
-                'items-center',
-                'border-b-2 border-border-neutral-subtle',
-                'pl-3 pr-4',
-                'h-[56px]'
-            ]"
-        >
+        <div :class="['flex', 'items-center', 'border-b-2 border-border-neutral-subtle', 'pl-3 pr-4', 'h-[56px]']">
             <!-- Search Icon -->
-            <Icon 
-                name="mdi:magnify" 
-                :size="IconSize.LG"
-            />
-            
+            <Icon name="mdi:magnify" :size="IconSize.LG" />
+
             <!-- Search Input -->
-            <input 
+            <input
                 ref="inputRef"
-                type="text" 
-                :value="modelValue" 
-                placeholder="Search" 
-                :class="[ 
-                    'w-full',
-                    'p-2 ',
-                    'text-sm text-text-default',
-                    'bg-transparent',
-                    'focus:outline-none',
-                ]" 
+                type="text"
+                :value="modelValue"
+                placeholder="Search"
+                :class="['w-full', 'p-2 ', 'text-sm text-text-default', 'bg-transparent', 'focus:outline-none']"
                 @input="emitUpdate"
-            >
+            />
 
             <!-- Close Button -->
-            <ActionIconButton 
-                icon="mdi:close"
-                :size="ButtonSize.MD"
-                @click="closeModal"
-            />
+            <ActionIconButton icon="mdi:close" :size="ButtonSize.MD" @click="closeModal" />
         </div>
     </div>
 </template>
@@ -63,7 +42,7 @@ const emitUpdate = (event: Event) => {
 
 // Handlers
 const closeModal = () => {
-   emit('close')
+    emit('close')
 }
 
 // Methods

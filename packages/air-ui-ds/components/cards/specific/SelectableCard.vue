@@ -1,16 +1,22 @@
 <template>
     <Card
         :hasShadow
-        v-bind="selectMode === CardSelectionMode.CARD ? {
-            role: 'checkbox',
-            'aria-checked': modelValue,
-            tabindex: disabled ? -1 : 0,
-        } : {}"
+        v-bind="
+            selectMode === CardSelectionMode.CARD
+                ? {
+                      role: 'checkbox',
+                      'aria-checked': modelValue,
+                      tabindex: disabled ? -1 : 0,
+                  }
+                : {}
+        "
         :class="[
             'lg:p-5',
-            selectMode === CardSelectionMode.CARD && isHoverable &&
+            selectMode === CardSelectionMode.CARD &&
+                isHoverable &&
                 'hover:border-border-neutral-hover cursor-pointer transition-[box-shadow,border-color] duration-300 ease-out',
-            selectMode === CardSelectionMode.CARD && 'outline-none focus-visible:ring-2 focus-visible:ring-border-primary-brand-default',
+            selectMode === CardSelectionMode.CARD &&
+                'outline-none focus-visible:ring-2 focus-visible:ring-border-primary-brand-default',
             modelValue && '!border-border-primary-brand-active',
             disabled && 'opacity-disabled cursor-not-allowed',
         ]"
@@ -18,14 +24,8 @@
         @keydown.enter.prevent="handleCardClick($event as any)"
         @keydown.space.prevent="handleCardClick($event as any)"
     >
-        <CardHeader 
-            :class="[
-                '!flex-col gap-5', 
-                layoutAlign === Align.CENTER && 'items-center',
-                'relative',
-            ]"
-        >
-            <ContainedIcon 
+        <CardHeader :class="['!flex-col gap-5', layoutAlign === Align.CENTER && 'items-center', 'relative']">
+            <ContainedIcon
                 v-if="icon"
                 :icon
                 :shape="containedIconShape"
@@ -33,15 +33,9 @@
                 :color="containedIconColor"
                 :size="IconContainerSize.LG"
             />
-            <CardTitle 
-                :title 
-                :class="[
-                    layoutAlign === Align.CENTER && 'text-center',
-                    titleClass,
-                ]"
-            />
+            <CardTitle :title :class="[layoutAlign === Align.CENTER && 'text-center', titleClass]" />
 
-            <Icon 
+            <Icon
                 v-if="modelValue"
                 :name="checkIcon"
                 class="absolute top-0 right-0"
@@ -50,10 +44,10 @@
         </CardHeader>
 
         <CardBody class="flex-1">
-            <p 
+            <p
                 v-if="!$slots.default"
                 :class="[
-                    'text-sm', 
+                    'text-sm',
                     'text-text-neutral-subtle',
                     layoutAlign === Align.CENTER && 'text-center',
                     descriptionClass,
@@ -65,15 +59,12 @@
             <slot />
         </CardBody>
 
-        <CardFooter 
+        <CardFooter
             v-if="hasFooter || selectMode === CardSelectionMode.BUTTON"
-            :hasBorder="false" 
+            :hasBorder="false"
             :class="footerContentAlignClass"
         >
-            <CardActions 
-                v-if="!$slots.footer" 
-                :class="footerContentAlignClass"
-            >
+            <CardActions v-if="!$slots.footer" :class="footerContentAlignClass">
                 <template v-if="!$slots.actions">
                     <ActionButton
                         v-if="hasSecondaryBtn"

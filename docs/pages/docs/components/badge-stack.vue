@@ -2,19 +2,18 @@
     <Section>
         <SectionBody>
             <TabBar v-model="activeIndex" :tabs />
-            <ContentRenderer 
-                v-if="data" :value="data" 
-            />
+            <ContentRenderer v-if="data" :value="data" />
             <ContentRenderFallback v-else />
         </SectionBody>
-    </Section>   
+    </Section>
 </template>
 <script setup lang="ts">
 definePageMeta({
     title: 'Badge stack',
     layout: 'docs',
     overtitle: 'Components',
-    description: 'Displays multiple badges in a compact, stacked layout, typically used to represent grouped labels, categories, or statuses.',
+    description:
+        'Displays multiple badges in a compact, stacked layout, typically used to represent grouped labels, categories, or statuses.',
 })
 
 // Route

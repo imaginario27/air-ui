@@ -19,49 +19,25 @@
         ]"
     >
         <!-- Dot -->
-        <span
-            v-if="showDot"
-            :class="['w-1.5 h-1.5 rounded-full', dotColorClass]"
-        />
+        <span v-if="showDot" :class="['w-1.5 h-1.5 rounded-full', dotColorClass]" />
 
         <!-- Icon -->
-        <Icon 
-            v-if="showIcon"
-            :name="icon"
-            :size="IconSize.XS"
-            :iconClass="iconColorClass" 
-        />
+        <Icon v-if="showIcon" :name="icon" :size="IconSize.XS" :iconClass="iconColorClass" />
 
         <!-- Text -->
-        <span
-            :class="[
-                'pt-0.25',
-                'whitespace-nowrap',
-                textClass,
-            ]"
-        >
+        <span :class="['pt-0.25', 'whitespace-nowrap', textClass]">
             {{ text }}
         </span>
 
         <!-- Close button -->
-        <div 
-            v-if="closeable"
-            class="ml-1 h-[24px] flex items-center"
-        >
+        <div v-if="closeable" class="ml-1 h-[24px] flex items-center">
             <button
                 aria-label="Remove"
                 class="flex items-center justify-center h-full w-[20px]"
-                :class="[
-                    textClass,
-                    'hover:opacity-75 focus:outline-none',
-                ]"
+                :class="[textClass, 'hover:opacity-75 focus:outline-none']"
                 @click="emitClose"
             >
-                <Icon 
-                    name="mdi:close"
-                    :size="IconSize.SM"
-                    :iconClass="iconColorClass"
-                />
+                <Icon name="mdi:close" :size="IconSize.SM" :iconClass="iconColorClass" />
             </button>
         </div>
     </div>
@@ -77,12 +53,12 @@ const props = defineProps({
     },
     shape: {
         type: String as PropType<BadgeShape>,
-        default: BadgeShape.BADGE, 
+        default: BadgeShape.BADGE,
         validator: (value: BadgeShape) => Object.values(BadgeShape).includes(value),
     },
     color: {
         type: String as PropType<ColorAccent>,
-        default: ColorAccent.NEUTRAL, 
+        default: ColorAccent.NEUTRAL,
         validator: (value: ColorAccent) => Object.values(ColorAccent).includes(value),
     },
     showDot: {
@@ -123,10 +99,12 @@ const styleClass = computed(() => {
         return ''
     }
 
-    return {
-        [BadgeStyle.BORDER]: 'border',
-        [BadgeStyle.FILLED]: 'bg-filled'
-    }[props.styleType] || 'border'
+    return (
+        {
+            [BadgeStyle.BORDER]: 'border',
+            [BadgeStyle.FILLED]: 'bg-filled',
+        }[props.styleType] || 'border'
+    )
 })
 
 const shapeClass = computed(() => {
@@ -140,106 +118,103 @@ const shapeClass = computed(() => {
 const colorClass = computed(() => {
     if (props.styleType === BadgeStyle.FLAT) {
         const flatColorVariant: Record<ColorAccent, string> = {
-            [ColorAccent.NEUTRAL]: "bg-background-neutral-subtler",
-            [ColorAccent.SUCCESS]: "bg-background-success-subtler",
-            [ColorAccent.WARNING]: "bg-background-warning-subtler",
-            [ColorAccent.DANGER]: "bg-background-danger-subtler",
-            [ColorAccent.INFO]: "bg-background-info-subtler",
-            [ColorAccent.PRIMARY_BRAND]: "bg-background-primary-brand-soft",
-            [ColorAccent.SECONDARY_BRAND]: "bg-background-secondary-brand-soft",
+            [ColorAccent.NEUTRAL]: 'bg-background-neutral-subtler',
+            [ColorAccent.SUCCESS]: 'bg-background-success-subtler',
+            [ColorAccent.WARNING]: 'bg-background-warning-subtler',
+            [ColorAccent.DANGER]: 'bg-background-danger-subtler',
+            [ColorAccent.INFO]: 'bg-background-info-subtler',
+            [ColorAccent.PRIMARY_BRAND]: 'bg-background-primary-brand-soft',
+            [ColorAccent.SECONDARY_BRAND]: 'bg-background-secondary-brand-soft',
         }
 
-        return flatColorVariant[props.color as ColorAccent] || "bg-transparent text-secondary-700"
+        return flatColorVariant[props.color as ColorAccent] || 'bg-transparent text-secondary-700'
     }
 
     const colorVariant: Record<ColorAccent, string> = {
-        [ColorAccent.NEUTRAL]: props.styleType === BadgeStyle.FILLED
-            ? "bg-background-neutral-bold"
-            : "bg-background-neutral-subtler",
-        [ColorAccent.SUCCESS]: props.styleType === BadgeStyle.FILLED
-            ? "bg-background-success-bold"
-            : "bg-background-success-subtlest",
-        [ColorAccent.WARNING]: props.styleType === BadgeStyle.FILLED
-            ? "bg-background-warning-bold"
-            : "bg-background-warning-subtlest",
-        [ColorAccent.DANGER]: props.styleType === BadgeStyle.FILLED
-            ? "bg-background-danger-bold"
-            : "bg-background-danger-subtlest",
-        [ColorAccent.INFO]: props.styleType === BadgeStyle.FILLED
-            ? "bg-background-info-bold"
-            : "bg-background-info-subtlest",
-        [ColorAccent.PRIMARY_BRAND]: props.styleType === BadgeStyle.FILLED
-            ? "bg-background-primary-brand-default"
-            : "bg-background-primary-brand-soft",
-        [ColorAccent.SECONDARY_BRAND]: props.styleType === BadgeStyle.FILLED
-            ? "bg-background-secondary-brand-default"
-            : "bg-background-secondary-brand-soft",
+        [ColorAccent.NEUTRAL]:
+            props.styleType === BadgeStyle.FILLED ? 'bg-background-neutral-bold' : 'bg-background-neutral-subtler',
+        [ColorAccent.SUCCESS]:
+            props.styleType === BadgeStyle.FILLED ? 'bg-background-success-bold' : 'bg-background-success-subtlest',
+        [ColorAccent.WARNING]:
+            props.styleType === BadgeStyle.FILLED ? 'bg-background-warning-bold' : 'bg-background-warning-subtlest',
+        [ColorAccent.DANGER]:
+            props.styleType === BadgeStyle.FILLED ? 'bg-background-danger-bold' : 'bg-background-danger-subtlest',
+        [ColorAccent.INFO]:
+            props.styleType === BadgeStyle.FILLED ? 'bg-background-info-bold' : 'bg-background-info-subtlest',
+        [ColorAccent.PRIMARY_BRAND]:
+            props.styleType === BadgeStyle.FILLED
+                ? 'bg-background-primary-brand-default'
+                : 'bg-background-primary-brand-soft',
+        [ColorAccent.SECONDARY_BRAND]:
+            props.styleType === BadgeStyle.FILLED
+                ? 'bg-background-secondary-brand-default'
+                : 'bg-background-secondary-brand-soft',
     }
 
-    return colorVariant[props.color as ColorAccent] || "bg-background-neutral-subtler"
+    return colorVariant[props.color as ColorAccent] || 'bg-background-neutral-subtler'
 })
 
 const textClass = computed(() => {
-    if (props.styleType === BadgeStyle.FILLED) return "text-text-neutral-on-filled"
+    if (props.styleType === BadgeStyle.FILLED) return 'text-text-neutral-on-filled'
 
     const textVariant: Record<ColorAccent, string> = {
-        [ColorAccent.NEUTRAL]: "text-text-neutral-subtle",
-        [ColorAccent.SUCCESS]: "text-text-success",
-        [ColorAccent.WARNING]: props.isTransparent ? "text-text-warning" : "text-text-warning-on-bg",
-        [ColorAccent.DANGER]: "text-text-danger",
-        [ColorAccent.INFO]: "text-text-info",
-        [ColorAccent.PRIMARY_BRAND]: "text-text-primary-brand-on-soft-bg",
-        [ColorAccent.SECONDARY_BRAND]: "text-text-secondary-brand-on-soft-bg",
+        [ColorAccent.NEUTRAL]: 'text-text-neutral-subtle',
+        [ColorAccent.SUCCESS]: 'text-text-success',
+        [ColorAccent.WARNING]: props.isTransparent ? 'text-text-warning' : 'text-text-warning-on-bg',
+        [ColorAccent.DANGER]: 'text-text-danger',
+        [ColorAccent.INFO]: 'text-text-info',
+        [ColorAccent.PRIMARY_BRAND]: 'text-text-primary-brand-on-soft-bg',
+        [ColorAccent.SECONDARY_BRAND]: 'text-text-secondary-brand-on-soft-bg',
     }
 
-    return textVariant[props.color as ColorAccent] || "text-text-neutral-subtle"
+    return textVariant[props.color as ColorAccent] || 'text-text-neutral-subtle'
 })
 
 const iconColorClass = computed(() => {
-    if (props.styleType === BadgeStyle.FILLED) return "!text-text-neutral-on-filled"
+    if (props.styleType === BadgeStyle.FILLED) return '!text-text-neutral-on-filled'
 
     const iconVariant: Record<ColorAccent, string> = {
-        [ColorAccent.NEUTRAL]: "!text-icon-neutral-subtle",
-        [ColorAccent.SUCCESS]: "!text-icon-success",
-        [ColorAccent.WARNING]: props.isTransparent ? "!text-icon-warning" : "!text-icon-warning-on-bg",
-        [ColorAccent.DANGER]: "!text-icon-danger",
-        [ColorAccent.INFO]: "!text-icon-info",
-        [ColorAccent.PRIMARY_BRAND]: "!text-icon-primary-brand-default",
-        [ColorAccent.SECONDARY_BRAND]: "!text-icon-secondary-brand-default",
+        [ColorAccent.NEUTRAL]: '!text-icon-neutral-subtle',
+        [ColorAccent.SUCCESS]: '!text-icon-success',
+        [ColorAccent.WARNING]: props.isTransparent ? '!text-icon-warning' : '!text-icon-warning-on-bg',
+        [ColorAccent.DANGER]: '!text-icon-danger',
+        [ColorAccent.INFO]: '!text-icon-info',
+        [ColorAccent.PRIMARY_BRAND]: '!text-icon-primary-brand-default',
+        [ColorAccent.SECONDARY_BRAND]: '!text-icon-secondary-brand-default',
     }
 
-    return iconVariant[props.color as ColorAccent] || "!text-icon-secondary"
+    return iconVariant[props.color as ColorAccent] || '!text-icon-secondary'
 })
 
 const dotColorClass = computed(() => {
-    if (props.styleType === BadgeStyle.FILLED) return "bg-text-neutral-on-filled"
+    if (props.styleType === BadgeStyle.FILLED) return 'bg-text-neutral-on-filled'
 
     const dotVariant: Record<ColorAccent, string> = {
-        [ColorAccent.NEUTRAL]: "bg-icon-neutral-subtle",
-        [ColorAccent.SUCCESS]: "bg-icon-success",
-        [ColorAccent.WARNING]: "bg-icon-warning",
-        [ColorAccent.DANGER]: "bg-icon-danger",
-        [ColorAccent.INFO]: "bg-icon-info",
-        [ColorAccent.PRIMARY_BRAND]: "bg-icon-primary-brand-default",
-        [ColorAccent.SECONDARY_BRAND]: "bg-icon-secondary-brand-default",
+        [ColorAccent.NEUTRAL]: 'bg-icon-neutral-subtle',
+        [ColorAccent.SUCCESS]: 'bg-icon-success',
+        [ColorAccent.WARNING]: 'bg-icon-warning',
+        [ColorAccent.DANGER]: 'bg-icon-danger',
+        [ColorAccent.INFO]: 'bg-icon-info',
+        [ColorAccent.PRIMARY_BRAND]: 'bg-icon-primary-brand-default',
+        [ColorAccent.SECONDARY_BRAND]: 'bg-icon-secondary-brand-default',
     }
 
-    return dotVariant[props.color as ColorAccent] || "bg-icon-neutral-subtle"
+    return dotVariant[props.color as ColorAccent] || 'bg-icon-neutral-subtle'
 })
 
 const borderColorClass = computed(() => {
-    if (props.styleType !== BadgeStyle.BORDER) return ""
+    if (props.styleType !== BadgeStyle.BORDER) return ''
 
     const borderVariant: Record<ColorAccent, string> = {
-        [ColorAccent.NEUTRAL]: "border-border-default",
-        [ColorAccent.SUCCESS]: "border-border-success",
-        [ColorAccent.WARNING]: "border-border-warning",
-        [ColorAccent.DANGER]: "border-border-danger",
-        [ColorAccent.INFO]: "border-border-info",
-        [ColorAccent.PRIMARY_BRAND]: "border-border-primary-brand-default",
-        [ColorAccent.SECONDARY_BRAND]: "border-border-secondary-brand",
+        [ColorAccent.NEUTRAL]: 'border-border-default',
+        [ColorAccent.SUCCESS]: 'border-border-success',
+        [ColorAccent.WARNING]: 'border-border-warning',
+        [ColorAccent.DANGER]: 'border-border-danger',
+        [ColorAccent.INFO]: 'border-border-info',
+        [ColorAccent.PRIMARY_BRAND]: 'border-border-primary-brand-default',
+        [ColorAccent.SECONDARY_BRAND]: 'border-border-secondary-brand',
     }
 
-    return borderVariant[props.color as ColorAccent] || "border-border-default"
+    return borderVariant[props.color as ColorAccent] || 'border-border-default'
 })
 </script>

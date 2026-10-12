@@ -1,21 +1,19 @@
 ﻿<template>
     <Section>
         <SectionBody>
-            <ContentRenderer 
-                v-if="data" :value="data" 
-            />
+            <ContentRenderer v-if="data" :value="data" />
             <ContentRenderFallback v-else />
 
-            <ContentFooterNavigation 
+            <ContentFooterNavigation
                 :previousPage="{
                     label: 'Theme customization',
                     link: `/${DocsAppSlug.DOCS}/${DocsAppSlug.GETTING_STARTED}/${DocsAppSlug.THEME}/theme-customization`,
-                    description: 'Learn how to customize the theme of AirUI.'
+                    description: 'Learn how to customize the theme of AirUI.',
                 }"
                 :nextPage="{
                     label: 'MCP Server',
                     link: `/${DocsAppSlug.DOCS}/${DocsAppSlug.GETTING_STARTED}/${DocsAppSlug.AGENTS}/mcp-server`,
-                    description: 'Learn about the MCP Server and how to use it with AirUI.'
+                    description: 'Learn about the MCP Server and how to use it with AirUI.',
                 }"
             />
         </SectionBody>
@@ -27,7 +25,7 @@ definePageMeta({
     title: 'Design tokens',
     layout: 'docs',
     overtitle: 'Getting Started',
-    description: 'Learn about AirUI’s design tokens and how to customize them to fit your project’s needs.'
+    description: 'Learn about AirUI’s design tokens and how to customize them to fit your project’s needs.',
 })
 
 // Route

@@ -7,15 +7,15 @@ import { useDSConfig } from '@/composables/useDSConfig'
 
 const defaultProps = {
     id: 'search-input',
-    maxLength: 50
+    maxLength: 50,
 }
 
 describe('SearchField', () => {
     it('renders correctly with minimal required props', () => {
         const wrapper = mount(SearchField, {
             props: {
-                ...defaultProps
-            }
+                ...defaultProps,
+            },
         })
 
         const input = wrapper.find('input')
@@ -29,8 +29,8 @@ describe('SearchField', () => {
         const wrapper = mount(SearchField, {
             props: {
                 ...defaultProps,
-                label: 'Search'
-            }
+                label: 'Search',
+            },
         })
 
         const label = wrapper.find('label')
@@ -43,8 +43,8 @@ describe('SearchField', () => {
         const wrapper = mount(SearchField, {
             props: {
                 ...defaultProps,
-                modelValue: 'hello'
-            }
+                modelValue: 'hello',
+            },
         })
 
         const input = wrapper.find('input')
@@ -54,8 +54,8 @@ describe('SearchField', () => {
     it('emits update:modelValue on input', async () => {
         const wrapper = mount(SearchField, {
             props: {
-                ...defaultProps
-            }
+                ...defaultProps,
+            },
         })
 
         const input = wrapper.find('input')
@@ -68,8 +68,8 @@ describe('SearchField', () => {
         const wrapper = mount(SearchField, {
             props: {
                 ...defaultProps,
-                helpText: 'Helpful text here'
-            }
+                helpText: 'Helpful text here',
+            },
         })
 
         const help = wrapper.find('p')
@@ -84,15 +84,15 @@ describe('SearchField', () => {
                 label: 'Search',
                 helpText: 'Type to filter',
                 helpTextPosition: Position.TOP,
-            }
+            },
         })
 
         const help = wrapper.find('p.text-xs')
         expect(help.exists()).toBe(true)
         expect(help.text()).toBe('Type to filter')
         const children = Array.from(wrapper.element.children)
-        const helpIdx = children.findIndex(el => el.classList.contains('text-xs'))
-        const inputContainerIdx = children.findIndex(el => el.classList.contains('rounded-full'))
+        const helpIdx = children.findIndex((el) => el.classList.contains('text-xs'))
+        const inputContainerIdx = children.findIndex((el) => el.classList.contains('rounded-full'))
         expect(helpIdx).toBeGreaterThan(-1)
         expect(helpIdx).toBeLessThan(inputContainerIdx)
     })
@@ -103,8 +103,8 @@ describe('SearchField', () => {
                 ...defaultProps,
                 readonly: true,
                 autofocus: true,
-                autocomplete: 'on'
-            }
+                autocomplete: 'on',
+            },
         })
 
         const input = wrapper.find('input')
@@ -117,8 +117,8 @@ describe('SearchField', () => {
         const wrapper = mount(SearchField, {
             props: {
                 ...defaultProps,
-                disabled: true
-            }
+                disabled: true,
+            },
         })
 
         const input = wrapper.find('input')
@@ -131,8 +131,8 @@ describe('SearchField', () => {
         const wrapper = mount(SearchField, {
             props: {
                 ...defaultProps,
-                modelValue: 'search text'
-            }
+                modelValue: 'search text',
+            },
         })
 
         const clearBtn = wrapper.findComponent(ActionIconButton)
@@ -143,8 +143,8 @@ describe('SearchField', () => {
         const wrapper = mount(SearchField, {
             props: {
                 ...defaultProps,
-                modelValue: ''
-            }
+                modelValue: '',
+            },
         })
 
         const clearBtn = wrapper.findComponent(ActionIconButton)
@@ -155,8 +155,8 @@ describe('SearchField', () => {
         const wrapper = mount(SearchField, {
             props: {
                 ...defaultProps,
-                modelValue: 'abc'
-            }
+                modelValue: 'abc',
+            },
         })
 
         const clearBtn = wrapper.findComponent(ActionIconButton)
@@ -169,12 +169,12 @@ describe('SearchField', () => {
         const wrapper = mount(SearchField, {
             props: {
                 ...defaultProps,
-                size: InputSize.LG
-            }
+                size: InputSize.LG,
+            },
         })
 
         const allDivs = wrapper.findAll('div')
-        const hasSizeClass = allDivs.some(div => div.classes().includes('h-[44px]'))
+        const hasSizeClass = allDivs.some((div) => div.classes().includes('h-[44px]'))
 
         expect(hasSizeClass).toBe(true)
     })
@@ -183,8 +183,8 @@ describe('SearchField', () => {
         const wrapper = mount(SearchField, {
             props: {
                 ...defaultProps,
-                filterAlphabetic: true
-            }
+                filterAlphabetic: true,
+            },
         })
 
         const input = wrapper.find('input')
@@ -196,8 +196,8 @@ describe('SearchField', () => {
     it('updates focus state on input focus/blur', async () => {
         const wrapper = mount(SearchField, {
             props: {
-                ...defaultProps
-            }
+                ...defaultProps,
+            },
         })
 
         const input = wrapper.find('input')
@@ -213,7 +213,7 @@ describe('SearchField', () => {
             props: {
                 ...defaultProps,
                 modelValue: 'test',
-            }
+            },
         })
 
         const clearBtn = wrapper.findComponent(ActionIconButton)
@@ -227,7 +227,7 @@ describe('SearchField', () => {
                 ...defaultProps,
                 modelValue: 'test',
                 clearAriaLabel: 'Limpiar búsqueda',
-            }
+            },
         })
 
         const clearBtn = wrapper.findComponent(ActionIconButton)
@@ -240,7 +240,7 @@ describe('SearchField', () => {
                 ...defaultProps,
                 label: '',
                 ariaLabel: 'Accessible search',
-            }
+            },
         })
 
         const input = wrapper.find('input')
@@ -251,7 +251,7 @@ describe('SearchField', () => {
 
     it('applies bg-background-container-surface when transparent is false', () => {
         const wrapper = mount(SearchField, {
-            props: { ...defaultProps, transparent: false }
+            props: { ...defaultProps, transparent: false },
         })
         const container = wrapper.find('div.border')
         expect(container.classes()).toContain('bg-background-container-surface')
@@ -259,7 +259,7 @@ describe('SearchField', () => {
 
     it('does not apply background when transparent is true', () => {
         const wrapper = mount(SearchField, {
-            props: { ...defaultProps, transparent: true }
+            props: { ...defaultProps, transparent: true },
         })
         const container = wrapper.find('div.border')
         expect(container.classes()).not.toContain('bg-background-container-surface')
@@ -267,7 +267,7 @@ describe('SearchField', () => {
 
     it('applies inputClass to the input element', () => {
         const wrapper = mount(SearchField, {
-            props: { ...defaultProps, inputClass: 'custom-input-class' }
+            props: { ...defaultProps, inputClass: 'custom-input-class' },
         })
         const input = wrapper.find('input')
         expect(input.classes()).toContain('custom-input-class')

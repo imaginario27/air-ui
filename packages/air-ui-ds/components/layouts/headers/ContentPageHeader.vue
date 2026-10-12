@@ -1,5 +1,5 @@
 <template>
-    <div 
+    <div
         :class="[
             'flex',
             'flex-col',
@@ -8,12 +8,12 @@
             hasSidePadding && 'px-content-side-padding-mobile md:px-content-side-padding',
             'pt-12',
             'pb-8',
-            hasSeparator && 'border-b border-border-default'
+            hasSeparator && 'border-b border-border-default',
         ]"
     >
         <slot name="top" />
 
-        <NavLink 
+        <NavLink
             v-if="hasGoBackLink"
             :text="goBackText"
             :iconPosition="IconPosition.LEFT"
@@ -22,20 +22,18 @@
             class="mb-2"
         />
 
-        <Breadcrumbs 
-            v-if="type === PageTitleType.WITH_BREADCRUMBS"
-        />
+        <Breadcrumbs v-if="type === PageTitleType.WITH_BREADCRUMBS" />
 
-        <Overtitle 
+        <Overtitle
             v-if="type === PageTitleType.WITH_OVERTITLE"
             :title="overtitle ? overtitle : pageOvertitle.toString()"
             :class="overtitleClass"
             :isUppercase="isOverTitleUppercase"
         />
 
-        <h1 
+        <h1
             :class="[
-                'text-3xl md:text-4xl', 
+                'text-3xl md:text-4xl',
                 'font-semibold',
                 'leading-tight',
                 'text-text-default',
@@ -46,7 +44,7 @@
             {{ title ? title : pageTitle }}
         </h1>
 
-        <p 
+        <p
             v-if="showDescription && (pageDescription || description)"
             class="text-text-neutral-subtle text-lg max-w-[800px]"
         >
@@ -103,15 +101,24 @@ const pageOvertitle = ref(route.meta.overtitle || 'Overtitle')
 const pageDescription = ref(route.meta.description)
 
 // Watchers
-watch(() => route.meta.title, (newTitle) => {
-    pageTitle.value = newTitle || 'Page title'
-})
+watch(
+    () => route.meta.title,
+    (newTitle) => {
+        pageTitle.value = newTitle || 'Page title'
+    },
+)
 
-watch(() => route.meta.overtitle, (newOvertitle) => {
-    pageOvertitle.value = newOvertitle || 'Overtitle'
-})
+watch(
+    () => route.meta.overtitle,
+    (newOvertitle) => {
+        pageOvertitle.value = newOvertitle || 'Overtitle'
+    },
+)
 
-watch(() => route.meta.description, (newDescription) => {
-    pageDescription.value = newDescription || 'Page description'
-})
+watch(
+    () => route.meta.description,
+    (newDescription) => {
+        pageDescription.value = newDescription || 'Page description'
+    },
+)
 </script>

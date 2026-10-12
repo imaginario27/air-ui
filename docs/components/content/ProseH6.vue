@@ -1,5 +1,5 @@
 <template>
-    <h6 
+    <h6
         :class="[
             'text-sm md:text-base',
             'font-medium',
@@ -18,4 +18,3 @@
 // Composables
 const { isMobile } = useIsMobile()
 </script>
-

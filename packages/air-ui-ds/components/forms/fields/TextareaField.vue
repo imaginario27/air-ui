@@ -1,35 +1,19 @@
 <template>
-    <div :class="[ 'flex flex-col', 'w-full', 'gap-2' ]">
+    <div :class="['flex flex-col', 'w-full', 'gap-2']">
         <!-- Label -->
-        <label 
-            v-if="label"
-            :for="id" 
-            :class="[ 
-                'text-sm',
-                'font-semibold',
-                'text-left',
-                hasError && 'text-text-error'
-            ]"
-        >
+        <label v-if="label" :for="id" :class="['text-sm', 'font-semibold', 'text-left', hasError && 'text-text-error']">
             {{ label }}
-            <span
-                v-if="!required && showOptionalLabel"
-                class="font-normal text-text-neutral-subtler"
-            >
+            <span v-if="!required && showOptionalLabel" class="font-normal text-text-neutral-subtler">
                 {{ optionalLabelText }}
             </span>
         </label>
 
         <!-- Help Text (top) -->
-        <HelpText
-            v-if="helpTextPosition === Position.TOP"
-            :text="helpText"
-            :error="error"
-        />
+        <HelpText v-if="helpTextPosition === Position.TOP" :text="helpText" :error="error" />
 
         <!-- Textarea Container -->
-        <div 
-            :class="[ 
+        <div
+            :class="[
                 'flex gap-2',
                 'border',
                 'rounded-md',
@@ -42,12 +26,12 @@
                 autoResize && maxHeightClass,
                 hasError ? 'border-border-error text-text-error' : 'border-border-default',
                 isFocused && 'ring-2 focus-within:ring-inset focus-within:ring-border-primary-brand-default',
-                disabled ? 'bg-background-neutral-disabled' : (!transparent && 'bg-background-container-surface'),
+                disabled ? 'bg-background-neutral-disabled' : !transparent && 'bg-background-container-surface',
                 textareaClass,
             ]"
         >
             <!-- Textarea -->
-            <textarea 
+            <textarea
                 :id
                 ref="textareaRef"
                 :aria-label="!label ? ariaLabel : undefined"
@@ -60,7 +44,7 @@
                 :wrap
                 :spellcheck
                 :disabled
-                :class="[ 
+                :class="[
                     'w-full',
                     'outline-none',
                     'bg-transparent',
@@ -70,11 +54,7 @@
                     'transition-[height,filter]',
                     'placeholder-text-neutral-subtler',
                     isBlurred && 'blur-sm',
-                    preventSelection && [
-                        'select-none',
-                        'caret-transparent',
-                        'pointer-events-none',
-                    ],
+                    preventSelection && ['select-none', 'caret-transparent', 'pointer-events-none'],
                 ]"
                 @focus="handleFocus"
                 @blur="handleBlur"
@@ -82,23 +62,13 @@
             />
 
             <!-- Error Icon -->
-            <span 
-                v-if="hasError" 
-                class="absolute top-4 right-4"
-            >
-                <Icon
-                    name="mdi:alert-circle"
-                    iconClass="text-icon-error"
-                />
+            <span v-if="hasError" class="absolute top-4 right-4">
+                <Icon name="mdi:alert-circle" iconClass="text-icon-error" />
             </span>
         </div>
 
         <!-- Help Text (bottom) -->
-        <HelpText
-            v-if="helpTextPosition === Position.BOTTOM"
-            :text="helpText"
-            :error="error"
-        />
+        <HelpText v-if="helpTextPosition === Position.BOTTOM" :text="helpText" :error="error" />
 
         <!-- Character Counter -->
         <p v-if="hasCharCounter && maxLength" class="text-xs text-right text-text-neutral-subtle">
@@ -110,15 +80,15 @@
 <script setup lang="ts">
 // Props
 const props = defineProps({
-    id: { 
-        type: String as PropType<string>, 
-        required: true, 
+    id: {
+        type: String as PropType<string>,
+        required: true,
     },
     label: String as PropType<string>,
     ariaLabel: String as PropType<string>,
-    placeholder: { 
-        type: String as PropType<string>, 
-        default: 'Placeholder', 
+    placeholder: {
+        type: String as PropType<string>,
+        default: 'Placeholder',
     },
     helpText: String as PropType<string>,
     helpTextPosition: {
@@ -126,9 +96,9 @@ const props = defineProps({
         default: Position.BOTTOM,
         validator: (value: Position) => Object.values(Position).includes(value),
     },
-    modelValue: { 
-        type: String as PropType<string>, 
-        default: '', 
+    modelValue: {
+        type: String as PropType<string>,
+        default: '',
     },
     validator: {
         type: Function as PropType<(value: unknown) => string | null>,
@@ -210,11 +180,7 @@ const props = defineProps({
 })
 
 // Emits
-const emit = defineEmits([
-    'update:modelValue',
-    'update:error',
-    'update:blurContent',
-])
+const emit = defineEmits(['update:modelValue', 'update:error', 'update:blurContent'])
 
 // Composables
 const validationMode = useInjectedValidationMode()
@@ -265,7 +231,7 @@ const handleInput = (event: Event) => {
     if (props.disabled) return
 
     const target = event.target as HTMLTextAreaElement
-    const value = target.value 
+    const value = target.value
 
     // Emit the updated value to the parent
     emit('update:modelValue', value)
@@ -301,12 +267,12 @@ const preventSelection = computed(() => {
 // Watchers
 watch(
     () => props.modelValue,
-    value => {
+    (value) => {
         if (validationMode.value === FormValidationMode.BLUR && props.validator && props.required) {
             const result = props.validator(value)
             emit('update:error', result ?? '')
         }
-    }
+    },
 )
 
 onMounted(() => {

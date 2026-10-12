@@ -16,18 +16,16 @@ vi.mock('vue-router', async () => {
 
 describe('Breadcrumbs', () => {
     const mockRoute = (path: string) => {
-        (useRoute as Mock).mockReturnValue(
+        ;(useRoute as Mock).mockReturnValue(
             reactive({
                 get path() {
                     return path
                 },
-            })
+            }),
         )
     }
 
-    const factory = (
-        props: Partial<InstanceType<typeof Breadcrumbs>['$props']> = {}
-    ) => {
+    const factory = (props: Partial<InstanceType<typeof Breadcrumbs>['$props']> = {}) => {
         return mount(Breadcrumbs, {
             props,
             global: {
@@ -75,7 +73,7 @@ describe('Breadcrumbs', () => {
 
         const separatorIcons = wrapper
             .findAllComponents(Icon)
-            .filter(icon => icon.props('name') === 'mdi:chevron-right')
+            .filter((icon) => icon.props('name') === 'mdi:chevron-right')
 
         expect(separatorIcons.length).toBe(0)
     })

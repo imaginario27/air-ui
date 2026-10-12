@@ -1,5 +1,5 @@
 <template>
-    <aside 
+    <aside
         v-bind="attrs"
         :class="[
             'flex',
@@ -18,34 +18,20 @@
             height: `calc(100vh - ${topOffset}px)`,
         }"
     >
-        <TableOfContents
-            :title="tocTitle"
-            :links="tocLinks"
-            class="gap-0!"
-        />
+        <TableOfContents :title="tocTitle" :links="tocLinks" class="gap-0!" />
 
         <!-- Community -->
-        <div 
-            :class="[
-                'flex flex-col',
-                'gap-4',
-                'text-sm'
-            ]"
-        >
-            <span
-                class="font-semibold text-text-default"
-            >
-                Community
-            </span>
+        <div :class="['flex flex-col', 'gap-4', 'text-sm']">
+            <span class="font-semibold text-text-default"> Community </span>
 
             <ul class="w-full flex flex-col gap-2">
-                <DocsSidebarListItem 
+                <DocsSidebarListItem
                     text="Suggestions & Feedback"
                     icon="mdi-lightbulb-on-outline"
                     :actionType="ListItemActionType.ACTION"
                     @click="handleOpenFeedbackModal(FeedbackType.SUGGESTION)"
                 />
-                <DocsSidebarListItem 
+                <DocsSidebarListItem
                     text="Report an issue"
                     icon="mdi-alert-circle-outline"
                     :actionType="ListItemActionType.ACTION"
@@ -54,13 +40,10 @@
             </ul>
         </div>
     </aside>
-    
-    <FeedbackModalDialog 
-        v-if="feedbackModalType"
-        v-model="showSuggestionModal"
-        :type="feedbackModalType"
-    />
-</template>º
+
+    <FeedbackModalDialog v-if="feedbackModalType" v-model="showSuggestionModal" :type="feedbackModalType" />
+</template>
+º
 <script setup lang="ts">
 // Options
 defineOptions({

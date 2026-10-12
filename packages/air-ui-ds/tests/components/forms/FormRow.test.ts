@@ -5,9 +5,9 @@ import FormRow from '~/components/forms/FormRow.vue'
 const factory = (options = {}): VueWrapper => {
     return mount(FormRow, {
         slots: {
-            default: '<div>Form Row Content</div>'
+            default: '<div>Form Row Content</div>',
         },
-        ...options
+        ...options,
     })
 }
 
@@ -27,8 +27,8 @@ describe('FormRow.vue', () => {
     it('applies spacing class when spaced is true', () => {
         const wrapper = factory({
             props: {
-                spaced: true
-            }
+                spaced: true,
+            },
         })
 
         const div = wrapper.find('div')

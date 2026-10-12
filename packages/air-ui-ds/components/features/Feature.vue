@@ -1,21 +1,12 @@
 <template>
     <div class="flex gap-2.5">
-        <Icon
-            v-if="icon"
-            :name="icon"
-            :size="IconSize.LG"
-            :color="iconColor"
-            :iconClass="iconClass"
-        />
-    
+        <Icon v-if="icon" :name="icon" :size="IconSize.LG" :color="iconColor" :iconClass="iconClass" />
+
         <div class="w-full flex flex-col gap-1">
             <div class="text-base font-semibold">
                 {{ title }}
             </div>
-            <p 
-                v-if="description" 
-                class="text-base text-text-neutral-subtle"
-            >
+            <p v-if="description" class="text-base text-text-neutral-subtle">
                 {{ description }}
             </p>
         </div>
@@ -32,7 +23,7 @@ defineProps({
     icon: String as PropType<string>,
     iconColor: {
         type: String as PropType<ColorAccent>,
-        default: ColorAccent.SECONDARY_BRAND, 
+        default: ColorAccent.SECONDARY_BRAND,
         validator: (value: ColorAccent) => Object.values(ColorAccent).includes(value),
     },
     iconClass: String as PropType<string>,

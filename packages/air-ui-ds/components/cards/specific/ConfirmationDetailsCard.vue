@@ -1,35 +1,14 @@
 <template>
-    <Card 
-        :hasShadow="false"
-        :class="[
-            'bg-background-neutral-subtlest'
-        ]"
-    >
+    <Card :hasShadow="false" :class="['bg-background-neutral-subtlest']">
         <CardBody>
-            <div 
-                :class="[
-                    'flex', 
-                    'gap-1', 
-                    'w-full', 
-                    'text-sm',
-                    alignClass
-                ]"
-            >
+            <div :class="['flex', 'gap-1', 'w-full', 'text-sm', alignClass]">
                 <span :class="scopeClass">
                     {{ scope }}
                 </span>
 
-                <Icon
-                    :name="separatorIcon"
-                    :iconClass="['text-icon-neutral-subtler', iconClass ?? '']"
-                />
+                <Icon :name="separatorIcon" :iconClass="['text-icon-neutral-subtler', iconClass ?? '']" />
 
-                <span 
-                    :class="[
-                    'font-bold', 
-                    'text-sm',
-                    titleClass
-                ]">
+                <span :class="['font-bold', 'text-sm', titleClass]">
                     {{ title }}
                 </span>
             </div>
@@ -63,11 +42,11 @@ const props = defineProps({
 // Computed classes
 const alignClass = computed(() => {
     const variant: Record<Align, string> = {
-        [Align.LEFT]: "justify-start",
-        [Align.CENTER]: "justify-center",
-        [Align.RIGHT]: "justify-end",
+        [Align.LEFT]: 'justify-start',
+        [Align.CENTER]: 'justify-center',
+        [Align.RIGHT]: 'justify-end',
     }
 
-    return variant[props.alignement as Align] || "justify-start"
+    return variant[props.alignement as Align] || 'justify-start'
 })
 </script>

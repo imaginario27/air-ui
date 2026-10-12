@@ -42,4 +42,3 @@ export interface CollapsedDropdownItem {
     actionType: DropdownActionType
     children?: CollapsedDropdownItem[]
 }
-

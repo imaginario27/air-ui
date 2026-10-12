@@ -7,13 +7,13 @@ import { nextTick } from 'vue'
 const factory = (props = {}) => {
     return mount(PopoverCard, {
         props: {
-            ...props
+            ...props,
         },
         slots: {
             activator: '<button>Activator</button>',
-            content: '<div>Popover Content</div>'
+            content: '<div>Popover Content</div>',
         },
-        attachTo: document.body
+        attachTo: document.body,
     })
 }
 
@@ -58,5 +58,5 @@ describe('PopoverCard', () => {
         await wrapper.find('.popover-activator').trigger('click')
         await nextTick()
         expect(wrapper.findComponent(Card).exists()).toBe(false)
-    })    
+    })
 })

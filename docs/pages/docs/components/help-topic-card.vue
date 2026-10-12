@@ -1,9 +1,7 @@
 ﻿<template>
     <Section>
         <SectionBody>
-            <ContentRenderer 
-                v-if="data" :value="data" 
-            />
+            <ContentRenderer v-if="data" :value="data" />
             <ContentRenderFallback v-else />
         </SectionBody>
     </Section>
@@ -13,7 +11,8 @@ definePageMeta({
     title: 'Help topic card',
     layout: 'docs',
     overtitle: 'Components',
-    description: 'Displays a summary of a help topic or article, typically used in support sections to guide users toward relevant information.',
+    description:
+        'Displays a summary of a help topic or article, typically used in support sections to guide users toward relevant information.',
 })
 
 // Route

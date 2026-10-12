@@ -2,13 +2,18 @@
     <Card :class="['gap-5!', 'relative', containerClass]">
         <div
             v-if="backgroundIcon"
-            :class="['absolute', 'right-4', 'flex', 'pointer-events-none', 'opacity-20', backgroundIconPositionClass, backgroundIconContainerClass]"
+            :class="[
+                'absolute',
+                'right-4',
+                'flex',
+                'pointer-events-none',
+                'opacity-20',
+                backgroundIconPositionClass,
+                backgroundIconContainerClass,
+            ]"
             aria-hidden="true"
         >
-            <Icon
-                :name="backgroundIcon"
-                :iconClass="backgroundIconFinalClass"
-            />
+            <Icon :name="backgroundIcon" :iconClass="backgroundIconFinalClass" />
         </div>
 
         <CardHeader :class="cardHeaderClass">
@@ -34,10 +39,7 @@
                 />
             </template>
 
-            <CardTitle
-                :title
-                :class="textColorClass"
-            />
+            <CardTitle :title :class="textColorClass" />
 
             <template v-if="icon && iconPosition === MetricCardIconPosition.RIGHT">
                 <Icon
@@ -71,10 +73,7 @@
                     {{ amount }}
                 </span>
 
-                <span
-                    v-if="unit"
-                    :class="['text-lg', 'font-semibold', unitClass]"
-                >
+                <span v-if="unit" :class="['text-lg', 'font-semibold', unitClass]">
                     {{ unit }}
                 </span>
             </div>
@@ -89,30 +88,25 @@
 
                 <p
                     v-if="description"
-                    :class="['text-sm', styleType === MetricCardStyle.DEFAULT ? 'text-text-neutral-subtle' : textColorClass, descriptionClass]"
+                    :class="[
+                        'text-sm',
+                        styleType === MetricCardStyle.DEFAULT ? 'text-text-neutral-subtle' : textColorClass,
+                        descriptionClass,
+                    ]"
                 >
                     {{ description }}
                 </p>
             </div>
 
-            <div
-                v-if="trend"
-                :class="['flex', 'items-center', 'gap-1', trendTextColorClass, trendWrapperClass]"
-            >
-                <Icon
-                    :name="trendIcon"
-                    :size="trendIconSize"
-                />
+            <div v-if="trend" :class="['flex', 'items-center', 'gap-1', trendTextColorClass, trendWrapperClass]">
+                <Icon :name="trendIcon" :size="trendIconSize" />
 
                 <span :class="['text-sm', 'mt-0.5', trendTextClass]">
                     {{ trend }}
                 </span>
             </div>
 
-            <div 
-                v-if="$slots.footer"
-                class="w-full flex gap-2 mt-2"
-            >
+            <div v-if="$slots.footer" class="w-full flex gap-2 mt-2">
                 <slot name="footer" />
             </div>
         </CardBody>
@@ -129,14 +123,15 @@ const props = defineProps({
     },
     title: {
         type: String as PropType<string>,
-        default: "Metric title",
+        default: 'Metric title',
     },
     icon: String as PropType<string>,
     backgroundIcon: String as PropType<string>,
     backgroundIconPosition: {
         type: String as PropType<MetricCardBackgroundIconPosition>,
         default: MetricCardBackgroundIconPosition.MIDDLE,
-        validator: (value: MetricCardBackgroundIconPosition) => Object.values(MetricCardBackgroundIconPosition).includes(value),
+        validator: (value: MetricCardBackgroundIconPosition) =>
+            Object.values(MetricCardBackgroundIconPosition).includes(value),
     },
     backgroundIconContainerClass: String as PropType<string>,
     backgroundIconClass: String as PropType<string>,
@@ -190,7 +185,7 @@ const props = defineProps({
     },
     customFilledColorClass: {
         type: String as PropType<string>,
-        default: "bg-background-neutral-bold",
+        default: 'bg-background-neutral-bold',
     },
     cardHeaderClass: String as PropType<string>,
     cardBodyClass: String as PropType<string>,
@@ -202,53 +197,55 @@ const props = defineProps({
     descriptionClass: String as PropType<string>,
     trendWrapperClass: String as PropType<string>,
     trendTextClass: String as PropType<string>,
-});
+})
 
 // Computed
 const trendIcon = computed(() => {
     const variant: Record<MetricTrendDirection, string> = {
-        [MetricTrendDirection.UP]: "mdi:arrow-up",
-        [MetricTrendDirection.DOWN]: "mdi:arrow-down",
-        [MetricTrendDirection.NEUTRAL]: "mdi:minus",
-    };
+        [MetricTrendDirection.UP]: 'mdi:arrow-up',
+        [MetricTrendDirection.DOWN]: 'mdi:arrow-down',
+        [MetricTrendDirection.NEUTRAL]: 'mdi:minus',
+    }
 
-    return variant[props.trendDirection as MetricTrendDirection] || "mdi:arrow-up";
-});
+    return variant[props.trendDirection as MetricTrendDirection] || 'mdi:arrow-up'
+})
 
 const containerClass = computed(() => {
     const variant: Record<MetricCardStyle, string> = {
-        [MetricCardStyle.DEFAULT]: "bg-background-container-surface",
-        [MetricCardStyle.PRIMARY_BRAND_FILLED]: "bg-background-primary-brand-default border-border-primary-brand-default dark",
-        [MetricCardStyle.PRIMARY_BRAND_SOFT]: "bg-background-primary-brand-soft",
-        [MetricCardStyle.SECONDARY_BRAND_FILLED]: "bg-background-secondary-brand-default border-border-secondary-brand dark",
-        [MetricCardStyle.SECONDARY_BRAND_SOFT]: "bg-background-secondary-brand-soft",
-        [MetricCardStyle.NEUTRAL_FILLED]: "bg-background-neutral-bold dark",
-        [MetricCardStyle.NEUTRAL_SOFT]: "bg-background-neutral-subtler",
+        [MetricCardStyle.DEFAULT]: 'bg-background-container-surface',
+        [MetricCardStyle.PRIMARY_BRAND_FILLED]:
+            'bg-background-primary-brand-default border-border-primary-brand-default dark',
+        [MetricCardStyle.PRIMARY_BRAND_SOFT]: 'bg-background-primary-brand-soft',
+        [MetricCardStyle.SECONDARY_BRAND_FILLED]:
+            'bg-background-secondary-brand-default border-border-secondary-brand dark',
+        [MetricCardStyle.SECONDARY_BRAND_SOFT]: 'bg-background-secondary-brand-soft',
+        [MetricCardStyle.NEUTRAL_FILLED]: 'bg-background-neutral-bold dark',
+        [MetricCardStyle.NEUTRAL_SOFT]: 'bg-background-neutral-subtler',
         [MetricCardStyle.CUSTOM_FILLED]: props.customFilledColorClass,
-    };
+    }
 
-    return variant[props.styleType as MetricCardStyle] || "bg-background-container-surface";
-});
+    return variant[props.styleType as MetricCardStyle] || 'bg-background-container-surface'
+})
 
 const containedIconStyleType = computed(() => {
     if (props.styleType === MetricCardStyle.DEFAULT) {
-        return props.defaultStyleIconContainerType;
+        return props.defaultStyleIconContainerType
     }
 
-    return IconContainerStyleType.FILLED;
-});
+    return IconContainerStyleType.FILLED
+})
 
 const containedIconShape = computed(() => {
     if (props.styleType === MetricCardStyle.DEFAULT) {
-        return props.iconContainerShape;
+        return props.iconContainerShape
     }
 
-    return IconContainerShape.SQUARE;
-});
+    return IconContainerShape.SQUARE
+})
 
 const iconColor = computed(() => {
     if (props.defaultStyleIconColor && props.styleType === MetricCardStyle.DEFAULT) {
-        return props.defaultStyleIconColor;
+        return props.defaultStyleIconColor
     }
 
     const variant: Record<MetricCardStyle, ColorAccent> = {
@@ -260,25 +257,25 @@ const iconColor = computed(() => {
         [MetricCardStyle.NEUTRAL_FILLED]: ColorAccent.NEUTRAL,
         [MetricCardStyle.NEUTRAL_SOFT]: ColorAccent.NEUTRAL,
         [MetricCardStyle.CUSTOM_FILLED]: ColorAccent.NEUTRAL,
-    };
+    }
 
-    return variant[props.styleType as MetricCardStyle] || ColorAccent.NEUTRAL;
-});
+    return variant[props.styleType as MetricCardStyle] || ColorAccent.NEUTRAL
+})
 
 const textColorClass = computed(() => {
     const variant: Record<MetricCardStyle, string> = {
-        [MetricCardStyle.DEFAULT]: "text-text-neutral-default",
-        [MetricCardStyle.PRIMARY_BRAND_FILLED]: "text-text-neutral-on-filled",
-        [MetricCardStyle.PRIMARY_BRAND_SOFT]: "text-text-primary-brand-on-soft-bg",
-        [MetricCardStyle.SECONDARY_BRAND_FILLED]: "text-text-neutral-on-filled",
-        [MetricCardStyle.SECONDARY_BRAND_SOFT]: "text-text-secondary-brand-on-soft-bg",
-        [MetricCardStyle.NEUTRAL_FILLED]: "text-text-neutral-on-filled",
-        [MetricCardStyle.NEUTRAL_SOFT]: "text-text-neutral-on-neutral-bg",
-        [MetricCardStyle.CUSTOM_FILLED]: "text-text-neutral-on-filled",
-    };
+        [MetricCardStyle.DEFAULT]: 'text-text-neutral-default',
+        [MetricCardStyle.PRIMARY_BRAND_FILLED]: 'text-text-neutral-on-filled',
+        [MetricCardStyle.PRIMARY_BRAND_SOFT]: 'text-text-primary-brand-on-soft-bg',
+        [MetricCardStyle.SECONDARY_BRAND_FILLED]: 'text-text-neutral-on-filled',
+        [MetricCardStyle.SECONDARY_BRAND_SOFT]: 'text-text-secondary-brand-on-soft-bg',
+        [MetricCardStyle.NEUTRAL_FILLED]: 'text-text-neutral-on-filled',
+        [MetricCardStyle.NEUTRAL_SOFT]: 'text-text-neutral-on-neutral-bg',
+        [MetricCardStyle.CUSTOM_FILLED]: 'text-text-neutral-on-filled',
+    }
 
-    return variant[props.styleType as MetricCardStyle] || "text-text-neutral-default";
-});
+    return variant[props.styleType as MetricCardStyle] || 'text-text-neutral-default'
+})
 
 const isFilledStyle = computed(() => {
     return [
@@ -286,50 +283,48 @@ const isFilledStyle = computed(() => {
         MetricCardStyle.SECONDARY_BRAND_FILLED,
         MetricCardStyle.NEUTRAL_FILLED,
         MetricCardStyle.CUSTOM_FILLED,
-    ].includes(props.styleType as MetricCardStyle);
-});
+    ].includes(props.styleType as MetricCardStyle)
+})
 
 const trendUpClass = computed(() => {
-    return isFilledStyle.value ? "text-text-neutral-on-filled" : "text-text-success";
-});
+    return isFilledStyle.value ? 'text-text-neutral-on-filled' : 'text-text-success'
+})
 
 const trendDownClass = computed(() => {
-    return isFilledStyle.value ? "text-text-neutral-on-filled" : "text-text-error";
-});
+    return isFilledStyle.value ? 'text-text-neutral-on-filled' : 'text-text-error'
+})
 
 const trendNeutralClass = computed(() => {
-    return isFilledStyle.value ? "text-text-neutral-on-filled" : "text-text-neutral-subtle";
-});
+    return isFilledStyle.value ? 'text-text-neutral-on-filled' : 'text-text-neutral-subtle'
+})
 
 const backgroundIconPositionClass = computed(() => {
     const variant: Record<MetricCardBackgroundIconPosition, string> = {
         [MetricCardBackgroundIconPosition.TOP]: 'top-4 items-start',
         [MetricCardBackgroundIconPosition.MIDDLE]: 'inset-y-0 items-center',
         [MetricCardBackgroundIconPosition.BOTTOM]: 'bottom-4 items-end',
-    };
+    }
 
-    return variant[props.backgroundIconPosition as MetricCardBackgroundIconPosition] || 'inset-y-0 items-center';
-});
+    return variant[props.backgroundIconPosition as MetricCardBackgroundIconPosition] || 'inset-y-0 items-center'
+})
 
 const backgroundIconColorClass = computed(() => {
-    return props.styleType === MetricCardStyle.DEFAULT
-        ? 'text-text-neutral-subtle'
-        : textColorClass.value;
-});
+    return props.styleType === MetricCardStyle.DEFAULT ? 'text-text-neutral-subtle' : textColorClass.value
+})
 
 const backgroundIconFinalClass = computed(() => {
-    const classes: string[] = ['w-[80px]!', 'h-[80px]!', backgroundIconColorClass.value];
-    if (props.backgroundIconClass) classes.push(props.backgroundIconClass);
-    return classes;
-});
+    const classes: string[] = ['w-[80px]!', 'h-[80px]!', backgroundIconColorClass.value]
+    if (props.backgroundIconClass) classes.push(props.backgroundIconClass)
+    return classes
+})
 
 const trendTextColorClass = computed(() => {
     const variant: Record<MetricTrendDirection, string> = {
         [MetricTrendDirection.UP]: trendUpClass.value,
         [MetricTrendDirection.DOWN]: trendDownClass.value,
         [MetricTrendDirection.NEUTRAL]: trendNeutralClass.value,
-    };
+    }
 
-    return variant[props.trendDirection as MetricTrendDirection] || trendUpClass.value;
-});
+    return variant[props.trendDirection as MetricTrendDirection] || trendUpClass.value
+})
 </script>

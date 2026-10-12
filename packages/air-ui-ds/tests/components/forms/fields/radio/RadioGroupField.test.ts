@@ -6,7 +6,7 @@ import Divider from '~/components/dividers/Divider.vue'
 import { FormValidationMode } from '~/models/enums/formValidations'
 
 vi.mock('~/composables/useFormValidationMode', () => ({
-    useInjectedValidationMode: () => ref(FormValidationMode.BLUR)
+    useInjectedValidationMode: () => ref(FormValidationMode.BLUR),
 }))
 
 const defaultOptions = [
@@ -40,7 +40,7 @@ describe('RadioGroupField', () => {
             helpText: 'Helpful text',
             options: [
                 { id: 1, value: 'a', label: 'Option A' },
-                { id: 2, value: 'b', label: 'Option B' }, 
+                { id: 2, value: 'b', label: 'Option B' },
             ],
         })
 
@@ -62,8 +62,9 @@ describe('RadioGroupField', () => {
         expect(errorText.text()).toBe('Required field')
 
         // Assert label has error class
-        const label = wrapper.findAll('div')
-            .find(div => div.classes().includes('font-semibold') && div.text() === 'My Label')
+        const label = wrapper
+            .findAll('div')
+            .find((div) => div.classes().includes('font-semibold') && div.text() === 'My Label')
 
         expect(label).toBeTruthy()
         expect(label!.classes()).toContain('text-text-error')
@@ -123,13 +124,13 @@ describe('RadioGroupField', () => {
 
     it('applies vertical orientation classes by default', () => {
         const wrapper = factory()
-        const container = wrapper.findAll('div').find(div => div.classes().includes('flex'))
+        const container = wrapper.findAll('div').find((div) => div.classes().includes('flex'))
         expect(container?.classes()).toContain('flex-col')
     })
 
     it('applies grid layout when orientation is horizontal', () => {
         const wrapper = factory({ orientation: 'horizontal' })
-        const container = wrapper.findAll('div').find(div => div.classes().includes('grid'))
+        const container = wrapper.findAll('div').find((div) => div.classes().includes('grid'))
         expect(container?.classes()).toContain('grid-cols-1')
         expect(container?.classes()).toContain('sm:grid-cols-2')
     })

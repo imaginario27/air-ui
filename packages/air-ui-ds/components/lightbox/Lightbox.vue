@@ -24,11 +24,10 @@
                 @keydown.left.prevent="prev"
                 @keydown.right.prevent="next"
             >
-                <div class="pointer-events-none absolute inset-x-0 top-0 z-10 flex w-full items-center justify-between px-4 py-3">
-                    <span
-                        v-if="hasMultipleImages"
-                        class="text-sm opacity-80"
-                    >
+                <div
+                    class="pointer-events-none absolute inset-x-0 top-0 z-10 flex w-full items-center justify-between px-4 py-3"
+                >
+                    <span v-if="hasMultipleImages" class="text-sm opacity-80">
                         {{ currentIndex + 1 }} / {{ images.length }}
                     </span>
                     <span v-else />
@@ -40,10 +39,7 @@
                             :aria-label="fullscreenLabel ?? dsConfig.lightbox.fullscreenText()"
                             @click="toggleFullscreen"
                         >
-                            <Icon
-                                :name="isFullscreen ? 'mdi:fullscreen-exit' : 'mdi:fullscreen'"
-                                :size="IconSize.MD"
-                            />
+                            <Icon :name="isFullscreen ? 'mdi:fullscreen-exit' : 'mdi:fullscreen'" :size="IconSize.MD" />
                         </button>
                         <button
                             type="button"
@@ -51,10 +47,7 @@
                             :aria-label="closeLabel ?? dsConfig.actions.closeText()"
                             @click="close"
                         >
-                            <Icon
-                                name="mdi:close"
-                                :size="IconSize.MD"
-                            />
+                            <Icon name="mdi:close" :size="IconSize.MD" />
                         </button>
                     </div>
                 </div>
@@ -86,7 +79,7 @@
                                 'pointer-events-none flex h-full w-full select-none items-center justify-center',
                                 imagePaddingClass,
                             ]"
-                            :style="slideOffsetStyle"
+                            :style="slideStyle"
                         >
                             <img
                                 :src="current.src"
@@ -103,33 +96,24 @@
                         v-if="hasMultipleImages"
                         type="button"
                         :class="['absolute top-1/2 left-2 -translate-y-1/2 md:left-4', navButtonClass]"
-                        :aria-label="prevLabel ?? dsConfig.lightbox.previousText()"
+                        :aria-label="prevLabel ?? dsConfig.slides.previousText()"
                         @click="prev"
                     >
-                        <Icon
-                            name="mdi:chevron-left"
-                            :size="IconSize.LG"
-                        />
+                        <Icon name="mdi:chevron-left" :size="IconSize.LG" />
                     </button>
 
                     <button
                         v-if="hasMultipleImages"
                         type="button"
                         :class="['absolute top-1/2 right-2 -translate-y-1/2 md:right-4', navButtonClass]"
-                        :aria-label="nextLabel ?? dsConfig.lightbox.nextText()"
+                        :aria-label="nextLabel ?? dsConfig.slides.nextText()"
                         @click="next"
                     >
-                        <Icon
-                            name="mdi:chevron-right"
-                            :size="IconSize.LG"
-                        />
+                        <Icon name="mdi:chevron-right" :size="IconSize.LG" />
                     </button>
                 </div>
 
-                <div
-                    v-if="showCaption && current?.caption"
-                    class="px-4 pt-2 pb-4 text-center text-sm opacity-80"
-                >
+                <div v-if="showCaption && current?.caption" class="px-4 pt-2 pb-4 text-center text-sm opacity-80">
                     {{ current.caption }}
                 </div>
             </dialog>
@@ -163,6 +147,11 @@ const props = defineProps({
     closeOnClickOutside: {
         type: Boolean as PropType<boolean>,
         default: true,
+    },
+    easing: {
+        type: String as PropType<Easing>,
+        default: Easing.EASE_OUT,
+        validator: (value: Easing) => Object.values(Easing).includes(value),
     },
     lightboxClass: String as PropType<string>,
     ariaLabel: String as PropType<string>,
@@ -203,25 +192,25 @@ const current = computed(() => props.images[currentIndex.value])
 const hasMultipleImages = computed(() => props.images.length > 1)
 
 const imagePaddingClass = computed(() =>
-    isFullscreen.value ? 'px-4 py-4 md:px-6 md:py-6' : 'px-12 py-8 md:px-16 md:py-12'
+    isFullscreen.value ? 'px-4 py-4 md:px-6 md:py-6' : 'px-12 py-8 md:px-16 md:py-12',
 )
 
 const slideEnterFrom = computed(() =>
-    slideDirection.value === 'left' ? 'translate-x-24 opacity-0' : '-translate-x-24 opacity-0'
+    slideDirection.value === 'left' ? 'translate-x-24 opacity-0' : '-translate-x-24 opacity-0',
 )
 
 const slideLeaveTo = computed(() =>
-    slideDirection.value === 'left' ? '-translate-x-24 opacity-0' : 'translate-x-24 opacity-0'
+    slideDirection.value === 'left' ? '-translate-x-24 opacity-0' : 'translate-x-24 opacity-0',
 )
 
-const slideOffsetStyle = computed(() => {
-    if (!dragOffsetX.value) return undefined
-    return { transform: `translateX(${dragOffsetX.value}px)` }
-})
+const slideStyle = computed(() => ({
+    transitionTimingFunction: EASING_VALUES[props.easing as Easing] || EASING_VALUES[Easing.EASE_OUT],
+    ...(dragOffsetX.value ? { transform: `translateX(${dragOffsetX.value}px)` } : {}),
+}))
 
 // Classes
-const slideEnterActive = 'transition-all duration-250 ease-out motion-reduce:transition-none'
-const slideLeaveActive = 'transition-all duration-200 ease-in motion-reduce:transition-none'
+const slideEnterActive = 'transition-all duration-250 motion-reduce:transition-none'
+const slideLeaveActive = 'transition-all duration-200 motion-reduce:transition-none'
 
 const navButtonClass = [
     'flex h-10 w-10 items-center justify-center rounded-full',
@@ -361,9 +350,9 @@ const onFullscreenChange = () => {
 // Watchers
 watch(
     () => props.initialIndex,
-    index => {
+    (index) => {
         currentIndex.value = index
-    }
+    },
 )
 
 watch(
@@ -385,7 +374,7 @@ watch(
             previouslyFocusedElement.value?.focus()
         }
     },
-    { immediate: true }
+    { immediate: true },
 )
 
 // Lifecycle

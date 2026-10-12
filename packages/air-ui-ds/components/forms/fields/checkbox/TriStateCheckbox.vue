@@ -9,7 +9,7 @@
             :disabled="disabled"
             @change="toggleCheckbox"
             @keydown.space.prevent="toggleCheckbox"
-        >
+        />
 
         <div
             role="checkbox"
@@ -21,8 +21,10 @@
                 'border',
                 'rounded',
                 'transition-colors',
-                modelValue !== TriStateValue.UNCHECKED ? 'bg-background-primary-brand-checked border-border-primary-brand-active' : 'bg-neutral-white border-border-default',
-                disabled ? 'bg-background-neutral-disabled cursor-not-allowed' : 'cursor-pointer'
+                modelValue !== TriStateValue.UNCHECKED
+                    ? 'bg-background-primary-brand-checked border-border-primary-brand-active'
+                    : 'bg-neutral-white border-border-default',
+                disabled ? 'bg-background-neutral-disabled cursor-not-allowed' : 'cursor-pointer',
             ]"
             @click="toggleCheckbox"
         >
@@ -31,7 +33,7 @@
                 name="mdi:check-bold"
                 :iconClass="[
                     checkboxIconSizeClass,
-                    disabled ? '!text-icon-neutral-disabled' : '!text-icon-neutral-on-filled-bg'
+                    disabled ? '!text-icon-neutral-disabled' : '!text-icon-neutral-on-filled-bg',
                 ]"
             />
             <Icon
@@ -39,7 +41,7 @@
                 name="mdi:minus-thick"
                 :iconClass="[
                     checkboxIconSizeClass,
-                    disabled ? '!text-icon-neutral-disabled' : '!text-icon-neutral-on-filled-bg'
+                    disabled ? '!text-icon-neutral-disabled' : '!text-icon-neutral-on-filled-bg',
                 ]"
             />
         </div>
@@ -101,9 +103,7 @@ const checkboxIconSizeClass = computed(() => {
 const toggleCheckbox = () => {
     if (props.disabled) return
 
-    const nextValue = props.modelValue === TriStateValue.CHECKED
-        ? TriStateValue.UNCHECKED
-        : TriStateValue.CHECKED
+    const nextValue = props.modelValue === TriStateValue.CHECKED ? TriStateValue.UNCHECKED : TriStateValue.CHECKED
 
     emit('update:modelValue', nextValue)
 }

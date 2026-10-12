@@ -8,7 +8,7 @@ describe('CircleStepper.vue', () => {
     const defaultSteps = [
         { icon: 'mdi:home-outline' },
         { icon: 'mdi:account-outline' },
-        { icon: 'mdi:map-marker-star-outline' }
+        { icon: 'mdi:map-marker-star-outline' },
     ]
 
     const factory = (props = {}) => {
@@ -16,14 +16,14 @@ describe('CircleStepper.vue', () => {
             props: {
                 modelValue: 2,
                 steps: defaultSteps,
-                ...props
+                ...props,
             },
             global: {
                 components: {
                     StepIndicator,
-                    Divider
-                }
-            }
+                    Divider,
+                },
+            },
         })
     }
 
@@ -72,7 +72,7 @@ describe('CircleStepper.vue', () => {
         const indicators = wrapper.findAllComponents(StepIndicator)
         expect(indicators).toHaveLength(4)
 
-        indicators.forEach(indicator => {
+        indicators.forEach((indicator) => {
             expect(indicator.props('stepIcon')).toBeUndefined()
         })
     })
@@ -113,7 +113,7 @@ describe('CircleStepper.vue', () => {
         await indicators[1].trigger('mouseenter')
         await indicators[1].trigger('mouseleave')
 
-        indicators.forEach(indicator => {
+        indicators.forEach((indicator) => {
             expect(indicator.props('isHovered')).toBe(false)
         })
     })
@@ -121,7 +121,7 @@ describe('CircleStepper.vue', () => {
     it('applies custom divider class if passed', () => {
         const wrapper = factory({ dividerClass: 'custom-divider' })
         const dividers = wrapper.findAllComponents(Divider)
-        dividers.forEach(divider => {
+        dividers.forEach((divider) => {
             expect(divider.classes()).toContain('custom-divider')
         })
     })
@@ -137,7 +137,7 @@ describe('CircleStepper.vue', () => {
         const wrapper = factory({ modelValue: 1 })
         const dividers = wrapper.findAllComponents(Divider)
 
-        dividers.forEach(div => {
+        dividers.forEach((div) => {
             expect(div.classes()).not.toContain('!border-border-primary-brand-active')
         })
     })

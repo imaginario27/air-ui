@@ -3,9 +3,9 @@
         <span class="text-sm">
             {{ rowsLabel }}
         </span>
-        <DropdownSelect 
+        <DropdownSelect
             :modelValue
-            :options="rowsOptions" 
+            :options="rowsOptions"
             class="w-full min-w-[80px]"
             :dropdownPosition="Position.TOP"
             @update:modelValue="(value) => emit('update:modelValue', value)"
@@ -51,10 +51,10 @@ defineProps({
                 text: '100',
                 value: 100,
             },
-        ]
-    }
+        ],
+    },
 })
 
 // Emits
-const emit = defineEmits(["update:modelValue"])
+const emit = defineEmits(['update:modelValue'])
 </script>

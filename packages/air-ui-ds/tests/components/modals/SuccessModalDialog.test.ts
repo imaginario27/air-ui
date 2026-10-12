@@ -11,14 +11,11 @@ import ModalActions from '@/components/modals/ModalActions.vue'
 import ContainedIcon from '@/components/icons/ContainedIcon.vue'
 import { useDSConfig } from '@/composables/useDSConfig'
 
-const factory = (
-    props?: Partial<InstanceType<typeof SuccessModalDialog>['$props']>,
-    slots?: Record<string, any>
-) => {
+const factory = (props?: Partial<InstanceType<typeof SuccessModalDialog>['$props']>, slots?: Record<string, any>) => {
     return mount(SuccessModalDialog, {
         props: {
             modelValue: true,
-            ...props
+            ...props,
         },
         slots,
         global: {
@@ -30,10 +27,10 @@ const factory = (
                 ModalTitle,
                 ModalDescription,
                 ModalActions,
-                ContainedIcon
-            }
+                ContainedIcon,
+            },
         },
-        attachTo: document.body
+        attachTo: document.body,
     })
 }
 
@@ -62,7 +59,7 @@ describe('SuccessModalDialog.vue', () => {
         factory({
             title: 'Success!',
             description: 'Your submission was successful.',
-            buttonText: 'Done'
+            buttonText: 'Done',
         })
         await nextTick()
 
@@ -113,7 +110,7 @@ describe('SuccessModalDialog.vue', () => {
         const wrapper = factory({
             closeOnClickOutside: true,
             hasCornerCloseButton: true,
-            cardClass: 'custom-class'
+            cardClass: 'custom-class',
         })
         await nextTick()
 

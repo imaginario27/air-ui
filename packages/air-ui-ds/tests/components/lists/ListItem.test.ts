@@ -7,14 +7,14 @@ const factory = (props = {}, options = {}) => {
     return mount(ListItem, {
         props,
         slots: {
-            default: 'List item content'
+            default: 'List item content',
         },
         global: {
             components: {
-                Icon
-            }
+                Icon,
+            },
         },
-        ...options
+        ...options,
     })
 }
 
@@ -44,13 +44,13 @@ describe('ListItem.vue', () => {
 
         const iconClasses = icon.props('iconClass')
         expect(iconClasses).toContain('text-icon-secondary-brand-default')
-        expect(iconClasses.some(cls => cls.includes('w-[20px]'))).toBe(true)
+        expect(iconClasses.some((cls) => cls.includes('w-[20px]'))).toBe(true)
     })
 
     it('applies custom markerIconClass', () => {
         const wrapper = factory({
             markerIcon: 'mdi:check',
-            markerIconClass: 'text-green-500'
+            markerIconClass: 'text-green-500',
         })
 
         const icon = wrapper.findComponent(Icon)
@@ -61,18 +61,18 @@ describe('ListItem.vue', () => {
     it('applies correct icon size classes when size is MD', () => {
         const wrapper = factory({
             markerIcon: 'mdi:check',
-            size: ListItemSize.MD
+            size: ListItemSize.MD,
         })
 
         const icon = wrapper.findComponent(Icon)
         const iconClasses = icon.props('iconClass')
-        expect(iconClasses.some(cls => cls.includes('w-[24px]'))).toBe(true)
-        expect(iconClasses.some(cls => cls.includes('h-[24px]'))).toBe(true)
+        expect(iconClasses.some((cls) => cls.includes('w-[24px]'))).toBe(true)
+        expect(iconClasses.some((cls) => cls.includes('h-[24px]'))).toBe(true)
     })
 
     it('applies correct content text size class when size is XS', () => {
         const wrapper = factory({
-            size: ListItemSize.XS
+            size: ListItemSize.XS,
         })
 
         const content = wrapper.find('span')
