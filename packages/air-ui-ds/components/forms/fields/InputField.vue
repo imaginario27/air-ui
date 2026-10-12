@@ -22,6 +22,7 @@
         :showOptionalLabel
         :optionalLabel
         :transparent
+        :autoFlip
         @update:modelValue="handleDateUpdate"
         @update:error="emit('update:error', $event)"
     />
@@ -48,6 +49,7 @@
         :showOptionalLabel
         :optionalLabel
         :transparent
+        :autoFlip
         @update:modelValue="handleDateUpdate"
         @update:error="emit('update:error', $event)"
     />
@@ -195,6 +197,10 @@ const props = defineProps({
         type: String as PropType<Position>,
         default: Position.BOTTOM,
         validator: (value: Position) => Object.values(Position).includes(value),
+    },
+    autoFlip: {
+        type: Boolean as PropType<boolean>,
+        default: true,
     },
     icon: String as PropType<string>,
     suffixIcon: String as PropType<string>,

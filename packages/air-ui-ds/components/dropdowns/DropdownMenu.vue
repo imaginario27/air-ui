@@ -135,7 +135,7 @@
                         dropdownClass,
                     ]"
                     :style="{
-                        ...(!positionClass ? positionOffsetStyle : {}),
+                        ...(!positionClass ? positionOffsetStyle : flippedStyle),
                         zIndex: zIndex,
                     }"
                     @mouseenter="onDropdownMouseEnter"
@@ -286,6 +286,10 @@ const props = defineProps({
         type: Boolean as PropType<boolean>,
         default: false,
     },
+    autoFlip: {
+        type: Boolean as PropType<boolean>,
+        default: false,
+    },
 })
 
 // Refs
@@ -298,11 +302,13 @@ const closeTimer = ref<ReturnType<typeof setTimeout> | null>(null)
 const isPositioned = ref(false)
 const activatorRect = ref<DOMRect | null>(null)
 const dropdownRect = ref<DOMRect | null>(null)
+const isFlipped = ref(false)
 
 // Methods
 const close = () => {
     isOpen.value = false
     isPositioned.value = false
+    isFlipped.value = false
 }
 
 const MAX_NESTED_LEVELS = 3
@@ -403,6 +409,20 @@ const updateRects = () => {
 
     activatorRect.value = activatorEl.getBoundingClientRect()
     dropdownRect.value = dropdown.value.getBoundingClientRect()
+
+    // Only the menus that open above or below the activator flip
+    const [primary] = props.position.split('-')
+    const isVertical = primary === 'top' || primary === 'bottom'
+
+    isFlipped.value =
+        props.autoFlip &&
+        isVertical &&
+        shouldFlipVertically(
+            primary as Position,
+            activatorRect.value,
+            dropdownRect.value.height,
+            Number(props.positionYOffset) || 0,
+        )
 }
 
 const isToggleItem = (item: DropdownMenuItem) => {
@@ -459,6 +479,25 @@ const handleKeydown = (event: KeyboardEvent) => {
 }
 
 // Computed
+const resolvedPosition = computed(() => {
+    if (!isFlipped.value) return props.position
+
+    const [primary, secondary] = props.position.split('-')
+
+    return `${primary === 'top' ? 'bottom' : 'top'}-${secondary}` as DropdownPosition
+})
+
+// The menus with their own position class keep it, so the flipped side is set with styles
+const flippedStyle = computed<CSSProperties>(() => {
+    if (!isFlipped.value || !props.positionClass) return {}
+
+    const gap = `${Number(props.positionYOffset) || 0}px`
+
+    return resolvedPosition.value.startsWith('top')
+        ? { top: 'auto', bottom: '100%', marginTop: '0px', marginBottom: gap }
+        : { top: '100%', bottom: 'auto', marginTop: gap, marginBottom: '0px' }
+})
+
 const computedTeleportStyle = computed<CSSProperties>(() => {
     if (!isPositioned.value || !activatorRect.value || !dropdownRect.value) {
         return {
@@ -475,7 +514,7 @@ const computedTeleportStyle = computed<CSSProperties>(() => {
     const x = Number(props.positionXOffset) || 0
     const y = Number(props.positionYOffset) || 0
 
-    const [primary, secondary] = props.position.toLowerCase().split('-')
+    const [primary, secondary] = resolvedPosition.value.toLowerCase().split('-')
 
     let top = 0
     let left = 0
@@ -522,7 +561,7 @@ const dropdownPositionClass = computed(() => {
         [DropdownPosition.BOTTOM_RIGHT]: 'absolute right-0 top-full',
     }
 
-    return variant[props.position as DropdownPosition] || 'absolute right-0 top-full'
+    return variant[resolvedPosition.value as DropdownPosition] || 'absolute right-0 top-full'
 })
 
 const positionOffsetStyle = computed(() => {
@@ -534,7 +573,7 @@ const positionOffsetStyle = computed(() => {
 
     const x = props.positionXOffset
     const y = props.positionYOffset
-    const position = props.position as DropdownPosition
+    const position = resolvedPosition.value as DropdownPosition
 
     const style: Record<string, string> = {}
 

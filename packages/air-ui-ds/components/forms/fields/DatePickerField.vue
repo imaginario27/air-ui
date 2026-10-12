@@ -96,7 +96,7 @@
                 leave-active-class="transition duration-100 ease-in"
                 leave-to-class="opacity-0 -translate-y-1"
             >
-                <div v-if="isInline || isOpen" :class="panelClass" @keydown.esc.stop="close">
+                <div v-if="isInline || isOpen" ref="panel" :class="panelClass" @keydown.esc.stop="close">
                     <Calendar
                         :id="isInline ? id : undefined"
                         ref="calendar"
@@ -119,7 +119,7 @@
                         v-bind="timePickerProps"
                         :modelValue="timeValue"
                         :isBoxed="false"
-                        class="border-l border-border-default pl-3"
+                        class="border-t border-border-default pt-3 sm:border-l sm:border-t-0 sm:pl-3 sm:pt-0"
                         @update:modelValue="handleTimeSelect"
                     />
                 </div>
@@ -185,6 +185,10 @@ const props = defineProps({
         type: String as PropType<Position>,
         default: Position.BOTTOM,
         validator: (value: Position) => Object.values(Position).includes(value),
+    },
+    autoFlip: {
+        type: Boolean as PropType<boolean>,
+        default: true,
     },
     min: String as PropType<string>,
     max: String as PropType<string>,
@@ -322,6 +326,7 @@ const dsConfig = useDSConfig()
 const container = ref<HTMLElement | null>(null)
 const input = ref<HTMLInputElement | null>(null)
 const calendar = ref<{ focus: () => void } | null>(null)
+const panel = ref<HTMLElement | null>(null)
 
 // States
 const isOpen = ref(false)
@@ -384,6 +389,13 @@ const inputSizeClass = computed(() => {
     return sizeVariant[props.size as InputSize] || 'h-[36px]'
 })
 
+const { resolvedPosition } = useAutoFlip(
+    panel,
+    () => props.calendarPosition,
+    () => props.autoFlip,
+    isOpen,
+)
+
 const boxClass = 'rounded-lg border border-border-default bg-background-container-surface'
 
 // Date and time share one box; otherwise the calendar is the box
@@ -397,7 +409,7 @@ const panelClass = computed(() => {
     if (isInline.value) {
         return isDateTime.value
             ? [
-                  'flex w-fit max-w-full gap-3',
+                  'flex w-fit max-w-full flex-col gap-3 sm:flex-row',
                   props.isBoxed && ['p-3', boxClass],
                   hasError.value && '!border-border-error',
               ]
@@ -406,8 +418,11 @@ const panelClass = computed(() => {
 
     return [
         'absolute left-0 z-50 rounded-lg shadow-lg',
-        props.calendarPosition === Position.TOP ? 'bottom-full mb-1' : 'top-full mt-1',
-        isDateTime.value && ['flex gap-3 p-3', boxClass],
+        resolvedPosition.value === Position.TOP ? 'bottom-full mb-1' : 'top-full mt-1',
+        isDateTime.value && [
+            'flex max-h-[calc(100vh-2rem)] max-w-[calc(100vw-2rem)] flex-col gap-3 overflow-y-auto p-3 sm:flex-row',
+            boxClass,
+        ],
     ]
 })
 

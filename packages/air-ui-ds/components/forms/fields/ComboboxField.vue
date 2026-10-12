@@ -34,6 +34,7 @@
             :noResultsFoundText
             :disabled
             :dropdownPosition
+            :autoFlip
             :hasSeparator
             :multiple
             :allowDeselect
@@ -112,6 +113,10 @@ const props = defineProps({
         type: String as PropType<Position>,
         default: Position.BOTTOM,
         validator: (value: Position) => Object.values(Position).includes(value),
+    },
+    autoFlip: {
+        type: Boolean as PropType<boolean>,
+        default: true,
     },
     noResultsFoundText: String as PropType<string>,
     disabled: {

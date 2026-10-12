@@ -8,6 +8,7 @@
             :position="teleportPosition"
             :positionClass="`absolute ${dropdownPositionClass}`"
             :positionYOffset="dropdownGap"
+            :autoFlip
             zIndex="10000"
             :dropdownClass
             :class="['max-h-[200px]', 'overflow-y-auto', 'border', 'border-border-default']"
@@ -277,6 +278,10 @@ const props = defineProps({
     transparent: {
         type: Boolean as PropType<boolean>,
         default: false,
+    },
+    autoFlip: {
+        type: Boolean as PropType<boolean>,
+        default: true,
     },
     shouldTeleport: {
         type: Boolean as PropType<boolean>,

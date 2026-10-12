@@ -407,4 +407,40 @@ describe('DropdownMenu.vue', () => {
         expect(dropdownPanels.length).toBeGreaterThanOrEqual(2)
         expect((wrapper.vm as any).isOpen).toBe(true)
     })
+
+    describe('autoFlip', () => {
+        const openNearTheBottom = async (props: Record<string, unknown>) => {
+            const wrapper = factory({
+                props: { items: [{ text: 'Item' }], position: DropdownPosition.BOTTOM_LEFT, ...props },
+            })
+            const activator = wrapper.find('.dropdown-activator').element as HTMLElement
+            const rect = (top: number, height: number) =>
+                ({ top, bottom: top + height, height, left: 0, right: 100, width: 100 }) as DOMRect
+
+            activator.getBoundingClientRect = () => rect(window.innerHeight - 60, 36)
+            vi.spyOn(HTMLElement.prototype, 'getBoundingClientRect').mockImplementation(() => rect(0, 300))
+
+            await wrapper.find('.dropdown-activator').trigger('click')
+            await new Promise((resolve) => requestAnimationFrame(() => resolve(null)))
+            await nextTick()
+
+            return wrapper
+        }
+
+        afterEach(() => {
+            vi.restoreAllMocks()
+        })
+
+        it('opens above the activator when it does not fit below', async () => {
+            const wrapper = await openNearTheBottom({ autoFlip: true })
+
+            expect(wrapper.find('[data-dropdown-menu-panel]').classes()).toContain('bottom-full')
+        })
+
+        it('keeps the position when autoFlip is false', async () => {
+            const wrapper = await openNearTheBottom({ autoFlip: false })
+
+            expect(wrapper.find('[data-dropdown-menu-panel]').classes()).toContain('top-full')
+        })
+    })
 })
