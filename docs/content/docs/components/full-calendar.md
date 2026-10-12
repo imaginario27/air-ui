@@ -110,6 +110,20 @@ props: [
         "type": "ColorAccent"
     },
     {
+        "name": "getEventColor",
+        "type": "(event: FullCalendarEvent) => ColorAccent | undefined"
+    },
+    {
+        "name": "morePopoverAutoFlip",
+        "default": "true",
+        "type": "boolean"
+    },
+    {
+        "name": "headingTag",
+        "default": "'h2'",
+        "type": "HeadingTag"
+    },
+    {
         "name": "disabled",
         "default": "false",
         "type": "boolean"
@@ -137,7 +151,11 @@ props: [
 slots: [
     {
         "name": "event",
-        "description": "Content of an event. Receives `event` (the `FullCalendarEvent`). It replaces the dot, the time and the title."
+        "description": "Content of an event, also in the `+N more` panel. Receives `event` (the `FullCalendarEvent`). It replaces the dot, the time and the title."
+    },
+    {
+        "name": "more-popover",
+        "description": "Content of the `+N more` panel. Receives `date` (the ISO date), `label` (the full date as text), `events` (all the events of the day) and `close` (a function that closes the panel). It replaces the title, the close button and the list, and the panel keeps its box and its placement."
     },
 ]
 ---
@@ -195,12 +213,64 @@ export interface FullCalendarEvent {
     end?: string // The last day, inclusive
     time?: string // HH:mm
     color?: ColorAccent
+    meta?: Record<string, unknown> // Anything else you need back
 }
 ```
 
+The `meta` field is for your own data, such as a category or the id of the record in your API. It is not read by the calendar: it comes back untouched in `event-click`, `more-click`, the `event` slot and `getEventColor`.
+
+```vue
+<template>
+    <FullCalendar :events @event-click="openEvent" />
+</template>
+
+<script setup lang="ts">
+const events: FullCalendarEvent[] = [
+    { title: 'Design review', start: '2026-10-12', meta: { category: 'work', recordId: 42 } },
+]
+
+const openEvent = (event: FullCalendarEvent) => router.push(`/records/${event.meta?.recordId}`)
+</script>
+```
+
+### getEventColor
+
+Sets the color of each event with a function, so you can map your own data to the `ColorAccent` colors. It wins over the `color` of the event, and when it returns `undefined` the `color` of the event is used (primary brand by default). The colors are always the accent tokens of the theme, never raw colors.
+
+```vue
+<template>
+    <FullCalendar :events :getEventColor="getColor" />
+</template>
+
+<script setup lang="ts">
+const colors: Record<string, ColorAccent> = {
+    work: ColorAccent.INFO,
+    personal: ColorAccent.SUCCESS,
+    deadline: ColorAccent.DANGER,
+}
+
+const getColor = (event: FullCalendarEvent) => colors[event.meta?.category as string]
+</script>
+```
+
+- **Type:** `(event: FullCalendarEvent) => ColorAccent | undefined`
+
+### morePopoverAutoFlip
+
+Moves the `+N more` panel to the other side when it does not fit in the calendar: upwards in the last rows, and towards the left when it goes out on the right. Set it to `false` to always open it down and to the right (the last columns open to the left).
+
+```vue
+<template>
+    <FullCalendar :events :morePopoverAutoFlip="false" />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `true`
+
 ### maxEvents
 
-Sets how many events a day shows. The rest are collapsed into a `+N more` button that emits `more-click`.
+Sets how many events a day shows. The rest are collapsed into a `+N more` button. Clicking it opens a panel over the day with all of its events, and emits `more-click`.
 
 ```vue
 <template>
@@ -261,6 +331,19 @@ options: [
 ---
 ::
 
+### headingTag
+
+Sets the HTML tag of the month title, so the heading level fits the outline of your page. It accepts `h1` to `h6`.
+
+```vue
+<template>
+    <FullCalendar headingTag="h3" />
+</template>
+```
+
+- **Type:** `HeadingTag`
+- **Default:** `'h2'`
+
 ### disabled
 
 Disables the navigation, the days and the events.
@@ -317,7 +400,9 @@ options: [
 ---
 ::
 
-The `Today` and `+N more` texts come from `useDSConfig().calendar`.
+The `+N more` button has `aria-haspopup="dialog"` and `aria-expanded`. The panel is a `dialog` named after the date, and `Escape` closes it and returns the focus to the day. It also closes when you click outside, click a day, pick an event or change the month.
+
+The `Today` and `+N more` texts come from `useDSConfig().calendar`, and the close button text from `useDSConfig().actions`.
 
 ## Emits
 
@@ -327,7 +412,7 @@ options: [
     { value: "@day-click", description: "Emitted with `{ date, key, isDisabled }` when a day is clicked." },
     { value: "@event-click", description: "Emitted with the `FullCalendarEvent` when an event is clicked. The day is not selected." },
     { value: "@month-change", description: "Emitted with `{ year, month, from, to }` when the visible month changes. `month` goes from 1 to 12, and `from` and `to` are the first and last day of the month as ISO dates, so you can load its events." },
-    { value: "@more-click", description: "Emitted with `{ date, events }` when a `+N more` button is clicked. `events` are all the events of the day." },
+    { value: "@more-click", description: "Emitted with `{ date, events }` when a `+N more` button is clicked, after the panel opens. `events` are all the events of the day." },
     { value: "@update:modelValue", description: "Emitted with the new ISO date when a day is selected." },
 ]
 ---
@@ -357,6 +442,22 @@ const loadEvents = async ({ from, to }: CalendarMonthEvent) => {
     events.value = await fetchEvents(from, to)
 }
 </script>
+```
+
+#### Custom panel
+
+```vue
+<template>
+    <FullCalendar :events>
+        <template #more-popover="{ label, events, close }">
+            <p class="font-semibold">{{ label }}</p>
+            <ul>
+                <li v-for="event in events" :key="event.id">{{ event.title }}</li>
+            </ul>
+            <ActionButton text="Done" @click="close" />
+        </template>
+    </FullCalendar>
+</template>
 ```
 
 #### TypeScript Interface
