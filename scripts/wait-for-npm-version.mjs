@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { execFileSync } from "node:child_process"
+import { execSync } from "node:child_process"
 import { readFileSync } from "node:fs"
 import path from "node:path"
 import { fileURLToPath } from "node:url"
@@ -24,10 +24,9 @@ const { version } = JSON.parse(
 // The registry can take a few seconds to list a version right after `npm publish`; rebuilding the release history before then reads stale data.
 const isPublished = () => {
     try {
-        const out = execFileSync(
-            "npm",
-            ["view", `${packageName}@${version}`, "version", "--json", "--prefer-online"],
-            { encoding: "utf8", stdio: ["ignore", "pipe", "ignore"], shell: true },
+        const out = execSync(
+            `npm view ${packageName}@${version} version --json --prefer-online`,
+            { encoding: "utf8", stdio: ["ignore", "pipe", "ignore"] },
         ).trim()
 
         return out.replace(/"/g, "") === version
