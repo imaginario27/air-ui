@@ -5,6 +5,29 @@ All notable changes to this package are documented in this file.
 Historical releases were reconstructed from git history (GitHub repository) and npm publish dates.
 Future releases will include detailed entries generated with Changesets.
 
+## 1.23.0 - 2026-10-12
+
+Release type: minor.
+Commits found in range: 10.
+
+### Added
+
+1. add day, week, year and agenda views to `FullCalendar` ([e0a3577](https://github.com/imaginario27/air-ui/commit/e0a3577a2fbab86a0018d9850f8b3fef8b441b0a))
+2. add `headingTag`, `+N more` popover, `meta` and `getEventColor` to `FullCalendar` ([2de061a](https://github.com/imaginario27/air-ui/commit/2de061a7617927a6f473c3e542df19b4eefcb7a6))
+3. add `FullCalendar` month view and use active color for selected day ([fdeeb57](https://github.com/imaginario27/air-ui/commit/fdeeb57a654f47bb21ef583559e0338067a564d5))
+4. add `autoFlip` to dropdown and picker fields ([9671126](https://github.com/imaginario27/air-ui/commit/96711264f6ba3d0765df9765f7bca4383e61b9ab))
+5. add `unit`, markers and day popover to `Calendar` ([b2cc4c6](https://github.com/imaginario27/air-ui/commit/b2cc4c656b4ddc4c9c5073f27aef9dd8812408b2))
+6. add `TimePicker` and `TimePickerField` and extend date types ([23a95a5](https://github.com/imaginario27/air-ui/commit/23a95a5400a43b37000708f8bf1ea3e07529c6a7))
+7. add `Calendar` and `DatePickerField` components ([cdeb554](https://github.com/imaginario27/air-ui/commit/cdeb5547feaa1d12c74f3b665b6d073a38db6a0c))
+8. add `ComboboxField` and share `Easing` across sliders ([eb77145](https://github.com/imaginario27/air-ui/commit/eb77145ebd5bf30775160c9db72b012eb75c6a89))
+9. add `Carousel` component ([2e0f1a6](https://github.com/imaginario27/air-ui/commit/2e0f1a63938a0526c642bf42d36320f673c9fb1e))
+
+### Changed
+
+1. format codebase with prettier ([6516dfc](https://github.com/imaginario27/air-ui/commit/6516dfc831961c291b25a79be9ad219cf6284bb3))
+
+- Package: @imaginario27/air-ui-ds.
+
 ## 1.22.2 - 2026-10-11
 
 Release type: patch.
