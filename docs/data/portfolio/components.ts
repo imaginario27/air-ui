@@ -250,7 +250,7 @@ export const componentList: ComponentPortfolioItem[] = [
     {
         title: 'ComboboxField',
         to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/combobox-field`,
-        imgUrl: `/images/thumbnails/components/select-field.png`,
+        imgUrl: `/images/thumbnails/components/combobox-field.png`,
     },
     {
         title: 'DataField',
