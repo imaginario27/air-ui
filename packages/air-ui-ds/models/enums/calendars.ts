@@ -11,6 +11,15 @@ export enum CalendarUnit {
     MONTH = 'month',
 }
 
+// How the full calendar shows its dates
+export enum FullCalendarView {
+    DAY = 'day',
+    WEEK = 'week',
+    MONTH = 'month',
+    YEAR = 'year',
+    AGENDA = 'agenda',
+}
+
 export enum CalendarView {
     DAYS = 'days',
     MONTHS = 'months',

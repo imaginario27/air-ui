@@ -17,16 +17,41 @@ export interface CalendarMarker {
 }
 
 // An event of the full calendar. Dates are ISO strings; `end` is the last day (inclusive) of a multi-day event.
-// An event with a `time` (HH:mm) on a single day is shown as a dot, any other one as a bar.
+// An event with a `time` (HH:mm) on a single day is shown as a dot in the month, and as a block of the hour grid in the
+// day and week (from `time` to `endTime`, one hour long without it). Any other event is a bar (all day).
 export interface FullCalendarEvent {
     id?: string
     title: string
     start: string
     end?: string
     time?: string
+    endTime?: string
     color?: ColorAccent
     // Anything else you need back in the event handlers and slots, such as a category or an id from your API
     meta?: Record<string, unknown>
+}
+
+// Payload of range-change: the view and the first and last day (ISO dates) it shows
+export interface FullCalendarRangeEvent {
+    view: FullCalendarView
+    from: string
+    to: string
+}
+
+// Payload of slot-click: the day and the time (HH:mm, in steps of 30 minutes) of the hour slot that was clicked
+export interface FullCalendarSlotEvent {
+    date: string
+    time: string
+}
+
+// A timed event placed on the hour grid of a day. Times are minutes since midnight, and the event is
+// the `column` (0-based) of `columns` that share the same hours.
+export interface FullCalendarTimedBlock {
+    event: FullCalendarEvent
+    start: number
+    end: number
+    column: number
+    columns: number
 }
 
 // Payload of more-click: the day and all of its events

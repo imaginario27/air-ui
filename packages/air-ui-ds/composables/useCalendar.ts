@@ -129,6 +129,9 @@ export const addMonths = (date: Date, amount: number): Date => {
     return target
 }
 
+export const addDays = (date: Date, amount: number): Date =>
+    new Date(date.getFullYear(), date.getMonth(), date.getDate() + amount)
+
 // Classes shared by the calendar and the time picker for each accent color
 export const getCalendarAccent = (color?: string) => {
     const variants = {
