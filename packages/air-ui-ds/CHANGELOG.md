@@ -5,6 +5,23 @@ All notable changes to this package are documented in this file.
 Historical releases were reconstructed from git history (GitHub repository) and npm publish dates.
 Future releases will include detailed entries generated with Changesets.
 
+## 1.24.0 - 2026-10-13
+
+Release type: minor.
+Commits found in range: 4.
+
+### Added
+
+1. add edit button to the event popover of `FullCalendar` ([9497ca3](https://github.com/imaginario27/air-ui/commit/9497ca31ba78206c13090bcc43f705b10dfc74e5))
+2. add done and clear buttons to `DatePickerField` ([eb4aec0](https://github.com/imaginario27/air-ui/commit/eb4aec0f483f9036149ea4ff715d3d4b1127dc78))
+3. add event popover, add and delete to `FullCalendar` ([42d64f8](https://github.com/imaginario27/air-ui/commit/42d64f837d4d16d4baaf12a8d81eac7c4c24a37c))
+
+### Fixed
+
+1. improve form field contrast inside `ModalDialog` in dark mode ([ffacbc1](https://github.com/imaginario27/air-ui/commit/ffacbc13d6d878f4a1fe6c41d1e59e6c8d6a5921))
+
+- Package: @imaginario27/air-ui-ds.
+
 ## 1.23.0 - 2026-10-12
 
 Release type: minor.
