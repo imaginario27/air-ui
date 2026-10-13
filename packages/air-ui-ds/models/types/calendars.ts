@@ -44,6 +44,12 @@ export interface FullCalendarSlotEvent {
     time: string
 }
 
+// Payload of event-add: the day (and the time, in the day and week views) of the cell that was clicked
+export interface FullCalendarAddEvent {
+    date: string
+    time?: string
+}
+
 // A timed event placed on the hour grid of a day. Times are minutes since midnight, and the event is
 // the `column` (0-based) of `columns` that share the same hours.
 export interface FullCalendarTimedBlock {

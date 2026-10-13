@@ -67,7 +67,7 @@
                             gridColumn: `${segment.column + 1} / span ${segment.span}`,
                             gridRow: segment.lane + 1,
                         }"
-                        @click="emit('event-click', segment.event)"
+                        @click="emit('event-click', segment.event, $event.currentTarget)"
                     >
                         <slot name="event" :event="segment.event">
                             <span class="truncate">{{ segment.event.title }}</span>
@@ -113,13 +113,14 @@
                             'rounded text-left text-xs',
                             'border border-background-container-surface',
                             fillClass(block.event),
-                            'text-text-neutral-on-filled hover:opacity-90',
+                            'text-text-neutral-on-filled',
+                            isPastEvent(block.event) ? 'opacity-disabled' : 'hover:opacity-90',
                             'focus-visible:outline-none focus-visible:ring-2',
                             accent.ring,
                             disabled ? 'cursor-not-allowed' : 'cursor-pointer',
                         ]"
                         :style="blockStyle(block)"
-                        @click.stop="emit('event-click', block.event)"
+                        @click.stop="emit('event-click', block.event, $event.currentTarget)"
                     >
                         <slot name="event" :event="block.event">
                             <span class="block truncate font-semibold">{{ block.event.title }}</span>
@@ -194,7 +195,7 @@ let timer: ReturnType<typeof setInterval> | null = null
 const gutterWidth = '3.5rem'
 const gridHeight = 24 * FULL_CALENDAR_HOUR_HEIGHT
 
-const { accent, fillClass, eventClass, eventLabel } = useFullCalendarEventStyles(props)
+const { accent, fillClass, isPastEvent, eventClass, eventLabel } = useFullCalendarEventStyles(props)
 
 // Columns: the hours and then one per day
 const gutterColumns = computed(() => `${gutterWidth} minmax(0, 1fr)`)

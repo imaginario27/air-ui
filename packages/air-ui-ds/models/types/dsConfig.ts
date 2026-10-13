@@ -61,6 +61,7 @@ export interface DesignSystemConfig {
         viewText: () => string
         allDayText: () => string
         noEventsText: () => string
+        deleteEventText: () => string
         previousText: () => string
         nextText: () => string
     }

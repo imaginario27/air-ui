@@ -4,7 +4,7 @@
         role="group"
         :aria-label="ariaLabel"
         :class="[
-            'flex flex-col',
+            'relative flex flex-col',
             'w-full max-w-full',
             isBoxed && 'rounded-lg border border-border-default bg-background-container-surface',
             'text-text-default',
@@ -137,7 +137,7 @@
                                 gridColumn: `${segment.column + 1} / span ${segment.span}`,
                                 gridRow: segment.lane + 1,
                             }"
-                            @click.stop="emit('event-click', segment.event)"
+                            @click.stop="handleEventClick(segment.event, $event.currentTarget as HTMLElement)"
                         >
                             <slot name="event" :event="segment.event">
                                 <span
@@ -177,9 +177,9 @@
                     <!-- All the events of a day -->
                     <Transition
                         enter-active-class="transition duration-150 ease-out"
-                        enter-from-class="opacity-0"
+                        enter-from-class="opacity-0 scale-95"
                         leave-active-class="transition duration-100 ease-in"
-                        leave-to-class="opacity-0"
+                        leave-to-class="opacity-0 scale-95"
                     >
                         <div
                             v-if="moreColumn(week) >= 0"
@@ -218,7 +218,7 @@
                                         type="button"
                                         :aria-label="eventLabel(event)"
                                         :class="[eventClass(toSegment(event)), 'h-6']"
-                                        @click="handleMoreEventClick(event)"
+                                        @click="handleMoreEventClick(event, $event.currentTarget as HTMLElement)"
                                     >
                                         <slot name="event" :event="event">
                                             <span
@@ -257,8 +257,8 @@
             :headerClass="timeGridHeaderClass"
             :disabled
             @day-click="openDay"
-            @event-click="emit('event-click', $event)"
-            @slot-click="emit('slot-click', $event)"
+            @event-click="handleEventClick"
+            @slot-click="handleSlotClick"
         >
             <template v-if="$slots.event" #event="slotProps">
                 <slot name="event" v-bind="slotProps" />
@@ -291,12 +291,36 @@
             :getEventColor
             :disabled
             @day-click="openDay"
-            @event-click="emit('event-click', $event)"
+            @event-click="handleEventClick"
         >
             <template v-if="$slots.event" #event="slotProps">
                 <slot name="event" v-bind="slotProps" />
             </template>
         </FullCalendarAgendaView>
+
+        <!-- Event -->
+        <Transition
+            enter-active-class="transition duration-150 ease-out"
+            enter-from-class="opacity-0 scale-95"
+            leave-active-class="transition duration-100 ease-in"
+            leave-to-class="opacity-0 scale-95"
+        >
+            <FullCalendarEventPopover
+                v-if="eventPopover"
+                :event="eventPopover.event"
+                :anchor="eventPopover.anchor"
+                :locale
+                :color
+                :getEventColor
+                :isDeletable
+                @close="closeEventPopover"
+                @delete="handleEventDelete"
+            >
+                <template v-if="$slots['event-popover']" #default="slotProps">
+                    <slot name="event-popover" v-bind="slotProps" />
+                </template>
+            </FullCalendarEventPopover>
+        </Transition>
     </div>
 </template>
 
@@ -361,6 +385,18 @@ const props = defineProps({
         type: Boolean as PropType<boolean>,
         default: true,
     },
+    hasEventPopover: {
+        type: Boolean as PropType<boolean>,
+        default: true,
+    },
+    isAddable: {
+        type: Boolean as PropType<boolean>,
+        default: false,
+    },
+    isDeletable: {
+        type: Boolean as PropType<boolean>,
+        default: false,
+    },
     headingTag: {
         type: String as PropType<HeadingTag>,
         default: 'h2',
@@ -385,6 +421,8 @@ const emit = defineEmits([
     'update:view',
     'day-click',
     'event-click',
+    'event-add',
+    'event-delete',
     'more-click',
     'slot-click',
     'month-change',
@@ -475,6 +513,7 @@ const setView = (view: FullCalendarView) => {
     if (!availableViews.value.includes(view) || view === activeView.value) return
 
     closeMore()
+    closeEventPopover()
     activeView.value = view
     emit('update:view', view)
 }
@@ -527,6 +566,7 @@ const range = computed(() => {
 })
 
 watch([activeView, () => range.value.from, () => range.value.to], ([view, from, to]) => {
+    closeEventPopover()
     emit('range-change', { view, from, to } satisfies FullCalendarRangeEvent)
 })
 
@@ -584,7 +624,8 @@ const moreDay = computed(() =>
 
 const moreColumn = (week: CalendarWeek) => week.days.findIndex((day) => day.iso === moreDate.value)
 
-// The panel starts at the column of the day. Without room it opens inwards: the last columns to the left, and the last rows upwards
+// The panel is centered on the column of the day in the middle columns, and starts at it in the first ones. Without room it
+// opens inwards: the last columns to the left, and the last rows upwards
 const morePlacement = ref({ vertical: 'top', horizontal: 'left' })
 let moreElement: HTMLElement | null = null
 
@@ -592,10 +633,13 @@ const setMoreElement = (element: unknown) => {
     moreElement = element as HTMLElement | null
 }
 
-const morePanelStyle = (column: number) =>
-    morePlacement.value.horizontal === 'left'
-        ? { left: `calc(${column} / 7 * 100%)` }
-        : { right: `calc(${6 - column} / 7 * 100%)` }
+const morePanelStyle = (column: number) => {
+    const { horizontal } = morePlacement.value
+
+    if (horizontal === 'center') return { left: `calc(${column + 0.5} / 7 * 100%)`, transform: 'translateX(-50%)' }
+
+    return horizontal === 'left' ? { left: `calc(${column} / 7 * 100%)` } : { right: `calc(${6 - column} / 7 * 100%)` }
+}
 
 // Moves the panel to the other side when it goes out of the calendar and there is more room there
 const flipMore = () => {
@@ -629,7 +673,10 @@ const toSegment = (event: FullCalendarEvent): FullCalendarSegment => ({
 const openMore = (date: string) => {
     const column = visibleWeeks.value.flatMap((week) => week.days).findIndex((day) => day.iso === date) % 7
 
-    morePlacement.value = { vertical: 'top', horizontal: column <= 4 ? 'left' : 'right' }
+    morePlacement.value = {
+        vertical: 'top',
+        horizontal: column <= 1 ? 'left' : column <= 4 ? 'center' : 'right',
+    }
     moreDate.value = date
 
     // Measured once it renders and before the browser paints, so it never shows on the wrong side
@@ -642,13 +689,52 @@ const closeMore = () => {
     moreDate.value = null
 }
 
-const handleMoreEventClick = (event: FullCalendarEvent) => {
+const handleMoreEventClick = (event: FullCalendarEvent, target: HTMLElement) => {
     closeMore()
-    emit('event-click', event)
+    handleEventClick(event, target)
 }
 
-// Escape closes the panel first, so a parent that closes on Escape stays open
+// The popover of an event, opened by clicking it. Deleting is up to the parent: it may need a request
+const eventPopover = ref<{ event: FullCalendarEvent; anchor: DOMRectLike } | null>(null)
+let eventPopoverTarget: HTMLElement | null = null
+
+type DOMRectLike = { top: number; left: number; width: number; height: number }
+
+const handleEventClick = (event: FullCalendarEvent, target: HTMLElement) => {
+    emit('event-click', event)
+
+    if (!props.hasEventPopover || !root.value) return
+
+    const bounds = root.value.getBoundingClientRect()
+    const rect = target.getBoundingClientRect()
+
+    closeMore()
+    eventPopoverTarget = target
+    eventPopover.value = {
+        event,
+        anchor: { top: rect.top - bounds.top, left: rect.left - bounds.left, width: rect.width, height: rect.height },
+    }
+}
+
+const closeEventPopover = () => {
+    eventPopover.value = null
+}
+
+const handleEventDelete = (event: FullCalendarEvent) => {
+    closeEventPopover()
+    emit('event-delete', event)
+}
+
+// Escape closes the popover or the panel first, so a parent that closes on Escape stays open
 const handleEscape = (event: KeyboardEvent) => {
+    if (eventPopover.value) {
+        event.stopPropagation()
+        closeEventPopover()
+        eventPopoverTarget?.focus()
+
+        return
+    }
+
     if (moreDate.value === null) return
 
     event.stopPropagation()
@@ -667,6 +753,16 @@ const handleDayClick = (day: CalendarDay) => {
     closeMore()
     selectDay(day)
     emit('day-click', { date: day.iso, key: day.key, isDisabled: false } satisfies CalendarDayEvent)
+
+    if (props.isAddable) emit('event-add', { date: day.iso } satisfies FullCalendarAddEvent)
+}
+
+// An empty hour of the day or week views
+const handleSlotClick = (slot: FullCalendarSlotEvent) => {
+    closeEventPopover()
+    emit('slot-click', slot)
+
+    if (props.isAddable) emit('event-add', { date: slot.date, time: slot.time } satisfies FullCalendarAddEvent)
 }
 
 // A day picked in the week, year or agenda is selected, and shown in the day view when it is available

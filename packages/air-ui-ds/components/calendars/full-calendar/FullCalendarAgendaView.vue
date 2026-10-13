@@ -13,7 +13,7 @@
                 :disabled
                 :aria-label="group.label"
                 :class="[
-                    'flex h-9 w-28 shrink-0 items-center gap-2 self-start rounded-full px-1',
+                    'flex h-9 w-20 shrink-0 items-center gap-2 self-start rounded-full px-1 sm:w-28',
                     'focus-visible:outline-none focus-visible:ring-2',
                     accent.ring,
                     disabled ? 'cursor-not-allowed' : 'cursor-pointer',
@@ -43,13 +43,21 @@
                         'focus-visible:outline-none focus-visible:ring-2',
                         accent.ring,
                         disabled ? 'cursor-not-allowed' : 'cursor-pointer hover:bg-background-neutral-hover',
+                        isPastEvent(item.event) && 'opacity-disabled',
                     ]"
-                    @click="emit('event-click', item.event)"
+                    @click="emit('event-click', item.event, $event.currentTarget)"
                 >
                     <slot name="event" :event="item.event">
-                        <span :class="['h-3 w-3 shrink-0 rounded-full', dotClass(item.event)]" />
-                        <span class="w-32 shrink-0 text-text-neutral-subtle">{{ item.time }}</span>
-                        <span class="truncate font-semibold">{{ item.event.title }}</span>
+                        <!-- On small screens the title goes below the time, so it has room -->
+                        <div
+                            class="grid min-w-0 flex-1 grid-cols-[auto_minmax(0,1fr)] items-center gap-x-3 gap-y-0.5 sm:flex sm:gap-4"
+                        >
+                            <span :class="['h-3 w-3 shrink-0 rounded-full', dotClass(item.event)]" />
+                            <span class="text-text-neutral-subtle sm:w-32 sm:shrink-0">{{ item.time }}</span>
+                            <span class="col-start-2 min-w-0 font-semibold sm:col-auto sm:truncate">
+                                {{ item.event.title }}
+                            </span>
+                        </div>
                     </slot>
                 </button>
             </div>
@@ -92,7 +100,7 @@ const emit = defineEmits(['day-click', 'event-click'])
 
 // States
 const dsConfig = useDSConfig()
-const { accent, dotClass } = useFullCalendarEventStyles(props)
+const { accent, dotClass, isPastEvent } = useFullCalendarEventStyles(props)
 
 const noEventsLabel = computed(() => dsConfig.calendar.noEventsText())
 const todayISO = toISODate(new Date())
