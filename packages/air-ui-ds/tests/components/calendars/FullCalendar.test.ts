@@ -195,7 +195,8 @@ describe('FullCalendar.vue', () => {
                 .trigger('click')
 
             expect(wrapper.emitted('event-click')![0]![0]).toMatchObject({ title: 'Four' })
-            expect(wrapper.find('[role="dialog"]').exists()).toBe(false)
+            expect(wrapper.find('[role="dialog"]').attributes('aria-label')).toBe('Four')
+            expect(wrapper.findAll('[role="dialog"]')).toHaveLength(1)
         })
 
         it('replaces its content with the more-popover slot', async () => {
@@ -290,6 +291,186 @@ describe('FullCalendar.vue', () => {
 
         expect(dayButton(wrapper, '2026-10-13').attributes('tabindex')).toBe('0')
         expect(dayButton(wrapper, '2026-10-12').attributes('tabindex')).toBe('-1')
+    })
+})
+
+describe('FullCalendar.vue past events', () => {
+    afterEach(() => vi.useRealTimers())
+
+    const past = [
+        { title: 'Yesterday', start: '2026-10-11' },
+        { title: 'Today bar', start: '2026-10-12' },
+        { title: 'Ended', start: '2026-10-12', time: '08:00', endTime: '09:00' },
+        { title: 'Ongoing', start: '2026-10-12', time: '11:30', endTime: '13:00' },
+        { title: 'Later', start: '2026-10-12', time: '15:00' },
+        { title: 'Trip', start: '2026-10-10', end: '2026-10-12' },
+    ]
+
+    it('fades the events that already ended', () => {
+        vi.useFakeTimers({ toFake: ['Date'] })
+        vi.setSystemTime(new Date(2026, 9, 12, 12, 0))
+
+        const wrapper = factory({ events: past, maxEvents: 10 })
+        const faded = (title: string) => eventButton(wrapper, title).classes().includes('opacity-disabled')
+
+        expect(faded('Yesterday')).toBe(true)
+        expect(faded('Ended')).toBe(true)
+        expect(faded('Today bar')).toBe(false)
+        expect(faded('Ongoing')).toBe(false)
+        expect(faded('Later')).toBe(false)
+        expect(faded('Trip')).toBe(false)
+    })
+
+    it('fades past events in the day view too', () => {
+        vi.useFakeTimers({ toFake: ['Date'] })
+        vi.setSystemTime(new Date(2026, 9, 12, 12, 0))
+
+        const wrapper = factory({ view: 'day', events: past })
+        const blocks = wrapper.findAll('[data-test="full-calendar-day-column"] button')
+
+        expect(blocks.find((block) => block.text().includes('Ended'))!.classes()).toContain('opacity-disabled')
+        expect(blocks.find((block) => block.text().includes('Later'))!.classes()).not.toContain('opacity-disabled')
+    })
+})
+
+describe('FullCalendar.vue event popover, add and delete', () => {
+    const popover = (wrapper: ReturnType<typeof factory>) => wrapper.find('[data-test="full-calendar-event-popover"]')
+    const deleteButton = (wrapper: ReturnType<typeof factory>) =>
+        wrapper.find('[data-test="full-calendar-event-delete"]')
+
+    it('opens a popover with the information of the event when it is clicked', async () => {
+        const wrapper = factory()
+
+        expect(popover(wrapper).exists()).toBe(false)
+
+        await eventButton(wrapper, 'Trip').trigger('click')
+
+        expect(popover(wrapper).attributes('aria-label')).toBe('Trip')
+        expect(popover(wrapper).text()).toContain('Wednesday, October 14')
+        expect(popover(wrapper).text()).toContain('All day')
+    })
+
+    it('shows the time of a timed event in the popover', async () => {
+        const wrapper = factory({ events: [{ title: 'Review', start: '2026-10-12', time: '10:00', endTime: '11:00' }] })
+
+        await eventButton(wrapper, 'Review').trigger('click')
+
+        expect(popover(wrapper).text()).toContain('10:00 – 11:00')
+    })
+
+    it('does not open the popover without hasEventPopover, but still emits event-click', async () => {
+        const wrapper = factory({ hasEventPopover: false })
+
+        await eventButton(wrapper, 'Trip').trigger('click')
+
+        expect(wrapper.emitted('event-click')).toHaveLength(1)
+        expect(popover(wrapper).exists()).toBe(false)
+    })
+
+    it('closes the popover with its button and with Escape', async () => {
+        const wrapper = factory({}, true)
+
+        await eventButton(wrapper, 'Trip').trigger('click')
+        await popover(wrapper).find('button[aria-label="Close"]').trigger('click')
+        expect(popover(wrapper).exists()).toBe(false)
+
+        await eventButton(wrapper, 'Trip').trigger('click')
+        await wrapper.trigger('keydown', { key: 'Escape' })
+        expect(popover(wrapper).exists()).toBe(false)
+    })
+
+    it('has no edit button unless isEditable', async () => {
+        const wrapper = factory()
+
+        await eventButton(wrapper, 'Trip').trigger('click')
+
+        expect(popover(wrapper).find('[data-test="full-calendar-event-edit"]').exists()).toBe(false)
+    })
+
+    it('emits event-edit with the event and closes the popover', async () => {
+        const wrapper = factory({ isEditable: true }, true)
+
+        await eventButton(wrapper, 'Trip').trigger('click')
+        await popover(wrapper).find('[data-test="full-calendar-event-edit"]').trigger('click')
+
+        expect(wrapper.emitted('event-edit')![0]).toEqual([events[1]])
+        expect(popover(wrapper).exists()).toBe(false)
+    })
+
+    it('has no delete button unless isDeletable', async () => {
+        const wrapper = factory()
+
+        await eventButton(wrapper, 'Trip').trigger('click')
+
+        expect(deleteButton(wrapper).exists()).toBe(false)
+    })
+
+    it('emits event-delete with the event, without removing it, and closes the popover', async () => {
+        const wrapper = factory({ isDeletable: true }, true)
+
+        await eventButton(wrapper, 'Trip').trigger('click')
+        await deleteButton(wrapper).trigger('click')
+
+        expect(wrapper.emitted('event-delete')![0]).toEqual([events[1]])
+        expect(popover(wrapper).exists()).toBe(false)
+        expect(eventButton(wrapper, 'Trip').exists()).toBe(true)
+    })
+
+    it('replaces the content of the popover with the event-popover slot', async () => {
+        const wrapper = mount(FullCalendar, {
+            props: { modelValue: '2026-10-12', events, isDeletable: true },
+            slots: {
+                'event-popover': `<template #event-popover="{ event, remove }">
+                    <button data-test="custom" @click="remove">Remove {{ event.title }}</button>
+                </template>`,
+            },
+            attachTo: document.body,
+        })
+
+        await eventButton(wrapper, 'Trip').trigger('click')
+        expect(wrapper.find('[data-test="custom"]').text()).toBe('Remove Trip')
+
+        await wrapper.find('[data-test="custom"]').trigger('click')
+        expect(wrapper.emitted('event-delete')![0]).toEqual([events[1]])
+    })
+
+    it('emits event-add with the date when a day is clicked and isAddable', async () => {
+        const wrapper = factory({ isAddable: true })
+
+        await dayButton(wrapper, '2026-10-20').trigger('click')
+
+        expect(wrapper.emitted('event-add')![0]).toEqual([{ date: '2026-10-20' }])
+    })
+
+    it('does not emit event-add without isAddable or when disabled', async () => {
+        const plain = factory()
+        const disabled = factory({ isAddable: true, disabled: true })
+
+        await dayButton(plain, '2026-10-20').trigger('click')
+        await dayButton(disabled, '2026-10-20').trigger('click')
+
+        expect(plain.emitted('event-add')).toBeUndefined()
+        expect(disabled.emitted('event-add')).toBeUndefined()
+    })
+
+    it('emits event-add with the date and time of a clicked hour', async () => {
+        const wrapper = factory({ view: 'day', isAddable: true })
+
+        await wrapper.find('[data-test="full-calendar-day-column"]').trigger('click', { clientY: 100 })
+
+        expect(wrapper.emitted('event-add')![0]).toEqual([{ date: '2026-10-12', time: '01:30' }])
+        expect(wrapper.emitted('slot-click')).toHaveLength(1)
+    })
+
+    it('opens the popover of an event of the day view', async () => {
+        const wrapper = factory({
+            view: 'day',
+            events: [{ title: 'Haircut', start: '2026-10-12', time: '16:30' }],
+        })
+
+        await wrapper.find('[data-test="full-calendar-day-column"] button').trigger('click')
+
+        expect(popover(wrapper).attributes('aria-label')).toBe('Haircut')
     })
 })
 

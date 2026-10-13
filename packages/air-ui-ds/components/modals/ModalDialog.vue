@@ -48,7 +48,7 @@
                             tabindex="-1"
                             :aria-labelledby="ariaLabelledby"
                             :class="[
-                                'bg-background-surface rounded-lg shadow-xl',
+                                'bg-background-container-surface rounded-lg shadow-xl',
                                 'relative w-full my-8',
                                 'overflow-visible',
                                 cardClass,
@@ -64,7 +64,14 @@
                                 @click="closeModal"
                             />
 
-                            <div ref="contentRef" :class="['p-4 md:p-6', cardClass]">
+                            <div
+                                ref="contentRef"
+                                :class="[
+                                    'p-4 md:p-6',
+                                    '[--color-background-container-surface:var(--color-background-surface)]',
+                                    cardClass,
+                                ]"
+                            >
                                 <slot />
                             </div>
                         </div>

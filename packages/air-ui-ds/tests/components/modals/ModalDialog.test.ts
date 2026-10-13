@@ -88,7 +88,7 @@ describe('ModalDialog', () => {
     it('does not close when clicking inside modal card content', async () => {
         const wrapper = factory({ closeOnClickOutside: true })
 
-        const card = document.querySelector('.bg-background-surface')
+        const card = document.querySelector('.bg-background-container-surface')
         card!.dispatchEvent(new MouseEvent('click', { bubbles: true }))
         await nextTick()
 

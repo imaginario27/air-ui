@@ -97,31 +97,52 @@
                 leave-to-class="opacity-0 -translate-y-1"
             >
                 <div v-if="isInline || isOpen" ref="panel" :class="panelClass" @keydown.esc.stop="close">
-                    <Calendar
-                        :id="isInline ? id : undefined"
-                        ref="calendar"
-                        v-bind="calendarProps"
-                        :modelValue="calendarValue"
-                        :isBoxed="isCalendarBoxed"
-                        :class="isInline && !isDateTime && hasError && '!border-border-error'"
-                        @update:modelValue="handleCalendarSelect"
-                        @day-click="emit('day-click', $event)"
-                        @day-hover="emit('day-hover', $event)"
-                        @day-hover-end="emit('day-hover-end')"
-                        @month-change="emit('month-change', $event)"
-                    >
-                        <template v-if="$slots['day-popover']" #day-popover="slotProps">
-                            <slot name="day-popover" v-bind="slotProps" />
-                        </template>
-                    </Calendar>
-                    <TimePicker
-                        v-if="isDateTime"
-                        v-bind="timePickerProps"
-                        :modelValue="timeValue"
-                        :isBoxed="false"
-                        class="border-t border-border-default pt-3 sm:border-l sm:border-t-0 sm:pl-3 sm:pt-0"
-                        @update:modelValue="handleTimeSelect"
-                    />
+                    <div :class="isDateTime ? 'flex flex-col gap-3 sm:flex-row' : 'contents'">
+                        <Calendar
+                            :id="isInline ? id : undefined"
+                            ref="calendar"
+                            v-bind="calendarProps"
+                            :modelValue="calendarValue"
+                            :isBoxed="isCalendarBoxed"
+                            :class="isInline && !isDateTime && hasError && '!border-border-error'"
+                            @update:modelValue="handleCalendarSelect"
+                            @day-click="emit('day-click', $event)"
+                            @day-hover="emit('day-hover', $event)"
+                            @day-hover-end="emit('day-hover-end')"
+                            @month-change="emit('month-change', $event)"
+                        >
+                            <template v-if="$slots['day-popover']" #day-popover="slotProps">
+                                <slot name="day-popover" v-bind="slotProps" />
+                            </template>
+                        </Calendar>
+                        <TimePicker
+                            v-if="isDateTime"
+                            v-bind="timePickerProps"
+                            :modelValue="timeValue"
+                            :isBoxed="false"
+                            class="border-t border-border-default pt-3 sm:border-l sm:border-t-0 sm:pl-3 sm:pt-0"
+                            @update:modelValue="handleTimeSelect"
+                        />
+                    </div>
+
+                    <!-- Done: multiple and date and time have no last pick that closes the panel -->
+                    <div v-if="hasDoneButton" class="flex justify-between gap-2 border-t border-border-default pt-3">
+                        <ActionButton
+                            v-if="hasValue"
+                            :text="resolvedClearText"
+                            :styleType="ButtonStyleType.DELETE_TRANSPARENT"
+                            :size="ButtonSize.MD"
+                            @click="handleClear"
+                        />
+                        <div class="ml-auto">
+                            <ActionButton
+                                :text="resolvedDoneText"
+                                :styleType="ButtonStyleType.NEUTRAL_FILLED"
+                                :size="ButtonSize.MD"
+                                @click="close"
+                            />
+                        </div>
+                    </div>
                 </div>
             </Transition>
         </div>
@@ -306,6 +327,8 @@ const props = defineProps({
     },
     clearAriaLabel: String as PropType<string>,
     openAriaLabel: String as PropType<string>,
+    doneText: String as PropType<string>,
+    clearText: String as PropType<string>,
 })
 
 // Emits
@@ -367,6 +390,8 @@ const hasError = computed(() => props.error !== '')
 const optionalLabelText = computed(() => props.optionalLabel ?? dsConfig.forms.optionalLabelText())
 const resolvedClearAriaLabel = computed(() => props.clearAriaLabel ?? dsConfig.forms.clearSelectionText())
 const resolvedOpenAriaLabel = computed(() => props.openAriaLabel ?? dsConfig.calendar.openText())
+const resolvedDoneText = computed(() => props.doneText ?? dsConfig.calendar.doneText())
+const resolvedClearText = computed(() => props.clearText ?? dsConfig.calendar.clearText())
 
 const resolvedPlaceholder = computed(() => {
     if (props.placeholder) return props.placeholder
@@ -398,9 +423,13 @@ const { resolvedPosition } = useAutoFlip(
 
 const boxClass = 'rounded-lg border border-border-default bg-background-container-surface'
 
-// Date and time share one box; otherwise the calendar is the box
+const hasDoneButton = computed(
+    () => !isInline.value && (isDateTime.value || calendarMode.value === CalendarMode.MULTIPLE),
+)
+
+// Date and time and the panel with a done button share one box; otherwise the calendar is the box
 const isCalendarBoxed = computed(() => {
-    if (isDateTime.value) return false
+    if (isDateTime.value || hasDoneButton.value) return false
 
     return isInline.value ? props.isBoxed : true
 })
@@ -408,11 +437,7 @@ const isCalendarBoxed = computed(() => {
 const panelClass = computed(() => {
     if (isInline.value) {
         return isDateTime.value
-            ? [
-                  'flex w-fit max-w-full flex-col gap-3 sm:flex-row',
-                  props.isBoxed && ['p-3', boxClass],
-                  hasError.value && '!border-border-error',
-              ]
+            ? ['flex w-fit max-w-full', props.isBoxed && ['p-3', boxClass], hasError.value && '!border-border-error']
             : 'flex'
     }
 
@@ -420,9 +445,10 @@ const panelClass = computed(() => {
         'absolute left-0 z-50 rounded-lg shadow-lg',
         resolvedPosition.value === Position.TOP ? 'bottom-full mb-1' : 'top-full mt-1',
         isDateTime.value && [
-            'flex max-h-[calc(100vh-2rem)] max-w-[calc(100vw-2rem)] flex-col gap-3 overflow-y-auto p-3 sm:flex-row',
+            'flex max-h-[calc(100vh-2rem)] max-w-[calc(100vw-2rem)] flex-col gap-3 overflow-y-auto p-3',
             boxClass,
         ],
+        hasDoneButton.value && !isDateTime.value && ['flex flex-col gap-3 p-3', boxClass],
     ]
 })
 

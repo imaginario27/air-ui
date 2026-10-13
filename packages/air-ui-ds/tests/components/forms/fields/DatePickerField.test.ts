@@ -157,7 +157,7 @@ describe('DatePickerField.vue', () => {
             const wrapper = factory({ calendarPosition: Position.TOP })
             await wrapper.find('input').trigger('click')
 
-            expect(wrapper.findComponent({ name: 'Calendar' }).element.parentElement!.classList).toContain(
+            expect(wrapper.findComponent({ name: 'Calendar' }).element.closest('.absolute')!.classList).toContain(
                 'bottom-full',
             )
         })
@@ -230,6 +230,69 @@ describe('DatePickerField.vue', () => {
 
             expect(wrapper.emitted('update:modelValue')![0]).toEqual([['2026-10-10', '2026-10-15', '2026-10-20']])
             expect(calendarExists(wrapper)).toBe(true)
+        })
+
+        it('closes with the done button in multiple mode', async () => {
+            const wrapper = factory({ mode: CalendarMode.MULTIPLE, modelValue: ['2026-10-10'] })
+            await wrapper.find('input').trigger('click')
+
+            const done = wrapper.findAll('button').find((button) => button.text() === 'Done')!
+            await done.trigger('click')
+
+            expect(calendarExists(wrapper)).toBe(false)
+        })
+
+        it('clears the dates with the clear button and keeps the panel open', async () => {
+            const wrapper = factory({ mode: CalendarMode.MULTIPLE, modelValue: ['2026-10-10'] })
+            await wrapper.find('input').trigger('click')
+
+            const clear = wrapper.findAll('button').find((button) => button.text() === 'Clear')!
+            await clear.trigger('click')
+
+            expect(wrapper.emitted('update:modelValue')![0]).toEqual([[]])
+            expect(calendarExists(wrapper)).toBe(true)
+        })
+
+        it('hides the clear button until a date is selected', async () => {
+            const wrapper = factory({ mode: CalendarMode.MULTIPLE, modelValue: [] })
+            await wrapper.find('input').trigger('click')
+
+            expect(wrapper.findAll('button').some((button) => button.text() === 'Clear')).toBe(false)
+
+            await wrapper.setProps({ modelValue: ['2026-10-10'] })
+
+            expect(wrapper.findAll('button').some((button) => button.text() === 'Clear')).toBe(true)
+        })
+
+        it('uses doneText and clearText for the footer buttons', async () => {
+            const wrapper = factory({
+                mode: CalendarMode.MULTIPLE,
+                modelValue: ['2026-10-10'],
+                doneText: 'Listo',
+                clearText: 'Limpiar',
+            })
+            await wrapper.find('input').trigger('click')
+
+            const texts = wrapper.findAll('button').map((button) => button.text())
+            expect(texts).toContain('Listo')
+            expect(texts).toContain('Limpiar')
+        })
+
+        it('uses doneText for the done button', async () => {
+            const wrapper = factory({ mode: CalendarMode.MULTIPLE, modelValue: [], doneText: 'Listo' })
+            await wrapper.find('input').trigger('click')
+
+            expect(wrapper.findAll('button').some((button) => button.text() === 'Listo')).toBe(true)
+        })
+
+        it.each([CalendarMode.SINGLE, CalendarMode.RANGE])('has no done button in %s mode', async (mode) => {
+            const wrapper = factory({
+                mode,
+                modelValue: mode === CalendarMode.RANGE ? { start: null, end: null } : null,
+            })
+            await wrapper.find('input').trigger('click')
+
+            expect(wrapper.findAll('button').some((button) => button.text() === 'Done')).toBe(false)
         })
 
         it.each([
@@ -403,6 +466,26 @@ describe('DatePickerField.vue', () => {
                 await wrapper.find('[data-date]').trigger('click')
 
                 expect((wrapper.emitted('update:modelValue')![0]![0] as string).endsWith('T00:00')).toBe(true)
+            })
+
+            it('closes with the done button and clears with the clear button', async () => {
+                const wrapper = typed('datetime-local', { modelValue: '2026-10-15T19:30' })
+                await wrapper.find('input').trigger('click')
+
+                const button = (text: string) => wrapper.findAll('button').find((item) => item.text() === text)!
+
+                await button('Clear').trigger('click')
+                expect(wrapper.emitted('update:modelValue')![0]).toEqual([null])
+                expect(calendarExists(wrapper)).toBe(true)
+
+                await button('Done').trigger('click')
+                expect(calendarExists(wrapper)).toBe(false)
+            })
+
+            it('has no done button in the inline variant', () => {
+                const wrapper = typed('datetime-local', { variant: PickerVariant.INLINE })
+
+                expect(wrapper.findAll('button').some((item) => item.text() === 'Done')).toBe(false)
             })
 
             it('keeps the date when a time is picked', async () => {

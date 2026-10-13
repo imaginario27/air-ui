@@ -46,6 +46,8 @@ export interface DesignSystemConfig {
         previousYearText: () => string
         nextYearText: () => string
         openText: () => string
+        doneText: () => string
+        clearText: () => string
         placeholderText: () => string
         monthPlaceholderText: () => string
         weekPlaceholderText: () => string
@@ -61,6 +63,8 @@ export interface DesignSystemConfig {
         viewText: () => string
         allDayText: () => string
         noEventsText: () => string
+        editEventText: () => string
+        deleteEventText: () => string
         previousText: () => string
         nextText: () => string
     }

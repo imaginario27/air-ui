@@ -1,12 +1,132 @@
 {
-  "generatedAt": "2026-10-12T11:34:10.269Z",
+  "generatedAt": "2026-10-13T16:39:20.529Z",
   "source": "github-git-history+npm-publish-dates",
   "githubBaseUrl": "https://github.com/imaginario27/air-ui",
   "packages": [
     {
       "packageName": "@imaginario27/air-ui-ds",
-      "latestVersion": "1.23.0",
+      "latestVersion": "1.24.0",
       "entries": [
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.24.0",
+          "publishedAt": "2026-10-13",
+          "releaseType": "minor",
+          "notes": [
+            "add edit button to the event popover of `FullCalendar`",
+            "add done and clear buttons to `DatePickerField`",
+            "add event popover, add and delete to `FullCalendar`",
+            "improve form field contrast inside `ModalDialog` in dark mode"
+          ],
+          "metadata": {
+            "commitCount": 4,
+            "commits": [
+              {
+                "sha": "ffacbc13d6d878f4a1fe6c41d1e59e6c8d6a5921",
+                "shortSha": "ffacbc1",
+                "date": "2026-10-13",
+                "subject": "fix(ds): improve form field contrast inside `ModalDialog` in dark mode",
+                "normalizedSubject": "improve form field contrast inside `ModalDialog` in dark mode",
+                "type": "fixed",
+                "body": [
+                  "use `bg-background-container-surface` for the card so it differs from the page",
+                  "remap `--color-background-container-surface` to `--color-background-surface` in the content",
+                  "update `ModalDialog` test to select the card by its new background class"
+                ],
+                "affected": [
+                  "ModalDialog"
+                ],
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/ffacbc13d6d878f4a1fe6c41d1e59e6c8d6a5921",
+                "prUrl": null
+              },
+              {
+                "sha": "9497ca31ba78206c13090bcc43f705b10dfc74e5",
+                "shortSha": "9497ca3",
+                "date": "2026-10-13",
+                "subject": "feat(ds): add edit button to the event popover of `FullCalendar`",
+                "normalizedSubject": "add edit button to the event popover of `FullCalendar`",
+                "type": "added",
+                "body": [
+                  "add `isEditable` prop to show an edit button in the popover",
+                  "add `event-edit` emit, so the parent opens its form and handles async requests",
+                  "pass `edit` to the `event-popover` slot",
+                  "add `calendar.editEventText` to `useDSConfig`",
+                  "add tests for the edit button and `event-edit`"
+                ],
+                "affected": [
+                  "FullCalendar",
+                  "FullCalendarEventPopover",
+                  "useDSConfig"
+                ],
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/9497ca31ba78206c13090bcc43f705b10dfc74e5",
+                "prUrl": null
+              },
+              {
+                "sha": "eb4aec0f483f9036149ea4ff715d3d4b1127dc78",
+                "shortSha": "eb4aec0",
+                "date": "2026-10-13",
+                "subject": "feat(ds): add done and clear buttons to `DatePickerField`",
+                "normalizedSubject": "add done and clear buttons to `DatePickerField`",
+                "type": "added",
+                "body": [
+                  "add `doneText` and `clearText` props to set the texts of the footer buttons",
+                  "add `calendar.doneText` and `calendar.clearText` to `useDSConfig`",
+                  "show a done button in `CalendarMode.MULTIPLE` and in the date and time type, to close the panel",
+                  "show a clear button next to it once a value is selected, keeping the panel open",
+                  "group the calendar and the `TimePicker` in one row, so the footer spans both",
+                  "add tests for the footer buttons and their texts"
+                ],
+                "affected": [
+                  "DatePickerField",
+                  "useDSConfig"
+                ],
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/eb4aec0f483f9036149ea4ff715d3d4b1127dc78",
+                "prUrl": null
+              },
+              {
+                "sha": "42d64f837d4d16d4baaf12a8d81eac7c4c24a37c",
+                "shortSha": "42d64f8",
+                "date": "2026-10-13",
+                "subject": "feat(ds): add event popover, add and delete to `FullCalendar`",
+                "normalizedSubject": "add event popover, add and delete to `FullCalendar`",
+                "type": "added",
+                "body": [
+                  "add popover with the event info, opened when an event is clicked in every view",
+                  "add `hasEventPopover` prop and `event-popover` slot to customize it",
+                  "add `isAddable` prop and `event-add` emit for a clicked day or hour",
+                  "add `isDeletable` prop and `event-delete` emit, so the parent handles async requests",
+                  "center the popover and the `+N more` panel on their trigger, keeping them inside the calendar",
+                  "add enter and leave transition to the popovers",
+                  "fade the events that already ended",
+                  "stack the title under the time in the agenda view on small screens",
+                  "add `FullCalendarAddEvent` type and `deleteEventText` to `useDSConfig`",
+                  "add tests for the popover, add, delete and past events"
+                ],
+                "affected": [
+                  "FullCalendar",
+                  "FullCalendarAgendaView",
+                  "FullCalendarEventPopover",
+                  "FullCalendarTimeGrid",
+                  "useFullCalendarEventStyles",
+                  "useDSConfig"
+                ],
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/42d64f837d4d16d4baaf12a8d81eac7c4c24a37c",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 3,
+              "fixed": 1,
+              "changed": 0,
+              "maintenance": 0,
+              "breaking": 0
+            }
+          }
+        },
         {
           "packageName": "@imaginario27/air-ui-ds",
           "version": "1.23.0",

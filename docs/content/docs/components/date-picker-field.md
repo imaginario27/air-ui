@@ -94,7 +94,7 @@ enums:
     helpTextPosition: "Position"
     calendarPosition: "Position"
 isPreviewContentBoxed: true
-previewContentMaxWidth: 400
+previewContentMaxWidth: 600
 propsSettingsExcludedProps: ['modelValue', 'validator', 'isDateDisabled', 'displayFormat']
 ---
 ::
@@ -338,6 +338,14 @@ props: [
     },
     {
         "name": "openAriaLabel",
+        "type": "string"
+    },
+    {
+        "name": "doneText",
+        "type": "string"
+    },
+    {
+        "name": "clearText",
         "type": "string"
     }
 ]
@@ -1157,6 +1165,30 @@ Sets the `aria-label` of the calendar button. Falls back to `useDSConfig().calen
 ```vue
 <template>
     <DatePickerField id="date" openAriaLabel="Abrir calendario" />
+</template>
+```
+
+- **Type:** `string`
+
+### doneText
+
+Sets the text of the button that closes the calendar in `CalendarMode.MULTIPLE` and in the date and time type, where no pick completes the selection. Falls back to `useDSConfig().calendar.doneText()`.
+
+```vue
+<template>
+    <DatePickerField id="date" :mode="CalendarMode.MULTIPLE" doneText="Listo" />
+</template>
+```
+
+- **Type:** `string`
+
+### clearText
+
+Sets the text of the button that clears the selected value in `CalendarMode.MULTIPLE` and in the date and time type. It sits next to the done button and keeps the calendar open. Falls back to `useDSConfig().calendar.clearText()`.
+
+```vue
+<template>
+    <DatePickerField id="date" :mode="CalendarMode.MULTIPLE" clearText="Limpiar" />
 </template>
 ```
 

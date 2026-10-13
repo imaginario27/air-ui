@@ -91,6 +91,8 @@ export default defineNuxtPlugin(() => {
         previousYearText: () => 'Previous year',
         nextYearText: () => 'Next year',
         openText: () => 'Open calendar',
+        doneText: () => 'Done',
+        clearText: () => 'Clear',
         placeholderText: () => 'Select a date',
         monthPlaceholderText: () => 'Select a month',
         weekPlaceholderText: () => 'Select a week',
@@ -106,6 +108,8 @@ export default defineNuxtPlugin(() => {
         viewText: () => 'Calendar view',
         allDayText: () => 'All day',
         noEventsText: () => 'No events',
+        editEventText: () => 'Edit event',
+        deleteEventText: () => 'Delete event',
         previousText: () => 'Previous',
         nextText: () => 'Next',
     })
