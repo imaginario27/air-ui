@@ -379,6 +379,24 @@ describe('FullCalendar.vue event popover, add and delete', () => {
         expect(popover(wrapper).exists()).toBe(false)
     })
 
+    it('has no edit button unless isEditable', async () => {
+        const wrapper = factory()
+
+        await eventButton(wrapper, 'Trip').trigger('click')
+
+        expect(popover(wrapper).find('[data-test="full-calendar-event-edit"]').exists()).toBe(false)
+    })
+
+    it('emits event-edit with the event and closes the popover', async () => {
+        const wrapper = factory({ isEditable: true }, true)
+
+        await eventButton(wrapper, 'Trip').trigger('click')
+        await popover(wrapper).find('[data-test="full-calendar-event-edit"]').trigger('click')
+
+        expect(wrapper.emitted('event-edit')![0]).toEqual([events[1]])
+        expect(popover(wrapper).exists()).toBe(false)
+    })
+
     it('has no delete button unless isDeletable', async () => {
         const wrapper = factory()
 

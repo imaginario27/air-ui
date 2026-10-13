@@ -53,6 +53,7 @@ describe('useDSConfig', () => {
         expect(config.calendar.viewText()).toBe('Calendar view')
         expect(config.calendar.allDayText()).toBe('All day')
         expect(config.calendar.noEventsText()).toBe('No events')
+        expect(config.calendar.editEventText()).toBe('Edit event')
         expect(config.calendar.deleteEventText()).toBe('Delete event')
         expect(config.calendar.previousText()).toBe('Previous')
         expect(config.calendar.nextText()).toBe('Next')

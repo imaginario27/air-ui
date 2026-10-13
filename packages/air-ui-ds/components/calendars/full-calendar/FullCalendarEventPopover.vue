@@ -11,12 +11,21 @@
             'rounded-lg border border-border-default bg-background-surface p-3 shadow-lg',
         ]"
     >
-        <slot :event="event" :close="close" :remove="remove">
+        <slot :event="event" :close="close" :edit="edit" :remove="remove">
             <!-- Header -->
             <div class="flex items-center gap-2">
                 <span :class="['h-3 w-3 shrink-0 rounded-full', dotClass(event)]" />
                 <span class="min-w-0 flex-1 break-words text-sm font-semibold">{{ event.title }}</span>
                 <div class="flex shrink-0 items-center">
+                    <ActionIconButton
+                        v-if="isEditable"
+                        icon="mdi:pencil-outline"
+                        data-test="full-calendar-event-edit"
+                        :size="ButtonSize.SM"
+                        :styleType="ButtonStyleType.NEUTRAL_TRANSPARENT"
+                        :ariaLabel="editLabel"
+                        @click="edit"
+                    />
                     <ActionIconButton
                         v-if="isDeletable"
                         icon="mdi:delete-outline"
@@ -66,6 +75,10 @@ const props = defineProps({
         default: ColorAccent.PRIMARY_BRAND,
     },
     getEventColor: Function as PropType<(event: FullCalendarEvent) => ColorAccent | undefined>,
+    isEditable: {
+        type: Boolean as PropType<boolean>,
+        default: false,
+    },
     isDeletable: {
         type: Boolean as PropType<boolean>,
         default: false,
@@ -73,7 +86,7 @@ const props = defineProps({
 })
 
 // Emits
-const emit = defineEmits(['close', 'delete'])
+const emit = defineEmits(['close', 'edit', 'delete'])
 
 // States
 const dsConfig = useDSConfig()
@@ -87,6 +100,7 @@ const { dotClass } = useFullCalendarEventStyles(
     reactive({ color: toRef(props, 'color'), getEventColor: toRef(props, 'getEventColor'), disabled: false }),
 )
 
+const editLabel = computed(() => dsConfig.calendar.editEventText())
 const deleteLabel = computed(() => dsConfig.calendar.deleteEventText())
 const closeLabel = computed(() => dsConfig.actions.closeText())
 
@@ -110,8 +124,9 @@ const timeLabel = computed(() => {
     return props.event.endTime ? `${props.event.time} – ${props.event.endTime}` : (props.event.time ?? '')
 })
 
-// The deletion is done by whoever listens, as it may need a request
+// Editing and deleting are done by whoever listens, as they may need a request
 const close = () => emit('close')
+const edit = () => emit('edit', props.event)
 const remove = () => emit('delete', props.event)
 
 // Below the event and centered on it. Above it when there is no room below, and shifted when it would go out on the

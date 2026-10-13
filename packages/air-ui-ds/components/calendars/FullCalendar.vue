@@ -312,8 +312,10 @@
                 :locale
                 :color
                 :getEventColor
+                :isEditable
                 :isDeletable
                 @close="closeEventPopover"
+                @edit="handleEventEdit"
                 @delete="handleEventDelete"
             >
                 <template v-if="$slots['event-popover']" #default="slotProps">
@@ -393,6 +395,10 @@ const props = defineProps({
         type: Boolean as PropType<boolean>,
         default: false,
     },
+    isEditable: {
+        type: Boolean as PropType<boolean>,
+        default: false,
+    },
     isDeletable: {
         type: Boolean as PropType<boolean>,
         default: false,
@@ -422,6 +428,7 @@ const emit = defineEmits([
     'day-click',
     'event-click',
     'event-add',
+    'event-edit',
     'event-delete',
     'more-click',
     'slot-click',
@@ -718,6 +725,11 @@ const handleEventClick = (event: FullCalendarEvent, target: HTMLElement) => {
 
 const closeEventPopover = () => {
     eventPopover.value = null
+}
+
+const handleEventEdit = (event: FullCalendarEvent) => {
+    closeEventPopover()
+    emit('event-edit', event)
 }
 
 const handleEventDelete = (event: FullCalendarEvent) => {
