@@ -5,28 +5,22 @@
                 <ModalTitle title="Contact us" />
                 <ModalDescription>Fill in the form and we'll get back to you soon.</ModalDescription>
             </ModalHeaderGroup>
-            <Form @submit="handleSubmit" @reset="resetForm">
+            <Form @submit="showModal = false">
                 <FormRow>
                     <InputField
                         id="contact-name"
                         v-model="formData.name"
-                        v-model:error="formErrors.name"
                         label="Name"
                         placeholder="Your name"
-                        required
-                        :validator="validateField"
                     />
                 </FormRow>
                 <FormRow>
                     <InputField
                         id="contact-email"
                         v-model="formData.email"
-                        v-model:error="formErrors.email"
                         label="Email"
                         placeholder="you@example.com"
                         type="email"
-                        required
-                        :validator="validateEmail"
                     />
                 </FormRow>
                 <FormRow>
@@ -44,6 +38,7 @@
                         v-model="formData.message"
                         label="Message"
                         placeholder="Write your message"
+                        :maxLength="500"
                     />
                 </FormRow>
                 <FormActions class="justify-end">
@@ -75,20 +70,4 @@ const topics: SelectOption[] = [
     { text: 'Support', value: 'support' },
     { text: 'Sales', value: 'sales' },
 ]
-
-const { formErrors, resetForm, validateFormFields } = useForm({
-    formData,
-    requiredFields: ['name', 'email'],
-    validators: {
-        name: validateField,
-        email: validateEmail,
-    },
-})
-
-const handleSubmit = () => {
-    if (!validateFormFields()) return
-
-    showModal.value = false
-    resetForm()
-}
 </script>
