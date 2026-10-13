@@ -106,6 +106,7 @@ export default defineNuxtPlugin(() => {
         viewText: () => 'Calendar view',
         allDayText: () => 'All day',
         noEventsText: () => 'No events',
+        deleteEventText: () => 'Delete event',
         previousText: () => 'Previous',
         nextText: () => 'Next',
     })

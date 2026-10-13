@@ -59,6 +59,85 @@ props:
           start: "2026-10-29"
           time: "08:45"
           color: "neutral"
+        - id: "12"
+          title: "Mon: 1st column"
+          start: "2026-10-26"
+          time: "09:00"
+          color: "info"
+        - id: "13"
+          title: "Tue: 2nd column"
+          start: "2026-10-27"
+          color: "success"
+        - id: "14"
+          title: "Fri: 5th column"
+          start: "2026-10-30"
+          time: "12:00"
+          color: "warning"
+        - id: "15"
+          title: "Sat: 6th column"
+          start: "2026-10-31"
+          color: "danger"
+        - id: "16"
+          title: "Sun: last column"
+          start: "2026-11-01"
+          time: "18:00"
+          color: "secondary-brand"
+        - id: "17"
+          title: "Tue: 2nd column"
+          start: "2026-10-06"
+          time: "10:00"
+        - id: "18"
+          title: "Wed: 3rd column"
+          start: "2026-10-07"
+          color: "info"
+        - id: "19"
+          title: "Thu: 4th column"
+          start: "2026-10-08"
+          time: "15:00"
+          color: "success"
+        - id: "20"
+          title: "Fri: 5th column"
+          start: "2026-10-09"
+          color: "warning"
+        - id: "21"
+          title: "Sat: 6th column"
+          start: "2026-10-10"
+          time: "11:00"
+          color: "danger"
+        - id: "22"
+          title: "Sun: last column"
+          start: "2026-10-11"
+          time: "09:30"
+          color: "secondary-brand"
+        - id: "23"
+          title: "Sun: more 1"
+          start: "2026-10-11"
+          time: "10:30"
+        - id: "24"
+          title: "Sun: more 2"
+          start: "2026-10-11"
+          time: "11:30"
+          color: "info"
+        - id: "25"
+          title: "Sun: more 3"
+          start: "2026-10-11"
+          time: "12:30"
+          color: "success"
+        - id: "26"
+          title: "Mon: more 1"
+          start: "2026-10-05"
+          time: "12:00"
+          color: "info"
+        - id: "27"
+          title: "Mon: more 2"
+          start: "2026-10-05"
+          time: "13:00"
+          color: "warning"
+        - id: "28"
+          title: "Mon: more 3"
+          start: "2026-10-05"
+          time: "14:00"
+          color: "success"
     maxEvents: 3
     agendaDays: 30
     timeGridMaxHeight: "40rem"
@@ -66,6 +145,9 @@ props:
     locale: "en-US"
     firstDayOfWeek: 1
     color: "primary-brand"
+    hasEventPopover: true
+    isAddable: true
+    isDeletable: true
     isBoxed: true
     disabled: false
     ariaLabel: "Calendar"
@@ -178,6 +260,21 @@ props: [
         "type": "boolean"
     },
     {
+        "name": "hasEventPopover",
+        "default": "true",
+        "type": "boolean"
+    },
+    {
+        "name": "isAddable",
+        "default": "false",
+        "type": "boolean"
+    },
+    {
+        "name": "isDeletable",
+        "default": "false",
+        "type": "boolean"
+    },
+    {
         "name": "headingTag",
         "default": "'h2'",
         "type": "HeadingTag"
@@ -220,6 +317,10 @@ slots: [
     {
         "name": "more-popover",
         "description": "Content of the `+N more` panel. Receives `date` (the ISO date), `label` (the full date as text), `events` (all the events of the day) and `close` (a function that closes the panel). It replaces the title, the close button and the list, and the panel keeps its box and its placement."
+    },
+    {
+        "name": "event-popover",
+        "description": "Content of the popover of an event. Receives `event` (the `FullCalendarEvent`), `close` (a function that closes the popover) and `remove` (a function that emits `event-delete` with the event and closes the popover). It replaces the information and the buttons, and the popover keeps its box and its placement."
     },
 ]
 ---
@@ -294,7 +395,7 @@ Sets the views that can be chosen, shown in the order of the enum. The menu is h
 
 ### events
 
-Sets the events to show. An event that spans several days, or that has no valid `time` (`HH:mm`), is a colored bar: in the month and the agenda it is on its days, and in the day and week it is in the all day row. A single-day event with a `time` is a dot followed by the time and the title in the month, and a block from `time` to `endTime` in the day and week (an hour long without `endTime`). Blocks that share hours are put side by side. A bar that crosses weeks continues on the next row. Events with an invalid `start` are ignored.
+Sets the events to show. An event that spans several days, or that has no valid `time` (`HH:mm`), is a colored bar: in the month and the agenda it is on its days, and in the day and week it is in the all day row. A single-day event with a `time` is a dot followed by the time and the title in the month, and a block from `time` to `endTime` in the day and week (an hour long without `endTime`). Blocks that share hours are put side by side. A bar that crosses weeks continues on the next row. Events that already ended are shown faded in every view, but they can still be clicked: an event of the day is past after its last day, and an event with a time after its `endTime` (an hour after `time` without it). Events with an invalid `start` are ignored.
 
 ```vue
 <template>
@@ -494,7 +595,7 @@ const getColor = (event: FullCalendarEvent) => colors[event.meta?.category as st
 
 ### morePopoverAutoFlip
 
-Moves the `+N more` panel to the other side when it does not fit in the calendar: upwards in the last rows, and towards the left when it goes out on the right. Set it to `false` to always open it down and to the right (the last columns open to the left).
+Moves the `+N more` panel to the other side when it does not fit in the calendar: upwards in the last rows, and towards the left or the right when it goes out on a side. The panel is centered on its day in the middle columns, starts at the day in the first columns, and ends at it in the last ones. Set it to `false` to keep that initial placement without measuring. The popover of an event is also centered on the event and always kept inside the calendar.
 
 ```vue
 <template>
@@ -504,6 +605,71 @@ Moves the `+N more` panel to the other side when it does not fit in the calendar
 
 - **Type:** `boolean`
 - **Default:** `true`
+
+### hasEventPopover
+
+Opens a popover with the information of an event when it is clicked: its title, its day or days, and its time (or "All day"). It works in every view, also in the `+N more` panel. It closes with its close button, with `Escape`, when you click outside, or when the view or the dates change. `event-click` is emitted either way, so set it to `false` to show your own dialog instead.
+
+```vue
+<template>
+    <FullCalendar :events :hasEventPopover="false" @event-click="openDialog" />
+</template>
+```
+
+Use the [event-popover](#slots) slot to change what the popover shows.
+
+- **Type:** `boolean`
+- **Default:** `true`
+
+### isAddable
+
+Lets you add events by clicking a cell. Clicking a day of the month emits `event-add` with `{ date }`, and clicking an empty hour of the day or week views emits it with `{ date, time }` (in steps of 30 minutes). The calendar does not create anything: open a form or a dialog in the handler, save the event and add it to `events`.
+
+```vue
+<template>
+    <FullCalendar :events isAddable @event-add="openForm" />
+</template>
+
+<script setup lang="ts">
+const openForm = ({ date, time }: FullCalendarAddEvent) => console.log(date, time)
+</script>
+```
+
+- **Type:** `boolean`
+- **Default:** `false`
+
+#### TypeScript Interface
+
+```ts
+export interface FullCalendarAddEvent {
+    date: string
+    time?: string // HH:mm, only in the day and week views
+}
+```
+
+### isDeletable
+
+Shows a delete button in the popover of an event. Clicking it closes the popover and emits `event-delete` with the event. The calendar does not remove the event: delete it in the handler, which can be asynchronous, and update `events` when it is done.
+
+```vue
+<template>
+    <FullCalendar :events isDeletable @event-delete="removeEvent" />
+</template>
+
+<script setup lang="ts">
+const events = ref<FullCalendarEvent[]>([])
+
+const removeEvent = async (event: FullCalendarEvent) => {
+    await api.deleteEvent(event.id)
+    events.value = events.value.filter((item) => item.id !== event.id)
+}
+</script>
+```
+
+It needs [hasEventPopover](#haseventpopover).
+
+- **Type:** `boolean`
+- **Default:** `false`
 
 ### headingTag
 
@@ -603,6 +769,8 @@ options: [
 ---
 ::
 
+The popover of an event is a `dialog` named after the event. `Escape` closes it and returns the focus to the event, and its buttons are named after `useDSConfig().calendar.deleteEventText()` and `useDSConfig().actions.closeText()`.
+
 The `+N more` button has `aria-haspopup="dialog"` and `aria-expanded`. The panel is a `dialog` named after the date, and `Escape` closes it and returns the focus to the day. It also closes when you click outside, click a day, pick an event or change the month.
 
 The texts of the buttons, the views and the agenda come from `useDSConfig().calendar`, and the close button text from `useDSConfig().actions`.
@@ -617,6 +785,8 @@ options: [
     { value: "@range-change", description: "Emitted with `{ view, from, to }` when the view or the dates it shows change. `from` and `to` are the first and last day (ISO dates) that the view shows, so you can load its events. In the month they are the first and last day of the grid, including the days of the months around it." },
     { value: "@slot-click", description: "Emitted with `{ date, time }` when an empty part of a day in the day or week view is clicked. `time` is the start of the half hour (`HH:mm`), so you can open a form to create an event." },
     { value: "@event-click", description: "Emitted with the `FullCalendarEvent` when an event is clicked. The day is not selected." },
+    { value: "@event-add", description: "Emitted with `{ date, time? }` when a cell is clicked and [isAddable](#isaddable) is set: a day of the month (`date` only) or an empty hour of the day and week views. The calendar does not add the event, so you can ask for its data or call your API first." },
+    { value: "@event-delete", description: "Emitted with the `FullCalendarEvent` when the delete button of its popover is clicked and [isDeletable](#isdeletable) is set. The calendar does not remove the event, so you can call your API first and then update `events`." },
     { value: "@month-change", description: "Emitted with `{ year, month, from, to }` when the visible month changes. `month` goes from 1 to 12, and `from` and `to` are the first and last day of the month as ISO dates, so you can load its events." },
     { value: "@more-click", description: "Emitted with `{ date, events }` when a `+N more` button is clicked, after the panel opens. `events` are all the events of the day." },
     { value: "@update:modelValue", description: "Emitted with the new ISO date when a day is selected." },
@@ -631,7 +801,11 @@ options: [
     <FullCalendar
         v-model="date"
         :events
+        isAddable
+        isDeletable
         @event-click="openEvent"
+        @event-add="addEvent"
+        @event-delete="deleteEvent"
         @more-click="openDay"
         @month-change="loadEvents"
     />
@@ -643,6 +817,16 @@ const events = ref<FullCalendarEvent[]>([])
 
 const openEvent = (event: FullCalendarEvent) => console.log('Event', event.title)
 const openDay = ({ date, events }: FullCalendarMoreEvent) => console.log(date, events.length)
+
+const addEvent = async ({ date, time }: FullCalendarAddEvent) => {
+    const created = await api.createEvent({ title: 'New event', start: date, time })
+    events.value = [...events.value, created]
+}
+
+const deleteEvent = async (event: FullCalendarEvent) => {
+    await api.deleteEvent(event.id)
+    events.value = events.value.filter((item) => item.id !== event.id)
+}
 
 const loadEvents = async ({ from, to }: CalendarMonthEvent) => {
     events.value = await fetchEvents(from, to)
