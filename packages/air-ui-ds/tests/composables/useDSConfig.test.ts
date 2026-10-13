@@ -36,6 +36,8 @@ describe('useDSConfig', () => {
         expect(config.calendar.previousYearText()).toBe('Previous year')
         expect(config.calendar.nextYearText()).toBe('Next year')
         expect(config.calendar.openText()).toBe('Open calendar')
+        expect(config.calendar.doneText()).toBe('Done')
+        expect(config.calendar.clearText()).toBe('Clear')
         expect(config.calendar.placeholderText()).toBe('Select a date')
         expect(config.calendar.monthPlaceholderText()).toBe('Select a month')
         expect(config.calendar.weekPlaceholderText()).toBe('Select a week')
