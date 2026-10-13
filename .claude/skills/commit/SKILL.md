@@ -31,11 +31,18 @@ Creates commits that satisfy this repo's husky + commitlint setup.
    - Existing commits can't be rewritten, so `scripts/code-name-highlighter.mjs` applies the same rule when the release history is generated.
    - Always commit through the quoted HEREDOC below (`<<'EOF'`) so the shell keeps backticks literal instead of running them.
 
+8. **Split features and docs into two commits.** When a change modifies, adds or removes a feature of `ds` or `utils` (component, prop, slot, emit, composable, util, type, enum…), make two commits instead of one:
+   - First the feature commit with its code, types and tests: `feat(ds): …` or `feat(utils): …` (or the `fix`, `refactor`… type that fits).
+   - Then the docs commit with the matching pages under `docs/`: `docs(docs): …`.
+   - Do it even when the feature was already staged together with its docs: unstage the docs and commit them second.
+   - When a file mixes changes of different features (such as `useDSConfig.ts`), stage only the lines of the feature that is being committed.
+   - A change that only touches docs is a single `docs(docs)` commit, and a change with no docs to update is a single feature commit.
+
 ## Procedure
 
 1. Run `git status` and `git diff --staged` (and `git diff` if nothing is staged yet) to understand what will be committed.
 2. If nothing is staged, ask the user whether to stage specific files or all changes. Never `git add -A` blindly when untracked files could contain secrets.
-3. Draft the message following the rules above.
+3. Draft the message following the rules above. If the change touches features and docs, draft two messages (rule 8).
 4. Show the user the **exact** message you intend to use, formatted as it will appear, and ask for confirmation or edits.
 5. On approval, commit using a HEREDOC so multi-line formatting is preserved:
 

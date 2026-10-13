@@ -19,7 +19,7 @@
 16. ALWAYS emit events via `defineEmits(['eventName'])` (array form) or with typed object form, matching existing components in the same category. Kebab-case event names (`update:modelValue`, `close`).
 17. NEVER add demo or story content using placeholder text like "Lorem ipsum" or `TODO`. Use realistic default prop values (see existing `text: 'Badge'`, `title: 'Title'`).
 18. NEVER introduce slots in a DS component without reflecting them in the corresponding `docs/content/docs/components/<name>.md` page.
-19. NEVER skip husky/commitlint with `--no-verify`. Commits must follow `<type>(ds|utils|docs|root): <subject>`.
+19. NEVER skip husky/commitlint with `--no-verify`. Commits must follow `<type>(ds|utils|docs|root): <subject>`. A change to a `ds` or `utils` feature goes in two commits: the feature first (`feat(ds|utils)`), then its docs (`docs(docs)`).
 20. ALWAYS import test subjects via the `@/` alias (e.g. `import Alert from '@/components/alerts/Alert.vue'`), never relative paths.
 21. ALWAYS declare functions as arrow functions (`const name = (…) => { … }`), in components, composables, utils, scripts and tests. NEVER use `function name() { … }` declarations. Define each arrow function before its first use, since `const` is not hoisted.
 22. NEVER create a changeset (`npm run changeset`, `.changeset/*.md`) while implementing a change. Changesets are generated automatically by the publish pipeline (`npm run publish:ds|utils:*`), so leave `.changeset/` alone and do not suggest adding one.
