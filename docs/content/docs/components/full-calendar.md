@@ -147,6 +147,7 @@ props:
     color: "primary-brand"
     hasEventPopover: true
     isAddable: true
+    isEditable: true
     isDeletable: true
     isBoxed: true
     disabled: false
@@ -270,6 +271,11 @@ props: [
         "type": "boolean"
     },
     {
+        "name": "isEditable",
+        "default": "false",
+        "type": "boolean"
+    },
+    {
         "name": "isDeletable",
         "default": "false",
         "type": "boolean"
@@ -320,7 +326,7 @@ slots: [
     },
     {
         "name": "event-popover",
-        "description": "Content of the popover of an event. Receives `event` (the `FullCalendarEvent`), `close` (a function that closes the popover) and `remove` (a function that emits `event-delete` with the event and closes the popover). It replaces the information and the buttons, and the popover keeps its box and its placement."
+        "description": "Content of the popover of an event. Receives `event` (the `FullCalendarEvent`), `close` (a function that closes the popover), `edit` (a function that emits `event-edit` with the event and closes the popover) and `remove` (a function that emits `event-delete` with the event and closes the popover). It replaces the information and the buttons, and the popover keeps its box and its placement."
     },
 ]
 ---
@@ -647,6 +653,25 @@ export interface FullCalendarAddEvent {
 }
 ```
 
+### isEditable
+
+Shows an edit button in the popover of an event. Clicking it closes the popover and emits `event-edit` with the event. The calendar does not change the event: open your form in the handler, save it (it can be asynchronous), and update `events` when it is done.
+
+```vue
+<template>
+    <FullCalendar :events isEditable @event-edit="openForm" />
+</template>
+
+<script setup lang="ts">
+const openForm = (event: FullCalendarEvent) => console.log('Edit', event.id)
+</script>
+```
+
+It needs [hasEventPopover](#haseventpopover).
+
+- **Type:** `boolean`
+- **Default:** `false`
+
 ### isDeletable
 
 Shows a delete button in the popover of an event. Clicking it closes the popover and emits `event-delete` with the event. The calendar does not remove the event: delete it in the handler, which can be asynchronous, and update `events` when it is done.
@@ -769,7 +794,7 @@ options: [
 ---
 ::
 
-The popover of an event is a `dialog` named after the event. `Escape` closes it and returns the focus to the event, and its buttons are named after `useDSConfig().calendar.deleteEventText()` and `useDSConfig().actions.closeText()`.
+The popover of an event is a `dialog` named after the event. `Escape` closes it and returns the focus to the event, and its buttons are named after `useDSConfig().calendar.editEventText()`, `useDSConfig().calendar.deleteEventText()` and `useDSConfig().actions.closeText()`.
 
 The `+N more` button has `aria-haspopup="dialog"` and `aria-expanded`. The panel is a `dialog` named after the date, and `Escape` closes it and returns the focus to the day. It also closes when you click outside, click a day, pick an event or change the month.
 
@@ -786,6 +811,7 @@ options: [
     { value: "@slot-click", description: "Emitted with `{ date, time }` when an empty part of a day in the day or week view is clicked. `time` is the start of the half hour (`HH:mm`), so you can open a form to create an event." },
     { value: "@event-click", description: "Emitted with the `FullCalendarEvent` when an event is clicked. The day is not selected." },
     { value: "@event-add", description: "Emitted with `{ date, time? }` when a cell is clicked and [isAddable](#isaddable) is set: a day of the month (`date` only) or an empty hour of the day and week views. The calendar does not add the event, so you can ask for its data or call your API first." },
+    { value: "@event-edit", description: "Emitted with the `FullCalendarEvent` when the edit button of its popover is clicked and [isEditable](#iseditable) is set. The calendar does not change the event, so you can open a form, call your API and then update `events`." },
     { value: "@event-delete", description: "Emitted with the `FullCalendarEvent` when the delete button of its popover is clicked and [isDeletable](#isdeletable) is set. The calendar does not remove the event, so you can call your API first and then update `events`." },
     { value: "@month-change", description: "Emitted with `{ year, month, from, to }` when the visible month changes. `month` goes from 1 to 12, and `from` and `to` are the first and last day of the month as ISO dates, so you can load its events." },
     { value: "@more-click", description: "Emitted with `{ date, events }` when a `+N more` button is clicked, after the panel opens. `events` are all the events of the day." },
@@ -802,9 +828,11 @@ options: [
         v-model="date"
         :events
         isAddable
+        isEditable
         isDeletable
         @event-click="openEvent"
         @event-add="addEvent"
+        @event-edit="editEvent"
         @event-delete="deleteEvent"
         @more-click="openDay"
         @month-change="loadEvents"
@@ -822,6 +850,8 @@ const addEvent = async ({ date, time }: FullCalendarAddEvent) => {
     const created = await api.createEvent({ title: 'New event', start: date, time })
     events.value = [...events.value, created]
 }
+
+const editEvent = (event: FullCalendarEvent) => console.log('Edit', event.id)
 
 const deleteEvent = async (event: FullCalendarEvent) => {
     await api.deleteEvent(event.id)
