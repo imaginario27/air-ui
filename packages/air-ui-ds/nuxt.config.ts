@@ -1,5 +1,9 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 import tailwindcss from '@tailwindcss/vite'
+import { readFileSync } from 'node:fs'
+import { resolve } from 'node:path'
+
+const themeInitScript = readFileSync(resolve(__dirname, 'scripts/theme-init.js'), 'utf-8')
 
 export default defineNuxtConfig({
     compatibilityDate: '2024-11-01',
@@ -33,6 +37,18 @@ export default defineNuxtConfig({
 
     eslint: {
         // options here
+    },
+
+    app: {
+        head: {
+            script: [
+                {
+                    key: 'air-ui-theme-init',
+                    innerHTML: themeInitScript,
+                    tagPosition: 'head',
+                },
+            ],
+        },
     },
 
     css: ['~/assets/css/main.css'],
