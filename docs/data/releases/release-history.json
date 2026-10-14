@@ -1,12 +1,49 @@
 {
-  "generatedAt": "2026-10-13T16:39:20.529Z",
+  "generatedAt": "2026-10-14T07:34:18.282Z",
   "source": "github-git-history+npm-publish-dates",
   "githubBaseUrl": "https://github.com/imaginario27/air-ui",
   "packages": [
     {
       "packageName": "@imaginario27/air-ui-ds",
-      "latestVersion": "1.24.0",
+      "latestVersion": "1.24.1",
       "entries": [
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.24.1",
+          "publishedAt": "2026-10-14",
+          "releaseType": "patch",
+          "notes": [
+            "make `modelValue` optional in `CalendarProps`"
+          ],
+          "metadata": {
+            "commitCount": 1,
+            "commits": [
+              {
+                "sha": "5c1edf9a1082c03c4d253a88282015f0c3a2bad6",
+                "shortSha": "5c1edf9",
+                "date": "2026-10-14",
+                "subject": "fix(ds): make `modelValue` optional in `CalendarProps`",
+                "normalizedSubject": "make `modelValue` optional in `CalendarProps`",
+                "type": "fixed",
+                "body": [
+                  "mark `modelValue` as optional in `CalendarProps` to match the `Calendar` prop default",
+                  "fix type errors when the calendar composables receive the component props"
+                ],
+                "affected": [],
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/5c1edf9a1082c03c4d253a88282015f0c3a2bad6",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 0,
+              "fixed": 1,
+              "changed": 0,
+              "maintenance": 0,
+              "breaking": 0
+            }
+          }
+        },
         {
           "packageName": "@imaginario27/air-ui-ds",
           "version": "1.24.0",
