@@ -5,6 +5,17 @@ All notable changes to this package are documented in this file.
 Historical releases were reconstructed from git history (GitHub repository) and npm publish dates.
 Future releases will include detailed entries generated with Changesets.
 
+## 1.24.1 - 2026-10-14
+
+Release type: patch.
+Commits found in range: 1.
+
+### Fixed
+
+1. make `modelValue` optional in `CalendarProps` ([5c1edf9](https://github.com/imaginario27/air-ui/commit/5c1edf9a1082c03c4d253a88282015f0c3a2bad6))
+
+- Package: @imaginario27/air-ui-ds.
+
 ## 1.24.0 - 2026-10-13
 
 Release type: minor.

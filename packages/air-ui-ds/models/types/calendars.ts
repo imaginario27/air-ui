@@ -148,7 +148,7 @@ export type CalendarEmit = (event: CalendarEvent, ...args: unknown[]) => void
 
 // The props the calendar composables read
 export interface CalendarProps {
-    readonly modelValue: string | string[] | CalendarRange | null
+    readonly modelValue?: string | string[] | CalendarRange | null
     readonly mode: CalendarMode
     readonly unit: CalendarUnit
     readonly min?: string
