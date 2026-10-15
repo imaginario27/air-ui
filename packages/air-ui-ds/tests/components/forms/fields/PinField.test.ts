@@ -176,17 +176,17 @@ describe('PinField.vue', () => {
         expect(firstInput?.attributes('aria-label')).toBe('Access code digit 1')
     })
 
-    it('applies bg-background-container-surface when transparent is false', () => {
+    it('applies bg-background-field when transparent is false', () => {
         const wrapper = factory({ transparent: false })
         wrapper.findAll('input').forEach((input) => {
-            expect(input.classes()).toContain('bg-background-container-surface')
+            expect(input.classes()).toContain('bg-background-field')
         })
     })
 
     it('does not apply background when transparent is true', () => {
         const wrapper = factory({ transparent: true })
         wrapper.findAll('input').forEach((input) => {
-            expect(input.classes()).not.toContain('bg-background-container-surface')
+            expect(input.classes()).not.toContain('bg-background-field')
         })
     })
 

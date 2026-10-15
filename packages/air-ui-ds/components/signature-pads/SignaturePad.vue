@@ -13,7 +13,7 @@
                 hasError ? 'border-border-error' : 'border-border-default',
                 disabled
                     ? 'bg-background-neutral-disabled cursor-not-allowed opacity-disabled'
-                    : 'bg-background-container-surface',
+                    : 'bg-background-field',
             ]"
             :style="{ height: `${height}px` }"
         >

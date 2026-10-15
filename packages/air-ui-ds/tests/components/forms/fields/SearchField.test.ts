@@ -250,12 +250,12 @@ describe('SearchField', () => {
         expect(input.attributes('aria-label')).toBe('Accessible search')
     })
 
-    it('applies bg-background-container-surface when transparent is false', () => {
+    it('applies bg-background-field when transparent is false', () => {
         const wrapper = mount(SearchField, {
             props: { ...defaultProps, transparent: false },
         })
         const container = wrapper.find('div.border')
-        expect(container.classes()).toContain('bg-background-container-surface')
+        expect(container.classes()).toContain('bg-background-field')
     })
 
     it('does not apply background when transparent is true', () => {
@@ -263,7 +263,7 @@ describe('SearchField', () => {
             props: { ...defaultProps, transparent: true },
         })
         const container = wrapper.find('div.border')
-        expect(container.classes()).not.toContain('bg-background-container-surface')
+        expect(container.classes()).not.toContain('bg-background-field')
     })
 
     it('applies inputClass to the input element', () => {

@@ -21,7 +21,7 @@
                         'flex items-center justify-between gap-2',
                         'w-full',
                         'px-3',
-                        disabled ? 'bg-background-neutral-disabled' : !transparent && 'bg-background-container-surface',
+                        disabled ? 'bg-background-neutral-disabled' : !transparent && 'bg-background-field',
                         'rounded',
                         'border border-border-default',
                         'text-sm',

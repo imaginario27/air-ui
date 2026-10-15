@@ -3,6 +3,7 @@
         :class="[
             'flex flex-col gap-5',
             'bg-background-container-surface',
+            'surface-container',
             'p-4',
             hasBorder ? 'border border-border-default' : undefined,
             'rounded-lg',

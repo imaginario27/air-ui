@@ -33,7 +33,7 @@
                     hasError ? 'border-border-error text-text-error' : 'border-border-default',
                     (isFocused || isOpen) && 'ring-2 ring-inset ring-border-primary-brand-default',
                     ...glowClass,
-                    disabled ? 'bg-background-neutral-disabled' : !transparent && 'bg-background-container-surface',
+                    disabled ? 'bg-background-neutral-disabled' : !transparent && 'bg-background-field',
                     disabled && 'cursor-not-allowed',
                 ]"
             >

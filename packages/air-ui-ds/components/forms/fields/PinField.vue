@@ -38,7 +38,7 @@
                     ...glowClass,
                     disabled
                         ? 'bg-background-neutral-disabled cursor-not-allowed'
-                        : !transparent && 'bg-background-container-surface',
+                        : !transparent && 'bg-background-field',
                     inputClass,
                 ]"
                 @focus="handleFocus(index)"
