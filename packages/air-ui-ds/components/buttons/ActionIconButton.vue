@@ -8,9 +8,11 @@
             isRounded ? 'rounded-full' : 'rounded-button',
             'aspect-square',
             !hasFocusRing && 'focus:!ring-0 focus:!ring-offset-0',
-            'transition-colors duration-200 ease-out',
+            glowClass.length ? 'transition-[color,background-color,border-color,box-shadow]' : 'transition-colors',
+            'duration-200 ease-out',
             ...buttonStyleClass,
             buttonSizeClass,
+            ...glowClass,
             disabled && 'opacity-disabled cursor-not-allowed pointer-events-none',
         ]"
         v-bind="{
@@ -77,6 +79,16 @@ const props = defineProps({
         type: Boolean as PropType<boolean>,
         default: true,
     },
+    glowType: {
+        type: String as PropType<GlowType>,
+        default: GlowType.NONE,
+        validator: (value: GlowType) => Object.values(GlowType).includes(value),
+    },
+    glowTrigger: {
+        type: String as PropType<GlowTrigger>,
+        default: GlowTrigger.ALWAYS,
+        validator: (value: GlowTrigger) => Object.values(GlowTrigger).includes(value),
+    },
     isExternal: {
         type: Boolean as PropType<boolean>,
         default: false,
@@ -88,6 +100,9 @@ const props = defineProps({
     id: String as PropType<string>,
     ariaLabel: String as PropType<string>,
 })
+
+// Glow
+const { glowClass } = useButtonGlow(props)
 
 // Emits
 const emit = defineEmits(['click'])
