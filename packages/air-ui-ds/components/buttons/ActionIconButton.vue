@@ -79,10 +79,10 @@ const props = defineProps({
         type: Boolean as PropType<boolean>,
         default: true,
     },
-    glowType: {
-        type: String as PropType<GlowType>,
-        default: GlowType.NONE,
-        validator: (value: GlowType) => Object.values(GlowType).includes(value),
+    glowColorMode: {
+        type: String as PropType<GlowColorMode>,
+        default: GlowColorMode.NONE,
+        validator: (value: GlowColorMode) => Object.values(GlowColorMode).includes(value),
     },
     glowTrigger: {
         type: String as PropType<GlowTrigger>,

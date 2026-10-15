@@ -1,7 +1,7 @@
 // composables/useButtonGlow.ts
 // Button glow: the color follows the style type and the spread follows the button size.
 export const useButtonGlow = (props: {
-    glowType?: GlowType
+    glowColorMode?: GlowColorMode
     glowTrigger?: GlowTrigger
     styleType: ButtonStyleType
     size: ButtonSize
@@ -38,7 +38,7 @@ export const useButtonGlow = (props: {
         return variant[props.size as ButtonSize] || '[--glow-size:20px]'
     })
 
-    return useGlow(() => props.glowType, {
+    return useGlow(() => props.glowColorMode, {
         trigger: () => props.glowTrigger,
         colorClass,
         sizeClass,

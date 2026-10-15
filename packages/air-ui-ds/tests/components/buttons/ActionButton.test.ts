@@ -4,7 +4,7 @@ import Icon from '@/components/icons/Icon.vue'
 import Spinner from '@/components/spinners/Spinner.vue'
 import { ButtonActionType, ButtonSize, ButtonStyleType } from '@/models/enums/buttons'
 import { IconPosition } from '@/models/enums/icons'
-import { GlowTrigger, GlowType } from '@/models/enums/glow'
+import { GlowTrigger, GlowColorMode } from '@/models/enums/glow'
 
 const factory = (props = {}) => {
     return mount(ActionButton, {
@@ -250,14 +250,14 @@ describe('ActionButton glow', () => {
         expect(hasGlow(factory().find('button').classes())).toBe(false)
     })
 
-    it('shows the glow in dark mode only when glowType is dark', () => {
-        const classes = factory({ glowType: GlowType.DARK }).find('button').classes()
+    it('shows the glow in dark mode only when glowColorMode is dark', () => {
+        const classes = factory({ glowColorMode: GlowColorMode.DARK }).find('button').classes()
         expect(classes.some((c) => c.startsWith('[.dark_&]:shadow-['))).toBe(true)
         expect(classes.some((c) => c.startsWith('shadow-['))).toBe(false)
     })
 
-    it('removes the glow when glowType is none', () => {
-        const classes = factory({ glowType: GlowType.NONE }).find('button').classes()
+    it('removes the glow when glowColorMode is none', () => {
+        const classes = factory({ glowColorMode: GlowColorMode.NONE }).find('button').classes()
         expect(hasGlow(classes)).toBe(false)
     })
 
@@ -267,7 +267,7 @@ describe('ActionButton glow', () => {
         [ButtonStyleType.NEUTRAL_OUTLINED, '[--glow-color:var(--color-background-neutral-bold)]'],
         [ButtonStyleType.DELETE_FILLED, '[--glow-color:var(--color-background-delete-default)]'],
     ])('colors the glow after the %s style', (styleType, expected) => {
-        expect(factory({ styleType, glowType: GlowType.DARK }).find('button').classes()).toContain(expected)
+        expect(factory({ styleType, glowColorMode: GlowColorMode.DARK }).find('button').classes()).toContain(expected)
     })
 
     it.each([
@@ -275,18 +275,18 @@ describe('ActionButton glow', () => {
         [ButtonSize.MD, '[--glow-size:16px]'],
         [ButtonSize.XXL, '[--glow-size:32px]'],
     ])('spreads the glow after the %s size', (size, expected) => {
-        expect(factory({ size, glowType: GlowType.DARK }).find('button').classes()).toContain(expected)
+        expect(factory({ size, glowColorMode: GlowColorMode.DARK }).find('button').classes()).toContain(expected)
     })
 
     it('shows the glow only on hover when glowTrigger is hover', () => {
-        const classes = factory({ glowType: GlowType.BOTH, glowTrigger: GlowTrigger.HOVER }).find('button').classes()
+        const classes = factory({ glowColorMode: GlowColorMode.BOTH, glowTrigger: GlowTrigger.HOVER }).find('button').classes()
         expect(classes.some((c) => c.startsWith('hover:shadow-['))).toBe(true)
         expect(classes.some((c) => c.startsWith('shadow-['))).toBe(false)
     })
 
     it('animates the shadow only when the glow is on', () => {
         expect(factory().find('button').classes()).toContain('transition-colors')
-        expect(factory({ glowType: GlowType.BOTH }).find('button').classes()).toContain(
+        expect(factory({ glowColorMode: GlowColorMode.BOTH }).find('button').classes()).toContain(
             'transition-[color,background-color,border-color,box-shadow]',
         )
     })

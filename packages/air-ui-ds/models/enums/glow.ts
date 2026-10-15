@@ -1,4 +1,4 @@
-export enum GlowType {
+export enum GlowColorMode {
     NONE = 'none',
     BOTH = 'both',
     LIGHT = 'light',

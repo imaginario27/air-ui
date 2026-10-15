@@ -1,6 +1,6 @@
 // composables/useGlow.ts
 // Returns the utility classes that draw a glow around an element.
-// `glowType` decides in which theme it shows (light, dark, both or none) and `trigger` decides when (always, hover, focus).
+// `glowColorMode` decides in which theme it shows (light, dark, both or none) and `trigger` decides when (always, hover, focus).
 // The glow reads `--glow-color` and `--glow-size`; pass `colorClass` / `sizeClass` (static `[--glow-*:…]` classes) to set them.
 interface GlowOptions {
     trigger?: MaybeRefOrGetter<GlowTrigger | undefined>
@@ -37,22 +37,22 @@ const TRIGGER_EVENTS: Record<GlowTrigger, GlowEvent[]> = {
     [GlowTrigger.HOVER_FOCUS]: ['hover', 'focus'],
 }
 
-export const useGlow = (glowType: MaybeRefOrGetter<GlowType | undefined>, options: GlowOptions = {}) => {
+export const useGlow = (glowColorMode: MaybeRefOrGetter<GlowColorMode | undefined>, options: GlowOptions = {}) => {
     const glowClass = computed<string[]>(() => {
-        const type = toValue(glowType)
+        const type = toValue(glowColorMode)
 
-        if (!type || type === GlowType.NONE) return []
+        if (!type || type === GlowColorMode.NONE) return []
 
         const events = TRIGGER_EVENTS[toValue(options.trigger) as GlowTrigger] || TRIGGER_EVENTS[GlowTrigger.ALWAYS]
 
-        const variant: Record<GlowType, string[]> = {
-            [GlowType.NONE]: [],
-            [GlowType.BOTH]: events.map((event) => GLOW_SHADOW[event]),
-            [GlowType.LIGHT]: [
+        const variant: Record<GlowColorMode, string[]> = {
+            [GlowColorMode.NONE]: [],
+            [GlowColorMode.BOTH]: events.map((event) => GLOW_SHADOW[event]),
+            [GlowColorMode.LIGHT]: [
                 ...events.map((event) => GLOW_SHADOW[event]),
                 ...events.map((event) => GLOW_OFF_DARK[event]),
             ],
-            [GlowType.DARK]: events.map((event) => GLOW_SHADOW_DARK[event]),
+            [GlowColorMode.DARK]: events.map((event) => GLOW_SHADOW_DARK[event]),
         }
 
         const classes = variant[type] || []
