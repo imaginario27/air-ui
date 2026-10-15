@@ -1,6 +1,6 @@
 <template>
     <div class="relative w-full">
-        <div :class="['flex', 'items-center', 'border-b-2 border-border-neutral-subtle', 'pl-3 pr-4', 'h-[56px]']">
+        <div :class="['flex', 'items-center', 'border-b-2 border-border-neutral-subtle [.dark_&]:border-border-default', 'pl-3 pr-4', 'h-[56px]']">
             <!-- Search Icon -->
             <Icon name="mdi:magnify" :size="IconSize.LG" />
 

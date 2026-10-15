@@ -3,7 +3,7 @@
         :class="[
             'py-4',
             'px-6',
-            'border border-border-neutral-subtle',
+            'border border-border-neutral-subtle [.dark_&]:border-border-default',
             'flex gap-3 justify-between items-center',
             'cursor-pointer',
             'transition-colors duration-200',
