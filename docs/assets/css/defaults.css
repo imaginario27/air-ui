@@ -50,21 +50,3 @@ button:disabled {
 .vue3-toastify__toast-container {
     z-index: 99999 !important; 
 }
-
-/* Context: elevated containers (Card, Drawer, ModalDialog) adapt the fields placed inside them */
-.surface-container {
-    --color-background-field: var(--color-background-field-on-container);
-}
-
-/* Context: inside a modal, components that use container-surface fall back to surface */
-.modal-content {
-    --color-background-container-surface: var(--color-background-surface);
-}
-
-/* Dark mode variant: lighter fields inside a container. Raises the secondary text, icon and border tokens so contrast holds on the lighter background. Apply it to a wrapper around the fields, not to the container itself */
-.dark .fields-lighter {
-    --color-background-field: var(--color-theme-neutral-100);
-    --color-border-default: var(--color-theme-neutral-300);
-    --color-text-neutral-subtler: var(--color-theme-neutral-700);
-    --color-icon-neutral-subtler: var(--color-theme-neutral-700);
-}

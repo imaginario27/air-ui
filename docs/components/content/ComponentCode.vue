@@ -114,6 +114,7 @@
             <!-- Component preview wrapper -->
             <div 
                 v-if="!showCode"
+                :data-surface="previewBackground === 'white' ? 'container' : undefined"
                 :class="[
                     'flex',
                     'relative',
@@ -163,12 +164,13 @@
                     <div class="hidden" aria-hidden="true">
                         <div
                             ref="iframePreviewContentRef"
+                            :data-surface="isPreviewContentBoxed ? 'container' : undefined"
                             :class="[
                                 'flex',
                                 'items-center',
                                 'w-full',
                                 'items-center justify-center',
-                                isPreviewContentBoxed && 'p-4 md:p-8 border border-border-neutral-subtle rounded bg-background-container-surface surface-container',
+                                isPreviewContentBoxed && 'p-4 md:p-8 border border-border-neutral-subtle rounded bg-background-container-surface',
                             ]"
                             :style="previewContentStyle"
                         >
@@ -217,12 +219,13 @@
                 <div
                     v-else
                     ref="previewContentRef"
+                    :data-surface="isPreviewContentBoxed ? 'container' : undefined"
                     :class="[
                         'flex',
                         'items-center',
                         'w-full',
                         'items-center justify-center',
-                        isPreviewContentBoxed && 'p-4 md:p-8 border border-border-neutral-subtle rounded bg-background-container-surface surface-container',
+                        isPreviewContentBoxed && 'p-4 md:p-8 border border-border-neutral-subtle rounded bg-background-container-surface',
                     ]"
                     :style="previewContentStyle"
                 >
@@ -1391,7 +1394,7 @@ watch([componentProps, isDark], generateCode, { deep: true, immediate: true })
 // The dark variants use the `.dark` class on <html> (set before first paint) instead of `isDark`, which is false until mounted and would flash light
 const componentPreviewClass = computed(() => {
     const variant = {
-        ['white']: 'bg-background-container-surface surface-container [.dark_&]:bg-neutral-900/50',
+        ['white']: 'bg-background-container-surface [.dark_&]:bg-neutral-900/50',
         ['neutral-subtle']: 'bg-neutral-50 [.dark_&]:bg-neutral-900/50',
     }
 
