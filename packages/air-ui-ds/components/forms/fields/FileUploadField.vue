@@ -74,7 +74,7 @@
                     :removeButtonClass
                     :maxItemsContainerHeight
                     :containerClass
-                    :dropzoneClass
+                    :dropzoneClass="computedDropzoneClass"
                     :titleClass
                     :descriptionClass
                     :iconClass
@@ -303,6 +303,16 @@ const props = defineProps({
         type: Boolean as PropType<boolean>,
         default: false,
     },
+    glowColorMode: {
+        type: String as PropType<GlowColorMode>,
+        default: GlowColorMode.NONE,
+        validator: (value: GlowColorMode) => Object.values(GlowColorMode).includes(value),
+    },
+    glowTrigger: {
+        type: String as PropType<GlowTrigger>,
+        default: GlowTrigger.ALWAYS,
+        validator: (value: GlowTrigger) => Object.values(GlowTrigger).includes(value),
+    },
 })
 
 // Emits
@@ -330,6 +340,10 @@ const localTotalProgress = ref(props.totalProgress)
 
 // Computed
 const hasError = computed(() => props.error !== '')
+
+// Glow: only the drag area glows (not the label or the help text)
+const { glowClass } = useFieldGlow(props, hasError)
+const computedDropzoneClass = computed(() => [...glowClass.value, props.dropzoneClass].filter(Boolean).join(' '))
 const optionalLabelText = computed(() => props.optionalLabel ?? dsConfig.forms.optionalLabelText())
 const resolvedTitle = computed(() => props.title ?? dsConfig.forms.fileUpload.dragDropText())
 const resolvedButtonText = computed(() => props.buttonText ?? dsConfig.forms.fileUpload.selectFilesText())

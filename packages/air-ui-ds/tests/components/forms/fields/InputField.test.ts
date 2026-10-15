@@ -2,6 +2,7 @@ import { mount } from '@vue/test-utils'
 import InputField from '~/components/forms/fields/InputField.vue'
 import { Position } from '@/models/enums/positions'
 import { useDSConfig } from '@/composables/useDSConfig'
+import { GlowTrigger, GlowColorMode } from '@/models/enums/glow'
 import { nextTick, ref } from 'vue'
 
 vi.mock('~/composables/useFormValidationMode', () => ({
@@ -417,5 +418,45 @@ describe('InputField.vue', () => {
 
             expect(wrapper.emitted('update:modelValue')![0]).toEqual([''])
         })
+    })
+})
+
+describe('InputField glow', () => {
+    const box = (props: Record<string, any> = {}) =>
+        factory({ label: 'Name', helpText: 'Help', ...props }).find('input').element.parentElement!
+    const hasGlow = (classes: string[]) => classes.some((c) => c.includes('--glow-color'))
+
+    it('has no glow by default', () => {
+        expect(hasGlow([...box().classList])).toBe(false)
+    })
+
+    it('glows only the input box, not the label or the help text', () => {
+        const wrapper = factory({ label: 'Name', helpText: 'Help', glowColorMode: GlowColorMode.BOTH })
+        const input = wrapper.find('input').element.parentElement!
+        expect(hasGlow([...input.classList])).toBe(true)
+        expect(hasGlow(wrapper.find('label').classes())).toBe(false)
+        expect(wrapper.findAll('[class*="--glow-color"]')).toHaveLength(1)
+    })
+
+    it('shows the glow in dark mode only when glowColorMode is dark', () => {
+        const classes = [...box({ glowColorMode: GlowColorMode.DARK }).classList]
+        expect(classes.some((c) => c.startsWith('[.dark_&]:shadow-['))).toBe(true)
+        expect(classes.some((c) => c.startsWith('shadow-['))).toBe(false)
+    })
+
+    it('uses focus-within for the focus trigger', () => {
+        const classes = [...box({ glowColorMode: GlowColorMode.BOTH, glowTrigger: GlowTrigger.FOCUS }).classList]
+        expect(classes.some((c) => c.startsWith('focus-within:shadow-['))).toBe(true)
+        expect(classes.some((c) => c.startsWith('focus-visible:'))).toBe(false)
+    })
+
+    it('turns the glow red on error', () => {
+        const classes = [...box({ glowColorMode: GlowColorMode.BOTH, error: 'Required' }).classList]
+        expect(classes).toContain('[--glow-color:var(--color-border-error)]')
+    })
+
+    it.each(['date', 'time'])('passes the glow to the picker used by the %s type', (type) => {
+        const wrapper = factory({ type, modelValue: '', glowColorMode: GlowColorMode.BOTH })
+        expect(wrapper.findAll('[class*="--glow-color"]')).toHaveLength(1)
     })
 })

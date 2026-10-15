@@ -23,6 +23,8 @@
         :optionalLabel
         :transparent
         :autoFlip
+        :glowColorMode
+        :glowTrigger
         @update:modelValue="handleDateUpdate"
         @update:error="emit('update:error', $event)"
     />
@@ -50,6 +52,8 @@
         :optionalLabel
         :transparent
         :autoFlip
+        :glowColorMode
+        :glowTrigger
         @update:modelValue="handleDateUpdate"
         @update:error="emit('update:error', $event)"
     />
@@ -90,6 +94,7 @@
                 isFocused && 'ring-2 focus-within:ring-inset focus-within:ring-border-primary-brand-default',
                 disabled ? 'bg-background-neutral-disabled' : !transparent && 'bg-background-container-surface',
                 disabled && 'cursor-not-allowed',
+                ...glowClass,
             ]"
         >
             <!-- Icon -->
@@ -277,6 +282,16 @@ const props = defineProps({
         default: false,
     },
     inputClass: String as PropType<string>,
+    glowColorMode: {
+        type: String as PropType<GlowColorMode>,
+        default: GlowColorMode.NONE,
+        validator: (value: GlowColorMode) => Object.values(GlowColorMode).includes(value),
+    },
+    glowTrigger: {
+        type: String as PropType<GlowTrigger>,
+        default: GlowTrigger.ALWAYS,
+        validator: (value: GlowTrigger) => Object.values(GlowTrigger).includes(value),
+    },
 })
 
 // Emits
@@ -309,6 +324,9 @@ const dateValue = computed(() => (props.modelValue === null ? null : String(prop
 const handleDateUpdate = (value: unknown) => {
     emit('update:modelValue', (value as string | null) ?? '')
 }
+
+// Glow
+const { glowClass } = useFieldGlow(props, hasError)
 
 // Computed classes
 const inputSizeClass = computed(() => {

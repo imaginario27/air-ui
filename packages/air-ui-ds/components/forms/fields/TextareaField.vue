@@ -26,6 +26,7 @@
                 autoResize && maxHeightClass,
                 hasError ? 'border-border-error text-text-error' : 'border-border-default',
                 isFocused && 'ring-2 focus-within:ring-inset focus-within:ring-border-primary-brand-default',
+                ...glowClass,
                 disabled ? 'bg-background-neutral-disabled' : !transparent && 'bg-background-container-surface',
                 textareaClass,
             ]"
@@ -177,6 +178,16 @@ const props = defineProps({
         default: 'max-h-[300px]',
     },
     textareaClass: String as PropType<string>,
+    glowColorMode: {
+        type: String as PropType<GlowColorMode>,
+        default: GlowColorMode.NONE,
+        validator: (value: GlowColorMode) => Object.values(GlowColorMode).includes(value),
+    },
+    glowTrigger: {
+        type: String as PropType<GlowTrigger>,
+        default: GlowTrigger.ALWAYS,
+        validator: (value: GlowTrigger) => Object.values(GlowTrigger).includes(value),
+    },
 })
 
 // Emits
@@ -194,6 +205,9 @@ const textareaRef = ref<HTMLTextAreaElement | null>(null)
 
 // Computed States
 const hasError = computed(() => props.error !== '')
+
+// Glow
+const { glowClass } = useFieldGlow(props, hasError)
 const optionalLabelText = computed(() => props.optionalLabel ?? dsConfig.forms.optionalLabelText())
 
 const isBlurred = computed(() => {

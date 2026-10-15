@@ -6,7 +6,7 @@
                 'rounded-lg',
                 'border-2',
                 'border-dashed',
-                'transition-colors',
+                'transition-[color,background-color,border-color,box-shadow]',
                 'duration-200',
                 'p-4 sm:p-5',
                 'outline-none',

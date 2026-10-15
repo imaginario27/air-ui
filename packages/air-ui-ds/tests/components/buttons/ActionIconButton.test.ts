@@ -197,7 +197,9 @@ describe('ActionIconButton glow', () => {
     })
 
     it('shows the glow only on hover when glowTrigger is hover', () => {
-        const classes = factory({ glowColorMode: GlowColorMode.BOTH, glowTrigger: GlowTrigger.HOVER }).find('button').classes()
+        const classes = factory({ glowColorMode: GlowColorMode.BOTH, glowTrigger: GlowTrigger.HOVER })
+            .find('button')
+            .classes()
         expect(classes.some((c) => c.startsWith('hover:shadow-['))).toBe(true)
         expect(classes.some((c) => c.startsWith('shadow-['))).toBe(false)
     })

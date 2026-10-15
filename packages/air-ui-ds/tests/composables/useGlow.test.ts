@@ -91,4 +91,13 @@ describe('useGlow', () => {
         trigger.value = GlowTrigger.HOVER
         expect(glowClass.value.some((c) => c.startsWith('hover:shadow-['))).toBe(true)
     })
+
+    it('uses focus-within instead of focus-visible when focusWithin is set', () => {
+        const classes = useGlow(GlowColorMode.LIGHT, { trigger: GlowTrigger.HOVER_FOCUS, focusWithin: true }).glowClass
+            .value
+        expect(classes.some((c) => c.startsWith('focus-within:shadow-['))).toBe(true)
+        expect(classes).toContain('[.dark_&]:focus-within:shadow-none')
+        expect(classes.some((c) => c.includes('focus-visible'))).toBe(false)
+        expect(classes.some((c) => c.startsWith('hover:shadow-['))).toBe(true)
+    })
 })

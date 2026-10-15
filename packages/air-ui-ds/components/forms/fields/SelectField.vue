@@ -171,6 +171,16 @@ const props = defineProps({
         type: String as PropType<string>,
         default: 'body',
     },
+    glowColorMode: {
+        type: String as PropType<GlowColorMode>,
+        default: GlowColorMode.NONE,
+        validator: (value: GlowColorMode) => Object.values(GlowColorMode).includes(value),
+    },
+    glowTrigger: {
+        type: String as PropType<GlowTrigger>,
+        default: GlowTrigger.ALWAYS,
+        validator: (value: GlowTrigger) => Object.values(GlowTrigger).includes(value),
+    },
 })
 
 // Emits
@@ -182,6 +192,9 @@ const dsConfig = useDSConfig()
 
 // Computed
 const hasError = computed(() => props.error !== '')
+
+// Glow
+const { glowClass } = useFieldGlow(props, hasError)
 const optionalLabelText = computed(() => props.optionalLabel ?? dsConfig.forms.optionalLabelText())
 const resolvedPlaceholder = computed(() => props.placeholder ?? dsConfig.forms.selectPlaceholderText())
 const resolvedSearchFieldPlaceholder = computed(() => props.searchFieldPlaceholder ?? dsConfig.forms.searchText())
@@ -209,7 +222,7 @@ const computedPlaceholder = computed(() => {
 const computedSelectBoxClass = computed(() => {
     const errorClass = hasError.value ? 'border-border-error text-text-error' : ''
 
-    return [errorClass, props.selectBoxClass].filter(Boolean).join(' ')
+    return [errorClass, ...glowClass.value, props.selectBoxClass].filter(Boolean).join(' ')
 })
 
 // Handlers

@@ -44,6 +44,8 @@ props:
     transparent: false
     shouldTeleport: false
     teleportTo: "body"
+    glowColorMode: "none"
+    glowTrigger: "always"
 items:
     size: 
         - value: lg
@@ -74,7 +76,27 @@ items:
           text: TOP
         - value: bottom
           text: BOTTOM
+    glowColorMode:
+        - value: none
+          text: NONE
+        - value: both
+          text: BOTH
+        - value: light
+          text: LIGHT
+        - value: dark
+          text: DARK
+    glowTrigger:
+        - value: always
+          text: ALWAYS
+        - value: hover
+          text: HOVER
+        - value: focus
+          text: FOCUS
+        - value: hoverFocus
+          text: HOVER_FOCUS
 enums:
+    glowColorMode: "GlowColorMode"
+    glowTrigger: "GlowTrigger"
     size: "InputSize"
     type: "SelectType"
     activeStyle: "SelectActiveStyle"
@@ -256,6 +278,16 @@ props: [
         "name": "teleportTo",
         "default": "'body'",
         "type": "string",
+    },
+    {
+        "name": "glowColorMode",
+        "default": "GlowColorMode.NONE",
+        "type": "GlowColorMode",
+    },
+    {
+        "name": "glowTrigger",
+        "default": "GlowTrigger.ALWAYS",
+        "type": "GlowTrigger",
     },
 ]
 ---
@@ -849,3 +881,80 @@ Sets the teleport target selector used when `shouldTeleport` is `true`.
 - **Type:** `string`
 - **Default:** `'body'`
 
+### glowColorMode
+
+Draws a glow around the select box only. The label and the help text do not glow. It is shown in light mode, dark mode, both or none, and it uses the `GlowColorMode` enum. It is `GlowColorMode.NONE` by default, so the field has no glow until you turn it on.
+
+The glow uses the brand color and turns to the error color when the field has an error.
+
+```vue
+<template>
+    <SelectField :glowColorMode="GlowColorMode.DARK" />
+</template>
+```
+
+- **Type:** `GlowColorMode`
+- **Default:** `GlowColorMode.NONE`
+
+#### Options
+::options-table
+---
+options: [
+    {
+        value: "NONE",
+        description: "No glow.",
+    },
+    {
+        value: "BOTH",
+        description: "Glow in light and dark mode.",
+    },
+    {
+        value: "LIGHT",
+        description: "Glow in light mode only.",
+    },
+    {
+        value: "DARK",
+        description: "Glow in dark mode only.",
+    },
+]
+---
+::
+
+### glowTrigger
+
+Sets when the glow appears. It uses the `GlowTrigger` enum and works together with `glowColorMode`, which decides in which theme the glow shows. It is `GlowTrigger.ALWAYS` by default.
+
+`FOCUS` shows the glow while the field has focus. On touch screens there is no hover, so with `HOVER` the glow never shows.
+
+```vue
+<template>
+    <SelectField :glowColorMode="GlowColorMode.BOTH" :glowTrigger="GlowTrigger.FOCUS" />
+</template>
+```
+
+- **Type:** `GlowTrigger`
+- **Default:** `GlowTrigger.ALWAYS`
+
+#### Options
+::options-table
+---
+options: [
+    {
+        value: "ALWAYS",
+        description: "The glow is always visible.",
+    },
+    {
+        value: "HOVER",
+        description: "The glow shows while the pointer is over the field.",
+    },
+    {
+        value: "FOCUS",
+        description: "The glow shows while the field has focus.",
+    },
+    {
+        value: "HOVER_FOCUS",
+        description: "The glow shows on hover and on focus.",
+    },
+]
+---
+::

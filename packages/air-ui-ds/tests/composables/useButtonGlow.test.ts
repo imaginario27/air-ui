@@ -26,11 +26,13 @@ describe('useButtonGlow', () => {
     })
 
     it('follows the glow trigger', () => {
-        const hover = useButtonGlow({ ...base, glowColorMode: GlowColorMode.BOTH, glowTrigger: GlowTrigger.HOVER }).glowClass.value
+        const hover = useButtonGlow({ ...base, glowColorMode: GlowColorMode.BOTH, glowTrigger: GlowTrigger.HOVER })
+            .glowClass.value
         expect(hover.some((c) => c.startsWith('hover:shadow-['))).toBe(true)
         expect(hover.some((c) => c.startsWith('shadow-['))).toBe(false)
 
-        const focus = useButtonGlow({ ...base, glowColorMode: GlowColorMode.BOTH, glowTrigger: GlowTrigger.FOCUS }).glowClass.value
+        const focus = useButtonGlow({ ...base, glowColorMode: GlowColorMode.BOTH, glowTrigger: GlowTrigger.FOCUS })
+            .glowClass.value
         expect(focus.some((c) => c.startsWith('focus-visible:shadow-['))).toBe(true)
     })
 })

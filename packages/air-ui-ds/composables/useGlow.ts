@@ -6,21 +6,27 @@ interface GlowOptions {
     trigger?: MaybeRefOrGetter<GlowTrigger | undefined>
     colorClass?: MaybeRefOrGetter<string>
     sizeClass?: MaybeRefOrGetter<string>
+    // Use `:focus-within` instead of `:focus-visible`, for a wrapper that contains the focusable element (e.g. an input box)
+    focusWithin?: boolean
 }
 
-type GlowEvent = 'always' | 'hover' | 'focus'
+type GlowEvent = 'always' | 'hover' | 'focus' | 'focusWithin'
 
 // Tailwind scans the source text, so each class below must be written out in full (never built from a template)
 const GLOW_SHADOW: Record<GlowEvent, string> = {
     always: 'shadow-[0_0_var(--glow-size,24px)_color-mix(in_srgb,var(--glow-color,var(--color-background-primary-brand-default))_55%,transparent)]',
     hover: 'hover:shadow-[0_0_var(--glow-size,24px)_color-mix(in_srgb,var(--glow-color,var(--color-background-primary-brand-default))_55%,transparent)]',
     focus: 'focus-visible:shadow-[0_0_var(--glow-size,24px)_color-mix(in_srgb,var(--glow-color,var(--color-background-primary-brand-default))_55%,transparent)]',
+    focusWithin:
+        'focus-within:shadow-[0_0_var(--glow-size,24px)_color-mix(in_srgb,var(--glow-color,var(--color-background-primary-brand-default))_55%,transparent)]',
 }
 
 const GLOW_SHADOW_DARK: Record<GlowEvent, string> = {
     always: '[.dark_&]:shadow-[0_0_var(--glow-size,24px)_color-mix(in_srgb,var(--glow-color,var(--color-background-primary-brand-default))_55%,transparent)]',
     hover: '[.dark_&]:hover:shadow-[0_0_var(--glow-size,24px)_color-mix(in_srgb,var(--glow-color,var(--color-background-primary-brand-default))_55%,transparent)]',
     focus: '[.dark_&]:focus-visible:shadow-[0_0_var(--glow-size,24px)_color-mix(in_srgb,var(--glow-color,var(--color-background-primary-brand-default))_55%,transparent)]',
+    focusWithin:
+        '[.dark_&]:focus-within:shadow-[0_0_var(--glow-size,24px)_color-mix(in_srgb,var(--glow-color,var(--color-background-primary-brand-default))_55%,transparent)]',
 }
 
 // Turns the light glow off in dark mode. It mirrors each trigger so it always beats the light shadow's specificity
@@ -28,6 +34,7 @@ const GLOW_OFF_DARK: Record<GlowEvent, string> = {
     always: '[.dark_&]:shadow-none',
     hover: '[.dark_&]:hover:shadow-none',
     focus: '[.dark_&]:focus-visible:shadow-none',
+    focusWithin: '[.dark_&]:focus-within:shadow-none',
 }
 
 const TRIGGER_EVENTS: Record<GlowTrigger, GlowEvent[]> = {
@@ -43,7 +50,9 @@ export const useGlow = (glowColorMode: MaybeRefOrGetter<GlowColorMode | undefine
 
         if (!type || type === GlowColorMode.NONE) return []
 
-        const events = TRIGGER_EVENTS[toValue(options.trigger) as GlowTrigger] || TRIGGER_EVENTS[GlowTrigger.ALWAYS]
+        const triggerEvents =
+            TRIGGER_EVENTS[toValue(options.trigger) as GlowTrigger] || TRIGGER_EVENTS[GlowTrigger.ALWAYS]
+        const events = triggerEvents.map((event) => (event === 'focus' && options.focusWithin ? 'focusWithin' : event))
 
         const variant: Record<GlowColorMode, string[]> = {
             [GlowColorMode.NONE]: [],

@@ -2,6 +2,7 @@ import { mount } from '@vue/test-utils'
 import { defineComponent, h, ref } from 'vue'
 import FileUploadField from '~/components/forms/fields/FileUploadField.vue'
 import { Position } from '@/models/enums/positions'
+import { GlowColorMode, GlowTrigger } from '@/models/enums/glow'
 import { useDSConfig } from '@/composables/useDSConfig'
 
 vi.mock('~/composables/useFormValidationMode', () => ({
@@ -23,6 +24,7 @@ const DropzoneStub = defineComponent({
             type: Boolean,
             default: false,
         },
+        dropzoneClass: String,
     },
     emits: ['update:modelValue', 'update:totalProgress', 'error', 'file-added', 'file-removed', 'clear-all'],
     setup(_, { slots, attrs }) {
@@ -246,5 +248,36 @@ describe('FileUploadField.vue', () => {
 
             expect(dropzone.attributes('clearallbuttontext')).toBe('Limpiar todo')
         })
+    })
+})
+
+describe('FileUploadField glow', () => {
+    const dropzoneClass = (props: Record<string, unknown> = {}) =>
+        (factory(props).findComponent(DropzoneStub).props('dropzoneClass') as string | undefined) ?? ''
+
+    it('has no glow by default', () => {
+        expect(dropzoneClass()).not.toContain('--glow-color')
+    })
+
+    it('glows the drag area, not the label or the help text', () => {
+        const wrapper = factory({ label: 'Upload', helpText: 'PDF only', glowColorMode: GlowColorMode.BOTH })
+        expect(wrapper.findComponent(DropzoneStub).props('dropzoneClass')).toContain('--glow-color')
+        expect(wrapper.find('label').classes().join(' ')).not.toContain('--glow-color')
+    })
+
+    it('keeps the dropzoneClass prop', () => {
+        expect(dropzoneClass({ glowColorMode: GlowColorMode.BOTH, dropzoneClass: 'my-class' })).toContain('my-class')
+    })
+
+    it('uses focus-within for the focus trigger', () => {
+        expect(dropzoneClass({ glowColorMode: GlowColorMode.BOTH, glowTrigger: GlowTrigger.FOCUS })).toContain(
+            'focus-within:shadow-[',
+        )
+    })
+
+    it('turns the glow red on error', () => {
+        expect(dropzoneClass({ glowColorMode: GlowColorMode.BOTH, error: 'Required' })).toContain(
+            '[--glow-color:var(--color-border-error)]',
+        )
     })
 })

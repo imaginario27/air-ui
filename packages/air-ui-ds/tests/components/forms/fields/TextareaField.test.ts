@@ -1,4 +1,5 @@
 import { mount } from '@vue/test-utils'
+import { GlowColorMode, GlowTrigger } from '@/models/enums/glow'
 import TextareaField from '~/components/forms/fields/TextareaField.vue'
 import { FormValidationMode } from '~/models/enums/formValidations'
 import { Position } from '@/models/enums/positions'
@@ -276,5 +277,43 @@ describe('TextareaField', () => {
         const wrapper = factory({ transparent: true })
         const container = wrapper.find('div.border')
         expect(container.classes()).not.toContain('bg-background-container-surface')
+    })
+})
+
+describe('TextareaField glow', () => {
+    const glowMount = (props: Record<string, any> = {}) =>
+        mount(TextareaField, { props: { ...defaultProps, ...props } })
+    const glowBoxes = (wrapper: ReturnType<typeof glowMount>) =>
+        wrapper.findAll('[class*="--glow-color"]').map((w) => w.element as HTMLElement)
+
+    it('has no glow by default', () => {
+        expect(glowBoxes(glowMount())).toHaveLength(0)
+    })
+
+    it('glows only the field box, not the label or the help text', () => {
+        const wrapper = glowMount({ label: 'Name', helpText: 'Help', glowColorMode: GlowColorMode.BOTH })
+        expect(glowBoxes(wrapper)).toHaveLength(1)
+        expect(wrapper.find('label').classes().join(' ')).not.toContain('--glow-color')
+    })
+
+    it('shows the glow in dark mode only when glowColorMode is dark', () => {
+        const classes = [...glowBoxes(glowMount({ glowColorMode: GlowColorMode.DARK }))[0]!.classList]
+        expect(classes.some((c) => c.startsWith('[.dark_&]:shadow-['))).toBe(true)
+        expect(classes.some((c) => c.startsWith('shadow-['))).toBe(false)
+    })
+
+    it('uses focus-within for the focus trigger', () => {
+        const classes = [
+            ...glowBoxes(glowMount({ glowColorMode: GlowColorMode.BOTH, glowTrigger: GlowTrigger.FOCUS }))[0]!
+                .classList,
+        ]
+        expect(classes.some((c) => c.startsWith('focus-within:shadow-['))).toBe(true)
+    })
+
+    it('turns the glow red on error', () => {
+        const wrapper = glowMount({ glowColorMode: GlowColorMode.BOTH, error: 'Required' })
+        expect(
+            glowBoxes(wrapper).every((el) => el.classList.contains('[--glow-color:var(--color-border-error)]')),
+        ).toBe(true)
     })
 })
