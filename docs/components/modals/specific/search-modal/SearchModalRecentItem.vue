@@ -8,7 +8,9 @@
             'last:border-b',
             'flex gap-3 justify-between items-center',
             'cursor-pointer',
-            'hover:bg-background-neutral-hover',
+            'transition-colors duration-200',
+            'hover:bg-background-neutral-subtler',
+            '[.dark_&]:hover:bg-background-surface',
         ]"
         @click="handleClick"
     >
