@@ -66,10 +66,10 @@
 
                             <div
                                 ref="contentRef"
+                                data-surface="modal"
                                 :class="[
                                     'p-4 md:p-6',
-                                    'modal-content',
-                                    'surface-container',
+                                    '[--color-background-container-surface:var(--color-background-surface)]',
                                     cardClass,
                                 ]"
                             >

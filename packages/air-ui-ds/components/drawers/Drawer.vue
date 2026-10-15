@@ -27,10 +27,10 @@
         >
             <aside
                 v-if="isOpen"
+                data-surface="container"
                 :class="[
                     'fixed',
                     'bg-background-container-surface',
-                    'surface-container',
                     'shadow-xl',
                     'z-[10000]',
                     'p-4',
