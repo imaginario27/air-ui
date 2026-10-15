@@ -600,7 +600,7 @@ Sets the custom CSS class for the textarea.
 
 ### transparent
 
-When `true`, removes the default `bg-background-container-surface` background from the textarea container, making it transparent.
+When `true`, removes the default `bg-background-field` background from the textarea container, making it transparent.
 
 ```vue
 <template>

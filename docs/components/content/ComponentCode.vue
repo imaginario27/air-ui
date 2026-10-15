@@ -168,7 +168,7 @@
                                 'items-center',
                                 'w-full',
                                 'items-center justify-center',
-                                isPreviewContentBoxed && 'p-4 md:p-8 border border-border-neutral-subtle rounded bg-background-container-surface',
+                                isPreviewContentBoxed && 'p-4 md:p-8 border border-border-neutral-subtle rounded bg-background-container-surface surface-container',
                             ]"
                             :style="previewContentStyle"
                         >
@@ -222,7 +222,7 @@
                         'items-center',
                         'w-full',
                         'items-center justify-center',
-                        isPreviewContentBoxed && 'p-4 md:p-8 border border-border-neutral-subtle rounded bg-background-container-surface',
+                        isPreviewContentBoxed && 'p-4 md:p-8 border border-border-neutral-subtle rounded bg-background-container-surface surface-container',
                     ]"
                     :style="previewContentStyle"
                 >
@@ -1391,7 +1391,7 @@ watch([componentProps, isDark], generateCode, { deep: true, immediate: true })
 // The dark variants use the `.dark` class on <html> (set before first paint) instead of `isDark`, which is false until mounted and would flash light
 const componentPreviewClass = computed(() => {
     const variant = {
-        ['white']: 'bg-background-container-surface [.dark_&]:bg-neutral-900/50',
+        ['white']: 'bg-background-container-surface surface-container [.dark_&]:bg-neutral-900/50',
         ['neutral-subtle']: 'bg-neutral-50 [.dark_&]:bg-neutral-900/50',
     }
 

@@ -1,6 +1,8 @@
 :root {
     /* UI Theme - Colors */
     --color-background-container-surface: var(--color-theme-neutral-white);
+    --color-background-field: var(--color-background-container-surface);
+    --color-background-field-on-container: var(--color-background-surface);
     --color-background-overlay: #1829531f;
     --color-background-surface: var(--color-theme-neutral-white);
     --color-background-danger-bold: var(--color-theme-danger-700);
@@ -230,6 +232,8 @@
 .dark {
     /* UI Theme - Colors */
     --color-background-container-surface: var(--color-theme-neutral-50);
+    --color-background-field: var(--color-background-container-surface);
+    --color-background-field-on-container: var(--color-background-surface);
     --color-background-overlay: #1829531f;
     --color-background-surface: var(--color-theme-neutral-white);
     --color-background-danger-bold: var(--color-theme-danger-400);

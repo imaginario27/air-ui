@@ -475,7 +475,7 @@ If `true`, the field will be optimized for one-time password (OTP) input, which 
 
 ### transparent
 
-When `true`, removes the default `bg-background-container-surface` background from each pin input, making them transparent.
+When `true`, removes the default `bg-background-field` background from each pin input, making them transparent.
 
 ```vue
 <template>

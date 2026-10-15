@@ -724,7 +724,7 @@ Overrides the "(optional)" hint text for this specific field, taking priority ov
 
 ### transparent
 
-When `true`, removes the default `bg-background-container-surface` background from the input container, making it transparent.
+When `true`, removes the default `bg-background-field` background from the input container, making it transparent.
 
 ```vue
 <template>

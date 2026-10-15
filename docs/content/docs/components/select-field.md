@@ -839,7 +839,7 @@ Sets the accessible label for the clear selection button in multi-select mode. U
 
 ### transparent
 
-When `true`, removes the default `bg-background-container-surface` background from the select box, making it transparent.
+When `true`, removes the default `bg-background-field` background from the select box, making it transparent.
 
 ```vue
 <template>

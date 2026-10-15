@@ -34,6 +34,14 @@ items: [
         "description": "Default application background.",
     },
     {
+        "name": "background-field",
+        "description": "Background of form fields (inputs, textareas, selects). Defaults to the container surface; containers adapt it through the `surface-container` class.",
+    },
+    {
+        "name": "background-field-on-container",
+        "description": "Field background applied inside elevated containers (Card, Drawer, ModalDialog). Override it to make fields lighter or darker than the container.",
+    },
+    {
         "name": "background-danger-bold",
         "description": "Strong danger background for critical actions.",
     },

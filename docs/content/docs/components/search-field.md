@@ -411,7 +411,7 @@ The `clearAriaLabel` prop sets the accessible label for the clear search button.
 
 ### transparent
 
-When `true`, removes the default `bg-background-container-surface` background from the search input container, making it transparent.
+When `true`, removes the default `bg-background-field` background from the search input container, making it transparent.
 
 ```vue
 <template>
