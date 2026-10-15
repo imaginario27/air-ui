@@ -12,7 +12,7 @@ props:
     iconClass: ""
     isRounded: false
     hasFocusRing: true
-    glowType: "none"
+    glowColorMode: "none"
     glowTrigger: "always"
     disabled: false
     to: "/"
@@ -70,7 +70,7 @@ items:
           text: SM
         - value: xs
           text: XS
-    glowType:
+    glowColorMode:
         - value: none
           text: NONE
         - value: both
@@ -95,7 +95,7 @@ enums:
     actionType: "ButtonActionType"
     styleType: "ButtonStyleType"
     size: "ButtonSize"
-    glowType: "GlowType"
+    glowColorMode: "GlowColorMode"
     glowTrigger: "GlowTrigger"
 ---
 ::
@@ -165,9 +165,9 @@ props: [
         "type": "boolean"
     },
     {
-        "name": "glowType",
-        "default": "GlowType.NONE",
-        "type": "GlowType"
+        "name": "glowColorMode",
+        "default": "GlowColorMode.NONE",
+        "type": "GlowColorMode"
     },
     {
         "name": "glowTrigger",
@@ -485,20 +485,20 @@ Shows or hides the focus ring. Disable it only when the focus state is already v
 - **Type:** `boolean`
 - **Default:** `true`
 
-### glowType
+### glowColorMode
 
-Draws a glow around the button, shown in light mode, dark mode, both or none. It uses the `GlowType` enum. It is `GlowType.NONE` by default, so buttons have no glow until you turn it on.
+Draws a glow around the button, shown in light mode, dark mode, both or none. It uses the `GlowColorMode` enum. It is `GlowColorMode.NONE` by default, so buttons have no glow until you turn it on.
 
-The glow color follows the `styleType` and its spread follows the `size`, so a small primary button gets a tighter glow than a large one. Pass a `GlowType` to turn the glow on for a single button.
+The glow color follows the `styleType` and its spread follows the `size`, so a small primary button gets a tighter glow than a large one. Pass a `GlowColorMode` to turn the glow on for a single button.
 
 ```vue
 <template>
-    <ActionIconButton :glowType="GlowType.DARK" />
+    <ActionIconButton :glowColorMode="GlowColorMode.DARK" />
 </template>
 ```
 
-- **Type:** `GlowType`
-- **Default:** `GlowType.NONE`
+- **Type:** `GlowColorMode`
+- **Default:** `GlowColorMode.NONE`
 
 #### Options
 ::options-table
@@ -526,13 +526,13 @@ options: [
 
 ### glowTrigger
 
-Sets when the glow appears. It uses the `GlowTrigger` enum and works together with `glowType`, which decides in which theme the glow shows. It is `GlowTrigger.ALWAYS` by default.
+Sets when the glow appears. It uses the `GlowTrigger` enum and works together with `glowColorMode`, which decides in which theme the glow shows. It is `GlowTrigger.ALWAYS` by default.
 
 `FOCUS` uses keyboard focus (`:focus-visible`), so the glow does not stay on after a mouse click. On touch screens there is no hover, so with `HOVER` the glow never shows.
 
 ```vue
 <template>
-    <ActionIconButton :glowType="GlowType.BOTH" :glowTrigger="GlowTrigger.HOVER_FOCUS" />
+    <ActionIconButton :glowColorMode="GlowColorMode.BOTH" :glowTrigger="GlowTrigger.HOVER_FOCUS" />
 </template>
 ```
 
