@@ -23,9 +23,7 @@
                 inputCustomClass,
                 isFocused && 'ring-2 ring-inset ring-border-primary-brand-default',
                 ...glowClass,
-                disabled
-                    ? 'bg-background-neutral-disabled cursor-not-allowed'
-                    : !transparent && 'bg-background-field',
+                disabled ? 'bg-background-neutral-disabled cursor-not-allowed' : !transparent && 'bg-background-field',
             ]"
         >
             <!-- Icon -->
