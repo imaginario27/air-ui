@@ -1,3 +1,11 @@
+const glowDefaults = (): GlowSettings => ({
+    colorMode: GlowColorMode.NONE,
+    trigger: GlowTrigger.ALWAYS,
+    type: GlowType.OUTER,
+    opacity: 40,
+    size: null,
+})
+
 const dsConfig = reactive<DesignSystemConfig>({
     forms: {
         optionalLabelText: () => '(optional)',
@@ -80,6 +88,11 @@ const dsConfig = reactive<DesignSystemConfig>({
         previousText: () => 'Previous slide',
         nextText: () => 'Next slide',
         goToSlideText: () => 'Go to slide',
+    },
+    glow: {
+        card: glowDefaults(),
+        button: glowDefaults(),
+        input: glowDefaults(),
     },
 })
 

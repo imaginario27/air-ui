@@ -1,6 +1,6 @@
 import { useButtonGlow } from '@/composables/useButtonGlow'
 import { ButtonSize, ButtonStyleType } from '@/models/enums/buttons'
-import { GlowTrigger, GlowColorMode } from '@/models/enums/glow'
+import { GlowTrigger, GlowColorMode, GlowType } from '@/models/enums/glow'
 
 const base = { styleType: ButtonStyleType.PRIMARY_BRAND_FILLED, size: ButtonSize.LG }
 
@@ -22,7 +22,7 @@ describe('useButtonGlow', () => {
         }).glowClass.value
 
         expect(classes).toContain('[--glow-color:var(--color-background-delete-default)]')
-        expect(classes).toContain('[--glow-size:8px]')
+        expect(classes).toContain('[--glow-size:4px]')
     })
 
     it('follows the glow trigger', () => {
@@ -34,5 +34,45 @@ describe('useButtonGlow', () => {
         const focus = useButtonGlow({ ...base, glowColorMode: GlowColorMode.BOTH, glowTrigger: GlowTrigger.FOCUS })
             .glowClass.value
         expect(focus.some((c) => c.startsWith('focus-visible:shadow-['))).toBe(true)
+    })
+
+    it.each([
+        [ButtonStyleType.PRIMARY_BRAND_FILLED, '[--glow-color:var(--color-text-neutral-on-filled)]'],
+        [ButtonStyleType.SECONDARY_BRAND_FILLED, '[--glow-color:var(--color-text-neutral-on-filled)]'],
+        [ButtonStyleType.DELETE_FILLED, '[--glow-color:var(--color-text-neutral-on-filled)]'],
+        [ButtonStyleType.NEUTRAL_FILLED, '[--glow-color:var(--color-text-neutral-on-neutral-filled-bg)]'],
+    ])('uses a contrasting color for an inner glow on %s', (styleType, expected) => {
+        const classes = useButtonGlow({
+            ...base,
+            styleType,
+            glowColorMode: GlowColorMode.BOTH,
+            glowType: GlowType.INNER,
+        }).glowClass.value
+        expect(classes).toContain(expected)
+    })
+
+    it('keeps the style color for an outer glow on a filled button', () => {
+        const classes = useButtonGlow({
+            ...base,
+            styleType: ButtonStyleType.PRIMARY_BRAND_FILLED,
+            glowColorMode: GlowColorMode.BOTH,
+        }).glowClass.value
+        expect(classes).toContain('[--glow-color:var(--color-background-primary-brand-default)]')
+    })
+
+    it('keeps the style color for an inner glow on a button that is not filled', () => {
+        const classes = useButtonGlow({
+            ...base,
+            styleType: ButtonStyleType.PRIMARY_BRAND_SOFT,
+            glowColorMode: GlowColorMode.BOTH,
+            glowType: GlowType.INNER,
+        }).glowClass.value
+        expect(classes).toContain('[--glow-color:var(--color-background-primary-brand-default)]')
+    })
+
+    it('uses a custom glow size instead of the one that follows the button size', () => {
+        const classes = useButtonGlow({ ...base, glowColorMode: GlowColorMode.BOTH, glowSize: 40 }).glowClass.value
+        expect(classes).toContain('[--glow-size:40px]')
+        expect(classes).not.toContain('[--glow-size:16px]')
     })
 })

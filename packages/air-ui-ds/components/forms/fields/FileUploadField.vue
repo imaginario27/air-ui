@@ -305,13 +305,23 @@ const props = defineProps({
     },
     glowColorMode: {
         type: String as PropType<GlowColorMode>,
-        default: GlowColorMode.NONE,
         validator: (value: GlowColorMode) => Object.values(GlowColorMode).includes(value),
     },
     glowTrigger: {
         type: String as PropType<GlowTrigger>,
-        default: GlowTrigger.ALWAYS,
         validator: (value: GlowTrigger) => Object.values(GlowTrigger).includes(value),
+    },
+    glowType: {
+        type: String as PropType<GlowType>,
+        validator: (value: GlowType) => Object.values(GlowType).includes(value),
+    },
+    glowOpacity: {
+        type: Number as PropType<number>,
+        validator: (value: number) => value >= 0 && value <= 100,
+    },
+    glowSize: {
+        type: Number as PropType<number | null>,
+        validator: (value: number | null) => value === null || value >= 0,
     },
 })
 

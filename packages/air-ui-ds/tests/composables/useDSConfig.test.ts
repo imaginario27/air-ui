@@ -1,6 +1,14 @@
 import { useDSConfig } from '@/composables/useDSConfig'
 
 describe('useDSConfig', () => {
+    it('returns no glow by default for cards, buttons and inputs', () => {
+        const { glow } = useDSConfig()
+
+        for (const settings of [glow.card, glow.button, glow.input]) {
+            expect(settings).toEqual({ colorMode: 'none', trigger: 'always', type: 'outer', opacity: 40, size: null })
+        }
+    })
+
     it('returns expected default options', () => {
         const config = useDSConfig()
 

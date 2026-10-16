@@ -7,9 +7,12 @@
             'p-4',
             hasBorder ? 'border border-border-default' : undefined,
             'rounded-lg',
-            hasShadow ? 'shadow-sm' : undefined,
+            hasShadow && !glowReplacesShadow ? 'shadow-sm' : undefined,
             'w-full',
-            hasBackgroundHover && 'transition-colors duration-200 hover:bg-background-neutral-subtlest/40',
+            glowClass.length ? 'transition-[background-color,box-shadow] duration-200' : undefined,
+            hasBackgroundHover && !glowClass.length && 'transition-colors duration-200',
+            hasBackgroundHover && 'hover:bg-background-neutral-subtlest/40',
+            ...glowClass,
         ]"
     >
         <slot />
@@ -17,7 +20,7 @@
 </template>
 <script setup lang="ts">
 // Props
-defineProps({
+const props = defineProps({
     hasShadow: {
         type: Boolean as PropType<boolean>,
         default: true,
@@ -30,5 +33,45 @@ defineProps({
         type: Boolean as PropType<boolean>,
         default: false,
     },
+    glowColorMode: {
+        type: String as PropType<GlowColorMode>,
+        validator: (value: GlowColorMode) => Object.values(GlowColorMode).includes(value),
+    },
+    glowTrigger: {
+        type: String as PropType<GlowTrigger>,
+        validator: (value: GlowTrigger) => Object.values(GlowTrigger).includes(value),
+    },
+    glowType: {
+        type: String as PropType<GlowType>,
+        validator: (value: GlowType) => Object.values(GlowType).includes(value),
+    },
+    glowOpacity: {
+        type: Number as PropType<number>,
+        validator: (value: number) => value >= 0 && value <= 100,
+    },
+    glowSize: {
+        type: Number as PropType<number | null>,
+        validator: (value: number | null) => value === null || value >= 0,
+    },
 })
+
+// Glow
+const glowSettings = useGlowSettings('card', props)
+const { glowClass } = useGlow(glowSettings.colorMode, {
+    trigger: glowSettings.trigger,
+    type: glowSettings.type,
+    opacity: glowSettings.opacity,
+    size: glowSettings.size,
+    focusWithin: true,
+    colorClass: '[--glow-color:var(--color-background-neutral-bold)]',
+    sizeClass: '[--glow-size:12px]',
+})
+
+// The glow takes the place of the resting shadow when that shadow would win over it (always-on glow) or could not
+// transition to it (an inner glow is an inset shadow, which does not interpolate with the outer resting shadow)
+const glowReplacesShadow = computed(
+    () =>
+        glowClass.value.length > 0 &&
+        (glowSettings.trigger.value === GlowTrigger.ALWAYS || glowSettings.type.value === GlowType.INNER),
+)
 </script>

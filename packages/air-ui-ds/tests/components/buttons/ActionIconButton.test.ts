@@ -189,9 +189,9 @@ describe('ActionIconButton glow', () => {
     })
 
     it.each([
-        [ButtonSize.XS, '[--glow-size:8px]'],
-        [ButtonSize.MD, '[--glow-size:16px]'],
-        [ButtonSize.XXL, '[--glow-size:32px]'],
+        [ButtonSize.XS, '[--glow-size:4px]'],
+        [ButtonSize.MD, '[--glow-size:12px]'],
+        [ButtonSize.XXL, '[--glow-size:24px]'],
     ])('spreads the glow after the %s size', (size, expected) => {
         expect(factory({ size, glowColorMode: GlowColorMode.DARK }).find('button').classes()).toContain(expected)
     })
