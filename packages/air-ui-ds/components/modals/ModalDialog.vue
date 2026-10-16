@@ -66,6 +66,7 @@
 
                             <div
                                 ref="contentRef"
+                                data-surface="modal"
                                 :class="[
                                     'p-4 md:p-6',
                                     '[--color-background-container-surface:var(--color-background-surface)]',

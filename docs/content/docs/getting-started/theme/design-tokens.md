@@ -34,6 +34,10 @@ items: [
         "description": "Default application background.",
     },
     {
+        "name": "background-field",
+        "description": "Background of form fields (inputs, textareas, selects). Defaults to the container surface.",
+    },
+    {
         "name": "background-danger-bold",
         "description": "Strong danger background for critical actions.",
     },

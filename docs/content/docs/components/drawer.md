@@ -380,3 +380,24 @@ The `closeAriaLabel` prop sets the accessible label for the close button. Overri
 
 - **Type:** `string`
 - **Default:** `'Close'`
+
+## Data attributes
+
+Use this attribute to hook your own styles to the layer a component draws, such as the background that form fields should use on it.
+
+::data-attributes-table
+---
+attributes: [
+    {
+        "name": "data-surface",
+        "value": "container",
+        "description": [
+            "Set on the drawer panel. Marks the layer it draws. The design system applies no styles for it. Use it in your CSS to adapt tokens to the layer, for example",
+            { "type": "code", "content": "[data-surface='container'] { --color-background-field: var(--color-background-surface); }" },
+        ],
+    },
+]
+---
+::
+
+See [Data attributes](/docs/getting-started/data-attributes) for how to use them.

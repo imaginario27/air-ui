@@ -27,6 +27,7 @@
         >
             <aside
                 v-if="isOpen"
+                data-surface="container"
                 :class="[
                     'fixed',
                     'bg-background-container-surface',

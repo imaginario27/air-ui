@@ -1,5 +1,6 @@
 <template>
     <div
+        data-surface="container"
         :class="[
             'flex flex-col gap-5',
             'bg-background-container-surface',

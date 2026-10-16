@@ -1,4 +1,5 @@
 import { mount } from '@vue/test-utils'
+import { GlowColorMode, GlowTrigger } from '@/models/enums/glow'
 import SearchField from '~/components/forms/fields/SearchField.vue'
 import ActionIconButton from '~/components/buttons/ActionIconButton.vue'
 import { InputSize } from '#imports'
@@ -249,12 +250,12 @@ describe('SearchField', () => {
         expect(input.attributes('aria-label')).toBe('Accessible search')
     })
 
-    it('applies bg-background-container-surface when transparent is false', () => {
+    it('applies bg-background-field when transparent is false', () => {
         const wrapper = mount(SearchField, {
             props: { ...defaultProps, transparent: false },
         })
         const container = wrapper.find('div.border')
-        expect(container.classes()).toContain('bg-background-container-surface')
+        expect(container.classes()).toContain('bg-background-field')
     })
 
     it('does not apply background when transparent is true', () => {
@@ -262,7 +263,7 @@ describe('SearchField', () => {
             props: { ...defaultProps, transparent: true },
         })
         const container = wrapper.find('div.border')
-        expect(container.classes()).not.toContain('bg-background-container-surface')
+        expect(container.classes()).not.toContain('bg-background-field')
     })
 
     it('applies inputClass to the input element', () => {
@@ -305,5 +306,35 @@ describe('SearchField', () => {
             const clearBtn = wrapper.findComponent(ActionIconButton)
             expect(clearBtn.props('ariaLabel')).toBe('Dismiss')
         })
+    })
+})
+
+describe('SearchField glow', () => {
+    const glowMount = (props: Record<string, any> = {}) => mount(SearchField, { props: { ...defaultProps, ...props } })
+    const glowBoxes = (wrapper: ReturnType<typeof glowMount>) =>
+        wrapper.findAll('[class*="--glow-color"]').map((w) => w.element as HTMLElement)
+
+    it('has no glow by default', () => {
+        expect(glowBoxes(glowMount())).toHaveLength(0)
+    })
+
+    it('glows only the field box, not the label or the help text', () => {
+        const wrapper = glowMount({ label: 'Name', helpText: 'Help', glowColorMode: GlowColorMode.BOTH })
+        expect(glowBoxes(wrapper)).toHaveLength(1)
+        expect(wrapper.find('label').classes().join(' ')).not.toContain('--glow-color')
+    })
+
+    it('shows the glow in dark mode only when glowColorMode is dark', () => {
+        const classes = [...glowBoxes(glowMount({ glowColorMode: GlowColorMode.DARK }))[0]!.classList]
+        expect(classes.some((c) => c.startsWith('[.dark_&]:shadow-['))).toBe(true)
+        expect(classes.some((c) => c.startsWith('shadow-['))).toBe(false)
+    })
+
+    it('uses focus-within for the focus trigger', () => {
+        const classes = [
+            ...glowBoxes(glowMount({ glowColorMode: GlowColorMode.BOTH, glowTrigger: GlowTrigger.FOCUS }))[0]!
+                .classList,
+        ]
+        expect(classes.some((c) => c.startsWith('focus-within:shadow-['))).toBe(true)
     })
 })

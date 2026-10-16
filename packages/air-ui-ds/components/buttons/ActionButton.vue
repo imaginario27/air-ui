@@ -7,7 +7,8 @@
             'flex items-center justify-center',
             isRounded ? 'rounded-full' : 'rounded-button',
             'text-nowrap',
-            'transition-colors duration-200 ease-out',
+            glowClass.length ? 'transition-[color,background-color,border-color,box-shadow]' : 'transition-colors',
+            'duration-200 ease-out',
             ...buttonStyleClass,
             buttonSizeClass,
             horizontalPaddingClass,
@@ -16,6 +17,7 @@
             !hasFocusRing && 'focus:!ring-0 focus:!ring-offset-0',
             isFullWidth && 'w-full',
             isMobileFullWidth && 'w-full md:w-auto',
+            ...glowClass,
             disabled && 'opacity-disabled cursor-not-allowed pointer-events-none',
         ]"
         v-bind="{
@@ -36,7 +38,6 @@
                     '[text-box:trim-both_cap_alphabetic]',
                     'select-none',
                     textSizeClass,
-                    textOffsetClass,
                     textClass,
                 ]"
             >
@@ -62,7 +63,6 @@
                     '[text-box:trim-both_cap_alphabetic]',
                     'select-none',
                     textSizeClass,
-                    textOffsetClass,
                     textClass,
                 ]"
             >
@@ -147,6 +147,16 @@ const props = defineProps({
         type: Boolean as PropType<boolean>,
         default: true,
     },
+    glowColorMode: {
+        type: String as PropType<GlowColorMode>,
+        default: GlowColorMode.NONE,
+        validator: (value: GlowColorMode) => Object.values(GlowColorMode).includes(value),
+    },
+    glowTrigger: {
+        type: String as PropType<GlowTrigger>,
+        default: GlowTrigger.ALWAYS,
+        validator: (value: GlowTrigger) => Object.values(GlowTrigger).includes(value),
+    },
     isFullWidth: {
         type: Boolean as PropType<boolean>,
         default: false,
@@ -165,6 +175,9 @@ const props = defineProps({
     },
     id: String as PropType<string>,
 })
+
+// Glow
+const { glowClass } = useButtonGlow(props)
 
 // Emits
 const emit = defineEmits(['click'])
@@ -324,15 +337,6 @@ const textSizeClass = computed(() => {
         [ButtonSize.XXL]: 'text-base',
     }
     return variant[props.size as ButtonSize] || 'text-sm'
-})
-
-// Optical correction: nudges the label up 1px at the sizes where it reads low
-const textOffsetClass = computed(() => {
-    const variant: Partial<Record<ButtonSize, string>> = {
-        [ButtonSize.XS]: '-translate-y-px',
-        [ButtonSize.XXL]: '-translate-y-px',
-    }
-    return variant[props.size as ButtonSize] || ''
 })
 
 const iconColorClass = computed(() => {

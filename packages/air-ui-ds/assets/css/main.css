@@ -12,6 +12,7 @@
     /* --color-*: initial; */
 
     --color-background-container-surface: var(--color-background-container-surface);
+    --color-background-field: var(--color-background-field);
     --color-background-overlay: var(--color-background-overlay);
     --color-background-surface: var(--color-background-surface);
     --color-background-danger-bold: var(--color-background-danger-bold);

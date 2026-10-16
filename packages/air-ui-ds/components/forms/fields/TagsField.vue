@@ -38,7 +38,8 @@
                 hasError ? 'pr-3' : 'pr-4',
                 hasError ? 'border-border-error text-text-error' : 'border-border-default',
                 isFocused && 'ring-2 focus-within:ring-inset focus-within:ring-border-primary-brand-default',
-                disabled ? 'bg-background-neutral-disabled' : !transparent && 'bg-background-container-surface',
+                ...glowClass,
+                disabled ? 'bg-background-neutral-disabled' : !transparent && 'bg-background-field',
                 disabled && 'cursor-not-allowed',
             ]"
         >
@@ -158,6 +159,16 @@ const props = defineProps({
         default: false,
     },
     inputClass: String as PropType<string>,
+    glowColorMode: {
+        type: String as PropType<GlowColorMode>,
+        default: GlowColorMode.NONE,
+        validator: (value: GlowColorMode) => Object.values(GlowColorMode).includes(value),
+    },
+    glowTrigger: {
+        type: String as PropType<GlowTrigger>,
+        default: GlowTrigger.ALWAYS,
+        validator: (value: GlowTrigger) => Object.values(GlowTrigger).includes(value),
+    },
 })
 
 // Emits
@@ -174,6 +185,9 @@ const dsConfig = useDSConfig()
 
 // Computed States
 const hasError = computed(() => props.error !== '')
+
+// Glow
+const { glowClass } = useFieldGlow(props, hasError)
 const optionalLabelText = computed(() => props.optionalLabel ?? dsConfig.forms.optionalLabelText())
 const isMaxTagsReached = computed(
     () => Number.isFinite(props.maxTags) && props.modelValue.length >= (props.maxTags as number),

@@ -2,6 +2,11 @@
 html {
     scroll-behavior: smooth;
     scrollbar-gutter: stable;
+    color-scheme: light; /* Native UI (scrollbars, date inputs) follows the theme */
+}
+
+html.dark {
+    color-scheme: dark;
 }
 
 body {

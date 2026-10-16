@@ -1,7 +1,8 @@
 import { mount } from '@vue/test-utils'
 import ActionIconButton from '@/components/buttons/ActionIconButton.vue'
 import Icon from '@/components/icons/Icon.vue'
-import { ButtonActionType } from '@/models/enums/buttons'
+import { ButtonActionType, ButtonSize, ButtonStyleType } from '@/models/enums/buttons'
+import { GlowTrigger, GlowColorMode } from '@/models/enums/glow'
 
 const factory = (props = {}) => {
     return mount(ActionIconButton, {
@@ -157,5 +158,56 @@ describe('ActionIconButton.vue', () => {
         expect(wrapper.emitted('click')).toBeUndefined()
         expect(wrapper.attributes('type')).toBeUndefined()
         expect(wrapper.attributes('disabled')).toBeUndefined()
+    })
+})
+
+describe('ActionIconButton glow', () => {
+    const hasGlow = (classes: string[]) => classes.some((c) => c.includes('--glow-color'))
+
+    it('has no glow by default', () => {
+        expect(hasGlow(factory().find('button').classes())).toBe(false)
+    })
+
+    it('shows the glow in dark mode only when glowColorMode is dark', () => {
+        const classes = factory({ glowColorMode: GlowColorMode.DARK }).find('button').classes()
+        expect(classes.some((c) => c.startsWith('[.dark_&]:shadow-['))).toBe(true)
+        expect(classes.some((c) => c.startsWith('shadow-['))).toBe(false)
+    })
+
+    it('removes the glow when glowColorMode is none', () => {
+        const classes = factory({ glowColorMode: GlowColorMode.NONE }).find('button').classes()
+        expect(hasGlow(classes)).toBe(false)
+    })
+
+    it.each([
+        [ButtonStyleType.PRIMARY_BRAND_FILLED, '[--glow-color:var(--color-background-primary-brand-default)]'],
+        [ButtonStyleType.SECONDARY_BRAND_FILLED, '[--glow-color:var(--color-background-secondary-brand-default)]'],
+        [ButtonStyleType.NEUTRAL_OUTLINED, '[--glow-color:var(--color-background-neutral-bold)]'],
+        [ButtonStyleType.DELETE_FILLED, '[--glow-color:var(--color-background-delete-default)]'],
+    ])('colors the glow after the %s style', (styleType, expected) => {
+        expect(factory({ styleType, glowColorMode: GlowColorMode.DARK }).find('button').classes()).toContain(expected)
+    })
+
+    it.each([
+        [ButtonSize.XS, '[--glow-size:8px]'],
+        [ButtonSize.MD, '[--glow-size:16px]'],
+        [ButtonSize.XXL, '[--glow-size:32px]'],
+    ])('spreads the glow after the %s size', (size, expected) => {
+        expect(factory({ size, glowColorMode: GlowColorMode.DARK }).find('button').classes()).toContain(expected)
+    })
+
+    it('shows the glow only on hover when glowTrigger is hover', () => {
+        const classes = factory({ glowColorMode: GlowColorMode.BOTH, glowTrigger: GlowTrigger.HOVER })
+            .find('button')
+            .classes()
+        expect(classes.some((c) => c.startsWith('hover:shadow-['))).toBe(true)
+        expect(classes.some((c) => c.startsWith('shadow-['))).toBe(false)
+    })
+
+    it('animates the shadow only when the glow is on', () => {
+        expect(factory().find('button').classes()).toContain('transition-colors')
+        expect(factory({ glowColorMode: GlowColorMode.BOTH }).find('button').classes()).toContain(
+            'transition-[color,background-color,border-color,box-shadow]',
+        )
     })
 })

@@ -27,7 +27,7 @@
                         'flex items-center justify-between',
                         'w-full',
                         'px-3',
-                        disabled ? 'bg-background-neutral-disabled' : !transparent && 'bg-background-container-surface',
+                        disabled ? 'bg-background-neutral-disabled' : !transparent && 'bg-background-field',
                         'rounded',
                         disabled ? 'cursor-not-allowed' : 'cursor-pointer',
                         'border border-border-default',

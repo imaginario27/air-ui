@@ -1,3 +1,10 @@
+html {
+    color-scheme: light; /* Native UI (scrollbars, date inputs) follows the theme */
+}
+
+html.dark {
+    color-scheme: dark;
+}
 
 body {
     font-family: 'Inter', sans-serif;

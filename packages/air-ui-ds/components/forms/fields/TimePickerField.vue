@@ -32,7 +32,8 @@
                     inputSizeClass,
                     hasError ? 'border-border-error text-text-error' : 'border-border-default',
                     (isFocused || isOpen) && 'ring-2 ring-inset ring-border-primary-brand-default',
-                    disabled ? 'bg-background-neutral-disabled' : !transparent && 'bg-background-container-surface',
+                    ...glowClass,
+                    disabled ? 'bg-background-neutral-disabled' : !transparent && 'bg-background-field',
                     disabled && 'cursor-not-allowed',
                 ]"
             >
@@ -235,6 +236,16 @@ const props = defineProps({
     },
     clearAriaLabel: String as PropType<string>,
     openAriaLabel: String as PropType<string>,
+    glowColorMode: {
+        type: String as PropType<GlowColorMode>,
+        default: GlowColorMode.NONE,
+        validator: (value: GlowColorMode) => Object.values(GlowColorMode).includes(value),
+    },
+    glowTrigger: {
+        type: String as PropType<GlowTrigger>,
+        default: GlowTrigger.ALWAYS,
+        validator: (value: GlowTrigger) => Object.values(GlowTrigger).includes(value),
+    },
 })
 
 // Emits
@@ -257,6 +268,9 @@ const isFocused = ref(false)
 // Computed
 const isInline = computed(() => props.variant === PickerVariant.INLINE)
 const hasError = computed(() => props.error !== '')
+
+// Glow
+const { glowClass } = useFieldGlow(props, hasError)
 
 const optionalLabelText = computed(() => props.optionalLabel ?? dsConfig.forms.optionalLabelText())
 const resolvedPlaceholder = computed(() => props.placeholder ?? dsConfig.timePicker.placeholderText())

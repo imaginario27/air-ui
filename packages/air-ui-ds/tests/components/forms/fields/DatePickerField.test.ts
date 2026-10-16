@@ -1,4 +1,5 @@
 import { mount } from '@vue/test-utils'
+import { GlowColorMode, GlowTrigger } from '@/models/enums/glow'
 import { nextTick, ref } from 'vue'
 import DatePickerField from '@/components/forms/fields/DatePickerField.vue'
 import { CalendarMode, CalendarUnit, PickerVariant } from '@/models/enums/calendars'
@@ -652,5 +653,42 @@ describe('DatePickerField.vue', () => {
                 { year: 2026, month: 11, from: '2026-11-01', to: '2026-11-30' },
             ])
         })
+    })
+})
+
+describe('DatePickerField glow', () => {
+    const glowMount = (props: Record<string, any> = {}) => factory(props)
+    const glowBoxes = (wrapper: ReturnType<typeof glowMount>) =>
+        wrapper.findAll('[class*="--glow-color"]').map((w) => w.element as HTMLElement)
+
+    it('has no glow by default', () => {
+        expect(glowBoxes(glowMount())).toHaveLength(0)
+    })
+
+    it('glows only the field box, not the label or the help text', () => {
+        const wrapper = glowMount({ label: 'Name', helpText: 'Help', glowColorMode: GlowColorMode.BOTH })
+        expect(glowBoxes(wrapper)).toHaveLength(1)
+        expect(wrapper.find('label').classes().join(' ')).not.toContain('--glow-color')
+    })
+
+    it('shows the glow in dark mode only when glowColorMode is dark', () => {
+        const classes = [...glowBoxes(glowMount({ glowColorMode: GlowColorMode.DARK }))[0]!.classList]
+        expect(classes.some((c) => c.startsWith('[.dark_&]:shadow-['))).toBe(true)
+        expect(classes.some((c) => c.startsWith('shadow-['))).toBe(false)
+    })
+
+    it('uses focus-within for the focus trigger', () => {
+        const classes = [
+            ...glowBoxes(glowMount({ glowColorMode: GlowColorMode.BOTH, glowTrigger: GlowTrigger.FOCUS }))[0]!
+                .classList,
+        ]
+        expect(classes.some((c) => c.startsWith('focus-within:shadow-['))).toBe(true)
+    })
+
+    it('turns the glow red on error', () => {
+        const wrapper = glowMount({ glowColorMode: GlowColorMode.BOTH, error: 'Required' })
+        expect(
+            glowBoxes(wrapper).every((el) => el.classList.contains('[--glow-color:var(--color-border-error)]')),
+        ).toBe(true)
     })
 })

@@ -3,12 +3,14 @@
         :class="[
             'py-4',
             'px-6',
-            'border-border-neutral-subtle',
+            'border-border-neutral-subtle [.dark_&]:border-border-default',
             'border-t',
             'last:border-b',
             'flex gap-3 justify-between items-center',
             'cursor-pointer',
-            'hover:bg-background-neutral-hover',
+            'transition-colors duration-200',
+            'hover:bg-background-neutral-subtler',
+            '[.dark_&]:hover:bg-background-surface',
         ]"
         @click="handleClick"
     >

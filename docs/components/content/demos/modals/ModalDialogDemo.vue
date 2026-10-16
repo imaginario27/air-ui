@@ -7,12 +7,7 @@
             </ModalHeaderGroup>
             <Form @submit="showModal = false">
                 <FormRow>
-                    <InputField
-                        id="contact-name"
-                        v-model="formData.name"
-                        label="Name"
-                        placeholder="Your name"
-                    />
+                    <InputField id="contact-name" v-model="formData.name" label="Name" placeholder="Your name" />
                 </FormRow>
                 <FormRow>
                     <InputField

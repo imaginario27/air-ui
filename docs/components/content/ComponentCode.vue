@@ -114,6 +114,7 @@
             <!-- Component preview wrapper -->
             <div 
                 v-if="!showCode"
+                :data-surface="previewBackground === 'white' ? 'container' : undefined"
                 :class="[
                     'flex',
                     'relative',
@@ -163,6 +164,7 @@
                     <div class="hidden" aria-hidden="true">
                         <div
                             ref="iframePreviewContentRef"
+                            :data-surface="isPreviewContentBoxed ? 'container' : undefined"
                             :class="[
                                 'flex',
                                 'items-center',
@@ -217,6 +219,7 @@
                 <div
                     v-else
                     ref="previewContentRef"
+                    :data-surface="isPreviewContentBoxed ? 'container' : undefined"
                     :class="[
                         'flex',
                         'items-center',
@@ -1388,13 +1391,14 @@ ${allLines.join('\n')}
 watch([componentProps, isDark], generateCode, { deep: true, immediate: true })
 
 // Computed classes
+// The dark variants use the `.dark` class on <html> (set before first paint) instead of `isDark`, which is false until mounted and would flash light
 const componentPreviewClass = computed(() => {
     const variant = {
-        ['white']: isDark.value ? 'bg-neutral-900/50' : 'bg-background-container-surface',
-        ['neutral-subtle']: isDark.value ? 'bg-neutral-900/50' : 'bg-neutral-50',
+        ['white']: 'bg-background-container-surface [.dark_&]:bg-neutral-900/50',
+        ['neutral-subtle']: 'bg-neutral-50 [.dark_&]:bg-neutral-900/50',
     }
 
-    return variant[props.previewBackground] || (isDark.value ? 'bg-neutral-900' : 'bg-neutral-50')
+    return variant[props.previewBackground] || 'bg-neutral-50 [.dark_&]:bg-neutral-900'
 })
 
 const previewContentStyle = computed(() => {

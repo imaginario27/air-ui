@@ -56,3 +56,9 @@ code .line:empty {
         #f3f4f6 8px
     );
 }
+
+/* Project-level: form fields adapt to the layer they sit on (the design system only marks layers with data-surface) */
+[data-surface="container"],
+[data-surface="modal"] {
+    --color-background-field: var(--color-background-surface);
+}

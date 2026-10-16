@@ -35,9 +35,10 @@
                     hasError ? 'border-border-error' : 'border-border-default',
                     focusedIndex === index &&
                         'ring-2 focus-within:ring-inset focus-within:ring-border-primary-brand-default',
+                    ...glowClass,
                     disabled
                         ? 'bg-background-neutral-disabled cursor-not-allowed'
-                        : !transparent && 'bg-background-container-surface',
+                        : !transparent && 'bg-background-field',
                     inputClass,
                 ]"
                 @focus="handleFocus(index)"
@@ -134,6 +135,16 @@ const props = defineProps({
         default: false,
     },
     inputClass: String as PropType<string>,
+    glowColorMode: {
+        type: String as PropType<GlowColorMode>,
+        default: GlowColorMode.NONE,
+        validator: (value: GlowColorMode) => Object.values(GlowColorMode).includes(value),
+    },
+    glowTrigger: {
+        type: String as PropType<GlowTrigger>,
+        default: GlowTrigger.ALWAYS,
+        validator: (value: GlowTrigger) => Object.values(GlowTrigger).includes(value),
+    },
 })
 
 // Emits
@@ -152,6 +163,9 @@ const dsConfig = useDSConfig()
 
 // Computed
 const hasError = computed(() => props.error !== '')
+
+// Glow
+const { glowClass } = useFieldGlow(props, hasError)
 const optionalLabelText = computed(() => props.optionalLabel ?? dsConfig.forms.optionalLabelText())
 
 // Computed classes

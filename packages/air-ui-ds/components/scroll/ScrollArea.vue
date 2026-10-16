@@ -59,13 +59,13 @@ const orientationClasses = computed(() => {
 }
 
 .scrollbar::-webkit-scrollbar-thumb {
-    background-color: rgba(0, 0, 0, 0.25);
+    background-color: var(--color-icon-neutral-subtler);
     border-radius: 9999px;
 }
 
 /* Firefox */
 .scrollbar {
     scrollbar-width: thin;
-    scrollbar-color: rgba(0, 0, 0, 0.25) transparent;
+    scrollbar-color: var(--color-icon-neutral-subtler) transparent;
 }
 </style>

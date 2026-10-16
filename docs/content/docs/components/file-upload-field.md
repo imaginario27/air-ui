@@ -79,13 +79,35 @@ props:
     fileItemClass: ""
     fileNameClass: ""
     fileMetaClass: ""
+    glowColorMode: "none"
+    glowTrigger: "always"
 items:
     helpTextPosition:
         - value: top
           text: TOP
         - value: bottom
           text: BOTTOM
+    glowColorMode:
+        - value: none
+          text: NONE
+        - value: both
+          text: BOTH
+        - value: light
+          text: LIGHT
+        - value: dark
+          text: DARK
+    glowTrigger:
+        - value: always
+          text: ALWAYS
+        - value: hover
+          text: HOVER
+        - value: focus
+          text: FOCUS
+        - value: hoverFocus
+          text: HOVER_FOCUS
 enums:
+    glowColorMode: "GlowColorMode"
+    glowTrigger: "GlowTrigger"
     helpTextPosition: "Position"
 external:
   - modelValue
@@ -419,6 +441,16 @@ props: [
         "name": "transparent",
         "default": "false",
         "type": "boolean",
+    },
+    {
+        "name": "glowColorMode",
+        "default": "GlowColorMode.NONE",
+        "type": "GlowColorMode",
+    },
+    {
+        "name": "glowTrigger",
+        "default": "GlowTrigger.ALWAYS",
+        "type": "GlowTrigger",
     },
 ]
 ---
@@ -1332,6 +1364,84 @@ When `true`, passes `transparent` to the child `Dropzone`, removing its state ba
 
 - **Type:** `boolean`
 - **Default:** `false`
+
+### glowColorMode
+
+Draws a glow around the drag area only. The label and the help text do not glow. It is shown in light mode, dark mode, both or none, and it uses the `GlowColorMode` enum. It is `GlowColorMode.NONE` by default, so the field has no glow until you turn it on.
+
+The glow uses the brand color and turns to the error color when the field has an error. It is applied through the `dropzoneClass` of the child `Dropzone`, so your own `dropzoneClass` keeps working.
+
+```vue
+<template>
+    <FileUploadField :glowColorMode="GlowColorMode.DARK" />
+</template>
+```
+
+- **Type:** `GlowColorMode`
+- **Default:** `GlowColorMode.NONE`
+
+#### Options
+::options-table
+---
+options: [
+    {
+        value: "NONE",
+        description: "No glow.",
+    },
+    {
+        value: "BOTH",
+        description: "Glow in light and dark mode.",
+    },
+    {
+        value: "LIGHT",
+        description: "Glow in light mode only.",
+    },
+    {
+        value: "DARK",
+        description: "Glow in dark mode only.",
+    },
+]
+---
+::
+
+### glowTrigger
+
+Sets when the glow appears. It uses the `GlowTrigger` enum and works together with `glowColorMode`, which decides in which theme the glow shows. It is `GlowTrigger.ALWAYS` by default.
+
+`FOCUS` shows the glow while an element inside the drag area has focus, such as the select files button. On touch screens there is no hover, so with `HOVER` the glow never shows.
+
+```vue
+<template>
+    <FileUploadField :glowColorMode="GlowColorMode.BOTH" :glowTrigger="GlowTrigger.HOVER_FOCUS" />
+</template>
+```
+
+- **Type:** `GlowTrigger`
+- **Default:** `GlowTrigger.ALWAYS`
+
+#### Options
+::options-table
+---
+options: [
+    {
+        value: "ALWAYS",
+        description: "The glow is always visible.",
+    },
+    {
+        value: "HOVER",
+        description: "The glow shows while the pointer is over the drag area.",
+    },
+    {
+        value: "FOCUS",
+        description: "The glow shows while an element inside the drag area has focus.",
+    },
+    {
+        value: "HOVER_FOCUS",
+        description: "The glow shows on hover and on focus.",
+    },
+]
+---
+::
 
 ## Emits
 

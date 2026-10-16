@@ -1,12 +1,221 @@
 {
-  "generatedAt": "2026-10-14T07:34:18.282Z",
+  "generatedAt": "2026-10-16T05:57:17.010Z",
   "source": "github-git-history+npm-publish-dates",
   "githubBaseUrl": "https://github.com/imaginario27/air-ui",
   "packages": [
     {
       "packageName": "@imaginario27/air-ui-ds",
-      "latestVersion": "1.24.1",
+      "latestVersion": "1.25.0",
       "entries": [
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.25.0",
+          "publishedAt": "2026-10-16",
+          "releaseType": "minor",
+          "notes": [
+            "add `background-field` token for form fields on any surface",
+            "add glow to `ActionButton` and `ActionIconButton`",
+            "match native and `ScrollArea` scrollbars to the theme in dark mode",
+            "apply saved theme before first paint to avoid dark mode flash",
+            "reformat conditional background classes",
+            "mark container layers with `data-surface` instead of classes",
+            "rename `GlowType` to `GlowColorMode`",
+            "update dependencies"
+          ],
+          "metadata": {
+            "commitCount": 8,
+            "commits": [
+              {
+                "sha": "4e3010e3d05aca2ba29648d9aba98d825c7078ed",
+                "shortSha": "4e3010e",
+                "date": "2026-10-16",
+                "subject": "chore(root): update dependencies",
+                "normalizedSubject": "update dependencies",
+                "type": "maintenance",
+                "body": [
+                  "bump `nuxt` to 4.6.1, `vue` to 3.5.44 and `vue-router` to 5.4.0",
+                  "bump `vitest` and `@vitest/coverage-v8` to 5.0.5",
+                  "bump `@nuxt/content` to 3.16.2 and `pinia` to 4.1.0",
+                  "bump `@nuxt/fonts` to 1.0.1, `@nuxtjs/robots` to 7.0.2 and `@nuxtjs/sitemap` to 9.1.0",
+                  "bump `happy-dom` to 21.0.3 and `eslint` to 10.12.0",
+                  "keep `typescript` at 6.0.3 and `vue-tsc` at 3.3.11",
+                  "refresh `package-lock.json`"
+                ],
+                "affected": [],
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/4e3010e3d05aca2ba29648d9aba98d825c7078ed",
+                "prUrl": null
+              },
+              {
+                "sha": "c1795a5a53800ff04cf7c68bf4790f3fb6779509",
+                "shortSha": "c1795a5",
+                "date": "2026-10-16",
+                "subject": "style(ds): reformat conditional background classes",
+                "normalizedSubject": "reformat conditional background classes",
+                "type": "changed",
+                "body": [
+                  "collapse `disabled` ternary onto one line in `SearchField`",
+                  "collapse `disabled` ternary onto one line in `SignaturePad`"
+                ],
+                "affected": [
+                  "SearchField",
+                  "SignaturePad"
+                ],
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/c1795a5a53800ff04cf7c68bf4790f3fb6779509",
+                "prUrl": null
+              },
+              {
+                "sha": "9e09d3c76380af9231d280e70f31e93f7cec6653",
+                "shortSha": "9e09d3c",
+                "date": "2026-10-15",
+                "subject": "fix(ds): match native and `ScrollArea` scrollbars to the theme in dark mode",
+                "normalizedSubject": "match native and `ScrollArea` scrollbars to the theme in dark mode",
+                "type": "fixed",
+                "body": [
+                  "add `color-scheme` for `html` and `html.dark` in `defaults.css`",
+                  "use `--color-icon-neutral-subtler` for the `ScrollArea` thumb instead of a fixed black"
+                ],
+                "affected": [
+                  "ScrollArea"
+                ],
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/9e09d3c76380af9231d280e70f31e93f7cec6653",
+                "prUrl": null
+              },
+              {
+                "sha": "e2c6b9e814638b498b8e9b2d3cd3180237f368b0",
+                "shortSha": "e2c6b9e",
+                "date": "2026-10-15",
+                "subject": "refactor(ds): mark container layers with `data-surface` instead of classes",
+                "normalizedSubject": "mark container layers with `data-surface` instead of classes",
+                "type": "changed",
+                "body": [
+                  "add `data-surface=\"container\"` to `Card` and `Drawer`",
+                  "add `data-surface=\"modal\"` to the `ModalDialog` content",
+                  "restore the inline `container-surface` fallback in the `ModalDialog` content",
+                  "remove the `surface-container`, `modal-content` and `fields-lighter` rules from `defaults.css`",
+                  "remove the `--color-background-field-on-container` token from `ui-theme.css`"
+                ],
+                "affected": [
+                  "Card",
+                  "Drawer",
+                  "ModalDialog"
+                ],
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/e2c6b9e814638b498b8e9b2d3cd3180237f368b0",
+                "prUrl": null
+              },
+              {
+                "sha": "0fd2e32ab3b4aa62dc25a19ae2233986ae434506",
+                "shortSha": "0fd2e32",
+                "date": "2026-10-15",
+                "subject": "feat(ds): add `background-field` token for form fields on any surface",
+                "normalizedSubject": "add `background-field` token for form fields on any surface",
+                "type": "added",
+                "body": [
+                  "add `--color-background-field` and `-on-container` tokens in `ui-theme.css`",
+                  "expose `background-field` in `main.css`",
+                  "add `.surface-container`, `.modal-content` and dark-only `.fields-lighter` in `defaults.css`",
+                  "use `bg-background-field` in text, date, time, search, pin, tags and select fields",
+                  "use `bg-background-field` in `DropdownSelect`, `DropdownCombobox` and `SignaturePad`",
+                  "apply `surface-container` in `Card`, `Drawer` and `ModalDialog`",
+                  "apply `modal-content` in the `ModalDialog` content",
+                  "update field tests to expect `bg-background-field`"
+                ],
+                "affected": [
+                  "Card",
+                  "Drawer",
+                  "DropdownCombobox",
+                  "DropdownSelect",
+                  "DatePickerField",
+                  "InputField",
+                  "PinField",
+                  "SearchField",
+                  "TagsField",
+                  "TextareaField",
+                  "TimePickerField",
+                  "ModalDialog",
+                  "SignaturePad"
+                ],
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/0fd2e32ab3b4aa62dc25a19ae2233986ae434506",
+                "prUrl": null
+              },
+              {
+                "sha": "2860e4ff5df8973ce63bc405e38eaa67b441d932",
+                "shortSha": "2860e4f",
+                "date": "2026-10-15",
+                "subject": "refactor(ds): rename `GlowType` to `GlowColorMode`",
+                "normalizedSubject": "rename `GlowType` to `GlowColorMode`",
+                "type": "changed",
+                "body": [
+                  "rename `GlowType` enum to `GlowColorMode`",
+                  "rename `glowType` prop to `glowColorMode` in `ActionButton` and `ActionIconButton`",
+                  "update `useGlow` and `useButtonGlow` to use `GlowColorMode`",
+                  "update tests"
+                ],
+                "affected": [
+                  "ActionButton",
+                  "ActionIconButton",
+                  "useButtonGlow",
+                  "useGlow"
+                ],
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/2860e4ff5df8973ce63bc405e38eaa67b441d932",
+                "prUrl": null
+              },
+              {
+                "sha": "f135e5bf8f826b4cda096c675f4faace2d7f062e",
+                "shortSha": "f135e5b",
+                "date": "2026-10-15",
+                "subject": "feat(ds): add glow to `ActionButton` and `ActionIconButton`",
+                "normalizedSubject": "add glow to `ActionButton` and `ActionIconButton`",
+                "type": "added",
+                "body": [
+                  "add `glowType` and `glowTrigger` props to `ActionButton` and `ActionIconButton`",
+                  "add `GlowType` and `GlowTrigger` enums",
+                  "add `useGlow` composable to draw the glow in light mode, dark mode or both",
+                  "add `useButtonGlow` composable to color the glow after `styleType` and size it after `size`",
+                  "remove the unused `textOffsetClass` label nudge from `ActionButton`",
+                  "add tests for the glow and remove the nudge test"
+                ],
+                "affected": [
+                  "ActionButton",
+                  "ActionIconButton",
+                  "useButtonGlow",
+                  "useGlow"
+                ],
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/f135e5bf8f826b4cda096c675f4faace2d7f062e",
+                "prUrl": null
+              },
+              {
+                "sha": "a87ed5166c294fc15a59895f45cc7021cc0abfcc",
+                "shortSha": "a87ed51",
+                "date": "2026-10-14",
+                "subject": "fix(ds): apply saved theme before first paint to avoid dark mode flash",
+                "normalizedSubject": "apply saved theme before first paint to avoid dark mode flash",
+                "type": "fixed",
+                "body": [
+                  "add `scripts/theme-init.js` to set the `dark` class from `color-mode` in `localStorage`",
+                  "inline the script in the `<head>` through `app.head.script` in `nuxt.config.ts`"
+                ],
+                "affected": [],
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/a87ed5166c294fc15a59895f45cc7021cc0abfcc",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 2,
+              "fixed": 2,
+              "changed": 3,
+              "maintenance": 1,
+              "breaking": 0
+            }
+          }
+        },
         {
           "packageName": "@imaginario27/air-ui-ds",
           "version": "1.24.1",

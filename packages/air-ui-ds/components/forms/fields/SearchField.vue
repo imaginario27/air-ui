@@ -22,9 +22,8 @@
                 'border-border-default',
                 inputCustomClass,
                 isFocused && 'ring-2 ring-inset ring-border-primary-brand-default',
-                disabled
-                    ? 'bg-background-neutral-disabled cursor-not-allowed'
-                    : !transparent && 'bg-background-container-surface',
+                ...glowClass,
+                disabled ? 'bg-background-neutral-disabled cursor-not-allowed' : !transparent && 'bg-background-field',
             ]"
         >
             <!-- Icon -->
@@ -133,6 +132,16 @@ const props = defineProps({
         default: false,
     },
     inputClass: String as PropType<string>,
+    glowColorMode: {
+        type: String as PropType<GlowColorMode>,
+        default: GlowColorMode.NONE,
+        validator: (value: GlowColorMode) => Object.values(GlowColorMode).includes(value),
+    },
+    glowTrigger: {
+        type: String as PropType<GlowTrigger>,
+        default: GlowTrigger.ALWAYS,
+        validator: (value: GlowTrigger) => Object.values(GlowTrigger).includes(value),
+    },
 })
 
 // Composables
@@ -143,6 +152,9 @@ const isFocused = ref(false)
 
 // Emits
 const emit = defineEmits(['update:modelValue'])
+
+// Glow
+const { glowClass } = useFieldGlow(props)
 
 // Computed
 const resolvedClearAriaLabel = computed(() => props.clearAriaLabel ?? dsConfig.forms.clearSearchText())
