@@ -11,9 +11,9 @@
                     description: 'Learn how to install AirUI in your project.',
                 }"
                 :nextPage="{
-                    label: 'Theme customization',
-                    link: `/${DocsAppSlug.DOCS}/${DocsAppSlug.GETTING_STARTED}/${DocsAppSlug.THEME}/theme-customization`,
-                    description: 'Learn how to customize the theme of AirUI.',
+                    label: 'Data attributes',
+                    link: `/${DocsAppSlug.DOCS}/${DocsAppSlug.GETTING_STARTED}/data-attributes`,
+                    description: 'Learn how to use the data attributes AirUI components set.',
                 }"
             />
         </SectionBody>

@@ -405,3 +405,5 @@ attributes: [
 ]
 ---
 ::
+
+See [Data attributes](/docs/getting-started/data-attributes) for how to use them.

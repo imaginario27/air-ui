@@ -6,9 +6,9 @@
 
             <ContentFooterNavigation
                 :previousPage="{
-                    label: 'Configuration',
-                    link: `/${DocsAppSlug.DOCS}/${DocsAppSlug.GETTING_STARTED}/configuration`,
-                    description: 'Learn how to configure AirUI globally.',
+                    label: 'Data attributes',
+                    link: `/${DocsAppSlug.DOCS}/${DocsAppSlug.GETTING_STARTED}/data-attributes`,
+                    description: 'Learn how to use the data attributes AirUI components set.',
                 }"
                 :nextPage="{
                     label: 'Design tokens',

@@ -17,6 +17,10 @@ export const sidebarGettingStartedMenu: SidebarMenuItem[] = [
         to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.GETTING_STARTED}/configuration`,
     },
     {
+        text: 'Data attributes',
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.GETTING_STARTED}/data-attributes`,
+    },
+    {
         isSectionTitle: true,
         text: 'Theme',
         icon: 'mdi:palette-outline',
