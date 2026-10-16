@@ -5,6 +5,18 @@ All notable changes to this package are documented in this file.
 Historical releases were reconstructed from git history (GitHub repository) and npm publish dates.
 Future releases will include detailed entries generated with Changesets.
 
+## 1.26.0 - 2026-10-16
+
+Release type: minor.
+Commits found in range: 2.
+
+### Added
+
+1. default form field glow to inner on focus and add `fileUpload` glow group ([42732f0](https://github.com/imaginario27/air-ui/commit/42732f0f46b0260216cde25a707ac2f44a6ac53b))
+2. add glow type, opacity, size and DS config to glow components ([23d5951](https://github.com/imaginario27/air-ui/commit/23d59517a37aea4c682d5b948e665f7cc0992c6a))
+
+- Package: @imaginario27/air-ui-ds.
+
 ## 1.25.0 - 2026-10-16
 
 Release type: minor.
