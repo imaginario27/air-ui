@@ -12,8 +12,9 @@ export const useFieldGlow = (
         size?: string
     },
     hasError: MaybeRefOrGetter<boolean> = false,
+    group: 'input' | 'fileUpload' = 'input',
 ) => {
-    const settings = useGlowSettings('input', props)
+    const settings = useGlowSettings(group, props)
 
     return useGlow(settings.colorMode, {
         trigger: settings.trigger,

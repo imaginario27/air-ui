@@ -85,5 +85,6 @@ export interface DesignSystemConfig {
         card: GlowSettings
         button: GlowSettings
         input: GlowSettings
+        fileUpload: GlowSettings
     }
 }

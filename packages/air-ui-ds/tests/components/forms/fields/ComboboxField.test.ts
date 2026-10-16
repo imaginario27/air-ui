@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import { GlowColorMode, GlowTrigger } from '@/models/enums/glow'
+import { GlowColorMode, GlowTrigger, GlowType } from '@/models/enums/glow'
 import ComboboxField from '~/components/forms/fields/ComboboxField.vue'
 import DropdownCombobox from '~/components/dropdowns/DropdownCombobox.vue'
 import BadgeStack from '~/components/badges/BadgeStack.vue'
@@ -179,7 +179,15 @@ describe('ComboboxField glow', () => {
     })
 
     it('shows the glow in dark mode only when glowColorMode is dark', () => {
-        const classes = [...glowBoxes(glowMount({ glowColorMode: GlowColorMode.DARK }))[0]!.classList]
+        const classes = [
+            ...glowBoxes(
+                glowMount({
+                    glowColorMode: GlowColorMode.DARK,
+                    glowTrigger: GlowTrigger.ALWAYS,
+                    glowType: GlowType.OUTER,
+                }),
+            )[0]!.classList,
+        ]
         expect(classes.some((c) => c.startsWith('[.dark_&]:shadow-['))).toBe(true)
         expect(classes.some((c) => c.startsWith('shadow-['))).toBe(false)
     })

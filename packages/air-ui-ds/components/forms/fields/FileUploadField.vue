@@ -352,7 +352,7 @@ const localTotalProgress = ref(props.totalProgress)
 const hasError = computed(() => props.error !== '')
 
 // Glow: only the drag area glows (not the label or the help text)
-const { glowClass } = useFieldGlow(props, hasError)
+const { glowClass } = useFieldGlow(props, hasError, 'fileUpload')
 const computedDropzoneClass = computed(() => [...glowClass.value, props.dropzoneClass].filter(Boolean).join(' '))
 const optionalLabelText = computed(() => props.optionalLabel ?? dsConfig.forms.optionalLabelText())
 const resolvedTitle = computed(() => props.title ?? dsConfig.forms.fileUpload.dragDropText())

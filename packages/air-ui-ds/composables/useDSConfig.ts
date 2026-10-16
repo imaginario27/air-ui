@@ -1,9 +1,10 @@
-const glowDefaults = (): GlowSettings => ({
+const glowDefaults = (overrides: Partial<GlowSettings> = {}): GlowSettings => ({
     colorMode: GlowColorMode.NONE,
     trigger: GlowTrigger.ALWAYS,
     type: GlowType.OUTER,
     opacity: 40,
     size: null,
+    ...overrides,
 })
 
 const dsConfig = reactive<DesignSystemConfig>({
@@ -92,7 +93,10 @@ const dsConfig = reactive<DesignSystemConfig>({
     glow: {
         card: glowDefaults(),
         button: glowDefaults(),
-        input: glowDefaults(),
+        // Form fields glow along the inside of their box while they have focus
+        input: glowDefaults({ trigger: GlowTrigger.FOCUS, type: GlowType.INNER }),
+        // The drag area has no focusable box, so it also glows on hover
+        fileUpload: glowDefaults({ trigger: GlowTrigger.HOVER_FOCUS, type: GlowType.INNER }),
     },
 })
 

@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import { GlowColorMode, GlowTrigger } from '@/models/enums/glow'
+import { GlowColorMode, GlowTrigger, GlowType } from '@/models/enums/glow'
 import { ref, nextTick } from 'vue'
 import PinField from '~/components/forms/fields/PinField.vue'
 import { Position } from '@/models/enums/positions'
@@ -221,7 +221,15 @@ describe('PinField glow', () => {
     })
 
     it('shows the glow in dark mode only when glowColorMode is dark', () => {
-        const classes = [...glowBoxes(glowMount({ glowColorMode: GlowColorMode.DARK }))[0]!.classList]
+        const classes = [
+            ...glowBoxes(
+                glowMount({
+                    glowColorMode: GlowColorMode.DARK,
+                    glowTrigger: GlowTrigger.ALWAYS,
+                    glowType: GlowType.OUTER,
+                }),
+            )[0]!.classList,
+        ]
         expect(classes.some((c) => c.startsWith('[.dark_&]:shadow-['))).toBe(true)
         expect(classes.some((c) => c.startsWith('shadow-['))).toBe(false)
     })

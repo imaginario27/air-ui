@@ -275,6 +275,12 @@ describe('FileUploadField glow', () => {
         )
     })
 
+    it('glows on hover and focus by default, since the drag area has no focusable box', () => {
+        const classes = dropzoneClass({ glowColorMode: GlowColorMode.BOTH }).split(' ')
+        expect(classes.some((c) => c.startsWith('hover:shadow-[inset_'))).toBe(true)
+        expect(classes.some((c) => c.startsWith('focus-within:shadow-[inset_'))).toBe(true)
+    })
+
     it('turns the glow red on error', () => {
         expect(dropzoneClass({ glowColorMode: GlowColorMode.BOTH, error: 'Required' })).toContain(
             '[--glow-color:var(--color-border-error)]',

@@ -2,7 +2,7 @@ import { mount } from '@vue/test-utils'
 import InputField from '~/components/forms/fields/InputField.vue'
 import { Position } from '@/models/enums/positions'
 import { useDSConfig } from '@/composables/useDSConfig'
-import { GlowTrigger, GlowColorMode } from '@/models/enums/glow'
+import { GlowColorMode, GlowTrigger, GlowType } from '@/models/enums/glow'
 import { nextTick, ref } from 'vue'
 
 vi.mock('~/composables/useFormValidationMode', () => ({
@@ -439,8 +439,17 @@ describe('InputField glow', () => {
     })
 
     it('shows the glow in dark mode only when glowColorMode is dark', () => {
-        const classes = [...box({ glowColorMode: GlowColorMode.DARK }).classList]
+        const classes = [
+            ...box({ glowColorMode: GlowColorMode.DARK, glowTrigger: GlowTrigger.ALWAYS, glowType: GlowType.OUTER })
+                .classList,
+        ]
         expect(classes.some((c) => c.startsWith('[.dark_&]:shadow-['))).toBe(true)
+        expect(classes.some((c) => c.startsWith('shadow-['))).toBe(false)
+    })
+
+    it('glows on the inside while it has focus by default', () => {
+        const classes = [...box({ glowColorMode: GlowColorMode.BOTH }).classList]
+        expect(classes.some((c) => c.startsWith('focus-within:shadow-[inset_'))).toBe(true)
         expect(classes.some((c) => c.startsWith('shadow-['))).toBe(false)
     })
 
