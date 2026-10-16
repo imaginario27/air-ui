@@ -27,8 +27,8 @@ props:
     autofocus: false
     otp: false
     glowColorMode: "none"
-    glowTrigger: "always"
-    glowType: "outer"
+    glowTrigger: "focus"
+    glowType: "inner"
     glowOpacity: 40
     glowSize: null
 items:
@@ -198,12 +198,12 @@ props: [
     },
     {
         "name": "glowTrigger",
-        "default": "GlowTrigger.ALWAYS",
+        "default": "GlowTrigger.FOCUS",
         "type": "GlowTrigger",
     },
     {
         "name": "glowType",
-        "default": "GlowType.OUTER",
+        "default": "GlowType.INNER",
         "type": "GlowType",
     },
     {
@@ -562,7 +562,7 @@ options: [
 
 ### glowTrigger
 
-Sets when the glow appears. It uses the `GlowTrigger` enum and works together with `glowColorMode`, which decides in which theme the glow shows. It is `GlowTrigger.ALWAYS` by default.
+Sets when the glow appears. It uses the `GlowTrigger` enum and works together with `glowColorMode`, which decides in which theme the glow shows. It is `GlowTrigger.FOCUS` by default.
 
 `FOCUS` shows the glow while the field has focus. On touch screens there is no hover, so with `HOVER` the glow never shows.
 
@@ -573,7 +573,7 @@ Sets when the glow appears. It uses the `GlowTrigger` enum and works together wi
 ```
 
 - **Type:** `GlowTrigger`
-- **Default:** `GlowTrigger.ALWAYS` (set by the DS config, see [Configuration](/docs/getting-started/configuration))
+- **Default:** `GlowTrigger.FOCUS` (set by the DS config, see [Configuration](/docs/getting-started/configuration))
 
 #### Options
 ::options-table
@@ -601,7 +601,7 @@ options: [
 
 ### glowType
 
-Sets where the glow is drawn. It uses the `GlowType` enum and works together with `glowColorMode`. It is `GlowType.OUTER` by default.
+Sets where the glow is drawn. It uses the `GlowType` enum and works together with `glowColorMode`. It is `GlowType.INNER` by default.
 
 ```vue
 <template>
@@ -610,7 +610,7 @@ Sets where the glow is drawn. It uses the `GlowType` enum and works together wit
 ```
 
 - **Type:** `GlowType`
-- **Default:** `GlowType.OUTER` (set by the DS config, see [Configuration](/docs/getting-started/configuration))
+- **Default:** `GlowType.INNER` (set by the DS config, see [Configuration](/docs/getting-started/configuration))
 
 #### Options
 ::options-table

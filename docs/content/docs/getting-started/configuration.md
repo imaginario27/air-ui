@@ -150,8 +150,16 @@ export default defineNuxtPlugin(() => {
 
     Object.assign(dsConfig.glow.input, {
         colorMode: GlowColorMode.NONE,
-        trigger: GlowTrigger.ALWAYS,
-        type: GlowType.OUTER,
+        trigger: GlowTrigger.FOCUS,
+        type: GlowType.INNER,
+        opacity: 40,
+        size: null,
+    })
+
+    Object.assign(dsConfig.glow.fileUpload, {
+        colorMode: GlowColorMode.NONE,
+        trigger: GlowTrigger.HOVER_FOCUS,
+        type: GlowType.INNER,
         opacity: 40,
         size: null,
     })
@@ -160,9 +168,9 @@ export default defineNuxtPlugin(() => {
 
 #### Glow options
 
-The glow of the cards, the buttons and the form fields can be set once per family, so you don't repeat the same props on every instance. `glow.card` applies to `Card`, `glow.button` to `ActionButton` and `ActionIconButton`, and `glow.input` to every form field that has a glow (`InputField`, `TextareaField`, `SelectField`, `ComboboxField`, `SearchField`, `TagsField`, `PinField`, `DatePickerField`, `TimePickerField` and `FileUploadField`).
+The glow of the cards, the buttons and the form fields can be set once per family, so you don't repeat the same props on every instance. `glow.card` applies to `Card`, `glow.button` to `ActionButton` and `ActionIconButton`, and `glow.input` to every form field that has a glow (`InputField`, `TextareaField`, `SelectField`, `ComboboxField`, `SearchField`, `TagsField`, `PinField`, `DatePickerField` and `TimePickerField`), and `glow.fileUpload` to `FileUploadField`.
 
-A glow prop passed to a component always wins over the config. Each family has its own values, so you can, for example, glow only the cards in dark mode and the inputs on focus. The values in the example above are the defaults.
+A glow prop passed to a component always wins over the config. Each family has its own values, so you can, for example, glow only the cards in dark mode and the inputs on focus. The values in the example above are the defaults. Form fields glow on the inside while they have focus by default, and the file upload field also glows on hover.
 
 Each family accepts these options, which match the `glowColorMode`, `glowTrigger`, `glowType`, `glowOpacity` and `glowSize` props:
 
