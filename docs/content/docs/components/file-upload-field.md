@@ -81,6 +81,9 @@ props:
     fileMetaClass: ""
     glowColorMode: "none"
     glowTrigger: "always"
+    glowType: "outer"
+    glowOpacity: 40
+    glowSize: null
 items:
     helpTextPosition:
         - value: top
@@ -105,9 +108,15 @@ items:
           text: FOCUS
         - value: hoverFocus
           text: HOVER_FOCUS
+    glowType:
+        - value: outer
+          text: OUTER
+        - value: inner
+          text: INNER
 enums:
     glowColorMode: "GlowColorMode"
     glowTrigger: "GlowTrigger"
+    glowType: "GlowType"
     helpTextPosition: "Position"
 external:
   - modelValue
@@ -451,6 +460,20 @@ props: [
         "name": "glowTrigger",
         "default": "GlowTrigger.ALWAYS",
         "type": "GlowTrigger",
+    },
+    {
+        "name": "glowType",
+        "default": "GlowType.OUTER",
+        "type": "GlowType",
+    },
+    {
+        "name": "glowOpacity",
+        "default": "40",
+        "type": "number",
+    },
+    {
+        "name": "glowSize",
+        "type": "number",
     },
 ]
 ---
@@ -1378,7 +1401,7 @@ The glow uses the brand color and turns to the error color when the field has an
 ```
 
 - **Type:** `GlowColorMode`
-- **Default:** `GlowColorMode.NONE`
+- **Default:** `GlowColorMode.NONE` (set by the DS config, see [Configuration](/docs/getting-started/configuration))
 
 #### Options
 ::options-table
@@ -1417,7 +1440,7 @@ Sets when the glow appears. It uses the `GlowTrigger` enum and works together wi
 ```
 
 - **Type:** `GlowTrigger`
-- **Default:** `GlowTrigger.ALWAYS`
+- **Default:** `GlowTrigger.ALWAYS` (set by the DS config, see [Configuration](/docs/getting-started/configuration))
 
 #### Options
 ::options-table
@@ -1442,6 +1465,61 @@ options: [
 ]
 ---
 ::
+
+### glowType
+
+Sets where the glow is drawn. It uses the `GlowType` enum and works together with `glowColorMode`. It is `GlowType.OUTER` by default.
+
+```vue
+<template>
+    <FileUploadField :glowColorMode="GlowColorMode.BOTH" :glowType="GlowType.INNER" />
+</template>
+```
+
+- **Type:** `GlowType`
+- **Default:** `GlowType.OUTER` (set by the DS config, see [Configuration](/docs/getting-started/configuration))
+
+#### Options
+::options-table
+---
+options: [
+    {
+        value: "OUTER",
+        description: "The glow spreads around the outside of the element.",
+    },
+    {
+        value: "INNER",
+        description: "The glow is drawn inside the element, along its edges.",
+    },
+]
+---
+::
+
+### glowOpacity
+
+Sets how strong the glow is, from `0` (invisible) to `100` (full color). The default is `40`. Values move in steps of 5, so `42` is rounded to `40`. It has no effect while `glowColorMode` is `GlowColorMode.NONE`.
+
+```vue
+<template>
+    <FileUploadField :glowColorMode="GlowColorMode.BOTH" :glowOpacity="30" />
+</template>
+```
+
+- **Type:** `number`
+- **Default:** `40` (set by the DS config, see [Configuration](/docs/getting-started/configuration))
+
+### glowSize
+
+Sets how far the glow spreads, in pixels. It is `null` by default, so each component keeps its own size (for example, buttons follow their `size`). Values move in steps of 2 from `0` to `64`, so `13` is rounded to `14`. It has no effect while `glowColorMode` is `GlowColorMode.NONE`.
+
+```vue
+<template>
+    <FileUploadField :glowColorMode="GlowColorMode.BOTH" :glowSize="32" />
+</template>
+```
+
+- **Type:** `number`
+- **Default:** `null` (set by the DS config, see [Configuration](/docs/getting-started/configuration))
 
 ## Emits
 

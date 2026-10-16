@@ -4,7 +4,7 @@ AirUI exposes a small set of behaviors as shared, reactive configuration instead
 
 There are two config composables, one per package:
 
-- `useDSConfig` (from `@imaginario27/air-ui-ds`): text used by components, grouped under `forms`, `actions`, `common`, `pagination`, `gallery`, `lightbox`, `calendar`, `timePicker` and `slides`.
+- `useDSConfig` (from `@imaginario27/air-ui-ds`): text used by components, grouped under `forms`, `actions`, `common`, `pagination`, `gallery`, `lightbox`, `calendar`, `timePicker` and `slides`, and the default glow of cards, buttons and inputs, grouped under `glow`.
 - `useUtilsConfig` (from `@imaginario27/air-ui-utils`): messages used by the framework-agnostic form validators in `air-ui-utils`, grouped under `validation`.
 
 <br/>
@@ -130,8 +130,49 @@ export default defineNuxtPlugin(() => {
         nextText: () => 'Next slide',
         goToSlideText: () => 'Go to slide',
     })
+
+    /* Default glow of the cards, the buttons and the form fields. A glow prop on a component wins over these */
+    Object.assign(dsConfig.glow.card, {
+        colorMode: GlowColorMode.NONE,
+        trigger: GlowTrigger.ALWAYS,
+        type: GlowType.OUTER,
+        opacity: 40,
+        size: null,
+    })
+
+    Object.assign(dsConfig.glow.button, {
+        colorMode: GlowColorMode.NONE,
+        trigger: GlowTrigger.ALWAYS,
+        type: GlowType.OUTER,
+        opacity: 40,
+        size: null,
+    })
+
+    Object.assign(dsConfig.glow.input, {
+        colorMode: GlowColorMode.NONE,
+        trigger: GlowTrigger.ALWAYS,
+        type: GlowType.OUTER,
+        opacity: 40,
+        size: null,
+    })
 })
 ```
+
+#### Glow options
+
+The glow of the cards, the buttons and the form fields can be set once per family, so you don't repeat the same props on every instance. `glow.card` applies to `Card`, `glow.button` to `ActionButton` and `ActionIconButton`, and `glow.input` to every form field that has a glow (`InputField`, `TextareaField`, `SelectField`, `ComboboxField`, `SearchField`, `TagsField`, `PinField`, `DatePickerField`, `TimePickerField` and `FileUploadField`).
+
+A glow prop passed to a component always wins over the config. Each family has its own values, so you can, for example, glow only the cards in dark mode and the inputs on focus. The values in the example above are the defaults.
+
+Each family accepts these options, which match the `glowColorMode`, `glowTrigger`, `glowType`, `glowOpacity` and `glowSize` props:
+
+| Option | Type | Default |
+|---|---|---|
+| `colorMode` | `GlowColorMode` | `GlowColorMode.NONE` |
+| `trigger` | `GlowTrigger` | `GlowTrigger.ALWAYS` |
+| `type` | `GlowType` | `GlowType.OUTER` |
+| `opacity` | `number` | `40` |
+| `size` | `number | null` | `null` (each component calculates its own size) |
 
 #### Utils config options
 
