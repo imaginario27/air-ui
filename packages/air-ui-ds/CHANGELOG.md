@@ -5,6 +5,33 @@ All notable changes to this package are documented in this file.
 Historical releases were reconstructed from git history (GitHub repository) and npm publish dates.
 Future releases will include detailed entries generated with Changesets.
 
+## 1.25.0 - 2026-10-16
+
+Release type: minor.
+Commits found in range: 8.
+
+### Added
+
+1. add `background-field` token for form fields on any surface ([0fd2e32](https://github.com/imaginario27/air-ui/commit/0fd2e32ab3b4aa62dc25a19ae2233986ae434506))
+2. add glow to `ActionButton` and `ActionIconButton` ([f135e5b](https://github.com/imaginario27/air-ui/commit/f135e5bf8f826b4cda096c675f4faace2d7f062e))
+
+### Fixed
+
+1. match native and `ScrollArea` scrollbars to the theme in dark mode ([9e09d3c](https://github.com/imaginario27/air-ui/commit/9e09d3c76380af9231d280e70f31e93f7cec6653))
+2. apply saved theme before first paint to avoid dark mode flash ([a87ed51](https://github.com/imaginario27/air-ui/commit/a87ed5166c294fc15a59895f45cc7021cc0abfcc))
+
+### Changed
+
+1. reformat conditional background classes ([c1795a5](https://github.com/imaginario27/air-ui/commit/c1795a5a53800ff04cf7c68bf4790f3fb6779509))
+2. mark container layers with `data-surface` instead of classes ([e2c6b9e](https://github.com/imaginario27/air-ui/commit/e2c6b9e814638b498b8e9b2d3cd3180237f368b0))
+3. rename `GlowType` to `GlowColorMode` ([2860e4f](https://github.com/imaginario27/air-ui/commit/2860e4ff5df8973ce63bc405e38eaa67b441d932))
+
+### Maintenance
+
+1. update dependencies ([4e3010e](https://github.com/imaginario27/air-ui/commit/4e3010e3d05aca2ba29648d9aba98d825c7078ed))
+
+- Package: @imaginario27/air-ui-ds.
+
 ## 1.24.1 - 2026-10-14
 
 Release type: patch.
