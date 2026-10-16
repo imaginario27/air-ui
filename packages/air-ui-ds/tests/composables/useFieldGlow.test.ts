@@ -18,10 +18,10 @@ describe('useFieldGlow', () => {
 
     it('spreads the glow after the size', () => {
         expect(useFieldGlow({ glowColorMode: GlowColorMode.BOTH, size: InputSize.MD }).glowClass.value).toContain(
-            '[--glow-size:12px]',
+            '[--glow-size:8px]',
         )
         expect(useFieldGlow({ glowColorMode: GlowColorMode.BOTH, size: InputSize.LG }).glowClass.value).toContain(
-            '[--glow-size:16px]',
+            '[--glow-size:12px]',
         )
     })
 

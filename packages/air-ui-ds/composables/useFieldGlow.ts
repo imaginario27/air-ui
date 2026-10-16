@@ -6,17 +6,26 @@ export const useFieldGlow = (
     props: {
         glowColorMode?: GlowColorMode
         glowTrigger?: GlowTrigger
+        glowType?: GlowType
+        glowOpacity?: number
+        glowSize?: number | null
         size?: string
     },
     hasError: MaybeRefOrGetter<boolean> = false,
+    group: 'input' | 'fileUpload' = 'input',
 ) => {
-    return useGlow(() => props.glowColorMode, {
-        trigger: () => props.glowTrigger,
+    const settings = useGlowSettings(group, props)
+
+    return useGlow(settings.colorMode, {
+        trigger: settings.trigger,
+        type: settings.type,
+        opacity: settings.opacity,
+        size: settings.size,
         focusWithin: true,
         colorClass: () =>
             toValue(hasError)
                 ? '[--glow-color:var(--color-border-error)]'
                 : '[--glow-color:var(--color-border-primary-brand-default)]',
-        sizeClass: () => (props.size === InputSize.LG ? '[--glow-size:16px]' : '[--glow-size:12px]'),
+        sizeClass: () => (props.size === InputSize.LG ? '[--glow-size:12px]' : '[--glow-size:8px]'),
     })
 }

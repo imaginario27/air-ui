@@ -1,6 +1,16 @@
 import { useDSConfig } from '@/composables/useDSConfig'
 
 describe('useDSConfig', () => {
+    it('returns no glow by default, and an inner glow on focus for inputs', () => {
+        const { glow } = useDSConfig()
+        const base = { colorMode: 'none', opacity: 40, size: null }
+
+        expect(glow.card).toEqual({ ...base, trigger: 'always', type: 'outer' })
+        expect(glow.button).toEqual({ ...base, trigger: 'always', type: 'outer' })
+        expect(glow.input).toEqual({ ...base, trigger: 'focus', type: 'inner' })
+        expect(glow.fileUpload).toEqual({ ...base, trigger: 'hoverFocus', type: 'inner' })
+    })
+
     it('returns expected default options', () => {
         const config = useDSConfig()
 

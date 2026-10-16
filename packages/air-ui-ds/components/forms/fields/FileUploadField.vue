@@ -305,13 +305,23 @@ const props = defineProps({
     },
     glowColorMode: {
         type: String as PropType<GlowColorMode>,
-        default: GlowColorMode.NONE,
         validator: (value: GlowColorMode) => Object.values(GlowColorMode).includes(value),
     },
     glowTrigger: {
         type: String as PropType<GlowTrigger>,
-        default: GlowTrigger.ALWAYS,
         validator: (value: GlowTrigger) => Object.values(GlowTrigger).includes(value),
+    },
+    glowType: {
+        type: String as PropType<GlowType>,
+        validator: (value: GlowType) => Object.values(GlowType).includes(value),
+    },
+    glowOpacity: {
+        type: Number as PropType<number>,
+        validator: (value: number) => value >= 0 && value <= 100,
+    },
+    glowSize: {
+        type: Number as PropType<number | null>,
+        validator: (value: number | null) => value === null || value >= 0,
     },
 })
 
@@ -342,7 +352,7 @@ const localTotalProgress = ref(props.totalProgress)
 const hasError = computed(() => props.error !== '')
 
 // Glow: only the drag area glows (not the label or the help text)
-const { glowClass } = useFieldGlow(props, hasError)
+const { glowClass } = useFieldGlow(props, hasError, 'fileUpload')
 const computedDropzoneClass = computed(() => [...glowClass.value, props.dropzoneClass].filter(Boolean).join(' '))
 const optionalLabelText = computed(() => props.optionalLabel ?? dsConfig.forms.optionalLabelText())
 const resolvedTitle = computed(() => props.title ?? dsConfig.forms.fileUpload.dragDropText())

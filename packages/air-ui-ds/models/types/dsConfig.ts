@@ -81,4 +81,10 @@ export interface DesignSystemConfig {
         nextText: () => string
         goToSlideText: () => string
     }
+    glow: {
+        card: GlowSettings
+        button: GlowSettings
+        input: GlowSettings
+        fileUpload: GlowSettings
+    }
 }

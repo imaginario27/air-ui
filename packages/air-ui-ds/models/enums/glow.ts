@@ -11,3 +11,8 @@ export enum GlowTrigger {
     FOCUS = 'focus',
     HOVER_FOCUS = 'hoverFocus',
 }
+
+export enum GlowType {
+    OUTER = 'outer',
+    INNER = 'inner',
+}
