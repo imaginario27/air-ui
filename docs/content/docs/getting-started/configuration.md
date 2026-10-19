@@ -23,6 +23,17 @@ Set overrides in a Nuxt plugin so they apply once, before any AirUI component re
 
 Text values are resolver functions (`() => string`). A plain string works fine, as in the two examples below. If your project uses an i18n library, point the resolver at its translation function instead, as shown further down in Translations, to stay reactive to locale changes.
 
+#### Register the plugin
+
+The config plugin only runs if it is added to the `plugins` list in your `nuxt.config.ts`. Without it, none of the overrides below are applied and the components keep their default values.
+
+```ts
+// nuxt.config.ts
+export default defineNuxtConfig({
+    plugins: ['~/plugins/air-ui-config'],
+})
+```
+
 #### DS config options
 
 ```ts
