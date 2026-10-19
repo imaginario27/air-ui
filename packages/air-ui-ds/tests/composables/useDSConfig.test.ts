@@ -6,6 +6,7 @@ describe('useDSConfig', () => {
         const base = { colorMode: 'none', opacity: 40, size: null }
 
         expect(glow.card).toEqual({ ...base, trigger: 'always', type: 'outer' })
+        expect(glow.modal).toEqual({ ...base, trigger: 'always', type: 'inner' })
         expect(glow.button).toEqual({ ...base, trigger: 'always', type: 'outer' })
         expect(glow.input).toEqual({ ...base, trigger: 'focus', type: 'inner' })
         expect(glow.fileUpload).toEqual({ ...base, trigger: 'hoverFocus', type: 'inner' })

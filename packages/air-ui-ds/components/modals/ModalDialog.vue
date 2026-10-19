@@ -70,7 +70,9 @@
                                 :class="[
                                     'p-4 md:p-6',
                                     '[--color-background-container-surface:var(--color-background-surface)]',
+                                    glowClass.length ? 'rounded-lg transition-shadow duration-200' : undefined,
                                     cardClass,
+                                    ...glowClass,
                                 ]"
                             >
                                 <slot />
@@ -116,6 +118,26 @@ const props = defineProps({
     id: String as PropType<string>,
     ariaLabelledby: String as PropType<string>,
     closeAriaLabel: String as PropType<string>,
+    glowColorMode: {
+        type: String as PropType<GlowColorMode>,
+        validator: (value: GlowColorMode) => Object.values(GlowColorMode).includes(value),
+    },
+    glowTrigger: {
+        type: String as PropType<GlowTrigger>,
+        validator: (value: GlowTrigger) => Object.values(GlowTrigger).includes(value),
+    },
+    glowType: {
+        type: String as PropType<GlowType>,
+        validator: (value: GlowType) => Object.values(GlowType).includes(value),
+    },
+    glowOpacity: {
+        type: Number as PropType<number>,
+        validator: (value: number) => value >= 0 && value <= 100,
+    },
+    glowSize: {
+        type: Number as PropType<number | null>,
+        validator: (value: number | null) => value === null || value >= 0,
+    },
 })
 
 // Emits
@@ -123,6 +145,16 @@ const emit = defineEmits(['update:modelValue', 'close'])
 
 // Composables
 const dsConfig = useDSConfig()
+const glowSettings = useGlowSettings('modal', props)
+const { glowClass } = useGlow(glowSettings.colorMode, {
+    trigger: glowSettings.trigger,
+    type: glowSettings.type,
+    opacity: glowSettings.opacity,
+    size: glowSettings.size,
+    focusWithin: true,
+    colorClass: '[--glow-color:var(--color-background-neutral-bold)]',
+    sizeClass: '[--glow-size:12px]',
+})
 
 // Computed
 const resolvedCloseAriaLabel = computed(() => props.closeAriaLabel ?? dsConfig.actions.closeText())

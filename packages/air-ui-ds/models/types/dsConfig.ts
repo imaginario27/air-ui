@@ -83,6 +83,7 @@ export interface DesignSystemConfig {
     }
     glow: {
         card: GlowSettings
+        modal: GlowSettings
         button: GlowSettings
         input: GlowSettings
         fileUpload: GlowSettings
