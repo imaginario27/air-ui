@@ -1,78 +1,56 @@
 <template>
     <div
         :class="[
-            'py-4',
-            'px-6',
-            'border-border-neutral-subtle [.dark_&]:border-border-default',
-            'border-t',
-            'last:border-b',
-            'flex gap-3 justify-between items-center',
+            'w-full flex items-center gap-3',
+            'py-2.5 pl-3 pr-2',
+            'rounded-md',
             'cursor-pointer',
-            'transition-colors duration-200',
+            'transition-colors duration-150',
             'hover:bg-background-neutral-subtler',
             '[.dark_&]:hover:bg-background-surface',
         ]"
-        @click="handleClick"
+        @click="emit('item-clicked')"
     >
-        <div class="flex flex-col gap-2 w-full">
-            <Badge :text="badgeText" :color="badgeColor" :style="badgeStyle" />
-            <span v-if="breadcrumbs" class="text-sm text-text-neutral-subtle">
+        <span
+            :class="[
+                'flex items-center justify-center shrink-0',
+                'w-8 h-8',
+                'rounded-lg border',
+                'bg-background-surface border-border-default',
+            ]"
+        >
+            <Icon name="mdi:history" iconClass="w-[18px] h-[18px]" />
+        </span>
+
+        <span class="flex flex-col min-w-0 flex-1">
+            <span class="truncate text-sm font-semibold">
+                {{ text }}
+            </span>
+            <span v-if="breadcrumbs" class="truncate text-xs text-text-neutral-subtle">
                 {{ breadcrumbs }}
             </span>
-            <h3 class="text-base font-semibold">
-                {{ text }}
-            </h3>
-        </div>
-        <div @click.stop="handleRemoveItem">
-            <ActionIconButton
-                icon="mdi:close"
-                :size="ButtonSize.LG"
-                :styleType="ButtonStyleType.NEUTRAL_TRANSPARENT"
-                class="flex-shrink-0"
-            />
-        </div>
+        </span>
+
+        <ActionIconButton
+            icon="mdi:close"
+            :size="ButtonSize.SM"
+            :styleType="ButtonStyleType.NEUTRAL_TRANSPARENT"
+            class="shrink-0"
+            @click.stop="emit('remove-item')"
+        />
     </div>
 </template>
 
 <script setup lang="ts">
 // Props
-const props = defineProps({
+defineProps({
     text: {
         type: String as PropType<string>,
         default: 'Result text',
     },
     breadcrumbs: String as PropType<string>,
-    badgeText: {
-        type: String as PropType<string>,
-        default: 'Section title / Page title',
-    },
-    badgeColor: {
-        type: String as PropType<ColorAccent>,
-        default: ColorAccent.NEUTRAL,
-        validator: (value: ColorAccent) => Object.values(ColorAccent).includes(value),
-    },
-    badgeStyle: {
-        type: String as PropType<BadgeStyle>,
-        default: BadgeStyle.FLAT,
-        validator: (value: BadgeStyle) => Object.values(BadgeStyle).includes(value),
-    },
-    to: String as PropType<string>,
 })
 
 // Emits
 const emit = defineEmits(['remove-item', 'item-clicked'])
-
-// Handlers
-const handleRemoveItem = () => {
-    emit('remove-item')
-}
-
-const handleClick = () => {
-    emit('item-clicked', {
-        text: props.text,
-        breadcrumbs: props.breadcrumbs,
-        badgeText: props.badgeText,
-        to: props.to,
-    })
-}
 </script>

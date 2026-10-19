@@ -1,32 +1,65 @@
 <template>
-    <div
-        :class="[
-            'py-4',
-            'px-6',
-            'border border-border-neutral-subtle [.dark_&]:border-border-default',
-            'flex gap-3 justify-between items-center',
-            'cursor-pointer',
-            'transition-colors duration-200',
-            'hover:bg-background-neutral-subtler',
-            '[.dark_&]:hover:bg-background-surface',
-        ]"
-        @click="handleClick"
-    >
-        <div class="flex flex-col gap-2 w-full">
-            <Badge :text="badgeText" :color="badgeColor" :style="badgeStyle" />
-            <span v-if="breadcrumbs" class="text-sm text-text-neutral-subtle">
-                {{ breadcrumbs }}
+    <div class="flex flex-col">
+        <button
+            type="button"
+            :data-search-to="to"
+            :class="[rowClass, 'py-2.5 pl-3 pr-2', isActive(to) && activeClass]"
+            @click="emit('item-clicked', to)"
+            @mouseenter="emit('hover', to)"
+        >
+            <span :class="iconBoxClass">
+                <Icon name="mdi:file-document-outline" iconClass="w-[18px] h-[18px]" />
             </span>
-            <h3 class="text-base font-semibold">
-                {{ text }}
-            </h3>
+
+            <span class="flex flex-col min-w-0 flex-1">
+                <span class="truncate text-sm font-semibold">
+                    <template v-for="(part, index) in highlight(text)" :key="index">
+                        <mark v-if="part.isMatch" :class="markClass">{{ part.text }}</mark>
+                        <template v-else>{{ part.text }}</template>
+                    </template>
+                </span>
+                <span v-if="breadcrumbs" class="truncate text-xs text-text-neutral-subtle">
+                    {{ breadcrumbs }}
+                </span>
+            </span>
+
+            <Icon name="mdi:chevron-right" iconClass="w-[18px] h-[18px] shrink-0" />
+        </button>
+
+        <div
+            v-if="sections.length"
+            class="ml-7 mt-1 pl-3 flex flex-col gap-1 border-l border-border-neutral-subtle [.dark_&]:border-border-default"
+        >
+            <button
+                v-for="section in sections"
+                :key="section.to"
+                type="button"
+                :data-search-to="section.to"
+                :class="[rowClass, 'items-start py-2 pl-2 pr-2', isActive(section.to) && activeClass]"
+                @click="emit('item-clicked', section.to)"
+                @mouseenter="emit('hover', section.to)"
+            >
+                <Icon name="mdi:pound" iconClass="w-[16px] h-[16px] shrink-0 mt-0.5" />
+
+                <span class="flex flex-col min-w-0 flex-1 gap-0.5">
+                    <span class="truncate text-sm font-medium">
+                        <template v-for="(part, index) in highlight(section.text)" :key="index">
+                            <mark v-if="part.isMatch" :class="markClass">{{ part.text }}</mark>
+                            <template v-else>{{ part.text }}</template>
+                        </template>
+                    </span>
+
+                    <span v-if="section.excerpt" class="line-clamp-2 text-xs text-text-neutral-subtle">
+                        <template v-for="(part, index) in highlight(section.excerpt)" :key="index">
+                            <mark v-if="part.isMatch" :class="markClass">{{ part.text }}</mark>
+                            <template v-else>{{ part.text }}</template>
+                        </template>
+                    </span>
+                </span>
+
+                <Icon name="mdi:chevron-right" iconClass="w-[16px] h-[16px] shrink-0 mt-0.5" />
+            </button>
         </div>
-        <ActionIconButton
-            icon="mdi:chevron-right"
-            :size="ButtonSize.LG"
-            :styleType="ButtonStyleType.NEUTRAL_TRANSPARENT"
-            @click.stop="handleClick"
-        />
     </div>
 </template>
 
@@ -38,34 +71,49 @@ const props = defineProps({
         default: 'Result text',
     },
     breadcrumbs: String as PropType<string>,
-    badgeText: {
+    to: {
         type: String as PropType<string>,
-        default: 'Section title / Page title',
+        required: true,
     },
-    badgeColor: {
-        type: String as PropType<ColorAccent>,
-        default: ColorAccent.NEUTRAL,
-        validator: (value: ColorAccent) => Object.values(ColorAccent).includes(value),
+    sections: {
+        type: Array as PropType<SearchSectionItem[]>,
+        default: () => [],
     },
-    badgeStyle: {
-        type: String as PropType<BadgeStyle>,
-        default: BadgeStyle.FLAT,
-        validator: (value: BadgeStyle) => Object.values(BadgeStyle).includes(value),
+    query: {
+        type: String as PropType<string>,
+        default: '',
     },
-    to: String as PropType<string>,
+    activeTo: String as PropType<string>,
 })
 
 // Emits
-const emit = defineEmits(['item-clicked'])
+const emit = defineEmits(['item-clicked', 'hover'])
 
-// Handlers
-const handleClick = () => {
-    // Emit the item data to the parent, which handles navigation
-    emit('item-clicked', {
-        text: props.text,
-        breadcrumbs: props.breadcrumbs,
-        badgeText: props.badgeText,
-        to: props.to,
-    })
+// Classes
+const rowClass = 'w-full flex items-center gap-3 text-left text-text-default rounded-md transition-colors duration-150'
+const activeClass = 'bg-background-neutral-subtler [.dark_&]:bg-background-surface'
+const iconBoxClass =
+    'flex items-center justify-center shrink-0 w-8 h-8 rounded-lg border bg-background-surface border-border-default'
+const markClass = 'bg-background-primary-brand-soft text-text-primary-brand-default font-bold rounded-sm'
+
+// Methods
+const isActive = (to: string) => props.activeTo === to
+
+const highlight = (value: string) => {
+    const terms = props.query
+        .trim()
+        .split(/\s+/)
+        .filter(Boolean)
+        .map((term) => term.replace(/[.*+?^${}()|[\]\\]/g, String.raw`\$&`))
+
+    if (!terms.length) return [{ text: value, isMatch: false }]
+
+    const pattern = new RegExp(`(${terms.join('|')})`, 'gi')
+
+    // Splitting with a capture group puts every match at an odd index
+    return value
+        .split(pattern)
+        .map((part, index) => ({ text: part, isMatch: index % 2 === 1 }))
+        .filter((part) => part.text)
 }
 </script>
