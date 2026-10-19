@@ -4,7 +4,7 @@ AirUI exposes a small set of behaviors as shared, reactive configuration instead
 
 There are two config composables, one per package:
 
-- `useDSConfig` (from `@imaginario27/air-ui-ds`): text used by components, grouped under `forms`, `actions`, `common`, `pagination`, `gallery`, `lightbox`, `calendar`, `timePicker` and `slides`, and the default glow of cards, buttons and inputs, grouped under `glow`.
+- `useDSConfig` (from `@imaginario27/air-ui-ds`): text used by components, grouped under `forms`, `actions`, `common`, `pagination`, `gallery`, `lightbox`, `calendar`, `timePicker` and `slides`, and the default glow of cards, modals, buttons and inputs, grouped under `glow`.
 - `useUtilsConfig` (from `@imaginario27/air-ui-utils`): messages used by the framework-agnostic form validators in `air-ui-utils`, grouped under `validation`.
 
 <br/>
@@ -22,6 +22,17 @@ dsConfig.forms.optionalLabelText = () => 'Optional'
 Set overrides in a Nuxt plugin so they apply once, before any AirUI component renders. `useDSConfig` and `useUtilsConfig` are auto-imported, just like AirUI's components and composables.
 
 Text values are resolver functions (`() => string`). A plain string works fine, as in the two examples below. If your project uses an i18n library, point the resolver at its translation function instead, as shown further down in Translations, to stay reactive to locale changes.
+
+#### Register the plugin
+
+The config plugin only runs if it is added to the `plugins` list in your `nuxt.config.ts`. Without it, none of the overrides below are applied and the components keep their default values.
+
+```ts
+// nuxt.config.ts
+export default defineNuxtConfig({
+    plugins: ['~/plugins/air-ui-config'],
+})
+```
 
 #### DS config options
 
@@ -131,11 +142,19 @@ export default defineNuxtPlugin(() => {
         goToSlideText: () => 'Go to slide',
     })
 
-    /* Default glow of the cards, the buttons and the form fields. A glow prop on a component wins over these */
+    /* Default glow of the cards, the modals, the buttons and the form fields. A glow prop on a component wins over these */
     Object.assign(dsConfig.glow.card, {
         colorMode: GlowColorMode.NONE,
         trigger: GlowTrigger.ALWAYS,
         type: GlowType.OUTER,
+        opacity: 40,
+        size: null,
+    })
+
+    Object.assign(dsConfig.glow.modal, {
+        colorMode: GlowColorMode.NONE,
+        trigger: GlowTrigger.ALWAYS,
+        type: GlowType.INNER,
         opacity: 40,
         size: null,
     })
@@ -168,9 +187,9 @@ export default defineNuxtPlugin(() => {
 
 #### Glow options
 
-The glow of the cards, the modals, the buttons and the form fields can be set once per family, so you don't repeat the same props on every instance. `glow.card` applies to `Card`, `glow.modal` to the inner container of `ModalDialog`, `glow.button` to `ActionButton` and `ActionIconButton`, and `glow.input` to every form field that has a glow (`InputField`, `TextareaField`, `SelectField`, `ComboboxField`, `SearchField`, `TagsField`, `PinField`, `DatePickerField` and `TimePickerField`), and `glow.fileUpload` to `FileUploadField`.
+The glow of the cards, the modals, the buttons and the form fields can be set once per family, so you don't repeat the same props on every instance. `glow.card` applies to `Card`, `glow.modal` to the inner container of `ModalDialog`, `SuccessModalDialog`, `DangerModalDialog` and `InfoModalDialog`, `glow.button` to `ActionButton` and `ActionIconButton`, and `glow.input` to every form field that has a glow (`InputField`, `TextareaField`, `SelectField`, `ComboboxField`, `SearchField`, `TagsField`, `PinField`, `DatePickerField` and `TimePickerField`), and `glow.fileUpload` to `FileUploadField`.
 
-A glow prop passed to a component always wins over the config. Each family has its own values, so you can, for example, glow only the cards in dark mode and the inputs on focus. The values in the example above are the defaults. Form fields glow on the inside while they have focus by default, and the file upload field also glows on hover.
+A glow prop passed to a component always wins over the config. Each family has its own values, so you can, for example, glow only the cards in dark mode and the inputs on focus. The values in the example above are the defaults. Modals and form fields glow on the inside by default. Form fields glow only while they have focus, and the file upload field also glows on hover.
 
 Each family accepts these options, which match the `glowColorMode`, `glowTrigger`, `glowType`, `glowOpacity` and `glowSize` props:
 
