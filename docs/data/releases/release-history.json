@@ -1,12 +1,58 @@
 {
-  "generatedAt": "2026-10-16T14:03:35.547Z",
+  "generatedAt": "2026-10-19T08:39:21.249Z",
   "source": "github-git-history+npm-publish-dates",
   "githubBaseUrl": "https://github.com/imaginario27/air-ui",
   "packages": [
     {
       "packageName": "@imaginario27/air-ui-ds",
-      "latestVersion": "1.26.0",
+      "latestVersion": "1.26.1",
       "entries": [
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.26.1",
+          "publishedAt": "2026-10-19",
+          "releaseType": "patch",
+          "notes": [
+            "add glow props and `glow.modal` config to modal dialogs"
+          ],
+          "metadata": {
+            "commitCount": 1,
+            "commits": [
+              {
+                "sha": "e5d9204bd4c9905232eaaa95e3b0071e17e29af1",
+                "shortSha": "e5d9204",
+                "date": "2026-10-19",
+                "subject": "feat(ds): add glow props and `glow.modal` config to modal dialogs",
+                "normalizedSubject": "add glow props and `glow.modal` config to modal dialogs",
+                "type": "added",
+                "body": [
+                  "add `glowColorMode`, `glowTrigger`, `glowType`, `glowOpacity` and `glowSize` to `ModalDialog`",
+                  "apply the glow to the inner container of `ModalDialog`",
+                  "pass the glow props through `SuccessModalDialog`, `DangerModalDialog` and `InfoModalDialog`",
+                  "add `glow.modal` group defaulting to `GlowColorMode.NONE` and `GlowType.INNER`",
+                  "cover `glow.modal` defaults in the `useDSConfig` test"
+                ],
+                "affected": [
+                  "DangerModalDialog",
+                  "InfoModalDialog",
+                  "ModalDialog",
+                  "SuccessModalDialog",
+                  "useDSConfig"
+                ],
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/e5d9204bd4c9905232eaaa95e3b0071e17e29af1",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 1,
+              "fixed": 0,
+              "changed": 0,
+              "maintenance": 0,
+              "breaking": 0
+            }
+          }
+        },
         {
           "packageName": "@imaginario27/air-ui-ds",
           "version": "1.26.0",
