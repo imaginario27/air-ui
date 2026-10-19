@@ -92,6 +92,7 @@ const dsConfig = reactive<DesignSystemConfig>({
     },
     glow: {
         card: glowDefaults(),
+        modal: glowDefaults({ type: GlowType.INNER }),
         button: glowDefaults(),
         // Form fields glow along the inside of their box while they have focus
         input: glowDefaults({ trigger: GlowTrigger.FOCUS, type: GlowType.INNER }),

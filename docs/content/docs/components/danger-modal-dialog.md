@@ -133,6 +133,31 @@ props: [
         "default": "'Close'",
         "type": "string",
     },
+    {
+        "name": "glowColorMode",
+        "type": "GlowColorMode",
+        "default": "GlowColorMode.NONE",
+    },
+    {
+        "name": "glowTrigger",
+        "type": "GlowTrigger",
+        "default": "GlowTrigger.ALWAYS",
+    },
+    {
+        "name": "glowType",
+        "type": "GlowType",
+        "default": "GlowType.INNER",
+    },
+    {
+        "name": "glowOpacity",
+        "type": "number",
+        "default": "40",
+    },
+    {
+        "name": "glowSize",
+        "type": "number | null",
+        "default": "null",
+    },
 ]
 ---
 ::
@@ -347,6 +372,66 @@ Sets the accessible label for the corner close button. Useful for i18n.
 
 - **Type:** `string`
 - **Default:** `'Close'`
+
+### glowColorMode
+Draws a glow around the inner container of the modal, shown in light mode, dark mode, both or none. It uses the `GlowColorMode` enum and is `GlowColorMode.NONE` by default. It works like the glow props of [ModalDialog](/docs/components/modal-dialog).
+
+```vue
+<template>
+    <DangerModalDialog :glowColorMode="GlowColorMode.BOTH" />
+</template>
+```
+
+- **Type:** `GlowColorMode`
+- **Default:** `GlowColorMode.NONE`
+
+### glowTrigger
+Sets when the glow appears. It uses the `GlowTrigger` enum.
+
+```vue
+<template>
+    <DangerModalDialog :glowColorMode="GlowColorMode.BOTH" :glowTrigger="GlowTrigger.FOCUS" />
+</template>
+```
+
+- **Type:** `GlowTrigger`
+- **Default:** `GlowTrigger.ALWAYS`
+
+### glowType
+Sets where the glow is drawn. It uses the `GlowType` enum.
+
+```vue
+<template>
+    <DangerModalDialog :glowColorMode="GlowColorMode.BOTH" :glowType="GlowType.INNER" />
+</template>
+```
+
+- **Type:** `GlowType`
+- **Default:** `GlowType.INNER`
+
+### glowOpacity
+Sets how strong the glow is, from `0` to `100`.
+
+```vue
+<template>
+    <DangerModalDialog :glowColorMode="GlowColorMode.BOTH" :glowOpacity="30" />
+</template>
+```
+
+- **Type:** `number`
+- **Default:** `40`
+
+### glowSize
+Sets how far the glow spreads, in pixels.
+
+```vue
+<template>
+    <DangerModalDialog :glowColorMode="GlowColorMode.BOTH" :glowSize="32" />
+</template>
+```
+
+- **Type:** `number | null`
+- **Default:** `null`
 
 ## Emits
 ::options-table

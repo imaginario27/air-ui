@@ -5,6 +5,17 @@ All notable changes to this package are documented in this file.
 Historical releases were reconstructed from git history (GitHub repository) and npm publish dates.
 Future releases will include detailed entries generated with Changesets.
 
+## 1.26.1 - 2026-10-19
+
+Release type: patch.
+Commits found in range: 1.
+
+### Added
+
+1. add glow props and `glow.modal` config to modal dialogs ([e5d9204](https://github.com/imaginario27/air-ui/commit/e5d9204bd4c9905232eaaa95e3b0071e17e29af1))
+
+- Package: @imaginario27/air-ui-ds.
+
 ## 1.26.0 - 2026-10-16
 
 Release type: minor.

@@ -190,6 +190,31 @@ props: [
         "default": "'Close'",
         "type": "string",
     },
+    {
+        "name": "glowColorMode",
+        "type": "GlowColorMode",
+        "default": "GlowColorMode.NONE",
+    },
+    {
+        "name": "glowTrigger",
+        "type": "GlowTrigger",
+        "default": "GlowTrigger.ALWAYS",
+    },
+    {
+        "name": "glowType",
+        "type": "GlowType",
+        "default": "GlowType.INNER",
+    },
+    {
+        "name": "glowOpacity",
+        "type": "number",
+        "default": "40",
+    },
+    {
+        "name": "glowSize",
+        "type": "number | null",
+        "default": "null",
+    },
 ]
 ---
 ::
@@ -303,6 +328,76 @@ The `closeAriaLabel` prop sets the accessible label for the close button. Overri
 
 - **Type:** `string`
 - **Default:** `'Close'`
+
+### glowColorMode
+Draws a glow around the inner container of the modal, shown in light mode, dark mode, both or none. It uses the `GlowColorMode` enum and is `GlowColorMode.NONE` by default. The glow props work like the ones of [Card](/docs/components/card), and their defaults can be set once with `glow.modal` in the DS config.
+
+```vue
+<template>
+    <ModalDialog :glowColorMode="GlowColorMode.BOTH">
+        ...
+    </ModalDialog>
+</template>
+```
+
+- **Type:** `GlowColorMode`
+- **Default:** `GlowColorMode.NONE`
+
+### glowTrigger
+Sets when the glow appears. It uses the `GlowTrigger` enum and is `GlowTrigger.ALWAYS` by default.
+
+```vue
+<template>
+    <ModalDialog :glowColorMode="GlowColorMode.BOTH" :glowTrigger="GlowTrigger.FOCUS">
+        ...
+    </ModalDialog>
+</template>
+```
+
+- **Type:** `GlowTrigger`
+- **Default:** `GlowTrigger.ALWAYS`
+
+### glowType
+Sets where the glow is drawn. It uses the `GlowType` enum and is `GlowType.INNER` by default.
+
+```vue
+<template>
+    <ModalDialog :glowColorMode="GlowColorMode.BOTH" :glowType="GlowType.INNER">
+        ...
+    </ModalDialog>
+</template>
+```
+
+- **Type:** `GlowType`
+- **Default:** `GlowType.INNER`
+
+### glowOpacity
+Sets how strong the glow is, from `0` to `100`. It has no effect while `glowColorMode` is `GlowColorMode.NONE`.
+
+```vue
+<template>
+    <ModalDialog :glowColorMode="GlowColorMode.BOTH" :glowOpacity="30">
+        ...
+    </ModalDialog>
+</template>
+```
+
+- **Type:** `number`
+- **Default:** `40`
+
+### glowSize
+Sets how far the glow spreads, in pixels. It has no effect while `glowColorMode` is `GlowColorMode.NONE`.
+
+```vue
+<template>
+    <ModalDialog :glowColorMode="GlowColorMode.BOTH" :glowSize="32">
+        ...
+    </ModalDialog>
+</template>
+```
+
+- **Type:** `number | null`
+- **Default:** `null`
 
 ## Prop-based Components
 Some of the components listed in the table above accept specific props to customize their behavior or appearance.
