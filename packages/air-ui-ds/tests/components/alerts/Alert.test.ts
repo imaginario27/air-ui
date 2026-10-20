@@ -147,6 +147,25 @@ describe('Alert.vue', () => {
         expect(wrapper.findComponent(AlertButton).exists()).toBe(true)
     })
 
+    it.each([
+        ['with a description', 'Some description'],
+        ['without a description', ''],
+    ])('runs the button callback on click %s', async (_label, description) => {
+        const callback = vi.fn()
+        const wrapper = mount(Alert, {
+            props: {
+                title: 'Callback',
+                description,
+                hasActionButtons: true,
+                buttons: [{ text: 'Go', actionType: ButtonActionType.ACTION, callback }],
+            },
+        })
+
+        await wrapper.findComponent(AlertButton).trigger('click')
+
+        expect(callback).toHaveBeenCalledTimes(1)
+    })
+
     it('renders close button when hasCloseButton is true', () => {
         const wrapper = mount(Alert, {
             props: {

@@ -75,12 +75,14 @@ const props = defineProps({
         type: Boolean as PropType<boolean>,
         default: false,
     },
+    callback: Function as PropType<() => void>,
 })
 
 // Emits
 const emit = defineEmits(['click'])
 const emitClick = () => {
     if (!props.disabled) {
+        props.callback?.()
         emit('click')
     }
 }

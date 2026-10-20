@@ -39,6 +39,7 @@
                         :disabled="button.disabled"
                         :to="button.to"
                         :isExternal="button.isExternal"
+                        :callback="button.callback"
                     />
                 </div>
             </div>
@@ -53,10 +54,11 @@
         </template>
 
         <template v-else>
-            <div class="w-full flex gap-3">
+            <div class="w-full flex flex-wrap sm:flex-nowrap gap-3">
                 <div
                     :class="[
-                        'w-full',
+                        'flex-1 min-w-0',
+                        'order-1',
                         'flex',
                         'gap-3',
                         hasCloseButton || (hasActionButtons && buttons?.length && 'pt-1.5'),
@@ -68,8 +70,11 @@
                     </span>
                 </div>
 
-                <div class="flex gap-3">
-                    <div v-if="hasActionButtons && buttons?.length" class="flex gap-4">
+                <div class="contents">
+                    <div
+                        v-if="hasActionButtons && buttons?.length"
+                        class="order-3 basis-full sm:order-2 sm:basis-auto flex gap-4"
+                    >
                         <AlertButton
                             v-for="(button, index) in buttons"
                             :key="`text-${index}`"
@@ -85,7 +90,13 @@
                         />
                     </div>
 
-                    <AlertIconButton v-if="hasCloseButton" :type icon="mdi:close" @click="$emit('close')" />
+                    <AlertIconButton
+                        v-if="hasCloseButton"
+                        :type
+                        icon="mdi:close"
+                        class="order-2 sm:order-3"
+                        @click="$emit('close')"
+                    />
                 </div>
             </div>
         </template>
