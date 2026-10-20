@@ -5,6 +5,21 @@ All notable changes to this package are documented in this file.
 Historical releases were reconstructed from git history (GitHub repository) and npm publish dates.
 Future releases will include detailed entries generated with Changesets.
 
+## 1.28.0 - 2026-10-20
+
+Release type: minor.
+Commits found in range: 2.
+
+### Added
+
+1. add `readonly` prop to form fields ([21c095b](https://github.com/imaginario27/air-ui/commit/21c095b8f66461c5b0c7682fa42bc2b555149207))
+
+### Fixed
+
+1. center compact `Alert` row vertically ([06d8d06](https://github.com/imaginario27/air-ui/commit/06d8d06c6b410466d012701fb56b60e5f2793e7f))
+
+- Package: @imaginario27/air-ui-ds.
+
 ## 1.27.0 - 2026-10-20
 
 Release type: minor.
