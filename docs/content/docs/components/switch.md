@@ -8,6 +8,7 @@ props:
     id: "switch-id"
     modelValue: false
     disabled: false
+    readonly: false
     size: "md"
     styleType: "brand"
 items:
@@ -54,6 +55,11 @@ props: [
     },
     {
         "name": "disabled",
+        "default": "false",
+        "type": "boolean",
+    },
+    {
+        "name": "readonly",
         "default": "false",
         "type": "boolean",
     },
@@ -109,6 +115,19 @@ Sets the disabled state of the switch. When disabled, clicks are ignored and the
 ```vue
 <template>
     <Switch id="my-switch" disabled />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `false`
+
+### readonly
+
+Sets the readonly state. The value is still displayed but the user cannot change it.
+
+```vue
+<template>
+    <Switch readonly />
 </template>
 ```
 

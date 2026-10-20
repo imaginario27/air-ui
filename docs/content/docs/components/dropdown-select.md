@@ -40,6 +40,7 @@ props:
     searchFieldPlaceholder: "Search..."
     noResultsFoundText: "No results found"
     disabled: false
+    readonly: false
     hasSeparator: false
     multiple: false
     allowDeselect: false
@@ -157,6 +158,11 @@ props: [
     },
     {
         "name": "disabled",
+        "default": "false",
+        "type": "boolean",
+    },
+    {
+        "name": "readonly",
         "default": "false",
         "type": "boolean",
     },
@@ -514,6 +520,19 @@ Enables or disables the select.
     <DropdownSelect
         disabled
     />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `false`
+
+### readonly
+
+Sets the readonly state. The value is still displayed but the user cannot change it.
+
+```vue
+<template>
+    <DropdownSelect readonly />
 </template>
 ```
 

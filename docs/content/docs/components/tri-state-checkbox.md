@@ -8,6 +8,7 @@ props:
     id: "tri-state-checkbox-id"
     modelValue: "unchecked"
     disabled: false
+    readonly: false
     size: "md"
 items:
     modelValue:
@@ -55,6 +56,11 @@ props: [
     },
     {
         "name": "disabled",
+        "default": "false",
+        "type": "boolean",
+    },
+    {
+        "name": "readonly",
         "default": "false",
         "type": "boolean",
     },
@@ -127,6 +133,19 @@ Sets the disabled state of the checkbox. When disabled, clicks are ignored and t
 ```vue
 <template>
     <TriStateCheckbox id="my-checkbox" disabled />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `false`
+
+### readonly
+
+Sets the readonly state. The value is still displayed but the user cannot change it.
+
+```vue
+<template>
+    <TriStateCheckbox readonly />
 </template>
 ```
 

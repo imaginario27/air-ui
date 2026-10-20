@@ -25,6 +25,7 @@ props:
     showOptionalLabel: true
     optionalLabel: null
     disabled: false
+    readonly: false
     helpText: "Select one of the options."
     helpTextPosition: "bottom"
     inverse: false
@@ -122,6 +123,11 @@ props: [
     },
     {
         "name": "disabled",
+        "default": "false",
+        "type": "boolean",
+    },
+    {
+        "name": "readonly",
         "default": "false",
         "type": "boolean",
     },
@@ -370,6 +376,19 @@ props:
 ```vue
 <template>
     <RadioGroupField disabled />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `false`
+
+### readonly
+
+Sets the readonly state. The value is still displayed but the user cannot change it.
+
+```vue
+<template>
+    <RadioGroupField readonly />
 </template>
 ```
 

@@ -21,6 +21,7 @@ props:
     groupStyle: "grouped"
     size: "lg"
     disabled: false
+    readonly: false
     transparent: false
 items:
     groupStyle: 
@@ -109,6 +110,11 @@ props: [
     },
     {
         "name": "disabled",
+        "default": "false",
+        "type": "boolean",
+    },
+    {
+        "name": "readonly",
         "default": "false",
         "type": "boolean",
     },
@@ -365,6 +371,19 @@ Sets the disabled state of the field.
 ```vue
 <template>
     <ToggleButtonsGroupField disabled />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `false`
+
+### readonly
+
+Sets the readonly state. The value is still displayed but the user cannot change it.
+
+```vue
+<template>
+    <ToggleButtonsGroupField readonly />
 </template>
 ```
 

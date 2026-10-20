@@ -13,6 +13,7 @@ props:
     error: ""
     validator: null
     disabled: false
+    readonly: false
     required: false
     showOptionalLabel: true
     optionalLabel: null
@@ -82,6 +83,11 @@ props: [
     },
     {
         "name": "disabled",
+        "default": "false",
+        "type": "boolean",
+    },
+    {
+        "name": "readonly",
         "default": "false",
         "type": "boolean",
     },
@@ -242,6 +248,19 @@ Sets the disabled state of the field.
 ```vue
 <template>
     <CheckboxField disabled />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `false`
+
+### readonly
+
+Sets the readonly state. The value is still displayed but the user cannot change it.
+
+```vue
+<template>
+    <CheckboxField readonly />
 </template>
 ```
 

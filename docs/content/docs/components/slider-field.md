@@ -27,6 +27,7 @@ props:
     showInputsLabel: false
     inputPosition: bottom
     disabled: false
+    readonly: false
     transparentInputs: false
     minText: "Min: "
     maxText: "Max: "
@@ -201,6 +202,11 @@ props: [
     },
     {
         "name": "disabled",
+        "default": "false",
+        "type": "boolean",
+    },
+    {
+        "name": "readonly",
         "default": "false",
         "type": "boolean",
     },
@@ -543,6 +549,19 @@ Disables field interaction.
 ```vue
 <template>
     <SliderField id="price-range" disabled />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `false`
+
+### readonly
+
+Sets the readonly state. The value is still displayed but the user cannot change it.
+
+```vue
+<template>
+    <SliderField readonly />
 </template>
 ```
 

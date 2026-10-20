@@ -20,6 +20,7 @@ props:
     validator: null
     error: ""
     disabled: false
+    readonly: false
     transparent: false
     required: false
     showOptionalLabel: true
@@ -155,6 +156,11 @@ props: [
     },
     {
         "name": "disabled",
+        "default": "false",
+        "type": "boolean",
+    },
+    {
+        "name": "readonly",
         "default": "false",
         "type": "boolean",
     },
@@ -429,6 +435,19 @@ If `true`, the field will be disabled.
 ```vue
 <template>
     <PinField disabled />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `false`
+
+### readonly
+
+Sets the readonly state. The value is still displayed but the user cannot change it.
+
+```vue
+<template>
+    <PinField readonly />
 </template>
 ```
 
