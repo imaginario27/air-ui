@@ -82,6 +82,10 @@ props: [
         "type": "boolean",
     },
     {
+        "name": "removeAriaLabel",
+        "type": "string",
+    },
+    {
         "name": "isTransparent",
         "default": "false",
         "type": "boolean",
@@ -251,6 +255,19 @@ const handleClose = () => {
 - **Type:** `boolean`
 - **Default:** `false`
 - **Emmiter:** `@close`
+
+### removeAriaLabel
+
+Sets the accessible name of the close button. Falls back to `useDSConfig().actions.removeText()`.
+
+```vue
+<template>
+    <Badge removeAriaLabel="Custom text" />
+</template>
+```
+
+- **Type:** `string`
+- **Default:** `undefined`
 
 ### isTransparent
 

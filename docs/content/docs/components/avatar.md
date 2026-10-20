@@ -66,6 +66,10 @@ props: [
         "type": "string",
     },
     {
+        "name": "alt",
+        "type": "string",
+    },
+    {
         "name": "imgUrl",
         "type": "string",
     },
@@ -195,6 +199,18 @@ The `displayName` prop provides an accessible name for the avatar, used as a fal
 - **Type:** `string`
 - **Default:** `'Test user'`
 
+### alt
+
+Sets the alternative text of the avatar image. By default it is the display name followed by "avatar". Falls back to `useDSConfig().accessibility.avatarText()`.
+
+```vue
+<template>
+    <Avatar alt="Custom text" />
+</template>
+```
+
+- **Type:** `string`
+- **Default:** `undefined`
 
 ### imgUrl
 
