@@ -24,13 +24,13 @@ const factory = (props = {}) => {
 describe('ActionIconButton.vue', () => {
     it('shows the focus ring by default', () => {
         const wrapper = factory()
-        expect(wrapper.find('button').classes()).not.toContain('focus:!ring-0')
+        expect(wrapper.find('button').classes()).not.toContain('focus-visible:!ring-0')
     })
 
     it('removes the focus ring when hasFocusRing is false', () => {
         const wrapper = factory({ hasFocusRing: false })
-        expect(wrapper.find('button').classes()).toContain('focus:!ring-0')
-        expect(wrapper.find('button').classes()).toContain('focus:!ring-offset-0')
+        expect(wrapper.find('button').classes()).toContain('focus-visible:!ring-0')
+        expect(wrapper.find('button').classes()).toContain('focus-visible:!ring-offset-0')
     })
 
     it('renders as a button when actionType is ACTION', () => {
