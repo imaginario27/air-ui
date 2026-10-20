@@ -32,6 +32,7 @@ props:
     searchFieldPlaceholder: "Search..."
     noResultsFoundText: "No results found"
     disabled: false
+    readonly: false
     hasSeparator: false
     multiple: false
     hasBadgeStack: false
@@ -212,6 +213,11 @@ props: [
     },
     {
         "name": "disabled",
+        "default": "false",
+        "type": "boolean",
+    },
+    {
+        "name": "readonly",
         "default": "false",
         "type": "boolean",
     },
@@ -701,6 +707,19 @@ Sets whether the select field is disabled or not.
 ```vue
 <template>
     <SelectField disabled />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `false`
+
+### readonly
+
+Sets the readonly state. The value is still displayed but the user cannot change it.
+
+```vue
+<template>
+    <SelectField readonly />
 </template>
 ```
 

@@ -22,6 +22,7 @@ props:
           label: "Max"
     maxSteps: 5
     disabled: false
+    readonly: false
     size: "md"
     styleType: "brand"
 items:
@@ -82,6 +83,11 @@ props: [
     },
     {
         "name": "disabled",
+        "default": "false",
+        "type": "boolean",
+    },
+    {
+        "name": "readonly",
         "default": "false",
         "type": "boolean",
     },
@@ -197,6 +203,19 @@ Sets the disabled state of the switch. When disabled, clicks and keyboard input 
 ```vue
 <template>
     <StepSwitch id="my-step-switch" :steps="steps" disabled />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `false`
+
+### readonly
+
+Sets the readonly state. The value is still displayed but the user cannot change it.
+
+```vue
+<template>
+    <StepSwitch readonly />
 </template>
 ```
 

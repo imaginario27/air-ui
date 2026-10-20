@@ -25,6 +25,7 @@ props:
     showOptionalLabel: true
     optionalLabel: null
     disabled: false
+    readonly: false
     helpText: "Help text example"
     helpTextPosition: "bottom"
     showLoadingState: false
@@ -256,6 +257,11 @@ props: [
     },
     {
         "name": "disabled",
+        "default": "false",
+        "type": "boolean",
+    },
+    {
+        "name": "readonly",
         "default": "false",
         "type": "boolean",
     },
@@ -620,6 +626,19 @@ Disables all options in the field.
 ```vue
 <template>
     <SelectableCardField disabled />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `false`
+
+### readonly
+
+Sets the readonly state. The value is still displayed but the user cannot change it.
+
+```vue
+<template>
+    <SelectableCardField readonly />
 </template>
 ```
 

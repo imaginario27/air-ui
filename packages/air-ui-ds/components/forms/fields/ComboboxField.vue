@@ -33,6 +33,7 @@
             :activeStyle
             :noResultsFoundText
             :disabled
+            :readonly
             :dropdownPosition
             :autoFlip
             :hasSeparator
@@ -120,6 +121,10 @@ const props = defineProps({
     },
     noResultsFoundText: String as PropType<string>,
     disabled: {
+        type: Boolean as PropType<boolean>,
+        default: false,
+    },
+    readonly: {
         type: Boolean as PropType<boolean>,
         default: false,
     },

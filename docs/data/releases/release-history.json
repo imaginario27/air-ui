@@ -1,12 +1,100 @@
 {
-  "generatedAt": "2026-10-20T07:34:10.373Z",
+  "generatedAt": "2026-10-20T11:02:57.465Z",
   "source": "github-git-history+npm-publish-dates",
   "githubBaseUrl": "https://github.com/imaginario27/air-ui",
   "packages": [
     {
       "packageName": "@imaginario27/air-ui-ds",
-      "latestVersion": "1.27.0",
+      "latestVersion": "1.28.0",
       "entries": [
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.28.0",
+          "publishedAt": "2026-10-20",
+          "releaseType": "minor",
+          "notes": [
+            "add `readonly` prop to form fields",
+            "center compact `Alert` row vertically"
+          ],
+          "metadata": {
+            "commitCount": 2,
+            "commits": [
+              {
+                "sha": "21c095b8f66461c5b0c7682fa42bc2b555149207",
+                "shortSha": "21c095b",
+                "date": "2026-10-20",
+                "subject": "feat(ds): add `readonly` prop to form fields",
+                "normalizedSubject": "add `readonly` prop to form fields",
+                "type": "added",
+                "body": [
+                  "add `readonly` to `SelectField`, `ComboboxField`, `PinField`, `TagsField` and `SliderField`",
+                  "add `readonly` to `DropdownSelect`, `DropdownCombobox` and `Slider`",
+                  "add `readonly` to `Checkbox`, `TriStateCheckbox`, `Switch`, `TriStateSwitch` and `StepSwitch`",
+                  "add `readonly` to the `SwitchField`, `CheckboxField` and `StepSwitchField` style wrappers",
+                  "add `readonly` to `CheckboxGroupField`, `RadioField`, `RadioButtonField` and `RadioGroupField`",
+                  "add `readonly` to `ToggleButtonsGroupField`, `OptionButtonsGroupField` and `SelectableCardField`",
+                  "add `aria-readonly` to checkbox and switch controls",
+                  "add `readonly` tests for `Checkbox` and `TagsField`"
+                ],
+                "affected": [
+                  "DropdownCombobox",
+                  "DropdownSelect",
+                  "ComboboxField",
+                  "OptionButtonsGroupField",
+                  "PinField",
+                  "SelectField",
+                  "SelectableCardField",
+                  "SliderField",
+                  "TagsField",
+                  "ToggleButtonsGroupField",
+                  "Checkbox",
+                  "CheckboxField",
+                  "CheckboxGroupField",
+                  "TriStateCheckbox",
+                  "TriStateCheckboxField",
+                  "RadioButtonField",
+                  "RadioField",
+                  "RadioGroupField",
+                  "StepSwitch",
+                  "StepSwitchField",
+                  "Switch",
+                  "SwitchField",
+                  "TriStateSwitch",
+                  "TriStateSwitchField",
+                  "Slider"
+                ],
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/21c095b8f66461c5b0c7682fa42bc2b555149207",
+                "prUrl": null
+              },
+              {
+                "sha": "06d8d06c6b410466d012701fb56b60e5f2793e7f",
+                "shortSha": "06d8d06",
+                "date": "2026-10-20",
+                "subject": "fix(ds): center compact `Alert` row vertically",
+                "normalizedSubject": "center compact `Alert` row vertically",
+                "type": "fixed",
+                "body": [
+                  "add `items-center` to the compact `Alert` row so title, action buttons and close button align",
+                  "remove the `pt-1.5` title offset, which never applied when `hasCloseButton` was set"
+                ],
+                "affected": [
+                  "Alert"
+                ],
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/06d8d06c6b410466d012701fb56b60e5f2793e7f",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 1,
+              "fixed": 1,
+              "changed": 0,
+              "maintenance": 0,
+              "breaking": 0
+            }
+          }
+        },
         {
           "packageName": "@imaginario27/air-ui-ds",
           "version": "1.27.0",

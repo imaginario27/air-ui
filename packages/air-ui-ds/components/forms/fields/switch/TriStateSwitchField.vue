@@ -39,6 +39,7 @@
                 :ariaLabel="ariaLabel || label || legend || 'Toggle'"
                 :modelValue
                 :disabled
+                :readonly
                 :size
                 :styleType
                 @update:modelValue="handleSwitchUpdate"
@@ -87,6 +88,10 @@ const props = defineProps({
         default: undefined,
     },
     disabled: {
+        type: Boolean as PropType<boolean>,
+        default: false,
+    },
+    readonly: {
         type: Boolean as PropType<boolean>,
         default: false,
     },
@@ -143,7 +148,7 @@ const iconSizeClass = computed(() => {
 
 // Handlers
 const handleSwitchUpdate = (value: TriStateValue) => {
-    if (props.disabled) return
+    if (props.disabled || props.readonly) return
 
     if (validationMode.value === FormValidationMode.BLUR) {
         runValidation()

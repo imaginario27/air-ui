@@ -23,6 +23,7 @@
                 maxlength="1"
                 :value="displayValue(value)"
                 :disabled
+                :readonly
                 :placeholder
                 :autocomplete="otp && index === 0 ? 'one-time-code' : 'off'"
                 :class="[
@@ -107,6 +108,10 @@ const props = defineProps({
         default: '',
     },
     disabled: {
+        type: Boolean as PropType<boolean>,
+        default: false,
+    },
+    readonly: {
         type: Boolean as PropType<boolean>,
         default: false,
     },
@@ -222,7 +227,7 @@ const handleBlur = () => {
 }
 
 const onInput = (event: Event, index: number) => {
-    if (props.disabled) return
+    if (props.disabled || props.readonly) return
 
     const target = event.target as HTMLInputElement
     const value = target.value
@@ -278,6 +283,8 @@ const onInput = (event: Event, index: number) => {
 }
 
 const onBackspace = (_event: KeyboardEvent, index: number) => {
+    if (props.readonly) return
+
     if (values.value[index]) {
         values.value[index] = ''
         emit('update:modelValue', values.value.join(''))

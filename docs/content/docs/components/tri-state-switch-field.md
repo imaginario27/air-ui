@@ -16,6 +16,7 @@ props:
     showOptionalLabel: true
     optionalLabel: null
     disabled: false
+    readonly: false
     size: "md"
     icon: null
     styleType: "brand"
@@ -113,6 +114,11 @@ props: [
     },
     {
         "name": "disabled",
+        "default": "false",
+        "type": "boolean",
+    },
+    {
+        "name": "readonly",
         "default": "false",
         "type": "boolean",
     },
@@ -336,6 +342,19 @@ Sets the disabled state of the field.
 ```vue
 <template>
     <TriStateSwitchField disabled />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `false`
+
+### readonly
+
+Sets the readonly state. The value is still displayed but the user cannot change it.
+
+```vue
+<template>
+    <TriStateSwitchField readonly />
 </template>
 ```
 

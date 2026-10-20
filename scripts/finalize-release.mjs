@@ -105,6 +105,11 @@ const main = async () => {
         runGit(["commit", "-m", commitMessage])
 
         console.log("✅ Changes committed successfully!")
+
+        console.log("\n⬆️  Pushing to remote...")
+        execFileSync("git", ["-C", repoRoot, "push"], { stdio: "inherit" })
+
+        console.log("✅ Changes pushed successfully!")
     } catch (error) {
         console.error("Error:", error.message)
         process.exit(1)

@@ -20,6 +20,7 @@ props:
     validator: null
     error: ""
     disabled: false
+    readonly: false
     required: false
     showOptionalLabel: true
     optionalLabel: null
@@ -113,6 +114,11 @@ props: [
     },
     {
         "name": "disabled",
+        "type": "boolean",
+        "default": "false",
+    },
+    {
+        "name": "readonly",
         "type": "boolean",
         "default": "false",
     },
@@ -326,6 +332,19 @@ Sets the disabled state of the field.
 ```vue
 <template>
     <OptionButtonsGroupField disabled />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `false`
+
+### readonly
+
+Sets the readonly state. The value is still displayed but the user cannot change it.
+
+```vue
+<template>
+    <OptionButtonsGroupField readonly />
 </template>
 ```
 

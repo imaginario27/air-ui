@@ -18,7 +18,7 @@
             :disabled
             :onlyIcon
             :transparent
-            @update:modelValue="emit('update:modelValue', $event)"
+            @update:modelValue="!readonly && emit('update:modelValue', $event)"
         />
 
         <!-- Help Text (bottom) -->
@@ -57,6 +57,10 @@ defineProps({
         validator: (value: ButtonSize) => !value || Object.values(ButtonSize).includes(value),
     },
     disabled: {
+        type: Boolean as PropType<boolean>,
+        default: false,
+    },
+    readonly: {
         type: Boolean as PropType<boolean>,
         default: false,
     },

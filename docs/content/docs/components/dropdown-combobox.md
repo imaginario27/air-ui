@@ -33,6 +33,7 @@ props:
     selectBoxClass: ""
     noResultsFoundText: "No results found"
     disabled: false
+    readonly: false
     hasSeparator: false
     multiple: false
     allowDeselect: false
@@ -151,6 +152,11 @@ props: [
     },
     {
         "name": "disabled",
+        "default": "false",
+        "type": "boolean",
+    },
+    {
+        "name": "readonly",
         "default": "false",
         "type": "boolean",
     },
@@ -462,6 +468,19 @@ Disables the input.
 ```vue
 <template>
     <DropdownCombobox id="fruit" disabled />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `false`
+
+### readonly
+
+Sets the readonly state. The value is still displayed but the user cannot change it.
+
+```vue
+<template>
+    <DropdownCombobox readonly />
 </template>
 ```
 

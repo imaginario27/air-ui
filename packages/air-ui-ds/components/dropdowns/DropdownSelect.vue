@@ -3,6 +3,7 @@
         <!-- Dropdown Menu -->
         <DropdownMenu
             ref="dropdownContainer"
+            :disabled="readonly"
             :shouldTeleport
             :teleportTo
             :position="teleportPosition"
@@ -98,7 +99,7 @@
                     <div class="flex gap-2 items-center">
                         <!-- Clear button -->
                         <ActionIconButton
-                            v-if="multiple && Array.isArray(selected) && selected.length"
+                            v-if="multiple && !readonly && Array.isArray(selected) && selected.length"
                             :size="ButtonSize.SM"
                             :styleType="ButtonStyleType.NEUTRAL_TRANSPARENT_SUBTLE"
                             icon="mdi:close-circle"
@@ -257,6 +258,10 @@ const props = defineProps({
         type: Boolean as PropType<boolean>,
         default: false,
     },
+    readonly: {
+        type: Boolean as PropType<boolean>,
+        default: false,
+    },
     hasSeparator: {
         type: Boolean as PropType<boolean>,
         default: false,
@@ -362,7 +367,7 @@ const handleImageError = () => {
 const handleSelectBoxClick = (event: MouseEvent) => {
     // DropdownMenu handles open/close at its activator wrapper level,
     // so disabled state must stop click propagation before it reaches that wrapper.
-    if (props.disabled || props.isLoading) {
+    if (props.disabled || props.readonly || props.isLoading) {
         event.preventDefault()
         event.stopPropagation()
     }
@@ -476,7 +481,7 @@ const handleClearSelection = () => {
 }
 
 const handleOptionClick = (option: SelectOption) => {
-    if (props.disabled || props.isLoading || option.disabled) return
+    if (props.disabled || props.readonly || props.isLoading || option.disabled) return
 
     const optionValue = option.value
 

@@ -6,7 +6,7 @@
             'overflow-hidden',
             'rounded-b-[2.5rem]',
             'bg-[color-mix(in_srgb,var(--color-background-primary-brand-default)_22%,var(--color-theme-neutral-950))]',
-            'px-6',
+            'px-4',
             'pb-16',
             'pt-14',
             'sm:pb-20',

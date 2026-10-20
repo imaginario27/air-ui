@@ -3,7 +3,7 @@
         :title="title"
         description="Explore the official AirUI component library, including buttons, forms, modals, and more."
         badge="Component library"
-        badgeIcon="mdi:view-grid-outline"
+        badgeIcon="mdi:cube-outline"
         backgroundImage="/images/components-hero-bg.webp"
     >
         <!-- Category chips -->
@@ -29,7 +29,7 @@
     </PageHero>
 
     <div class="flex justify-center px-4 pt-[5vh]">
-        <ComponentsPage class="max-w-300" />
+        <ComponentsPage class="max-w-300 px-0!" />
     </div>
 </template>
 <script setup lang="ts">

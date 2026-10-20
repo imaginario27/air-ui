@@ -112,6 +112,10 @@ const props = defineProps({
         type: Boolean as PropType<boolean>,
         default: false,
     },
+    readonly: {
+        type: Boolean as PropType<boolean>,
+        default: false,
+    },
     size: {
         type: String as PropType<ControlFieldSize>,
         default: ControlFieldSize.MD,
@@ -150,7 +154,7 @@ const labelSizeClass = computed(() => {
 
 // Handlers
 const selectRadio = () => {
-    if (props.disabled) return
+    if (props.disabled || props.readonly) return
     emit('update:modelValue', props.value)
 }
 

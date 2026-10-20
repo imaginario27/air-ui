@@ -8,6 +8,7 @@ props:
     id: "checkbox-id"
     modelValue: false
     disabled: false
+    readonly: false
     size: "md"
 items:
     size: 
@@ -47,6 +48,11 @@ props: [
     },
     {
         "name": "disabled",
+        "default": "false",
+        "type": "boolean",
+    },
+    {
+        "name": "readonly",
         "default": "false",
         "type": "boolean",
     },
@@ -97,6 +103,19 @@ Sets the disabled state of the checkbox. When disabled, clicks are ignored and t
 ```vue
 <template>
     <Checkbox id="my-checkbox" disabled />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `false`
+
+### readonly
+
+Sets the readonly state. The value is still displayed but the user cannot change it.
+
+```vue
+<template>
+    <Checkbox readonly />
 </template>
 ```
 

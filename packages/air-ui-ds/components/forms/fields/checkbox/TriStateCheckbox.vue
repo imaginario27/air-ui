@@ -14,6 +14,7 @@
         <div
             role="checkbox"
             :aria-checked="ariaCheckedValue"
+            :aria-readonly="readonly || undefined"
             :aria-label="ariaLabel || id"
             :class="[
                 'flex items-center justify-center',
@@ -64,6 +65,10 @@ const props = defineProps({
         type: Boolean as PropType<boolean>,
         default: false,
     },
+    readonly: {
+        type: Boolean as PropType<boolean>,
+        default: false,
+    },
     size: {
         type: String as PropType<ControlFieldSize>,
         default: ControlFieldSize.MD,
@@ -101,7 +106,7 @@ const checkboxIconSizeClass = computed(() => {
 // A click/toggle always resolves to an explicit checked/unchecked value.
 // Indeterminate is only ever entered by the consumer via modelValue.
 const toggleCheckbox = () => {
-    if (props.disabled) return
+    if (props.disabled || props.readonly) return
 
     const nextValue = props.modelValue === TriStateValue.CHECKED ? TriStateValue.UNCHECKED : TriStateValue.CHECKED
 

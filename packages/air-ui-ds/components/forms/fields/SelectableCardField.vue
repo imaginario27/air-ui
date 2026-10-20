@@ -117,6 +117,10 @@ const props = defineProps({
         type: Boolean as PropType<boolean>,
         default: false,
     },
+    readonly: {
+        type: Boolean as PropType<boolean>,
+        default: false,
+    },
     helpText: String as PropType<string>,
     helpTextPosition: {
         type: String as PropType<Position>,
@@ -262,6 +266,8 @@ const isSelected = (value: SelectableCardValue) => {
 
 // Toggle selection
 const toggleOption = (value: SelectableCardValue) => {
+    if (props.readonly) return
+
     let newValue: SelectableCardValue | null | Array<SelectableCardValue>
 
     if (props.multiple) {

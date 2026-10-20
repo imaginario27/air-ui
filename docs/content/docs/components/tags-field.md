@@ -19,6 +19,7 @@ props:
     maxTags: 6
     autofocus: false
     disabled: false
+    readonly: false
     transparent: false
     required: false
     showOptionalLabel: true
@@ -133,6 +134,11 @@ props: [
     },
     {
         "name": "disabled",
+        "default": "false",
+        "type": "boolean",
+    },
+    {
+        "name": "readonly",
         "default": "false",
         "type": "boolean",
     },
@@ -264,6 +270,19 @@ Disables input and tag interactions.
 ```vue
 <template>
     <TagsField id="tags-disabled" v-model="tags" disabled />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `false`
+
+### readonly
+
+Sets the readonly state. The value is still displayed but the user cannot change it.
+
+```vue
+<template>
+    <TagsField readonly />
 </template>
 ```
 

@@ -24,7 +24,7 @@
             :hasAllButton
             :allButtonText
             :allButtonValue
-            @update:modelValue="emit('update:modelValue', $event)"
+            @update:modelValue="!readonly && emit('update:modelValue', $event)"
         />
 
         <!-- Help Text (bottom) -->
@@ -61,6 +61,10 @@ const props = defineProps({
         default: '',
     },
     disabled: {
+        type: Boolean as PropType<boolean>,
+        default: false,
+    },
+    readonly: {
         type: Boolean as PropType<boolean>,
         default: false,
     },

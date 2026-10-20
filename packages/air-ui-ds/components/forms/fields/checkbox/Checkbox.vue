@@ -14,6 +14,7 @@
         <div
             role="checkbox"
             :aria-checked="modelValue"
+            :aria-readonly="readonly || undefined"
             :aria-label="ariaLabel || id"
             :class="[
                 'flex items-center justify-center',
@@ -55,6 +56,10 @@ const props = defineProps({
         type: Boolean as PropType<boolean>,
         default: false,
     },
+    readonly: {
+        type: Boolean as PropType<boolean>,
+        default: false,
+    },
     size: {
         type: String as PropType<ControlFieldSize>,
         default: ControlFieldSize.MD,
@@ -85,13 +90,13 @@ const checkboxIconSizeClass = computed(() => {
 })
 
 const toggleCheckbox = () => {
-    if (props.disabled) return
+    if (props.disabled || props.readonly) return
 
     emit('update:modelValue', !props.modelValue)
 }
 
 const handleNativeChange = () => {
-    if (props.disabled) return
+    if (props.disabled || props.readonly) return
 
     emit('update:modelValue', !props.modelValue)
 }
