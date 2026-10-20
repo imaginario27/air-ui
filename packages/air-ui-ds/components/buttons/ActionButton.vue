@@ -41,7 +41,7 @@
                     textClass,
                 ]"
             >
-                {{ loadingText }}
+                {{ resolvedLoadingText }}
             </span>
         </template>
 
@@ -179,12 +179,15 @@ const props = defineProps({
         type: Boolean as PropType<boolean>,
         default: false,
     },
-    loadingText: {
-        type: String as PropType<string>,
-        default: 'Processing...',
-    },
+    loadingText: String as PropType<string>,
     id: String as PropType<string>,
 })
+
+// Composables
+const dsConfig = useDSConfig()
+
+// Computed
+const resolvedLoadingText = computed(() => props.loadingText ?? dsConfig.actions.processingText())
 
 // Glow
 const { glowClass } = useButtonGlow(props)

@@ -61,7 +61,7 @@
                     v-if="!$slots['actions']"
                     :actionType="ButtonActionType.LINK"
                     :styleType="ButtonStyleType.PRIMARY_BRAND_FILLED"
-                    :text="backToHomeText"
+                    :text="resolvedBackToHomeText"
                     class="w-full md:w-auto"
                     :icon="backToHomeIcon"
                     :iconPosition="IconPosition.LEFT"
@@ -104,10 +104,7 @@ const props = defineProps({
         type: String as PropType<string>,
         default: 'mdi:alert-circle-outline',
     },
-    backToHomeText: {
-        type: String as PropType<string>,
-        default: 'Back to home page',
-    },
+    backToHomeText: String as PropType<string>,
     backToHomeIcon: {
         type: String as PropType<string>,
         default: 'mdi:home-outline',
@@ -135,6 +132,12 @@ const props = defineProps({
         default: true,
     },
 })
+
+// Composables
+const dsConfig = useDSConfig()
+
+// Computed
+const resolvedBackToHomeText = computed(() => props.backToHomeText ?? dsConfig.actions.backToHomeText())
 
 // Runtime constants
 const config = useRuntimeConfig()

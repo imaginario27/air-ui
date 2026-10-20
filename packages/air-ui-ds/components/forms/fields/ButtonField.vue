@@ -12,7 +12,7 @@
             :iconPosition
             :disabled
             :isLoading
-            :loadingText
+            :loadingText="resolvedLoadingText"
             :styleType
             :actionType
             :isRounded
@@ -90,11 +90,14 @@ const props = defineProps({
         type: Boolean as PropType<boolean>,
         default: false,
     },
-    loadingText: {
-        type: String as PropType<string>,
-        default: 'Processing...',
-    },
+    loadingText: String as PropType<string>,
 })
+
+// Composables
+const dsConfig = useDSConfig()
+
+// Computed
+const resolvedLoadingText = computed(() => props.loadingText ?? dsConfig.actions.processingText())
 
 // Emits
 const emit = defineEmits(['click'])

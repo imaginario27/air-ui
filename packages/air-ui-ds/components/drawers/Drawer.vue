@@ -54,7 +54,7 @@
                         v-if="hasCloseButton"
                         :icon="buttonCloseIcon"
                         :styleType="ButtonStyleType.NEUTRAL_TRANSPARENT"
-                        :ariaLabel="closeAriaLabel"
+                        :ariaLabel="resolvedCloseAriaLabel"
                         @click="close"
                     />
                 </div>
@@ -125,11 +125,14 @@ const props = defineProps({
     overlayClass: String as PropType<string>,
     headerClass: String as PropType<string>,
     titleClass: String as PropType<string>,
-    closeAriaLabel: {
-        type: String as PropType<string>,
-        default: 'Close',
-    },
+    closeAriaLabel: String as PropType<string>,
 })
+
+// Composables
+const dsConfig = useDSConfig()
+
+// Computed
+const resolvedCloseAriaLabel = computed(() => props.closeAriaLabel ?? dsConfig.actions.closeText())
 
 // Emits
 const emit = defineEmits(['update:modelValue'])

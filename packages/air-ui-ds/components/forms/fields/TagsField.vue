@@ -18,7 +18,7 @@
                 class="text-sm font-medium text-text-neutral-subtle hover:text-text-default transition-colors"
                 @click="handleClear"
             >
-                {{ clearText }}
+                {{ resolvedClearText }}
             </button>
         </div>
 
@@ -107,14 +107,8 @@ const props = defineProps({
     },
     label: String as PropType<string>,
     ariaLabel: String as PropType<string>,
-    placeholder: {
-        type: String as PropType<string>,
-        default: 'Enter values separated by commas',
-    },
-    clearText: {
-        type: String as PropType<string>,
-        default: 'Clear',
-    },
+    placeholder: String as PropType<string>,
+    clearText: String as PropType<string>,
     helpText: String as PropType<string>,
     helpTextPosition: {
         type: String as PropType<Position>,
@@ -197,6 +191,8 @@ const inputRef = ref<HTMLInputElement | null>(null)
 // Composables
 const validationMode = useInjectedValidationMode()
 const dsConfig = useDSConfig()
+const resolvedPlaceholder = computed(() => props.placeholder ?? dsConfig.forms.tagsPlaceholderText())
+const resolvedClearText = computed(() => props.clearText ?? dsConfig.actions.clearText())
 
 // Computed States
 const hasError = computed(() => props.error !== '')
@@ -218,7 +214,7 @@ const computedPlaceholder = computed(() => {
         return `Maximum of ${props.maxTags} tags reached`
     }
 
-    return props.placeholder
+    return resolvedPlaceholder.value
 })
 
 const badgeContainerClass = computed(() => {

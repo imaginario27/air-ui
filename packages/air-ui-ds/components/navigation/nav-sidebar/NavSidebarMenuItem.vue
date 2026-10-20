@@ -110,7 +110,7 @@
                     <template #activator>
                         <button
                             type="button"
-                            :aria-label="moreActionsAriaLabel"
+                            :aria-label="resolvedMoreActionsAriaLabel"
                             :class="[
                                 'flex items-center justify-center rounded-button',
                                 'w-[24px] h-[24px]',
@@ -191,10 +191,7 @@ const props = defineProps({
         type: Array as PropType<DropdownMenuItem[]>,
         default: () => [],
     },
-    moreActionsAriaLabel: {
-        type: String as PropType<string>,
-        default: 'More options',
-    },
+    moreActionsAriaLabel: String as PropType<string>,
     moreActionsMenuWidth: {
         type: Number as PropType<number>,
         default: 200,
@@ -209,6 +206,12 @@ const props = defineProps({
         default: 4,
     },
 })
+
+// Composables
+const dsConfig = useDSConfig()
+
+// Computed
+const resolvedMoreActionsAriaLabel = computed(() => props.moreActionsAriaLabel ?? dsConfig.actions.moreOptionsText())
 
 // Emits
 defineEmits(['click'])

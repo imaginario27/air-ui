@@ -238,4 +238,16 @@ describe('NotificationsPopover.vue', () => {
             expect(buttons[1]?.props('text')).toBe('Dismiss all')
         })
     })
+
+    it('follows the DS config filter texts when they change while mounted', async () => {
+        const dsConfig = useDSConfig()
+        const wrapper = factory()
+        const group = () => wrapper.findComponent({ name: 'ToggleButtonsGroupField' })
+
+        dsConfig.notifications.allText = () => 'Todas'
+        await nextTick()
+        expect(group().props('buttons')[0].text).toBe('Todas')
+
+        dsConfig.notifications.allText = () => 'All'
+    })
 })

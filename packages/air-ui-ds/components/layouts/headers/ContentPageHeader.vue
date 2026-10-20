@@ -15,7 +15,7 @@
 
         <NavLink
             v-if="hasGoBackLink"
-            :text="goBackText"
+            :text="resolvedGoBackText"
             :iconPosition="IconPosition.LEFT"
             :to="goBackLink"
             icon="mdi:keyboard-backspace"
@@ -56,7 +56,7 @@
 </template>
 <script setup lang="ts">
 // Props
-defineProps({
+const props = defineProps({
     type: {
         type: String as PropType<PageTitleType>,
         default: PageTitleType.SIMPLE,
@@ -76,10 +76,7 @@ defineProps({
         type: Boolean as PropType<boolean>,
         default: false,
     },
-    goBackText: {
-        type: String as PropType<string>,
-        default: 'Go back',
-    },
+    goBackText: String as PropType<string>,
     goBackLink: {
         type: String as PropType<string>,
         default: '',
@@ -93,6 +90,12 @@ defineProps({
         default: true,
     },
 })
+
+// Composables
+const dsConfig = useDSConfig()
+
+// Computed
+const resolvedGoBackText = computed(() => props.goBackText ?? dsConfig.actions.goBackText())
 
 // Page title
 const route = useRoute()

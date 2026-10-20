@@ -27,7 +27,7 @@
             <ModalActions v-if="showModalActions">
                 <ActionButton
                     :styleType="ButtonStyleType.PRIMARY_BRAND_FILLED"
-                    :text="buttonText"
+                    :text="resolvedButtonText"
                     class="w-full"
                     @click="handleClose"
                 />
@@ -52,10 +52,7 @@ const props = defineProps({
         default: 'Modal title',
     },
     description: String as PropType<string>,
-    buttonText: {
-        type: String as PropType<string>,
-        default: 'Close',
-    },
+    buttonText: String as PropType<string>,
     cardClass: {
         type: String as PropType<string>,
         default: 'max-w-[400px]',
@@ -100,6 +97,7 @@ const emit = defineEmits(['update:modelValue', 'close'])
 
 // Composables
 const dsConfig = useDSConfig()
+const resolvedButtonText = computed(() => props.buttonText ?? dsConfig.actions.closeText())
 
 // Computed
 const resolvedCloseAriaLabel = computed(() => props.closeAriaLabel ?? dsConfig.actions.closeText())

@@ -3,7 +3,7 @@
         <template #content="{ onClose }">
             <div v-if="isLoading && !hasError" class="w-full flex justify-center py-3">
                 <Loading
-                    :text="loadingText"
+                    :text="resolvedLoadingText"
                     spinnerClass="w-[16px]! h-[16px]! border-2!"
                     class="flex-row gap-2! text-sm!"
                 />
@@ -21,7 +21,7 @@
                     <div class="w-full flex gap-4 items-center justify-between">
                         <div class="flex gap-2 items-center min-h-[24px]">
                             <span class="text-sm font-semibold">
-                                {{ title }}
+                                {{ resolvedTitle }}
                             </span>
 
                             <Badge
@@ -35,7 +35,7 @@
 
                         <NavLink
                             v-if="internalList.length"
-                            :text="viewAllText"
+                            :text="resolvedViewAllText"
                             :to="viewAllLink"
                             textClass="text-text-default text-sm! hover:text-text-primary-brand-hover font-normal"
                             @click="onViewAllClick($event, onClose)"
@@ -76,7 +76,7 @@
                             :author="notification.author"
                             :authorIcon="listAuthorIcon"
                             :removeItemIcon="listRemoveItemIcon"
-                            :removeAriaLabel="listRemoveItemAriaLabel"
+                            :removeAriaLabel="resolvedListRemoveItemAriaLabel"
                             @update:model-value="onReadStatusChange(notification.id, $event)"
                             @remove="onRemoveNotification(notification.id)"
                             @itemClick="onClose"
@@ -84,7 +84,7 @@
                     </template>
 
                     <div v-else class="p-3">
-                        <p class="text-sm text-text-neutral-subtle text-center">{{ listEmptyText }}</p>
+                        <p class="text-sm text-text-neutral-subtle text-center">{{ resolvedListEmptyText }}</p>
                     </div>
                 </div>
 
@@ -93,7 +93,7 @@
                     <ActionButton
                         :icon="buttonAllReadIcon"
                         :iconPosition="IconPosition.LEFT"
-                        :text="buttonAllReadText"
+                        :text="resolvedButtonAllReadText"
                         :size="ButtonSize.XS"
                         isFullWidth
                         @click="onMarkAllAsRead"
@@ -165,30 +165,18 @@ const props = defineProps({
         type: String as PropType<string>,
         default: 'mdi:close',
     },
-    listRemoveItemAriaLabel: {
-        type: String as PropType<string>,
-        default: 'Remove notification',
-    },
-    listEmptyText: {
-        type: String as PropType<string>,
-        default: 'No notifications available.',
-    },
+    listRemoveItemAriaLabel: String as PropType<string>,
+    listEmptyText: String as PropType<string>,
     isLoading: {
         type: Boolean as PropType<boolean>,
         default: false,
     },
-    loadingText: {
-        type: String as PropType<string>,
-        default: 'Loading notifications',
-    },
+    loadingText: String as PropType<string>,
     errorText: {
         type: String as PropType<string>,
         default: '',
     },
-    title: {
-        type: String as PropType<string>,
-        default: 'Notifications',
-    },
+    title: String as PropType<string>,
     position: {
         type: String as PropType<Position>,
         default: Position.BOTTOM,
@@ -223,10 +211,7 @@ const props = defineProps({
         default: ColorAccent.SECONDARY_BRAND,
         validator: (value: ColorAccent) => Object.values(ColorAccent).includes(value),
     },
-    viewAllText: {
-        type: String as PropType<string>,
-        default: 'View all',
-    },
+    viewAllText: String as PropType<string>,
     viewAllLink: {
         type: String as PropType<string>,
         default: '',
@@ -235,23 +220,14 @@ const props = defineProps({
         type: String as PropType<string>,
         default: 'mdi:check-all',
     },
-    buttonAllReadText: {
-        type: String as PropType<string>,
-        default: 'Mark all as read',
-    },
+    buttonAllReadText: String as PropType<string>,
     buttonClearAllIcon: {
         type: String as PropType<string>,
         default: 'mdi:close-circle-outline',
     },
     buttonClearAllText: String as PropType<string>,
-    filterAllButtonText: {
-        type: String as PropType<string>,
-        default: 'All',
-    },
-    filterUnreadButtonText: {
-        type: String as PropType<string>,
-        default: 'Unread',
-    },
+    filterAllButtonText: String as PropType<string>,
+    filterUnreadButtonText: String as PropType<string>,
     filterGroupStyle: {
         type: String as PropType<ToggleButtonGroupStyle>,
         default: ToggleButtonGroupStyle.GROUPED,
@@ -264,13 +240,25 @@ const emit = defineEmits(['markAllAsRead', 'clearAll', 'remove'])
 
 // Composables
 const dsConfig = useDSConfig()
+const resolvedListRemoveItemAriaLabel = computed(
+    () => props.listRemoveItemAriaLabel ?? dsConfig.notifications.removeText(),
+)
+const resolvedListEmptyText = computed(() => props.listEmptyText ?? dsConfig.notifications.emptyText())
+const resolvedLoadingText = computed(() => props.loadingText ?? dsConfig.notifications.loadingText())
+const resolvedTitle = computed(() => props.title ?? dsConfig.notifications.titleText())
+const resolvedViewAllText = computed(() => props.viewAllText ?? dsConfig.notifications.viewAllText())
+const resolvedButtonAllReadText = computed(() => props.buttonAllReadText ?? dsConfig.notifications.markAllAsReadText())
+const resolvedFilterAllButtonText = computed(() => props.filterAllButtonText ?? dsConfig.notifications.allText())
+const resolvedFilterUnreadButtonText = computed(
+    () => props.filterUnreadButtonText ?? dsConfig.notifications.unreadText(),
+)
 
 // States
 const selectedFilterValue = ref<string>('all')
 
-const toggleFilterButtons = ref<ToggleButton[]>([
-    { text: props.filterAllButtonText, value: 'all', size: ButtonSize.SM },
-    { text: props.filterUnreadButtonText, value: 'unread', size: ButtonSize.SM },
+const toggleFilterButtons = computed<ToggleButton[]>(() => [
+    { text: resolvedFilterAllButtonText.value, value: 'all', size: ButtonSize.SM },
+    { text: resolvedFilterUnreadButtonText.value, value: 'unread', size: ButtonSize.SM },
 ])
 
 const internalList = ref<AppNotificationItem[]>([...props.list])

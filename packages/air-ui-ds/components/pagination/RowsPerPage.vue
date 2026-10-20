@@ -1,7 +1,7 @@
 <template>
     <div v-if="visible" class="flex items-center justify-center gap-3">
         <span class="text-sm">
-            {{ rowsLabel }}
+            {{ resolvedRowsLabel }}
         </span>
         <DropdownSelect
             :modelValue
@@ -15,7 +15,7 @@
 
 <script setup lang="ts">
 // Props
-defineProps({
+const props = defineProps({
     visible: {
         type: Boolean as PropType<boolean>,
         default: true,
@@ -24,10 +24,7 @@ defineProps({
         type: Number as PropType<number>,
         default: 10,
     },
-    rowsLabel: {
-        type: String as PropType<string>,
-        default: 'Rows',
-    },
+    rowsLabel: String as PropType<string>,
     rowsOptions: {
         type: Array as PropType<PaginationRowPerPageOption[]>,
         default: () => [
@@ -54,6 +51,12 @@ defineProps({
         ],
     },
 })
+
+// Composables
+const dsConfig = useDSConfig()
+
+// Computed
+const resolvedRowsLabel = computed(() => props.rowsLabel ?? dsConfig.pagination.rowsText())
 
 // Emits
 const emit = defineEmits(['update:modelValue'])

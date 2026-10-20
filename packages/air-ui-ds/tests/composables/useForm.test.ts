@@ -205,4 +205,26 @@ describe('useForm', () => {
         const error = validateField('email')
         expect(error).toBe('Required')
     })
+
+    it('recomputes visible error messages when revalidateOn changes', async () => {
+        const utilsConfig = useUtilsConfig()
+        const locale = ref('en')
+        utilsConfig.revalidateOn = () => locale.value
+
+        const formData = reactive({ email: '' })
+        const { validateFormFields, formErrors } = useForm({
+            formData,
+            requiredFields: ['email'],
+            validators: { email: () => (locale.value === 'en' ? 'Required' : 'Obligatorio') },
+        })
+
+        validateFormFields()
+        expect(formErrors.email).toBe('Required')
+
+        locale.value = 'es'
+        await nextTick()
+        expect(formErrors.email).toBe('Obligatorio')
+
+        utilsConfig.revalidateOn = undefined
+    })
 })

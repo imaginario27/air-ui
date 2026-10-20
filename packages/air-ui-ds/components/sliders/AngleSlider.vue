@@ -76,7 +76,7 @@
             ]"
             :style="thumbStyle"
             :disabled
-            :aria-label="ariaLabelledby ? undefined : ariaLabel || 'Angle slider'"
+            :aria-label="ariaLabelledby ? undefined : resolvedAriaLabel"
             :aria-labelledby="ariaLabelledby"
             :aria-valuemin="0"
             :aria-valuemax="MAX_ANGLE"
@@ -140,6 +140,12 @@ const props = defineProps({
         default: false,
     },
 })
+
+// Composables
+const dsConfig = useDSConfig()
+
+// Computed
+const resolvedAriaLabel = computed(() => props.ariaLabel || dsConfig.accessibility.angleSliderText())
 
 // Emits
 const emit = defineEmits(['update:modelValue', 'change-end'])

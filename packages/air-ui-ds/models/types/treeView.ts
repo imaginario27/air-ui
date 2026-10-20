@@ -82,7 +82,7 @@ export interface TreeViewProps {
     readonly loadChildren?: (node: TreeViewNode) => Promise<TreeViewNode[]>
     readonly isRenamable: boolean
     readonly renameOnClick: boolean
-    readonly renameLabel: string
+    readonly renameLabel?: string
     readonly isReorderable: boolean
     readonly readOnly: boolean
     readonly disabled: boolean

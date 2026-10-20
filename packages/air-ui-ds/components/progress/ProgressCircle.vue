@@ -14,7 +14,7 @@
             :aria-valuemin="min"
             :aria-valuemax="max"
             :aria-valuetext="isIndeterminate ? resolvedLoadingText : undefined"
-            :aria-label="ariaLabel"
+            :aria-label="resolvedAriaLabel"
             class="relative shrink-0"
             :style="{ width: `${diameterPx}px`, height: `${diameterPx}px` }"
             data-testid="progress-circle-root"
@@ -114,14 +114,12 @@ const props = defineProps({
         default: false,
     },
     loadingText: String as PropType<string>,
-    ariaLabel: {
-        type: String as PropType<string>,
-        default: 'Progress',
-    },
+    ariaLabel: String as PropType<string>,
 })
 
 // Composables
 const dsConfig = useDSConfig()
+const resolvedAriaLabel = computed(() => props.ariaLabel ?? dsConfig.accessibility.progressText())
 
 // Computed
 const resolvedLoadingText = computed(() => props.loadingText ?? dsConfig.common.loadingText())

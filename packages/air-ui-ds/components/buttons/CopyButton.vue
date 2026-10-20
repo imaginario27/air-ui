@@ -28,14 +28,8 @@ const props = defineProps({
         type: String as PropType<string>,
         required: true,
     },
-    copySuccessText: {
-        type: String as PropType<string>,
-        default: 'Copied to clipboard!',
-    },
-    copyErrorText: {
-        type: String as PropType<string>,
-        default: 'Failed to copy to clipboard.',
-    },
+    copySuccessText: String as PropType<string>,
+    copyErrorText: String as PropType<string>,
     showToast: {
         type: Boolean as PropType<boolean>,
         default: true,
@@ -74,10 +68,7 @@ const props = defineProps({
                 ButtonStyleType.SECONDARY_BRAND_FILLED,
             ].includes(value as ButtonStyleType),
     },
-    text: {
-        type: String as PropType<string>,
-        default: 'Copy',
-    },
+    text: String as PropType<string>,
     size: {
         type: String as PropType<ButtonSize>,
         default: ButtonSize.SM,
@@ -98,9 +89,22 @@ const props = defineProps({
     },
 })
 
+// Composables
+const dsConfig = useDSConfig()
+
+// Computed
+const resolvedCopySuccessText = computed(() => props.copySuccessText ?? dsConfig.common.copiedText())
+const resolvedCopyErrorText = computed(() => props.copyErrorText ?? dsConfig.common.copyFailedText())
+const resolvedText = computed(() => props.text ?? dsConfig.actions.copyText())
+
 // States
 const currentCopyButtonIcon = ref<string>(props.icon)
-const currentCopyButtonText = ref<string>(props.text)
+const copyState = ref<'idle' | 'success' | 'error'>('idle')
+const currentCopyButtonText = computed(() => {
+    if (copyState.value === 'success') return resolvedCopySuccessText.value
+    if (copyState.value === 'error') return resolvedCopyErrorText.value
+    return resolvedText.value
+})
 const currentIconClass = ref<string | undefined>(undefined)
 
 // Emits
@@ -116,7 +120,7 @@ const handleCopy = useThrottleFn(
 
         if (success) {
             currentCopyButtonIcon.value = 'mdi:check'
-            currentCopyButtonText.value = props.copySuccessText
+            copyState.value = 'success'
 
             if (
                 props.styleType === ButtonStyleType.NEUTRAL_OUTLINED ||
@@ -127,7 +131,7 @@ const handleCopy = useThrottleFn(
             }
 
             if (props.showToast) {
-                $toast.success(props.copySuccessText, {
+                $toast.success(resolvedCopySuccessText.value, {
                     toastId: 'copy-button-success',
                 })
             }
@@ -135,10 +139,10 @@ const handleCopy = useThrottleFn(
             emit('success')
         } else {
             currentCopyButtonIcon.value = 'mdi:alert-circle-outline'
-            currentCopyButtonText.value = props.copyErrorText
+            copyState.value = 'error'
 
             if (props.showToast) {
-                $toast.error(props.copyErrorText, {
+                $toast.error(resolvedCopyErrorText.value, {
                     toastId: 'copy-button-error',
                 })
             }
@@ -149,7 +153,7 @@ const handleCopy = useThrottleFn(
         // Reset UI after delay
         setTimeout(() => {
             currentCopyButtonIcon.value = props.icon
-            currentCopyButtonText.value = props.text
+            copyState.value = 'idle'
             currentIconClass.value = undefined
         }, props.resetAfter)
     },

@@ -109,4 +109,30 @@ describe('useDSConfig', () => {
 
         config.actions.cancelText = () => 'Cancel'
     })
+
+    it('returns the default texts of the actions, common, loaders and navigation groups', () => {
+        const config = useDSConfig()
+
+        expect(config.actions.removeText()).toBe('Remove')
+        expect(config.actions.deleteText()).toBe('Delete')
+        expect(config.actions.processingText()).toBe('Processing...')
+        expect(config.actions.goBackText()).toBe('Go back')
+        expect(config.actions.tryAgainText()).toBe('Try again')
+        expect(config.actions.copyText()).toBe('Copy')
+        expect(config.actions.moreOptionsText()).toBe('More options')
+        expect(config.common.notDefinedText()).toBe('Not defined')
+        expect(config.common.copiedText()).toBe('Copied to clipboard')
+        expect(config.common.copyFailedText()).toBe('Failed to copy to clipboard')
+        expect(config.loaders.retryInText()).toBe('Retry in')
+        expect(config.tables.toggleSortText()).toBe('Toggle sort')
+        expect(config.pagination.rowsText()).toBe('Rows')
+        expect(config.navigation.openSidebarText()).toBe('Open sidebar')
+        expect(config.navigation.closeSidebarText()).toBe('Close sidebar')
+        expect(config.navigation.collapseSidebarText()).toBe('Collapse sidebar')
+        expect(config.navigation.expandSidebarText()).toBe('Expand sidebar')
+        expect(config.navigation.openMobileMenuText()).toBe('Open mobile menu')
+        expect(config.forms.togglePasswordVisibilityText()).toBe('Toggle password visibility')
+        expect(config.forms.fileUpload.invalidFilesText()).toBe('The size or format of one or more files is incorrect.')
+        expect(config.accessibility.ratingValueText()).toBe('Rating: {value} out of 5')
+    })
 })

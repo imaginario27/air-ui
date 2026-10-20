@@ -11,10 +11,7 @@ const props = defineProps({
         type: Boolean as PropType<boolean>,
         default: true,
     },
-    text: {
-        type: String as PropType<string>,
-        default: 'Loading',
-    },
+    text: String as PropType<string>,
     spinnerSize: {
         type: String as PropType<LoadingSpinnerSize>,
         default: LoadingSpinnerSize.LG,
@@ -22,6 +19,12 @@ const props = defineProps({
     },
     spinnerClass: String as PropType<string>,
 })
+
+// Composables
+const dsConfig = useDSConfig()
+
+// Computed
+const resolvedText = computed(() => props.text ?? dsConfig.common.loadingText())
 
 // Computed classes
 const spinnerSizeClass = computed(() => {
@@ -38,17 +41,16 @@ const spinnerSizeClass = computed(() => {
 })
 
 // Reactive state for animated ellipsis
-const animatedText = ref(props.text)
+const dotCount = ref(0)
+const animatedText = computed(() => resolvedText.value + '.'.repeat(dotCount.value))
 let intervalId: ReturnType<typeof setInterval> | null = null
 
 // Methods
 const startAnimation = () => {
     if (!import.meta.client || intervalId !== null) return // Browser-only; prevent multiple intervals
 
-    let dotCount = 0
     intervalId = setInterval(() => {
-        dotCount = (dotCount + 1) % 4 // Cycles through 0, 1, 2, 3
-        animatedText.value = props.text + '.'.repeat(dotCount)
+        dotCount.value = (dotCount.value + 1) % 4 // Cycles through 0, 1, 2, 3
     }, 500) // Update every 500ms
 }
 
@@ -56,7 +58,7 @@ const stopAnimation = () => {
     if (intervalId !== null) {
         clearInterval(intervalId)
         intervalId = null
-        animatedText.value = props.text // Reset to base text
+        dotCount.value = 0 // Reset to base text
     }
 }
 

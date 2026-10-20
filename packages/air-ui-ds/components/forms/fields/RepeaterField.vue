@@ -22,7 +22,7 @@
                         draggedIndex !== index
                     "
                     aria-hidden="true"
-                    :text="dragPlaceholderText"
+                    :text="resolvedDragPlaceholderText"
                     :showText="showDragPlaceholderText"
                     :textClass="dragPlaceholderTextClass"
                     :class="['h-10', dragPlaceholderClass]"
@@ -41,7 +41,7 @@
                             v-if="sortingType === RepeatingFieldSortingType.DRAG"
                             type="button"
                             :draggable="!disabled"
-                            :aria-label="dragHandleAriaLabel"
+                            :aria-label="resolvedDragHandleAriaLabel"
                             :disabled="disabled"
                             :class="[
                                 'flex items-center justify-center',
@@ -69,7 +69,7 @@
                                 :styleType="ButtonStyleType.NEUTRAL_TRANSPARENT"
                                 :icon="moveUpIcon"
                                 :size="ButtonSize.SM"
-                                :ariaLabel="moveUpAriaLabel"
+                                :ariaLabel="resolvedMoveUpAriaLabel"
                                 :disabled="isMoveUpDisabled(index)"
                                 @click="moveItemUp(index)"
                             />
@@ -79,7 +79,7 @@
                                 :styleType="ButtonStyleType.NEUTRAL_TRANSPARENT"
                                 :icon="moveDownIcon"
                                 :size="ButtonSize.SM"
-                                :ariaLabel="moveDownAriaLabel"
+                                :ariaLabel="resolvedMoveDownAriaLabel"
                                 :disabled="isMoveDownDisabled(index)"
                                 @click="moveItemDown(index)"
                             />
@@ -90,7 +90,7 @@
                                 :styleType="ButtonStyleType.NEUTRAL_OUTLINED"
                                 icon="mdi:plus-circle-outline"
                                 :size="ButtonSize.SM"
-                                :ariaLabel="addItemAriaLabel"
+                                :ariaLabel="resolvedAddItemAriaLabel"
                                 :disabled="disabled"
                                 @click="addItem"
                             />
@@ -101,7 +101,7 @@
                                 :styleType="ButtonStyleType.DELETE_SOFT"
                                 icon="mdi:minus-circle-outline"
                                 :size="ButtonSize.SM"
-                                :ariaLabel="removeItemAriaLabel"
+                                :ariaLabel="resolvedRemoveItemAriaLabel"
                                 :disabled="disabled"
                                 @click="removeItem(index)"
                             />
@@ -120,7 +120,7 @@
                         <ActionButton
                             v-if="sortingType === RepeatingFieldSortingType.BUTTONS"
                             :styleType="ButtonStyleType.NEUTRAL_TRANSPARENT"
-                            :text="moveUpButtonText"
+                            :text="resolvedMoveUpButtonText"
                             :icon="moveUpIcon"
                             :iconPosition="IconPosition.LEFT"
                             :size="ButtonSize.MD"
@@ -132,7 +132,7 @@
                         <ActionButton
                             v-if="sortingType === RepeatingFieldSortingType.BUTTONS"
                             :styleType="ButtonStyleType.NEUTRAL_TRANSPARENT"
-                            :text="moveDownButtonText"
+                            :text="resolvedMoveDownButtonText"
                             :icon="moveDownIcon"
                             :iconPosition="IconPosition.LEFT"
                             :size="ButtonSize.MD"
@@ -145,7 +145,7 @@
                         <ActionButton
                             v-if="index === items.length - 1"
                             :styleType="ButtonStyleType.NEUTRAL_OUTLINED"
-                            :text="addButtonText"
+                            :text="resolvedAddButtonText"
                             icon="mdi:plus-circle-outline"
                             :iconPosition="IconPosition.LEFT"
                             :size="ButtonSize.MD"
@@ -158,7 +158,7 @@
                         <ActionButton
                             v-if="items.length > 1"
                             :styleType="ButtonStyleType.DELETE_SOFT"
-                            :text="removeButtonText"
+                            :text="resolvedRemoveButtonText"
                             icon="mdi:minus-circle-outline"
                             :iconPosition="IconPosition.LEFT"
                             :size="ButtonSize.MD"
@@ -183,7 +183,7 @@
                 <DragPlaceholder
                     v-if="dragOverIndex === items.length"
                     aria-hidden="true"
-                    :text="dragPlaceholderText"
+                    :text="resolvedDragPlaceholderText"
                     :showText="showDragPlaceholderText"
                     :textClass="dragPlaceholderTextClass"
                     :class="['h-10', dragPlaceholderClass]"
@@ -212,22 +212,10 @@ const props = defineProps({
         type: [Object, Array, String, Number, Boolean] as PropType<unknown>,
         default: () => ({}),
     },
-    addItemAriaLabel: {
-        type: String as PropType<string>,
-        default: 'Add item',
-    },
-    removeItemAriaLabel: {
-        type: String as PropType<string>,
-        default: 'Remove item',
-    },
-    addButtonText: {
-        type: String as PropType<string>,
-        default: 'Add item',
-    },
-    removeButtonText: {
-        type: String as PropType<string>,
-        default: 'Remove item',
-    },
+    addItemAriaLabel: String as PropType<string>,
+    removeItemAriaLabel: String as PropType<string>,
+    addButtonText: String as PropType<string>,
+    removeButtonText: String as PropType<string>,
     actionsOrientation: {
         type: String as PropType<Orientation>,
         default: Orientation.VERTICAL,
@@ -238,26 +226,11 @@ const props = defineProps({
         default: RepeatingFieldSortingType.NONE,
         validator: (value: RepeatingFieldSortingType) => Object.values(RepeatingFieldSortingType).includes(value),
     },
-    moveUpAriaLabel: {
-        type: String as PropType<string>,
-        default: 'Move item up',
-    },
-    moveDownAriaLabel: {
-        type: String as PropType<string>,
-        default: 'Move item down',
-    },
-    moveUpButtonText: {
-        type: String as PropType<string>,
-        default: 'Move up',
-    },
-    moveDownButtonText: {
-        type: String as PropType<string>,
-        default: 'Move down',
-    },
-    dragHandleAriaLabel: {
-        type: String as PropType<string>,
-        default: 'Drag to reorder item',
-    },
+    moveUpAriaLabel: String as PropType<string>,
+    moveDownAriaLabel: String as PropType<string>,
+    moveUpButtonText: String as PropType<string>,
+    moveDownButtonText: String as PropType<string>,
+    dragHandleAriaLabel: String as PropType<string>,
     moveUpIcon: {
         type: String as PropType<string>,
         default: 'mdi:arrow-up',
@@ -270,10 +243,7 @@ const props = defineProps({
         type: String as PropType<string>,
         default: 'mdi:drag-vertical',
     },
-    dragPlaceholderText: {
-        type: String as PropType<string>,
-        default: 'Drop here',
-    },
+    dragPlaceholderText: String as PropType<string>,
     showDragPlaceholderText: {
         type: Boolean as PropType<boolean>,
         default: true,
@@ -317,6 +287,18 @@ const emit = defineEmits(['update:modelValue', 'update:error'])
 // Composables
 const validationMode = useInjectedValidationMode()
 const dsConfig = useDSConfig()
+const resolvedAddItemAriaLabel = computed(() => props.addItemAriaLabel ?? dsConfig.forms.repeater.addText())
+const resolvedRemoveItemAriaLabel = computed(() => props.removeItemAriaLabel ?? dsConfig.forms.repeater.removeText())
+const resolvedAddButtonText = computed(() => props.addButtonText ?? dsConfig.forms.repeater.addText())
+const resolvedRemoveButtonText = computed(() => props.removeButtonText ?? dsConfig.forms.repeater.removeText())
+const resolvedMoveUpAriaLabel = computed(() => props.moveUpAriaLabel ?? dsConfig.forms.repeater.moveUpAriaText())
+const resolvedMoveDownAriaLabel = computed(() => props.moveDownAriaLabel ?? dsConfig.forms.repeater.moveDownAriaText())
+const resolvedMoveUpButtonText = computed(() => props.moveUpButtonText ?? dsConfig.forms.repeater.moveUpText())
+const resolvedMoveDownButtonText = computed(() => props.moveDownButtonText ?? dsConfig.forms.repeater.moveDownText())
+const resolvedDragHandleAriaLabel = computed(
+    () => props.dragHandleAriaLabel ?? dsConfig.forms.repeater.dragHandleAriaText(),
+)
+const resolvedDragPlaceholderText = computed(() => props.dragPlaceholderText ?? dsConfig.common.dropHereText())
 
 // Computed
 const hasError = computed(() => props.error !== '')

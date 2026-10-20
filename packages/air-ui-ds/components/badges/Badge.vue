@@ -32,7 +32,7 @@
         <!-- Close button -->
         <div v-if="closeable" class="ml-1 h-[24px] flex items-center">
             <button
-                aria-label="Remove"
+                :aria-label="resolvedRemoveAriaLabel"
                 class="flex items-center justify-center h-full w-[20px]"
                 :class="[textClass, 'hover:opacity-75 focus:outline-none']"
                 @click="emitClose"
@@ -85,7 +85,14 @@ const props = defineProps({
         type: String as PropType<string>,
         default: 'mdi:help',
     },
+    removeAriaLabel: String as PropType<string>,
 })
+
+// Composables
+const dsConfig = useDSConfig()
+
+// Computed
+const resolvedRemoveAriaLabel = computed(() => props.removeAriaLabel ?? dsConfig.actions.removeText())
 
 // Emits
 const emit = defineEmits(['close'])

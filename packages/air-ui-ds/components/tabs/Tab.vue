@@ -22,12 +22,12 @@
             <img
                 v-if="imgUrl && isImageLoaded"
                 :src="imgUrl"
-                alt="Tab decoration"
+                :alt="resolvedDecorationAlt"
                 class="w-[20px] h-[20px] rounded"
                 @load="handleImageLoad"
                 @error="handleImageError"
             />
-            <img v-else :src="missingImagePlaceholder" alt="Tab decoration" class="w-[20px] h-[20px] rounded" />
+            <img v-else :src="missingImagePlaceholder" :alt="resolvedDecorationAlt" class="w-[20px] h-[20px] rounded" />
         </template>
 
         <span :class="['text-sm', 'font-semibold', disabled && 'select-none']">
@@ -91,7 +91,14 @@ const props = defineProps({
         type: Number as PropType<number>,
         default: 0,
     },
+    decorationAlt: String as PropType<string>,
 })
+
+// Composables
+const dsConfig = useDSConfig()
+
+// Computed
+const resolvedDecorationAlt = computed(() => props.decorationAlt ?? dsConfig.accessibility.tabDecorationText())
 
 // States
 const isImageLoaded = ref(true)

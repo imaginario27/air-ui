@@ -51,9 +51,9 @@
                     :styleType="ButtonStyleType.DELETE_FILLED"
                     :iconPosition="buttonActionIcon ? IconPosition.LEFT : IconPosition.NONE"
                     :icon="buttonActionIcon"
-                    :text="buttonActionText"
+                    :text="resolvedButtonActionText"
                     :isLoading
-                    :loadingText
+                    :loadingText="resolvedLoadingText"
                     :class="[orientation === Orientation.HORIZONTAL ? 'w-full md:w-auto' : 'w-full']"
                     @click="handleMainAction"
                 />
@@ -79,10 +79,7 @@ const props = defineProps({
     },
     description: String as PropType<string>,
     buttonCloseText: String as PropType<string>,
-    buttonActionText: {
-        type: String as PropType<string>,
-        default: 'Delete',
-    },
+    buttonActionText: String as PropType<string>,
     buttonActionIcon: {
         type: String as PropType<string>,
         default: 'mdi:delete-forever-outline',
@@ -91,10 +88,7 @@ const props = defineProps({
         type: Boolean as PropType<boolean>,
         default: false,
     },
-    loadingText: {
-        type: String as PropType<string>,
-        default: 'Processing...',
-    },
+    loadingText: String as PropType<string>,
     orientation: {
         type: String as PropType<Orientation>,
         default: Orientation.HORIZONTAL,
@@ -144,6 +138,8 @@ const emit = defineEmits(['update:modelValue', 'close', 'action'])
 
 // Composables
 const dsConfig = useDSConfig()
+const resolvedButtonActionText = computed(() => props.buttonActionText ?? dsConfig.actions.deleteText())
+const resolvedLoadingText = computed(() => props.loadingText ?? dsConfig.actions.processingText())
 
 // Computed
 const resolvedButtonCloseText = computed(() => props.buttonCloseText ?? dsConfig.actions.cancelText())

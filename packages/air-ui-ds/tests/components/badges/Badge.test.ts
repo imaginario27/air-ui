@@ -1,6 +1,7 @@
 import { mount } from '@vue/test-utils'
 import Badge from '@/components/badges/Badge.vue'
 import Icon from '~/components/icons/Icon.vue'
+import { useDSConfig } from '@/composables/useDSConfig'
 
 const factory = (props = {}) => {
     return mount(Badge, {
@@ -40,5 +41,17 @@ describe('Badge.vue', () => {
         const button = wrapper.find('button')
 
         expect(button.attributes('aria-label')).toBe('Remove')
+    })
+
+    it('takes the remove aria-label from the DS config and lets the prop win', () => {
+        const dsConfig = useDSConfig()
+        dsConfig.actions.removeText = () => 'Quitar'
+
+        expect(factory({ closeable: true }).find('button').attributes('aria-label')).toBe('Quitar')
+        expect(factory({ closeable: true, removeAriaLabel: 'Eliminar' }).find('button').attributes('aria-label')).toBe(
+            'Eliminar',
+        )
+
+        dsConfig.actions.removeText = () => 'Remove'
     })
 })

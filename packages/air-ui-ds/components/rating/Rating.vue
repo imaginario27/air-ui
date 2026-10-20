@@ -1,7 +1,7 @@
 <template>
     <div
         :role="isInteractive ? 'radiogroup' : 'img'"
-        :aria-label="isInteractive ? 'Rating' : `Rating: ${displayValue} out of 5`"
+        :aria-label="ratingAriaLabel"
         class="flex gap-1"
         @mouseleave="hoverIndex = null"
         @keydown="isInteractive && handleKeydown($event)"
@@ -14,7 +14,7 @@
                     ? {
                           role: 'radio',
                           'aria-checked': modelValue === index + 1,
-                          'aria-label': `${index + 1} star${index + 1 > 1 ? 's' : ''}`,
+                          'aria-label': starAriaLabel(index + 1),
                           tabindex: modelValue === index + 1 || (modelValue === 0 && index === 0) ? 0 : -1,
                       }
                     : {
@@ -68,6 +68,21 @@ const props = defineProps({
         default: true,
     },
 })
+
+// Composables
+const dsConfig = useDSConfig()
+
+// Computed
+const ratingAriaLabel = computed(() =>
+    props.isInteractive
+        ? dsConfig.accessibility.ratingText()
+        : dsConfig.accessibility.ratingValueText().replace('{value}', String(displayValue.value)),
+)
+const starAriaLabel = (count: number) =>
+    (count > 1 ? dsConfig.accessibility.ratingStarsText() : dsConfig.accessibility.ratingStarText()).replace(
+        '{count}',
+        String(count),
+    )
 
 // Emits
 const emit = defineEmits(['update:modelValue'])

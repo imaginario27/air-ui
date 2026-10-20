@@ -1,5 +1,5 @@
 <template>
-    <nav aria-label="breadcrumb">
+    <nav :aria-label="resolvedAriaLabel">
         <ul :class="['flex items-center space-x-2 text-icon-neutral-subtle font-medium']">
             <!-- Home Link -->
             <li v-if="showHome">
@@ -84,7 +84,14 @@ const props = defineProps({
         type: String as PropType<string>,
         default: '',
     },
+    ariaLabel: String as PropType<string>,
 })
+
+// Composables
+const dsConfig = useDSConfig()
+
+// Computed
+const resolvedAriaLabel = computed(() => props.ariaLabel ?? dsConfig.navigation.breadcrumbText())
 
 // Route
 const route = useRoute()

@@ -29,7 +29,7 @@
                     :icon="mobileSidebarCloseIcon"
                     class="flex"
                     :size="ButtonSize.SM"
-                    :ariaLabel="closeSidebarAriaLabel"
+                    :ariaLabel="resolvedCloseSidebarAriaLabel"
                     @click="toggleMobileSidebar()"
                 />
 
@@ -38,7 +38,7 @@
                     v-if="showCollapseToggle && collapseTogglePosition === Position.TOP && !isCollapsed"
                     :icon="expandedStateIcon"
                     :size="ButtonSize.SM"
-                    :ariaLabel="collapseSidebarAriaLabel"
+                    :ariaLabel="resolvedCollapseSidebarAriaLabel"
                     @click="toggleSidebarState(sidebarId)"
                 />
             </div>
@@ -64,7 +64,7 @@
                 :icon="collapsedStateIcon"
                 :size="ButtonSize.SM"
                 class="mb-2"
-                :ariaLabel="expandSidebarAriaLabel"
+                :ariaLabel="resolvedExpandSidebarAriaLabel"
                 @click="toggleSidebarState(sidebarId)"
             />
 
@@ -164,7 +164,7 @@
             :icon="isCollapsed ? collapsedStateIcon : expandedStateIcon"
             :size="ButtonSize.SM"
             :class="[isCollapsed ? '' : 'absolute right-3 bottom-3']"
-            :ariaLabel="isCollapsed ? expandSidebarAriaLabel : collapseSidebarAriaLabel"
+            :ariaLabel="isCollapsed ? resolvedExpandSidebarAriaLabel : resolvedCollapseSidebarAriaLabel"
             @click="toggleSidebarState(sidebarId)"
         />
 
@@ -370,19 +370,24 @@ const props = defineProps({
         type: [String, Object] as PropType<PrefetchOnStrategy>,
         default: PrefetchOn.VISIBILITY,
     },
-    closeSidebarAriaLabel: {
-        type: String as PropType<string>,
-        default: 'Close sidebar',
-    },
-    collapseSidebarAriaLabel: {
-        type: String as PropType<string>,
-        default: 'Collapse sidebar',
-    },
-    expandSidebarAriaLabel: {
-        type: String as PropType<string>,
-        default: 'Expand sidebar',
-    },
+    closeSidebarAriaLabel: String as PropType<string>,
+    collapseSidebarAriaLabel: String as PropType<string>,
+    expandSidebarAriaLabel: String as PropType<string>,
 })
+
+// Composables
+const dsConfig = useDSConfig()
+
+// Computed
+const resolvedCloseSidebarAriaLabel = computed(
+    () => props.closeSidebarAriaLabel ?? dsConfig.navigation.closeSidebarText(),
+)
+const resolvedCollapseSidebarAriaLabel = computed(
+    () => props.collapseSidebarAriaLabel ?? dsConfig.navigation.collapseSidebarText(),
+)
+const resolvedExpandSidebarAriaLabel = computed(
+    () => props.expandSidebarAriaLabel ?? dsConfig.navigation.expandSidebarText(),
+)
 
 // States
 const isSticky = ref(false)

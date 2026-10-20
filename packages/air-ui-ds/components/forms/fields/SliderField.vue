@@ -28,7 +28,7 @@
                 :disabled="disabled"
                 :readonly="readonly"
                 :transparent="transparentInputs"
-                :label="showInputsLabel ? minText.trim() || 'Min' : ''"
+                :label="showInputsLabel ? resolvedMinText.trim() || 'Min' : ''"
                 :showOptionalLabel="false"
                 @update:model-value="(value) => handleRangeInputChange(0, value)"
             />
@@ -44,7 +44,7 @@
                 :disabled="disabled"
                 :readonly="readonly"
                 :transparent="transparentInputs"
-                :label="showInputsLabel ? maxText.trim() || 'Max' : ''"
+                :label="showInputsLabel ? resolvedMaxText.trim() || 'Max' : ''"
                 :showOptionalLabel="false"
                 @update:model-value="(value) => handleRangeInputChange(1, value)"
             />
@@ -96,7 +96,7 @@
                 :disabled="disabled"
                 :readonly="readonly"
                 :transparent="transparentInputs"
-                :label="showInputsLabel ? minText.trim() || 'Min' : ''"
+                :label="showInputsLabel ? resolvedMinText.trim() || 'Min' : ''"
                 :showOptionalLabel="false"
                 @update:model-value="(value) => handleRangeInputChange(0, value)"
             />
@@ -112,7 +112,7 @@
                 :disabled="disabled"
                 :readonly="readonly"
                 :transparent="transparentInputs"
-                :label="showInputsLabel ? maxText.trim() || 'Max' : ''"
+                :label="showInputsLabel ? resolvedMaxText.trim() || 'Max' : ''"
                 :showOptionalLabel="false"
                 @update:model-value="(value) => handleRangeInputChange(1, value)"
             />
@@ -135,8 +135,8 @@
         </div>
 
         <div class="flex items-center justify-between text-xs text-text-neutral-subtle">
-            <span>{{ minText }}{{ formatValue(min) }}</span>
-            <span>{{ maxText }}{{ formatValue(max) }}</span>
+            <span>{{ resolvedMinText }}{{ formatValue(min) }}</span>
+            <span>{{ resolvedMaxText }}{{ formatValue(max) }}</span>
         </div>
 
         <!-- Help Text (bottom) -->
@@ -236,14 +236,8 @@ const props = defineProps({
         default: false,
     },
     borderRadius: Number as PropType<number | undefined>,
-    minText: {
-        type: String as PropType<string>,
-        default: 'Min: ',
-    },
-    maxText: {
-        type: String as PropType<string>,
-        default: 'Max: ',
-    },
+    minText: String as PropType<string>,
+    maxText: String as PropType<string>,
     currentValuePrefix: String as PropType<string>,
     currentValueSuffix: String as PropType<string>,
     validator: {
@@ -264,6 +258,8 @@ const emit = defineEmits(['update:modelValue', 'update:error'])
 
 const validationMode = useInjectedValidationMode()
 const dsConfig = useDSConfig()
+const resolvedMinText = computed(() => props.minText ?? dsConfig.forms.sliderMinText())
+const resolvedMaxText = computed(() => props.maxText ?? dsConfig.forms.sliderMaxText())
 
 const hasError = computed(() => props.error !== '')
 const optionalLabelText = computed(() => props.optionalLabel ?? dsConfig.forms.optionalLabelText())

@@ -16,7 +16,7 @@
             props.disabled ? 'opacity-50 hover:cursor-not-allowed hover:bg-transparent' : 'hover:cursor-pointer',
         ]"
         :disabled="props.disabled"
-        :aria-label="ariaLabel"
+        :aria-label="resolvedAriaLabel"
         @click="emitClick"
     >
         <slot />
@@ -35,11 +35,14 @@ const props = defineProps({
         type: Boolean as PropType<boolean>,
         default: false,
     },
-    ariaLabel: {
-        type: String as PropType<string>,
-        default: 'Navigation button',
-    },
+    ariaLabel: String as PropType<string>,
 })
+
+// Composables
+const dsConfig = useDSConfig()
+
+// Computed
+const resolvedAriaLabel = computed(() => props.ariaLabel ?? dsConfig.accessibility.navigationButtonText())
 
 // Emits
 const emit = defineEmits(['click'])
