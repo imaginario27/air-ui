@@ -157,6 +157,10 @@ const props = defineProps({
         type: Boolean as PropType<boolean>,
         default: false,
     },
+    readonly: {
+        type: Boolean as PropType<boolean>,
+        default: false,
+    },
 })
 
 // Emits
@@ -227,7 +231,7 @@ const selectedCheckboxBackgroundColorClass = computed(() => {
 
 // Handlers
 const selectRadio = () => {
-    if (props.disabled) return
+    if (props.disabled || props.readonly) return
     emit('update:modelValue', props.value)
 }
 </script>

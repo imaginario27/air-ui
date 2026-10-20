@@ -16,6 +16,7 @@
         <div
             role="switch"
             :aria-checked="modelValue"
+            :aria-readonly="readonly || undefined"
             :aria-label="ariaLabel || 'Toggle'"
             :class="[
                 'relative flex items-center',
@@ -53,6 +54,10 @@ const props = defineProps({
         default: false,
     },
     disabled: {
+        type: Boolean as PropType<boolean>,
+        default: false,
+    },
+    readonly: {
         type: Boolean as PropType<boolean>,
         default: false,
     },
@@ -122,13 +127,13 @@ const checkedBackgroundClass = computed(() => {
 
 // Handlers
 const toggleSwitch = () => {
-    if (props.disabled) return
+    if (props.disabled || props.readonly) return
 
     emit('update:modelValue', !props.modelValue)
 }
 
 const handleNativeChange = () => {
-    if (props.disabled) return
+    if (props.disabled || props.readonly) return
 
     emit('update:modelValue', !props.modelValue)
 }

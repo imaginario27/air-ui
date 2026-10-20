@@ -54,7 +54,7 @@
                     v-for="tag in modelValue"
                     :key="tag"
                     :text="tag"
-                    :closeable="!disabled"
+                    :closeable="!disabled && !readonly"
                     :class="badgeContainerClass"
                     @close="handleBadgeRemove(tag)"
                 />
@@ -68,6 +68,7 @@
                     :placeholder="computedPlaceholder"
                     :autofocus
                     :disabled="disabled || isMaxTagsReached"
+                    :readonly
                     :class="[
                         'flex-1',
                         'min-w-16',
@@ -142,6 +143,10 @@ const props = defineProps({
         type: Boolean as PropType<boolean>,
         default: false,
     },
+    readonly: {
+        type: Boolean as PropType<boolean>,
+        default: false,
+    },
     required: {
         type: Boolean as PropType<boolean>,
         default: false,
@@ -203,7 +208,7 @@ const isMaxTagsReached = computed(
     () => Number.isFinite(props.maxTags) && props.modelValue.length >= (props.maxTags as number),
 )
 const showClearButton = computed(
-    () => !props.disabled && (props.modelValue.length > 0 || inputValue.value.trim().length > 0),
+    () => !props.disabled && !props.readonly && (props.modelValue.length > 0 || inputValue.value.trim().length > 0),
 )
 
 const computedPlaceholder = computed(() => {
@@ -237,7 +242,7 @@ const addTagsFromRawValue = (rawValue: string) => {
         .map((value) => value.trim())
         .filter(Boolean)
 
-    if (!candidates.length) return
+    if (!candidates.length || props.readonly) return
 
     const uniqueTags = new Set(props.modelValue)
 
@@ -267,14 +272,14 @@ const handleBlur = () => {
 }
 
 const handleInput = (event: Event) => {
-    if (props.disabled || isMaxTagsReached.value) return
+    if (props.disabled || props.readonly || isMaxTagsReached.value) return
 
     const target = event.target as HTMLInputElement
     inputValue.value = target.value
 }
 
 const handleKeydown = (event: KeyboardEvent) => {
-    if (props.disabled) return
+    if (props.disabled || props.readonly) return
 
     if (event.key === 'Enter' || event.key === ',') {
         event.preventDefault()
@@ -289,12 +294,14 @@ const handleKeydown = (event: KeyboardEvent) => {
 }
 
 const handleBadgeRemove = (tagToRemove: string) => {
+    if (props.disabled || props.readonly) return
+
     const updatedTags = props.modelValue.filter((tag) => tag !== tagToRemove)
     updateTags(updatedTags)
 }
 
 const handleClear = () => {
-    if (props.disabled) return
+    if (props.disabled || props.readonly) return
 
     inputValue.value = ''
     updateTags([])

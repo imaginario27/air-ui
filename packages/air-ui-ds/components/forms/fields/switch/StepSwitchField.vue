@@ -41,6 +41,7 @@
                 :steps
                 :maxSteps
                 :disabled
+                :readonly
                 :size
                 :styleType
                 @update:modelValue="handleSwitchUpdate"
@@ -99,6 +100,10 @@ const props = defineProps({
         type: Boolean as PropType<boolean>,
         default: false,
     },
+    readonly: {
+        type: Boolean as PropType<boolean>,
+        default: false,
+    },
     size: {
         type: String as PropType<ControlFieldSize>,
         default: ControlFieldSize.MD,
@@ -152,7 +157,7 @@ const iconSizeClass = computed(() => {
 
 // Handlers
 const handleSwitchUpdate = (value: string | number) => {
-    if (props.disabled) return
+    if (props.disabled || props.readonly) return
 
     if (validationMode.value === FormValidationMode.BLUR) {
         runValidation()

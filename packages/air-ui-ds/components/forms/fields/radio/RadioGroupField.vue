@@ -29,6 +29,7 @@
                         :ariaLabel="option.ariaLabel"
                         :required
                         :disabled="option.disabled ? option.disabled : disabled"
+                        :readonly
                         :helpText="option.helpText"
                         :inverse="inverse"
                         :size="size"
@@ -56,6 +57,7 @@
                     :required
                     :helpText="option.helpText"
                     :disabled="option.disabled ? option.disabled : disabled"
+                    :readonly
                     :type="option.type"
                     :icon="option.icon"
                     :size="size"
@@ -117,6 +119,10 @@ const props = defineProps({
         default: undefined,
     },
     disabled: {
+        type: Boolean as PropType<boolean>,
+        default: false,
+    },
+    readonly: {
         type: Boolean as PropType<boolean>,
         default: false,
     },

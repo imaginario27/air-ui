@@ -26,6 +26,7 @@
                 :min="minString"
                 :max="maxString"
                 :disabled="disabled"
+                :readonly="readonly"
                 :transparent="transparentInputs"
                 :label="showInputsLabel ? minText.trim() || 'Min' : ''"
                 :showOptionalLabel="false"
@@ -41,6 +42,7 @@
                 :min="minString"
                 :max="maxString"
                 :disabled="disabled"
+                :readonly="readonly"
                 :transparent="transparentInputs"
                 :label="showInputsLabel ? maxText.trim() || 'Max' : ''"
                 :showOptionalLabel="false"
@@ -56,6 +58,7 @@
                 :min="minString"
                 :max="maxString"
                 :disabled="disabled"
+                :readonly="readonly"
                 :transparent="transparentInputs"
                 :label="showInputsLabel ? label || 'Value' : ''"
                 :showOptionalLabel="false"
@@ -76,6 +79,7 @@
             :orientation="orientation"
             :hasTooltip="hasTooltip"
             :disabled="disabled"
+            :readonly="readonly"
             :borderRadius="borderRadius"
             @update:model-value="handleValueUpdate"
         />
@@ -90,6 +94,7 @@
                 :min="minString"
                 :max="maxString"
                 :disabled="disabled"
+                :readonly="readonly"
                 :transparent="transparentInputs"
                 :label="showInputsLabel ? minText.trim() || 'Min' : ''"
                 :showOptionalLabel="false"
@@ -105,6 +110,7 @@
                 :min="minString"
                 :max="maxString"
                 :disabled="disabled"
+                :readonly="readonly"
                 :transparent="transparentInputs"
                 :label="showInputsLabel ? maxText.trim() || 'Max' : ''"
                 :showOptionalLabel="false"
@@ -120,6 +126,7 @@
                 :min="minString"
                 :max="maxString"
                 :disabled="disabled"
+                :readonly="readonly"
                 :transparent="transparentInputs"
                 :label="showInputsLabel ? label || 'Value' : ''"
                 :showOptionalLabel="false"
@@ -221,6 +228,10 @@ const props = defineProps({
         validator: (value: Position) => Object.values(Position).includes(value),
     },
     disabled: {
+        type: Boolean as PropType<boolean>,
+        default: false,
+    },
+    readonly: {
         type: Boolean as PropType<boolean>,
         default: false,
     },

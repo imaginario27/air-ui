@@ -31,6 +31,7 @@
                 :ariaLabel="!label ? ariaLabel || legend : undefined"
                 :modelValue="modelValue"
                 :disabled="disabled"
+                :readonly
                 :size="size"
                 @update:modelValue="handleCheckboxUpdate"
             />
@@ -77,6 +78,10 @@ const props = defineProps({
         default: '',
     },
     disabled: {
+        type: Boolean as PropType<boolean>,
+        default: false,
+    },
+    readonly: {
         type: Boolean as PropType<boolean>,
         default: false,
     },
@@ -128,7 +133,7 @@ const labelSizeClass = computed(() => {
 
 // Handlers
 const handleCheckboxUpdate = (value: boolean) => {
-    if (props.disabled) return
+    if (props.disabled || props.readonly) return
 
     if (validationMode.value === FormValidationMode.BLUR) {
         runValidation()

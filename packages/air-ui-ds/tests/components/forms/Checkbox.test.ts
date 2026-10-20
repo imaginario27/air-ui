@@ -37,6 +37,15 @@ describe('Checkbox.vue', () => {
         expect(wrapper.emitted('update:modelValue')).toBeUndefined()
     })
 
+    it('does not emit update:modelValue when readonly', async () => {
+        const wrapper = factory({ modelValue: false, readonly: true })
+
+        await wrapper.find('div.cursor-pointer').trigger('click')
+
+        expect(wrapper.emitted('update:modelValue')).toBeUndefined()
+        expect(wrapper.find('[role="checkbox"]').attributes('aria-readonly')).toBe('true')
+    })
+
     it('applies large size classes when size is lg', () => {
         const wrapper = factory({ size: 'lg', modelValue: true })
 

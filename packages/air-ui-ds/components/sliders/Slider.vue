@@ -30,6 +30,7 @@
                 ]"
                 :style="[thumbStyle(index, value), radiusStyle]"
                 :disabled
+                :aria-readonly="readonly || undefined"
                 :aria-label="getThumbAriaLabel(index)"
                 :aria-orientation="orientation"
                 :data-testid="`slider-thumb-${index}`"
@@ -102,6 +103,10 @@ const props = defineProps({
         default: false,
     },
     disabled: {
+        type: Boolean as PropType<boolean>,
+        default: false,
+    },
+    readonly: {
         type: Boolean as PropType<boolean>,
         default: false,
     },
@@ -470,7 +475,7 @@ const stopDragging = () => {
 }
 
 const startThumbDrag = (index: number, event: PointerEvent) => {
-    if (props.disabled) {
+    if (props.disabled || props.readonly) {
         return
     }
 
@@ -481,7 +486,7 @@ const startThumbDrag = (index: number, event: PointerEvent) => {
 }
 
 const handleTrackPointerDown = (event: PointerEvent) => {
-    if (props.disabled) {
+    if (props.disabled || props.readonly) {
         return
     }
 
@@ -516,7 +521,7 @@ const incrementForKey = (key: string) => {
 }
 
 const handleThumbKeydown = (event: KeyboardEvent, index: number) => {
-    if (props.disabled) {
+    if (props.disabled || props.readonly) {
         return
     }
 

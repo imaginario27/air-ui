@@ -36,6 +36,7 @@
             :searchFieldPlaceholder="resolvedSearchFieldPlaceholder"
             :noResultsFoundText="resolvedNoResultsFoundText"
             :disabled
+            :readonly
             :dropdownPosition
             :autoFlip
             :hasSeparator
@@ -123,6 +124,10 @@ const props = defineProps({
     searchFieldPlaceholder: String as PropType<string>,
     noResultsFoundText: String as PropType<string>,
     disabled: {
+        type: Boolean as PropType<boolean>,
+        default: false,
+    },
+    readonly: {
         type: Boolean as PropType<boolean>,
         default: false,
     },

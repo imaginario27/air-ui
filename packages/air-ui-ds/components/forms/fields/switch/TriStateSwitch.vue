@@ -16,6 +16,7 @@
         <div
             role="switch"
             :aria-checked="ariaCheckedValue"
+            :aria-readonly="readonly || undefined"
             :aria-label="ariaLabel || 'Toggle'"
             :class="[
                 'relative flex items-center',
@@ -53,6 +54,10 @@ const props = defineProps({
         validator: (value: TriStateValue) => Object.values(TriStateValue).includes(value),
     },
     disabled: {
+        type: Boolean as PropType<boolean>,
+        default: false,
+    },
+    readonly: {
         type: Boolean as PropType<boolean>,
         default: false,
     },
@@ -164,7 +169,7 @@ const checkedBackgroundClass = computed(() => {
 // A click/toggle always resolves to an explicit checked/unchecked value.
 // Indeterminate is only ever entered by the consumer via modelValue.
 const toggleSwitch = () => {
-    if (props.disabled) return
+    if (props.disabled || props.readonly) return
 
     const nextValue = props.modelValue === TriStateValue.CHECKED ? TriStateValue.UNCHECKED : TriStateValue.CHECKED
 

@@ -30,6 +30,19 @@ describe('TagsField.vue', () => {
         expect(input.exists()).toBe(true)
     })
 
+    it('does not add or remove tags when readonly', async () => {
+        const wrapper = factory({ modelValue: ['one'], readonly: true })
+        const input = wrapper.find('input')
+
+        expect(input.attributes('readonly')).toBeDefined()
+
+        await input.setValue('two')
+        await input.trigger('keydown', { key: 'Enter' })
+        await input.trigger('keydown', { key: 'Backspace' })
+
+        expect(wrapper.emitted('update:modelValue')).toBeUndefined()
+    })
+
     it('renders help text when provided and no error', () => {
         const wrapper = factory({ helpText: 'Press Enter to add a tag' })
         const helpText = wrapper.find('p')

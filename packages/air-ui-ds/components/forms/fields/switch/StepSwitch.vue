@@ -107,6 +107,10 @@ const props = defineProps({
         type: Boolean as PropType<boolean>,
         default: false,
     },
+    readonly: {
+        type: Boolean as PropType<boolean>,
+        default: false,
+    },
     size: {
         type: String as PropType<ControlFieldSize>,
         default: ControlFieldSize.MD,
@@ -187,7 +191,7 @@ const checkedBackgroundClass = computed(() => {
 
 // Handlers
 const selectStep = (index: number) => {
-    if (props.disabled) return
+    if (props.disabled || props.readonly) return
 
     const step = visibleSteps.value[index]
     if (!step || step.value === props.modelValue) return
@@ -209,7 +213,7 @@ const updateFromPointer = (event: PointerEvent) => {
 }
 
 const handlePointerDown = (event: PointerEvent) => {
-    if (props.disabled) return
+    if (props.disabled || props.readonly) return
 
     isDragging.value = true
     trackRef.value?.setPointerCapture?.(event.pointerId)

@@ -48,6 +48,7 @@
                         :aria-label="ariaLabel || resolvedPlaceholder"
                         :placeholder="inputPlaceholder"
                         :disabled="disabled"
+                        :readonly="readonly"
                         :class="[
                             'flex-1',
                             'min-w-0',
@@ -68,7 +69,7 @@
                     <div class="flex gap-2 items-center" @mousedown.prevent>
                         <!-- Clear button -->
                         <ActionIconButton
-                            v-if="clearable && !disabled && hasValue"
+                            v-if="clearable && !disabled && !readonly && hasValue"
                             :size="ButtonSize.SM"
                             :styleType="ButtonStyleType.NEUTRAL_TRANSPARENT_SUBTLE"
                             icon="mdi:close-circle"
@@ -180,6 +181,10 @@ const props = defineProps({
     selectBoxClass: String as PropType<string>,
     noResultsFoundText: String as PropType<string>,
     disabled: {
+        type: Boolean as PropType<boolean>,
+        default: false,
+    },
+    readonly: {
         type: Boolean as PropType<boolean>,
         default: false,
     },
@@ -359,7 +364,7 @@ const emitSearch = (value: string) => {
 }
 
 const openMenu = () => {
-    if (props.disabled || menu.value?.isOpen) return
+    if (props.disabled || props.readonly || menu.value?.isOpen) return
 
     menu.value?.open()
     highlightedIndex.value = filteredOptions.value.findIndex((option) => !option.sectionTitle && isSelected(option))
@@ -371,7 +376,7 @@ const closeMenu = () => {
 }
 
 const toggleMenu = () => {
-    if (props.disabled) return
+    if (props.disabled || props.readonly) return
 
     if (menu.value?.isOpen) {
         closeMenu()
@@ -416,7 +421,7 @@ const commitCustomValue = () => {
 }
 
 const handleOptionClick = (option: SelectOption) => {
-    if (props.disabled || option.disabled) return
+    if (props.disabled || props.readonly || option.disabled) return
 
     if (props.multiple) {
         const next = selectedValues.value.includes(option.value)
@@ -437,6 +442,8 @@ const handleOptionClick = (option: SelectOption) => {
 }
 
 const handleClear = () => {
+    if (props.readonly) return
+
     emit('update:modelValue', props.multiple ? [] : null)
     inputValue.value = ''
     query.value = ''
