@@ -569,7 +569,7 @@ Makes the button fully rounded.
 
 ### hasFocusRing
 
-Shows or hides the focus ring. Disable it only when the focus state is already visible some other way, for example when the button sits inside a container that highlights on focus.
+Shows or hides the focus ring. The ring only appears on keyboard focus (`:focus-visible`), not when clicking with the mouse. Disable it only when the focus state is already visible some other way, for example when the button sits inside a container that highlights on focus.
 
 ```vue
 <template>
