@@ -1,12 +1,144 @@
 {
-  "generatedAt": "2026-10-20T11:02:57.465Z",
+  "generatedAt": "2026-10-20T14:29:25.304Z",
   "source": "github-git-history+npm-publish-dates",
   "githubBaseUrl": "https://github.com/imaginario27/air-ui",
   "packages": [
     {
       "packageName": "@imaginario27/air-ui-ds",
-      "latestVersion": "1.28.0",
+      "latestVersion": "1.29.0",
       "entries": [
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.29.0",
+          "publishedAt": "2026-10-20",
+          "releaseType": "minor",
+          "notes": [
+            "add configurable texts and `aria-labels` to `useDSConfig`",
+            "show focus ring only on keyboard focus in action buttons"
+          ],
+          "metadata": {
+            "commitCount": 2,
+            "commits": [
+              {
+                "sha": "cb2e33098e2b0244ebc5d32f58b1dfea4ad2ac48",
+                "shortSha": "cb2e330",
+                "date": "2026-10-20",
+                "subject": "fix(ds): show focus ring only on keyboard focus in action buttons",
+                "normalizedSubject": "show focus ring only on keyboard focus in action buttons",
+                "type": "fixed",
+                "body": [
+                  "replace `focus:ring-*` with `focus-visible:ring-*` in `ActionButton`",
+                  "replace `focus:ring-*` with `focus-visible:ring-*` in `ActionIconButton`",
+                  "make `hasFocusRing` override `focus-visible:!ring-0` and `focus-visible:!ring-offset-0`",
+                  "update `ActionButton` and `ActionIconButton` tests to the new classes"
+                ],
+                "affected": [
+                  "ActionButton",
+                  "ActionIconButton"
+                ],
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/cb2e33098e2b0244ebc5d32f58b1dfea4ad2ac48",
+                "prUrl": null
+              },
+              {
+                "sha": "1aa700a52be678a1b351c38f753e2b9692d9ec73",
+                "shortSha": "1aa700a",
+                "date": "2026-10-20",
+                "subject": "feat(ds): add configurable texts and aria-labels to `useDSConfig`",
+                "normalizedSubject": "add configurable texts and `aria-labels` to `useDSConfig`",
+                "type": "added",
+                "body": [
+                  "add `loaders`, `tables`, `navigation`, `cards` and `notifications` groups",
+                  "add `treeView` and `accessibility` groups",
+                  "extend `forms`, `actions`, `common` and `pagination` with more texts",
+                  "read default texts from `useDSConfig` in `LoadingScreen`, `Loading` and `ActionButton`",
+                  "read default texts from `useDSConfig` in `ButtonField`, the modal dialogs and `DataField`",
+                  "read default texts from `useDSConfig` in `CopyButton`, `FileUploadField` and `Dropzone`",
+                  "read default texts from `useDSConfig` in `RepeaterField`, `RulesField` and `TreeView`",
+                  "read default texts from `useDSConfig` in `NotificationsPopover` and `SelectableCard`",
+                  "add `removeAriaLabel` to `Badge` and `alt` to `Avatar`",
+                  "add `suffixActionAriaLabel` and `togglePasswordAriaLabel` to `InputField`",
+                  "add `ariaLabel` to `Breadcrumbs`, `TableOfContents` and `Spinner`",
+                  "add `decorationAlt` to `Tab`",
+                  "use `useDSConfig` for the default `aria-labels` of switches, `Rating` and `QRCode`",
+                  "use `useDSConfig` for the default `aria-labels` of sliders and `PinField`",
+                  "recompute visible error messages in `useForm` when `revalidateOn` changes",
+                  "use the configured required message in `useForm`",
+                  "make `CopyButton`, `Loading` and `NotificationsPopover` follow text changes while mounted",
+                  "fix typo in the default invalid files message",
+                  "add tests for the new defaults and overrides"
+                ],
+                "affected": [
+                  "Avatar",
+                  "Badge",
+                  "Breadcrumbs",
+                  "ActionButton",
+                  "CopyButton",
+                  "PaginationButton",
+                  "OptionButtonGroup",
+                  "ToggleButtonGroup",
+                  "SelectableCard",
+                  "Drawer",
+                  "Dropzone",
+                  "ButtonField",
+                  "DataField",
+                  "FileUploadField",
+                  "InputField",
+                  "PinField",
+                  "RepeaterField",
+                  "RulesField",
+                  "SelectField",
+                  "SelectableCardField",
+                  "SignatureField",
+                  "SliderField",
+                  "TagsField",
+                  "StepSwitch",
+                  "Switch",
+                  "TriStateSwitch",
+                  "QRCode",
+                  "ErrorDisplay",
+                  "CompactHeader",
+                  "ContentPageHeader",
+                  "Loading",
+                  "LoadingScreen",
+                  "DangerModalDialog",
+                  "InfoModalDialog",
+                  "SuccessModalDialog",
+                  "NavSidebar",
+                  "NavSidebarMenuItem",
+                  "TableOfContents",
+                  "NotificationListItem",
+                  "NotificationsPopover",
+                  "RowsPerPage",
+                  "DragPlaceholder",
+                  "ProgressBar",
+                  "ProgressCircle",
+                  "Rating",
+                  "SignaturePad",
+                  "AngleSlider",
+                  "Slider",
+                  "Spinner",
+                  "TableHeaderCell",
+                  "Tab",
+                  "TreeView",
+                  "useTreeViewMoreActions",
+                  "useDSConfig",
+                  "useForm"
+                ],
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/1aa700a52be678a1b351c38f753e2b9692d9ec73",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 1,
+              "fixed": 1,
+              "changed": 0,
+              "maintenance": 0,
+              "breaking": 0
+            }
+          }
+        },
         {
           "packageName": "@imaginario27/air-ui-ds",
           "version": "1.28.0",
@@ -7884,8 +8016,75 @@
     },
     {
       "packageName": "@imaginario27/air-ui-utils",
-      "latestVersion": "1.4.2",
+      "latestVersion": "1.5.0",
       "entries": [
+        {
+          "packageName": "@imaginario27/air-ui-utils",
+          "version": "1.5.0",
+          "publishedAt": "2026-10-20",
+          "releaseType": "minor",
+          "notes": [
+            "add validator and helper texts to `useUtilsConfig`",
+            "update dependencies"
+          ],
+          "metadata": {
+            "commitCount": 2,
+            "commits": [
+              {
+                "sha": "fd5eca903caff8f60a20425f62a2e8f9979354d1",
+                "shortSha": "fd5eca9",
+                "date": "2026-10-20",
+                "subject": "feat(utils): add validator and helper texts to `useUtilsConfig`",
+                "normalizedSubject": "add validator and helper texts to `useUtilsConfig`",
+                "type": "added",
+                "body": [
+                  "add `requiredEmailMessage`, `minItemsMessage`, `maxItemsMessage`, `atLeastOneRuleMessage`, `incompleteRuleMessage` and `maxRulesMessage` to `validation`",
+                  "add `common` group with `invalidNumberText` and `readMoreText`",
+                  "add optional `revalidateOn` to `UtilsConfig`",
+                  "use the configured texts in `validateEmail`, `validateArrayField`, rule validators, `formatNumberWithThousands` and `trimText`",
+                  "add tests for the new config defaults and overrides"
+                ],
+                "affected": [
+                  "useUtilsConfig",
+                  "formValidation",
+                  "numbers",
+                  "strings"
+                ],
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/fd5eca903caff8f60a20425f62a2e8f9979354d1",
+                "prUrl": null
+              },
+              {
+                "sha": "4e3010e3d05aca2ba29648d9aba98d825c7078ed",
+                "shortSha": "4e3010e",
+                "date": "2026-10-16",
+                "subject": "chore(root): update dependencies",
+                "normalizedSubject": "update dependencies",
+                "type": "maintenance",
+                "body": [
+                  "bump `nuxt` to 4.6.1, `vue` to 3.5.44 and `vue-router` to 5.4.0",
+                  "bump `vitest` and `@vitest/coverage-v8` to 5.0.5",
+                  "bump `@nuxt/content` to 3.16.2 and `pinia` to 4.1.0",
+                  "bump `@nuxt/fonts` to 1.0.1, `@nuxtjs/robots` to 7.0.2 and `@nuxtjs/sitemap` to 9.1.0",
+                  "bump `happy-dom` to 21.0.3 and `eslint` to 10.12.0",
+                  "keep `typescript` at 6.0.3 and `vue-tsc` at 3.3.11",
+                  "refresh `package-lock.json`"
+                ],
+                "affected": [],
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/4e3010e3d05aca2ba29648d9aba98d825c7078ed",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 1,
+              "fixed": 0,
+              "changed": 0,
+              "maintenance": 1,
+              "breaking": 0
+            }
+          }
+        },
         {
           "packageName": "@imaginario27/air-ui-utils",
           "version": "1.4.2",

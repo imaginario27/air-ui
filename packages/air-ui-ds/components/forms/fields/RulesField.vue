@@ -23,7 +23,7 @@
                         draggedIndex !== index
                     "
                     aria-hidden="true"
-                    :text="dragPlaceholderText"
+                    :text="resolvedDragPlaceholderText"
                     :showText="showDragPlaceholderText"
                     :textClass="dragPlaceholderTextClass"
                     :class="['hidden md:grid h-10 mb-4 md:mb-0', dragPlaceholderClass]"
@@ -49,7 +49,7 @@
                         v-if="sortingType === RepeatingFieldSortingType.DRAG && isSortableRow(index)"
                         type="button"
                         :draggable="!disabled"
-                        :aria-label="dragHandleAriaLabel"
+                        :aria-label="resolvedDragHandleAriaLabel"
                         :disabled="disabled"
                         :class="[
                             'hidden md:flex',
@@ -69,10 +69,10 @@
 
                     <SelectField
                         :id="`${id}-item-${index}`"
-                        :ariaLabel="`${itemFieldAriaLabel} ${index + 1}`"
+                        :ariaLabel="`${resolvedItemFieldAriaLabel} ${index + 1}`"
                         :modelValue="rule.item"
                         :options="itemOptions"
-                        :placeholder="itemPlaceholder"
+                        :placeholder="resolvedItemPlaceholder"
                         :disabled
                         :transparent="transparentInputs"
                         @update:model-value="(value) => updateRule(index, 'item', value)"
@@ -80,10 +80,10 @@
 
                     <SelectField
                         :id="`${id}-operator-${index}`"
-                        :ariaLabel="`${operatorFieldAriaLabel} ${index + 1}`"
+                        :ariaLabel="`${resolvedOperatorFieldAriaLabel} ${index + 1}`"
                         :modelValue="rule.operator"
                         :options="getFilteredOperators(getRuleInputType(rule))"
-                        :placeholder="operatorPlaceholder"
+                        :placeholder="resolvedOperatorPlaceholder"
                         :disabled
                         :transparent="transparentInputs"
                         @update:model-value="(value) => updateRule(index, 'operator', value)"
@@ -91,10 +91,10 @@
 
                     <InputField
                         :id="`${id}-value-${index}`"
-                        :ariaLabel="`${valueFieldAriaLabel} ${index + 1}`"
+                        :ariaLabel="`${resolvedValueFieldAriaLabel} ${index + 1}`"
                         :modelValue="rule.value"
                         :type="getRuleInputType(rule)"
-                        :placeholder="valuePlaceholder"
+                        :placeholder="resolvedValuePlaceholder"
                         :disabled
                         :transparent="transparentInputs"
                         @update:model-value="(value) => updateRule(index, 'value', value)"
@@ -106,7 +106,7 @@
                             v-if="sortingType === RepeatingFieldSortingType.BUTTONS && isSortableRow(index)"
                             :id="`${id}-move-up-${index}`"
                             :icon="moveUpIcon"
-                            :ariaLabel="moveUpAriaLabel"
+                            :ariaLabel="resolvedMoveUpAriaLabel"
                             :styleType="ButtonStyleType.NEUTRAL_TRANSPARENT"
                             :size="ButtonSize.SM"
                             :disabled="isMoveUpDisabled(index)"
@@ -117,7 +117,7 @@
                             v-if="sortingType === RepeatingFieldSortingType.BUTTONS && isSortableRow(index)"
                             :id="`${id}-move-down-${index}`"
                             :icon="moveDownIcon"
-                            :ariaLabel="moveDownAriaLabel"
+                            :ariaLabel="resolvedMoveDownAriaLabel"
                             :styleType="ButtonStyleType.NEUTRAL_TRANSPARENT"
                             :size="ButtonSize.SM"
                             :disabled="isMoveDownDisabled(index)"
@@ -127,7 +127,9 @@
                         <ActionIconButton
                             :id="`${id}-action-${index}`"
                             :icon="getRowActionIcon(index)"
-                            :ariaLabel="index === rules.length - 1 ? addRuleAriaLabel : removeRuleAriaLabel"
+                            :ariaLabel="
+                                index === rules.length - 1 ? resolvedAddRuleAriaLabel : resolvedRemoveRuleAriaLabel
+                            "
                             :styleType="getActionButtonStyle(index)"
                             :size="ButtonSize.MD"
                             :disabled="isActionDisabled(index)"
@@ -145,7 +147,7 @@
                             "
                             :id="`${id}-move-up-mobile-${index}`"
                             :icon="moveUpIcon"
-                            :ariaLabel="moveUpAriaLabel"
+                            :ariaLabel="resolvedMoveUpAriaLabel"
                             :styleType="ButtonStyleType.NEUTRAL_TRANSPARENT"
                             :size="ButtonSize.SM"
                             :disabled="isMoveUpDisabled(index)"
@@ -160,7 +162,7 @@
                             "
                             :id="`${id}-move-down-mobile-${index}`"
                             :icon="moveDownIcon"
-                            :ariaLabel="moveDownAriaLabel"
+                            :ariaLabel="resolvedMoveDownAriaLabel"
                             :styleType="ButtonStyleType.NEUTRAL_TRANSPARENT"
                             :size="ButtonSize.SM"
                             :disabled="isMoveDownDisabled(index)"
@@ -169,7 +171,7 @@
 
                         <ActionButton
                             :id="`${id}-action-${index}`"
-                            :text="index === rules.length - 1 ? mobileBtnAddText : mobileBtnRemoveText"
+                            :text="index === rules.length - 1 ? resolvedMobileBtnAddText : resolvedMobileBtnRemoveText"
                             :icon="getRowActionIcon(index)"
                             :iconPosition="IconPosition.LEFT"
                             :styleType="getActionButtonStyle(index)"
@@ -196,43 +198,19 @@ const props = defineProps({
         required: true,
     },
     label: String as PropType<string>,
-    itemFieldAriaLabel: {
-        type: String as PropType<string>,
-        default: 'Rule item',
-    },
-    operatorFieldAriaLabel: {
-        type: String as PropType<string>,
-        default: 'Rule operator',
-    },
-    valueFieldAriaLabel: {
-        type: String as PropType<string>,
-        default: 'Rule value',
-    },
-    addRuleAriaLabel: {
-        type: String as PropType<string>,
-        default: 'Add rule',
-    },
-    removeRuleAriaLabel: {
-        type: String as PropType<string>,
-        default: 'Remove rule',
-    },
+    itemFieldAriaLabel: String as PropType<string>,
+    operatorFieldAriaLabel: String as PropType<string>,
+    valueFieldAriaLabel: String as PropType<string>,
+    addRuleAriaLabel: String as PropType<string>,
+    removeRuleAriaLabel: String as PropType<string>,
     sortingType: {
         type: String as PropType<RepeatingFieldSortingType>,
         default: RepeatingFieldSortingType.NONE,
         validator: (value: RepeatingFieldSortingType) => Object.values(RepeatingFieldSortingType).includes(value),
     },
-    moveUpAriaLabel: {
-        type: String as PropType<string>,
-        default: 'Move rule up',
-    },
-    moveDownAriaLabel: {
-        type: String as PropType<string>,
-        default: 'Move rule down',
-    },
-    dragHandleAriaLabel: {
-        type: String as PropType<string>,
-        default: 'Drag to reorder rule',
-    },
+    moveUpAriaLabel: String as PropType<string>,
+    moveDownAriaLabel: String as PropType<string>,
+    dragHandleAriaLabel: String as PropType<string>,
     moveUpIcon: {
         type: String as PropType<string>,
         default: 'mdi:arrow-up',
@@ -245,10 +223,7 @@ const props = defineProps({
         type: String as PropType<string>,
         default: 'mdi:drag-vertical',
     },
-    dragPlaceholderText: {
-        type: String as PropType<string>,
-        default: 'Drop here',
-    },
+    dragPlaceholderText: String as PropType<string>,
     showDragPlaceholderText: {
         type: Boolean as PropType<boolean>,
         default: true,
@@ -273,18 +248,9 @@ const props = defineProps({
         type: Array as PropType<RuleItem[]>,
         default: () => [],
     },
-    itemPlaceholder: {
-        type: String as PropType<string>,
-        default: 'Select item',
-    },
-    operatorPlaceholder: {
-        type: String as PropType<string>,
-        default: 'Select operator',
-    },
-    valuePlaceholder: {
-        type: String as PropType<string>,
-        default: 'Enter value',
-    },
+    itemPlaceholder: String as PropType<string>,
+    operatorPlaceholder: String as PropType<string>,
+    valuePlaceholder: String as PropType<string>,
     addIcon: {
         type: String as PropType<string>,
         default: 'mdi:plus-circle-outline',
@@ -293,14 +259,8 @@ const props = defineProps({
         type: String as PropType<string>,
         default: 'mdi:minus-circle-outline',
     },
-    mobileBtnAddText: {
-        type: String as PropType<string>,
-        default: 'Add rule',
-    },
-    mobileBtnRemoveText: {
-        type: String as PropType<string>,
-        default: 'Remove rule',
-    },
+    mobileBtnAddText: String as PropType<string>,
+    mobileBtnRemoveText: String as PropType<string>,
     validator: {
         type: Function as PropType<(value: RuleItem[]) => string | null>,
         default: () => null,
@@ -339,6 +299,26 @@ const emit = defineEmits(['update:modelValue', 'update:error'])
 // Composables
 const validationMode = useInjectedValidationMode()
 const dsConfig = useDSConfig()
+const resolvedItemFieldAriaLabel = computed(() => props.itemFieldAriaLabel ?? dsConfig.forms.rules.itemAriaText())
+const resolvedOperatorFieldAriaLabel = computed(
+    () => props.operatorFieldAriaLabel ?? dsConfig.forms.rules.operatorAriaText(),
+)
+const resolvedValueFieldAriaLabel = computed(() => props.valueFieldAriaLabel ?? dsConfig.forms.rules.valueAriaText())
+const resolvedAddRuleAriaLabel = computed(() => props.addRuleAriaLabel ?? dsConfig.forms.rules.addText())
+const resolvedRemoveRuleAriaLabel = computed(() => props.removeRuleAriaLabel ?? dsConfig.forms.rules.removeText())
+const resolvedMoveUpAriaLabel = computed(() => props.moveUpAriaLabel ?? dsConfig.forms.rules.moveUpAriaText())
+const resolvedMoveDownAriaLabel = computed(() => props.moveDownAriaLabel ?? dsConfig.forms.rules.moveDownAriaText())
+const resolvedDragHandleAriaLabel = computed(
+    () => props.dragHandleAriaLabel ?? dsConfig.forms.rules.dragHandleAriaText(),
+)
+const resolvedDragPlaceholderText = computed(() => props.dragPlaceholderText ?? dsConfig.common.dropHereText())
+const resolvedItemPlaceholder = computed(() => props.itemPlaceholder ?? dsConfig.forms.rules.itemPlaceholderText())
+const resolvedOperatorPlaceholder = computed(
+    () => props.operatorPlaceholder ?? dsConfig.forms.rules.operatorPlaceholderText(),
+)
+const resolvedValuePlaceholder = computed(() => props.valuePlaceholder ?? dsConfig.forms.rules.valuePlaceholderText())
+const resolvedMobileBtnAddText = computed(() => props.mobileBtnAddText ?? dsConfig.forms.rules.addText())
+const resolvedMobileBtnRemoveText = computed(() => props.mobileBtnRemoveText ?? dsConfig.forms.rules.removeText())
 
 // Computed
 const hasError = computed(() => props.error !== '')

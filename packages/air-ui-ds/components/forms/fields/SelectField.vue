@@ -158,10 +158,7 @@ const props = defineProps({
         default: true,
     },
     loadingText: String as PropType<string>,
-    loadingOptionsPlaceholder: {
-        type: String as PropType<string>,
-        default: 'Options are being loaded',
-    },
+    loadingOptionsPlaceholder: String as PropType<string>,
     selectBoxClass: String as PropType<string>,
     transparent: {
         type: Boolean as PropType<boolean>,
@@ -204,6 +201,9 @@ const emit = defineEmits(['update:modelValue', 'update:error'])
 // Composables
 const validationMode = useInjectedValidationMode()
 const dsConfig = useDSConfig()
+const resolvedLoadingOptionsPlaceholder = computed(
+    () => props.loadingOptionsPlaceholder ?? dsConfig.forms.loadingOptionsText(),
+)
 
 // Computed
 const hasError = computed(() => props.error !== '')
@@ -228,7 +228,7 @@ const isLoadingOptions = computed(() => {
 
 const computedPlaceholder = computed(() => {
     if (props.showLoadingState && props.isLoading && !hasOptions.value) {
-        return props.loadingOptionsPlaceholder
+        return resolvedLoadingOptionsPlaceholder.value
     }
 
     return resolvedPlaceholder.value

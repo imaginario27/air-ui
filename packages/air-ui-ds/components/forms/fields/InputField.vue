@@ -145,7 +145,7 @@
             <button
                 v-if="suffixIcon"
                 type="button"
-                aria-label="Suffix action"
+                :aria-label="resolvedSuffixActionAriaLabel"
                 :class="[
                     'text-icon-default',
                     'hover:text-icon-neutral-subtle',
@@ -163,7 +163,7 @@
             <button
                 v-if="!suffixIcon && type === 'password' && hasShowPasswordButton"
                 type="button"
-                aria-label="Toggle password visibility"
+                :aria-label="resolvedTogglePasswordAriaLabel"
                 :class="[
                     'text-icon-default',
                     'hover:text-icon-neutral-subtle',
@@ -308,6 +308,8 @@ const props = defineProps({
         type: Number as PropType<number | null>,
         validator: (value: number | null) => value === null || value >= 0,
     },
+    suffixActionAriaLabel: String as PropType<string>,
+    togglePasswordAriaLabel: String as PropType<string>,
 })
 
 // Emits
@@ -320,6 +322,10 @@ const showPassword = ref(false)
 // Composables
 const validationMode = useInjectedValidationMode()
 const dsConfig = useDSConfig()
+const resolvedSuffixActionAriaLabel = computed(() => props.suffixActionAriaLabel ?? dsConfig.forms.suffixActionText())
+const resolvedTogglePasswordAriaLabel = computed(
+    () => props.togglePasswordAriaLabel ?? dsConfig.forms.togglePasswordVisibilityText(),
+)
 
 // Computed States
 const hasError = computed(() => props.error !== '')

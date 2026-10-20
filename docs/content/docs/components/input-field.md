@@ -177,6 +177,14 @@ props: [
         "type": "boolean",
     },
     {
+        "name": "togglePasswordAriaLabel",
+        "type": "string",
+    },
+    {
+        "name": "suffixActionAriaLabel",
+        "type": "string",
+    },
+    {
         "name": "locale",
         "default": "'en-US'",
         "type": "string",
@@ -578,6 +586,32 @@ Sets whether to show the "show password" button (only for type `password`).
 
 - **Type:** `boolean`
 - **Default:** `true`
+
+### togglePasswordAriaLabel
+
+Sets the accessible name of the show / hide password button. Falls back to `useDSConfig().forms.togglePasswordVisibilityText()`.
+
+```vue
+<template>
+    <InputField togglePasswordAriaLabel="Custom text" />
+</template>
+```
+
+- **Type:** `string`
+- **Default:** `undefined`
+
+### suffixActionAriaLabel
+
+Sets the accessible name of the clickable suffix icon button. Falls back to `useDSConfig().forms.suffixActionText()`.
+
+```vue
+<template>
+    <InputField suffixActionAriaLabel="Custom text" />
+</template>
+```
+
+- **Type:** `string`
+- **Default:** `undefined`
 
 ### autoFlip
 

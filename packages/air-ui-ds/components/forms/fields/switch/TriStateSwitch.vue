@@ -6,7 +6,7 @@
             type="checkbox"
             :checked="modelValue === TriStateValue.CHECKED"
             class="sr-only"
-            :aria-label="ariaLabel || 'Toggle'"
+            :aria-label="resolvedAriaLabel"
             :disabled="disabled"
             @change="toggleSwitch"
             @keydown.space.prevent="toggleSwitch"
@@ -17,7 +17,7 @@
             role="switch"
             :aria-checked="ariaCheckedValue"
             :aria-readonly="readonly || undefined"
-            :aria-label="ariaLabel || 'Toggle'"
+            :aria-label="resolvedAriaLabel"
             :class="[
                 'relative flex items-center',
                 controlFieldSizeClass,
@@ -72,6 +72,12 @@ const props = defineProps({
         validator: (value: SwitchStyle) => Object.values(SwitchStyle).includes(value),
     },
 })
+
+// Composables
+const dsConfig = useDSConfig()
+
+// Computed
+const resolvedAriaLabel = computed(() => props.ariaLabel || dsConfig.accessibility.toggleText())
 
 // Emits
 const emit = defineEmits(['update:modelValue'])

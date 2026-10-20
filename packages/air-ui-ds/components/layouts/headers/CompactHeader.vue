@@ -26,7 +26,7 @@
                 >
                     <ActionIconButton
                         :icon="isMobileSidebarOpen ? 'mdi:menu-open' : 'mdi:menu-close'"
-                        :ariaLabel="isMobileSidebarOpen ? sidebarCloseAriaLabel : sidebarOpenAriaLabel"
+                        :ariaLabel="isMobileSidebarOpen ? resolvedSidebarCloseAriaLabel : resolvedSidebarOpenAriaLabel"
                         :class="['shadow-sm', !isMobile && 'hidden']"
                         @click="toggleMobileSidebar"
                     />
@@ -39,7 +39,7 @@
                 >
                     <ActionIconButton
                         :icon="isMobileSidebarOpen ? 'mdi:menu-open' : 'mdi:menu-close'"
-                        :ariaLabel="isMobileSidebarOpen ? sidebarCloseAriaLabel : sidebarOpenAriaLabel"
+                        :ariaLabel="isMobileSidebarOpen ? resolvedSidebarCloseAriaLabel : resolvedSidebarOpenAriaLabel"
                         :class="['shadow-sm', !isMobile && 'hidden']"
                         @click="toggleMobileSidebar"
                     />
@@ -114,7 +114,11 @@
                         :zIndex="zIndex"
                     >
                         <template #activator>
-                            <ActionIconButton icon="mdi:menu" :ariaLabel="mobileMenuAriaLabel" class="shadow-sm" />
+                            <ActionIconButton
+                                icon="mdi:menu"
+                                :ariaLabel="resolvedMobileMenuAriaLabel"
+                                class="shadow-sm"
+                            />
                         </template>
                         <template #items="{ onClose }">
                             <!-- Native click listener: closes on any item click, including link items
@@ -151,7 +155,7 @@
                 >
                     <ActionIconButton
                         :icon="isMobileSidebarOpen ? 'mdi:menu-open' : 'mdi:menu-close'"
-                        :ariaLabel="isMobileSidebarOpen ? sidebarCloseAriaLabel : sidebarOpenAriaLabel"
+                        :ariaLabel="isMobileSidebarOpen ? resolvedSidebarCloseAriaLabel : resolvedSidebarOpenAriaLabel"
                         class="lg:hidden shadow-sm"
                         @click="toggleMobileSidebar"
                     />
@@ -250,19 +254,22 @@ const props = defineProps({
         default: '50',
     },
     headerClass: String as PropType<string>,
-    sidebarOpenAriaLabel: {
-        type: String as PropType<string>,
-        default: 'Open sidebar',
-    },
-    sidebarCloseAriaLabel: {
-        type: String as PropType<string>,
-        default: 'Close sidebar',
-    },
-    mobileMenuAriaLabel: {
-        type: String as PropType<string>,
-        default: 'Open mobile menu',
-    },
+    sidebarOpenAriaLabel: String as PropType<string>,
+    sidebarCloseAriaLabel: String as PropType<string>,
+    mobileMenuAriaLabel: String as PropType<string>,
 })
+
+// Composables
+const dsConfig = useDSConfig()
+
+// Computed
+const resolvedSidebarOpenAriaLabel = computed(() => props.sidebarOpenAriaLabel ?? dsConfig.navigation.openSidebarText())
+const resolvedSidebarCloseAriaLabel = computed(
+    () => props.sidebarCloseAriaLabel ?? dsConfig.navigation.closeSidebarText(),
+)
+const resolvedMobileMenuAriaLabel = computed(
+    () => props.mobileMenuAriaLabel ?? dsConfig.navigation.openMobileMenuText(),
+)
 
 // Composables
 const { isMobileSidebarOpen, toggleMobileSidebar } = useMobileSidebar()

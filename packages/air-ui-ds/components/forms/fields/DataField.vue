@@ -26,7 +26,7 @@
             </template>
             <template v-else>
                 <p :class="['text-sm text-text-neutral-subtle']">
-                    {{ emptyText }}
+                    {{ resolvedEmptyText }}
                 </p>
             </template>
         </template>
@@ -49,10 +49,7 @@ const props = defineProps({
     label: String as PropType<string>,
     ariaLabel: String as PropType<string>,
     text: [String, Number] as PropType<string | number>,
-    emptyText: {
-        type: String as PropType<string>,
-        default: 'Not defined',
-    },
+    emptyText: String as PropType<string>,
     helpText: String as PropType<string>,
     helpTextPosition: {
         type: String as PropType<Position>,
@@ -63,15 +60,19 @@ const props = defineProps({
         type: Boolean as PropType<boolean>,
         default: false,
     },
-    copyToClipboardMessage: {
-        type: String as PropType<string>,
-        default: 'Copied to clipboard',
-    },
-    copyToClipboardErrorMessage: {
-        type: String as PropType<string>,
-        default: 'Failed to copy to clipboard',
-    },
+    copyToClipboardMessage: String as PropType<string>,
+    copyToClipboardErrorMessage: String as PropType<string>,
 })
+
+// Composables
+const dsConfig = useDSConfig()
+
+// Computed
+const resolvedEmptyText = computed(() => props.emptyText ?? dsConfig.common.notDefinedText())
+const resolvedCopyToClipboardMessage = computed(() => props.copyToClipboardMessage ?? dsConfig.common.copiedText())
+const resolvedCopyToClipboardErrorMessage = computed(
+    () => props.copyToClipboardErrorMessage ?? dsConfig.common.copyFailedText(),
+)
 
 // Computed
 const isEmpty = computed(() => {
@@ -98,9 +99,9 @@ const handleCopyToClipboard = async () => {
     const success = await copyToClipboard(props.text?.toString() ?? '')
 
     if (success) {
-        $toast.success(props.copyToClipboardMessage, { toastId: 'clipboard-success' })
+        $toast.success(resolvedCopyToClipboardMessage.value, { toastId: 'clipboard-success' })
     } else {
-        $toast.error(props.copyToClipboardErrorMessage, { toastId: 'clipboard-error' })
+        $toast.error(resolvedCopyToClipboardErrorMessage.value, { toastId: 'clipboard-error' })
     }
 }
 </script>

@@ -1,5 +1,5 @@
 <template>
-    <div :id="id" role="group" :aria-label="ariaLabel || 'Options'" :class="['flex', 'flex-wrap gap-2']">
+    <div :id="id" role="group" :aria-label="resolvedAriaLabel" :class="['flex', 'flex-wrap gap-2']">
         <OptionButton
             v-for="(button, index) in displayButtons"
             :key="index"
@@ -67,6 +67,12 @@ const props = defineProps({
         default: 'all',
     },
 })
+
+// Composables
+const dsConfig = useDSConfig()
+
+// Computed
+const resolvedAriaLabel = computed(() => props.ariaLabel || dsConfig.accessibility.optionsText())
 
 // Emits
 const emit = defineEmits(['update:modelValue'])

@@ -45,7 +45,7 @@
                 }"
             >
                 <ActionButton
-                    :text="buttonCloseText"
+                    :text="resolvedButtonCloseText"
                     :class="[orientation === Orientation.HORIZONTAL ? 'w-full md:w-auto' : 'w-full']"
                     @click="handleClose"
                 />
@@ -55,7 +55,7 @@
                     :icon="buttonActionIcon"
                     :text="buttonActionText"
                     :isLoading
-                    :loadingText
+                    :loadingText="resolvedLoadingText"
                     :class="[orientation === Orientation.HORIZONTAL ? 'w-full md:w-auto' : 'w-full']"
                     @click="handleMainAction"
                 />
@@ -80,20 +80,14 @@ const props = defineProps({
         default: 'Modal title',
     },
     description: String as PropType<string>,
-    buttonCloseText: {
-        type: String as PropType<string>,
-        default: 'Close',
-    },
+    buttonCloseText: String as PropType<string>,
     buttonActionText: String as PropType<string>,
     buttonActionIcon: String as PropType<string>,
     isLoading: {
         type: Boolean as PropType<boolean>,
         default: false,
     },
-    loadingText: {
-        type: String as PropType<string>,
-        default: 'Processing...',
-    },
+    loadingText: String as PropType<string>,
     orientation: {
         type: String as PropType<Orientation>,
         default: Orientation.VERTICAL,
@@ -143,6 +137,8 @@ const emit = defineEmits(['update:modelValue', 'close', 'action'])
 
 // Composables
 const dsConfig = useDSConfig()
+const resolvedButtonCloseText = computed(() => props.buttonCloseText ?? dsConfig.actions.closeText())
+const resolvedLoadingText = computed(() => props.loadingText ?? dsConfig.actions.processingText())
 
 // Computed
 const resolvedCloseAriaLabel = computed(() => props.closeAriaLabel ?? dsConfig.actions.closeText())

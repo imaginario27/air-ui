@@ -1,3 +1,5 @@
+import { useUtilsConfig } from '../composables/useUtilsConfig'
+
 /**
  * Formats a number into a string with thousands separators using Intl locale rules.
  *
@@ -18,7 +20,7 @@
  * // "1.234,56"
  */
 export const formatNumberWithThousands = (value: number, locale: string = 'en-GB'): string => {
-    if (!Number.isFinite(value)) return 'Not a valid number'
+    if (!Number.isFinite(value)) return useUtilsConfig().common.invalidNumberText()
 
     return value.toLocaleString(locale, {
         minimumFractionDigits: 0,

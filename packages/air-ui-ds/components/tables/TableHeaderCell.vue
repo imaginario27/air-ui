@@ -8,7 +8,7 @@
                 :size="ButtonSize.XS"
                 :icon="sortAsc ? 'mdi:arrow-up' : 'mdi:arrow-down'"
                 :styleType="sortKey === columnKey ? ButtonStyleType.NEUTRAL_FILLED : ButtonStyleType.NEUTRAL_OUTLINED"
-                :ariaLabel="sortAriaLabel"
+                :ariaLabel="resolvedSortAriaLabel"
                 @click="onToggleSort && onToggleSort()"
             />
         </div>
@@ -47,15 +47,18 @@ const props = defineProps({
         default: false,
     },
     to: String as PropType<string>,
-    sortAriaLabel: {
-        type: String as PropType<string>,
-        default: 'Toggle sort',
-    },
+    sortAriaLabel: String as PropType<string>,
     noWrap: {
         type: Boolean as PropType<boolean>,
         default: false,
     },
 })
+
+// Composables
+const dsConfig = useDSConfig()
+
+// Computed
+const resolvedSortAriaLabel = computed(() => props.sortAriaLabel ?? dsConfig.tables.toggleSortText())
 
 // Computed classes
 const headerClass = computed(() => {

@@ -27,11 +27,11 @@
                 data-testid="signature-pad-guide"
             >
                 <span
-                    v-if="placeholder && isEmpty"
+                    v-if="resolvedPlaceholder && isEmpty"
                     class="mb-2 text-sm text-text-neutral-subtler"
                     data-testid="signature-pad-placeholder"
                 >
-                    {{ placeholder }}
+                    {{ resolvedPlaceholder }}
                 </span>
             </div>
 
@@ -39,7 +39,7 @@
             <svg
                 ref="svgRef"
                 role="img"
-                :aria-label="ariaLabel"
+                :aria-label="resolvedAriaLabel"
                 :aria-labelledby="ariaLabelledby"
                 :aria-disabled="disabled || undefined"
                 :aria-readonly="readOnly || undefined"
@@ -83,7 +83,7 @@
                     :icon="clearIcon"
                     :styleType="ButtonStyleType.NEUTRAL_TRANSPARENT"
                     :size="ButtonSize.SM"
-                    :ariaLabel="clearAriaLabel"
+                    :ariaLabel="resolvedClearAriaLabel"
                     :disabled="disabled || readOnly"
                     data-testid="signature-pad-clear"
                     @click="clear"
@@ -109,10 +109,7 @@ interface SignaturePoint {
 
 // Props
 const props = defineProps({
-    ariaLabel: {
-        type: String as PropType<string>,
-        default: 'Signature pad',
-    },
+    ariaLabel: String as PropType<string>,
     ariaLabelledby: String as PropType<string>,
     modelValue: {
         type: Array as PropType<string[]>,
@@ -135,10 +132,7 @@ const props = defineProps({
         type: Boolean as PropType<boolean>,
         default: true,
     },
-    placeholder: {
-        type: String as PropType<string>,
-        default: 'Sign here',
-    },
+    placeholder: String as PropType<string>,
     showClearButton: {
         type: Boolean as PropType<boolean>,
         default: true,
@@ -147,10 +141,7 @@ const props = defineProps({
         type: String as PropType<string>,
         default: 'mdi:eraser',
     },
-    clearAriaLabel: {
-        type: String as PropType<string>,
-        default: 'Clear signature',
-    },
+    clearAriaLabel: String as PropType<string>,
     hasError: {
         type: Boolean as PropType<boolean>,
         default: false,
@@ -164,6 +155,14 @@ const props = defineProps({
         default: false,
     },
 })
+
+// Composables
+const dsConfig = useDSConfig()
+
+// Computed
+const resolvedAriaLabel = computed(() => props.ariaLabel ?? dsConfig.accessibility.signaturePadText())
+const resolvedPlaceholder = computed(() => props.placeholder ?? dsConfig.forms.signHereText())
+const resolvedClearAriaLabel = computed(() => props.clearAriaLabel ?? dsConfig.forms.clearSignatureText())
 
 // Emits
 const emit = defineEmits(['update:modelValue', 'draw', 'draw-end', 'clear'])

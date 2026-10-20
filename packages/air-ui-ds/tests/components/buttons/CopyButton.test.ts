@@ -124,4 +124,15 @@ describe('CopyButton.vue', () => {
         const wrapper = factory({ disabled: true })
         expect(wrapper.find('button').attributes('disabled')).toBeDefined()
     })
+
+    it('follows the DS config text when it changes while mounted', async () => {
+        const dsConfig = useDSConfig()
+        const wrapper = factory({ text: undefined, buttonType: ButtonType.ACTION_BUTTON })
+
+        dsConfig.actions.copyText = () => 'Copiar'
+        await wrapper.vm.$nextTick()
+        expect(wrapper.findComponent(ActionButton).props('text')).toBe('Copiar')
+
+        dsConfig.actions.copyText = () => 'Copy'
+    })
 })

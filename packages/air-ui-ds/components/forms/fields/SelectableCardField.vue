@@ -15,7 +15,12 @@
         <!-- Help Text (top) -->
         <HelpText v-if="helpTextPosition === Position.TOP" :text="helpText" :error="error" />
 
-        <Loading v-if="showLoadingState && isLoading" :isLoading :loadingText :spinnerSize="LoadingSpinnerSize.XS" />
+        <Loading
+            v-if="showLoadingState && isLoading"
+            :isLoading
+            :loadingText="resolvedLoadingText"
+            :spinnerSize="LoadingSpinnerSize.XS"
+        />
 
         <template v-if="!isLoading">
             <!-- Card Options -->
@@ -42,15 +47,15 @@
                     :disabled="option.disabled || disabled"
                     :buttonSize
                     :hasSecondaryBtn="option.hasSecondaryBtn || hasSecondaryBtn"
-                    :secondaryBtnText="option.secondaryBtnText || secondaryBtnText"
+                    :secondaryBtnText="option.secondaryBtnText || resolvedSecondaryBtnText"
                     :secondaryBtnStyleType
                     :secondaryBtnIconPosition="option.secondaryBtnIconPosition || secondaryBtnIconPosition"
                     :secondaryBtnIcon="option.secondaryBtnIcon || secondaryBtnIcon"
                     :selectBtnStyleType
                     :selectBtnIconPosition
                     :selectBtnIcon
-                    :selectText
-                    :selectedText
+                    :selectText="resolvedSelectText"
+                    :selectedText="resolvedSelectedText"
                     :hasFooter
                     :footerContentAlign
                     :isHoverable="selectMode === CardSelectionMode.CARD"
@@ -135,10 +140,7 @@ const props = defineProps({
         type: Boolean as PropType<boolean>,
         default: false,
     },
-    loadingText: {
-        type: String as PropType<string>,
-        default: 'Loading',
-    },
+    loadingText: String as PropType<string>,
     titleClass: String as PropType<string>,
     descriptionClass: String as PropType<string>,
     checkIcon: {
@@ -169,10 +171,7 @@ const props = defineProps({
         type: Boolean as PropType<boolean>,
         default: true,
     },
-    secondaryBtnText: {
-        type: String as PropType<string>,
-        default: 'Details',
-    },
+    secondaryBtnText: String as PropType<string>,
     secondaryBtnStyleType: {
         type: String as PropType<ButtonStyleType>,
         default: ButtonStyleType.NEUTRAL_OUTLINED,
@@ -201,14 +200,8 @@ const props = defineProps({
         type: String as PropType<string>,
         default: 'mdi:arrow-right',
     },
-    selectText: {
-        type: String as PropType<string>,
-        default: 'Select',
-    },
-    selectedText: {
-        type: String as PropType<string>,
-        default: 'Selected',
-    },
+    selectText: String as PropType<string>,
+    selectedText: String as PropType<string>,
     hasFooter: {
         type: Boolean as PropType<boolean>,
         default: true,
@@ -250,6 +243,10 @@ const emit = defineEmits(['update:modelValue', 'update:error', 'buttonClick'])
 // Composables
 const validationMode = useInjectedValidationMode()
 const dsConfig = useDSConfig()
+const resolvedLoadingText = computed(() => props.loadingText ?? dsConfig.common.loadingText())
+const resolvedSecondaryBtnText = computed(() => props.secondaryBtnText ?? dsConfig.cards.detailsText())
+const resolvedSelectText = computed(() => props.selectText ?? dsConfig.cards.selectText())
+const resolvedSelectedText = computed(() => props.selectedText ?? dsConfig.cards.selectedText())
 
 // Computed
 const hasError = computed(() => props.error !== '')

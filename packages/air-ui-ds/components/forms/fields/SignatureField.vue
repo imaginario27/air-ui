@@ -24,10 +24,10 @@
             :minWidth="minWidth"
             :strokeSize="strokeSize"
             :showGuide="showGuide"
-            :placeholder="placeholder"
+            :placeholder="resolvedPlaceholder"
             :showClearButton="showClearButton"
             :clearIcon="clearIcon"
-            :clearAriaLabel="clearAriaLabel"
+            :clearAriaLabel="resolvedClearAriaLabel"
             :hasError="hasError"
             :disabled="disabled"
             :readOnly="readOnly"
@@ -89,10 +89,7 @@ const props = defineProps({
         type: Boolean as PropType<boolean>,
         default: true,
     },
-    placeholder: {
-        type: String as PropType<string>,
-        default: 'Sign here',
-    },
+    placeholder: String as PropType<string>,
     showClearButton: {
         type: Boolean as PropType<boolean>,
         default: true,
@@ -101,10 +98,7 @@ const props = defineProps({
         type: String as PropType<string>,
         default: 'mdi:eraser',
     },
-    clearAriaLabel: {
-        type: String as PropType<string>,
-        default: 'Clear signature',
-    },
+    clearAriaLabel: String as PropType<string>,
     disabled: {
         type: Boolean as PropType<boolean>,
         default: false,
@@ -127,6 +121,8 @@ const emit = defineEmits(['update:modelValue', 'update:error', 'draw', 'draw-end
 
 const validationMode = useInjectedValidationMode()
 const dsConfig = useDSConfig()
+const resolvedPlaceholder = computed(() => props.placeholder ?? dsConfig.forms.signHereText())
+const resolvedClearAriaLabel = computed(() => props.clearAriaLabel ?? dsConfig.forms.clearSignatureText())
 
 const padRef = ref<{ clear: () => void; getDataUrl: (type?: string, quality?: number) => string } | null>(null)
 

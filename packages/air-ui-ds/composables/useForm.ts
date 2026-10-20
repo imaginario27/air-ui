@@ -22,6 +22,8 @@ export const useForm = <T extends Record<string, any>>(options: {
         return path.split('.').reduce((o, k) => o?.[k], obj)
     }
 
+    const utilsConfig = useUtilsConfig()
+
     const validateField = (fieldPath: string): string => {
         const value = getDeep(options.formData, fieldPath)
         const validator = options.validators?.[fieldPath]
@@ -32,11 +34,24 @@ export const useForm = <T extends Record<string, any>>(options: {
         }
 
         if (value === undefined || value === null || (typeof value === 'string' && (value as string).trim() === '')) {
-            return options.requiredFieldMessage ?? 'This field is required'
+            return options.requiredFieldMessage ?? utilsConfig.validation.requiredFieldMessage()
         }
 
         return ''
     }
+
+    // Error texts are stored already translated: when the app signals a change (e.g. locale),
+    // recompute those of the fields currently showing an error.
+    watch(
+        () => utilsConfig.revalidateOn?.(),
+        () => {
+            for (const path of options.requiredFields) {
+                if (!getDeep(formErrors, path)) continue
+                const next = validateField(path)
+                if (next) setDeep(formErrors, path, next)
+            }
+        },
+    )
 
     const validateFormFields = (): boolean => {
         let isValid = true

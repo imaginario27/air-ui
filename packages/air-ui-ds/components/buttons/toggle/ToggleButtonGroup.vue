@@ -2,7 +2,7 @@
     <div
         :id="id"
         role="group"
-        :aria-label="ariaLabel || 'Toggle options'"
+        :aria-label="resolvedAriaLabel"
         :class="[
             'flex',
             groupStyle === ToggleButtonGroupStyle.GROUPED ? '' : 'flex-wrap gap-3',
@@ -94,6 +94,12 @@ const props = defineProps({
         default: false,
     },
 })
+
+// Composables
+const dsConfig = useDSConfig()
+
+// Computed
+const resolvedAriaLabel = computed(() => props.ariaLabel || dsConfig.accessibility.toggleOptionsText())
 
 // Emits
 const emit = defineEmits(['update:modelValue'])

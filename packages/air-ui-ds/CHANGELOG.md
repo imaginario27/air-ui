@@ -5,6 +5,21 @@ All notable changes to this package are documented in this file.
 Historical releases were reconstructed from git history (GitHub repository) and npm publish dates.
 Future releases will include detailed entries generated with Changesets.
 
+## 1.29.0 - 2026-10-20
+
+Release type: minor.
+Commits found in range: 2.
+
+### Added
+
+1. add configurable texts and `aria-labels` to `useDSConfig` ([1aa700a](https://github.com/imaginario27/air-ui/commit/1aa700a52be678a1b351c38f753e2b9692d9ec73))
+
+### Fixed
+
+1. show focus ring only on keyboard focus in action buttons ([cb2e330](https://github.com/imaginario27/air-ui/commit/cb2e33098e2b0244ebc5d32f58b1dfea4ad2ac48))
+
+- Package: @imaginario27/air-ui-ds.
+
 ## 1.28.0 - 2026-10-20
 
 Release type: minor.

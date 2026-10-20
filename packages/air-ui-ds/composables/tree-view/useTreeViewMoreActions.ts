@@ -9,6 +9,7 @@ export const useTreeViewMoreActions = (
     appearance: ReturnType<typeof useTreeViewAppearance>,
     rename: ReturnType<typeof useTreeViewRename>,
 ) => {
+    const dsConfig = useDSConfig()
     const { rows, isBranch, isDisabled } = structure
 
     const actionsValue = ref<string | null>(null)
@@ -34,7 +35,7 @@ export const useTreeViewMoreActions = (
                         : resolve) ?? []
 
                 const renameItem: DropdownMenuItem = {
-                    text: props.renameLabel,
+                    text: props.renameLabel ?? dsConfig.actions.renameText(),
                     icon: 'mdi:pencil-outline',
                     type: DropdownItemType.ICON,
                     actionType: DropdownActionType.ACTION,

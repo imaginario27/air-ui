@@ -1,6 +1,6 @@
 <template>
     <output
-        aria-label="Loading"
+        :aria-label="ariaLabel ?? dsConfig.accessibility.spinnerText()"
         :class="[
             'animate-spin',
             'rounded-full',
@@ -12,3 +12,11 @@
         ]"
     />
 </template>
+
+<script setup lang="ts">
+defineProps({
+    ariaLabel: String as PropType<string>,
+})
+
+const dsConfig = useDSConfig()
+</script>

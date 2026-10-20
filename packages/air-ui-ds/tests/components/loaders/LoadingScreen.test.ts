@@ -31,7 +31,7 @@ describe('LoadingScreen.vue', () => {
 
         const loading = wrapper.findComponent(Loading)
         expect(loading.exists()).toBe(true)
-        expect(loading.props('text')).toBe('Loading')
+        expect(loading.props('text')).toBe('Loading...')
         expect(wrapper.findComponent(ContainedIcon).exists()).toBe(false)
         expect(wrapper.findComponent(ActionButton).exists()).toBe(false)
     })
@@ -63,11 +63,7 @@ describe('LoadingScreen.vue', () => {
 
         expect(wrapper.props()).toMatchObject({
             isLoading: true,
-            loadingText: 'Loading',
             error: null,
-            title: 'Oops! Something went wrong!',
-            helpText: 'Please try again or report the error to us. Thank you!',
-            goBackText: 'Go back',
             goBackLink: '/',
             goBackIcon: 'mdi:keyboard-backspace',
             isFullScreen: true,

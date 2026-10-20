@@ -311,7 +311,7 @@ const displayValue = (value: string) => {
 }
 
 const getInputAriaLabel = (index: number) => {
-    const baseLabel = props.label || props.ariaLabel || 'PIN code'
+    const baseLabel = props.label || props.ariaLabel || dsConfig.accessibility.pinCodeText()
     return `${baseLabel} ${index + 1}`
 }
 

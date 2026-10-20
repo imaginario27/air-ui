@@ -12,7 +12,7 @@
             containerClass,
         ]"
     >
-        <Loading :isLoading :text="loadingText" :spinnerSize />
+        <Loading :isLoading :text="resolvedLoadingText" :spinnerSize />
     </div>
     <div
         v-if="!isLoading && error"
@@ -40,7 +40,7 @@
 
         <div :class="['flex', 'flex-col', isSpaced ? 'gap-3' : 'gap-2', 'items-center', 'w-full', 'max-w-[800px]']">
             <h1 :class="titleClass">
-                {{ title }}
+                {{ resolvedTitle }}
             </h1>
             <p :class="errorTextClass">
                 {{ error }}
@@ -48,7 +48,7 @@
         </div>
 
         <p :class="helpTextClass">
-            {{ helpText }}
+            {{ resolvedHelpText }}
         </p>
 
         <div
@@ -68,7 +68,7 @@
                     v-if="hasGoBackButton"
                     :actionType="ButtonActionType.LINK"
                     :styleType="hasRetryButton ? ButtonStyleType.NEUTRAL_FILLED : undefined"
-                    :text="goBackText"
+                    :text="resolvedGoBackText"
                     :icon="goBackIcon"
                     :iconPosition="IconPosition.LEFT"
                     :size="buttonSize"
@@ -90,7 +90,7 @@
                     />
 
                     <p v-else class="text-xs text-text-neutral-subtle mt-4">
-                        {{ retryLimitReachedText }}
+                        {{ resolvedRetryLimitReachedText }}
                     </p>
                 </template>
             </template>
@@ -108,30 +108,18 @@ const props = defineProps({
         type: Boolean as PropType<boolean>,
         default: true,
     },
-    loadingText: {
-        type: String as PropType<string>,
-        default: 'Loading',
-    },
+    loadingText: String as PropType<string>,
     error: {
         type: [String, null] as PropType<string | null>,
         default: null,
     },
-    title: {
-        type: String as PropType<string>,
-        default: 'Oops! Something went wrong!',
-    },
-    helpText: {
-        type: String as PropType<string>,
-        default: 'Please try again or report the error to us. Thank you!',
-    },
+    title: String as PropType<string>,
+    helpText: String as PropType<string>,
     hasGoBackButton: {
         type: Boolean as PropType<boolean>,
         default: true,
     },
-    goBackText: {
-        type: String as PropType<string>,
-        default: 'Go back',
-    },
+    goBackText: String as PropType<string>,
     goBackLink: {
         type: String as PropType<string>,
         default: '/',
@@ -144,18 +132,9 @@ const props = defineProps({
         type: Boolean as PropType<boolean>,
         default: false,
     },
-    retryText: {
-        type: String as PropType<string>,
-        default: 'Try again',
-    },
-    retryLimitReachedText: {
-        type: String as PropType<string>,
-        default: 'Retry limit reached. Please refresh the page or contact support.',
-    },
-    cooldownText: {
-        type: String as PropType<string>,
-        default: 'Retry in',
-    },
+    retryText: String as PropType<string>,
+    retryLimitReachedText: String as PropType<string>,
+    cooldownText: String as PropType<string>,
     maxRetryCycles: {
         type: Number as PropType<number>,
         default: 2,
@@ -201,6 +180,20 @@ const props = defineProps({
     },
 })
 
+// Composables
+const dsConfig = useDSConfig()
+
+// Computed
+const resolvedLoadingText = computed(() => props.loadingText ?? dsConfig.common.loadingText())
+const resolvedTitle = computed(() => props.title ?? dsConfig.loaders.errorTitleText())
+const resolvedHelpText = computed(() => props.helpText ?? dsConfig.loaders.errorDescriptionText())
+const resolvedGoBackText = computed(() => props.goBackText ?? dsConfig.actions.goBackText())
+const resolvedRetryText = computed(() => props.retryText ?? dsConfig.actions.tryAgainText())
+const resolvedRetryLimitReachedText = computed(
+    () => props.retryLimitReachedText ?? dsConfig.loaders.retryLimitReachedText(),
+)
+const resolvedCooldownText = computed(() => props.cooldownText ?? dsConfig.loaders.retryInText())
+
 // Emits
 const emit = defineEmits(['retry'])
 
@@ -215,10 +208,10 @@ const temporarilyDisabled = ref(false)
 // Retry button text
 const retryButtonText = computed(() => {
     if (isCoolingDown.value) {
-        return `${props.cooldownText} ${remainingSeconds.value}s`
+        return `${resolvedCooldownText.value} ${remainingSeconds.value}s`
     }
 
-    return props.retryText
+    return resolvedRetryText.value
 })
 
 // Combined disabled state

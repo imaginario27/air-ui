@@ -9,7 +9,7 @@
             step="1"
             :value="selectedIndex"
             class="peer sr-only"
-            :aria-label="ariaLabel || 'Select step'"
+            :aria-label="resolvedAriaLabel"
             :aria-valuetext="selectedStep?.label ?? String(selectedStep?.value ?? '')"
             :disabled="disabled"
             @input="handleNativeInput"
@@ -122,6 +122,12 @@ const props = defineProps({
         validator: (value: SwitchStyle) => Object.values(SwitchStyle).includes(value),
     },
 })
+
+// Composables
+const dsConfig = useDSConfig()
+
+// Computed
+const resolvedAriaLabel = computed(() => props.ariaLabel || dsConfig.accessibility.selectStepText())
 
 // Emits
 const emit = defineEmits(['update:modelValue'])

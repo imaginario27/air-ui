@@ -4,8 +4,8 @@ AirUI exposes a small set of behaviors as shared, reactive configuration instead
 
 There are two config composables, one per package:
 
-- `useDSConfig` (from `@imaginario27/air-ui-ds`): text used by components, grouped under `forms`, `actions`, `common`, `pagination`, `gallery`, `lightbox`, `calendar`, `timePicker` and `slides`, and the default glow of cards, modals, buttons and inputs, grouped under `glow`.
-- `useUtilsConfig` (from `@imaginario27/air-ui-utils`): messages used by the framework-agnostic form validators in `air-ui-utils`, grouped under `validation`.
+- `useDSConfig` (from `@imaginario27/air-ui-ds`): text used by components, grouped under `forms`, `actions`, `common`, `loaders`, `tables`, `pagination`, `navigation`, `cards`, `notifications`, `treeView`, `accessibility`, `gallery`, `lightbox`, `calendar`, `timePicker` and `slides`, and the default glow of cards, modals, buttons and inputs, grouped under `glow`.
+- `useUtilsConfig` (from `@imaginario27/air-ui-utils`): messages used by the framework-agnostic form validators in `air-ui-utils`, grouped under `validation`, and a few shared texts of its helpers, grouped under `common`.
 
 <br/>
 
@@ -50,6 +50,13 @@ export default defineNuxtPlugin(() => {
         loadingOptionsText: () => 'Loading options...',
         clearSelectionText: () => 'Clear selection',
         clearSearchText: () => 'Clear search',
+        togglePasswordVisibilityText: () => 'Toggle password visibility',
+        suffixActionText: () => 'Suffix action',
+        sliderMinText: () => 'Min: ',
+        sliderMaxText: () => 'Max: ',
+        signHereText: () => 'Sign here',
+        clearSignatureText: () => 'Clear signature',
+        tagsPlaceholderText: () => 'Enter values separated by commas',
     })
 
     Object.assign(dsConfig.forms.fileUpload, {
@@ -59,6 +66,41 @@ export default defineNuxtPlugin(() => {
         uploadedText: () => 'Uploaded',
         uploadFailedText: () => 'Upload failed',
         removeFileText: () => 'Remove file',
+        selectFileText: () => 'Select file',
+        dragDropSingleText: () => 'Drag and drop a file here',
+        replaceFileText: () => 'Replace file',
+        replaceDescriptionText: () => 'Upload a new file to replace current one',
+        allFileTypesText: () => 'All file types',
+        upToText: () => 'up to',
+        invalidFilesText: () => 'The size or format of one or more files is incorrect.',
+        pendingText: () => 'Pending',
+        retryUploadText: () => 'Retry upload',
+    })
+
+    /* Text used by the RepeaterField */
+    Object.assign(dsConfig.forms.repeater, {
+        addText: () => 'Add item',
+        removeText: () => 'Remove item',
+        moveUpAriaText: () => 'Move item up',
+        moveDownAriaText: () => 'Move item down',
+        moveUpText: () => 'Move up',
+        moveDownText: () => 'Move down',
+        dragHandleAriaText: () => 'Drag to reorder item',
+    })
+
+    /* Text used by the RulesField */
+    Object.assign(dsConfig.forms.rules, {
+        itemAriaText: () => 'Rule item',
+        operatorAriaText: () => 'Rule operator',
+        valueAriaText: () => 'Rule value',
+        addText: () => 'Add rule',
+        removeText: () => 'Remove rule',
+        moveUpAriaText: () => 'Move rule up',
+        moveDownAriaText: () => 'Move rule down',
+        dragHandleAriaText: () => 'Drag to reorder rule',
+        itemPlaceholderText: () => 'Select item',
+        operatorPlaceholderText: () => 'Select operator',
+        valuePlaceholderText: () => 'Enter value',
     })
 
     /* Text used by action buttons along the design system */
@@ -66,11 +108,38 @@ export default defineNuxtPlugin(() => {
         cancelText: () => 'Cancel',
         clearAllText: () => 'Clear all',
         closeText: () => 'Close',
+        clearText: () => 'Clear',
+        deleteText: () => 'Delete',
+        removeText: () => 'Remove',
+        processingText: () => 'Processing...',
+        goBackText: () => 'Go back',
+        backToHomeText: () => 'Back to home page',
+        tryAgainText: () => 'Try again',
+        copyText: () => 'Copy',
+        renameText: () => 'Rename',
+        moreOptionsText: () => 'More options',
     })
 
     /* Shared text used across multiple component types */
     Object.assign(dsConfig.common, {
         loadingText: () => 'Loading...',
+        notDefinedText: () => 'Not defined',
+        copiedText: () => 'Copied to clipboard',
+        copyFailedText: () => 'Failed to copy to clipboard',
+        dropHereText: () => 'Drop here',
+    })
+
+    /* Text used by the LoadingScreen error state */
+    Object.assign(dsConfig.loaders, {
+        errorTitleText: () => 'Oops! Something went wrong!',
+        errorDescriptionText: () => 'Please try again or report the error to us. Thank you!',
+        retryLimitReachedText: () => 'Retry limit reached. Please refresh the page or contact support.',
+        retryInText: () => 'Retry in',
+    })
+
+    /* Text used by the table components */
+    Object.assign(dsConfig.tables, {
+        toggleSortText: () => 'Toggle sort',
     })
 
     /* Text used by ButtonPagination, SimplePagination and the Gallery pagination */
@@ -81,6 +150,68 @@ export default defineNuxtPlugin(() => {
         previousPageText: () => 'Previous page',
         nextPageText: () => 'Next page',
         pageText: () => 'Page {page}',
+        rowsText: () => 'Rows',
+    })
+
+    /* Text used by the NavSidebar, the CompactHeader, the Breadcrumbs and the TableOfContents */
+    Object.assign(dsConfig.navigation, {
+        openSidebarText: () => 'Open sidebar',
+        closeSidebarText: () => 'Close sidebar',
+        collapseSidebarText: () => 'Collapse sidebar',
+        expandSidebarText: () => 'Expand sidebar',
+        openMobileMenuText: () => 'Open mobile menu',
+        breadcrumbText: () => 'Breadcrumb',
+        tableOfContentsText: () => 'Table of contents',
+    })
+
+    /* Text used by the SelectableCard and the SelectableCardField */
+    Object.assign(dsConfig.cards, {
+        selectText: () => 'Select',
+        selectedText: () => 'Selected',
+        detailsText: () => 'Details',
+    })
+
+    /* Text used by the NotificationsPopover and its items */
+    Object.assign(dsConfig.notifications, {
+        removeText: () => 'Remove notification',
+        emptyText: () => 'No notifications available.',
+        loadingText: () => 'Loading notifications',
+        titleText: () => 'Notifications',
+        viewAllText: () => 'View all',
+        markAllAsReadText: () => 'Mark all as read',
+        allText: () => 'All',
+        unreadText: () => 'Unread',
+    })
+
+    /* Text used by the TreeView */
+    Object.assign(dsConfig.treeView, {
+        loadErrorText: () => 'Failed to load. Click to retry.',
+        labelText: () => 'Tree view',
+    })
+
+    /* Accessible names (aria-label and alt) used when a component has no label of its own.
+       Texts with {placeholders} are filled in by the component */
+    Object.assign(dsConfig.accessibility, {
+        toggleText: () => 'Toggle',
+        toggleOptionsText: () => 'Toggle options',
+        optionsText: () => 'Options',
+        selectStepText: () => 'Select step',
+        angleSliderText: () => 'Angle slider',
+        ratingText: () => 'Rating',
+        ratingValueText: () => 'Rating: {value} out of 5',
+        ratingStarText: () => '{count} star',
+        ratingStarsText: () => '{count} stars',
+        qrCodeText: () => 'QR code: {value}',
+        progressText: () => 'Progress',
+        navigationButtonText: () => 'Navigation button',
+        tabDecorationText: () => 'Tab decoration',
+        avatarText: () => '{name} avatar',
+        spinnerText: () => 'Loading',
+        signaturePadText: () => 'Signature pad',
+        pinCodeText: () => 'PIN code',
+        sliderText: () => 'Slider',
+        sliderThumbText: () => '{label} thumb',
+        sliderThumbIndexText: () => '{label} thumb {index}',
     })
 
     /* Text used by the Gallery component */
@@ -215,9 +346,23 @@ export default defineNuxtPlugin(() => {
         passwordsDoNotMatchMessage: () => 'Passwords do not match.',
         invalidDateRangeMessage: () => 'Start date must be before or equal to end date',
         invalidUrlMessage: () => 'Invalid URL.',
+        requiredEmailMessage: () => 'Email is required.',
+        minItemsMessage: (min) => `At least ${min} item${min > 1 ? 's' : ''} required`,
+        maxItemsMessage: (max) => `No more than ${max} item${max > 1 ? 's' : ''} allowed`,
+        atLeastOneRuleMessage: () => 'Add at least one complete rule.',
+        incompleteRuleMessage: () => 'Complete all rule fields before continuing.',
+        maxRulesMessage: (max) => `No more than ${max} rule${max > 1 ? 's' : ''} allowed.`,
+    })
+
+    /* Shared texts of air-ui-utils's helpers */
+    Object.assign(utilsConfig.common, {
+        invalidNumberText: () => 'Not a valid number',
+        readMoreText: () => 'Read more',
     })
 })
 ```
+
+The `minItemsMessage`, `maxItemsMessage` and `maxRulesMessage` resolvers receive the limit, so each language can pluralize on its own.
 
 #### Translations
 
@@ -239,7 +384,21 @@ export default defineNuxtPlugin(() => {
     Object.assign(utilsConfig.validation, {
         requiredFieldMessage: () => t('validation.required'),
         invalidEmailMessage: () => t('validation.invalidEmail'),
+        minItemsMessage: (min) => t('validation.minItems', { count: min }),
     })
+})
+```
+
+#### Updating texts when the language changes
+
+Error messages are stored already translated, so a form that is showing an error keeps the old language when the locale changes. Set `revalidateOn` on the utils config to a function that reads your reactive locale. `useForm` watches it and recomputes the messages of the fields that currently show an error:
+
+```ts
+// plugins/air-ui-config.ts
+export default defineNuxtPlugin(() => {
+    const utilsConfig = useUtilsConfig()
+
+    utilsConfig.revalidateOn = () => useNuxtApp().$i18n.locale.value
 })
 ```
 

@@ -142,7 +142,7 @@
                                         :styleType="retryButtonStyleType"
                                         :class="retryButtonClass"
                                         :iconClass="normalizedRetryIconClass"
-                                        :ariaLabel="retryAriaLabel"
+                                        :ariaLabel="resolvedRetryAriaLabel"
                                         @click.stop="retryUpload(file)"
                                     />
 
@@ -255,10 +255,7 @@ const props = defineProps({
         default: () => [],
     },
     title: String as PropType<string>,
-    singleFileTitleText: {
-        type: String as PropType<string>,
-        default: 'Drag and drop a file here',
-    },
+    singleFileTitleText: String as PropType<string>,
     description: {
         type: String as PropType<string>,
         default: '',
@@ -268,18 +265,9 @@ const props = defineProps({
         default: 'mdi:cloud-upload-outline',
     },
     buttonText: String as PropType<string>,
-    singleFileButtonText: {
-        type: String as PropType<string>,
-        default: 'Select file',
-    },
-    upToText: {
-        type: String as PropType<string>,
-        default: 'up to',
-    },
-    allFilesTypeText: {
-        type: String as PropType<string>,
-        default: 'All file types',
-    },
+    singleFileButtonText: String as PropType<string>,
+    upToText: String as PropType<string>,
+    allFilesTypeText: String as PropType<string>,
     disabled: {
         type: Boolean as PropType<boolean>,
         default: false,
@@ -300,10 +288,7 @@ const props = defineProps({
         type: Number as PropType<number>,
         default: 1,
     },
-    fileUploadErrorMessage: {
-        type: String as PropType<string>,
-        default: 'The size or format of one ore more files is incorrect.',
-    },
+    fileUploadErrorMessage: String as PropType<string>,
     itemsLayout: {
         type: String as PropType<DropzoneLayout>,
         default: DropzoneLayout.LIST,
@@ -358,10 +343,7 @@ const props = defineProps({
     uploadingStatusText: String as PropType<string>,
     successStatusText: String as PropType<string>,
     errorStatusText: String as PropType<string>,
-    pendingStatusText: {
-        type: String as PropType<string>,
-        default: 'Pending',
-    },
+    pendingStatusText: String as PropType<string>,
 
     retryIcon: {
         type: String as PropType<string>,
@@ -402,10 +384,7 @@ const props = defineProps({
     fileItemClass: String as PropType<string>,
     fileNameClass: String as PropType<string>,
     fileMetaClass: String as PropType<string>,
-    retryAriaLabel: {
-        type: String as PropType<string>,
-        default: 'Retry upload',
-    },
+    retryAriaLabel: String as PropType<string>,
     removeAriaLabel: String as PropType<string>,
 })
 
@@ -430,6 +409,19 @@ const uploadMetaMap = reactive<Record<string, UploadMeta>>({})
 
 // Composables
 const dsConfig = useDSConfig()
+const resolvedSingleFileTitleText = computed(
+    () => props.singleFileTitleText ?? dsConfig.forms.fileUpload.dragDropSingleText(),
+)
+const resolvedSingleFileButtonText = computed(
+    () => props.singleFileButtonText ?? dsConfig.forms.fileUpload.selectFileText(),
+)
+const resolvedUpToText = computed(() => props.upToText ?? dsConfig.forms.fileUpload.upToText())
+const resolvedAllFilesTypeText = computed(() => props.allFilesTypeText ?? dsConfig.forms.fileUpload.allFileTypesText())
+const resolvedFileUploadErrorMessage = computed(
+    () => props.fileUploadErrorMessage ?? dsConfig.forms.fileUpload.invalidFilesText(),
+)
+const resolvedPendingStatusText = computed(() => props.pendingStatusText ?? dsConfig.forms.fileUpload.pendingText())
+const resolvedRetryAriaLabel = computed(() => props.retryAriaLabel ?? dsConfig.forms.fileUpload.retryUploadText())
 
 // Computed: global-config-backed text (an explicit prop always wins)
 const resolvedDragDropText = computed(() => props.title ?? dsConfig.forms.fileUpload.dragDropText())
@@ -459,7 +451,7 @@ const inputAccept = computed(() => {
 
 const acceptedTypeLabels = computed(() => {
     if (normalizedAcceptList.value.includes('*')) {
-        return props.allFilesTypeText
+        return resolvedAllFilesTypeText.value
     }
 
     return normalizedAcceptList.value
@@ -478,17 +470,17 @@ const acceptedTypeLabels = computed(() => {
 
 const resolvedTitle = computed(() => {
     if (props.multiple) return resolvedDragDropText.value
-    return props.singleFileTitleText
+    return resolvedSingleFileTitleText.value
 })
 
 const resolvedDescription = computed(() => {
     if (props.description) return props.description
-    return `${acceptedTypeLabels.value} ${props.upToText} ${props.maxFileSize}MB`
+    return `${acceptedTypeLabels.value} ${resolvedUpToText.value} ${props.maxFileSize}MB`
 })
 
 const resolvedSelectButtonText = computed(() => {
     if (props.multiple) return resolvedSelectFilesText.value
-    return props.singleFileButtonText
+    return resolvedSingleFileButtonText.value
 })
 
 const canShowClearAllButton = computed(() => {
@@ -665,7 +657,7 @@ const getUploadStatusText = (file: File) => {
 
     if (status === 'success') return resolvedSuccessStatusText.value
     if (status === 'error') return resolvedErrorStatusText.value
-    return props.pendingStatusText
+    return resolvedPendingStatusText.value
 }
 
 const getUploadStatusClass = (file: File, isOnDarkOverlay: boolean) => {
@@ -746,13 +738,13 @@ const validateFiles = (files: File[]) => {
 
     for (const file of files) {
         if (!isAcceptedFile(file)) {
-            emit('error', props.fileUploadErrorMessage)
+            emit('error', resolvedFileUploadErrorMessage.value)
             continue
         }
 
         const fileSizeInMb = file.size / (1024 * 1024)
         if (fileSizeInMb > props.maxFileSize) {
-            emit('error', props.fileUploadErrorMessage)
+            emit('error', resolvedFileUploadErrorMessage.value)
             continue
         }
 
@@ -775,7 +767,7 @@ const buildNextFiles = (incomingFiles: File[]) => {
     const nextFiles = props.multiple ? [...baseFiles, ...validated] : validated.slice(0, 1)
 
     if (nextFiles.length > props.maxFiles) {
-        emit('error', props.fileUploadErrorMessage)
+        emit('error', resolvedFileUploadErrorMessage.value)
         return nextFiles.slice(0, props.maxFiles)
     }
 
@@ -822,7 +814,7 @@ const uploadFile = async (file: File) => {
                 status: 'error',
                 progress: 0,
             })
-            emit('error', props.fileUploadErrorMessage)
+            emit('error', resolvedFileUploadErrorMessage.value)
             resolve()
         }
 
@@ -832,7 +824,7 @@ const uploadFile = async (file: File) => {
                     status: 'error',
                     progress: 0,
                 })
-                emit('error', props.fileUploadErrorMessage)
+                emit('error', resolvedFileUploadErrorMessage.value)
                 resolve()
                 return
             }
@@ -895,7 +887,7 @@ const deleteFileOnServer = async (file: File) => {
             }),
         })
     } catch {
-        emit('error', props.fileUploadErrorMessage)
+        emit('error', resolvedFileUploadErrorMessage.value)
     }
 }
 

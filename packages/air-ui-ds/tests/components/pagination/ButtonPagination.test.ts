@@ -244,7 +244,7 @@ describe('ButtonPagination', () => {
         const wrapper = factory({ modelValue: 5, totalItems: 200 })
         const ellipsis = wrapper.findAllComponents({ name: 'PaginationButton' }).find((btn) => btn.text() === '...')
 
-        expect(ellipsis?.props('ariaLabel')).toBe('Navigation button')
+        expect(ellipsis?.attributes('aria-label')).toBe('Navigation button')
     })
 })
 

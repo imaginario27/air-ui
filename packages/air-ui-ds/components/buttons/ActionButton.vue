@@ -14,7 +14,7 @@
             horizontalPaddingClass,
             gapClass,
             'self-start',
-            !hasFocusRing && 'focus:!ring-0 focus:!ring-offset-0',
+            !hasFocusRing && 'focus-visible:!ring-0 focus-visible:!ring-offset-0',
             isFullWidth && 'w-full',
             isMobileFullWidth && 'w-full md:w-auto',
             ...glowClass,
@@ -41,7 +41,7 @@
                     textClass,
                 ]"
             >
-                {{ loadingText }}
+                {{ resolvedLoadingText }}
             </span>
         </template>
 
@@ -179,12 +179,15 @@ const props = defineProps({
         type: Boolean as PropType<boolean>,
         default: false,
     },
-    loadingText: {
-        type: String as PropType<string>,
-        default: 'Processing...',
-    },
+    loadingText: String as PropType<string>,
     id: String as PropType<string>,
 })
+
+// Composables
+const dsConfig = useDSConfig()
+
+// Computed
+const resolvedLoadingText = computed(() => props.loadingText ?? dsConfig.actions.processingText())
 
 // Glow
 const { glowClass } = useButtonGlow(props)
@@ -203,40 +206,40 @@ const buttonStyleClass = computed(() => {
         [ButtonStyleType.PRIMARY_BRAND_FILLED]: [
             'bg-background-primary-brand-default',
             !props.disabled && 'hover:bg-background-primary-brand-hover',
-            'focus:ring-offset-2',
-            'focus:ring-2',
-            'focus:ring-border-primary-brand-default',
+            'focus-visible:ring-offset-2',
+            'focus-visible:ring-2',
+            'focus-visible:ring-border-primary-brand-default',
             'text-text-neutral-on-filled',
         ],
         [ButtonStyleType.PRIMARY_BRAND_SOFT]: [
             'bg-background-primary-brand-soft',
             !props.disabled && 'hover:bg-background-primary-brand-soft-hover',
-            'focus:ring-offset-2',
-            'focus:ring-2',
-            'focus:ring-border-primary-brand-default',
+            'focus-visible:ring-offset-2',
+            'focus-visible:ring-2',
+            'focus-visible:ring-border-primary-brand-default',
             'text-icon-primary-brand-on-soft-bg',
         ],
         [ButtonStyleType.PRIMARY_BRAND_TRANSPARENT]: [
-            'focus:ring-offset-2',
-            'focus:ring-2',
-            'focus:ring-border-primary-brand-default',
+            'focus-visible:ring-offset-2',
+            'focus-visible:ring-2',
+            'focus-visible:ring-border-primary-brand-default',
             'text-text-primary-brand-default',
             !props.disabled && 'hover:text-text-primary-brand-hover',
         ],
         [ButtonStyleType.SECONDARY_BRAND_FILLED]: [
             'bg-background-secondary-brand-default',
             !props.disabled && 'hover:bg-background-secondary-brand-hover',
-            'focus:ring-offset-2',
-            'focus:ring-2',
-            'focus:ring-border-secondary-brand',
+            'focus-visible:ring-offset-2',
+            'focus-visible:ring-2',
+            'focus-visible:ring-border-secondary-brand',
             'text-text-neutral-on-filled',
         ],
         [ButtonStyleType.NEUTRAL_FILLED]: [
             'bg-background-neutral-filled-default',
             !props.disabled && 'hover:bg-background-neutral-filled-hover',
-            'focus:ring-offset-2',
-            'focus:ring-2',
-            'focus:ring-border-primary-brand-default',
+            'focus-visible:ring-offset-2',
+            'focus-visible:ring-2',
+            'focus-visible:ring-border-primary-brand-default',
             'text-text-neutral-on-neutral-filled-bg',
         ],
         [ButtonStyleType.NEUTRAL_OUTLINED]: [
@@ -244,39 +247,39 @@ const buttonStyleClass = computed(() => {
             'border-border-default',
             'bg-background-neutral-default',
             !props.disabled && 'hover:bg-background-neutral-hover',
-            'focus:ring-offset-2',
-            'focus:ring-2',
-            'focus:ring-border-primary-brand-default',
+            'focus-visible:ring-offset-2',
+            'focus-visible:ring-2',
+            'focus-visible:ring-border-primary-brand-default',
             'text-text-default',
         ],
         [ButtonStyleType.NEUTRAL_TRANSPARENT]: [
             !props.disabled && 'hover:bg-background-neutral-hover',
-            'focus:ring-offset-2',
-            'focus:ring-2',
-            'focus:ring-border-primary-brand-default',
+            'focus-visible:ring-offset-2',
+            'focus-visible:ring-2',
+            'focus-visible:ring-border-primary-brand-default',
             'text-text-default',
         ],
         [ButtonStyleType.NEUTRAL_TRANSPARENT_SUBTLE]: [
             !props.disabled && 'hover:bg-background-neutral-hover hover:text-text-default',
-            'focus:ring-offset-2',
-            'focus:ring-2',
-            'focus:ring-border-primary-brand-default',
+            'focus-visible:ring-offset-2',
+            'focus-visible:ring-2',
+            'focus-visible:ring-border-primary-brand-default',
             'text-text-neutral-subtler',
         ],
         [ButtonStyleType.DELETE_FILLED]: [
             'bg-background-delete-default',
             !props.disabled && 'hover:bg-background-delete-hover',
-            'focus:ring-offset-2',
-            'focus:ring-2',
-            'focus:ring-border-delete',
+            'focus-visible:ring-offset-2',
+            'focus-visible:ring-2',
+            'focus-visible:ring-border-delete',
             'text-text-neutral-on-filled',
         ],
         [ButtonStyleType.DELETE_SOFT]: [
             'bg-background-delete-soft',
             !props.disabled && 'hover:bg-background-delete-soft-hover',
-            'focus:ring-offset-2',
-            'focus:ring-2',
-            'focus:ring-border-delete',
+            'focus-visible:ring-offset-2',
+            'focus-visible:ring-2',
+            'focus-visible:ring-border-delete',
             'text-text-delete',
         ],
         [ButtonStyleType.DELETE_OUTLINED]: [
@@ -284,16 +287,16 @@ const buttonStyleClass = computed(() => {
             'border-border-delete-subtle',
             'bg-background-neutral-default',
             !props.disabled && 'hover:bg-background-delete-on-neutral-hover',
-            'focus:ring-offset-2',
-            'focus:ring-2',
-            'focus:ring-border-delete',
+            'focus-visible:ring-offset-2',
+            'focus-visible:ring-2',
+            'focus-visible:ring-border-delete',
             'text-text-delete',
         ],
         [ButtonStyleType.DELETE_TRANSPARENT]: [
             !props.disabled && 'hover:bg-background-delete-on-neutral-hover',
-            'focus:ring-offset-2',
-            'focus:ring-2',
-            'focus:ring-border-delete',
+            'focus-visible:ring-offset-2',
+            'focus-visible:ring-2',
+            'focus-visible:ring-border-delete',
             'text-text-delete',
         ],
     }
@@ -305,9 +308,9 @@ const buttonStyleClass = computed(() => {
             'border-border-default',
             'bg-background-neutral-default',
             !props.disabled && 'hover:bg-background-neutral-hover',
-            'focus:ring-offset-2',
-            'focus:ring-2',
-            'focus:ring-border-primary-brand-default',
+            'focus-visible:ring-offset-2',
+            'focus-visible:ring-2',
+            'focus-visible:ring-border-primary-brand-default',
             'text-text-default',
         ].filter(Boolean)
     )

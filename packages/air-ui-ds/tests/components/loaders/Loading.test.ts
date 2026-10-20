@@ -85,4 +85,15 @@ describe('Loading.vue', () => {
         expect(container.exists()).toBe(true)
         expect(container.attributes('aria-live')).toBe('polite')
     })
+
+    it('follows the DS config text when it changes while mounted', async () => {
+        const dsConfig = useDSConfig()
+        const wrapper = factory({ isLoading: true })
+
+        dsConfig.common.loadingText = () => 'Cargando'
+        await wrapper.vm.$nextTick()
+        expect(wrapper.text()).toContain('Cargando')
+
+        dsConfig.common.loadingText = () => 'Loading...'
+    })
 })

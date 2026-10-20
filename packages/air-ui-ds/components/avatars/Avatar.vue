@@ -29,7 +29,7 @@
         <img
             v-else
             :src="props.imgUrl"
-            :alt="`${props.displayName} avatar`"
+            :alt="resolvedAlt"
             class="object-cover w-full h-full aspect-square"
             @load="handleImageLoad"
             @error="handleImageError"
@@ -63,7 +63,16 @@ const props = defineProps({
         type: Boolean as PropType<boolean>,
         default: false,
     },
+    alt: String as PropType<string>,
 })
+
+// Composables
+const dsConfig = useDSConfig()
+
+// Computed
+const resolvedAlt = computed(
+    () => props.alt ?? dsConfig.accessibility.avatarText().replace('{name}', props.displayName),
+)
 
 // States
 const isImageLoaded = ref(true)

@@ -1,5 +1,6 @@
 import { mount } from '@vue/test-utils'
 import Spinner from '@/components/spinners/Spinner.vue'
+import { useDSConfig } from '@/composables/useDSConfig'
 
 describe('Spinner', () => {
     it('renders with correct classes', () => {
@@ -22,5 +23,15 @@ describe('Spinner', () => {
 
         expect(spinner.element.tagName).toBe('OUTPUT')
         expect(spinner.attributes('aria-label')).toBe('Loading')
+    })
+
+    it('takes its aria-label from the DS config and lets the prop win', () => {
+        const dsConfig = useDSConfig()
+        dsConfig.accessibility.spinnerText = () => 'Cargando'
+
+        expect(mount(Spinner).attributes('aria-label')).toBe('Cargando')
+        expect(mount(Spinner, { props: { ariaLabel: 'Espera' } }).attributes('aria-label')).toBe('Espera')
+
+        dsConfig.accessibility.spinnerText = () => 'Loading'
     })
 })

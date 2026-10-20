@@ -68,7 +68,7 @@
                 <template v-if="!$slots.actions">
                     <ActionButton
                         v-if="hasSecondaryBtn"
-                        :text="secondaryBtnText"
+                        :text="resolvedSecondaryBtnText"
                         :iconPosition="secondaryBtnIconPosition"
                         :icon="secondaryBtnIcon"
                         :size="buttonSize"
@@ -80,7 +80,7 @@
 
                     <ActionButton
                         v-if="selectMode === CardSelectionMode.BUTTON"
-                        :text="modelValue ? selectedText : selectText"
+                        :text="modelValue ? resolvedSelectedText : resolvedSelectText"
                         :iconPosition="selectBtnIconPosition"
                         :icon="selectBtnIcon"
                         :size="buttonSize"
@@ -153,10 +153,7 @@ const props = defineProps({
         type: Boolean as PropType<boolean>,
         default: true,
     },
-    secondaryBtnText: {
-        type: String as PropType<string>,
-        default: 'Details',
-    },
+    secondaryBtnText: String as PropType<string>,
     secondaryBtnStyleType: {
         type: String as PropType<ButtonStyleType>,
         default: ButtonStyleType.NEUTRAL_OUTLINED,
@@ -185,14 +182,8 @@ const props = defineProps({
         type: String as PropType<string>,
         default: 'mdi:arrow-right',
     },
-    selectText: {
-        type: String as PropType<string>,
-        default: 'Select',
-    },
-    selectedText: {
-        type: String as PropType<string>,
-        default: 'Selected',
-    },
+    selectText: String as PropType<string>,
+    selectedText: String as PropType<string>,
     hasFooter: {
         type: Boolean as PropType<boolean>,
         default: true,
@@ -215,6 +206,14 @@ const props = defineProps({
         default: false,
     },
 })
+
+// Composables
+const dsConfig = useDSConfig()
+
+// Computed
+const resolvedSecondaryBtnText = computed(() => props.secondaryBtnText ?? dsConfig.cards.detailsText())
+const resolvedSelectText = computed(() => props.selectText ?? dsConfig.cards.selectText())
+const resolvedSelectedText = computed(() => props.selectedText ?? dsConfig.cards.selectedText())
 
 // Emits
 const emit = defineEmits(['update:modelValue', 'buttonClick'])

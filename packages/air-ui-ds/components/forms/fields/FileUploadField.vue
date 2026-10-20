@@ -35,18 +35,18 @@
                     :title="computedTitleText"
                     :aria-label="!label ? ariaLabel : undefined"
                     :description="computedDescriptionText"
-                    :singleFileTitleText
+                    :singleFileTitleText="resolvedSingleFileTitleText"
                     :icon
                     :buttonText="computedButtonText"
-                    :singleFileButtonText
-                    :upToText
-                    :allFilesTypeText
+                    :singleFileButtonText="resolvedSingleFileButtonText"
+                    :upToText="resolvedUpToText"
+                    :allFilesTypeText="resolvedAllFilesTypeText"
                     :disabled
                     :multiple
                     :accept
                     :maxFileSize
                     :maxFiles
-                    :fileUploadErrorMessage
+                    :fileUploadErrorMessage="resolvedFileUploadErrorMessage"
                     :itemsLayout
                     :state
                     :selectFileStrategy
@@ -63,7 +63,7 @@
                     :uploadingStatusText="resolvedUploadingStatusText"
                     :successStatusText="resolvedSuccessStatusText"
                     :errorStatusText="resolvedErrorStatusText"
-                    :pendingStatusText
+                    :pendingStatusText="resolvedPendingStatusText"
                     :retryIcon
                     :removeIcon
                     :retryButtonStyleType
@@ -84,7 +84,7 @@
                     :fileItemClass
                     :fileNameClass
                     :fileMetaClass
-                    :retryAriaLabel
+                    :retryAriaLabel="resolvedRetryAriaLabel"
                     :removeAriaLabel="resolvedRemoveAriaLabel"
                     :transparent
                     @error="handleDropzoneError"
@@ -124,26 +124,11 @@ const props = defineProps({
         default: 'mdi:cloud-upload-outline',
     },
     buttonText: String as PropType<string>,
-    singleFileTitleText: {
-        type: String as PropType<string>,
-        default: 'Drag and drop a file here',
-    },
-    replaceTitleText: {
-        type: String as PropType<string>,
-        default: 'Upload a new file to replace current one',
-    },
-    singleFileButtonText: {
-        type: String as PropType<string>,
-        default: 'Select file',
-    },
-    replaceButtonText: {
-        type: String as PropType<string>,
-        default: 'Replace file',
-    },
-    upToText: {
-        type: String as PropType<string>,
-        default: 'up to',
-    },
+    singleFileTitleText: String as PropType<string>,
+    replaceTitleText: String as PropType<string>,
+    singleFileButtonText: String as PropType<string>,
+    replaceButtonText: String as PropType<string>,
+    upToText: String as PropType<string>,
     modelValue: {
         type: Array as () => File[],
         default: () => [],
@@ -188,14 +173,8 @@ const props = defineProps({
         type: Number as PropType<number>,
         default: 1,
     },
-    fileUploadErrorMessage: {
-        type: String as PropType<string>,
-        default: 'The size or format of one ore more files is incorrect.',
-    },
-    allFilesTypeText: {
-        type: String as PropType<string>,
-        default: 'All file types',
-    },
+    fileUploadErrorMessage: String as PropType<string>,
+    allFilesTypeText: String as PropType<string>,
     showPreview: {
         type: Boolean as PropType<boolean>,
         default: false,
@@ -258,10 +237,7 @@ const props = defineProps({
     uploadingStatusText: String as PropType<string>,
     successStatusText: String as PropType<string>,
     errorStatusText: String as PropType<string>,
-    pendingStatusText: {
-        type: String as PropType<string>,
-        default: 'Pending',
-    },
+    pendingStatusText: String as PropType<string>,
     retryIcon: {
         type: String as PropType<string>,
         default: 'mdi:refresh',
@@ -294,10 +270,7 @@ const props = defineProps({
     fileItemClass: String as PropType<string>,
     fileNameClass: String as PropType<string>,
     fileMetaClass: String as PropType<string>,
-    retryAriaLabel: {
-        type: String as PropType<string>,
-        default: 'Retry upload',
-    },
+    retryAriaLabel: String as PropType<string>,
     removeAriaLabel: String as PropType<string>,
     transparent: {
         type: Boolean as PropType<boolean>,
@@ -341,6 +314,23 @@ const validationMode = useInjectedValidationMode()
 
 // Composables
 const dsConfig = useDSConfig()
+const resolvedSingleFileTitleText = computed(
+    () => props.singleFileTitleText ?? dsConfig.forms.fileUpload.dragDropSingleText(),
+)
+const resolvedReplaceTitleText = computed(
+    () => props.replaceTitleText ?? dsConfig.forms.fileUpload.replaceDescriptionText(),
+)
+const resolvedSingleFileButtonText = computed(
+    () => props.singleFileButtonText ?? dsConfig.forms.fileUpload.selectFileText(),
+)
+const resolvedReplaceButtonText = computed(() => props.replaceButtonText ?? dsConfig.forms.fileUpload.replaceFileText())
+const resolvedUpToText = computed(() => props.upToText ?? dsConfig.forms.fileUpload.upToText())
+const resolvedFileUploadErrorMessage = computed(
+    () => props.fileUploadErrorMessage ?? dsConfig.forms.fileUpload.invalidFilesText(),
+)
+const resolvedAllFilesTypeText = computed(() => props.allFilesTypeText ?? dsConfig.forms.fileUpload.allFileTypesText())
+const resolvedPendingStatusText = computed(() => props.pendingStatusText ?? dsConfig.forms.fileUpload.pendingText())
+const resolvedRetryAriaLabel = computed(() => props.retryAriaLabel ?? dsConfig.forms.fileUpload.retryUploadText())
 
 // Toast
 const { $toast } = useNuxtApp()
@@ -368,7 +358,7 @@ const resolvedClearAllButtonText = computed(() => props.clearAllButtonText ?? ds
 const acceptedFileTypes = computed(() => {
     const acceptList = Array.isArray(props.accept) ? props.accept : [props.accept]
 
-    if (acceptList.includes('*')) return props.allFilesTypeText
+    if (acceptList.includes('*')) return resolvedAllFilesTypeText.value
 
     return acceptList
         .map((entry) => {
@@ -390,24 +380,24 @@ const computedTitleText = computed(() => {
     const isReplacingExisting = props.showPreview && props.previewImageUrl && selectedFiles.value.length === 0
 
     if (isReplacingExisting) {
-        return props.replaceTitleText
+        return resolvedReplaceTitleText.value
     }
 
-    return props.multiple ? resolvedTitle.value : props.singleFileTitleText
+    return props.multiple ? resolvedTitle.value : resolvedSingleFileTitleText.value
 })
 
 const computedButtonText = computed(() => {
     const isReplacingExisting = props.showPreview && props.previewImageUrl && selectedFiles.value.length === 0
 
     if (isReplacingExisting) {
-        return props.replaceButtonText
+        return resolvedReplaceButtonText.value
     }
 
-    return props.multiple ? resolvedButtonText.value : props.singleFileButtonText
+    return props.multiple ? resolvedButtonText.value : resolvedSingleFileButtonText.value
 })
 
 const computedDescriptionText = computed(() => {
-    return `${acceptedFileTypes.value} ${props.upToText} ${props.maxFileSize}MB`
+    return `${acceptedFileTypes.value} ${resolvedUpToText.value} ${props.maxFileSize}MB`
 })
 
 const selectedFiles = computed({
@@ -430,7 +420,7 @@ const runValidation = (value: unknown = props.modelValue) => {
 }
 
 const handleDropzoneError = (message: string) => {
-    const resolvedMessage = message || props.fileUploadErrorMessage
+    const resolvedMessage = message || resolvedFileUploadErrorMessage.value
 
     emit('error', resolvedMessage)
     $toast.error(resolvedMessage, { toastId: 'files-error' })

@@ -64,7 +64,7 @@
             :icon="removeItemIcon"
             :size="ButtonSize.XS"
             :styleType="ButtonStyleType.NEUTRAL_TRANSPARENT"
-            :ariaLabel="removeAriaLabel"
+            :ariaLabel="resolvedRemoveAriaLabel"
             @click.stop="$emit('remove')"
         />
     </div>
@@ -136,11 +136,14 @@ const props = defineProps({
         type: String as PropType<string>,
         default: 'mdi:close',
     },
-    removeAriaLabel: {
-        type: String as PropType<string>,
-        default: 'Remove notification',
-    },
+    removeAriaLabel: String as PropType<string>,
 })
+
+// Composables
+const dsConfig = useDSConfig()
+
+// Computed
+const resolvedRemoveAriaLabel = computed(() => props.removeAriaLabel ?? dsConfig.notifications.removeText())
 
 const emit = defineEmits(['update:modelValue', 'remove', 'itemClick'])
 

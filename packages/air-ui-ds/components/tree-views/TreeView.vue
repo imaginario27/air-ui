@@ -4,7 +4,7 @@
         tag="div"
         :css="false"
         role="tree"
-        :aria-label="ariaLabel"
+        :aria-label="resolvedAriaLabel"
         :aria-multiselectable="isMultiple || undefined"
         :aria-disabled="disabled || undefined"
         :aria-readonly="readOnly || undefined"
@@ -89,7 +89,7 @@
 
             <span
                 class="flex h-[16px] w-[16px] shrink-0 items-center justify-center"
-                :title="hasLoadError(row.node) ? loadErrorLabel : undefined"
+                :title="hasLoadError(row.node) ? resolvedLoadErrorLabel : undefined"
                 @click.stop="toggleExpanded(row.node)"
             >
                 <Spinner v-if="isLoading(row.node)" />
@@ -137,7 +137,7 @@
                 v-if="renamingValue === row.node.value"
                 v-model="renameDraft"
                 type="text"
-                :aria-label="renameLabel"
+                :aria-label="resolvedRenameLabel"
                 :class="[
                     'min-w-0 flex-1 h-[24px] rounded px-1',
                     'bg-background-surface text-text-default',
@@ -201,7 +201,11 @@
                     :style="{ minWidth: `${moreActionsMenuWidth}px` }"
                 >
                     <template #activator>
-                        <button type="button" :aria-label="moreActionsAriaLabel" :class="moreActionsButtonClass">
+                        <button
+                            type="button"
+                            :aria-label="resolvedMoreActionsAriaLabel"
+                            :class="moreActionsButtonClass"
+                        >
                             <Icon name="mdi:dots-vertical" iconClass="w-[16px] h-[16px]" />
                         </button>
                     </template>
@@ -330,10 +334,7 @@ const props = defineProps({
     },
     sortCompare: Function as PropType<(a: TreeViewNode, b: TreeViewNode) => number>,
     loadChildren: Function as PropType<(node: TreeViewNode) => Promise<TreeViewNode[]>>,
-    loadErrorLabel: {
-        type: String as PropType<string>,
-        default: 'Failed to load. Click to retry.',
-    },
+    loadErrorLabel: String as PropType<string>,
     isRenamable: {
         type: Boolean as PropType<boolean>,
         default: false,
@@ -342,10 +343,7 @@ const props = defineProps({
         type: Boolean as PropType<boolean>,
         default: false,
     },
-    renameLabel: {
-        type: String as PropType<string>,
-        default: 'Rename',
-    },
+    renameLabel: String as PropType<string>,
     isReorderable: {
         type: Boolean as PropType<boolean>,
         default: false,
@@ -354,10 +352,7 @@ const props = defineProps({
         type: [Array, Function] as PropType<DropdownMenuItem[] | TreeViewMoreActionsResolver>,
         default: () => [],
     },
-    moreActionsAriaLabel: {
-        type: String as PropType<string>,
-        default: 'More options',
-    },
+    moreActionsAriaLabel: String as PropType<string>,
     moreActionsMenuWidth: {
         type: Number as PropType<number>,
         default: 200,
@@ -379,11 +374,17 @@ const props = defineProps({
         type: Boolean as PropType<boolean>,
         default: false,
     },
-    ariaLabel: {
-        type: String as PropType<string>,
-        default: 'Tree view',
-    },
+    ariaLabel: String as PropType<string>,
 })
+
+// Composables
+const dsConfig = useDSConfig()
+
+// Computed
+const resolvedLoadErrorLabel = computed(() => props.loadErrorLabel ?? dsConfig.treeView.loadErrorText())
+const resolvedRenameLabel = computed(() => props.renameLabel ?? dsConfig.actions.renameText())
+const resolvedMoreActionsAriaLabel = computed(() => props.moreActionsAriaLabel ?? dsConfig.actions.moreOptionsText())
+const resolvedAriaLabel = computed(() => props.ariaLabel ?? dsConfig.treeView.labelText())
 
 // Emits
 const emit = defineEmits([

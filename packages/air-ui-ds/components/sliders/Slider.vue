@@ -116,6 +116,11 @@ const props = defineProps({
     },
 })
 
+// Composables
+const dsConfig = useDSConfig()
+
+// Computed
+
 // Emits
 const emit = defineEmits(['update:modelValue'])
 
@@ -129,13 +134,16 @@ const isRange = computed(() => {
 })
 
 const getThumbAriaLabel = (index: number) => {
-    const baseLabel = props.ariaLabel || 'Slider'
+    const baseLabel = props.ariaLabel || dsConfig.accessibility.sliderText()
 
     if (!isRange.value) {
-        return `${baseLabel} thumb`
+        return dsConfig.accessibility.sliderThumbText().replace('{label}', baseLabel)
     }
 
-    return `${baseLabel} thumb ${index + 1}`
+    return dsConfig.accessibility
+        .sliderThumbIndexText()
+        .replace('{label}', baseLabel)
+        .replace('{index}', String(index + 1))
 }
 
 const safeMax = computed(() => {

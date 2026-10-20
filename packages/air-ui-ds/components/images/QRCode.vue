@@ -1,7 +1,7 @@
 <template>
     <div
         role="img"
-        :aria-label="ariaLabel || `QR code: ${modelValue}`"
+        :aria-label="resolvedAriaLabel"
         :class="[
             'relative flex items-center justify-center',
             hasBorder && 'border border-border-default rounded-md p-2',
@@ -102,6 +102,14 @@ const props = defineProps({
     containerClass: String as PropType<string>,
     ariaLabel: String as PropType<string>,
 })
+
+// Composables
+const dsConfig = useDSConfig()
+
+// Computed
+const resolvedAriaLabel = computed(
+    () => props.ariaLabel || dsConfig.accessibility.qrCodeText().replace('{value}', String(props.modelValue)),
+)
 
 // Computed
 const computedImageSettings = computed(() => {
