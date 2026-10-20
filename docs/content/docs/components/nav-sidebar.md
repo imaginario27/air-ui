@@ -91,6 +91,8 @@ items:
           text: SPACED
         - value: compact
           text: COMPACT
+        - value: ultra_compact
+          text: ULTRA_COMPACT
     collapseTogglePosition: 
         - value: top
           text: TOP
@@ -1047,6 +1049,10 @@ options: [
     {
         value: "COMPACT",
         description: "The items padding is more condensed and the optional icon is slightly smaller.",
+    },
+    {
+        value: "ULTRA_COMPACT",
+        description: "The most condensed style. The items have minimal padding, so their hoverable area is smaller, and the optional icon is smaller still.",
     },
 ]
 ---

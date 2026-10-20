@@ -16,7 +16,12 @@
         </SectionHeader>
         <SectionBody>
             <template v-if="groupedComponents.length">
-                <div v-for="group in groupedComponents" :key="group.title" class="mb-12">
+                <div
+                    v-for="group in groupedComponents"
+                    :key="group.title"
+                    :id="`component-group-${group.title.toLowerCase().replace(/\s+/g, '-')}`"
+                    class="mb-12 scroll-mt-6"
+                >
                     <Heading :size="HeadingSize.SM" headingTag="h2" :class="['mb-8', 'flex', 'items-center', 'gap-2']">
                         <template #title>
                             <Icon v-if="group.sectionIcon" :name="group.sectionIcon" class="relative top-[2px]" />
@@ -63,7 +68,7 @@
 </template>
 <script setup lang="ts">
 // States
-const searchQuery = ref('')
+const searchQuery = useState<string>('components-search', () => '')
 
 // Stores
 const darkModeStore = useDarkMode()

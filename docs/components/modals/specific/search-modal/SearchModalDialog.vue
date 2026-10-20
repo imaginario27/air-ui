@@ -18,26 +18,26 @@
             <!-- Recent searches -->
             <div
                 v-if="recentSearches.length && searchValue === ''"
-                :class="['pb-6', 'overflow-y-auto', 'max-h-[300px]']"
+                :class="['pb-4', 'px-3', 'overflow-y-auto', 'max-h-[300px]']"
             >
-                <h2 class="font-semibold mb-6 px-6">
-                    {{ recentsTitle }}
-                </h2>
+                <section class="flex flex-col gap-1 pt-4">
+                    <h2 class="px-3 pb-1 text-sm font-semibold text-text-neutral-subtle">
+                        {{ recentsTitle }}
+                    </h2>
 
-                <SearchModalRecentItem
-                    v-for="(item, index) in recentSearches"
-                    :key="index"
-                    :text="item.text"
-                    :breadcrumbs="item.breadcrumbs"
-                    :badgeText="item.badgeText"
-                    :to="item.to"
-                    @remove-item="removeRecentSearchItem(index)"
-                    @item-clicked="handleResultClick(item)"
-                />
+                    <SearchModalRecentItem
+                        v-for="(item, index) in recentSearches"
+                        :key="item.to"
+                        :text="item.text"
+                        :breadcrumbs="item.breadcrumbs"
+                        @remove-item="removeRecentSearchItem(index)"
+                        @item-clicked="handleResultClick(item)"
+                    />
+                </section>
             </div>
 
             <!-- Results / Empty states -->
-            <div v-else :class="['pb-6', 'px-6', 'overflow-y-auto', 'max-h-[300px]']">
+            <div v-else :class="['pb-4', 'px-3', 'overflow-y-auto', 'max-h-[300px]']">
                 <!-- Empty state: no recents + not searching -->
                 <div
                     v-if="searchValue === '' && !recentSearches.length"
@@ -50,20 +50,25 @@
 
                 <!-- Searching / Results -->
                 <template v-else>
-                    <h2 class="font-semibold mb-6">
-                        {{ resultsTitle }}
-                    </h2>
+                    <div v-if="results.length" class="flex flex-col gap-4 pt-4">
+                        <section v-for="group in resultGroups" :key="group.title" class="flex flex-col gap-1">
+                            <h2 class="px-3 pb-1 text-sm font-semibold text-text-neutral-subtle">
+                                {{ group.title }}
+                            </h2>
 
-                    <div v-if="results.length" class="flex flex-col gap-3">
-                        <SearchModalResultItem
-                            v-for="(item, index) in results"
-                            :key="index"
-                            :text="item.text"
-                            :breadcrumbs="item.breadcrumbs"
-                            :badgeText="item.badgeText"
-                            :to="item.to"
-                            @item-clicked="handleResultClick(item)"
-                        />
+                            <SearchModalResultItem
+                                v-for="item in group.items"
+                                :key="item.to"
+                                :text="item.text"
+                                :breadcrumbs="item.breadcrumbs"
+                                :to="item.to"
+                                :sections="item.sections"
+                                :query="debouncedSearchValue"
+                                :activeTo
+                                @item-clicked="selectResult"
+                                @hover="activeTo = $event"
+                            />
+                        </section>
                     </div>
 
                     <p v-else class="text-center py-6">
@@ -85,10 +90,6 @@ const props = defineProps({
     recentsTitle: {
         type: String as PropType<string>,
         default: 'Recents',
-    },
-    resultsTitle: {
-        type: String as PropType<string>,
-        default: 'Results',
     },
     noResultsFoundText: {
         type: String as PropType<string>,
@@ -117,6 +118,32 @@ const updateModelValue = (value: boolean) => {
     emit('update:modelValue', value)
 }
 
+// States
+const activeTo = ref<string>()
+
+// Computed
+const resultGroups = computed(() => {
+    const groups = new Map<string, SearchItem[]>()
+
+    for (const item of results.value) {
+        groups.set(item.badgeText, [...(groups.get(item.badgeText) ?? []), item])
+    }
+
+    return [...groups].map(([title, items]) => ({ title, items }))
+})
+
+const entries = computed(() =>
+    resultGroups.value.flatMap((group) =>
+        group.items.flatMap((item) => [
+            { to: item.to, item },
+            ...(item.sections ?? []).map((section) => ({
+                to: section.to,
+                item: { ...item, text: `${item.text} > ${section.text}`, to: section.to, sections: undefined },
+            })),
+        ]),
+    ),
+)
+
 // Methods
 const handleResultClick = async (item: SearchItem) => {
     if (!item.to) return
@@ -127,10 +154,42 @@ const handleResultClick = async (item: SearchItem) => {
     await navigateTo(item.to)
 }
 
+const selectResult = (to: string) => {
+    const entry = entries.value.find((e) => e.to === to)
+
+    if (entry) handleResultClick({ ...entry.item, sections: undefined })
+}
+
+const moveActive = (step: 1 | -1) => {
+    if (!entries.value.length) return
+
+    const current = entries.value.findIndex((e) => e.to === activeTo.value)
+    const next = (current + step + entries.value.length) % entries.value.length
+
+    activeTo.value = entries.value[next]?.to
+
+    nextTick(() => {
+        document.querySelector(`[data-search-to="${CSS.escape(activeTo.value ?? '')}"]`)?.scrollIntoView({
+            block: 'nearest',
+        })
+    })
+}
+
 const handleCloseSearchModalKey = (event: KeyboardEvent) => {
     if (event.key === 'Escape') {
         event.preventDefault()
         updateModelValue(false)
+        return
+    }
+
+    if (!props.modelValue || !searchValue.value || !results.value.length) return
+
+    if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+        event.preventDefault()
+        moveActive(event.key === 'ArrowDown' ? 1 : -1)
+    } else if (event.key === 'Enter' && activeTo.value) {
+        event.preventDefault()
+        selectResult(activeTo.value)
     }
 }
 
@@ -162,14 +221,22 @@ watch(
     },
 )
 
+watch(results, () => {
+    activeTo.value = entries.value[0]?.to
+})
+
 // Perform search
-watch(debouncedSearchValue, (value) => {
+watch(debouncedSearchValue, async (value) => {
     if (!value) {
         clearResults()
         return
     }
 
-    const items = search(value)
-    setResults(items)
+    const items = await search(value)
+
+    // Ignore the response if the user kept typing while searching
+    if (value === debouncedSearchValue.value) {
+        setResults(items)
+    }
 })
 </script>

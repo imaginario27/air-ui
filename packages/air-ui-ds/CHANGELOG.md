@@ -5,6 +5,21 @@ All notable changes to this package are documented in this file.
 Historical releases were reconstructed from git history (GitHub repository) and npm publish dates.
 Future releases will include detailed entries generated with Changesets.
 
+## 1.27.0 - 2026-10-20
+
+Release type: minor.
+Commits found in range: 2.
+
+### Added
+
+1. add `ULTRA_COMPACT` style to `SidebarNavMenuItemStyleType` ([7ee5668](https://github.com/imaginario27/air-ui/commit/7ee5668fad5fa797c3d52c78a84a4045dfac6647))
+
+### Fixed
+
+1. run action button `callback` in `Alert` and improve responsive layout ([7377fca](https://github.com/imaginario27/air-ui/commit/7377fca408a3f678f346a8eba277bebf28aa7871))
+
+- Package: @imaginario27/air-ui-ds.
+
 ## 1.26.1 - 2026-10-19
 
 Release type: patch.

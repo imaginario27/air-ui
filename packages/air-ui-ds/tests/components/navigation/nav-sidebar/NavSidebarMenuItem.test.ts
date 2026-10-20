@@ -73,6 +73,18 @@ describe('NavSidebarMenuItem.vue', () => {
         expect(wrapper.find('span').exists()).toBe(false)
     })
 
+    it('sets title and aria-label to the text when isCollapsed is true', () => {
+        const wrapper = factory({ text: 'Settings', isCollapsed: true })
+        expect(wrapper.attributes('title')).toBe('Settings')
+        expect(wrapper.attributes('aria-label')).toBe('Settings')
+    })
+
+    it('does not set title or aria-label when expanded', () => {
+        const wrapper = factory({ text: 'Settings' })
+        expect(wrapper.attributes('title')).toBeUndefined()
+        expect(wrapper.attributes('aria-label')).toBeUndefined()
+    })
+
     it('renders Icon when icon prop is provided', () => {
         const wrapper = factory({ icon: 'mdi:home' })
         const icon = wrapper.findComponent(Icon)
@@ -151,6 +163,19 @@ describe('NavSidebarMenuItem.vue', () => {
 
         expect(button.classes()).toContain('min-h-[40px]')
         expect(content.classes()).toContain('gap-3')
+    })
+
+    it('applies correct spacing and gap classes for ULTRA_COMPACT style', () => {
+        const wrapper = factory({
+            styleType: SidebarNavMenuItemStyleType.ULTRA_COMPACT,
+        })
+
+        const button = wrapper.find('button')
+        const content = button.find('div')
+
+        expect(button.classes()).toContain('py-0.5')
+        expect(button.classes()).toContain('my-px')
+        expect(content.classes()).toContain('gap-1.5')
     })
 
     it('emits click when NuxtLink is clicked', async () => {

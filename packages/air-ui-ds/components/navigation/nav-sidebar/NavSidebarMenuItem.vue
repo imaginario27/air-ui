@@ -3,6 +3,8 @@
         :is="componentTag"
         ref="rootEl"
         v-bind="componentProps"
+        :title="isCollapsed ? text : undefined"
+        :aria-label="isCollapsed ? text : undefined"
         :class="[
             !isCollapsed && 'w-full',
             'group',
@@ -254,6 +256,7 @@ const spacingClass = computed(() => {
         const collapsedVariant = {
             [SidebarNavMenuItemStyleType.SPACED]: 'p-3',
             [SidebarNavMenuItemStyleType.COMPACT]: 'p-2',
+            [SidebarNavMenuItemStyleType.ULTRA_COMPACT]: 'p-1.5',
         }
 
         return collapsedVariant[props.styleType as SidebarNavMenuItemStyleType] || 'p-2'
@@ -263,14 +266,17 @@ const spacingClass = computed(() => {
         1: {
             [SidebarNavMenuItemStyleType.SPACED]: 'min-h-[40px] py-2 pl-3 pr-2',
             [SidebarNavMenuItemStyleType.COMPACT]: 'py-1 pl-2 pr-1',
+            [SidebarNavMenuItemStyleType.ULTRA_COMPACT]: 'py-0.5 pl-1.5 pr-1',
         },
         2: {
             [SidebarNavMenuItemStyleType.SPACED]: 'min-h-[36px] py-1.5 pl-3 pr-2',
             [SidebarNavMenuItemStyleType.COMPACT]: 'py-1 pl-2 pr-1',
+            [SidebarNavMenuItemStyleType.ULTRA_COMPACT]: 'py-0.5 pl-1.5 pr-1',
         },
         3: {
             [SidebarNavMenuItemStyleType.SPACED]: 'min-h-[32px] py-1 pl-3 pr-2',
             [SidebarNavMenuItemStyleType.COMPACT]: 'py-0.5 pl-2 pr-1',
+            [SidebarNavMenuItemStyleType.ULTRA_COMPACT]: 'py-0 pl-1.5 pr-1',
         },
     }
 
@@ -283,6 +289,7 @@ const nestedItemSpacingClass = computed(() => {
     const variant = {
         [SidebarNavMenuItemStyleType.SPACED]: 'my-1',
         [SidebarNavMenuItemStyleType.COMPACT]: 'my-0.5',
+        [SidebarNavMenuItemStyleType.ULTRA_COMPACT]: 'my-px',
     }
 
     return variant[props.styleType as SidebarNavMenuItemStyleType] || 'my-0.5'
@@ -292,6 +299,7 @@ const gapClass = computed(() => {
     const variant = {
         [SidebarNavMenuItemStyleType.SPACED]: 'gap-3',
         [SidebarNavMenuItemStyleType.COMPACT]: 'gap-2',
+        [SidebarNavMenuItemStyleType.ULTRA_COMPACT]: 'gap-1.5',
     }
     return variant[props.styleType as SidebarNavMenuItemStyleType] || 'gap-3'
 })
@@ -301,6 +309,7 @@ const iconSizeClass = computed(() => {
         const collapsedVariant = {
             [SidebarNavMenuItemStyleType.SPACED]: 'w-[24px] h-[24px] min-w-[24px] min-h-[24px]',
             [SidebarNavMenuItemStyleType.COMPACT]: 'w-[20px] h-[20px] min-w-[20px] min-h-[20px]',
+            [SidebarNavMenuItemStyleType.ULTRA_COMPACT]: 'w-[18px] h-[18px] min-w-[18px] min-h-[18px]',
         }
 
         return (
@@ -313,6 +322,7 @@ const iconSizeClass = computed(() => {
     const variant = {
         [SidebarNavMenuItemStyleType.SPACED]: 'w-[20px] h-[20px] min-w-[20px] min-h-[20px]',
         [SidebarNavMenuItemStyleType.COMPACT]: 'w-[16px] h-[16px] min-w-[16px] min-h-[16px]',
+        [SidebarNavMenuItemStyleType.ULTRA_COMPACT]: 'w-[14px] h-[14px] min-w-[14px] min-h-[14px]',
     }
 
     return variant[props.styleType as SidebarNavMenuItemStyleType] || 'w-[20px] h-[20px] min-w-[20px] min-h-[20px]'

@@ -10,6 +10,7 @@ export enum NavLinkSize {
 export enum SidebarNavMenuItemStyleType {
     SPACED = 'spaced',
     COMPACT = 'compact',
+    ULTRA_COMPACT = 'ultra_compact',
 }
 
 export enum SidebarMenuDepth {

@@ -79,10 +79,12 @@ const spacingClass = computed(() => {
             2: {
                 [SidebarNavMenuItemStyleType.SPACED]: 'min-h-[32px] gap-2 py-2 pl-3 pr-2',
                 [SidebarNavMenuItemStyleType.COMPACT]: 'min-h-[28px] gap-2 py-1.5 pl-2 pr-2',
+                [SidebarNavMenuItemStyleType.ULTRA_COMPACT]: 'min-h-[24px] gap-1.5 py-1 pl-1.5 pr-1.5',
             },
             3: {
                 [SidebarNavMenuItemStyleType.SPACED]: 'min-h-[30px] gap-2 py-1.5 pl-3 pr-2',
                 [SidebarNavMenuItemStyleType.COMPACT]: 'min-h-[26px] gap-2 py-1 pl-2 pr-2',
+                [SidebarNavMenuItemStyleType.ULTRA_COMPACT]: 'min-h-[22px] gap-1.5 py-0.5 pl-1.5 pr-1.5',
             },
         }
 
@@ -94,6 +96,7 @@ const spacingClass = computed(() => {
     const variant = {
         [SidebarNavMenuItemStyleType.SPACED]: 'min-h-[40px] gap-3 pt-4 pb-2 px-3',
         [SidebarNavMenuItemStyleType.COMPACT]: 'gap-2 pt-3 pb-1 px-2',
+        [SidebarNavMenuItemStyleType.ULTRA_COMPACT]: 'gap-1.5 pt-2 pb-0.5 px-1.5',
     }
     return variant[props.styleType as SidebarNavMenuItemStyleType] || 'min-h-[40px] gap-2 pt-4 pb-2 px-3'
 })
@@ -102,6 +105,7 @@ const iconSizeClass = computed(() => {
     const variant = {
         [SidebarNavMenuItemStyleType.SPACED]: 'w-[20px] h-[20px] min-w-[20px] min-h-[20px]',
         [SidebarNavMenuItemStyleType.COMPACT]: 'w-[16px] h-[16px] min-w-[16px] min-h-[16px]',
+        [SidebarNavMenuItemStyleType.ULTRA_COMPACT]: 'w-[14px] h-[14px] min-w-[14px] min-h-[14px]',
     }
     return variant[props.styleType as SidebarNavMenuItemStyleType] || 'w-[20px] h-[20px] min-w-[20px] min-h-[20px]'
 })
@@ -114,6 +118,7 @@ const expandedLevelOneBottomMarginClass = computed(() => {
     const variant = {
         [SidebarNavMenuItemStyleType.SPACED]: 'mb-2',
         [SidebarNavMenuItemStyleType.COMPACT]: 'mb-1',
+        [SidebarNavMenuItemStyleType.ULTRA_COMPACT]: 'mb-0.5',
     }
 
     return variant[props.styleType as SidebarNavMenuItemStyleType] || 'mb-2'

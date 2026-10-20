@@ -1,12 +1,77 @@
 {
-  "generatedAt": "2026-10-19T08:39:21.249Z",
+  "generatedAt": "2026-10-20T07:34:10.373Z",
   "source": "github-git-history+npm-publish-dates",
   "githubBaseUrl": "https://github.com/imaginario27/air-ui",
   "packages": [
     {
       "packageName": "@imaginario27/air-ui-ds",
-      "latestVersion": "1.26.1",
+      "latestVersion": "1.27.0",
       "entries": [
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.27.0",
+          "publishedAt": "2026-10-20",
+          "releaseType": "minor",
+          "notes": [
+            "add `ULTRA_COMPACT` style to `SidebarNavMenuItemStyleType`",
+            "run action button `callback` in `Alert` and improve responsive layout"
+          ],
+          "metadata": {
+            "commitCount": 2,
+            "commits": [
+              {
+                "sha": "7377fca408a3f678f346a8eba277bebf28aa7871",
+                "shortSha": "7377fca",
+                "date": "2026-10-20",
+                "subject": "fix(ds): run action button `callback` in `Alert` and improve responsive layout",
+                "normalizedSubject": "run action button `callback` in `Alert` and improve responsive layout",
+                "type": "fixed",
+                "body": [
+                  "add `callback` prop to `AlertButton` and call it on click",
+                  "pass `button.callback` through from `Alert`",
+                  "wrap `Alert` content and reorder action and close buttons on small screens",
+                  "add tests for the button `callback` with and without a description"
+                ],
+                "affected": [
+                  "Alert",
+                  "AlertButton"
+                ],
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/7377fca408a3f678f346a8eba277bebf28aa7871",
+                "prUrl": null
+              },
+              {
+                "sha": "7ee5668fad5fa797c3d52c78a84a4045dfac6647",
+                "shortSha": "7ee5668",
+                "date": "2026-10-19",
+                "subject": "feat(ds): add `ULTRA_COMPACT` style to `SidebarNavMenuItemStyleType`",
+                "normalizedSubject": "add `ULTRA_COMPACT` style to `SidebarNavMenuItemStyleType`",
+                "type": "added",
+                "body": [
+                  "add `ULTRA_COMPACT` member to `SidebarNavMenuItemStyleType`",
+                  "add tighter padding, gap, margin and icon sizes for it in `NavSidebarMenuItem`",
+                  "add matching spacing and icon sizes in `NavSidebarMenuSectionTitle`",
+                  "set `title` and `aria-label` to the item text when `NavSidebarMenuItem` is collapsed",
+                  "add tests for the collapsed labels and the `ULTRA_COMPACT` classes"
+                ],
+                "affected": [
+                  "NavSidebarMenuItem",
+                  "NavSidebarMenuSectionTitle"
+                ],
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/7ee5668fad5fa797c3d52c78a84a4045dfac6647",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 1,
+              "fixed": 1,
+              "changed": 0,
+              "maintenance": 0,
+              "breaking": 0
+            }
+          }
+        },
         {
           "packageName": "@imaginario27/air-ui-ds",
           "version": "1.26.1",
