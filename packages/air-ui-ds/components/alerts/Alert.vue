@@ -54,16 +54,8 @@
         </template>
 
         <template v-else>
-            <div class="w-full flex flex-wrap sm:flex-nowrap gap-3">
-                <div
-                    :class="[
-                        'flex-1 min-w-0',
-                        'order-1',
-                        'flex',
-                        'gap-3',
-                        hasCloseButton || (hasActionButtons && buttons?.length && 'pt-1.5'),
-                    ]"
-                >
+            <div class="w-full flex flex-wrap sm:flex-nowrap items-center gap-3">
+                <div class="flex-1 min-w-0 order-1 flex gap-3">
                     <Icon :name="iconType" :iconClass="iconColorClass" />
                     <span :class="['text-sm font-semibold', textColorClass]">
                         {{ title }}
