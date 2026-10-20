@@ -5,6 +5,21 @@ All notable changes to this package are documented in this file.
 Historical releases were reconstructed from git history (GitHub repository) and npm publish dates.
 Future releases will include detailed entries generated with Changesets.
 
+## 1.5.0 - 2026-10-20
+
+Release type: minor.
+Commits found in range: 2.
+
+### Added
+
+1. add validator and helper texts to `useUtilsConfig` ([fd5eca9](https://github.com/imaginario27/air-ui/commit/fd5eca903caff8f60a20425f62a2e8f9979354d1))
+
+### Maintenance
+
+1. update dependencies ([4e3010e](https://github.com/imaginario27/air-ui/commit/4e3010e3d05aca2ba29648d9aba98d825c7078ed))
+
+- Package: @imaginario27/air-ui-utils.
+
 ## 1.4.2 - 2026-10-12
 
 Release type: patch.
