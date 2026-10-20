@@ -151,3 +151,34 @@ describe('formValidation global config', () => {
         expect(validateUrl('not-a-url')).toBe('URL inválida.')
     })
 })
+
+describe('validation messages from useUtilsConfig', () => {
+    it('uses the configured messages when none is passed', () => {
+        const config = useUtilsConfig()
+        const original = { ...config.validation }
+
+        config.validation.requiredEmailMessage = () => 'Email obligatorio'
+        config.validation.minItemsMessage = (min) => `Mínimo ${min}`
+        config.validation.maxItemsMessage = (max) => `Máximo ${max}`
+        config.validation.atLeastOneRuleMessage = () => 'Añade una regla'
+        config.validation.incompleteRuleMessage = () => 'Completa las reglas'
+        config.validation.maxRulesMessage = (max) => `Máximo ${max} reglas`
+
+        expect(validateEmail('')).toBe('Email obligatorio')
+        expect(validateArrayField(['a'], undefined, 2)).toBe('Mínimo 2')
+        expect(validateArrayField(['a', 'b'], undefined, undefined, 1)).toBe('Máximo 1')
+        expect(validateAtLeastOneRule([])).toBe('Añade una regla')
+        expect(validateRuleCompleteness([{ item: 'a', operator: null, value: null }])).toBe('Completa las reglas')
+        expect(
+            validateMaxRules(
+                [
+                    { item: 'a', operator: 'b', value: 'c' },
+                    { item: 'a', operator: 'b', value: 'c' },
+                ],
+                1,
+            ),
+        ).toBe('Máximo 1 reglas')
+
+        Object.assign(config.validation, original)
+    })
+})

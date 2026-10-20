@@ -1,3 +1,5 @@
+import { useUtilsConfig } from '../composables/useUtilsConfig'
+
 /**
  * Trims a string to the specified maximum length and appends "..." if it exceeds the limit.
  * In `link` mode (default), appends a "Read more" link when `readMoreLink` is provided.
@@ -6,7 +8,7 @@
  *
  * @param {string} inputString - The text string to be trimmed.
  * @param {number} maxLength - The maximum allowed length of the string.
- * @param {string} [readMoreText='Read more'] - Optional text for the "Read more" link (`link` mode only).
+ * @param {string} [readMoreText] - Optional text for the "Read more" link (`link` mode only). Defaults to `useUtilsConfig().common.readMoreText()`.
  * @param {string} [readMoreLink] - Optional URL for the "Read more" link (`link` mode only). If omitted, only "..." is appended.
  * @param {'link' | 'toggle'} [readMoreType='link'] - Whether truncation is resolved via a link or via caller-driven `isExpanded` state.
  * @param {boolean} [isExpanded=false] - In `toggle` mode, returns the full text when `true`. Ignored in `link` mode.
@@ -19,7 +21,7 @@
 export const trimText = (
     inputString: string,
     maxLength: number,
-    readMoreText: string = 'Read more',
+    readMoreText: string = useUtilsConfig().common.readMoreText(),
     readMoreLink?: string,
     readMoreType: 'link' | 'toggle' = 'link',
     isExpanded: boolean = false,

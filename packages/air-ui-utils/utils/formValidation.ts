@@ -6,12 +6,8 @@ import type {
 } from '../models/types/formValidation'
 import { useUtilsConfig } from '../composables/useUtilsConfig'
 
-// Centralized error messages for form validation.
-// Overridable globally via useUtilsConfig().validation, or per-call via each function's message params.
-const FieldError = {
-    REQUIRED_EMAIL: 'Email is required.',
-    REQUIRED_OPTION: 'Please select an option.',
-}
+// Error messages for form validation are overridable globally via useUtilsConfig().validation,
+// or per-call via each function's message params.
 
 /**
  * Validates a field value to ensure it is not empty, null, or undefined.
@@ -46,7 +42,7 @@ export const validateEmail = (
     invalidEmailMessage?: string,
 ): string | null => {
     if (typeof value !== 'string' || !value.trim()) {
-        return requiredFieldMessage ?? FieldError.REQUIRED_EMAIL
+        return requiredFieldMessage ?? useUtilsConfig().validation.requiredEmailMessage()
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
@@ -189,12 +185,12 @@ export const validateArrayField = (
 
     // Check minimum length
     if (typeof minLength === 'number' && value.length < minLength) {
-        return lengthErrorMessage ?? `At least ${minLength} item${minLength > 1 ? 's' : ''} required`
+        return lengthErrorMessage ?? useUtilsConfig().validation.minItemsMessage(minLength)
     }
 
     // Check maximum length
     if (typeof maxLength === 'number' && value.length > maxLength) {
-        return lengthErrorMessage ?? `No more than ${maxLength} item${maxLength > 1 ? 's' : ''} allowed`
+        return lengthErrorMessage ?? useUtilsConfig().validation.maxItemsMessage(maxLength)
     }
 
     return null
@@ -233,7 +229,7 @@ export const composeArrayValidators = <T>(validators: ArrayValidator<T>[]): Arra
  */
 export const validateAtLeastOneRule = (
     value: RuleValidationItem[],
-    requiredFieldMessage = 'Add at least one complete rule.',
+    requiredFieldMessage = useUtilsConfig().validation.atLeastOneRuleMessage(),
 ): string | null => {
     const hasCompleteRule = value.some((rule) => isRuleComplete(rule))
 
@@ -255,7 +251,7 @@ export const validateAtLeastOneRule = (
  */
 export const validateRuleCompleteness = (
     value: RuleValidationItem[],
-    incompleteRuleMessage = 'Complete all rule fields before continuing.',
+    incompleteRuleMessage = useUtilsConfig().validation.incompleteRuleMessage(),
 ): string | null => {
     const hasIncompleteRule = value.some((rule) => !isRuleEmpty(rule) && !isRuleComplete(rule))
 
@@ -285,7 +281,7 @@ export const validateMaxRules = (
     }
 
     if (value.length > normalizedMax) {
-        return maxRulesMessage ?? `No more than ${normalizedMax} rule${normalizedMax > 1 ? 's' : ''} allowed.`
+        return maxRulesMessage ?? useUtilsConfig().validation.maxRulesMessage(normalizedMax)
     }
 
     return null
