@@ -5,6 +5,17 @@ All notable changes to this package are documented in this file.
 Historical releases were reconstructed from git history (GitHub repository) and npm publish dates.
 Future releases will include detailed entries generated with Changesets.
 
+## 1.29.1 - 2026-10-21
+
+Release type: patch.
+Commits found in range: 1.
+
+### Fixed
+
+1. keep `Card` shadow in the theme where the glow is not shown ([0b38275](https://github.com/imaginario27/air-ui/commit/0b382752bc646c63e3e306456ff31178989380b5))
+
+- Package: @imaginario27/air-ui-ds.
+
 ## 1.29.0 - 2026-10-20
 
 Release type: minor.

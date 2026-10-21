@@ -1,12 +1,52 @@
 {
-  "generatedAt": "2026-10-20T14:29:25.304Z",
+  "generatedAt": "2026-10-21T08:03:58.622Z",
   "source": "github-git-history+npm-publish-dates",
   "githubBaseUrl": "https://github.com/imaginario27/air-ui",
   "packages": [
     {
       "packageName": "@imaginario27/air-ui-ds",
-      "latestVersion": "1.29.0",
+      "latestVersion": "1.29.1",
       "entries": [
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.29.1",
+          "publishedAt": "2026-10-21",
+          "releaseType": "patch",
+          "notes": [
+            "keep `Card` shadow in the theme where the glow is not shown"
+          ],
+          "metadata": {
+            "commitCount": 1,
+            "commits": [
+              {
+                "sha": "0b382752bc646c63e3e306456ff31178989380b5",
+                "shortSha": "0b38275",
+                "date": "2026-10-21",
+                "subject": "fix(ds): keep `Card` shadow in the theme where the glow is not shown",
+                "normalizedSubject": "keep `Card` shadow in the theme where the glow is not shown",
+                "type": "fixed",
+                "body": [
+                  "clear the resting `shadow-sm` only in the theme(s) where the glow is shown (`glowColorMode`)",
+                  "keep `shadow-sm` in light mode when `glowColorMode` is `DARK` with an inner glow",
+                  "clear the resting shadow in dark mode only for inner glows with hover or focus trigger"
+                ],
+                "affected": [
+                  "Card"
+                ],
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/0b382752bc646c63e3e306456ff31178989380b5",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 0,
+              "fixed": 1,
+              "changed": 0,
+              "maintenance": 0,
+              "breaking": 0
+            }
+          }
+        },
         {
           "packageName": "@imaginario27/air-ui-ds",
           "version": "1.29.0",
