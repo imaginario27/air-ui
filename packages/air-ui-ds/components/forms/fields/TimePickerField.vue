@@ -41,9 +41,9 @@
 
                 <DateTimeSegments
                     v-if="isTypeable"
-                    class="text-sm"
                     :id
                     ref="segments"
+                    class="text-sm"
                     :type="DateSegmentsType.TIME"
                     :modelValue
                     :locale
@@ -53,7 +53,7 @@
                     :ariaLabel="label ?? ariaLabel"
                     :disabled
                     :readonly
-                    @update:modelValue="handleSegmentsInput"
+                    @update:model-value="handleSegmentsInput"
                     @focus="isFocused = true"
                     @blur="isFocused = false"
                     @open="open"
@@ -137,7 +137,7 @@
                         :readonly
                         :ariaLabel="label ?? ariaLabel"
                         :class="isInline && hasError && '!border-border-error'"
-                        @update:modelValue="handleSelect"
+                        @update:model-value="handleSelect"
                     />
                 </div>
             </Transition>
@@ -176,8 +176,12 @@ const props = defineProps({
     icon: String as PropType<string>,
     size: {
         type: String as PropType<InputSize>,
-        default: undefined,
+        default: InputSize.MD,
         validator: (value: InputSize) => Object.values(InputSize).includes(value),
+    },
+    responsiveSize: {
+        type: Boolean as PropType<boolean | null>,
+        default: null,
     },
     hasDateTimeSegments: {
         type: Boolean as PropType<boolean>,
@@ -316,8 +320,10 @@ const resolvedOpenAriaLabel = computed(() => props.openAriaLabel ?? dsConfig.tim
 
 const displayValue = computed(() => formatTime(props.modelValue, props.locale, props.hasSeconds, props.hourFormat))
 
+const isResponsive = computed(() => props.responsiveSize ?? dsConfig.forms.responsiveSize)
+
 const inputSizeClass = computed(() => {
-    if (!props.size) return 'h-[44px] lg:h-[36px]'
+    if (isResponsive.value && props.size === InputSize.MD) return 'h-[44px] lg:h-[36px]'
 
     const sizeVariant = {
         [InputSize.MD]: 'h-[36px]',

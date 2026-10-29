@@ -87,8 +87,12 @@ const props = defineProps({
     },
     size: {
         type: String as PropType<SelectSize>,
-        default: undefined,
+        default: SelectSize.MD,
         validator: (value: SelectSize) => Object.values(SelectSize).includes(value),
+    },
+    responsiveSize: {
+        type: Boolean as PropType<boolean | null>,
+        default: null,
     },
     type: {
         type: String as PropType<SelectType>,
@@ -150,8 +154,11 @@ const handleImageError = () => {
 }
 
 // Computed
+const dsConfig = useDSConfig()
+const isResponsive = computed(() => props.responsiveSize ?? dsConfig.forms.responsiveSize)
+
 const sizeClass = computed(() => {
-    if (!props.size) return 'py-3 lg:py-2'
+    if (isResponsive.value && props.size === SelectSize.MD) return 'py-3 lg:py-2'
 
     const sizeVariant = {
         [SelectSize.MD]: 'py-2',

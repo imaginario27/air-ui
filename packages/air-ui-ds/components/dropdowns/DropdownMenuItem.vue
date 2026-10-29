@@ -85,7 +85,7 @@
                 :steps
                 :size="ControlFieldSize.SM"
                 class="ml-auto"
-                @update:modelValue="emitStepChange"
+                @update:model-value="emitStepChange"
             />
 
             <Icon
@@ -129,8 +129,12 @@ const props = defineProps({
     },
     size: {
         type: String as PropType<DropdownItemSize>,
-        default: undefined,
+        default: DropdownItemSize.MD,
         validator: (value: DropdownItemSize) => Object.values(DropdownItemSize).includes(value),
+    },
+    responsiveSize: {
+        type: Boolean as PropType<boolean | null>,
+        default: null,
     },
     type: {
         type: String as PropType<DropdownItemType>,
@@ -241,8 +245,11 @@ const handleImageError = () => {
 }
 
 // Computed attributes
+const dsConfig = useDSConfig()
+const isResponsive = computed(() => props.responsiveSize ?? dsConfig.dropdowns.responsiveSize)
+
 const sizeClass = computed(() => {
-    if (!props.size) return 'min-h-[40px] lg:min-h-[36px]'
+    if (isResponsive.value && props.size === DropdownItemSize.MD) return 'min-h-[40px] lg:min-h-[36px]'
 
     const sizeVariant = {
         [DropdownItemSize.MD]: 'min-h-[36px]',

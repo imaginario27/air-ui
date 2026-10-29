@@ -10,6 +10,7 @@
                 :text="item.text"
                 :icon="item.icon"
                 :styleType="itemsStyleType"
+                :responsiveSize
                 :isCollapsed
                 :level
                 :showNestedLevelGuide
@@ -31,6 +32,7 @@
                     :detectActive="item.detectActive"
                     :prefetchOn
                     :styleType="itemsStyleType"
+                    :responsiveSize
                     :textClass="getTextClass(level)"
                     :iconClass="getIconClass(level)"
                     :showDropdownArrow="canRenderChildren(item)"
@@ -116,6 +118,10 @@ const props = defineProps({
         type: String as PropType<SidebarNavMenuItemStyleType>,
         default: SidebarNavMenuItemStyleType.COMPACT,
         validator: (value: SidebarNavMenuItemStyleType) => Object.values(SidebarNavMenuItemStyleType).includes(value),
+    },
+    responsiveSize: {
+        type: Boolean as PropType<boolean | null>,
+        default: null,
     },
     itemsCustomClass: String as PropType<string>,
     itemsTextClass: String as PropType<string>,

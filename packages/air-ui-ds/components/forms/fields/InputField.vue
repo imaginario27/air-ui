@@ -32,7 +32,7 @@
         :glowType
         :glowOpacity
         :glowSize
-        @update:modelValue="handleDateUpdate"
+        @update:model-value="handleDateUpdate"
         @update:error="emit('update:error', $event)"
     />
 
@@ -67,7 +67,7 @@
         :glowType
         :glowOpacity
         :glowSize
-        @update:modelValue="handleDateUpdate"
+        @update:model-value="handleDateUpdate"
         @update:error="emit('update:error', $event)"
     />
 
@@ -226,8 +226,12 @@ const props = defineProps({
     linkUrl: String as PropType<string>,
     size: {
         type: String as PropType<InputSize>,
-        default: undefined,
+        default: InputSize.MD,
         validator: (value: InputSize) => Object.values(InputSize).includes(value),
+    },
+    responsiveSize: {
+        type: Boolean as PropType<boolean | null>,
+        default: null,
     },
     modelValue: {
         type: [String, Number, null] as PropType<string | number | null>,
@@ -371,8 +375,10 @@ const handleDateUpdate = (value: unknown) => {
 const { glowClass } = useFieldGlow(props, hasError)
 
 // Computed classes
+const isResponsive = computed(() => props.responsiveSize ?? dsConfig.forms.responsiveSize)
+
 const inputSizeClass = computed(() => {
-    if (!props.size) return 'h-[44px] lg:h-[36px]'
+    if (isResponsive.value && props.size === InputSize.MD) return 'h-[44px] lg:h-[36px]'
 
     const sizeVariant = {
         [InputSize.MD]: 'h-[36px]',

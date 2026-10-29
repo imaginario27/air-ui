@@ -3,6 +3,7 @@ import NavSidebarMenuSectionTitle from '@/components/navigation/nav-sidebar/NavS
 import Icon from '@/components/icons/Icon.vue'
 import Divider from '~/components/dividers/Divider.vue'
 import { SidebarNavMenuItemStyleType } from '#imports'
+import { useDSConfig } from '@/composables/useDSConfig'
 
 const factory = (props = {}) =>
     mount(NavSidebarMenuSectionTitle, {
@@ -183,5 +184,38 @@ describe('NavSidebarMenuSectionTitle.vue', () => {
 
         const root = wrapper.find('div')
         expect(root.classes()).toContain('ml-4')
+    })
+
+    describe('responsiveSize', () => {
+        const rootClasses = (props = {}) =>
+            factory({ styleType: SidebarNavMenuItemStyleType.COMPACT, ...props })
+                .find('div')
+                .classes()
+
+        it('keeps the same top spacing on every screen by default', () => {
+            const classes = rootClasses()
+
+            expect(classes).toContain('pt-3')
+            expect(classes).not.toContain('lg:pt-3')
+        })
+
+        it('adds more top spacing below the lg breakpoint when responsiveSize is true', () => {
+            const classes = rootClasses({ responsiveSize: true })
+
+            expect(classes).toContain('pt-4')
+            expect(classes).toContain('lg:pt-3')
+        })
+
+        it('follows the global config unless responsiveSize is set', () => {
+            const dsConfig = useDSConfig()
+            dsConfig.navigation.responsiveSize = true
+
+            try {
+                expect(rootClasses()).toContain('lg:pt-3')
+                expect(rootClasses({ responsiveSize: false })).not.toContain('lg:pt-3')
+            } finally {
+                dsConfig.navigation.responsiveSize = false
+            }
+        })
     })
 })

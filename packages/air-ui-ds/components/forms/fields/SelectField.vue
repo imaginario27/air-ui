@@ -31,6 +31,7 @@
             :type
             :placeholder="computedPlaceholder"
             :size
+            :responsiveSize
             :activeStyle
             :filterable
             :searchFieldPlaceholder="resolvedSearchFieldPlaceholder"
@@ -49,7 +50,7 @@
             :shouldTeleport
             :teleportTo
             :selectBoxClass="computedSelectBoxClass"
-            @update:modelValue="handleValueUpdate"
+            @update:model-value="handleValueUpdate"
         />
 
         <!-- Help Text (bottom) -->
@@ -100,8 +101,12 @@ const props = defineProps({
     },
     size: {
         type: String as PropType<SelectSize>,
-        default: undefined,
+        default: SelectSize.MD,
         validator: (value: SelectSize) => Object.values(SelectSize).includes(value),
+    },
+    responsiveSize: {
+        type: Boolean as PropType<boolean | null>,
+        default: null,
     },
     activeStyle: {
         type: String as PropType<SelectActiveStyle>,

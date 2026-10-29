@@ -41,9 +41,9 @@
 
                 <DateTimeSegments
                     v-if="isTypeable"
-                    class="text-sm"
                     :id
                     ref="segments"
+                    class="text-sm"
                     :type="segmentsType"
                     :modelValue="typeof modelValue === 'string' ? modelValue : ''"
                     :locale
@@ -53,7 +53,7 @@
                     :ariaLabel="label ?? ariaLabel"
                     :disabled
                     :readonly
-                    @update:modelValue="handleSegmentsInput"
+                    @update:model-value="handleSegmentsInput"
                     @focus="isFocused = true"
                     @blur="isFocused = false"
                     @open="open"
@@ -127,7 +127,7 @@
                             :modelValue="calendarValue"
                             :isBoxed="isCalendarBoxed"
                             :class="isInline && !isDateTime && hasError && '!border-border-error'"
-                            @update:modelValue="handleCalendarSelect"
+                            @update:model-value="handleCalendarSelect"
                             @day-click="emit('day-click', $event)"
                             @day-hover="emit('day-hover', $event)"
                             @day-hover-end="emit('day-hover-end')"
@@ -143,7 +143,7 @@
                             :modelValue="timeValue"
                             :isBoxed="false"
                             class="border-t border-border-default pt-3 sm:border-l sm:border-t-0 sm:pl-3 sm:pt-0"
-                            @update:modelValue="handleTimeSelect"
+                            @update:model-value="handleTimeSelect"
                         />
                     </div>
 
@@ -212,8 +212,12 @@ const props = defineProps({
     icon: String as PropType<string>,
     size: {
         type: String as PropType<InputSize>,
-        default: undefined,
+        default: InputSize.MD,
         validator: (value: InputSize) => Object.values(InputSize).includes(value),
+    },
+    responsiveSize: {
+        type: Boolean as PropType<boolean | null>,
+        default: null,
     },
     displayFormat: Object as PropType<Intl.DateTimeFormatOptions>,
     hasDateTimeSegments: {
@@ -461,8 +465,10 @@ const resolvedPlaceholder = computed(() => {
     return placeholderVariant[props.type as DatePickerType] ?? dsConfig.calendar.placeholderText()
 })
 
+const isResponsive = computed(() => props.responsiveSize ?? dsConfig.forms.responsiveSize)
+
 const inputSizeClass = computed(() => {
-    if (!props.size) return 'h-[44px] lg:h-[36px]'
+    if (isResponsive.value && props.size === InputSize.MD) return 'h-[44px] lg:h-[36px]'
 
     const sizeVariant = {
         [InputSize.MD]: 'h-[36px]',

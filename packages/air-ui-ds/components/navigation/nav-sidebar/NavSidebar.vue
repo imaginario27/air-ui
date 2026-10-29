@@ -79,6 +79,7 @@
                         :text="item.text"
                         :icon="item.icon"
                         :styleType="itemsStyleType"
+                        :responsiveSize
                         :isCollapsed
                         :showCollapseDivider
                         :showDivider="item.showSectionDivider ?? showSectionDivider"
@@ -102,6 +103,7 @@
                                     :text="item.text"
                                     :icon="item.icon"
                                     :styleType="itemsStyleType"
+                                    :responsiveSize
                                     :textClass="itemsTextClass"
                                     :iconClass="itemsIconClass"
                                     isCollapsed
@@ -121,6 +123,7 @@
                             :detectActive="item.detectActive"
                             :prefetchOn
                             :styleType="itemsStyleType"
+                            :responsiveSize
                             :textClass="itemsTextClass"
                             :iconClass="itemsIconClass"
                             isCollapsed
@@ -352,6 +355,10 @@ const props = defineProps({
         type: String as PropType<SidebarNavMenuItemStyleType>,
         default: SidebarNavMenuItemStyleType.COMPACT,
         validator: (value: SidebarNavMenuItemStyleType) => Object.values(SidebarNavMenuItemStyleType).includes(value),
+    },
+    responsiveSize: {
+        type: Boolean as PropType<boolean | null>,
+        default: null,
     },
     itemsCustomClass: String as PropType<string>,
     itemsTextClass: String as PropType<string>,

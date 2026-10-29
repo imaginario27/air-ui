@@ -231,13 +231,6 @@
 const BASE_PADDING_PX = 8
 const CHEVRON_SIZE_PX = 16
 
-const moreActionsButtonClass = [
-    'flex items-center justify-center rounded-button',
-    'h-[32px] w-[32px] lg:h-[24px] lg:w-[24px]',
-    'text-icon-default hover:bg-background-neutral-active',
-    'transition-colors duration-150',
-]
-
 // Props
 const props = defineProps({
     nodes: {
@@ -269,6 +262,10 @@ const props = defineProps({
         type: String as PropType<ControlFieldSize>,
         default: ControlFieldSize.MD,
         validator: (value: ControlFieldSize) => Object.values(ControlFieldSize).includes(value),
+    },
+    responsiveSize: {
+        type: Boolean as PropType<boolean | null>,
+        default: null,
     },
     selectionMode: {
         type: String as PropType<TreeViewSelectionMode>,
@@ -381,6 +378,16 @@ const props = defineProps({
 const dsConfig = useDSConfig()
 
 // Computed
+const isResponsive = computed(() => props.responsiveSize ?? dsConfig.treeView.responsiveSize)
+
+// Taller below the lg breakpoint so it is easier to tap
+const moreActionsButtonClass = computed(() => [
+    'flex items-center justify-center rounded-button',
+    isResponsive.value ? 'h-[32px] w-[32px] lg:h-[24px] lg:w-[24px]' : 'h-[24px] w-[24px]',
+    'text-icon-default hover:bg-background-neutral-active',
+    'transition-colors duration-150',
+])
+
 const resolvedLoadErrorLabel = computed(() => props.loadErrorLabel ?? dsConfig.treeView.loadErrorText())
 const resolvedRenameLabel = computed(() => props.renameLabel ?? dsConfig.actions.renameText())
 const resolvedMoreActionsAriaLabel = computed(() => props.moreActionsAriaLabel ?? dsConfig.actions.moreOptionsText())

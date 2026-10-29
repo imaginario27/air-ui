@@ -30,10 +30,30 @@ describe('InputField.vue', () => {
         expect(input.exists()).toBe(true)
     })
 
-    it('uses LG on mobile and MD from lg up when no size is passed', () => {
+    it('keeps a single size on every screen when responsiveSize is not set', () => {
         const container = factory().find('input').element.parentElement!
+        expect(container.classList).not.toContain('lg:h-[36px]')
+    })
+
+    it('uses LG on mobile and MD from lg up when responsiveSize is true', () => {
+        const container = factory({ responsiveSize: true }).find('input').element.parentElement!
         expect(container.classList).toContain('h-[44px]')
         expect(container.classList).toContain('lg:h-[36px]')
+    })
+
+    it('follows the global config unless responsiveSize is set', () => {
+        const dsConfig = useDSConfig()
+        dsConfig.forms.responsiveSize = true
+
+        try {
+            const container = factory().find('input').element.parentElement!
+            expect(container.classList).toContain('lg:h-[36px]')
+
+            const containerOff = factory({ responsiveSize: false }).find('input').element.parentElement!
+            expect(containerOff.classList).not.toContain('lg:h-[36px]')
+        } finally {
+            dsConfig.forms.responsiveSize = false
+        }
     })
 
     it.each([

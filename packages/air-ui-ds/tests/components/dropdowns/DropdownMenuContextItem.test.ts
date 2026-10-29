@@ -4,6 +4,7 @@ import DropdownMenuContextItem from '@/components/dropdowns/DropdownMenuContextI
 import Kbd from '@/components/kbds/Kbd.vue'
 import { DropdownActionType, DropdownItemSize, DropdownItemType } from '~/models/enums/dropdowns'
 import { PrefetchOn } from '@/models/enums/prefetch'
+import { useDSConfig } from '@/composables/useDSConfig'
 
 vi.mock('@/assets/images/placeholders/missing-image-placeholder.png', () => ({
     default: '/mocked/missing-image.png',
@@ -321,10 +322,30 @@ describe('DropdownMenuContextItem.vue', () => {
 })
 
 describe('DropdownMenuContextItem.vue size', () => {
-    it('uses LG on mobile and MD from lg up when no size is passed', () => {
+    it('keeps a single size on every screen when responsiveSize is not set', () => {
         const html = factory().html()
+        expect(html).not.toContain('lg:min-h-[32px]')
+    })
+
+    it('uses LG on mobile and MD from lg up when responsiveSize is true', () => {
+        const html = factory({ responsiveSize: true }).html()
         expect(html).toContain('min-h-[36px]')
         expect(html).toContain('lg:min-h-[32px]')
+    })
+
+    it('follows the global config unless responsiveSize is set', () => {
+        const dsConfig = useDSConfig()
+        dsConfig.dropdowns.responsiveSize = true
+
+        try {
+            const html = factory().html()
+            expect(html).toContain('lg:min-h-[32px]')
+
+            const htmlOff = factory({ responsiveSize: false }).html()
+            expect(htmlOff).not.toContain('lg:min-h-[32px]')
+        } finally {
+            dsConfig.dropdowns.responsiveSize = false
+        }
     })
 
     it.each([

@@ -30,6 +30,7 @@
             :type
             :placeholder
             :size
+            :responsiveSize
             :activeStyle
             :noResultsFoundText
             :disabled
@@ -50,7 +51,7 @@
             :shouldTeleport
             :teleportTo
             :selectBoxClass="computedSelectBoxClass"
-            @update:modelValue="handleValueUpdate"
+            @update:model-value="handleValueUpdate"
             @search="emit('search', $event)"
         />
 
@@ -102,8 +103,12 @@ const props = defineProps({
     },
     size: {
         type: String as PropType<SelectSize>,
-        default: undefined,
+        default: SelectSize.MD,
         validator: (value: SelectSize) => Object.values(SelectSize).includes(value),
+    },
+    responsiveSize: {
+        type: Boolean as PropType<boolean | null>,
+        default: null,
     },
     activeStyle: {
         type: String as PropType<SelectActiveStyle>,

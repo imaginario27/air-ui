@@ -4,6 +4,7 @@ import { ref, nextTick } from 'vue'
 import PinField from '~/components/forms/fields/PinField.vue'
 import { Position } from '@/models/enums/positions'
 import { InputSize } from '@/models/enums/formFields'
+import { useDSConfig } from '@/composables/useDSConfig'
 
 const defaultProps = {
     id: 'pin-input',
@@ -252,13 +253,33 @@ describe('PinField glow', () => {
 })
 
 describe('PinField.vue size', () => {
-    it('uses LG on mobile and MD from lg up when no size is passed', () => {
+    it('keeps a single size on every screen when responsiveSize is not set', () => {
         const html = factory().html()
+        expect(html).not.toContain('lg:w-[36px]')
+    })
+
+    it('uses LG on mobile and MD from lg up when responsiveSize is true', () => {
+        const html = factory({ responsiveSize: true }).html()
 
         expect(html).toContain('w-[44px]')
         expect(html).toContain('lg:w-[36px]')
         expect(html).toContain('gap-3')
         expect(html).toContain('lg:gap-2')
+    })
+
+    it('follows the global config unless responsiveSize is set', () => {
+        const dsConfig = useDSConfig()
+        dsConfig.forms.responsiveSize = true
+
+        try {
+            const html = factory().html()
+            expect(html).toContain('lg:w-[36px]')
+
+            const htmlOff = factory({ responsiveSize: false }).html()
+            expect(htmlOff).not.toContain('lg:w-[36px]')
+        } finally {
+            dsConfig.forms.responsiveSize = false
+        }
     })
 
     it.each([

@@ -9,29 +9,33 @@ export const useTreeViewAppearance = (
 ) => {
     const { isBranch, isExpanded } = structure
 
-    // Rows are taller below the lg breakpoint so they are easier to tap, like the dropdown items
+    const dsConfig = useDSConfig()
+    const isResponsive = computed(() => props.responsiveSize ?? dsConfig.treeView.responsiveSize)
+
+    // Rows are taller below the lg breakpoint when responsive, so they are easier to tap
     const sizeConfig = computed(() => {
+        const responsive = isResponsive.value
         const variants = {
             [ControlFieldSize.XS]: {
-                row: 'h-[32px] lg:h-[24px]',
+                row: responsive ? 'h-[32px] lg:h-[24px]' : 'h-[24px]',
                 text: 'text-xs',
                 indent: 16,
                 checkbox: ControlFieldSize.XS,
             },
             [ControlFieldSize.SM]: {
-                row: 'h-[36px] lg:h-[28px]',
+                row: responsive ? 'h-[36px] lg:h-[28px]' : 'h-[28px]',
                 text: 'text-sm',
                 indent: 18,
                 checkbox: ControlFieldSize.XS,
             },
             [ControlFieldSize.MD]: {
-                row: 'h-[40px] lg:h-[32px]',
+                row: responsive ? 'h-[40px] lg:h-[32px]' : 'h-[32px]',
                 text: 'text-sm',
                 indent: 20,
                 checkbox: ControlFieldSize.XS,
             },
             [ControlFieldSize.LG]: {
-                row: 'h-[44px] lg:h-[40px]',
+                row: responsive ? 'h-[44px] lg:h-[40px]' : 'h-[40px]',
                 text: 'text-base',
                 indent: 24,
                 checkbox: ControlFieldSize.SM,
