@@ -668,7 +668,7 @@ const nodes: TreeViewNode[] = [
 
 ### size
 
-Sets the row height, text size and indentation.
+Sets the row height, text size and indentation. Below the `lg` breakpoint rows are taller so they are easier to tap.
 
 ```vue
 <template>

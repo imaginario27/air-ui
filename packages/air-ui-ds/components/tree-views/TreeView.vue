@@ -233,7 +233,7 @@ const CHEVRON_SIZE_PX = 16
 
 const moreActionsButtonClass = [
     'flex items-center justify-center rounded-button',
-    'h-[24px] w-[24px]',
+    'h-[32px] w-[32px] lg:h-[24px] lg:w-[24px]',
     'text-icon-default hover:bg-background-neutral-active',
     'transition-colors duration-150',
 ]

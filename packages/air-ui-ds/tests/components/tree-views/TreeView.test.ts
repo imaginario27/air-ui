@@ -813,8 +813,17 @@ describe('TreeView', () => {
         })
 
         it('applies the row height of the size', () => {
-            expect(item(factory({ size: 'lg' }), 'src').classes()).toContain('h-[40px]')
-            expect(item(factory({ size: 'xs' }), 'src').classes()).toContain('h-[24px]')
+            expect(item(factory({ size: 'lg' }), 'src').classes()).toContain('lg:h-[40px]')
+            expect(item(factory({ size: 'xs' }), 'src').classes()).toContain('lg:h-[24px]')
+        })
+
+        it.each([
+            ['xs', 'h-[32px]'],
+            ['sm', 'h-[36px]'],
+            ['md', 'h-[40px]'],
+            ['lg', 'h-[44px]'],
+        ])('makes the %s row taller below the lg breakpoint', (size, touchClass) => {
+            expect(item(factory({ size }), 'src').classes()).toContain(touchClass)
         })
 
         it('uses custom icons for files and folders', () => {
