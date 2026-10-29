@@ -5,6 +5,17 @@ All notable changes to this package are documented in this file.
 Historical releases were reconstructed from git history (GitHub repository) and npm publish dates.
 Future releases will include detailed entries generated with Changesets.
 
+## 1.32.1 - 2026-10-29
+
+Release type: patch.
+Commits found in range: 1.
+
+### Fixed
+
+1. add `size` and `responsiveSize` props to `TagsField` ([3f0b672](https://github.com/imaginario27/air-ui/commit/3f0b67282d2087da8426605a42aa5e3bd5573875))
+
+- Package: @imaginario27/air-ui-ds.
+
 ## 1.32.0 - 2026-10-29
 
 Release type: minor.
