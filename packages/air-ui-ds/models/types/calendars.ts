@@ -174,3 +174,10 @@ export interface CalendarProps {
     readonly previousYearAriaLabel?: string
     readonly nextYearAriaLabel?: string
 }
+
+export interface DateSegmentLayoutItem {
+    kind: DateSegmentKind
+    text?: string
+}
+
+export type DateSegmentParts = Partial<Record<DateSegmentKind, string>>

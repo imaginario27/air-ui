@@ -112,6 +112,10 @@ export interface DesignSystemConfig {
         dayText: () => string
         monthText: () => string
         yearText: () => string
+        daySegmentText: () => string
+        monthSegmentText: () => string
+        yearSegmentText: () => string
+        weekSegmentText: () => string
         agendaText: () => string
         viewText: () => string
         allDayText: () => string
@@ -128,6 +132,10 @@ export interface DesignSystemConfig {
         minutesText: () => string
         secondsText: () => string
         periodText: () => string
+        hoursSegmentText: () => string
+        minutesSegmentText: () => string
+        secondsSegmentText: () => string
+        periodSegmentText: () => string
     }
     slides: {
         previousText: () => string

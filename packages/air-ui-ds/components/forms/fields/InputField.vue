@@ -16,6 +16,10 @@
         :min
         :max
         :locale
+        :displayFormat
+        :hasDateTimeSegments
+        :hourFormat
+        :hasSeconds
         :readonly
         :disabled
         :required
@@ -48,6 +52,9 @@
         :min
         :max
         :locale
+        :hasDateTimeSegments
+        :hourFormat
+        :hasSeconds
         :readonly
         :disabled
         :required
@@ -253,6 +260,19 @@ const props = defineProps({
     locale: {
         type: String as PropType<string>,
         default: 'en-US',
+    },
+    displayFormat: Object as PropType<Intl.DateTimeFormatOptions>,
+    hasDateTimeSegments: {
+        type: Boolean as PropType<boolean>,
+        default: false,
+    },
+    hourFormat: {
+        type: String as PropType<HourFormat>,
+        validator: (value: HourFormat) => Object.values(HourFormat).includes(value),
+    },
+    hasSeconds: {
+        type: Boolean as PropType<boolean>,
+        default: false,
     },
     min: String as PropType<string>,
     max: String as PropType<string>,

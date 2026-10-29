@@ -720,3 +720,163 @@ describe('DatePickerField.vue size', () => {
         expect(html).not.toContain(notExpected)
     })
 })
+
+describe('DatePickerField.vue date segments', () => {
+    const segmentInputs = (wrapper: ReturnType<typeof factory>) =>
+        wrapper.findComponent({ name: 'DateTimeSegments' }).findAll('input')
+
+    const typeInto = async (input: ReturnType<typeof segmentInputs>[number], text: string) => {
+        for (const char of text) {
+            input.element.dispatchEvent(
+                new InputEvent('beforeinput', { data: char, inputType: 'insertText', bubbles: true, cancelable: true }),
+            )
+        }
+        await nextTick()
+    }
+
+    it('writes the segments in small text', () => {
+        const wrapper = factory({ hasDateTimeSegments: true })
+
+        expect(wrapper.findComponent({ name: 'DateTimeSegments' }).classes()).toContain('text-sm')
+    })
+
+    it('keeps the read only input unless hasDateTimeSegments is set', () => {
+        const wrapper = factory()
+
+        expect(wrapper.findComponent({ name: 'DateTimeSegments' }).exists()).toBe(false)
+        expect(wrapper.find('input[readonly]').exists()).toBe(true)
+    })
+
+    it.each([
+        ['date', 'es-ES', ['dd', 'mm', 'yyyy']],
+        ['date', 'en-US', ['mm', 'dd', 'yyyy']],
+        ['month', 'en-US', ['mm', 'yyyy']],
+        ['week', 'en-US', ['ww', 'yyyy']],
+        ['datetime-local', 'es-ES', ['dd', 'mm', 'yyyy', 'hh', 'mm']],
+    ])('writes the %s in the pattern of %s', (type, locale, expected) => {
+        const wrapper = factory({ hasDateTimeSegments: true, type, locale, modelValue: null })
+
+        expect(segmentInputs(wrapper).map((input) => input.attributes('placeholder'))).toEqual(expected)
+        expect(wrapper.find('input[readonly]').exists()).toBe(false)
+    })
+
+    it('shows the value in the segments and follows it', async () => {
+        const wrapper = factory({ hasDateTimeSegments: true, locale: 'es-ES' })
+
+        expect(segmentInputs(wrapper).map((input) => input.element.value)).toEqual(['15', '10', '2026'])
+
+        await wrapper.setProps({ modelValue: '2027-01-02' })
+        expect(segmentInputs(wrapper).map((input) => input.element.value)).toEqual(['02', '01', '2027'])
+    })
+
+    it('emits the typed date and null once it stops being complete', async () => {
+        const wrapper = factory({ hasDateTimeSegments: true, locale: 'es-ES', modelValue: null })
+        const [day, month, year] = segmentInputs(wrapper)
+
+        await typeInto(day!, '15')
+        await typeInto(month!, '10')
+        await typeInto(year!, '2026')
+        expect(wrapper.emitted('update:modelValue')).toEqual([['2026-10-15']])
+
+        await day!.trigger('keydown', { key: 'Backspace' })
+        expect(wrapper.emitted('update:modelValue')?.at(-1)).toEqual([null])
+    })
+
+    it('types a date and time', async () => {
+        const wrapper = factory({
+            hasDateTimeSegments: true,
+            type: 'datetime-local',
+            locale: 'es-ES',
+            modelValue: null,
+        })
+        const [day, month, year, hour, minute] = segmentInputs(wrapper)
+
+        await typeInto(day!, '15')
+        await typeInto(month!, '10')
+        await typeInto(year!, '2026')
+        await typeInto(hour!, '19')
+        await typeInto(minute!, '30')
+
+        expect(wrapper.emitted('update:modelValue')).toEqual([['2026-10-15T19:30']])
+    })
+
+    it('does not emit a date outside min and max or a disabled one', async () => {
+        const wrapper = factory({
+            hasDateTimeSegments: true,
+            locale: 'es-ES',
+            modelValue: null,
+            min: '2026-10-10',
+            isDateDisabled: (date: string) => date === '2026-10-20',
+        })
+        const [day, month, year] = segmentInputs(wrapper)
+
+        await typeInto(day!, '05')
+        await typeInto(month!, '10')
+        await typeInto(year!, '2026')
+        expect(wrapper.emitted('update:modelValue')).toBeUndefined()
+
+        await typeInto(day!, '20')
+        expect(wrapper.emitted('update:modelValue')).toBeUndefined()
+
+        await typeInto(day!, '21')
+        expect(wrapper.emitted('update:modelValue')).toEqual([['2026-10-21']])
+    })
+
+    it('clears the segments with the clear button', async () => {
+        const wrapper = factory({ hasDateTimeSegments: true, locale: 'es-ES' })
+
+        await wrapper.find('button[aria-label="Clear selection"]').trigger('click')
+        expect(wrapper.emitted('update:modelValue')).toEqual([[null]])
+
+        await wrapper.setProps({ modelValue: null })
+        expect(segmentInputs(wrapper).map((input) => input.element.value)).toEqual(['', '', ''])
+    })
+
+    it('opens the calendar with the button and with Alt and ArrowDown', async () => {
+        const byButton = factory({ hasDateTimeSegments: true })
+        await byButton.find('button[aria-label="Open calendar"]').trigger('click')
+        expect(calendarExists(byButton)).toBe(true)
+
+        const byKeyboard = factory({ hasDateTimeSegments: true })
+        await segmentInputs(byKeyboard)[0]!.trigger('keydown', { key: 'ArrowDown', altKey: true })
+        expect(calendarExists(byKeyboard)).toBe(true)
+    })
+
+    it('does not open the calendar when the segments are clicked', async () => {
+        const wrapper = factory({ hasDateTimeSegments: true })
+
+        await segmentInputs(wrapper)[0]!.trigger('click')
+
+        expect(calendarExists(wrapper)).toBe(false)
+    })
+
+    it('shows the focus ring while a segment has the focus', async () => {
+        const wrapper = factory({ hasDateTimeSegments: true })
+        const box = wrapper.find('div.border')
+
+        await segmentInputs(wrapper)[0]!.trigger('focusin')
+        expect(box.classes()).toContain('ring-2')
+
+        await segmentInputs(wrapper)[0]!.trigger('focusout', { relatedTarget: document.body })
+        expect(box.classes()).not.toContain('ring-2')
+    })
+
+    it.each([
+        ['a range', { mode: 'range', modelValue: { start: null, end: null } }],
+        ['several dates', { mode: 'multiple', modelValue: [] }],
+        ['the inline variant', { variant: 'inline' }],
+    ])('keeps the picker for %s', (_name, props) => {
+        const wrapper = factory({ hasDateTimeSegments: true, ...props })
+
+        expect(wrapper.findComponent({ name: 'DateTimeSegments' }).exists()).toBe(false)
+    })
+
+    it('passes the disabled and read only state to the segments', () => {
+        expect(
+            segmentInputs(factory({ hasDateTimeSegments: true, disabled: true }))[0]!.attributes('disabled'),
+        ).toBeDefined()
+        expect(
+            segmentInputs(factory({ hasDateTimeSegments: true, readonly: true }))[0]!.attributes('readonly'),
+        ).toBeDefined()
+    })
+})

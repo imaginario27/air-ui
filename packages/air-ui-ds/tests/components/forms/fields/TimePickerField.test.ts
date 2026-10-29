@@ -288,3 +288,91 @@ describe('TimePickerField.vue size', () => {
         expect(html).not.toContain(notExpected)
     })
 })
+
+describe('TimePickerField.vue time segments', () => {
+    const segmentInputs = (wrapper: ReturnType<typeof factory>) =>
+        wrapper.findComponent({ name: 'DateTimeSegments' }).findAll('input')
+
+    const typeInto = async (input: ReturnType<typeof segmentInputs>[number], text: string) => {
+        for (const char of text) {
+            input.element.dispatchEvent(
+                new InputEvent('beforeinput', { data: char, inputType: 'insertText', bubbles: true, cancelable: true }),
+            )
+        }
+        await nextTick()
+    }
+
+    it('keeps the read only input unless hasDateTimeSegments is set', () => {
+        const wrapper = factory()
+
+        expect(wrapper.findComponent({ name: 'DateTimeSegments' }).exists()).toBe(false)
+        expect(wrapper.find('input[readonly]').exists()).toBe(true)
+    })
+
+    it('writes the time in the pattern of the locale', () => {
+        const es = factory({ hasDateTimeSegments: true, modelValue: null })
+        expect(segmentInputs(es).map((input) => input.attributes('placeholder'))).toEqual(['hh', 'mm'])
+
+        const us = factory({ hasDateTimeSegments: true, modelValue: null, locale: 'en-US' })
+        expect(segmentInputs(us).map((input) => input.attributes('placeholder'))).toEqual(['hh', 'mm', '--'])
+    })
+
+    it('adds the seconds and follows the hour format', () => {
+        const seconds = factory({ hasDateTimeSegments: true, hasSeconds: true })
+        expect(segmentInputs(seconds).map((input) => input.element.value)).toEqual(['19', '30', '00'])
+
+        const twelve = factory({ hasDateTimeSegments: true, hourFormat: '12' })
+        expect(segmentInputs(twelve).map((input) => input.element.value)).toEqual([
+            '07',
+            '30',
+            expect.stringMatching(/p/i),
+        ])
+    })
+
+    it('emits the typed time and null once it stops being complete', async () => {
+        const wrapper = factory({ hasDateTimeSegments: true, modelValue: null })
+        const [hour, minute] = segmentInputs(wrapper)
+
+        await typeInto(hour!, '08')
+        await typeInto(minute!, '45')
+        expect(wrapper.emitted('update:modelValue')).toEqual([['08:45']])
+
+        await hour!.trigger('keydown', { key: 'Backspace' })
+        expect(wrapper.emitted('update:modelValue')?.at(-1)).toEqual([null])
+    })
+
+    it('does not emit a time outside min and max', async () => {
+        const wrapper = factory({ hasDateTimeSegments: true, modelValue: null, min: '09:00', max: '18:00' })
+        const [hour, minute] = segmentInputs(wrapper)
+
+        await typeInto(hour!, '08')
+        await typeInto(minute!, '45')
+        expect(wrapper.emitted('update:modelValue')).toBeUndefined()
+
+        await typeInto(hour!, '10')
+        expect(wrapper.emitted('update:modelValue')).toEqual([['10:45']])
+    })
+
+    it('clears the segments with the clear button', async () => {
+        const wrapper = factory({ hasDateTimeSegments: true })
+
+        await wrapper.find('button[aria-label="Clear selection"]').trigger('click')
+        expect(wrapper.emitted('update:modelValue')).toEqual([[null]])
+    })
+
+    it('opens the time picker with the button and with Alt and ArrowDown', async () => {
+        const byButton = factory({ hasDateTimeSegments: true })
+        await byButton.find('button[aria-label="Open time picker"]').trigger('click')
+        expect(pickerExists(byButton)).toBe(true)
+
+        const byKeyboard = factory({ hasDateTimeSegments: true })
+        await segmentInputs(byKeyboard)[0]!.trigger('keydown', { key: 'ArrowDown', altKey: true })
+        expect(pickerExists(byKeyboard)).toBe(true)
+    })
+
+    it('keeps the picker in the inline variant', () => {
+        const wrapper = factory({ hasDateTimeSegments: true, variant: 'inline' })
+
+        expect(wrapper.findComponent({ name: 'DateTimeSegments' }).exists()).toBe(false)
+    })
+})

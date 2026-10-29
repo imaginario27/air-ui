@@ -46,6 +46,37 @@ describe('InputField.vue', () => {
         expect(container.classList).not.toContain('lg:h-[36px]')
     })
 
+    describe('date and time display', () => {
+        const shownValue = (props: Record<string, any>) =>
+            (factory(props).find('input').element as HTMLInputElement).value
+
+        it.each([
+            ['en-US', '10/15/2026'],
+            ['es-ES', '15/10/2026'],
+            ['de-DE', '15.10.2026'],
+        ])('writes the date following the %s locale', (locale, expected) => {
+            expect(shownValue({ type: 'date', modelValue: '2026-10-15', locale })).toBe(expected)
+        })
+
+        it.each([
+            ['en-US', 'October 15, 2026'],
+            ['es-ES', '15 de octubre de 2026'],
+        ])('applies displayFormat in the %s locale', (locale, expected) => {
+            const value = shownValue({
+                type: 'date',
+                modelValue: '2026-10-15',
+                locale,
+                displayFormat: { dateStyle: 'long' },
+            })
+            expect(value).toBe(expected)
+        })
+
+        it('writes the time following the locale', () => {
+            expect(shownValue({ type: 'time', modelValue: '19:30', locale: 'es-ES' })).toBe('19:30')
+            expect(shownValue({ type: 'time', modelValue: '19:30', locale: 'en-US' })).toContain('PM')
+        })
+    })
+
     it('displays help text when provided', () => {
         const wrapper = factory({ helpText: 'This is help text' })
         const help = wrapper.find('p.text-xs')
@@ -484,5 +515,75 @@ describe('InputField glow', () => {
     it.each(['date', 'time'])('passes the glow to the picker used by the %s type', (type) => {
         const wrapper = factory({ type, modelValue: '', glowColorMode: GlowColorMode.BOTH })
         expect(wrapper.findAll('[class*="--glow-color"]')).toHaveLength(1)
+    })
+})
+
+describe('InputField date and time segments', () => {
+    const segmentsOf = (props: Record<string, any>) =>
+        factory(props)
+            .findComponent({ name: 'DateTimeSegments' })
+            .findAll('input')
+            .map((input) => input.attributes('placeholder'))
+
+    it.each([
+        ['date', 'en-US', ['mm', 'dd', 'yyyy']],
+        ['date', 'es-ES', ['dd', 'mm', 'yyyy']],
+        ['month', 'en-US', ['mm', 'yyyy']],
+        ['week', 'en-US', ['ww', 'yyyy']],
+        ['datetime-local', 'es-ES', ['dd', 'mm', 'yyyy', 'hh', 'mm']],
+        ['time', 'es-ES', ['hh', 'mm']],
+        ['time', 'en-US', ['hh', 'mm', '--']],
+    ])('writes the %s type in the pattern of %s when hasDateTimeSegments is set', (type, locale, expected) => {
+        expect(segmentsOf({ type, locale, hasDateTimeSegments: true })).toEqual(expected)
+    })
+
+    it('keeps the picker input unless hasDateTimeSegments is set', () => {
+        const wrapper = factory({ type: 'date' })
+
+        expect(wrapper.findComponent({ name: 'DateTimeSegments' }).exists()).toBe(false)
+    })
+
+    it('emits the typed date as an ISO string', async () => {
+        const wrapper = factory({ type: 'date', locale: 'es-ES', hasDateTimeSegments: true })
+        const [day, month, year] = wrapper.findComponent({ name: 'DateTimeSegments' }).findAll('input')
+
+        for (const [input, text] of [
+            [day, '15'],
+            [month, '10'],
+            [year, '2026'],
+        ] as const) {
+            for (const char of text) {
+                input!.element.dispatchEvent(
+                    new InputEvent('beforeinput', {
+                        data: char,
+                        inputType: 'insertText',
+                        bubbles: true,
+                        cancelable: true,
+                    }),
+                )
+            }
+        }
+        await nextTick()
+
+        expect(wrapper.emitted('update:modelValue')).toEqual([['2026-10-15']])
+    })
+})
+
+describe('InputField hour format and seconds', () => {
+    const placeholdersOf = (props: Record<string, any>) =>
+        factory({ hasDateTimeSegments: true, ...props })
+            .findComponent({ name: 'DateTimeSegments' })
+            .findAll('input')
+            .map((input) => input.attributes('placeholder'))
+
+    it.each([
+        ['time', 'en-US', {}, ['hh', 'mm', '--']],
+        ['time', 'en-US', { hourFormat: '24' }, ['hh', 'mm']],
+        ['time', 'es-ES', { hourFormat: '12' }, ['hh', 'mm', '--']],
+        ['time', 'es-ES', { hasSeconds: true }, ['hh', 'mm', 'ss']],
+        ['datetime-local', 'es-ES', { hasSeconds: true }, ['dd', 'mm', 'yyyy', 'hh', 'mm', 'ss']],
+        ['datetime-local', 'en-US', { hourFormat: '24' }, ['mm', 'dd', 'yyyy', 'hh', 'mm']],
+    ])('writes the %s type in %s with %o', (type, locale, props, expected) => {
+        expect(placeholdersOf({ type, locale, ...props })).toEqual(expected)
     })
 })
