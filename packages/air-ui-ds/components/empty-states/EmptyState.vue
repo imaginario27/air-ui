@@ -25,14 +25,19 @@
                 </p>
             </div>
 
-            <div v-if="buttonText" :class="[orientation === Orientation.VERTICAL ? 'pt-4' : 'pt-4 sm:pt-0 sm:ml-4']">
-                <ActionButton
-                    :text="buttonText"
-                    :styleType="buttonStyleType"
-                    :icon="buttonIcon"
-                    :iconPosition="buttonIconPosition"
-                    @click="emitButtonClick"
-                />
+            <div
+                v-if="$slots.action || buttonText"
+                :class="[orientation === Orientation.VERTICAL ? 'pt-4' : 'pt-4 sm:pt-0 sm:ml-4']"
+            >
+                <slot name="action">
+                    <ActionButton
+                        :text="buttonText"
+                        :styleType="buttonStyleType"
+                        :icon="buttonIcon"
+                        :iconPosition="buttonIconPosition"
+                        @click="emitButtonClick"
+                    />
+                </slot>
             </div>
         </div>
     </div>
