@@ -12,7 +12,8 @@ props:
     modelValue: null
     placeholder: "Select a time"
     icon: null
-    size: "md"
+    size: null
+    hasDateTimeSegments: false
     clearable: true
     pickerPosition: "bottom"
     autoFlip: true
@@ -155,7 +156,11 @@ props: [
     {
         "name": "size",
         "type": "InputSize",
-        "default": "InputSize.MD"
+    },
+    {
+        "name": "hasDateTimeSegments",
+        "type": "boolean",
+        "default": "false"
     },
     {
         "name": "clearable",
@@ -431,7 +436,7 @@ Sets an icon shown at the start of the input. Only applies to the `INPUT` varian
 
 ### size
 
-Sets the height of the input via the `InputSize` enum. Only applies to the `INPUT` variant.
+Sets the height of the input via the `InputSize` enum. When it is not set, it is `InputSize.LG` on mobile and `InputSize.MD` from the `lg` breakpoint up. Passing a value keeps that size at every screen width. Only applies to the `INPUT` variant.
 
 ```vue
 <template>
@@ -440,7 +445,7 @@ Sets the height of the input via the `InputSize` enum. Only applies to the `INPU
 ```
 
 - **Type:** `InputSize`
-- **Default:** `InputSize.MD`
+- **Default:** `undefined` (LG on mobile, MD from `lg` up)
 
 #### Options
 
@@ -452,6 +457,21 @@ options: [
 ]
 ---
 ::
+
+### hasDateTimeSegments
+
+Writes the time by typing it in segments, such as `hh : mm AM`, inside the same box. Each segment takes its digits and the cursor moves on when it is complete, the arrow keys change its value, the day period is typed with its first letter (`a` or `p`), and `Alt` + `ArrowDown` opens the picker. The order, the separators and the 12 or 24 hour clock follow the [locale](#locale) and [hourFormat](#hourformat), and [hasSeconds](#hasseconds) adds the seconds. The text of each segment placeholder comes from the [configuration](/docs/getting-started/configuration).
+
+The value is still the `HH:mm` string. It is emitted only while the time is complete and allowed by [min](#min) and [max](#max), and it is `null` otherwise. The picker button keeps working, and the inline variant keeps the picker.
+
+```vue
+<template>
+    <TimePickerField id="time" hasDateTimeSegments />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `false`
 
 ### clearable
 

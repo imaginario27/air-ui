@@ -91,6 +91,17 @@ describe('EmptyStatePlaceholder', () => {
         expect(button.props('text')).toBe('Reload')
     })
 
+    it('renders the action slot instead of the default button', () => {
+        const wrapper = mount(EmptyStatePlaceholder, {
+            props: { buttonText: 'Reload' },
+            slots: { action: '<a class="custom-action">Custom</a>' },
+            global: { stubs: { Icon, ActionButton } },
+        })
+
+        expect(wrapper.find('.custom-action').exists()).toBe(true)
+        expect(wrapper.findComponent(ActionButton).exists()).toBe(false)
+    })
+
     it('emits buttonClick on ActionButton click', async () => {
         const wrapper = factory({
             buttonText: 'Reload',

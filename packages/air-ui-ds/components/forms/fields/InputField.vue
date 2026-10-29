@@ -16,6 +16,10 @@
         :min
         :max
         :locale
+        :displayFormat
+        :hasDateTimeSegments
+        :hourFormat
+        :hasSeconds
         :readonly
         :disabled
         :required
@@ -48,6 +52,9 @@
         :min
         :max
         :locale
+        :hasDateTimeSegments
+        :hourFormat
+        :hasSeconds
         :readonly
         :disabled
         :required
@@ -219,7 +226,7 @@ const props = defineProps({
     linkUrl: String as PropType<string>,
     size: {
         type: String as PropType<InputSize>,
-        default: InputSize.MD,
+        default: undefined,
         validator: (value: InputSize) => Object.values(InputSize).includes(value),
     },
     modelValue: {
@@ -253,6 +260,19 @@ const props = defineProps({
     locale: {
         type: String as PropType<string>,
         default: 'en-US',
+    },
+    displayFormat: Object as PropType<Intl.DateTimeFormatOptions>,
+    hasDateTimeSegments: {
+        type: Boolean as PropType<boolean>,
+        default: false,
+    },
+    hourFormat: {
+        type: String as PropType<HourFormat>,
+        validator: (value: HourFormat) => Object.values(HourFormat).includes(value),
+    },
+    hasSeconds: {
+        type: Boolean as PropType<boolean>,
+        default: false,
     },
     min: String as PropType<string>,
     max: String as PropType<string>,
@@ -352,6 +372,8 @@ const { glowClass } = useFieldGlow(props, hasError)
 
 // Computed classes
 const inputSizeClass = computed(() => {
+    if (!props.size) return 'h-[44px] lg:h-[36px]'
+
     const sizeVariant = {
         [InputSize.MD]: 'h-[36px]',
         [InputSize.LG]: 'h-[44px]',

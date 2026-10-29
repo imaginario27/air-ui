@@ -160,6 +160,7 @@
                             <DropdownSelectItem
                                 v-else
                                 :type="type"
+                                :size="size"
                                 :text="option.text"
                                 :icon="option.icon"
                                 :userDisplayName="option.userDisplayName"
@@ -230,7 +231,7 @@ const props = defineProps({
     },
     size: {
         type: String as PropType<SelectSize>,
-        default: SelectSize.MD,
+        default: undefined,
         validator: (value: SelectSize) => Object.values(SelectSize).includes(value),
     },
     activeStyle: {
@@ -318,6 +319,8 @@ const resolvedClearSelectionAriaLabel = computed(
 
 // Computed classes
 const sizeClass = computed(() => {
+    if (!props.size) return 'min-h-[44px] lg:min-h-[36px]'
+
     const sizeVariant = {
         [SelectSize.MD]: 'min-h-[36px]',
         [SelectSize.LG]: 'min-h-[44px]',

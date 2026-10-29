@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils'
 import DropdownMenuItem from '@/components/dropdowns/DropdownMenuItem.vue'
-import { DropdownActionType, DropdownItemType } from '~/models/enums/dropdowns'
+import { DropdownActionType, DropdownItemSize, DropdownItemType } from '~/models/enums/dropdowns'
 import { NuxtLink } from '#components'
 import Icon from '@/components/icons/Icon.vue'
 import { PrefetchOn } from '@/models/enums/prefetch'
@@ -452,5 +452,22 @@ describe('DropdownMenuItem.vue', () => {
     it('sets tabindex="-1" when disabled', () => {
         const wrapper = factory({ disabled: true })
         expect(wrapper.attributes('tabindex')).toBe('-1')
+    })
+})
+
+describe('DropdownMenuItem.vue size', () => {
+    it('uses LG on mobile and MD from lg up when no size is passed', () => {
+        const html = factory().html()
+        expect(html).toContain('min-h-[40px]')
+        expect(html).toContain('lg:min-h-[36px]')
+    })
+
+    it.each([
+        [DropdownItemSize.MD, 'min-h-[36px]', 'min-h-[40px]'],
+        [DropdownItemSize.LG, 'min-h-[40px]', 'min-h-[36px]'],
+    ])('keeps a fixed height when size is %s', (size, expected, notExpected) => {
+        const html = factory({ size }).html()
+        expect(html).toContain(expected)
+        expect(html).not.toContain(notExpected)
     })
 })

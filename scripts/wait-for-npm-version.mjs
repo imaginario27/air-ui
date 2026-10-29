@@ -29,7 +29,7 @@ const isPublished = () => {
             { encoding: "utf8", stdio: ["ignore", "pipe", "ignore"] },
         ).trim()
 
-        return out.replace(/"/g, "") === version
+        return [].concat(JSON.parse(out)).includes(version)
     } catch {
         return false
     }

@@ -3,6 +3,7 @@ import { defineComponent, nextTick, ref } from 'vue'
 import DropdownCombobox from '@/components/dropdowns/DropdownCombobox.vue'
 import ActionIconButton from '@/components/buttons/ActionIconButton.vue'
 import { useDSConfig } from '@/composables/useDSConfig'
+import { SelectSize } from '@/models/enums/selects'
 
 const options = [
     { text: 'Apple', value: 'apple' },
@@ -407,5 +408,22 @@ describe('DropdownCombobox.vue', () => {
 
             expect(wrapper.text()).toContain('Sin resultados')
         })
+    })
+})
+
+describe('DropdownCombobox.vue size', () => {
+    it('uses LG on mobile and MD from lg up when no size is passed', () => {
+        const html = factory().html()
+        expect(html).toContain('min-h-[44px]')
+        expect(html).toContain('lg:min-h-[36px]')
+    })
+
+    it.each([
+        [SelectSize.MD, 'min-h-[36px]', 'min-h-[44px]'],
+        [SelectSize.LG, 'min-h-[44px]', 'min-h-[36px]'],
+    ])('keeps a fixed height when size is %s', (size, expected, notExpected) => {
+        const html = factory({ size }).html()
+        expect(html).toContain(expected)
+        expect(html).not.toContain(notExpected)
     })
 })

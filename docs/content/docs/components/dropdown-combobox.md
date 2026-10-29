@@ -25,7 +25,7 @@ props:
           value: "date"
     placeholder: "Select an option"
     type: "text"
-    size: "md"
+    size: null
     activeStyle: "check"
     modelValue: null
     dropdownPosition: "bottom"
@@ -118,7 +118,6 @@ props: [
     },
     {
         "name": "size",
-        "default": "SelectSize.MD",
         "type": "SelectSize",
     },
     {
@@ -337,7 +336,7 @@ options: [
 
 ### size
 
-Sets the size of the combobox. It uses the `SelectSize` enum.
+Sets the size of the combobox. It uses the `SelectSize` enum. When it is not set, it is `SelectSize.LG` on mobile and `SelectSize.MD` from the `lg` breakpoint up. Passing a value keeps that size at every screen width.
 
 ```vue
 <template>
@@ -346,7 +345,7 @@ Sets the size of the combobox. It uses the `SelectSize` enum.
 ```
 
 - **Type:** `SelectSize`
-- **Default:** `SelectSize.MD`
+- **Default:** `undefined` (LG on mobile, MD from `lg` up)
 
 #### Options
 

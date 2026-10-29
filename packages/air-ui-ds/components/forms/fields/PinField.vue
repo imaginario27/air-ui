@@ -75,7 +75,7 @@ const props = defineProps({
     },
     size: {
         type: String as PropType<InputSize>,
-        default: InputSize.MD,
+        default: undefined,
         validator: (value: InputSize) => Object.values(InputSize).includes(value),
     },
     label: String as PropType<string>,
@@ -185,6 +185,8 @@ const optionalLabelText = computed(() => props.optionalLabel ?? dsConfig.forms.o
 
 // Computed classes
 const inputSizeClass = computed(() => {
+    if (!props.size) return 'w-[44px] h-[44px] lg:w-[36px] lg:h-[36px]'
+
     const sizeVariant = {
         [InputSize.MD]: 'w-[36px] h-[36px]',
         [InputSize.LG]: 'w-[44px] h-[44px]',
@@ -194,6 +196,8 @@ const inputSizeClass = computed(() => {
 })
 
 const fieldsGapClass = computed(() => {
+    if (!props.size) return 'gap-3 lg:gap-2'
+
     const sizeVariant = {
         [InputSize.MD]: 'gap-2',
         [InputSize.LG]: 'gap-3',

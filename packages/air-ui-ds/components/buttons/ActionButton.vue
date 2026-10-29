@@ -175,6 +175,10 @@ const props = defineProps({
         type: Boolean as PropType<boolean>,
         default: false,
     },
+    responsiveSize: {
+        type: Boolean as PropType<boolean | null>,
+        default: null,
+    },
     isLoading: {
         type: Boolean as PropType<boolean>,
         default: false,
@@ -188,6 +192,13 @@ const dsConfig = useDSConfig()
 
 // Computed
 const resolvedLoadingText = computed(() => props.loadingText ?? dsConfig.actions.processingText())
+
+// Size classes
+const { buttonSizeClass, iconSizeClass, textSizeClass, horizontalPaddingClass, gapClass } = useResponsiveSize({
+    size: () => props.size,
+    responsiveSize: () => props.responsiveSize,
+    iconPosition: () => props.iconPosition,
+})
 
 // Glow
 const { glowClass } = useButtonGlow(props)
@@ -316,42 +327,6 @@ const buttonStyleClass = computed(() => {
     )
 })
 
-const buttonSizeClass = computed(() => {
-    const variant = {
-        [ButtonSize.XS]: 'h-[24px]',
-        [ButtonSize.SM]: 'h-[28px]',
-        [ButtonSize.MD]: 'h-[32px]',
-        [ButtonSize.LG]: 'h-[36px]',
-        [ButtonSize.XL]: 'h-[40px]',
-        [ButtonSize.XXL]: 'h-[48px]',
-    }
-    return variant[props.size as ButtonSize] || 'h-[36px]'
-})
-
-const iconSizeClass = computed(() => {
-    const variant = {
-        [ButtonSize.XS]: 'w-[16px] h-[16px] min-w-[16px] min-h-[16px]',
-        [ButtonSize.SM]: 'w-[16px] h-[16px] min-w-[16px] min-h-[16px]',
-        [ButtonSize.MD]: 'w-[16px] h-[16px] min-w-[16px] min-h-[16px]',
-        [ButtonSize.LG]: 'w-[20px] h-[20px] min-w-[20px] min-h-[20px]',
-        [ButtonSize.XL]: 'w-[20px] h-[20px] min-w-[20px] min-h-[20px]',
-        [ButtonSize.XXL]: 'w-[24px] h-[24px] min-w-[24px] min-h-[24px]',
-    }
-    return variant[props.size as ButtonSize] || 'w-[20px] h-[20px] min-w-[20px] min-h-[20px]'
-})
-
-const textSizeClass = computed(() => {
-    const variant = {
-        [ButtonSize.XS]: 'text-xs',
-        [ButtonSize.SM]: 'text-sm',
-        [ButtonSize.MD]: 'text-sm',
-        [ButtonSize.LG]: 'text-sm',
-        [ButtonSize.XL]: 'text-sm',
-        [ButtonSize.XXL]: 'text-base',
-    }
-    return variant[props.size as ButtonSize] || 'text-sm'
-})
-
 const iconColorClass = computed(() => {
     const variant = {
         [ButtonStyleType.PRIMARY_BRAND_FILLED]: '!text-text-neutral-on-filled',
@@ -394,53 +369,6 @@ const spinnerColorClass = computed(() => {
     return variant[props.styleType as ButtonStyleType] || 'border-border-primary-brand-default'
 })
 
-const horizontalPaddingClass = computed(() => {
-    let variant
-
-    if (props.iconPosition === IconPosition.LEFT) {
-        variant = {
-            [ButtonSize.XS]: 'pl-3 pr-4',
-            [ButtonSize.SM]: 'pl-3 pr-4',
-            [ButtonSize.MD]: 'pl-4 pr-5',
-            [ButtonSize.LG]: 'pl-4 pr-5',
-            [ButtonSize.XL]: 'pl-4 pr-5',
-            [ButtonSize.XXL]: 'pl-4 pr-5',
-        }
-    } else if (props.iconPosition === IconPosition.RIGHT) {
-        variant = {
-            [ButtonSize.XS]: 'pl-4 pr-3',
-            [ButtonSize.SM]: 'pl-4 pr-3',
-            [ButtonSize.MD]: 'pl-5 pr-4',
-            [ButtonSize.LG]: 'pl-5 pr-4',
-            [ButtonSize.XL]: 'pl-5 pr-4',
-            [ButtonSize.XXL]: 'pl-5 pr-4',
-        }
-    } else {
-        variant = {
-            [ButtonSize.XS]: 'px-3',
-            [ButtonSize.SM]: 'px-3',
-            [ButtonSize.MD]: 'px-4',
-            [ButtonSize.LG]: 'px-4',
-            [ButtonSize.XL]: 'px-4',
-            [ButtonSize.XXL]: 'px-4',
-        }
-    }
-
-    return variant[props.size as ButtonSize] || 'px-3'
-})
-
-const gapClass = computed(() => {
-    const variant = {
-        [ButtonSize.XS]: 'gap-1',
-        [ButtonSize.SM]: 'gap-1.5',
-        [ButtonSize.MD]: 'gap-2',
-        [ButtonSize.LG]: 'gap-2',
-        [ButtonSize.XL]: 'gap-2',
-        [ButtonSize.XXL]: 'gap-2',
-    }
-
-    return variant[props.size as ButtonSize] || 'gap-2'
-})
 // Props for the dynamic component
 const componentProps = computed(() => {
     if (props.actionType === ButtonActionType.LINK) {

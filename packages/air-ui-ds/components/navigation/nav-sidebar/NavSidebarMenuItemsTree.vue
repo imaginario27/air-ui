@@ -14,6 +14,11 @@
                 :level
                 :showNestedLevelGuide
                 :showCollapseDivider
+                :showDivider="item.showSectionDivider ?? showSectionDivider"
+                :isUppercase="item.isSectionUppercase ?? isSectionUppercase"
+                :containerClass="item.sectionContainerClass ?? sectionContainerClass"
+                :iconClass="item.sectionIconClass ?? sectionIconClass"
+                :textClass="item.sectionTextClass ?? sectionTextClass"
                 :class="[level > 1 && 'mt-2']"
             />
 
@@ -67,6 +72,11 @@
                         :prefetchOn
                         :showCollapseDivider
                         :showNestedLevelGuide
+                        :sectionContainerClass
+                        :sectionIconClass
+                        :sectionTextClass
+                        :isSectionUppercase
+                        :showSectionDivider
                         :truncateDepth
                         :marquee
                         :moreActionsPosition
@@ -114,6 +124,17 @@ const props = defineProps({
     subItemsTextClass: String as PropType<string>,
     subItemsIconClass: String as PropType<string>,
     thirdLevelItemsCustomClass: String as PropType<string>,
+    sectionContainerClass: String as PropType<string>,
+    sectionIconClass: String as PropType<string>,
+    sectionTextClass: String as PropType<string>,
+    isSectionUppercase: {
+        type: Boolean as PropType<boolean>,
+        default: false,
+    },
+    showSectionDivider: {
+        type: Boolean as PropType<boolean>,
+        default: true,
+    },
     prefetchOn: {
         type: [String, Object] as PropType<PrefetchOnStrategy>,
         default: PrefetchOn.VISIBILITY,

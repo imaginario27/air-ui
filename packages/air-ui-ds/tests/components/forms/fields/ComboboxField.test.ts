@@ -5,6 +5,7 @@ import DropdownCombobox from '~/components/dropdowns/DropdownCombobox.vue'
 import BadgeStack from '~/components/badges/BadgeStack.vue'
 import { FormValidationMode } from '~/models/enums/formValidations'
 import { Position } from '@/models/enums/positions'
+import { SelectSize } from '@/models/enums/selects'
 
 vi.mock('~/composables/useFormValidationMode', () => ({
     useInjectedValidationMode: () => ref(FormValidationMode.BLUR),
@@ -205,5 +206,19 @@ describe('ComboboxField glow', () => {
         expect(
             glowBoxes(wrapper).every((el) => el.classList.contains('[--glow-color:var(--color-border-error)]')),
         ).toBe(true)
+    })
+})
+
+describe('ComboboxField size', () => {
+    it('leaves the combobox size unset when no size is passed', () => {
+        const wrapper = mount(ComboboxField, { props: { ...defaultProps } })
+
+        expect(wrapper.findComponent(DropdownCombobox).props('size')).toBeUndefined()
+    })
+
+    it('forwards an explicit size to the combobox', () => {
+        const wrapper = mount(ComboboxField, { props: { ...defaultProps, size: SelectSize.LG } })
+
+        expect(wrapper.findComponent(DropdownCombobox).props('size')).toBe(SelectSize.LG)
     })
 })

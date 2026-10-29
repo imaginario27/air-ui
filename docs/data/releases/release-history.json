@@ -1,12 +1,270 @@
 {
-  "generatedAt": "2026-10-21T08:03:58.622Z",
+  "generatedAt": "2026-10-29T09:45:55.971Z",
   "source": "github-git-history+npm-publish-dates",
   "githubBaseUrl": "https://github.com/imaginario27/air-ui",
   "packages": [
     {
       "packageName": "@imaginario27/air-ui-ds",
-      "latestVersion": "1.29.1",
+      "latestVersion": "1.31.0",
       "entries": [
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.31.0",
+          "publishedAt": "2026-10-29",
+          "releaseType": "minor",
+          "notes": [
+            "add section title props to `NavSidebar`",
+            "add style options to `NavSidebarMenuSectionTitle` and section title items"
+          ],
+          "metadata": {
+            "commitCount": 2,
+            "commits": [
+              {
+                "sha": "196366d7cf376a42170afe086985bdbc2172fc75",
+                "shortSha": "196366d",
+                "date": "2026-10-29",
+                "subject": "feat(ds): add section title props to `NavSidebar`",
+                "normalizedSubject": "add section title props to `NavSidebar`",
+                "type": "added",
+                "body": [
+                  "add `sectionContainerClass`, `sectionIconClass` and `sectionTextClass` props to `NavSidebar`",
+                  "add `isSectionUppercase` and `showSectionDivider` props to `NavSidebar`",
+                  "let the fields of a section title item win over the `NavSidebar` props",
+                  "forward the props through `NavSidebarMenuItemsTree` to every nesting level",
+                  "add tests for the props, the precedence and the collapsed divider"
+                ],
+                "affected": [
+                  "NavSidebar",
+                  "NavSidebarMenuItemsTree"
+                ],
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/196366d7cf376a42170afe086985bdbc2172fc75",
+                "prUrl": null
+              },
+              {
+                "sha": "1cc57b39847672a48fad02ba982b28b27d5038ea",
+                "shortSha": "1cc57b3",
+                "date": "2026-10-29",
+                "subject": "feat(ds): add style options to `NavSidebarMenuSectionTitle` and section title items",
+                "normalizedSubject": "add style options to `NavSidebarMenuSectionTitle` and section title items",
+                "type": "added",
+                "body": [
+                  "add `containerClass`, `iconClass` and `textClass` props to `NavSidebarMenuSectionTitle`",
+                  "add `isUppercase` and `showDivider` props to `NavSidebarMenuSectionTitle`",
+                  "add `sectionContainerClass`, `sectionIconClass` and `sectionTextClass` to `SidebarMenuItem`",
+                  "add `isSectionUppercase` and `showSectionDivider` to `SidebarMenuItem`",
+                  "forward the section title fields from `NavSidebar` and `NavSidebarMenuItemsTree`",
+                  "add tests for the new props and the forwarded fields"
+                ],
+                "affected": [
+                  "NavSidebar",
+                  "NavSidebarMenuItemsTree",
+                  "NavSidebarMenuSectionTitle"
+                ],
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/1cc57b39847672a48fad02ba982b28b27d5038ea",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 2,
+              "fixed": 0,
+              "changed": 0,
+              "maintenance": 0,
+              "breaking": 0
+            }
+          }
+        },
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.30.0",
+          "publishedAt": "2026-10-29",
+          "releaseType": "minor",
+          "notes": [
+            "add `responsiveSize` to `ActionButton` and `ActionIconButton`",
+            "add `DateTimeSegments` to type dates and times in segments",
+            "add `action` slot to `EmptyState`",
+            "use `LG` form fields on mobile and add `header-quick-actions` slot",
+            "replace the missing `text-md` class with `text-base`",
+            "center the toggle icon of `DropdownCombobox`",
+            "update `nuxt` to 4.6.3 and `happy-dom` to 21.0.4"
+          ],
+          "metadata": {
+            "commitCount": 7,
+            "commits": [
+              {
+                "sha": "c2e421a72e5d1157c1e51613ef42e5d83f9ca1de",
+                "shortSha": "c2e421a",
+                "date": "2026-10-29",
+                "subject": "chore(root): update `nuxt` to 4.6.3 and `happy-dom` to 21.0.4",
+                "normalizedSubject": "update `nuxt` to 4.6.3 and `happy-dom` to 21.0.4",
+                "type": "maintenance",
+                "body": [
+                  "bump `nuxt` to `4.6.3` in `docs`, `air-ui-ds` and `air-ui-utils`",
+                  "bump `happy-dom` to `21.0.4` in `docs`, `air-ui-ds` and `air-ui-utils`",
+                  "apply `npm audit fix` to `package-lock.json`"
+                ],
+                "affected": [],
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/c2e421a72e5d1157c1e51613ef42e5d83f9ca1de",
+                "prUrl": null
+              },
+              {
+                "sha": "18520a1e55ccaa53b1b767bcb463549ff308c994",
+                "shortSha": "18520a1",
+                "date": "2026-10-29",
+                "subject": "fix(ds): replace the missing `text-md` class with `text-base`",
+                "normalizedSubject": "replace the missing `text-md` class with `text-base`",
+                "type": "fixed",
+                "body": [
+                  "use `text-base` for the `MD` size of `NavLink`, `AvatarStackCounter` and `ListItem`",
+                  "use `text-base` for the `MD` and `LG` sizes of `Avatar`",
+                  "update the `AvatarStackCounter` test and add a `NavLink` test for the `MD` size"
+                ],
+                "affected": [
+                  "Avatar",
+                  "AvatarStackCounter",
+                  "ListItem",
+                  "NavLink"
+                ],
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/18520a1e55ccaa53b1b767bcb463549ff308c994",
+                "prUrl": null
+              },
+              {
+                "sha": "103b1f5e09b71442d94c863a7b829ddf8795bdf3",
+                "shortSha": "103b1f5",
+                "date": "2026-10-29",
+                "subject": "feat(ds): add `responsiveSize` to `ActionButton` and `ActionIconButton`",
+                "normalizedSubject": "add `responsiveSize` to `ActionButton` and `ActionIconButton`",
+                "type": "added",
+                "body": [
+                  "add `responsiveSize` prop to grow buttons on mobile and return to their own `size` from `md` up",
+                  "add `useResponsiveSize` composable shared by `ActionButton` and `ActionIconButton`",
+                  "add `buttons.responsiveSize` and `buttons.mobileSizeMap` to `useDSConfig`",
+                  "add tests for `useResponsiveSize`, `ActionButton` and `ActionIconButton`"
+                ],
+                "affected": [
+                  "ActionButton",
+                  "ActionIconButton",
+                  "useDSConfig",
+                  "useResponsiveSize"
+                ],
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/103b1f5e09b71442d94c863a7b829ddf8795bdf3",
+                "prUrl": null
+              },
+              {
+                "sha": "466c1e37cb702f2383000854298bd138dc9a3f3b",
+                "shortSha": "466c1e3",
+                "date": "2026-10-29",
+                "subject": "feat(ds): add `DateTimeSegments` to type dates and times in segments",
+                "normalizedSubject": "add `DateTimeSegments` to type dates and times in segments",
+                "type": "added",
+                "body": [
+                  "add `DateTimeSegments`, one segment per part in the order and separators of the `locale`",
+                  "add `hasDateTimeSegments` to `DatePickerField`, `TimePickerField` and `InputField`",
+                  "add `displayFormat`, `hourFormat` and `hasSeconds` props to `InputField`",
+                  "add `useDateSegments` with the pattern, ranges and ISO conversion of the segments",
+                  "add `DateSegmentsType` and `DateSegmentKind` enums and the segment types",
+                  "add the segment placeholder texts to `useDSConfig`",
+                  "add tests for the component, the composable and the fields"
+                ],
+                "affected": [
+                  "DatePickerField",
+                  "InputField",
+                  "TimePickerField",
+                  "DateTimeSegments",
+                  "useDSConfig",
+                  "useDateSegments"
+                ],
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/466c1e37cb702f2383000854298bd138dc9a3f3b",
+                "prUrl": null
+              },
+              {
+                "sha": "c02d647aeb32e13b4acd42266f796884ab8f45e2",
+                "shortSha": "c02d647",
+                "date": "2026-10-29",
+                "subject": "fix(ds): center the toggle icon of `DropdownCombobox`",
+                "normalizedSubject": "center the toggle icon of `DropdownCombobox`",
+                "type": "fixed",
+                "body": [
+                  "add `flex items-center` to the toggle `span` so the icon is vertically centered"
+                ],
+                "affected": [
+                  "DropdownCombobox"
+                ],
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/c02d647aeb32e13b4acd42266f796884ab8f45e2",
+                "prUrl": null
+              },
+              {
+                "sha": "379b7169f6905bc5711158d4780aad40b077c4bb",
+                "shortSha": "379b716",
+                "date": "2026-10-29",
+                "subject": "feat(ds): add `action` slot to `EmptyState`",
+                "normalizedSubject": "add `action` slot to `EmptyState`",
+                "type": "added",
+                "body": [
+                  "add `action` slot to override the default `ActionButton`",
+                  "render the action container when the slot or `buttonText` is set",
+                  "add test for the `action` slot"
+                ],
+                "affected": [
+                  "EmptyState"
+                ],
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/379b7169f6905bc5711158d4780aad40b077c4bb",
+                "prUrl": null
+              },
+              {
+                "sha": "382b47792b665ca153bb522358ba10c4869dd56c",
+                "shortSha": "382b477",
+                "date": "2026-10-29",
+                "subject": "feat(ds): use LG form fields on mobile and add `header-quick-actions` slot",
+                "normalizedSubject": "use `LG` form fields on mobile and add `header-quick-actions` slot",
+                "type": "added",
+                "body": [
+                  "default `size` to `undefined` in `InputField`, `SearchField`, `SelectField` and `ComboboxField`",
+                  "default `size` to `undefined` in `PinField`, `DatePickerField` and `TimePickerField`",
+                  "default `size` to `undefined` in `DropdownSelect`, `DropdownCombobox` and `DropdownSelectItem`",
+                  "default `size` to `undefined` in `DropdownMenuItem` and `DropdownMenuContextItem`",
+                  "render `LG` below `lg` and `MD` from `lg` up when `size` is not set",
+                  "keep any explicit `size` fixed at every width",
+                  "pass `size` from `DropdownSelect` to `DropdownSelectItem`",
+                  "add `header-quick-actions` slot to `CompactHeader`, left of the user avatar on every screen size",
+                  "add tests for the automatic size and the new slot"
+                ],
+                "affected": [
+                  "DropdownCombobox",
+                  "DropdownMenuContextItem",
+                  "DropdownMenuItem",
+                  "DropdownSelect",
+                  "DropdownSelectItem",
+                  "ComboboxField",
+                  "DatePickerField",
+                  "InputField",
+                  "PinField",
+                  "SearchField",
+                  "SelectField",
+                  "TimePickerField",
+                  "CompactHeader"
+                ],
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/382b47792b665ca153bb522358ba10c4869dd56c",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 4,
+              "fixed": 2,
+              "changed": 0,
+              "maintenance": 1,
+              "breaking": 0
+            }
+          }
+        },
         {
           "packageName": "@imaginario27/air-ui-ds",
           "version": "1.29.1",

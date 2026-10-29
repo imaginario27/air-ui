@@ -121,6 +121,10 @@ const dsConfig = reactive<DesignSystemConfig>({
         dayText: () => 'Day',
         monthText: () => 'Month',
         yearText: () => 'Year',
+        daySegmentText: () => 'dd',
+        monthSegmentText: () => 'mm',
+        yearSegmentText: () => 'yyyy',
+        weekSegmentText: () => 'ww',
         agendaText: () => 'Agenda',
         viewText: () => 'Calendar view',
         allDayText: () => 'All day',
@@ -137,6 +141,10 @@ const dsConfig = reactive<DesignSystemConfig>({
         minutesText: () => 'Minutes',
         secondsText: () => 'Seconds',
         periodText: () => 'AM/PM',
+        hoursSegmentText: () => 'hh',
+        minutesSegmentText: () => 'mm',
+        secondsSegmentText: () => 'ss',
+        periodSegmentText: () => '--',
     },
     slides: {
         previousText: () => 'Previous slide',
@@ -201,6 +209,18 @@ const dsConfig = reactive<DesignSystemConfig>({
         sliderThumbIndexText: () => '{label} thumb {index}',
         ratingStarText: () => '{count} star',
         ratingStarsText: () => '{count} stars',
+    },
+    buttons: {
+        responsiveSize: false,
+        // Size each button grows to below the `md` breakpoint when `responsiveSize` is on
+        mobileSizeMap: {
+            [ButtonSize.XS]: ButtonSize.MD,
+            [ButtonSize.SM]: ButtonSize.LG,
+            [ButtonSize.MD]: ButtonSize.LG,
+            [ButtonSize.LG]: ButtonSize.XL,
+            [ButtonSize.XL]: ButtonSize.XL,
+            [ButtonSize.XXL]: ButtonSize.XXL,
+        },
     },
     glow: {
         card: glowDefaults(),

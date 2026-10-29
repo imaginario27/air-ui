@@ -39,7 +39,28 @@
             >
                 <Icon v-if="icon" :name="icon" iconClass="text-icon-neutral-subtler" />
 
+                <DateTimeSegments
+                    v-if="isTypeable"
+                    class="text-sm"
+                    :id
+                    ref="segments"
+                    :type="segmentsType"
+                    :modelValue="typeof modelValue === 'string' ? modelValue : ''"
+                    :locale
+                    :hourFormat
+                    :hasSeconds
+                    :isAllowed="isTypedValueAllowed"
+                    :ariaLabel="label ?? ariaLabel"
+                    :disabled
+                    :readonly
+                    @update:modelValue="handleSegmentsInput"
+                    @focus="isFocused = true"
+                    @blur="isFocused = false"
+                    @open="open"
+                />
+
                 <input
+                    v-else
                     :id
                     ref="input"
                     type="text"
@@ -191,10 +212,14 @@ const props = defineProps({
     icon: String as PropType<string>,
     size: {
         type: String as PropType<InputSize>,
-        default: InputSize.MD,
+        default: undefined,
         validator: (value: InputSize) => Object.values(InputSize).includes(value),
     },
     displayFormat: Object as PropType<Intl.DateTimeFormatOptions>,
+    hasDateTimeSegments: {
+        type: Boolean as PropType<boolean>,
+        default: false,
+    },
     closeOnSelect: {
         type: Boolean as PropType<boolean>,
         default: true,
@@ -369,6 +394,7 @@ const dsConfig = useDSConfig()
 // Refs
 const container = ref<HTMLElement | null>(null)
 const input = ref<HTMLInputElement | null>(null)
+const segments = ref<{ focus: () => void } | null>(null)
 const calendar = ref<{ focus: () => void } | null>(null)
 const panel = ref<HTMLElement | null>(null)
 
@@ -393,6 +419,11 @@ const calendarUnit = computed(() => {
 })
 
 const calendarMode = computed(() => (isDateTime.value ? CalendarMode.SINGLE : props.mode))
+
+const isTypeable = computed(
+    () => props.hasDateTimeSegments && !isInline.value && calendarMode.value === CalendarMode.SINGLE,
+)
+const segmentsType = computed(() => props.type as string as DateSegmentsType)
 
 const pickerIcon = computed(() => {
     const iconVariant = {
@@ -431,6 +462,8 @@ const resolvedPlaceholder = computed(() => {
 })
 
 const inputSizeClass = computed(() => {
+    if (!props.size) return 'h-[44px] lg:h-[36px]'
+
     const sizeVariant = {
         [InputSize.MD]: 'h-[36px]',
         [InputSize.LG]: 'h-[44px]',
@@ -627,6 +660,24 @@ const isSelectionComplete = (value: string | string[] | CalendarRange | null) =>
     return true
 }
 
+const isTypedValueAllowed = (value: string) => {
+    if (isDateTime.value) {
+        const { date } = splitDateTime(value)
+
+        return isWithinBounds(value, props.min, props.max) && !(date && props.isDateDisabled(date))
+    }
+
+    if (props.type === DatePickerType.DATE) {
+        const isInBounds = isWithinBounds(value, toBoundISO(props.min, 'start'), toBoundISO(props.max, 'end'))
+
+        return isInBounds && !props.isDateDisabled(value)
+    }
+
+    return isWithinBounds(value, props.min, props.max)
+}
+
+const focusField = () => (isTypeable.value ? segments.value : input.value)?.focus()
+
 const open = async () => {
     if (props.disabled || props.readonly || isInline.value) return
 
@@ -639,7 +690,7 @@ const close = () => {
     if (!isOpen.value) return
 
     isOpen.value = false
-    input.value?.focus()
+    focusField()
 
     if (validationMode.value === FormValidationMode.BLUR) runValidation()
 }
@@ -669,9 +720,13 @@ const handleTimeSelect = (time: string | null) => {
     emit('update:modelValue', joinDateTime(dateTimeParts.value.date ?? toISODate(new Date()), time))
 }
 
+const handleSegmentsInput = (value: string) => {
+    emit('update:modelValue', value || null)
+}
+
 const handleClear = () => {
     emit('update:modelValue', emptyValue())
-    input.value?.focus()
+    focusField()
 }
 
 const handleKeydown = (event: KeyboardEvent) => {

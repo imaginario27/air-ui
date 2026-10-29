@@ -235,7 +235,7 @@ export default defineNuxtConfig({
     vite: {
         plugins: [tailwindcss() as any],
         optimizeDeps: {
-            include: ['fuse.js', 'prettier', 'qrcode.vue', 'shiki', 'vue3-toastify'],
+            include: ['fuse.js', 'html-to-image', 'prettier', 'qrcode.vue', 'shiki', 'vue3-toastify'],
         },
     },
 })

@@ -113,8 +113,8 @@ const textSizeClass = computed(() => {
     const textSizeVariant = {
         [AvatarSize.XS]: 'text-xs',
         [AvatarSize.SM]: 'text-sm',
-        [AvatarSize.MD]: 'text-md',
-        [AvatarSize.LG]: 'text-md',
+        [AvatarSize.MD]: 'text-base',
+        [AvatarSize.LG]: 'text-base',
         [AvatarSize.XL]: 'text-lg',
         [AvatarSize.XXL]: 'text-xl',
         [AvatarSize.XXXL]: 'text-3xl',

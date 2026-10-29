@@ -43,3 +43,23 @@ export enum HourFormat {
     HOURS_12 = '12',
     HOURS_24 = '24',
 }
+
+export enum DateSegmentsType {
+    DATE = 'date',
+    MONTH = 'month',
+    WEEK = 'week',
+    DATETIME_LOCAL = 'datetime-local',
+    TIME = 'time',
+}
+
+export enum DateSegmentKind {
+    DAY = 'day',
+    MONTH = 'month',
+    YEAR = 'year',
+    WEEK = 'week',
+    HOUR = 'hour',
+    MINUTE = 'minute',
+    SECOND = 'second',
+    DAY_PERIOD = 'dayPeriod',
+    LITERAL = 'literal',
+}

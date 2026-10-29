@@ -67,7 +67,7 @@ const textSizeClass = computed(() => {
     const textSizeVariant = {
         [AvatarStackSize.XS]: 'text-xs',
         [AvatarStackSize.SM]: 'text-sm',
-        [AvatarStackSize.MD]: 'text-md',
+        [AvatarStackSize.MD]: 'text-base',
     }
     return textSizeVariant[props.size as AvatarStackSize] || 'text-sm'
 })

@@ -39,7 +39,7 @@ const contentSizeClass = computed(() => {
     const sizeVariant = {
         [ListItemSize.XS]: 'text-xs',
         [ListItemSize.SM]: 'text-sm',
-        [ListItemSize.MD]: 'text-md',
+        [ListItemSize.MD]: 'text-base',
     }
     return sizeVariant[props.size as ListItemSize] || 'text-sm'
 })

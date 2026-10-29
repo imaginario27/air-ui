@@ -12,7 +12,7 @@ props:
     helpText: "Help text example"
     helpTextPosition: "bottom"
     icon: "mdi:magnify"
-    size: "md"
+    size: null
     modelValue: ""
     maxLength: 200
     filterAlphabetic: false
@@ -286,7 +286,7 @@ Sets the icon of the search field.
 
 ### size
 
-Sets the size of the search field. It uses the `InputSize` enum.
+Sets the size of the search field. It uses the `InputSize` enum. When it is not set, it is `InputSize.LG` on mobile and `InputSize.MD` from the `lg` breakpoint up. Passing a value keeps that size at every screen width.
 
 ```vue
 <template>
@@ -295,7 +295,7 @@ Sets the size of the search field. It uses the `InputSize` enum.
 ```
 
 - **Type:** `InputSize`
-- **Default:** `InputSize.MD`
+- **Default:** `undefined` (LG on mobile, MD from `lg` up)
 
 #### Options
 ::options-table

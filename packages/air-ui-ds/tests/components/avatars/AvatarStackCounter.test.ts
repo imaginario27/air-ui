@@ -52,7 +52,7 @@ describe('AvatarStackCounter', () => {
         expect(wrapperSM.find('span').classes()).toContain('text-sm')
 
         const wrapperMD = factory({ size: AvatarStackSize.MD })
-        expect(wrapperMD.find('span').classes()).toContain('text-md')
+        expect(wrapperMD.find('span').classes()).toContain('text-base')
     })
 
     it('renders custom text when provided', () => {

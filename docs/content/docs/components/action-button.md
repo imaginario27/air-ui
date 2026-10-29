@@ -21,6 +21,7 @@ props:
     glowSize: null
     isFullWidth: false
     isMobileFullWidth: false
+    responsiveSize: false
     disabled: false
     to: "/"
     isLoading: false
@@ -223,6 +224,11 @@ props: [
     {
         "name": "isMobileFullWidth",
         "default": "false",
+        "type": "boolean"
+    },
+    {
+        "name": "responsiveSize",
+        "default": "null",
         "type": "boolean"
     },
     {
@@ -736,6 +742,54 @@ Use these props to control the width behavior of the button:
 
 - **Type:** `boolean`
 - **Default:** `false`
+
+### responsiveSize
+
+Makes the button bigger on mobile so it is easier to tap. Below the `md` breakpoint it uses the size set for its `size` in `buttons.mobileSizeMap` of the DS config, and from `md` up it goes back to its own `size`. Height, text, icon, padding and gap all change together, so the button keeps its proportions.
+
+This is the default mapping:
+
+::options-table
+---
+options: [
+    {
+        value: "ButtonSize.XS",
+        description: "Is XS (24px) from md up and MD (32px) on mobile.",
+    },
+    {
+        value: "ButtonSize.SM",
+        description: "Is SM (28px) from md up and LG (36px) on mobile.",
+    },
+    {
+        value: "ButtonSize.MD",
+        description: "Is MD (32px) from md up and LG (36px) on mobile.",
+    },
+    {
+        value: "ButtonSize.LG",
+        description: "Is LG (36px) from md up and XL (40px) on mobile.",
+    },
+    {
+        value: "ButtonSize.XL",
+        description: "Is XL (40px) from md up and XL (40px) on mobile.",
+    },
+    {
+        value: "ButtonSize.XXL",
+        description: "Is XXL (48px) from md up and XXL (48px) on mobile.",
+    },
+]
+---
+::
+
+```vue
+<template>
+    <ActionButton :size="ButtonSize.SM" :responsiveSize="true" />
+</template>
+```
+
+When the prop is not set, the button follows `buttons.responsiveSize` of the DS config, which is `false` by default. Pass `false` to keep a button at its own size on mobile even when the config turns it on for the whole project. See [Configuration](/docs/getting-started/configuration).
+
+- **Type:** `boolean`
+- **Default:** `null` (follows `buttons.responsiveSize` of the DS config, `false` by default)
 
 ### isLoading
 

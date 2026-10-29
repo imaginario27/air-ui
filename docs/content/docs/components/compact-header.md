@@ -245,6 +245,10 @@ slots: [
         description: "Slot to customize the header actions area. Exposes an `onClose` scoped prop: call it to close the enclosing dropdown menu (relevant on mobile, where header actions render inside the mobile menu dropdown).",
     },
     {
+        name: "header-quick-actions",
+        description: "Slot for actions that stay visible on every screen size, placed to the left of the user avatar. Use it for actions you do not want inside the mobile menu, such as notifications or a search button.",
+    },
+    {
         name: "bottom-header",
         description: "Slot to customize the bottom header area.",
     },
@@ -279,6 +283,13 @@ slots: [
                 text="New item"
                 styleType="neutral-filled"
                 @click="onClose"
+            />
+        </template>
+
+        <template #header-quick-actions>
+            <ActionIconButton
+                icon="mdi:bell-outline"
+                ariaLabel="Notifications"
             />
         </template>
 

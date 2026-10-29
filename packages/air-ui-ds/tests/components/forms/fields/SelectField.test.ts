@@ -5,6 +5,7 @@ import DropdownSelect from '~/components/dropdowns/DropdownSelect.vue'
 import BadgeStack from '~/components/badges/BadgeStack.vue'
 import { FormValidationMode } from '~/models/enums/formValidations'
 import { Position } from '@/models/enums/positions'
+import { SelectSize } from '@/models/enums/selects'
 import { useDSConfig } from '@/composables/useDSConfig'
 
 vi.mock('~/composables/useFormValidationMode', () => ({
@@ -387,5 +388,19 @@ describe('SelectField glow', () => {
         expect(
             glowBoxes(wrapper).every((el) => el.classList.contains('[--glow-color:var(--color-border-error)]')),
         ).toBe(true)
+    })
+})
+
+describe('SelectField size', () => {
+    it('leaves the dropdown size unset when no size is passed', () => {
+        const wrapper = mount(SelectField, { props: { ...defaultProps } })
+
+        expect(wrapper.findComponent(DropdownSelect).props('size')).toBeUndefined()
+    })
+
+    it('forwards an explicit size to the dropdown', () => {
+        const wrapper = mount(SelectField, { props: { ...defaultProps, size: SelectSize.LG } })
+
+        expect(wrapper.findComponent(DropdownSelect).props('size')).toBe(SelectSize.LG)
     })
 })

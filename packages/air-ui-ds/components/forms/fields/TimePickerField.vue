@@ -39,7 +39,28 @@
             >
                 <Icon v-if="icon" :name="icon" iconClass="text-icon-neutral-subtler" />
 
+                <DateTimeSegments
+                    v-if="isTypeable"
+                    class="text-sm"
+                    :id
+                    ref="segments"
+                    :type="DateSegmentsType.TIME"
+                    :modelValue
+                    :locale
+                    :hourFormat
+                    :hasSeconds
+                    :isAllowed="isTypedValueAllowed"
+                    :ariaLabel="label ?? ariaLabel"
+                    :disabled
+                    :readonly
+                    @update:modelValue="handleSegmentsInput"
+                    @focus="isFocused = true"
+                    @blur="isFocused = false"
+                    @open="open"
+                />
+
                 <input
+                    v-else
                     :id
                     ref="input"
                     type="text"
@@ -155,8 +176,12 @@ const props = defineProps({
     icon: String as PropType<string>,
     size: {
         type: String as PropType<InputSize>,
-        default: InputSize.MD,
+        default: undefined,
         validator: (value: InputSize) => Object.values(InputSize).includes(value),
+    },
+    hasDateTimeSegments: {
+        type: Boolean as PropType<boolean>,
+        default: false,
     },
     clearable: {
         type: Boolean as PropType<boolean>,
@@ -268,6 +293,7 @@ const dsConfig = useDSConfig()
 // Refs
 const container = ref<HTMLElement | null>(null)
 const input = ref<HTMLInputElement | null>(null)
+const segments = ref<{ focus: () => void } | null>(null)
 const timePicker = ref<{ focus: () => void } | null>(null)
 const panel = ref<HTMLElement | null>(null)
 
@@ -277,6 +303,7 @@ const isFocused = ref(false)
 
 // Computed
 const isInline = computed(() => props.variant === PickerVariant.INLINE)
+const isTypeable = computed(() => props.hasDateTimeSegments && !isInline.value)
 const hasError = computed(() => props.error !== '')
 
 // Glow
@@ -290,6 +317,8 @@ const resolvedOpenAriaLabel = computed(() => props.openAriaLabel ?? dsConfig.tim
 const displayValue = computed(() => formatTime(props.modelValue, props.locale, props.hasSeconds, props.hourFormat))
 
 const inputSizeClass = computed(() => {
+    if (!props.size) return 'h-[44px] lg:h-[36px]'
+
     const sizeVariant = {
         [InputSize.MD]: 'h-[36px]',
         [InputSize.LG]: 'h-[44px]',
@@ -329,6 +358,10 @@ const runValidation = () => {
     emit('update:error', props.validator(props.modelValue) ?? '')
 }
 
+const isTypedValueAllowed = (value: string) => isWithinBounds(value, props.min, props.max)
+
+const focusField = () => (isTypeable.value ? segments.value : input.value)?.focus()
+
 const open = async () => {
     if (props.disabled || props.readonly || isInline.value) return
 
@@ -341,7 +374,7 @@ const close = () => {
     if (!isOpen.value) return
 
     isOpen.value = false
-    input.value?.focus()
+    focusField()
 
     if (validationMode.value === FormValidationMode.BLUR) runValidation()
 }
@@ -357,9 +390,13 @@ const handleSelect = (value: string | null) => {
     emit('update:modelValue', value)
 }
 
+const handleSegmentsInput = (value: string) => {
+    emit('update:modelValue', value || null)
+}
+
 const handleClear = () => {
     emit('update:modelValue', null)
-    input.value?.focus()
+    focusField()
 }
 
 const handleKeydown = (event: KeyboardEvent) => {

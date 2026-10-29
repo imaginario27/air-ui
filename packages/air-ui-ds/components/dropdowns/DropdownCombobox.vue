@@ -78,7 +78,11 @@
                         />
 
                         <Spinner v-if="isLoading" />
-                        <span v-else :class="disabled ? 'cursor-not-allowed' : 'cursor-pointer'" @click="toggleMenu">
+                        <span
+                            v-else
+                            :class="['flex items-center', disabled ? 'cursor-not-allowed' : 'cursor-pointer']"
+                            @click="toggleMenu"
+                        >
                             <Icon :name="isOpen ? 'mdi:unfold-less-horizontal' : 'mdi:unfold-more-horizontal'" />
                         </span>
                     </div>
@@ -161,7 +165,7 @@ const props = defineProps({
     },
     size: {
         type: String as PropType<SelectSize>,
-        default: SelectSize.MD,
+        default: undefined,
         validator: (value: SelectSize) => Object.values(SelectSize).includes(value),
     },
     activeStyle: {
@@ -270,6 +274,8 @@ const resolvedClearSelectionAriaLabel = computed(
 )
 
 const sizeClass = computed(() => {
+    if (!props.size) return 'min-h-[44px] lg:min-h-[36px]'
+
     const sizeVariant = {
         [SelectSize.MD]: 'min-h-[36px]',
         [SelectSize.LG]: 'min-h-[44px]',

@@ -132,6 +132,49 @@ describe('NavSidebarMenuSectionTitle.vue', () => {
         expect(root.classes()).not.toContain('border-l-2')
     })
 
+    it('applies containerClass to the container', () => {
+        const wrapper = factory({ containerClass: 'bg-background-neutral-subtle' })
+
+        expect(wrapper.find('div').classes()).toContain('bg-background-neutral-subtle')
+    })
+
+    it('applies iconClass to the icon', () => {
+        const wrapper = factory({ icon: 'mdi:folder', iconClass: 'text-red-500' })
+
+        expect(wrapper.findComponent(Icon).classes()).toContain('text-red-500')
+    })
+
+    it('applies textClass to the text', () => {
+        const wrapper = factory({ textClass: 'uppercase' })
+
+        expect(wrapper.find('span').classes()).toContain('uppercase')
+    })
+
+    it('shows the text as it is written by default', () => {
+        expect(factory().find('span').classes()).not.toContain('uppercase')
+    })
+
+    it('uppercases the text when isUppercase is true', () => {
+        expect(factory({ isUppercase: true }).find('span').classes()).toContain('uppercase')
+    })
+
+    it('keeps the level 1 bottom border by default', () => {
+        expect(factory().find('div').classes()).toContain('border-b')
+    })
+
+    it('removes the bottom border when showDivider is false', () => {
+        const classes = factory({ showDivider: false }).find('div').classes()
+
+        expect(classes).not.toContain('border-b')
+        expect(classes).not.toContain('border-border-neutral-subtle')
+    })
+
+    it('does not render the collapsed Divider when showDivider is false', () => {
+        const wrapper = factory({ isCollapsed: true, showCollapseDivider: true, showDivider: false })
+
+        expect(wrapper.findComponent(Divider).exists()).toBe(false)
+    })
+
     it('forwards external classes so level indentation from parent is applied', () => {
         const wrapper = factory({
             level: 2,

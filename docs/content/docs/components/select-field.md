@@ -24,7 +24,7 @@ props:
     validator: null
     error: ""
     type: "text"
-    size: "md"
+    size: null
     activeStyle: "check"
     dropdownPosition: "bottom"
     autoFlip: true
@@ -107,7 +107,7 @@ enums:
     glowColorMode: "GlowColorMode"
     glowTrigger: "GlowTrigger"
     glowType: "GlowType"
-    size: "InputSize"
+    size: "SelectSize"
     type: "SelectType"
     activeStyle: "SelectActiveStyle"
     dropdownPosition: "Position"
@@ -178,7 +178,6 @@ props: [
     },
     {
         "name": "size",
-        "default": "SelectSize.MD",
         "type": "SelectSize",
     },
     {
@@ -562,16 +561,16 @@ options: [
 
 ### size
 
-Sets the size of the input field. It uses the `InputSize` enum.
+Sets the size of the select field. It uses the `SelectSize` enum. When it is not set, it is `SelectSize.LG` on mobile and `SelectSize.MD` from the `lg` breakpoint up. Passing a value keeps that size at every screen width.
 
 ```vue
 <template>
-    <SelectField :size="InputSize.MD" />
+    <SelectField :size="SelectSize.MD" />
 </template>
 ```
 
-- **Type:** `InputSize`
-- **Default:** `InputSize.MD`
+- **Type:** `SelectSize`
+- **Default:** `undefined` (LG on mobile, MD from `lg` up)
 
 #### Options
 ::options-table

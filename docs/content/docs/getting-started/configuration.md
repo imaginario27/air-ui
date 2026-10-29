@@ -4,7 +4,7 @@ AirUI exposes a small set of behaviors as shared, reactive configuration instead
 
 There are two config composables, one per package:
 
-- `useDSConfig` (from `@imaginario27/air-ui-ds`): text used by components, grouped under `forms`, `actions`, `common`, `loaders`, `tables`, `pagination`, `navigation`, `cards`, `notifications`, `treeView`, `accessibility`, `gallery`, `lightbox`, `calendar`, `timePicker` and `slides`, and the default glow of cards, modals, buttons and inputs, grouped under `glow`.
+- `useDSConfig` (from `@imaginario27/air-ui-ds`): text used by components, grouped under `forms`, `actions`, `common`, `loaders`, `tables`, `pagination`, `navigation`, `cards`, `notifications`, `treeView`, `accessibility`, `gallery`, `lightbox`, `calendar`, `timePicker` and `slides`, the default glow of cards, modals, buttons and inputs, grouped under `glow`, and the mobile size of buttons, under `buttons`.
 - `useUtilsConfig` (from `@imaginario27/air-ui-utils`): messages used by the framework-agnostic form validators in `air-ui-utils`, grouped under `validation`, and a few shared texts of its helpers, grouped under `common`.
 
 <br/>
@@ -246,6 +246,10 @@ export default defineNuxtPlugin(() => {
         dayText: () => 'Day',
         monthText: () => 'Month',
         yearText: () => 'Year',
+        daySegmentText: () => 'dd',
+        monthSegmentText: () => 'mm',
+        yearSegmentText: () => 'yyyy',
+        weekSegmentText: () => 'ww',
         agendaText: () => 'Agenda',
         viewText: () => 'Calendar view',
         allDayText: () => 'All day',
@@ -264,6 +268,10 @@ export default defineNuxtPlugin(() => {
         minutesText: () => 'Minutes',
         secondsText: () => 'Seconds',
         periodText: () => 'AM/PM',
+        hoursSegmentText: () => 'hh',
+        minutesSegmentText: () => 'mm',
+        secondsSegmentText: () => 'ss',
+        periodSegmentText: () => '--',
     })
 
     /* Navigation text shared by the Carousel and the Lightbox */
@@ -313,8 +321,65 @@ export default defineNuxtPlugin(() => {
         opacity: 40,
         size: null,
     })
+
+    /* Bigger buttons on mobile. A responsiveSize prop on a button wins over this */
+    dsConfig.buttons.responsiveSize = false
+    Object.assign(dsConfig.buttons.mobileSizeMap, {
+        [ButtonSize.XS]: ButtonSize.MD,
+        [ButtonSize.SM]: ButtonSize.LG,
+        [ButtonSize.MD]: ButtonSize.LG,
+        [ButtonSize.LG]: ButtonSize.XL,
+        [ButtonSize.XL]: ButtonSize.XL,
+        [ButtonSize.XXL]: ButtonSize.XXL,
+    })
 })
 ```
+
+#### Button options
+
+Small buttons can be hard to tap on a phone. Set `buttons.responsiveSize` to `true` to make every `ActionButton` and `ActionIconButton` use a bigger size below the `md` breakpoint, and go back to their own `size` from `md` up. Height, text, icon, padding and gap change together.
+
+`buttons.mobileSizeMap` decides which size each one grows to, so you can set a bigger target if the default is not enough for your project. A `responsiveSize` prop passed to a button always wins over the config, so `:responsiveSize="false"` keeps a single button at its own size.
+
+| Option | Type | Default |
+|---|---|---|
+| `responsiveSize` | `boolean` | `false` |
+| `mobileSizeMap` | `Record<ButtonSize, ButtonSize>` | See the table below |
+
+Default `mobileSizeMap`:
+
+::options-table
+---
+options: [
+    {
+        value: "ButtonSize.XS",
+        description: "ButtonSize.MD",
+    },
+    {
+        value: "ButtonSize.SM",
+        description: "ButtonSize.LG",
+    },
+    {
+        value: "ButtonSize.MD",
+        description: "ButtonSize.LG",
+    },
+    {
+        value: "ButtonSize.LG",
+        description: "ButtonSize.XL",
+    },
+    {
+        value: "ButtonSize.XL",
+        description: "ButtonSize.XL",
+    },
+    {
+        value: "ButtonSize.XXL",
+        description: "ButtonSize.XXL",
+    },
+]
+---
+::
+
+The change applies to every button that renders through `ActionButton` or `ActionIconButton`, including the ones inside other components. Check forms and toolbars where a button sits next to an element of a fixed height before turning it on for the whole project.
 
 #### Glow options
 

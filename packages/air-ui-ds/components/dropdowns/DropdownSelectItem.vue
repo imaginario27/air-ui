@@ -87,7 +87,7 @@ const props = defineProps({
     },
     size: {
         type: String as PropType<SelectSize>,
-        default: SelectSize.MD,
+        default: undefined,
         validator: (value: SelectSize) => Object.values(SelectSize).includes(value),
     },
     type: {
@@ -151,6 +151,8 @@ const handleImageError = () => {
 
 // Computed
 const sizeClass = computed(() => {
+    if (!props.size) return 'py-3 lg:py-2'
+
     const sizeVariant = {
         [SelectSize.MD]: 'py-2',
         [SelectSize.LG]: 'py-3',

@@ -84,7 +84,7 @@ const textSizeClass = computed(() => {
     const sizeVariant = {
         [NavLinkSize.XS]: 'text-xs',
         [NavLinkSize.SM]: 'text-sm',
-        [NavLinkSize.MD]: 'text-md',
+        [NavLinkSize.MD]: 'text-base',
         [NavLinkSize.LG]: 'text-lg',
         [NavLinkSize.XL]: 'text-xl',
         [NavLinkSize.XXL]: 'text-2xl',

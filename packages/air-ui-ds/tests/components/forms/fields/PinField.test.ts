@@ -3,6 +3,7 @@ import { GlowColorMode, GlowTrigger, GlowType } from '@/models/enums/glow'
 import { ref, nextTick } from 'vue'
 import PinField from '~/components/forms/fields/PinField.vue'
 import { Position } from '@/models/enums/positions'
+import { InputSize } from '@/models/enums/formFields'
 
 const defaultProps = {
     id: 'pin-input',
@@ -247,5 +248,26 @@ describe('PinField glow', () => {
         expect(
             glowBoxes(wrapper).every((el) => el.classList.contains('[--glow-color:var(--color-border-error)]')),
         ).toBe(true)
+    })
+})
+
+describe('PinField.vue size', () => {
+    it('uses LG on mobile and MD from lg up when no size is passed', () => {
+        const html = factory().html()
+
+        expect(html).toContain('w-[44px]')
+        expect(html).toContain('lg:w-[36px]')
+        expect(html).toContain('gap-3')
+        expect(html).toContain('lg:gap-2')
+    })
+
+    it.each([
+        [InputSize.MD, 'h-[36px]', 'h-[44px]'],
+        [InputSize.LG, 'h-[44px]', 'h-[36px]'],
+    ])('keeps a fixed size when size is %s', (size, expected, notExpected) => {
+        const html = factory({ size }).html()
+
+        expect(html).toContain(expected)
+        expect(html).not.toContain(notExpected)
     })
 })
