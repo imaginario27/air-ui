@@ -268,18 +268,18 @@ const spacingClass = computed(() => {
     const levelVariant = {
         1: {
             [SidebarNavMenuItemStyleType.SPACED]: 'min-h-[40px] py-2 pl-3 pr-2',
-            [SidebarNavMenuItemStyleType.COMPACT]: 'py-1 pl-2 pr-1',
-            [SidebarNavMenuItemStyleType.ULTRA_COMPACT]: 'py-0.5 pl-1.5 pr-1',
+            [SidebarNavMenuItemStyleType.COMPACT]: 'min-h-[34px] lg:min-h-0 py-1 pl-2 pr-1',
+            [SidebarNavMenuItemStyleType.ULTRA_COMPACT]: 'min-h-[30px] lg:min-h-0 py-0.5 pl-1.5 pr-1',
         },
         2: {
             [SidebarNavMenuItemStyleType.SPACED]: 'min-h-[36px] py-1.5 pl-3 pr-2',
-            [SidebarNavMenuItemStyleType.COMPACT]: 'py-1 pl-2 pr-1',
-            [SidebarNavMenuItemStyleType.ULTRA_COMPACT]: 'py-0.5 pl-1.5 pr-1',
+            [SidebarNavMenuItemStyleType.COMPACT]: 'min-h-[34px] lg:min-h-0 py-1 pl-2 pr-1',
+            [SidebarNavMenuItemStyleType.ULTRA_COMPACT]: 'min-h-[30px] lg:min-h-0 py-0.5 pl-1.5 pr-1',
         },
         3: {
             [SidebarNavMenuItemStyleType.SPACED]: 'min-h-[32px] py-1 pl-3 pr-2',
-            [SidebarNavMenuItemStyleType.COMPACT]: 'py-0.5 pl-2 pr-1',
-            [SidebarNavMenuItemStyleType.ULTRA_COMPACT]: 'py-0 pl-1.5 pr-1',
+            [SidebarNavMenuItemStyleType.COMPACT]: 'min-h-[30px] lg:min-h-0 py-0.5 pl-2 pr-1',
+            [SidebarNavMenuItemStyleType.ULTRA_COMPACT]: 'min-h-[30px] lg:min-h-0 py-0 pl-1.5 pr-1',
         },
     }
 

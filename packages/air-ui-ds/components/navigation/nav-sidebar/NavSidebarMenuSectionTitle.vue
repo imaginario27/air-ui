@@ -118,8 +118,8 @@ const spacingClass = computed(() => {
 
     const variant = {
         [SidebarNavMenuItemStyleType.SPACED]: 'min-h-[40px] gap-3 pt-4 pb-2 px-3',
-        [SidebarNavMenuItemStyleType.COMPACT]: 'gap-2 pt-3 pb-1 px-2',
-        [SidebarNavMenuItemStyleType.ULTRA_COMPACT]: 'gap-1.5 pt-2 pb-0.5 px-1.5',
+        [SidebarNavMenuItemStyleType.COMPACT]: 'gap-2 pt-4 lg:pt-3 pb-1 px-2',
+        [SidebarNavMenuItemStyleType.ULTRA_COMPACT]: 'gap-1.5 pt-3 lg:pt-2 pb-0.5 px-1.5',
     }
     return variant[props.styleType as SidebarNavMenuItemStyleType] || 'min-h-[40px] gap-2 pt-4 pb-2 px-3'
 })
