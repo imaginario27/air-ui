@@ -5,6 +5,18 @@ All notable changes to this package are documented in this file.
 Historical releases were reconstructed from git history (GitHub repository) and npm publish dates.
 Future releases will include detailed entries generated with Changesets.
 
+## 1.31.0 - 2026-10-29
+
+Release type: minor.
+Commits found in range: 2.
+
+### Added
+
+1. add section title props to `NavSidebar` ([196366d](https://github.com/imaginario27/air-ui/commit/196366d7cf376a42170afe086985bdbc2172fc75))
+2. add style options to `NavSidebarMenuSectionTitle` and section title items ([1cc57b3](https://github.com/imaginario27/air-ui/commit/1cc57b39847672a48fad02ba982b28b27d5038ea))
+
+- Package: @imaginario27/air-ui-ds.
+
 ## 1.30.0 - 2026-10-29
 
 Release type: minor.

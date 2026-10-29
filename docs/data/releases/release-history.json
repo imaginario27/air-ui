@@ -1,12 +1,80 @@
 {
-  "generatedAt": "2026-10-29T09:14:21.708Z",
+  "generatedAt": "2026-10-29T09:45:55.971Z",
   "source": "github-git-history+npm-publish-dates",
   "githubBaseUrl": "https://github.com/imaginario27/air-ui",
   "packages": [
     {
       "packageName": "@imaginario27/air-ui-ds",
-      "latestVersion": "1.30.0",
+      "latestVersion": "1.31.0",
       "entries": [
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.31.0",
+          "publishedAt": "2026-10-29",
+          "releaseType": "minor",
+          "notes": [
+            "add section title props to `NavSidebar`",
+            "add style options to `NavSidebarMenuSectionTitle` and section title items"
+          ],
+          "metadata": {
+            "commitCount": 2,
+            "commits": [
+              {
+                "sha": "196366d7cf376a42170afe086985bdbc2172fc75",
+                "shortSha": "196366d",
+                "date": "2026-10-29",
+                "subject": "feat(ds): add section title props to `NavSidebar`",
+                "normalizedSubject": "add section title props to `NavSidebar`",
+                "type": "added",
+                "body": [
+                  "add `sectionContainerClass`, `sectionIconClass` and `sectionTextClass` props to `NavSidebar`",
+                  "add `isSectionUppercase` and `showSectionDivider` props to `NavSidebar`",
+                  "let the fields of a section title item win over the `NavSidebar` props",
+                  "forward the props through `NavSidebarMenuItemsTree` to every nesting level",
+                  "add tests for the props, the precedence and the collapsed divider"
+                ],
+                "affected": [
+                  "NavSidebar",
+                  "NavSidebarMenuItemsTree"
+                ],
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/196366d7cf376a42170afe086985bdbc2172fc75",
+                "prUrl": null
+              },
+              {
+                "sha": "1cc57b39847672a48fad02ba982b28b27d5038ea",
+                "shortSha": "1cc57b3",
+                "date": "2026-10-29",
+                "subject": "feat(ds): add style options to `NavSidebarMenuSectionTitle` and section title items",
+                "normalizedSubject": "add style options to `NavSidebarMenuSectionTitle` and section title items",
+                "type": "added",
+                "body": [
+                  "add `containerClass`, `iconClass` and `textClass` props to `NavSidebarMenuSectionTitle`",
+                  "add `isUppercase` and `showDivider` props to `NavSidebarMenuSectionTitle`",
+                  "add `sectionContainerClass`, `sectionIconClass` and `sectionTextClass` to `SidebarMenuItem`",
+                  "add `isSectionUppercase` and `showSectionDivider` to `SidebarMenuItem`",
+                  "forward the section title fields from `NavSidebar` and `NavSidebarMenuItemsTree`",
+                  "add tests for the new props and the forwarded fields"
+                ],
+                "affected": [
+                  "NavSidebar",
+                  "NavSidebarMenuItemsTree",
+                  "NavSidebarMenuSectionTitle"
+                ],
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/1cc57b39847672a48fad02ba982b28b27d5038ea",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 2,
+              "fixed": 0,
+              "changed": 0,
+              "maintenance": 0,
+              "breaking": 0
+            }
+          }
+        },
         {
           "packageName": "@imaginario27/air-ui-ds",
           "version": "1.30.0",
