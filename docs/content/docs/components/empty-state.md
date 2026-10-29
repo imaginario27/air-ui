@@ -149,6 +149,28 @@ props: [
 ---
 ::
 
+## Slots
+::slots-table
+---
+slots: [
+    {
+        name: "action",
+        description: "Overrides the default action button with custom markup. Use this when the empty state needs a different action, such as a link or several buttons.",
+    },
+]
+---
+::
+
+```vue
+<template>
+    <EmptyState title="No projects yet">
+        <template #action>
+            <ActionButton text="Create project" />
+        </template>
+    </EmptyState>
+</template>
+```
+
 ## Usage
 ### title
 
