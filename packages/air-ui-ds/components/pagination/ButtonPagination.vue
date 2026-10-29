@@ -14,6 +14,7 @@
                 {{ renderedResultsText }}
             </p>
             <RowsPerPage
+                v-if="showRowsPerPage"
                 v-model="itemsPerPage"
                 :rowsLabel="rowsPerPageLabel"
                 :rowsOptions="rowsPerPageOptions"

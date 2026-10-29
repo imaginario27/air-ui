@@ -178,12 +178,11 @@ describe('ButtonPagination', () => {
         expect(rows[1].classes()).not.toContain('hidden')
     })
 
-    it('does not render desktop RowsPerPage if showRowsPerPage is false', () => {
+    it('does not render any RowsPerPage (mobile or desktop position) if showRowsPerPage is false', () => {
         const wrapper = factory({ showRowsPerPage: false })
         const rows = wrapper.findAllComponents({ name: 'RowsPerPage' })
 
-        // Only the always-rendered mobile-position RowsPerPage remains
-        expect(rows.length).toBe(1)
+        expect(rows.length).toBe(0)
     })
 
     it('applies default aria-labels to previous, next and page buttons', () => {

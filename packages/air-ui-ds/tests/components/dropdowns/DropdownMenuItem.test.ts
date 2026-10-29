@@ -4,6 +4,7 @@ import { DropdownActionType, DropdownItemSize, DropdownItemType } from '~/models
 import { NuxtLink } from '#components'
 import Icon from '@/components/icons/Icon.vue'
 import { PrefetchOn } from '@/models/enums/prefetch'
+import { useDSConfig } from '@/composables/useDSConfig'
 
 vi.mock('@/assets/images/placeholders/missing-image-placeholder.png', () => ({
     default: '/mocked/missing-image.png',
@@ -456,10 +457,30 @@ describe('DropdownMenuItem.vue', () => {
 })
 
 describe('DropdownMenuItem.vue size', () => {
-    it('uses LG on mobile and MD from lg up when no size is passed', () => {
+    it('keeps a single size on every screen when responsiveSize is not set', () => {
         const html = factory().html()
+        expect(html).not.toContain('lg:min-h-[36px]')
+    })
+
+    it('uses LG on mobile and MD from lg up when responsiveSize is true', () => {
+        const html = factory({ responsiveSize: true }).html()
         expect(html).toContain('min-h-[40px]')
         expect(html).toContain('lg:min-h-[36px]')
+    })
+
+    it('follows the global config unless responsiveSize is set', () => {
+        const dsConfig = useDSConfig()
+        dsConfig.dropdowns.responsiveSize = true
+
+        try {
+            const html = factory().html()
+            expect(html).toContain('lg:min-h-[36px]')
+
+            const htmlOff = factory({ responsiveSize: false }).html()
+            expect(htmlOff).not.toContain('lg:min-h-[36px]')
+        } finally {
+            dsConfig.dropdowns.responsiveSize = false
+        }
     })
 
     it.each([

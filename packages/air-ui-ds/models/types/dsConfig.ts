@@ -1,5 +1,6 @@
 export interface DesignSystemConfig {
     forms: {
+        responsiveSize: boolean
         optionalLabelText: () => string
         selectPlaceholderText: () => string
         searchText: () => string
@@ -53,6 +54,9 @@ export interface DesignSystemConfig {
             operatorPlaceholderText: () => string
             valuePlaceholderText: () => string
         }
+    }
+    dropdowns: {
+        responsiveSize: boolean
     }
     actions: {
         cancelText: () => string
@@ -152,6 +156,7 @@ export interface DesignSystemConfig {
         toggleSortText: () => string
     }
     navigation: {
+        responsiveSize: boolean
         openSidebarText: () => string
         closeSidebarText: () => string
         collapseSidebarText: () => string
@@ -176,6 +181,7 @@ export interface DesignSystemConfig {
         unreadText: () => string
     }
     treeView: {
+        responsiveSize: boolean
         loadErrorText: () => string
         labelText: () => string
     }

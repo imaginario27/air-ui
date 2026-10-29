@@ -5,6 +5,7 @@ import Icon from '@/components/icons/Icon.vue'
 import DropdownMenu from '@/components/dropdowns/DropdownMenu.vue'
 import { SidebarNavMenuItemStyleType } from '#imports'
 import { PrefetchOn } from '@/models/enums/prefetch'
+import { useDSConfig } from '@/composables/useDSConfig'
 
 vi.mock('#app', () => ({
     useRoute: () =>
@@ -551,5 +552,35 @@ describe('NavSidebarMenuItem.vue', () => {
 
         const dropdown = wrapper.findComponent(DropdownMenu)
         expect(dropdown.props('position')).toBe('top-right')
+    })
+
+    describe('responsiveSize', () => {
+        const linkClasses = (props = {}) =>
+            factory({ styleType: SidebarNavMenuItemStyleType.COMPACT, ...props })
+                .find('button')
+                .classes()
+
+        it('has no minimum height by default', () => {
+            expect(linkClasses().some((c) => c.startsWith('min-h-'))).toBe(false)
+        })
+
+        it('is taller below the lg breakpoint when responsiveSize is true', () => {
+            const classes = linkClasses({ responsiveSize: true })
+
+            expect(classes).toContain('min-h-[34px]')
+            expect(classes).toContain('lg:min-h-0')
+        })
+
+        it('follows the global config unless responsiveSize is set', () => {
+            const dsConfig = useDSConfig()
+            dsConfig.navigation.responsiveSize = true
+
+            try {
+                expect(linkClasses()).toContain('lg:min-h-0')
+                expect(linkClasses({ responsiveSize: false })).not.toContain('lg:min-h-0')
+            } finally {
+                dsConfig.navigation.responsiveSize = false
+            }
+        })
     })
 })

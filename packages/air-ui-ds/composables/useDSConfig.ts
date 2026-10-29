@@ -9,6 +9,7 @@ const glowDefaults = (overrides: Partial<GlowSettings> = {}): GlowSettings => ({
 
 const dsConfig = reactive<DesignSystemConfig>({
     forms: {
+        responsiveSize: false,
         optionalLabelText: () => '(optional)',
         selectPlaceholderText: () => 'Select an option',
         searchText: () => 'Search...',
@@ -62,6 +63,9 @@ const dsConfig = reactive<DesignSystemConfig>({
             operatorPlaceholderText: () => 'Select operator',
             valuePlaceholderText: () => 'Enter value',
         },
+    },
+    dropdowns: {
+        responsiveSize: false,
     },
     actions: {
         cancelText: () => 'Cancel',
@@ -161,6 +165,7 @@ const dsConfig = reactive<DesignSystemConfig>({
         toggleSortText: () => 'Toggle sort',
     },
     navigation: {
+        responsiveSize: false,
         openSidebarText: () => 'Open sidebar',
         closeSidebarText: () => 'Close sidebar',
         collapseSidebarText: () => 'Collapse sidebar',
@@ -185,6 +190,7 @@ const dsConfig = reactive<DesignSystemConfig>({
         unreadText: () => 'Unread',
     },
     treeView: {
+        responsiveSize: false,
         loadErrorText: () => 'Failed to load. Click to retry.',
         labelText: () => 'Tree view',
     },

@@ -5,6 +5,25 @@ All notable changes to this package are documented in this file.
 Historical releases were reconstructed from git history (GitHub repository) and npm publish dates.
 Future releases will include detailed entries generated with Changesets.
 
+## 1.32.0 - 2026-10-29
+
+Release type: minor.
+Commits found in range: 6.
+
+### Added
+
+1. make responsive sizes opt-in with `responsiveSize` ([4084033](https://github.com/imaginario27/air-ui/commit/408403344f04a997277d4278eea56cacee1eebb1))
+2. make compact sidebar menu items taller below the `lg` breakpoint ([8fffeb6](https://github.com/imaginario27/air-ui/commit/8fffeb628e3b2b78787bbd12b3bdbc68fecaf292))
+3. make `TreeView` rows taller below the `lg` breakpoint ([bfc2220](https://github.com/imaginario27/air-ui/commit/bfc2220073d4e37027e0114b997c4df17c6be884))
+
+### Fixed
+
+1. keep config files out of the Nuxt 4.6 client dependency scan ([b8521b2](https://github.com/imaginario27/air-ui/commit/b8521b2c233fd37789996bd58ff5d0a2213240eb))
+2. always use the md size on the `RowsPerPage` select ([9c75837](https://github.com/imaginario27/air-ui/commit/9c7583706e7a3faffcb17cfd93eb5c379e466d8c))
+3. respect `showRowsPerPage` in mobile `ButtonPagination` rows selector ([331a9d1](https://github.com/imaginario27/air-ui/commit/331a9d1d3f98800fc923161e7c6906edb59eaf9d))
+
+- Package: @imaginario27/air-ui-ds.
+
 ## 1.31.0 - 2026-10-29
 
 Release type: minor.

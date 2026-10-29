@@ -135,6 +135,7 @@
                     <ActionIconButton
                         :styleType="ButtonStyleType.NEUTRAL_OUTLINED"
                         :size="ButtonSize.SM"
+                        :responsiveSize="true"
                         icon="mdi:content-copy"
                         ariaLabel="Copy component as image"
                         :disabled="isExporting"
@@ -143,6 +144,7 @@
                     <ActionIconButton
                         :styleType="ButtonStyleType.NEUTRAL_OUTLINED"
                         :size="ButtonSize.SM"
+                        :responsiveSize="true"
                         icon="mdi:download"
                         ariaLabel="Download component as PNG"
                         :disabled="isExporting"

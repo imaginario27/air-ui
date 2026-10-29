@@ -75,8 +75,12 @@ const props = defineProps({
     },
     size: {
         type: String as PropType<InputSize>,
-        default: undefined,
+        default: InputSize.MD,
         validator: (value: InputSize) => Object.values(InputSize).includes(value),
+    },
+    responsiveSize: {
+        type: Boolean as PropType<boolean | null>,
+        default: null,
     },
     label: String as PropType<string>,
     ariaLabel: String as PropType<string>,
@@ -184,8 +188,10 @@ const { glowClass } = useFieldGlow(props, hasError)
 const optionalLabelText = computed(() => props.optionalLabel ?? dsConfig.forms.optionalLabelText())
 
 // Computed classes
+const isResponsive = computed(() => props.responsiveSize ?? dsConfig.forms.responsiveSize)
+
 const inputSizeClass = computed(() => {
-    if (!props.size) return 'w-[44px] h-[44px] lg:w-[36px] lg:h-[36px]'
+    if (isResponsive.value && props.size === InputSize.MD) return 'w-[44px] h-[44px] lg:w-[36px] lg:h-[36px]'
 
     const sizeVariant = {
         [InputSize.MD]: 'w-[36px] h-[36px]',
@@ -196,7 +202,7 @@ const inputSizeClass = computed(() => {
 })
 
 const fieldsGapClass = computed(() => {
-    if (!props.size) return 'gap-3 lg:gap-2'
+    if (isResponsive.value && props.size === InputSize.MD) return 'gap-3 lg:gap-2'
 
     const sizeVariant = {
         [InputSize.MD]: 'gap-2',

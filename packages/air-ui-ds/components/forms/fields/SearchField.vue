@@ -94,8 +94,12 @@ const props = defineProps({
     },
     size: {
         type: String as PropType<InputSize>,
-        default: undefined,
+        default: InputSize.MD,
         validator: (value: InputSize) => Object.values(InputSize).includes(value),
+    },
+    responsiveSize: {
+        type: Boolean as PropType<boolean | null>,
+        default: null,
     },
     modelValue: {
         type: String as PropType<string>,
@@ -170,8 +174,10 @@ const { glowClass } = useFieldGlow(props)
 const resolvedClearAriaLabel = computed(() => props.clearAriaLabel ?? dsConfig.forms.clearSearchText())
 
 // Computed classes
+const isResponsive = computed(() => props.responsiveSize ?? dsConfig.forms.responsiveSize)
+
 const inputSizeClass = computed(() => {
-    if (!props.size) return 'h-[44px] lg:h-[36px]'
+    if (isResponsive.value && props.size === InputSize.MD) return 'h-[44px] lg:h-[36px]'
 
     const sizeVariant = {
         [InputSize.MD]: 'h-[36px]',

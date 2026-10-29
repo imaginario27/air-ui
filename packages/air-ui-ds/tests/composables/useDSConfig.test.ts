@@ -143,4 +143,13 @@ describe('useDSConfig', () => {
         expect(config.forms.fileUpload.invalidFilesText()).toBe('The size or format of one or more files is incorrect.')
         expect(config.accessibility.ratingValueText()).toBe('Rating: {value} out of 5')
     })
+
+    it('has the responsive sizes turned off by default', () => {
+        const config = useDSConfig()
+
+        expect(config.forms.responsiveSize).toBe(false)
+        expect(config.dropdowns.responsiveSize).toBe(false)
+        expect(config.treeView.responsiveSize).toBe(false)
+        expect(config.navigation.responsiveSize).toBe(false)
+    })
 })

@@ -2,6 +2,7 @@ import { mount } from '@vue/test-utils'
 import DropdownSelectItem from '@/components/dropdowns/DropdownSelectItem.vue'
 import Icon from '@/components/icons/Icon.vue'
 import { SelectType, SelectActiveStyle, SelectSize } from '@/models/enums/selects'
+import { useDSConfig } from '@/composables/useDSConfig'
 
 vi.mock('@/assets/images/placeholders/missing-image-placeholder.png', () => ({
     default: '/mocked/missing-image.png',
@@ -128,10 +129,30 @@ describe('DropdownSelectItem.vue', () => {
 })
 
 describe('DropdownSelectItem.vue size', () => {
-    it('uses LG on mobile and MD from lg up when no size is passed', () => {
+    it('keeps a single size on every screen when responsiveSize is not set', () => {
         const html = factory().html()
+        expect(html).not.toContain('lg:py-2')
+    })
+
+    it('uses LG on mobile and MD from lg up when responsiveSize is true', () => {
+        const html = factory({ responsiveSize: true }).html()
         expect(html).toContain('py-3')
         expect(html).toContain('lg:py-2')
+    })
+
+    it('follows the global config unless responsiveSize is set', () => {
+        const dsConfig = useDSConfig()
+        dsConfig.forms.responsiveSize = true
+
+        try {
+            const html = factory().html()
+            expect(html).toContain('lg:py-2')
+
+            const htmlOff = factory({ responsiveSize: false }).html()
+            expect(htmlOff).not.toContain('lg:py-2')
+        } finally {
+            dsConfig.forms.responsiveSize = false
+        }
     })
 
     it.each([

@@ -6,6 +6,7 @@
         <DropdownSelect
             :modelValue
             :options="rowsOptions"
+            :size="SelectSize.MD"
             class="w-full min-w-[80px]"
             :dropdownPosition="Position.TOP"
             @update:modelValue="(value) => emit('update:modelValue', value)"

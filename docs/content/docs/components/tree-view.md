@@ -66,6 +66,7 @@ props:
     showIcons: true
     showIndentGuides: true
     size: "md"
+    responsiveSize: false
     checkStrictly: false
     defaultExpandAll: false
     defaultExpandedDepth: 0
@@ -216,6 +217,11 @@ props: [
         "name": "size",
         "default": "ControlFieldSize.MD",
         "type": "ControlFieldSize",
+    },
+    {
+        "name": "responsiveSize",
+        "default": "null",
+        "type": "boolean",
     },
     {
         "name": "checkStrictly",
@@ -678,6 +684,21 @@ Sets the row height, text size and indentation.
 
 - **Type:** `ControlFieldSize`
 - **Default:** `ControlFieldSize.MD`
+
+### responsiveSize
+
+Makes the rows taller below the `lg` breakpoint so they are easier to tap. Each size grows by one step: `xs` rows are 32px, `sm` 36px, `md` 40px and `lg` 44px on mobile, and go back to their own height from `lg` up. The more actions button also gets bigger.
+
+```vue
+<template>
+    <TreeView :nodes="nodes" :responsiveSize="true" />
+</template>
+```
+
+When the prop is not set, it follows `treeView.responsiveSize` of the DS config, which is `false` by default. Pass `false` to keep the tree at its own size on mobile even when the config turns it on for the whole project. See [Configuration](/docs/getting-started/configuration).
+
+- **Type:** `boolean`
+- **Default:** `null` (follows `treeView.responsiveSize` of the DS config, `false` by default)
 
 ### checkStrictly
 

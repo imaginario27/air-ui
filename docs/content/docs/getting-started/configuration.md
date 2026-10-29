@@ -322,6 +322,12 @@ export default defineNuxtPlugin(() => {
         size: null,
     })
 
+    /* Taller form fields, dropdown items, tree rows and sidebar items on mobile. The responsiveSize prop of each component wins over these */
+    dsConfig.forms.responsiveSize = false
+    dsConfig.dropdowns.responsiveSize = false
+    dsConfig.treeView.responsiveSize = false
+    dsConfig.navigation.responsiveSize = false
+
     /* Bigger buttons on mobile. A responsiveSize prop on a button wins over this */
     dsConfig.buttons.responsiveSize = false
     Object.assign(dsConfig.buttons.mobileSizeMap, {
@@ -380,6 +386,19 @@ options: [
 ::
 
 The change applies to every button that renders through `ActionButton` or `ActionIconButton`, including the ones inside other components. Check forms and toolbars where a button sits next to an element of a fixed height before turning it on for the whole project.
+
+#### Responsive size options
+
+Besides the buttons, other components can be taller on mobile so they are easier to tap. It is off by default, so nothing changes in your project until you turn it on. Each option works like `buttons.responsiveSize`: a `responsiveSize` prop passed to a component always wins over the config, so `:responsiveSize="false"` keeps a single component at its own size.
+
+| Option | Applies to | Default |
+|---|---|---|
+| `forms.responsiveSize` | `InputField`, `SearchField`, `SelectField`, `ComboboxField`, `PinField`, `DatePickerField`, `TimePickerField`, `DropdownSelect`, `DropdownCombobox` and `DropdownSelectItem` | `false` |
+| `dropdowns.responsiveSize` | `DropdownMenuItem` and `DropdownMenuContextItem` | `false` |
+| `treeView.responsiveSize` | `TreeView` | `false` |
+| `navigation.responsiveSize` | `NavSidebar` | `false` |
+
+Form fields and dropdown items with `MD` size become `LG` below the `lg` breakpoint and go back to `MD` from `lg` up. Other sizes do not change.
 
 #### Glow options
 

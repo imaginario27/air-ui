@@ -348,11 +348,32 @@ describe('SearchField glow', () => {
 })
 
 describe('SearchField size', () => {
-    it('uses LG on mobile and MD from lg up when no size is passed', () => {
+    it('keeps a single size on every screen when responsiveSize is not set', () => {
         const html = mount(SearchField, { props: { ...defaultProps } }).html()
+
+        expect(html).not.toContain('lg:h-[36px]')
+    })
+
+    it('uses LG on mobile and MD from lg up when responsiveSize is true', () => {
+        const html = mount(SearchField, { props: { ...defaultProps, responsiveSize: true } }).html()
 
         expect(html).toContain('h-[44px]')
         expect(html).toContain('lg:h-[36px]')
+    })
+
+    it('follows the global config unless responsiveSize is set', () => {
+        const dsConfig = useDSConfig()
+        dsConfig.forms.responsiveSize = true
+
+        try {
+            const html = mount(SearchField, { props: { ...defaultProps } }).html()
+            expect(html).toContain('lg:h-[36px]')
+
+            const htmlOff = mount(SearchField, { props: { ...defaultProps, responsiveSize: false } }).html()
+            expect(htmlOff).not.toContain('lg:h-[36px]')
+        } finally {
+            dsConfig.forms.responsiveSize = false
+        }
     })
 
     it('keeps a fixed height when size is MD', () => {

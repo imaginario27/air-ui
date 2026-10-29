@@ -1,12 +1,160 @@
 {
-  "generatedAt": "2026-10-29T09:45:55.971Z",
+  "generatedAt": "2026-10-29T12:21:30.914Z",
   "source": "github-git-history+npm-publish-dates",
   "githubBaseUrl": "https://github.com/imaginario27/air-ui",
   "packages": [
     {
       "packageName": "@imaginario27/air-ui-ds",
-      "latestVersion": "1.31.0",
+      "latestVersion": "1.32.0",
       "entries": [
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.32.0",
+          "publishedAt": "2026-10-29",
+          "releaseType": "minor",
+          "notes": [
+            "make responsive sizes opt-in with `responsiveSize`",
+            "make compact sidebar menu items taller below the `lg` breakpoint",
+            "make `TreeView` rows taller below the `lg` breakpoint",
+            "keep config files out of the Nuxt 4.6 client dependency scan",
+            "always use the md size on the `RowsPerPage` select",
+            "respect `showRowsPerPage` in mobile `ButtonPagination` rows selector"
+          ],
+          "metadata": {
+            "commitCount": 6,
+            "commits": [
+              {
+                "sha": "b8521b2c233fd37789996bd58ff5d0a2213240eb",
+                "shortSha": "b8521b2",
+                "date": "2026-10-29",
+                "subject": "fix(ds): keep config files out of the Nuxt 4.6 client dependency scan",
+                "normalizedSubject": "keep config files out of the Nuxt 4.6 client dependency scan",
+                "type": "fixed",
+                "body": [
+                  "add `optimizeDeps.entries` negation for `nuxt.config.ts`, `eslint.config.mjs` and `scripts/**`",
+                  "add `optimizeDeps.exclude` for `@tailwindcss/oxide`, `@tailwindcss/vite` and `tailwindcss`"
+                ],
+                "affected": [],
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/b8521b2c233fd37789996bd58ff5d0a2213240eb",
+                "prUrl": null
+              },
+              {
+                "sha": "408403344f04a997277d4278eea56cacee1eebb1",
+                "shortSha": "4084033",
+                "date": "2026-10-29",
+                "subject": "feat(ds): make responsive sizes opt-in with `responsiveSize`",
+                "normalizedSubject": "make responsive sizes opt-in with `responsiveSize`",
+                "type": "added",
+                "body": [
+                  "add `responsiveSize` prop to `InputField`, `SearchField`, `SelectField` and `ComboboxField`",
+                  "add `responsiveSize` prop to `PinField`, `DatePickerField` and `TimePickerField`",
+                  "add `responsiveSize` prop to `DropdownSelect`, `DropdownCombobox` and `DropdownSelectItem`",
+                  "add `responsiveSize` prop to `DropdownMenuItem` and `DropdownMenuContextItem`",
+                  "add `responsiveSize` prop to `TreeView` and `NavSidebar`",
+                  "restore `size` default to `MD`; `MD` grows to `LG` below `lg` only with `responsiveSize`",
+                  "add `forms`, `dropdowns`, `treeView` and `navigation` options to `useDSConfig`, `false` by default",
+                  "let the `responsiveSize` prop win over the DS config",
+                  "make `TreeView` rows and compact `NavSidebar` items taller only with `responsiveSize`",
+                  "update and add tests for the prop and the global config"
+                ],
+                "affected": [
+                  "DropdownCombobox",
+                  "DropdownMenuContextItem",
+                  "DropdownMenuItem",
+                  "DropdownSelect",
+                  "DropdownSelectItem",
+                  "ComboboxField",
+                  "DatePickerField",
+                  "InputField",
+                  "PinField",
+                  "SearchField",
+                  "SelectField",
+                  "TimePickerField",
+                  "NavSidebar",
+                  "NavSidebarMenuItem",
+                  "NavSidebarMenuItemsTree",
+                  "NavSidebarMenuSectionTitle",
+                  "TreeView",
+                  "useTreeViewAppearance",
+                  "useDSConfig"
+                ],
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/408403344f04a997277d4278eea56cacee1eebb1",
+                "prUrl": null
+              },
+              {
+                "sha": "8fffeb628e3b2b78787bbd12b3bdbc68fecaf292",
+                "shortSha": "8fffeb6",
+                "date": "2026-10-29",
+                "subject": "feat(ds): make compact sidebar menu items taller below the `lg` breakpoint",
+                "normalizedSubject": "make compact sidebar menu items taller below the `lg` breakpoint",
+                "type": "added",
+                "body": [],
+                "affected": [
+                  "NavSidebarMenuItem",
+                  "NavSidebarMenuSectionTitle"
+                ],
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/8fffeb628e3b2b78787bbd12b3bdbc68fecaf292",
+                "prUrl": null
+              },
+              {
+                "sha": "9c7583706e7a3faffcb17cfd93eb5c379e466d8c",
+                "shortSha": "9c75837",
+                "date": "2026-10-29",
+                "subject": "fix(ds): always use the md size on the `RowsPerPage` select",
+                "normalizedSubject": "always use the md size on the `RowsPerPage` select",
+                "type": "fixed",
+                "body": [],
+                "affected": [
+                  "RowsPerPage"
+                ],
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/9c7583706e7a3faffcb17cfd93eb5c379e466d8c",
+                "prUrl": null
+              },
+              {
+                "sha": "bfc2220073d4e37027e0114b997c4df17c6be884",
+                "shortSha": "bfc2220",
+                "date": "2026-10-29",
+                "subject": "feat(ds): make `TreeView` rows taller below the `lg` breakpoint",
+                "normalizedSubject": "make `TreeView` rows taller below the `lg` breakpoint",
+                "type": "added",
+                "body": [],
+                "affected": [
+                  "TreeView",
+                  "useTreeViewAppearance"
+                ],
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/bfc2220073d4e37027e0114b997c4df17c6be884",
+                "prUrl": null
+              },
+              {
+                "sha": "331a9d1d3f98800fc923161e7c6906edb59eaf9d",
+                "shortSha": "331a9d1",
+                "date": "2026-10-29",
+                "subject": "fix(ds): respect `showRowsPerPage` in mobile `ButtonPagination` rows selector",
+                "normalizedSubject": "respect `showRowsPerPage` in mobile `ButtonPagination` rows selector",
+                "type": "fixed",
+                "body": [],
+                "affected": [
+                  "ButtonPagination"
+                ],
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/331a9d1d3f98800fc923161e7c6906edb59eaf9d",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 3,
+              "fixed": 3,
+              "changed": 0,
+              "maintenance": 0,
+              "breaking": 0
+            }
+          }
+        },
         {
           "packageName": "@imaginario27/air-ui-ds",
           "version": "1.31.0",

@@ -12,7 +12,8 @@ props:
     modelValue: null
     placeholder: "Select a time"
     icon: null
-    size: null
+    size: "md"
+    responsiveSize: false
     hasDateTimeSegments: false
     clearable: true
     pickerPosition: "bottom"
@@ -155,7 +156,13 @@ props: [
     },
     {
         "name": "size",
+        "default": "InputSize.MD",
         "type": "InputSize",
+    },
+    {
+        "name": "responsiveSize",
+        "default": "null",
+        "type": "boolean",
     },
     {
         "name": "hasDateTimeSegments",
@@ -436,7 +443,7 @@ Sets an icon shown at the start of the input. Only applies to the `INPUT` varian
 
 ### size
 
-Sets the height of the input via the `InputSize` enum. When it is not set, it is `InputSize.LG` on mobile and `InputSize.MD` from the `lg` breakpoint up. Passing a value keeps that size at every screen width. Only applies to the `INPUT` variant.
+Sets the height of the input via the `InputSize` enum. Only applies to the `INPUT` variant.
 
 ```vue
 <template>
@@ -445,7 +452,7 @@ Sets the height of the input via the `InputSize` enum. When it is not set, it is
 ```
 
 - **Type:** `InputSize`
-- **Default:** `undefined` (LG on mobile, MD from `lg` up)
+- **Default:** `InputSize.MD`
 
 #### Options
 
@@ -457,6 +464,21 @@ options: [
 ]
 ---
 ::
+
+### responsiveSize
+
+Makes the field taller on mobile so it is easier to tap. When `size` is `InputSize.MD`, it is `InputSize.LG` below the `lg` breakpoint and `InputSize.MD` from `lg` up. Other sizes do not change.
+
+```vue
+<template>
+    <TimePickerField :responsiveSize="true" />
+</template>
+```
+
+When the prop is not set, it follows `forms.responsiveSize` of the DS config, which is `false` by default. Pass `false` to keep a single field at its own size on mobile even when the config turns it on for the whole project. See [Configuration](/docs/getting-started/configuration).
+
+- **Type:** `boolean`
+- **Default:** `null` (follows `forms.responsiveSize` of the DS config, `false` by default)
 
 ### hasDateTimeSegments
 

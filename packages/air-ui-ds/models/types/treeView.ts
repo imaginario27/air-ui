@@ -89,6 +89,7 @@ export interface TreeViewProps {
     readonly moreActionsItems: DropdownMenuItem[] | TreeViewMoreActionsResolver
     readonly moreActionsPosition: Position
     readonly size: ControlFieldSize
+    readonly responsiveSize?: boolean | null
     readonly color: ColorAccent
     readonly leafIcon: string
     readonly collapsedIcon: string

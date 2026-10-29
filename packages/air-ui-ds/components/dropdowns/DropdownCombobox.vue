@@ -165,8 +165,12 @@ const props = defineProps({
     },
     size: {
         type: String as PropType<SelectSize>,
-        default: undefined,
+        default: SelectSize.MD,
         validator: (value: SelectSize) => Object.values(SelectSize).includes(value),
+    },
+    responsiveSize: {
+        type: Boolean as PropType<boolean | null>,
+        default: null,
     },
     activeStyle: {
         type: String as PropType<SelectActiveStyle>,
@@ -273,8 +277,10 @@ const resolvedClearSelectionAriaLabel = computed(
     () => props.clearSelectionAriaLabel ?? dsConfig.forms.clearSelectionText(),
 )
 
+const isResponsive = computed(() => props.responsiveSize ?? dsConfig.forms.responsiveSize)
+
 const sizeClass = computed(() => {
-    if (!props.size) return 'min-h-[44px] lg:min-h-[36px]'
+    if (isResponsive.value && props.size === SelectSize.MD) return 'min-h-[44px] lg:min-h-[36px]'
 
     const sizeVariant = {
         [SelectSize.MD]: 'min-h-[36px]',

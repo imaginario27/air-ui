@@ -9,7 +9,8 @@ props:
     modelValue: "1234"
     type: "string"
     length: 4
-    size: null
+    size: "md"
+    responsiveSize: false
     label: "Enter PIN"
     placeholder: "•"
     helpText: "Your PIN should be 4 digits."
@@ -110,7 +111,13 @@ props: [
     },
     {
         "name": "size",
+        "default": "InputSize.MD",
         "type": "InputSize",
+    },
+    {
+        "name": "responsiveSize",
+        "default": "null",
+        "type": "boolean",
     },
     {
         "name": "label",
@@ -275,7 +282,7 @@ Sets the number of inputs to display.
 - **Default:** `4`
 
 ### size
-Sets the size of the inputs. It uses the `InputSize` enum. When it is not set, it is `InputSize.LG` on mobile and `InputSize.MD` from the `lg` breakpoint up. Passing a value keeps that size at every screen width.
+Sets the size of the inputs. It uses the `InputSize` enum.
 
 ```vue
 <template>
@@ -284,7 +291,7 @@ Sets the size of the inputs. It uses the `InputSize` enum. When it is not set, i
 ```
 
 - **Type:** `InputSize`
-- **Default:** `undefined` (LG on mobile, MD from `lg` up)
+- **Default:** `InputSize.MD`
 
 #### Options
 ::options-table
@@ -301,6 +308,21 @@ options: [
 ]
 ---
 ::
+
+### responsiveSize
+
+Makes the field taller on mobile so it is easier to tap. When `size` is `InputSize.MD`, it is `InputSize.LG` below the `lg` breakpoint and `InputSize.MD` from `lg` up. Other sizes do not change.
+
+```vue
+<template>
+    <PinField :responsiveSize="true" />
+</template>
+```
+
+When the prop is not set, it follows `forms.responsiveSize` of the DS config, which is `false` by default. Pass `false` to keep a single field at its own size on mobile even when the config turns it on for the whole project. See [Configuration](/docs/getting-started/configuration).
+
+- **Type:** `boolean`
+- **Default:** `null` (follows `forms.responsiveSize` of the DS config, `false` by default)
 
 ### label
 Sets the label of the field.

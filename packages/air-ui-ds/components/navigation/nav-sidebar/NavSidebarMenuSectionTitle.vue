@@ -42,6 +42,10 @@ const props = defineProps({
         default: SidebarNavMenuItemStyleType.COMPACT,
         validator: (value: SidebarNavMenuItemStyleType) => Object.values(SidebarNavMenuItemStyleType).includes(value),
     },
+    responsiveSize: {
+        type: Boolean as PropType<boolean | null>,
+        default: null,
+    },
     isCollapsed: {
         type: Boolean as PropType<boolean>,
         default: false,
@@ -96,6 +100,9 @@ const borderClass = computed(() => {
     return ''
 })
 
+const dsConfig = useDSConfig()
+const isResponsive = computed(() => props.responsiveSize ?? dsConfig.navigation.responsiveSize)
+
 const spacingClass = computed(() => {
     if (resolvedLevel.value > 1) {
         const nestedVariant = {
@@ -118,8 +125,12 @@ const spacingClass = computed(() => {
 
     const variant = {
         [SidebarNavMenuItemStyleType.SPACED]: 'min-h-[40px] gap-3 pt-4 pb-2 px-3',
-        [SidebarNavMenuItemStyleType.COMPACT]: 'gap-2 pt-3 pb-1 px-2',
-        [SidebarNavMenuItemStyleType.ULTRA_COMPACT]: 'gap-1.5 pt-2 pb-0.5 px-1.5',
+        [SidebarNavMenuItemStyleType.COMPACT]: isResponsive.value
+            ? 'gap-2 pt-4 lg:pt-3 pb-1 px-2'
+            : 'gap-2 pt-3 pb-1 px-2',
+        [SidebarNavMenuItemStyleType.ULTRA_COMPACT]: isResponsive.value
+            ? 'gap-1.5 pt-3 lg:pt-2 pb-0.5 px-1.5'
+            : 'gap-1.5 pt-2 pb-0.5 px-1.5',
     }
     return variant[props.styleType as SidebarNavMenuItemStyleType] || 'min-h-[40px] gap-2 pt-4 pb-2 px-3'
 })

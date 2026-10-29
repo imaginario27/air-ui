@@ -55,5 +55,11 @@ export default defineNuxtConfig({
 
     vite: {
         plugins: [tailwindcss() as any],
+        optimizeDeps: {
+            // Nuxt >= 4.6 scans the root of an installed layer without `app/`; keep Node-only config files out of the client scan
+            entries: ['!**/node_modules/@imaginario27/*/{nuxt.config.ts,eslint.config.mjs,scripts/**}'],
+            // Tailwind only runs on the Node side; pre-bundling its native binding (.node) breaks the dev optimizer
+            exclude: ['@tailwindcss/oxide', '@tailwindcss/vite', 'tailwindcss'],
+        },
     },
 })

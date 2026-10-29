@@ -68,6 +68,7 @@ props:
     footerHeight: 0
     footerSafeAreaHeight: 180
     itemsStyleType: "compact"
+    responsiveSize: false
     itemsCustomClass: ""
     itemsTextClass: ""
     itemsIconClass: ""
@@ -277,6 +278,11 @@ props: [
     {
         "name": "itemsStyleType",
         "type": "SidebarNavMenuItemStyleType",
+    },
+    {
+        "name": "responsiveSize",
+        "default": "null",
+        "type": "boolean",
     },
     {
         "name": "itemsCustomClass",
@@ -1119,6 +1125,21 @@ options: [
 ]
 ---
 ::
+
+### responsiveSize
+
+Makes the `COMPACT` and `ULTRA_COMPACT` menu items taller below the `lg` breakpoint so they are easier to tap, and adds more space above the section titles. The `SPACED` style already has a comfortable height, so it does not change.
+
+```vue
+<template>
+    <NavSidebar :itemsStyleType="SidebarNavMenuItemStyleType.COMPACT" :responsiveSize="true" />
+</template>
+```
+
+When the prop is not set, it follows `navigation.responsiveSize` of the DS config, which is `false` by default. Pass `false` to keep the sidebar at its own size on mobile even when the config turns it on for the whole project. See [Configuration](/docs/getting-started/configuration).
+
+- **Type:** `boolean`
+- **Default:** `null` (follows `navigation.responsiveSize` of the DS config, `false` by default)
 
 ### itemsCustomClass
 

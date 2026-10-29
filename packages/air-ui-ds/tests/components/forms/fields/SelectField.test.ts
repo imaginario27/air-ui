@@ -392,10 +392,16 @@ describe('SelectField glow', () => {
 })
 
 describe('SelectField size', () => {
-    it('leaves the dropdown size unset when no size is passed', () => {
+    it('defaults the size to MD', () => {
         const wrapper = mount(SelectField, { props: { ...defaultProps } })
 
-        expect(wrapper.findComponent(DropdownSelect).props('size')).toBeUndefined()
+        expect(wrapper.findComponent(DropdownSelect).props('size')).toBe(SelectSize.MD)
+    })
+
+    it('forwards responsiveSize to the dropdown', () => {
+        const wrapper = mount(SelectField, { props: { ...defaultProps, responsiveSize: true } })
+
+        expect(wrapper.findComponent(DropdownSelect).props('responsiveSize')).toBe(true)
     })
 
     it('forwards an explicit size to the dropdown', () => {

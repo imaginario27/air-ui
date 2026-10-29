@@ -2,6 +2,7 @@ import { mount, flushPromises } from '@vue/test-utils'
 import TreeView from '~/components/tree-views/TreeView.vue'
 import { TreeViewSelectionMode, TreeViewDropPosition } from '@/models/enums/tree-view'
 import { SortOrder } from '@/models/enums/order'
+import { useDSConfig } from '@/composables/useDSConfig'
 import type { TreeViewNode } from '@/models/types/treeView'
 
 const nodes: TreeViewNode[] = [
@@ -812,9 +813,40 @@ describe('TreeView', () => {
             expect(item(wrapper, 'package').find('[data-testid="custom-trailing"]').text()).toBe('package')
         })
 
-        it('applies the row height of the size', () => {
-            expect(item(factory({ size: 'lg' }), 'src').classes()).toContain('h-[40px]')
-            expect(item(factory({ size: 'xs' }), 'src').classes()).toContain('h-[24px]')
+        it.each([
+            ['xs', 'h-[24px]'],
+            ['sm', 'h-[28px]'],
+            ['md', 'h-[32px]'],
+            ['lg', 'h-[40px]'],
+        ])('applies a fixed %s row height by default', (size, heightClass) => {
+            const classes = item(factory({ size }), 'src').classes()
+
+            expect(classes).toContain(heightClass)
+            expect(classes.some((c) => c.startsWith('lg:h-'))).toBe(false)
+        })
+
+        it.each([
+            ['xs', 'h-[32px]', 'lg:h-[24px]'],
+            ['sm', 'h-[36px]', 'lg:h-[28px]'],
+            ['md', 'h-[40px]', 'lg:h-[32px]'],
+            ['lg', 'h-[44px]', 'lg:h-[40px]'],
+        ])('makes the %s row taller below the lg breakpoint when responsiveSize is true', (size, touch, desktop) => {
+            const classes = item(factory({ size, responsiveSize: true }), 'src').classes()
+
+            expect(classes).toContain(touch)
+            expect(classes).toContain(desktop)
+        })
+
+        it('follows the global config unless responsiveSize is set', () => {
+            const dsConfig = useDSConfig()
+            dsConfig.treeView.responsiveSize = true
+
+            try {
+                expect(item(factory(), 'src').classes()).toContain('lg:h-[32px]')
+                expect(item(factory({ responsiveSize: false }), 'src').classes()).not.toContain('lg:h-[32px]')
+            } finally {
+                dsConfig.treeView.responsiveSize = false
+            }
         })
 
         it('uses custom icons for files and folders', () => {
