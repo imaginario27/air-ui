@@ -34,6 +34,11 @@ describe('RowsPerPage', () => {
         const wrapper = factory({ visible: false })
         expect(wrapper.find('div').exists()).toBe(false)
     })
+    it('always uses the md size on the select', () => {
+        const wrapper = factory()
+        expect(wrapper.getComponent({ name: 'DropdownSelect' }).props('size')).toBe('md')
+    })
+
     it('renders label correctly', () => {
         const wrapper = factory({ rowsLabel: 'Items per page' })
         expect(wrapper.text()).toContain('Items per page')
