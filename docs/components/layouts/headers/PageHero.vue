@@ -23,7 +23,13 @@
             />
             <div
                 aria-hidden="true"
-                :class="['pointer-events-none', 'absolute', 'inset-0', '-z-10', 'bg-theme-neutral-950/40']"
+                :class="[
+                    'pointer-events-none',
+                    'absolute',
+                    'inset-0',
+                    '-z-10',
+                    isDark ? 'bg-(--wild-blue-yonder-950)/65' : 'bg-(--wild-blue-yonder-950)/40',
+                ]"
             />
         </template>
 
@@ -67,6 +73,10 @@
     </div>
 </template>
 <script setup lang="ts">
+// Composables
+const { isDark } = useDarkMode()
+
+// Props
 defineProps({
     title: {
         type: String,
