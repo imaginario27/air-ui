@@ -78,7 +78,11 @@
                         />
 
                         <Spinner v-if="isLoading" />
-                        <span v-else :class="disabled ? 'cursor-not-allowed' : 'cursor-pointer'" @click="toggleMenu">
+                        <span
+                            v-else
+                            :class="['flex items-center', disabled ? 'cursor-not-allowed' : 'cursor-pointer']"
+                            @click="toggleMenu"
+                        >
                             <Icon :name="isOpen ? 'mdi:unfold-less-horizontal' : 'mdi:unfold-more-horizontal'" />
                         </span>
                     </div>
