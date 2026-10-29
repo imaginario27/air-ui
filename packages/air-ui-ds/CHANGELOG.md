@@ -5,6 +5,29 @@ All notable changes to this package are documented in this file.
 Historical releases were reconstructed from git history (GitHub repository) and npm publish dates.
 Future releases will include detailed entries generated with Changesets.
 
+## 1.30.0 - 2026-10-29
+
+Release type: minor.
+Commits found in range: 7.
+
+### Added
+
+1. add `responsiveSize` to `ActionButton` and `ActionIconButton` ([103b1f5](https://github.com/imaginario27/air-ui/commit/103b1f5e09b71442d94c863a7b829ddf8795bdf3))
+2. add `DateTimeSegments` to type dates and times in segments ([466c1e3](https://github.com/imaginario27/air-ui/commit/466c1e37cb702f2383000854298bd138dc9a3f3b))
+3. add `action` slot to `EmptyState` ([379b716](https://github.com/imaginario27/air-ui/commit/379b7169f6905bc5711158d4780aad40b077c4bb))
+4. use `LG` form fields on mobile and add `header-quick-actions` slot ([382b477](https://github.com/imaginario27/air-ui/commit/382b47792b665ca153bb522358ba10c4869dd56c))
+
+### Fixed
+
+1. replace the missing `text-md` class with `text-base` ([18520a1](https://github.com/imaginario27/air-ui/commit/18520a1e55ccaa53b1b767bcb463549ff308c994))
+2. center the toggle icon of `DropdownCombobox` ([c02d647](https://github.com/imaginario27/air-ui/commit/c02d647aeb32e13b4acd42266f796884ab8f45e2))
+
+### Maintenance
+
+1. update `nuxt` to 4.6.3 and `happy-dom` to 21.0.4 ([c2e421a](https://github.com/imaginario27/air-ui/commit/c2e421a72e5d1157c1e51613ef42e5d83f9ca1de))
+
+- Package: @imaginario27/air-ui-ds.
+
 ## 1.29.1 - 2026-10-21
 
 Release type: patch.
