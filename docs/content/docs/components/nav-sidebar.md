@@ -11,11 +11,6 @@ props:
         - isSectionTitle: true
           text: 'Section title'
           icon: 'mdi:bullseye'
-          sectionContainerClass: ''
-          sectionIconClass: ''
-          sectionTextClass: ''
-          isSectionUppercase: false
-          showSectionDivider: true
         - text: 'Item 1'
           icon: 'mdi:help'
           to: null
@@ -81,6 +76,11 @@ props:
     subItemsIconClass: ""
     thirdLevelItemsCustomClass: ""
     showNestedSectionLevelGuide: true
+    sectionContainerClass: ""
+    sectionIconClass: ""
+    sectionTextClass: ""
+    isSectionUppercase: false
+    showSectionDivider: true
     prefetchOn: "visibility"
     truncateDepth: []
     marquee: false
@@ -312,6 +312,28 @@ props: [
         "type": "boolean",
     },
     {
+        "name": "sectionContainerClass",
+        "type": "string",
+    },
+    {
+        "name": "sectionIconClass",
+        "type": "string",
+    },
+    {
+        "name": "sectionTextClass",
+        "type": "string",
+    },
+    {
+        "name": "isSectionUppercase",
+        "default": "false",
+        "type": "boolean",
+    },
+    {
+        "name": "showSectionDivider",
+        "default": "true",
+        "type": "boolean",
+    },
+    {
         "name": "prefetchOn",
         "default": "PrefetchOn.VISIBILITY",
         "type": "PrefetchOnStrategy",
@@ -512,7 +534,7 @@ Set `detectActive: false` on an item to opt it out of route-based active highlig
 
 #### Section title style
 
-A section title (`isSectionTitle: true`) accepts these optional fields to change its look. They are ignored on any other item.
+A section title (`isSectionTitle: true`) accepts these optional fields to change its look. They are ignored on any other item. Each one has a `NavSidebar` prop of the same name that sets the value for every section title, and the field of an item wins over the prop.
 
 | Field | Type | Default |
 |---|---|---|
@@ -1192,6 +1214,81 @@ Controls whether nested entries (section titles and submenu items on level 2 and
 <template>
     <NavSidebar
         :showNestedSectionLevelGuide="true"
+    />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `true`
+
+### sectionContainerClass
+
+Adds classes to the container of every section title (`isSectionTitle: true`). They are added after the default classes, so to override a style that is already set use the `!` prefix, for example `!bg-background-neutral-subtle`. A section title can set its own value with the field of the same name in `menuItems`, and it wins over this prop. See [Section title style](#section-title-style).
+
+```vue
+<template>
+    <NavSidebar
+        sectionContainerClass="bg-background-neutral-subtle"
+    />
+</template>
+```
+
+- **Type:** `string`
+- **Default:** none
+
+### sectionIconClass
+
+Adds classes to the icon of every section title. They are added after the default classes, so to override a color that is already set use the `!` prefix, for example `!text-icon-primary-brand-default`. A section title can set its own value with the field of the same name in `menuItems`, and it wins over this prop.
+
+```vue
+<template>
+    <NavSidebar
+        sectionIconClass="!text-icon-primary-brand-default"
+    />
+</template>
+```
+
+- **Type:** `string`
+- **Default:** none
+
+### sectionTextClass
+
+Adds classes to the text of every section title. They are added after the default classes, so to override a style that is already set use the `!` prefix. A section title can set its own value with the field of the same name in `menuItems`, and it wins over this prop.
+
+```vue
+<template>
+    <NavSidebar
+        sectionTextClass="tracking-wide"
+    />
+</template>
+```
+
+- **Type:** `string`
+- **Default:** none
+
+### isSectionUppercase
+
+Shows the text of every section title in uppercase. A section title can set `isSectionUppercase` in `menuItems` to use its own value.
+
+```vue
+<template>
+    <NavSidebar
+        :isSectionUppercase="true"
+    />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `false`
+
+### showSectionDivider
+
+Shows or hides the divider of every section title: the line under a first level title and, when the sidebar is collapsed, the divider shown instead of the title (which also needs `showCollapseDivider`). A section title can set `showSectionDivider` in `menuItems` to use its own value.
+
+```vue
+<template>
+    <NavSidebar
+        :showSectionDivider="false"
     />
 </template>
 ```
