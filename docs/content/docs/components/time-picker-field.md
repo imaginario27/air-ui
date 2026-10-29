@@ -12,7 +12,7 @@ props:
     modelValue: null
     placeholder: "Select a time"
     icon: null
-    size: "md"
+    size: null
     clearable: true
     pickerPosition: "bottom"
     autoFlip: true
@@ -155,7 +155,6 @@ props: [
     {
         "name": "size",
         "type": "InputSize",
-        "default": "InputSize.MD"
     },
     {
         "name": "clearable",
@@ -431,7 +430,7 @@ Sets an icon shown at the start of the input. Only applies to the `INPUT` varian
 
 ### size
 
-Sets the height of the input via the `InputSize` enum. Only applies to the `INPUT` variant.
+Sets the height of the input via the `InputSize` enum. When it is not set, it is `InputSize.LG` on mobile and `InputSize.MD` from the `lg` breakpoint up. Passing a value keeps that size at every screen width. Only applies to the `INPUT` variant.
 
 ```vue
 <template>
@@ -440,7 +439,7 @@ Sets the height of the input via the `InputSize` enum. Only applies to the `INPU
 ```
 
 - **Type:** `InputSize`
-- **Default:** `InputSize.MD`
+- **Default:** `undefined` (LG on mobile, MD from `lg` up)
 
 #### Options
 

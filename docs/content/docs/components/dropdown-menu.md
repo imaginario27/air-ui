@@ -720,7 +720,7 @@ props:
     actionType: "action"
     text: "Menu item text"
     icon: "mdi:help"
-    size: "md"
+    size: null
     type: "text"
     checked: false
     steps:
@@ -816,7 +816,6 @@ props: [
     },
     {
         "name": "size",
-        "default": "MD",
         "type": "DropdownItemSize",
     },
     {
@@ -943,7 +942,7 @@ Sets the icon to be displayed in the menu item.
 - **Default:** `'mdi:help'`
 
 ### size
-Sets the size of the menu item. Uses the `DropdownItemSize` enum.
+Sets the size of the menu item. Uses the `DropdownItemSize` enum. When it is not set, it is `DropdownItemSize.LG` on mobile and `DropdownItemSize.MD` from the `lg` breakpoint up. Passing a value keeps that size at every screen width.
 
 ```vue
 <template>
@@ -956,7 +955,7 @@ Sets the size of the menu item. Uses the `DropdownItemSize` enum.
 ```
 
 - **Type:** `DropdownItemSize`
-- **Default:** `'MD'`
+- **Default:** `undefined` (LG on mobile, MD from `lg` up)
 
 ### type
 Sets the type of the menu item. Uses the `DropdownItemType` enum.

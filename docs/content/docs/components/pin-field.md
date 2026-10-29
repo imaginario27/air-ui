@@ -9,7 +9,7 @@ props:
     modelValue: "1234"
     type: "string"
     length: 4
-    size: "md"
+    size: null
     label: "Enter PIN"
     placeholder: "•"
     helpText: "Your PIN should be 4 digits."
@@ -110,7 +110,6 @@ props: [
     },
     {
         "name": "size",
-        "default": "InputSize.MD",
         "type": "InputSize",
     },
     {
@@ -276,7 +275,7 @@ Sets the number of inputs to display.
 - **Default:** `4`
 
 ### size
-Sets the size of the inputs. It uses the `InputSize` enum.
+Sets the size of the inputs. It uses the `InputSize` enum. When it is not set, it is `InputSize.LG` on mobile and `InputSize.MD` from the `lg` breakpoint up. Passing a value keeps that size at every screen width.
 
 ```vue
 <template>
@@ -285,7 +284,7 @@ Sets the size of the inputs. It uses the `InputSize` enum.
 ```
 
 - **Type:** `InputSize`
-- **Default:** `InputSize.MD`
+- **Default:** `undefined` (LG on mobile, MD from `lg` up)
 
 #### Options
 ::options-table

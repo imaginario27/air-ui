@@ -16,7 +16,7 @@ props:
     suffixIcon: null
     linkText: null
     linkUrl: null
-    size: "md"
+    size: null
     modelValue: ""
     validator: null
     error: ""
@@ -144,7 +144,6 @@ props: [
     },
     {
         "name": "size",
-        "default": "InputSize.MD",
         "type": "InputSize",
     },
     {
@@ -465,7 +464,7 @@ Sets the link URL of the input field when the type is `password`.
 
 ### size
 
-Sets the size of the input field. It uses the `InputSize` enum.
+Sets the size of the input field. It uses the `InputSize` enum. When it is not set, the field is `InputSize.LG` on mobile and `InputSize.MD` from the `lg` breakpoint up. Passing a value keeps that size at every screen width.
 
 ```vue
 <template>
@@ -474,7 +473,7 @@ Sets the size of the input field. It uses the `InputSize` enum.
 ```
 
 - **Type:** `InputSize`
-- **Default:** `InputSize.MD`
+- **Default:** `undefined` (LG on mobile, MD from `lg` up)
 
 #### Options
 ::options-table
