@@ -33,7 +33,7 @@
                 'rounded-md',
                 'transition-all',
                 'text-text-default',
-                'min-h-[36px]',
+                inputSizeClass,
                 icon ? 'pl-3' : 'pl-4',
                 hasError ? 'pr-3' : 'pr-4',
                 hasError ? 'border-border-error text-text-error' : 'border-border-default',
@@ -116,6 +116,15 @@ const props = defineProps({
         validator: (value: Position) => Object.values(Position).includes(value),
     },
     icon: String as PropType<string>,
+    size: {
+        type: String as PropType<InputSize>,
+        default: InputSize.MD,
+        validator: (value: InputSize) => Object.values(InputSize).includes(value),
+    },
+    responsiveSize: {
+        type: Boolean as PropType<boolean | null>,
+        default: null,
+    },
     modelValue: {
         type: Array as PropType<string[]>,
         default: () => [],
@@ -196,6 +205,13 @@ const resolvedClearText = computed(() => props.clearText ?? dsConfig.actions.cle
 
 // Computed States
 const hasError = computed(() => props.error !== '')
+const isResponsive = computed(() => props.responsiveSize ?? dsConfig.forms.responsiveSize)
+
+const inputSizeClass = computed(() => {
+    if (isResponsive.value && props.size === InputSize.MD) return 'min-h-[44px] lg:min-h-[36px]'
+
+    return props.size === InputSize.LG ? 'min-h-[44px]' : 'min-h-[36px]'
+})
 
 // Glow
 const { glowClass } = useFieldGlow(props, hasError)
