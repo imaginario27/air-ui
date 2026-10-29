@@ -103,6 +103,12 @@ describe('NavLink', () => {
         expect(iconWrapper.classes()).toContain('gap-2')
     })
 
+    it('uses a text size class that exists in Tailwind for the MD size', () => {
+        const wrapper = factory({ size: NavLinkSize.MD })
+
+        expect(wrapper.find('span').classes()).toContain('text-base')
+    })
+
     it('applies disabled styles when disabled is true', () => {
         const wrapper = factory({ disabled: true })
 
