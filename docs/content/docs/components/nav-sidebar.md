@@ -11,6 +11,11 @@ props:
         - isSectionTitle: true
           text: 'Section title'
           icon: 'mdi:bullseye'
+          sectionContainerClass: ''
+          sectionIconClass: ''
+          sectionTextClass: ''
+          isSectionUppercase: false
+          showSectionDivider: true
         - text: 'Item 1'
           icon: 'mdi:help'
           to: null
@@ -505,6 +510,36 @@ Set `isDivider: true` on an item to render a horizontal `Divider` between entrie
 
 Set `detectActive: false` on an item to opt it out of route-based active highlighting. By default every item with a `to` highlights itself when the current route matches.
 
+#### Section title style
+
+A section title (`isSectionTitle: true`) accepts these optional fields to change its look. They are ignored on any other item.
+
+| Field | Type | Default |
+|---|---|---|
+| `sectionContainerClass` | `string` | none |
+| `sectionIconClass` | `string` | none |
+| `sectionTextClass` | `string` | none |
+| `isSectionUppercase` | `boolean` | `false` |
+| `showSectionDivider` | `boolean` | `true` |
+
+`sectionContainerClass`, `sectionIconClass` and `sectionTextClass` are added to the container, the icon and the text of the title. They are added after the default classes, so to override a color that is already set use the `!` prefix, for example `!text-icon-primary-brand-default`. `isSectionUppercase` shows the text in uppercase. `showSectionDivider: false` removes the line under a first level title, and also the divider shown instead of the title when the sidebar is collapsed.
+
+```vue
+<script setup lang="ts">
+const routeItems: SidebarMenuItem[] = [
+    {
+        isSectionTitle: true,
+        text: 'Section title',
+        icon: 'mdi:bullseye',
+        isSectionUppercase: true,
+        showSectionDivider: false,
+        sectionIconClass: '!text-icon-primary-brand-default',
+        sectionTextClass: 'tracking-wide',
+    },
+]
+</script>
+```
+
 
 #### TypeScript interface
 ```ts
@@ -514,6 +549,11 @@ interface SidebarMenuItem {
     to?: string
     isSectionTitle?: boolean
     isDivider?: boolean
+    sectionContainerClass?: string
+    sectionIconClass?: string
+    sectionTextClass?: string
+    isSectionUppercase?: boolean
+    showSectionDivider?: boolean
     children?: SidebarMenuItem[]
     disabled?: boolean
     detectActive?: boolean
