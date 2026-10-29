@@ -4,6 +4,7 @@ import { nextTick, ref } from 'vue'
 import TimePickerField from '@/components/forms/fields/TimePickerField.vue'
 import { HourFormat, PickerVariant } from '@/models/enums/calendars'
 import { Position } from '@/models/enums/positions'
+import { InputSize } from '@/models/enums/formFields'
 
 vi.mock('~/composables/useFormValidationMode', () => ({
     useInjectedValidationMode: () => ref('blur'),
@@ -266,5 +267,24 @@ describe('TimePickerField glow', () => {
         expect(
             glowBoxes(wrapper).every((el) => el.classList.contains('[--glow-color:var(--color-border-error)]')),
         ).toBe(true)
+    })
+})
+
+describe('TimePickerField.vue size', () => {
+    it('uses LG on mobile and MD from lg up when no size is passed', () => {
+        const html = factory().html()
+
+        expect(html).toContain('h-[44px]')
+        expect(html).toContain('lg:h-[36px]')
+    })
+
+    it.each([
+        [InputSize.MD, 'h-[36px]', 'h-[44px]'],
+        [InputSize.LG, 'h-[44px]', 'h-[36px]'],
+    ])('keeps a fixed height when size is %s', (size, expected, notExpected) => {
+        const html = factory({ size }).html()
+
+        expect(html).toContain(expected)
+        expect(html).not.toContain(notExpected)
     })
 })

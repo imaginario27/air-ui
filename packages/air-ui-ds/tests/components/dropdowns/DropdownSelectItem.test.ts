@@ -1,7 +1,7 @@
 import { mount } from '@vue/test-utils'
 import DropdownSelectItem from '@/components/dropdowns/DropdownSelectItem.vue'
 import Icon from '@/components/icons/Icon.vue'
-import { SelectType, SelectActiveStyle } from '@/models/enums/selects'
+import { SelectType, SelectActiveStyle, SelectSize } from '@/models/enums/selects'
 
 vi.mock('@/assets/images/placeholders/missing-image-placeholder.png', () => ({
     default: '/mocked/missing-image.png',
@@ -124,5 +124,22 @@ describe('DropdownSelectItem.vue', () => {
         await wrapper.trigger('click')
 
         expect(wrapper.emitted('click')).toBeTruthy()
+    })
+})
+
+describe('DropdownSelectItem.vue size', () => {
+    it('uses LG on mobile and MD from lg up when no size is passed', () => {
+        const html = factory().html()
+        expect(html).toContain('py-3')
+        expect(html).toContain('lg:py-2')
+    })
+
+    it.each([
+        [SelectSize.MD, 'py-2', 'py-3'],
+        [SelectSize.LG, 'py-3', 'py-2'],
+    ])('keeps a fixed padding when size is %s', (size, expected, notExpected) => {
+        const html = factory({ size }).html()
+        expect(html).toContain(expected)
+        expect(html).not.toContain(notExpected)
     })
 })

@@ -94,7 +94,7 @@ const props = defineProps({
     },
     size: {
         type: String as PropType<InputSize>,
-        default: InputSize.MD,
+        default: undefined,
         validator: (value: InputSize) => Object.values(InputSize).includes(value),
     },
     modelValue: {
@@ -171,6 +171,8 @@ const resolvedClearAriaLabel = computed(() => props.clearAriaLabel ?? dsConfig.f
 
 // Computed classes
 const inputSizeClass = computed(() => {
+    if (!props.size) return 'h-[44px] lg:h-[36px]'
+
     const sizeVariant = {
         [InputSize.MD]: 'h-[36px]',
         [InputSize.LG]: 'h-[44px]',

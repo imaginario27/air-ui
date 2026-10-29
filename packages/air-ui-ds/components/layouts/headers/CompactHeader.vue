@@ -67,6 +67,11 @@
                     <slot name="header-actions" :onClose="noop" />
                 </div>
 
+                <!-- Quick actions -->
+                <div v-if="$slots['header-quick-actions']" class="flex gap-3 items-center">
+                    <slot name="header-quick-actions" />
+                </div>
+
                 <!-- User Menu -->
                 <DropdownMenu
                     v-if="userMenuItems.length && userFullname"

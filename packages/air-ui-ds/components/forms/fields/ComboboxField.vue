@@ -102,7 +102,7 @@ const props = defineProps({
     },
     size: {
         type: String as PropType<SelectSize>,
-        default: SelectSize.MD,
+        default: undefined,
         validator: (value: SelectSize) => Object.values(SelectSize).includes(value),
     },
     activeStyle: {

@@ -125,7 +125,7 @@ const props = defineProps({
     },
     size: {
         type: String as PropType<DropdownItemSize>,
-        default: DropdownItemSize.MD,
+        default: undefined,
         validator: (value: DropdownItemSize) => Object.values(DropdownItemSize).includes(value),
     },
     type: {
@@ -243,6 +243,8 @@ const handleImageError = () => {
 
 // Computed classes
 const sizeClass = computed(() => {
+    if (!props.size) return 'min-h-[36px] lg:min-h-[32px]'
+
     const sizeVariant = {
         [DropdownItemSize.MD]: 'min-h-[32px]',
         [DropdownItemSize.LG]: 'min-h-[36px]',

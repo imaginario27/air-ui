@@ -161,7 +161,7 @@ const props = defineProps({
     },
     size: {
         type: String as PropType<SelectSize>,
-        default: SelectSize.MD,
+        default: undefined,
         validator: (value: SelectSize) => Object.values(SelectSize).includes(value),
     },
     activeStyle: {
@@ -270,6 +270,8 @@ const resolvedClearSelectionAriaLabel = computed(
 )
 
 const sizeClass = computed(() => {
+    if (!props.size) return 'min-h-[44px] lg:min-h-[36px]'
+
     const sizeVariant = {
         [SelectSize.MD]: 'min-h-[36px]',
         [SelectSize.LG]: 'min-h-[44px]',

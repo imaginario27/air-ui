@@ -1,6 +1,7 @@
 import { mount } from '@vue/test-utils'
 import InputField from '~/components/forms/fields/InputField.vue'
 import { Position } from '@/models/enums/positions'
+import { InputSize } from '@/models/enums/formFields'
 import { useDSConfig } from '@/composables/useDSConfig'
 import { GlowColorMode, GlowTrigger, GlowType } from '@/models/enums/glow'
 import { nextTick, ref } from 'vue'
@@ -27,6 +28,22 @@ describe('InputField.vue', () => {
 
         const input = wrapper.find('input')
         expect(input.exists()).toBe(true)
+    })
+
+    it('uses LG on mobile and MD from lg up when no size is passed', () => {
+        const container = factory().find('input').element.parentElement!
+        expect(container.classList).toContain('h-[44px]')
+        expect(container.classList).toContain('lg:h-[36px]')
+    })
+
+    it.each([
+        [InputSize.MD, 'h-[36px]', 'h-[44px]'],
+        [InputSize.LG, 'h-[44px]', 'h-[36px]'],
+    ])('keeps a fixed height when size is %s', (size, expected, notExpected) => {
+        const container = factory({ size }).find('input').element.parentElement!
+        expect(container.classList).toContain(expected)
+        expect(container.classList).not.toContain(notExpected)
+        expect(container.classList).not.toContain('lg:h-[36px]')
     })
 
     it('displays help text when provided', () => {

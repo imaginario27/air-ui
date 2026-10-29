@@ -155,7 +155,7 @@ const props = defineProps({
     icon: String as PropType<string>,
     size: {
         type: String as PropType<InputSize>,
-        default: InputSize.MD,
+        default: undefined,
         validator: (value: InputSize) => Object.values(InputSize).includes(value),
     },
     clearable: {
@@ -290,6 +290,8 @@ const resolvedOpenAriaLabel = computed(() => props.openAriaLabel ?? dsConfig.tim
 const displayValue = computed(() => formatTime(props.modelValue, props.locale, props.hasSeconds, props.hourFormat))
 
 const inputSizeClass = computed(() => {
+    if (!props.size) return 'h-[44px] lg:h-[36px]'
+
     const sizeVariant = {
         [InputSize.MD]: 'h-[36px]',
         [InputSize.LG]: 'h-[44px]',

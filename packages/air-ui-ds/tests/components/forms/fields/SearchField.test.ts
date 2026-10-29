@@ -346,3 +346,19 @@ describe('SearchField glow', () => {
         expect(classes.some((c) => c.startsWith('focus-within:shadow-['))).toBe(true)
     })
 })
+
+describe('SearchField size', () => {
+    it('uses LG on mobile and MD from lg up when no size is passed', () => {
+        const html = mount(SearchField, { props: { ...defaultProps } }).html()
+
+        expect(html).toContain('h-[44px]')
+        expect(html).toContain('lg:h-[36px]')
+    })
+
+    it('keeps a fixed height when size is MD', () => {
+        const html = mount(SearchField, { props: { ...defaultProps, size: InputSize.MD } }).html()
+
+        expect(html).toContain('h-[36px]')
+        expect(html).not.toContain('h-[44px]')
+    })
+})

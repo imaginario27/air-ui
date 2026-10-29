@@ -125,6 +125,46 @@ describe('CompactHeader.vue', () => {
         expect(wrapper.find('.bottom-header').exists()).toBe(true)
     })
 
+    describe('header-quick-actions slot', () => {
+        const userProps = {
+            userFullname: 'Jane Doe',
+            userAvatarUrl: '/avatar.png',
+            userMenuItems: [{ text: 'Profile', icon: 'mdi:account', callback: vi.fn() }],
+        }
+        const quickActions = { 'header-quick-actions': '<button class="quick-action">Notifications</button>' }
+
+        it('renders nothing when the slot is not provided', () => {
+            const wrapper = factory(userProps)
+
+            expect(wrapper.find('.quick-action').exists()).toBe(false)
+        })
+
+        it('renders the slot to the left of the user avatar', () => {
+            const wrapper = factory(userProps, quickActions)
+
+            const quickAction = wrapper.find('.quick-action').element
+            const avatar = wrapper.findComponent({ name: 'Avatar' }).element
+            expect(quickAction.compareDocumentPosition(avatar) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy()
+        })
+
+        it('keeps the slot visible on mobile, unlike header-actions', async () => {
+            vi.resetModules()
+            vi.doMock('@/composables/useIsMobile', () => ({
+                useIsMobile: () => ({ isMobile: true }),
+            }))
+
+            const { default: MobileHeader } = await import('@/components/layouts/headers/CompactHeader.vue')
+            const wrapper = mount(MobileHeader, {
+                props: { ...defaultProps, ...userProps },
+                slots: { ...quickActions, 'header-actions': '<div class="header-actions">Actions</div>' },
+            })
+
+            expect(wrapper.find('.quick-action').exists()).toBe(true)
+            expect(wrapper.find('.quick-action').element.parentElement?.classList.contains('hidden')).toBe(false)
+            expect(wrapper.find('.header-actions').element.parentElement?.classList.contains('hidden')).toBe(true)
+        })
+    })
+
     it('applies sticky and border classes based on props', () => {
         const wrapper = factory({
             isSticky: true,

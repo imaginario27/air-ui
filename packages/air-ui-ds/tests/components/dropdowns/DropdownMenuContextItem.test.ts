@@ -2,7 +2,7 @@ import { mount } from '@vue/test-utils'
 import { NuxtLink } from '#components'
 import DropdownMenuContextItem from '@/components/dropdowns/DropdownMenuContextItem.vue'
 import Kbd from '@/components/kbds/Kbd.vue'
-import { DropdownActionType, DropdownItemType } from '~/models/enums/dropdowns'
+import { DropdownActionType, DropdownItemSize, DropdownItemType } from '~/models/enums/dropdowns'
 import { PrefetchOn } from '@/models/enums/prefetch'
 
 vi.mock('@/assets/images/placeholders/missing-image-placeholder.png', () => ({
@@ -77,6 +77,7 @@ describe('DropdownMenuContextItem.vue', () => {
     it('keeps the compact item height styles', () => {
         const wrapper = factory({
             type: DropdownItemType.TEXT,
+            size: DropdownItemSize.MD,
         })
 
         expect(wrapper.classes()).toContain('min-h-[32px]')
@@ -316,5 +317,22 @@ describe('DropdownMenuContextItem.vue', () => {
 
             expect(wrapper.emitted('update:stepValue')).toBeUndefined()
         })
+    })
+})
+
+describe('DropdownMenuContextItem.vue size', () => {
+    it('uses LG on mobile and MD from lg up when no size is passed', () => {
+        const html = factory().html()
+        expect(html).toContain('min-h-[36px]')
+        expect(html).toContain('lg:min-h-[32px]')
+    })
+
+    it.each([
+        [DropdownItemSize.MD, 'min-h-[32px]', 'min-h-[36px]'],
+        [DropdownItemSize.LG, 'min-h-[36px]', 'min-h-[32px]'],
+    ])('keeps a fixed height when size is %s', (size, expected, notExpected) => {
+        const html = factory({ size }).html()
+        expect(html).toContain(expected)
+        expect(html).not.toContain(notExpected)
     })
 })

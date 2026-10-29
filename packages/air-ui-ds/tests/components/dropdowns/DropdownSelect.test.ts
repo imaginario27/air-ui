@@ -3,7 +3,7 @@ import DropdownSelect from '@/components/dropdowns/DropdownSelect.vue'
 import Icon from '@/components/icons/Icon.vue'
 import User from '@/components/users/User.vue'
 import ActionIconButton from '@/components/buttons/ActionIconButton.vue'
-import { SelectType } from '@/models/enums/selects'
+import { SelectType, SelectSize } from '@/models/enums/selects'
 import { nextTick } from 'vue'
 import { useDSConfig } from '@/composables/useDSConfig'
 
@@ -376,5 +376,27 @@ describe('DropdownSelect.vue', () => {
             const clearBtn = wrapper.findComponent(ActionIconButton)
             expect(clearBtn.props('ariaLabel')).toBe('Limpiar selección')
         })
+    })
+})
+
+describe('DropdownSelect.vue size', () => {
+    it('uses LG on mobile and MD from lg up when no size is passed', () => {
+        const html = factory().html()
+        expect(html).toContain('min-h-[44px]')
+        expect(html).toContain('lg:min-h-[36px]')
+    })
+
+    it.each([
+        [SelectSize.MD, 'min-h-[36px]', 'min-h-[44px]'],
+        [SelectSize.LG, 'min-h-[44px]', 'min-h-[36px]'],
+    ])('keeps a fixed height when size is %s', (size, expected, notExpected) => {
+        const html = factory({ size }).html()
+        expect(html).toContain(expected)
+        expect(html).not.toContain(notExpected)
+    })
+
+    it('forwards the size to the items only when it is set', () => {
+        expect(factory().find('.stubbed-item').attributes('size')).toBeUndefined()
+        expect(factory({ size: SelectSize.LG }).find('.stubbed-item').attributes('size')).toBe(SelectSize.LG)
     })
 })
