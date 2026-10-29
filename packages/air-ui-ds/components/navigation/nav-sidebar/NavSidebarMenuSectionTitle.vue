@@ -2,16 +2,28 @@
     <div
         v-if="!isCollapsed"
         v-bind="attrs"
-        :class="['flex', 'items-center', textClass, borderClass, spacingClass, expandedLevelOneBottomMarginClass]"
+        :class="[
+            'flex',
+            'items-center',
+            levelTextClass,
+            borderClass,
+            spacingClass,
+            expandedLevelOneBottomMarginClass,
+            containerClass,
+        ]"
     >
-        <Icon v-if="icon" :name="icon" :iconClass="['!text-icon-neutral-subtle', iconSizeClass]" />
+        <Icon
+            v-if="icon"
+            :name="icon"
+            :iconClass="['!text-icon-neutral-subtle', iconSizeClass, iconClass ? iconClass : '']"
+        />
 
-        <span>
+        <span :class="[isUppercase && 'uppercase', textClass]">
             {{ text }}
         </span>
     </div>
 
-    <Divider v-if="isCollapsed && showCollapseDivider" v-bind="attrs" />
+    <Divider v-if="isCollapsed && showDivider && showCollapseDivider" v-bind="attrs" />
 </template>
 <script setup lang="ts">
 defineOptions({
@@ -46,6 +58,17 @@ const props = defineProps({
         type: Boolean as PropType<boolean>,
         default: true,
     },
+    showDivider: {
+        type: Boolean as PropType<boolean>,
+        default: true,
+    },
+    isUppercase: {
+        type: Boolean as PropType<boolean>,
+        default: false,
+    },
+    containerClass: String as PropType<string>,
+    iconClass: String as PropType<string>,
+    textClass: String as PropType<string>,
 })
 
 const attrs = useAttrs()
@@ -55,7 +78,7 @@ const resolvedLevel = computed(() => {
     return Math.min(Math.max(props.level, 1), 3)
 })
 
-const textClass = computed(() => {
+const levelTextClass = computed(() => {
     const variant = {
         1: 'text-sm font-semibold text-text-neutral-subtle',
         2: 'text-sm font-bold text-text-neutral-subtle',
@@ -66,7 +89,7 @@ const textClass = computed(() => {
 })
 
 const borderClass = computed(() => {
-    if (resolvedLevel.value === 1) {
+    if (resolvedLevel.value === 1 && props.showDivider) {
         return 'border-b border-border-neutral-subtle'
     }
 

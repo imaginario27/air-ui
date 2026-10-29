@@ -81,6 +81,7 @@
                         :styleType="itemsStyleType"
                         :isCollapsed
                         :showCollapseDivider
+                        :showDivider="item.showSectionDivider"
                     />
 
                     <template v-else-if="hasChildren(item)">

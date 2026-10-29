@@ -14,6 +14,11 @@
                 :level
                 :showNestedLevelGuide
                 :showCollapseDivider
+                :showDivider="item.showSectionDivider"
+                :isUppercase="item.isSectionUppercase"
+                :containerClass="item.sectionContainerClass"
+                :iconClass="item.sectionIconClass"
+                :textClass="item.sectionTextClass"
                 :class="[level > 1 && 'mt-2']"
             />
 

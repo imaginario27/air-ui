@@ -22,6 +22,11 @@ export interface SidebarMenuItem {
     to?: string
     isSectionTitle?: boolean
     isDivider?: boolean
+    sectionContainerClass?: string
+    sectionIconClass?: string
+    sectionTextClass?: string
+    isSectionUppercase?: boolean
+    showSectionDivider?: boolean
     children?: SidebarMenuItem[]
     disabled?: boolean
     detectActive?: boolean

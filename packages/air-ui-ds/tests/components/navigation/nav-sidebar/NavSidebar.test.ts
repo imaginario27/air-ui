@@ -127,6 +127,79 @@ describe('NavSidebar.vue', () => {
         expect(visibleSectionTitles).toHaveLength(1)
     })
 
+    it('forwards the style fields of a section title item to its title', () => {
+        const wrapper = factory({
+            props: {
+                menuItems: [
+                    {
+                        isSectionTitle: true,
+                        text: 'Styled section',
+                        icon: 'mdi:bullseye',
+                        sectionContainerClass: 'bg-background-neutral-subtle',
+                        sectionIconClass: '!text-icon-primary-brand-default',
+                        sectionTextClass: 'tracking-wide',
+                        isSectionUppercase: true,
+                        showSectionDivider: false,
+                    },
+                ],
+            },
+        })
+
+        const title = wrapper.findComponent(NavSidebarMenuSectionTitle)
+        expect(title.props('containerClass')).toBe('bg-background-neutral-subtle')
+        expect(title.props('iconClass')).toBe('!text-icon-primary-brand-default')
+        expect(title.props('textClass')).toBe('tracking-wide')
+        expect(title.props('isUppercase')).toBe(true)
+        expect(title.props('showDivider')).toBe(false)
+        expect(title.findAll('span').at(-1)!.classes()).toContain('uppercase')
+        expect(title.find('div').classes()).not.toContain('border-b')
+    })
+
+    it('keeps the default section title style when the item sets no style field', () => {
+        const wrapper = factory()
+
+        const title = wrapper.findComponent(NavSidebarMenuSectionTitle)
+        expect(title.props('isUppercase')).toBe(false)
+        expect(title.props('showDivider')).toBe(true)
+        expect(title.find('div').classes()).toContain('border-b')
+    })
+
+    it('forwards the style fields of nested section title items', () => {
+        const wrapper = factory({
+            props: {
+                menuItems: [
+                    {
+                        text: 'Parent',
+                        icon: 'mdi:help',
+                        children: [{ isSectionTitle: true, text: 'Nested section', isSectionUppercase: true }],
+                    },
+                ],
+            },
+        })
+
+        const title = wrapper.findAllComponents(NavSidebarMenuSectionTitle).find((t) => t.text() === 'Nested section')
+        expect(title?.props('isUppercase')).toBe(true)
+    })
+
+    it('hides the collapsed divider of a section title when showDivider is false', async () => {
+        isSidebarCollapsedRef.value = true
+        const wrapper = factory({
+            props: {
+                showCollapseDivider: true,
+                menuItems: [
+                    { isSectionTitle: true, text: 'With divider' },
+                    { isSectionTitle: true, text: 'Without divider', showSectionDivider: false },
+                ],
+            },
+        })
+
+        await nextTick()
+
+        const titles = wrapper.findAllComponents(NavSidebarMenuSectionTitle)
+        expect(titles[0]!.findComponent(Divider).exists()).toBe(true)
+        expect(titles[1]!.findComponent(Divider).exists()).toBe(false)
+    })
+
     it('renders collapse toggle button when showCollapseToggle is true and position is TOP (expanded)', () => {
         const wrapper = factory({
             props: {
