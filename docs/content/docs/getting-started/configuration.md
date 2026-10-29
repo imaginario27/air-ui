@@ -235,6 +235,10 @@ export default defineNuxtPlugin(() => {
         dayText: () => 'Day',
         monthText: () => 'Month',
         yearText: () => 'Year',
+        daySegmentText: () => 'dd',
+        monthSegmentText: () => 'mm',
+        yearSegmentText: () => 'yyyy',
+        weekSegmentText: () => 'ww',
         agendaText: () => 'Agenda',
         viewText: () => 'Calendar view',
         allDayText: () => 'All day',
@@ -253,6 +257,10 @@ export default defineNuxtPlugin(() => {
         minutesText: () => 'Minutes',
         secondsText: () => 'Seconds',
         periodText: () => 'AM/PM',
+        hoursSegmentText: () => 'hh',
+        minutesSegmentText: () => 'mm',
+        secondsSegmentText: () => 'ss',
+        periodSegmentText: () => '--',
     })
 
     /* Navigation text shared by the Carousel and the Lightbox */

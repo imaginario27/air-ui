@@ -22,6 +22,7 @@ props:
     min: null
     max: null
     locale: "en-US"
+    hasDateTimeSegments: false
     hourFormat: "12"
     firstDayOfWeek: 0
     color: "primary-brand"
@@ -192,6 +193,11 @@ props: [
     {
         "name": "displayFormat",
         "type": "Intl.DateTimeFormatOptions"
+    },
+    {
+        "name": "hasDateTimeSegments",
+        "type": "boolean",
+        "default": "false"
     },
     {
         "name": "closeOnSelect",
@@ -649,6 +655,21 @@ Sets how dates are written in the input, using `Intl.DateTimeFormat` options. De
 ```
 
 - **Type:** `Intl.DateTimeFormatOptions`
+
+### hasDateTimeSegments
+
+Writes the date by typing it in segments, such as `mm / dd / yyyy`, inside the same box. Each segment takes its digits and the cursor moves on when it is complete, the arrow keys change its value, and `Alt` + `ArrowDown` opens the calendar. The order and the separators follow the [locale](#locale): `es-ES` writes `dd / mm / yyyy`. The text of each segment placeholder comes from the [configuration](/docs/getting-started/configuration).
+
+The value is still the ISO string. It is emitted only while the date is complete, real and allowed by [min](#min), [max](#max) and `isDateDisabled`, and it is `null` otherwise. The calendar button keeps working. The `RANGE` and `MULTIPLE` modes and the inline variant keep the picker, and [displayFormat](#displayformat) only applies to the text of the picker.
+
+```vue
+<template>
+    <DatePickerField id="date" locale="es-ES" hasDateTimeSegments />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `false`
 
 ### closeOnSelect
 

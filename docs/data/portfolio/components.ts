@@ -81,6 +81,11 @@ export const componentList: ComponentPortfolioItem[] = [
         imgUrl: `/images/thumbnails/components/collapsible.png`,
     },
     {
+        title: 'DateTimeSegments',
+        to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/date-time-segments`,
+        imgUrl: `/images/thumbnails/components/date-time-segments.png`,
+    },
+    {
         title: 'Divider',
         to: `/${DocsAppSlug.DOCS}/${DocsAppSlug.COMPONENTS}/divider`,
         imgUrl: `/images/thumbnails/components/divider.png`,

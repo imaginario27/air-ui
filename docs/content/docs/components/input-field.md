@@ -24,6 +24,10 @@ props:
     filterAlphabetic: false
     permitNegativeNumber: false
     hasShowPasswordButton: true
+    locale: "en-US"
+    hasDateTimeSegments: false
+    hourFormat: null
+    hasSeconds: false
     min: null
     max: null
     step: null
@@ -48,6 +52,11 @@ items:
           text: LG
         - value: md
           text: MD
+    hourFormat:
+        - value: "12"
+          text: HOURS_12
+        - value: "24"
+          text: HOURS_24
     helpTextPosition:
         - value: top
           text: TOP
@@ -78,6 +87,7 @@ items:
           text: INNER
 enums:
     size: "InputSize"
+    hourFormat: "HourFormat"
     helpTextPosition: "Position"
     glowColorMode: "GlowColorMode"
     glowTrigger: "GlowTrigger"
@@ -187,6 +197,24 @@ props: [
         "name": "locale",
         "default": "'en-US'",
         "type": "string",
+    },
+    {
+        "name": "displayFormat",
+        "type": "Intl.DateTimeFormatOptions",
+    },
+    {
+        "name": "hasDateTimeSegments",
+        "type": "boolean",
+        "default": "false",
+    },
+    {
+        "name": "hourFormat",
+        "type": "HourFormat",
+    },
+    {
+        "name": "hasSeconds",
+        "type": "boolean",
+        "default": "false",
     },
     {
         "name": "min",
@@ -637,6 +665,67 @@ Sets the BCP 47 locale used to format the date shown in the field and the names 
 
 - **Type:** `string`
 - **Default:** `'en-US'`
+
+### displayFormat
+
+Sets how the date is written in the field, using `Intl.DateTimeFormat` options. Names and order follow the [locale](#locale), so the same options work in any language. It defaults to a numeric `day/month/year` order that follows the locale. It applies to the `date` and `month` types and to the date part of `datetime-local`, and does not apply to `week` or `time`.
+
+```vue
+<template>
+    <InputField type="date" locale="es-ES" :displayFormat="{ dateStyle: 'long' }" />
+</template>
+```
+
+- **Type:** `Intl.DateTimeFormatOptions`
+
+### hasDateTimeSegments
+
+Writes the `date`, `month`, `week`, `datetime-local` and `time` types by typing them in segments, such as `mm / dd / yyyy`, instead of only picking them in the calendar. The order and the separators follow the [locale](#locale). The value is still the ISO string, and it is emitted only while it is complete and allowed by [min](#min) and [max](#max). See [DatePickerField](/docs/components/date-picker-field) and [TimePickerField](/docs/components/time-picker-field) for the details.
+
+```vue
+<template>
+    <InputField type="date" locale="es-ES" hasDateTimeSegments />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `false`
+
+### hourFormat
+
+Sets the 12 or 24 hour clock of the `time` and `datetime-local` types via the `HourFormat` enum. Defaults to the one of the [locale](#locale). The 12 hour clock adds a segment or a column for AM and PM.
+
+```vue
+<template>
+    <InputField type="time" :hourFormat="HourFormat.HOURS_24" hasDateTimeSegments />
+</template>
+```
+
+- **Type:** `HourFormat`
+
+#### Options
+
+::options-table
+---
+options: [
+    { value: "HOURS_12", description: "12" },
+    { value: "HOURS_24", description: "24" },
+]
+---
+::
+
+### hasSeconds
+
+Adds the seconds to the `time` and `datetime-local` types.
+
+```vue
+<template>
+    <InputField type="time" hasSeconds hasDateTimeSegments />
+</template>
+```
+
+- **Type:** `boolean`
+- **Default:** `false`
 
 ### min
 
