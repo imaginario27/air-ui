@@ -25,7 +25,8 @@ props:
           value: "date"
     placeholder: "Select an option"
     type: "text"
-    size: null
+    size: "md"
+    responsiveSize: false
     activeStyle: "check"
     modelValue: null
     dropdownPosition: "bottom"
@@ -118,7 +119,13 @@ props: [
     },
     {
         "name": "size",
+        "default": "SelectSize.MD",
         "type": "SelectSize",
+    },
+    {
+        "name": "responsiveSize",
+        "default": "null",
+        "type": "boolean",
     },
     {
         "name": "activeStyle",
@@ -336,7 +343,7 @@ options: [
 
 ### size
 
-Sets the size of the combobox. It uses the `SelectSize` enum. When it is not set, it is `SelectSize.LG` on mobile and `SelectSize.MD` from the `lg` breakpoint up. Passing a value keeps that size at every screen width.
+Sets the size of the combobox. It uses the `SelectSize` enum.
 
 ```vue
 <template>
@@ -345,7 +352,7 @@ Sets the size of the combobox. It uses the `SelectSize` enum. When it is not set
 ```
 
 - **Type:** `SelectSize`
-- **Default:** `undefined` (LG on mobile, MD from `lg` up)
+- **Default:** `SelectSize.MD`
 
 #### Options
 
@@ -357,6 +364,21 @@ options: [
 ]
 ---
 ::
+
+### responsiveSize
+
+Makes the combobox taller on mobile so it is easier to tap. When `size` is `SelectSize.MD`, it is `SelectSize.LG` below the `lg` breakpoint and `SelectSize.MD` from `lg` up. Other sizes do not change.
+
+```vue
+<template>
+    <DropdownCombobox :responsiveSize="true" />
+</template>
+```
+
+When the prop is not set, it follows `forms.responsiveSize` of the DS config, which is `false` by default. Pass `false` to keep a single combobox at its own size on mobile even when the config turns it on for the whole project. See [Configuration](/docs/getting-started/configuration).
+
+- **Type:** `boolean`
+- **Default:** `null` (follows `forms.responsiveSize` of the DS config, `false` by default)
 
 ### activeStyle
 

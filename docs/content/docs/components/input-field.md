@@ -16,7 +16,8 @@ props:
     suffixIcon: null
     linkText: null
     linkUrl: null
-    size: null
+    size: "md"
+    responsiveSize: false
     modelValue: ""
     validator: null
     error: ""
@@ -154,7 +155,13 @@ props: [
     },
     {
         "name": "size",
+        "default": "InputSize.MD",
         "type": "InputSize",
+    },
+    {
+        "name": "responsiveSize",
+        "default": "null",
+        "type": "boolean",
     },
     {
         "name": "modelValue",
@@ -492,7 +499,7 @@ Sets the link URL of the input field when the type is `password`.
 
 ### size
 
-Sets the size of the input field. It uses the `InputSize` enum. When it is not set, the field is `InputSize.LG` on mobile and `InputSize.MD` from the `lg` breakpoint up. Passing a value keeps that size at every screen width.
+Sets the size of the input field. It uses the `InputSize` enum.
 
 ```vue
 <template>
@@ -501,7 +508,7 @@ Sets the size of the input field. It uses the `InputSize` enum. When it is not s
 ```
 
 - **Type:** `InputSize`
-- **Default:** `undefined` (LG on mobile, MD from `lg` up)
+- **Default:** `InputSize.MD`
 
 #### Options
 ::options-table
@@ -518,6 +525,21 @@ options: [
 ]
 ---
 ::
+
+### responsiveSize
+
+Makes the field taller on mobile so it is easier to tap. When `size` is `InputSize.MD`, it is `InputSize.LG` below the `lg` breakpoint and `InputSize.MD` from `lg` up. Other sizes do not change.
+
+```vue
+<template>
+    <InputField :responsiveSize="true" />
+</template>
+```
+
+When the prop is not set, it follows `forms.responsiveSize` of the DS config, which is `false` by default. Pass `false` to keep a single field at its own size on mobile even when the config turns it on for the whole project. See [Configuration](/docs/getting-started/configuration).
+
+- **Type:** `boolean`
+- **Default:** `null` (follows `forms.responsiveSize` of the DS config, `false` by default)
 
 ### modelValue
 

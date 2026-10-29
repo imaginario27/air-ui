@@ -720,7 +720,8 @@ props:
     actionType: "action"
     text: "Menu item text"
     icon: "mdi:help"
-    size: null
+    size: "md"
+    responsiveSize: false
     type: "text"
     checked: false
     steps:
@@ -816,7 +817,13 @@ props: [
     },
     {
         "name": "size",
+        "default": "MD",
         "type": "DropdownItemSize",
+    },
+    {
+        "name": "responsiveSize",
+        "default": "null",
+        "type": "boolean",
     },
     {
         "name": "type",
@@ -942,7 +949,7 @@ Sets the icon to be displayed in the menu item.
 - **Default:** `'mdi:help'`
 
 ### size
-Sets the size of the menu item. Uses the `DropdownItemSize` enum. When it is not set, it is `DropdownItemSize.LG` on mobile and `DropdownItemSize.MD` from the `lg` breakpoint up. Passing a value keeps that size at every screen width.
+Sets the size of the menu item. Uses the `DropdownItemSize` enum.
 
 ```vue
 <template>
@@ -955,7 +962,22 @@ Sets the size of the menu item. Uses the `DropdownItemSize` enum. When it is not
 ```
 
 - **Type:** `DropdownItemSize`
-- **Default:** `undefined` (LG on mobile, MD from `lg` up)
+- **Default:** `'MD'`
+
+### responsiveSize
+
+Makes the menu item taller on mobile so it is easier to tap. When `size` is `DropdownItemSize.MD`, it is `DropdownItemSize.LG` below the `lg` breakpoint and `DropdownItemSize.MD` from `lg` up. Other sizes do not change.
+
+```vue
+<template>
+    <DropdownMenuItem :responsiveSize="true" />
+</template>
+```
+
+When the prop is not set, it follows `dropdowns.responsiveSize` of the DS config, which is `false` by default. Pass `false` to keep a single menu item at its own size on mobile even when the config turns it on for the whole project. See [Configuration](/docs/getting-started/configuration).
+
+- **Type:** `boolean`
+- **Default:** `null` (follows `dropdowns.responsiveSize` of the DS config, `false` by default)
 
 ### type
 Sets the type of the menu item. Uses the `DropdownItemType` enum.
