@@ -4,6 +4,7 @@ import TagsField from '~/components/forms/fields/TagsField.vue'
 import Badge from '~/components/badges/Badge.vue'
 import { FormValidationMode } from '~/models/enums/formValidations'
 import { Position } from '@/models/enums/positions'
+import { InputSize } from '@/models/enums/formFields'
 
 vi.mock('~/composables/useFormValidationMode', () => ({
     useInjectedValidationMode: () => ref(FormValidationMode.BLUR),
@@ -19,6 +20,38 @@ const factory = (props: Record<string, unknown> = {}) => {
 }
 
 describe('TagsField.vue', () => {
+    const container = (props: Record<string, unknown> = {}) =>
+        factory(props).find('input').element.parentElement!.parentElement!
+
+    it('keeps a single size on every screen when responsiveSize is not set', () => {
+        expect(container().classList).toContain('min-h-[36px]')
+        expect(container().classList).not.toContain('lg:min-h-[36px]')
+    })
+
+    it('uses LG on mobile and MD from lg up when responsiveSize is true', () => {
+        const classes = container({ responsiveSize: true }).classList
+        expect(classes).toContain('min-h-[44px]')
+        expect(classes).toContain('lg:min-h-[36px]')
+    })
+
+    it('follows the global config unless responsiveSize is set', () => {
+        const dsConfig = useDSConfig()
+        dsConfig.forms.responsiveSize = true
+
+        try {
+            expect(container().classList).toContain('lg:min-h-[36px]')
+            expect(container({ responsiveSize: false }).classList).not.toContain('lg:min-h-[36px]')
+        } finally {
+            dsConfig.forms.responsiveSize = false
+        }
+    })
+
+    it('keeps a fixed height when size is LG', () => {
+        const classes = container({ size: InputSize.LG, responsiveSize: true }).classList
+        expect(classes).toContain('min-h-[44px]')
+        expect(classes).not.toContain('lg:min-h-[36px]')
+    })
+
     it('renders label and input', () => {
         const wrapper = factory({ label: 'Tags', required: true })
 

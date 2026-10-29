@@ -11,6 +11,8 @@ props:
     helpText: "Press Enter or comma to add a tag"
     helpTextPosition: "bottom"
     icon: null
+    size: "md"
+    responsiveSize: false
     modelValue: 
         - "Nuxt"
         - "TypeScript"
@@ -31,6 +33,11 @@ props:
     glowOpacity: 40
     glowSize: null
 items:
+    size:
+        - value: lg
+          text: LG
+        - value: md
+          text: MD
     helpTextPosition:
         - value: top
           text: TOP
@@ -60,6 +67,7 @@ items:
         - value: inner
           text: INNER
 enums:
+    size: "InputSize"
     glowColorMode: "GlowColorMode"
     glowTrigger: "GlowTrigger"
     glowType: "GlowType"
@@ -108,6 +116,16 @@ props: [
     {
         "name": "icon",
         "type": "string",
+    },
+    {
+        "name": "size",
+        "default": "InputSize.MD",
+        "type": "InputSize",
+    },
+    {
+        "name": "responsiveSize",
+        "default": "null",
+        "type": "boolean",
     },
     {
         "name": "modelValue",
@@ -194,6 +212,34 @@ props: [
 ::
 
 ## Usage
+
+### size
+
+Sets the minimum height of the field: `InputSize.MD` is 36px and `InputSize.LG` is 44px. The field grows when it holds several rows of tags.
+
+```vue
+<template>
+    <TagsField :size="InputSize.LG" />
+</template>
+```
+
+- **Type:** `InputSize`
+- **Default:** `InputSize.MD`
+
+### responsiveSize
+
+Makes the field taller on mobile so it is easier to tap. When `size` is `InputSize.MD`, it is `InputSize.LG` below the `lg` breakpoint and `InputSize.MD` from `lg` up. Other sizes do not change.
+
+```vue
+<template>
+    <TagsField :responsiveSize="true" />
+</template>
+```
+
+When the prop is not set, it follows `forms.responsiveSize` of the DS config, which is `false` by default. Pass `false` to keep a single field at its own size on mobile even when the config turns it on for the whole project. See [Configuration](/docs/getting-started/configuration).
+
+- **Type:** `boolean`
+- **Default:** `null` (follows `forms.responsiveSize` of the DS config, `false` by default)
 
 ### modelValue
 
