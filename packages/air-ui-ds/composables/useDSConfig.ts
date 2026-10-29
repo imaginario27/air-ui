@@ -210,6 +210,18 @@ const dsConfig = reactive<DesignSystemConfig>({
         ratingStarText: () => '{count} star',
         ratingStarsText: () => '{count} stars',
     },
+    buttons: {
+        responsiveSize: false,
+        // Size each button grows to below the `md` breakpoint when `responsiveSize` is on
+        mobileSizeMap: {
+            [ButtonSize.XS]: ButtonSize.MD,
+            [ButtonSize.SM]: ButtonSize.LG,
+            [ButtonSize.MD]: ButtonSize.LG,
+            [ButtonSize.LG]: ButtonSize.XL,
+            [ButtonSize.XL]: ButtonSize.XL,
+            [ButtonSize.XXL]: ButtonSize.XXL,
+        },
+    },
     glow: {
         card: glowDefaults(),
         modal: glowDefaults({ type: GlowType.INNER }),

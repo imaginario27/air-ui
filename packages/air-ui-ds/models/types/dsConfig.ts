@@ -201,6 +201,10 @@ export interface DesignSystemConfig {
         ratingStarText: () => string
         ratingStarsText: () => string
     }
+    buttons: {
+        responsiveSize: boolean
+        mobileSizeMap: Record<ButtonSize, ButtonSize>
+    }
     glow: {
         card: GlowSettings
         modal: GlowSettings
