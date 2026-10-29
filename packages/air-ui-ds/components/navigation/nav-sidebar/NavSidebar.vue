@@ -81,7 +81,7 @@
                         :styleType="itemsStyleType"
                         :isCollapsed
                         :showCollapseDivider
-                        :showDivider="item.showSectionDivider"
+                        :showDivider="item.showSectionDivider ?? showSectionDivider"
                     />
 
                     <template v-else-if="hasChildren(item)">
@@ -148,6 +148,11 @@
                     :prefetchOn
                     :showCollapseDivider
                     :showNestedLevelGuide="showNestedSectionLevelGuide"
+                    :sectionContainerClass
+                    :sectionIconClass
+                    :sectionTextClass
+                    :isSectionUppercase
+                    :showSectionDivider
                     :truncateDepth
                     :marquee
                     :moreActionsPosition
@@ -264,6 +269,17 @@ const props = defineProps({
     dividerClass: {
         type: String as PropType<string>,
         default: 'border-border-neutral-subtle',
+    },
+    sectionContainerClass: String as PropType<string>,
+    sectionIconClass: String as PropType<string>,
+    sectionTextClass: String as PropType<string>,
+    isSectionUppercase: {
+        type: Boolean as PropType<boolean>,
+        default: false,
+    },
+    showSectionDivider: {
+        type: Boolean as PropType<boolean>,
+        default: true,
     },
     collapsedSubmenuOffset: {
         type: Number as PropType<number>,

@@ -181,7 +181,63 @@ describe('NavSidebar.vue', () => {
         expect(title?.props('isUppercase')).toBe(true)
     })
 
-    it('hides the collapsed divider of a section title when showDivider is false', async () => {
+    it('applies the section props of the sidebar to every section title', () => {
+        const wrapper = factory({
+            props: {
+                sectionContainerClass: 'bg-background-neutral-subtle',
+                sectionIconClass: '!text-icon-primary-brand-default',
+                sectionTextClass: 'tracking-wide',
+                isSectionUppercase: true,
+                showSectionDivider: false,
+            },
+        })
+
+        const titles = wrapper.findAllComponents(NavSidebarMenuSectionTitle)
+        expect(titles.length).toBeGreaterThan(1)
+        titles.forEach((title) => {
+            expect(title.props('containerClass')).toBe('bg-background-neutral-subtle')
+            expect(title.props('iconClass')).toBe('!text-icon-primary-brand-default')
+            expect(title.props('textClass')).toBe('tracking-wide')
+            expect(title.props('isUppercase')).toBe(true)
+            expect(title.props('showDivider')).toBe(false)
+        })
+    })
+
+    it('lets the fields of a section title item win over the section props of the sidebar', () => {
+        const wrapper = factory({
+            props: {
+                isSectionUppercase: true,
+                sectionTextClass: 'tracking-wide',
+                menuItems: [
+                    { isSectionTitle: true, text: 'Inherits' },
+                    { isSectionTitle: true, text: 'Overrides', isSectionUppercase: false, sectionTextClass: 'italic' },
+                ],
+            },
+        })
+
+        const [inherits, overrides] = wrapper.findAllComponents(NavSidebarMenuSectionTitle)
+        expect(inherits!.props('isUppercase')).toBe(true)
+        expect(inherits!.props('textClass')).toBe('tracking-wide')
+        expect(overrides!.props('isUppercase')).toBe(false)
+        expect(overrides!.props('textClass')).toBe('italic')
+    })
+
+    it('applies showSectionDivider of the sidebar to the collapsed section titles', async () => {
+        isSidebarCollapsedRef.value = true
+        const wrapper = factory({
+            props: {
+                showCollapseDivider: true,
+                showSectionDivider: false,
+                menuItems: [{ isSectionTitle: true, text: 'Section' }],
+            },
+        })
+
+        await nextTick()
+
+        expect(wrapper.findComponent(NavSidebarMenuSectionTitle).findComponent(Divider).exists()).toBe(false)
+    })
+
+    it('hides the collapsed divider of a section title when showSectionDivider is false', async () => {
         isSidebarCollapsedRef.value = true
         const wrapper = factory({
             props: {
