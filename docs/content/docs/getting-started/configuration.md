@@ -4,8 +4,8 @@ AirUI exposes a small set of behaviors as shared, reactive configuration instead
 
 There are two config composables, one per package:
 
-- `useDSConfig` (from `@imaginario27/air-ui-ds`): text used by components, grouped under `forms`, `actions`, `common`, `loaders`, `tables`, `pagination`, `navigation`, `cards`, `notifications`, `treeView`, `accessibility`, `gallery`, `lightbox`, `calendar`, `timePicker` and `slides`, the default glow of cards, modals, buttons and inputs, grouped under `glow`, and the mobile size of buttons, under `buttons`.
-- `useUtilsConfig` (from `@imaginario27/air-ui-utils`): messages used by the framework-agnostic form validators in `air-ui-utils`, grouped under `validation`, and a few shared texts of its helpers, grouped under `common`.
+- `useDSConfig` (from `@imaginario27/air-ui-ds`): the text, the glow and the mobile sizes used by the components.
+- `useUtilsConfig` (from `@imaginario27/air-ui-utils`): the messages and texts used by the validators and helpers in `air-ui-utils`.
 
 <br/>
 
@@ -322,14 +322,14 @@ export default defineNuxtPlugin(() => {
         size: null,
     })
 
-    /* Taller form fields, dropdown items, tree rows and sidebar items on mobile. The responsiveSize prop of each component wins over these */
+    /* Global responsive resizing */
+    dsConfig.buttons.responsiveSize = false
     dsConfig.forms.responsiveSize = false
     dsConfig.dropdowns.responsiveSize = false
     dsConfig.treeView.responsiveSize = false
     dsConfig.navigation.responsiveSize = false
 
-    /* Bigger buttons on mobile. A responsiveSize prop on a button wins over this */
-    dsConfig.buttons.responsiveSize = false
+    /* Size each button grows to below the md breakpoint when buttons.responsiveSize is on */
     Object.assign(dsConfig.buttons.mobileSizeMap, {
         [ButtonSize.XS]: ButtonSize.MD,
         [ButtonSize.SM]: ButtonSize.LG,
@@ -389,10 +389,11 @@ The change applies to every button that renders through `ActionButton` or `Actio
 
 #### Responsive size options
 
-Besides the buttons, other components can be taller on mobile so they are easier to tap. It is off by default, so nothing changes in your project until you turn it on. Each option works like `buttons.responsiveSize`: a `responsiveSize` prop passed to a component always wins over the config, so `:responsiveSize="false"` keeps a single component at its own size.
+These are all the `responsiveSize` options, so components can be taller on mobile and easier to tap. They are off by default, so nothing changes in your project until you turn them on. Each option works like `buttons.responsiveSize`: a `responsiveSize` prop passed to a component always wins over the config, so `:responsiveSize="false"` keeps a single component at its own size.
 
 | Option | Applies to | Default |
 |---|---|---|
+| `buttons.responsiveSize` | `ActionButton` and `ActionIconButton`. See [Button options](#button-options) | `false` |
 | `forms.responsiveSize` | `InputField`, `SearchField`, `SelectField`, `ComboboxField`, `PinField`, `DatePickerField`, `TimePickerField`, `DropdownSelect`, `DropdownCombobox` and `DropdownSelectItem` | `false` |
 | `dropdowns.responsiveSize` | `DropdownMenuItem` and `DropdownMenuContextItem` | `false` |
 | `treeView.responsiveSize` | `TreeView` | `false` |
