@@ -5,6 +5,17 @@ All notable changes to this package are documented in this file.
 Historical releases were reconstructed from git history (GitHub repository) and npm publish dates.
 Future releases will include detailed entries generated with Changesets.
 
+## 1.32.2 - 2026-10-30
+
+Release type: patch.
+Commits found in range: 1.
+
+### Fixed
+
+1. prevent `closest` error in `DropdownMenu` outside click ([f055c04](https://github.com/imaginario27/air-ui/commit/f055c047e885315882dbbe8a1c20a0027b2d1a36))
+
+- Package: @imaginario27/air-ui-ds.
+
 ## 1.32.1 - 2026-10-29
 
 Release type: patch.
