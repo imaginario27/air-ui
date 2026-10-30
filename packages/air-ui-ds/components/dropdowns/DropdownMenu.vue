@@ -454,7 +454,7 @@ const shouldCloseFromTarget = (target: Node) => {
 
     if (!dropdownEl || !activatorEl) return false
 
-    const targetElement = target as HTMLElement | null
+    const targetElement = target instanceof Element ? target : (target as Node | null)?.parentElement
     if (targetElement?.closest('[data-dropdown-menu-panel]')) {
         return false
     }
