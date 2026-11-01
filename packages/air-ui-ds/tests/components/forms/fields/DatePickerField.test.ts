@@ -22,6 +22,15 @@ const calendarExists = (wrapper: ReturnType<typeof factory>) => wrapper.findComp
 const dayButton = (wrapper: ReturnType<typeof factory>, iso: string) => wrapper.find(`[data-date="${iso}"]`)
 
 describe('DatePickerField.vue', () => {
+    // Tests without a selected date open on the current month, so pin "today" to October 2026
+    beforeEach(() => {
+        vi.useFakeTimers({ toFake: ['Date'], now: new Date(2026, 9, 15, 12) })
+    })
+
+    afterEach(() => {
+        vi.useRealTimers()
+    })
+
     describe('field', () => {
         it('renders the label linked to the input', () => {
             const wrapper = factory({ label: 'Birth date', required: true })

@@ -343,7 +343,7 @@ export default defineNuxtPlugin(() => {
 
 #### Button options
 
-Small buttons can be hard to tap on a phone. Set `buttons.responsiveSize` to `true` to make every `ActionButton` and `ActionIconButton` use a bigger size below the `md` breakpoint, and go back to their own `size` from `md` up. Height, text, icon, padding and gap change together.
+Small buttons can be hard to tap on a phone. Set `buttons.responsiveSize` to `true` to make every `ActionButton`, `ActionIconButton` and toggle button (`ToggleButtonsGroupField`, `ToggleButtonGroup`) use a bigger size below the `md` breakpoint, and go back to their own `size` from `md` up. Height, text, icon, padding and gap change together.
 
 `buttons.mobileSizeMap` decides which size each one grows to, so you can set a bigger target if the default is not enough for your project. A `responsiveSize` prop passed to a button always wins over the config, so `:responsiveSize="false"` keeps a single button at its own size.
 
@@ -385,7 +385,7 @@ options: [
 ---
 ::
 
-The change applies to every button that renders through `ActionButton` or `ActionIconButton`, including the ones inside other components. Check forms and toolbars where a button sits next to an element of a fixed height before turning it on for the whole project.
+The change applies to every button that renders through `ActionButton`, `ActionIconButton`, `ToggleButton` or `ToggleIconButton`, including the ones inside other components. Check forms and toolbars where a button sits next to an element of a fixed height before turning it on for the whole project.
 
 #### Responsive size options
 
@@ -393,7 +393,7 @@ These are all the `responsiveSize` options, so components can be taller on mobil
 
 | Option | Applies to | Default |
 |---|---|---|
-| `buttons.responsiveSize` | `ActionButton` and `ActionIconButton`. See [Button options](#button-options) | `false` |
+| `buttons.responsiveSize` | `ActionButton`, `ActionIconButton`, `ToggleButtonsGroupField`, `ToggleButtonGroup`, `ToggleButton`, `ToggleIconButton` and the footer buttons of `NotificationsPopover`. See [Button options](#button-options) | `false` |
 | `forms.responsiveSize` | `InputField`, `SearchField`, `SelectField`, `ComboboxField`, `PinField`, `DatePickerField`, `TimePickerField`, `DropdownSelect`, `DropdownCombobox` and `DropdownSelectItem` | `false` |
 | `dropdowns.responsiveSize` | `DropdownMenuItem` and `DropdownMenuContextItem` | `false` |
 | `treeView.responsiveSize` | `TreeView` | `false` |

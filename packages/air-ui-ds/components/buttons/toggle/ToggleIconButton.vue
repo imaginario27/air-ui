@@ -44,6 +44,10 @@ const props = defineProps({
         type: Boolean as PropType<boolean>,
         default: false,
     },
+    responsiveSize: {
+        type: Boolean as PropType<boolean | null>,
+        default: null,
+    },
 })
 
 // Emits
@@ -61,27 +65,8 @@ const buttonStyleClass = computed(() =>
         : ['text-text-neutral-inactive', !props.disabled && 'hover:text-text-primary-brand-hover'],
 )
 
-const buttonSizeClass = computed(() => {
-    const sizeVariant = {
-        [ButtonSize.XS]: 'w-[24px] h-[24px]',
-        [ButtonSize.SM]: 'w-[28px] h-[28px]',
-        [ButtonSize.MD]: 'w-[32px] h-[32px]',
-        [ButtonSize.LG]: 'w-[36px] h-[36px]',
-        [ButtonSize.XL]: 'w-[40px] h-[40px]',
-        [ButtonSize.XXL]: 'w-[48px] h-[48px]',
-    }
-    return sizeVariant[props.size as ButtonSize] || 'w-[36px] h-[36px]'
-})
-
-const iconSizeClass = computed(() => {
-    const variant = {
-        [ButtonSize.XS]: 'w-[16px] h-[16px] min-w-[16px] min-h-[16px]',
-        [ButtonSize.SM]: 'w-[16px] h-[16px] min-w-[16px] min-h-[16px]',
-        [ButtonSize.MD]: 'w-[16px] h-[16px] min-w-[16px] min-h-[16px]',
-        [ButtonSize.LG]: 'w-[20px] h-[20px] min-w-[20px] min-h-[20px]',
-        [ButtonSize.XL]: 'w-[20px] h-[20px] min-w-[20px] min-h-[20px]',
-        [ButtonSize.XXL]: 'w-[24px] h-[24px] min-w-[24px] min-h-[24px]',
-    }
-    return variant[props.size as ButtonSize] || 'w-[20px] h-[20px] min-w-[20px] min-h-[20px]'
+const { iconButtonSizeClass: buttonSizeClass, iconSizeClass } = useResponsiveSize({
+    size: () => props.size,
+    responsiveSize: () => props.responsiveSize,
 })
 </script>

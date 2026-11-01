@@ -60,6 +60,7 @@ props:
     buttonAllReadIcon: "mdi:check-all"
     buttonClearAllText: "Clear all"
     buttonClearAllIcon: "mdi:close-circle-outline"
+    buttonsResponsiveSize: false
     filterAllButtonText: "All"
     filterUnreadButtonText: "Unread"
     filterGroupStyle: "grouped"
@@ -310,6 +311,11 @@ props: [
         "name": "buttonClearAllIcon",
         "default": "'mdi:close-circle-outline'",
         "type": "string",
+    },
+    {
+        "name": "buttonsResponsiveSize",
+        "default": "null",
+        "type": "boolean",
     },
     {
         "name": "filterAllButtonText",
@@ -965,6 +971,25 @@ Icon for the "clear all" footer button.
 
 - **Type:** `string`
 - **Default:** `"mdi:close-circle-outline"`
+
+### buttonsResponsiveSize
+
+Makes the two footer buttons bigger on mobile so they are easier to tap. Below the `md` breakpoint the buttons are stacked, one above the other, and take the full width. From `md` up they sit side by side.
+
+```vue
+<template>
+    <NotificationsPopover :buttonsResponsiveSize="true">
+        <template #activator>
+            <ActionButton text="Show notifications" />
+        </template>
+    </NotificationsPopover>
+</template>
+```
+
+When the prop is not set, the buttons follow `buttons.responsiveSize` of the DS config, which is `false` by default. Pass `false` to keep them at their own size on mobile even when the config turns it on for the whole project. See [Configuration](/docs/getting-started/configuration).
+
+- **Type:** `boolean`
+- **Default:** `null` (follows `buttons.responsiveSize` of the DS config, `false` by default)
 
 ### filterAllButtonText
 

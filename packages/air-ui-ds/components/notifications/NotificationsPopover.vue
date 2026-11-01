@@ -89,13 +89,15 @@
                 </div>
 
                 <!-- Footer -->
-                <div v-if="internalList.length" class="w-full flex gap-2 px-3">
+                <div v-if="internalList.length" class="w-full flex flex-col md:flex-row gap-2 px-3">
                     <ActionButton
                         :icon="buttonAllReadIcon"
                         :iconPosition="IconPosition.LEFT"
                         :text="resolvedButtonAllReadText"
                         :size="ButtonSize.XS"
-                        isFullWidth
+                        :responsiveSize="buttonsResponsiveSize"
+                        isMobileFullWidth
+                        class="md:flex-1"
                         @click="onMarkAllAsRead"
                     />
                     <ActionButton
@@ -103,7 +105,9 @@
                         :iconPosition="IconPosition.LEFT"
                         :text="resolvedButtonClearAllText"
                         :size="ButtonSize.XS"
-                        isFullWidth
+                        :responsiveSize="buttonsResponsiveSize"
+                        isMobileFullWidth
+                        class="md:flex-1"
                         @click="onClearAll"
                     />
                 </div>
@@ -226,6 +230,10 @@ const props = defineProps({
         default: 'mdi:close-circle-outline',
     },
     buttonClearAllText: String as PropType<string>,
+    buttonsResponsiveSize: {
+        type: Boolean as PropType<boolean | null>,
+        default: null,
+    },
     filterAllButtonText: String as PropType<string>,
     filterUnreadButtonText: String as PropType<string>,
     filterGroupStyle: {
