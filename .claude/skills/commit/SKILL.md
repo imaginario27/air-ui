@@ -16,6 +16,7 @@ Creates commits that satisfy this repo's husky + commitlint setup.
    - Subject: imperative mood, lowercase, no trailing period.
 2. **Body**: a bulleted list — one `- ` item per change. Never a paragraph.
    - Each bullet: short, imperative, describes one concrete change.
+   - **Every line of the body must be 100 characters or fewer** (commitlint `body-max-line-length`, backticks and the leading `- ` count). The title is also capped at 100 characters. Count the lines of the drafted message before showing it; if one is longer, shorten it or split it into two bullets. Do not wrap a bullet onto a second line.
 3. **Never** add `Co-Authored-By` or any co-author trailer.
 4. **Never** add tool-attribution lines (e.g. "Generated with Claude Code").
 5. **Always show the full commit message to the user and wait for confirmation before running `git commit`.**
@@ -75,5 +76,6 @@ Bad (do not produce):
 - `feat: add thing` — missing scope
 - `feat(ds): Added Thing.` — past tense + trailing period
 - Body as prose paragraph instead of bullets
+- A body line (or the title) longer than 100 characters: commitlint rejects the commit
 - Any `Co-Authored-By:` trailer
 - Backticks around ordinary words (`` `fix` the `bug` ``) or an unclosed backtick
