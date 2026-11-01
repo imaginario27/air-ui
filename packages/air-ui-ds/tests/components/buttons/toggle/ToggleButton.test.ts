@@ -128,4 +128,21 @@ describe('ToggleButton responsiveSize', () => {
         expect(classes).toContain('h-[36px]')
         expect(classes).toContain('md:h-[28px]')
     })
+
+    it.each([
+        [ButtonSize.XS, 'px-2.5', 'md:px-2'],
+        [ButtonSize.SM, 'px-3', 'md:px-2'],
+        [ButtonSize.MD, 'px-3', 'md:px-2.5'],
+        [ButtonSize.LG, 'px-3.5', 'md:px-3'],
+    ])('scales the horizontal padding of %s with the size when responsiveSize is true', (size, mobile, desktop) => {
+        const classes = factory({ size, responsiveSize: true }).find('button').classes()
+        expect(classes).toContain(mobile)
+        expect(classes).toContain(desktop)
+    })
+
+    it('keeps its own horizontal padding by default', () => {
+        const classes = factory({ size: ButtonSize.MD }).find('button').classes()
+        expect(classes).toContain('px-2.5')
+        expect(classes.some((c) => c.startsWith('md:px-'))).toBe(false)
+    })
 })

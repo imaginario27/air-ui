@@ -82,20 +82,14 @@ const buttonStyleClass = computed(() =>
         : ['text-text-neutral-inactive', !props.disabled && 'hover:text-text-primary-brand-hover'],
 )
 
-const { buttonSizeClass, iconSizeClass, textSizeClass, gapClass } = useResponsiveSize({
+const {
+    buttonSizeClass,
+    iconSizeClass,
+    textSizeClass,
+    gapClass,
+    toggleHorizontalPaddingClass: horizontalPaddingClass,
+} = useResponsiveSize({
     size: () => props.size,
     responsiveSize: () => props.responsiveSize,
-})
-
-const horizontalPaddingClass = computed(() => {
-    const sizeVariant = {
-        [ButtonSize.XS]: 'px-2',
-        [ButtonSize.SM]: 'px-2',
-        [ButtonSize.MD]: 'px-2.5',
-        [ButtonSize.LG]: 'px-3',
-        [ButtonSize.XL]: 'px-3.5',
-        [ButtonSize.XXL]: 'px-4',
-    }
-    return sizeVariant[props.size as ButtonSize] || 'px-3'
 })
 </script>

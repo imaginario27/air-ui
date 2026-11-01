@@ -105,6 +105,16 @@ const paddingRightIconAxis: SizeAxis = {
     [ButtonSize.XXL]: paddingRightIconLarge,
 }
 
+// Toggle buttons use a tighter horizontal padding scale than action buttons
+const togglePaddingAxis: SizeAxis = {
+    [ButtonSize.XS]: { base: 'px-2', md: 'md:px-2' },
+    [ButtonSize.SM]: { base: 'px-2', md: 'md:px-2' },
+    [ButtonSize.MD]: { base: 'px-2.5', md: 'md:px-2.5' },
+    [ButtonSize.LG]: { base: 'px-3', md: 'md:px-3' },
+    [ButtonSize.XL]: { base: 'px-3.5', md: 'md:px-3.5' },
+    [ButtonSize.XXL]: { base: 'px-4', md: 'md:px-4' },
+}
+
 export const useResponsiveSize = (options: {
     size: MaybeRefOrGetter<ButtonSize>
     responsiveSize?: MaybeRefOrGetter<boolean | null | undefined>
@@ -143,7 +153,10 @@ export const useResponsiveSize = (options: {
         return pick(paddingAxis, 'px-3')
     })
 
+    const toggleHorizontalPaddingClass = computed(() => pick(togglePaddingAxis, 'px-3'))
+
     return {
+        toggleHorizontalPaddingClass,
         buttonSizeClass,
         iconButtonSizeClass,
         iconSizeClass,
