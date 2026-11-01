@@ -20,6 +20,7 @@ props:
     onlyIcon: false
     groupStyle: "grouped"
     size: "lg"
+    responsiveSize: false
     disabled: false
     readonly: false
     transparent: false
@@ -107,6 +108,11 @@ props: [
         "name": "size",
         "default": "ButtonSize.LG",
         "type": "ButtonSize",
+    },
+    {
+        "name": "responsiveSize",
+        "default": "null",
+        "type": "boolean",
     },
     {
         "name": "disabled",
@@ -363,6 +369,21 @@ options: [
 ]
 ---
 ::
+
+### responsiveSize
+
+Makes the buttons of the group bigger on mobile so they are easier to tap. Below the `md` breakpoint each button uses the size set in `buttons.mobileSizeMap` of the DS config, and goes back to its own `size` from `md` up. Height, text, icon and gap change together.
+
+```vue
+<template>
+    <ToggleButtonsGroupField :responsiveSize="true" />
+</template>
+```
+
+When the prop is not set, it follows `buttons.responsiveSize` of the DS config, which is `false` by default. Pass `false` to keep the group at its own size on mobile even when the config turns it on for the whole project. See [Configuration](/docs/getting-started/configuration).
+
+- **Type:** `boolean`
+- **Default:** `null` (follows `buttons.responsiveSize` of the DS config, `false` by default)
 
 ### disabled
 
