@@ -22,6 +22,7 @@
                 :iconPosition="'iconPosition' in button ? button.iconPosition : undefined"
                 :disabled
                 :transparent
+                :responsiveSize
                 :class="buttonItemClass(button)"
                 @click="!disabled && handleButtonClick(button)"
             />
@@ -36,6 +37,7 @@
                 :icon="button.icon"
                 :disabled
                 :transparent
+                :responsiveSize
                 :class="buttonItemClass(button)"
                 @click="!disabled && handleButtonClick(button)"
             />
@@ -92,6 +94,10 @@ const props = defineProps({
     transparent: {
         type: Boolean as PropType<boolean>,
         default: false,
+    },
+    responsiveSize: {
+        type: Boolean as PropType<boolean | null>,
+        default: null,
     },
 })
 

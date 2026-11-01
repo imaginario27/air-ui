@@ -18,6 +18,7 @@
             :disabled
             :onlyIcon
             :transparent
+            :responsiveSize
             @update:modelValue="!readonly && emit('update:modelValue', $event)"
         />
 
@@ -67,6 +68,10 @@ defineProps({
     transparent: {
         type: Boolean as PropType<boolean>,
         default: false,
+    },
+    responsiveSize: {
+        type: Boolean as PropType<boolean | null>,
+        default: null,
     },
 })
 

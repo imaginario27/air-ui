@@ -115,3 +115,17 @@ describe('ToggleButton', () => {
         expect(wrapper.find('button').attributes('aria-pressed')).toBe('false')
     })
 })
+
+describe('ToggleButton responsiveSize', () => {
+    it('keeps the plain size classes by default', () => {
+        const classes = factory({ size: ButtonSize.SM }).find('button').classes()
+        expect(classes).toContain('h-[28px]')
+        expect(classes.some((c) => c.startsWith('md:h-'))).toBe(false)
+    })
+
+    it('grows on mobile and returns to its own size from md when responsiveSize is true', () => {
+        const classes = factory({ size: ButtonSize.SM, responsiveSize: true }).find('button').classes()
+        expect(classes).toContain('h-[36px]')
+        expect(classes).toContain('md:h-[28px]')
+    })
+})

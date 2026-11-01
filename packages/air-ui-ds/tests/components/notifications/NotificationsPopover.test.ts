@@ -251,3 +251,33 @@ describe('NotificationsPopover.vue', () => {
         dsConfig.notifications.allText = () => 'All'
     })
 })
+
+describe('NotificationsPopover footer buttons', () => {
+    it('stacks the footer buttons on mobile and makes them full width', () => {
+        const wrapper = factory()
+        const buttons = wrapper.findAllComponents(ActionButton)
+        expect(buttons[0].classes()).toContain('w-full')
+        expect(buttons[0].classes()).toContain('md:w-auto')
+        expect(buttons[0].element.parentElement?.classList.contains('flex-col')).toBe(true)
+    })
+
+    it('grows the footer buttons on mobile when buttonsResponsiveSize is true', () => {
+        const wrapper = factory({ buttonsResponsiveSize: true })
+        const classes = wrapper.findAllComponents(ActionButton)[0].classes()
+        expect(classes).toContain('h-[32px]')
+        expect(classes).toContain('md:h-[24px]')
+    })
+
+    it('follows buttons.responsiveSize of the DS config when the prop is not set', () => {
+        const dsConfig = useDSConfig()
+        dsConfig.buttons.responsiveSize = true
+        try {
+            expect(factory().findAllComponents(ActionButton)[0].classes()).toContain('md:h-[24px]')
+            expect(
+                factory({ buttonsResponsiveSize: false }).findAllComponents(ActionButton)[0].classes(),
+            ).not.toContain('md:h-[24px]')
+        } finally {
+            dsConfig.buttons.responsiveSize = false
+        }
+    })
+})
