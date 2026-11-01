@@ -32,6 +32,17 @@ const leaveDay = async (wrapper: ReturnType<typeof factory>, iso: string) => {
 const dayButton = (wrapper: ReturnType<typeof factory>, iso: string) => wrapper.find(`[data-date="${iso}"]`)
 
 describe('Calendar.vue', () => {
+    // Tests without a selected date open on the current month, so pin "today" to October 2026
+    const today = new Date(2026, 9, 15, 12)
+
+    beforeEach(() => {
+        vi.useFakeTimers({ toFake: ['Date'], now: today })
+    })
+
+    afterEach(() => {
+        vi.useRealTimers()
+    })
+
     it('renders the month of the selected date with a 6-week grid', () => {
         const wrapper = factory()
 
@@ -1018,7 +1029,7 @@ describe('Calendar.vue', () => {
             const hoverPopover = (props: Record<string, any> = {}) =>
                 withPopover({ dayPopoverTrigger: Trigger.HOVER, ...props })
 
-            beforeEach(() => vi.useFakeTimers())
+            beforeEach(() => vi.useFakeTimers({ now: today }))
             afterEach(() => vi.useRealTimers())
 
             it('opens when the pointer enters a day with markers and not on click', async () => {
