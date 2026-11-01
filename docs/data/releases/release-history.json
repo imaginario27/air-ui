@@ -1,12 +1,70 @@
 {
-  "generatedAt": "2026-11-01T09:56:34.654Z",
+  "generatedAt": "2026-11-01T10:14:42.275Z",
   "source": "github-git-history+npm-publish-dates",
   "githubBaseUrl": "https://github.com/imaginario27/air-ui",
   "packages": [
     {
       "packageName": "@imaginario27/air-ui-ds",
-      "latestVersion": "1.33.0",
+      "latestVersion": "1.33.1",
       "entries": [
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.33.1",
+          "publishedAt": "2026-11-01",
+          "releaseType": "patch",
+          "notes": [
+            "scale horizontal padding of toggle buttons with `responsiveSize`",
+            "pin the date in `Calendar` and `DatePickerField` tests"
+          ],
+          "metadata": {
+            "commitCount": 2,
+            "commits": [
+              {
+                "sha": "1e3a3f404b4523ecc7c338a4dd82bf7b185ac93a",
+                "shortSha": "1e3a3f4",
+                "date": "2026-11-01",
+                "subject": "fix(ds): scale horizontal padding of toggle buttons with `responsiveSize`",
+                "normalizedSubject": "scale horizontal padding of toggle buttons with `responsiveSize`",
+                "type": "fixed",
+                "body": [
+                  "add toggle padding scale to `useResponsiveSize` using `mobileSizeMap`",
+                  "use it in `ToggleButton` instead of the fixed local padding map",
+                  "add tests for the padding per size and the default behavior"
+                ],
+                "affected": [
+                  "ToggleButton",
+                  "useResponsiveSize"
+                ],
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/1e3a3f404b4523ecc7c338a4dd82bf7b185ac93a",
+                "prUrl": null
+              },
+              {
+                "sha": "fbfeea3e737925d727116e8396714075da48843d",
+                "shortSha": "fbfeea3",
+                "date": "2026-11-01",
+                "subject": "test(ds): pin the date in `Calendar` and `DatePickerField` tests",
+                "normalizedSubject": "pin the date in `Calendar` and `DatePickerField` tests",
+                "type": "changed",
+                "body": [
+                  "fix \"today\" to October 2026 so tests without a selected date open on the expected month",
+                  "reuse the pinned date in the `Calendar` hover trigger fake timers"
+                ],
+                "affected": [],
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/fbfeea3e737925d727116e8396714075da48843d",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 0,
+              "fixed": 1,
+              "changed": 1,
+              "maintenance": 0,
+              "breaking": 0
+            }
+          }
+        },
         {
           "packageName": "@imaginario27/air-ui-ds",
           "version": "1.33.0",

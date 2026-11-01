@@ -5,6 +5,21 @@ All notable changes to this package are documented in this file.
 Historical releases were reconstructed from git history (GitHub repository) and npm publish dates.
 Future releases will include detailed entries generated with Changesets.
 
+## 1.33.1 - 2026-11-01
+
+Release type: patch.
+Commits found in range: 2.
+
+### Fixed
+
+1. scale horizontal padding of toggle buttons with `responsiveSize` ([1e3a3f4](https://github.com/imaginario27/air-ui/commit/1e3a3f404b4523ecc7c338a4dd82bf7b185ac93a))
+
+### Changed
+
+1. pin the date in `Calendar` and `DatePickerField` tests ([fbfeea3](https://github.com/imaginario27/air-ui/commit/fbfeea3e737925d727116e8396714075da48843d))
+
+- Package: @imaginario27/air-ui-ds.
+
 ## 1.33.0 - 2026-11-01
 
 Release type: minor.
