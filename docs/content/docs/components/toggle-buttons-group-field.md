@@ -372,7 +372,7 @@ options: [
 
 ### responsiveSize
 
-Makes the buttons of the group bigger on mobile so they are easier to tap. Below the `md` breakpoint each button uses the size set in `buttons.mobileSizeMap` of the DS config, and goes back to its own `size` from `md` up. Height, text, icon and gap change together.
+Makes the buttons of the group bigger on mobile so they are easier to tap. Below the `md` breakpoint each button uses the size set in `buttons.mobileSizeMap` of the DS config, and goes back to its own `size` from `md` up. Height, text, icon, horizontal padding and gap change together.
 
 ```vue
 <template>
