@@ -5,6 +5,17 @@ All notable changes to this package are documented in this file.
 Historical releases were reconstructed from git history (GitHub repository) and npm publish dates.
 Future releases will include detailed entries generated with Changesets.
 
+## 1.33.0 - 2026-11-01
+
+Release type: minor.
+Commits found in range: 1.
+
+### Added
+
+1. add `responsiveSize` to toggle buttons and stack `NotificationsPopover` footer on mobile ([618fb18](https://github.com/imaginario27/air-ui/commit/618fb18e031f12c701b060f4c91c359d243ea4f4))
+
+- Package: @imaginario27/air-ui-ds.
+
 ## 1.32.2 - 2026-10-30
 
 Release type: patch.
