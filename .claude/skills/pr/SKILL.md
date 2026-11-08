@@ -34,22 +34,24 @@ Creates a pull request via `gh pr create` that matches AirUI's commit/scope conv
 
 ## Procedure
 
-1. Gather context (run in parallel where possible):
+1. Run `git fetch origin` first, so remote refs are up to date. **Always compare against `origin/main`, never the local `main`** (it is often stale and pulls already-merged commits into the PR).
+2. Gather context (run in parallel where possible):
    - `git status` — uncommitted changes
    - `git rev-parse --abbrev-ref HEAD` — current branch
-   - `git log main..HEAD --oneline` — commits to include
-   - `git diff main...HEAD --stat` — files touched (use to determine scope mix)
+   - `git log origin/main..HEAD --oneline` — commits to include
+   - `git diff origin/main...HEAD --stat` — files touched (use to determine scope mix)
+   - Sanity check: if the branch is merged via squash, hashes differ and `git log` may list commits already merged. If the commit list looks larger than the actual diff (or includes changes the user doesn't recognize), trust `git diff origin/main...HEAD --stat` and warn the user before drafting.
    - `gh pr view --json number,state 2>$null` (PowerShell) or `gh pr view --json number,state 2>/dev/null` (bash) — informational only, to warn the user if an open PR already exists for this branch. Never use its result to edit/update that PR — this skill only ever creates new PRs (see rule 6).
-2. Determine scope(s) from the touched paths:
+3. Determine scope(s) from the touched paths:
    - `packages/air-ui-ds/**` → `ds`
    - `packages/air-ui-utils/**` → `utils`
    - `docs/**` → `docs`
    - Root configs / multi-workspace tooling → `root`
-3. Run `npm run check:thumbnails` from the repo root **before pushing or drafting**. It verifies every item in `docs/data/portfolio/components.ts` has an existing thumbnail named after its kebab-case title. If it fails, stop and report the errors to the user (do not create the PR) so the missing or misnamed images can be fixed first.
-4. If the branch is not pushed or not tracking a remote, push with `-u` to `origin`.
-5. Draft the title + body following the rules. For mixed scopes, sort each change into the correct group based on which workspace its files live in.
-6. Show the user the **exact** title and body as they will appear, then ask for confirmation or edits.
-7. On approval, create the PR using a HEREDOC so multi-line formatting is preserved:
+4. Run `npm run check:thumbnails` from the repo root **before pushing or drafting**. It verifies every item in `docs/data/portfolio/components.ts` has an existing thumbnail named after its kebab-case title. If it fails, stop and report the errors to the user (do not create the PR) so the missing or misnamed images can be fixed first.
+5. If the branch is not pushed or not tracking a remote, push with `-u` to `origin`.
+6. Draft the title + body following the rules. For mixed scopes, sort each change into the correct group based on which workspace its files live in.
+7. Show the user the **exact** title and body as they will appear, then ask for confirmation or edits.
+8. On approval, create the PR using a HEREDOC so multi-line formatting is preserved:
 
    ```bash
    gh pr create --title "feat(root): unify token pipeline across ds and utils" --body "$(cat <<'EOF'
@@ -63,7 +65,7 @@ Creates a pull request via `gh pr create` that matches AirUI's commit/scope conv
    EOF
    )"
    ```
-8. Print the returned PR URL so the user can open it.
+9. Print the returned PR URL so the user can open it.
 
 ## Examples
 
