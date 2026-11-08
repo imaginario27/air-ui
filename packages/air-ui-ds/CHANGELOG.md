@@ -5,6 +5,17 @@ All notable changes to this package are documented in this file.
 Historical releases were reconstructed from git history (GitHub repository) and npm publish dates.
 Future releases will include detailed entries generated with Changesets.
 
+## 1.33.2 - 2026-11-08
+
+Release type: patch.
+Commits found in range: 1.
+
+### Fixed
+
+1. keep move up/down buttons on one row on mobile in `RepeaterField` ([91915bc](https://github.com/imaginario27/air-ui/commit/91915bc5fc2b0965ea108bc5571a904906d4769d))
+
+- Package: @imaginario27/air-ui-ds.
+
 ## 1.33.1 - 2026-11-01
 
 Release type: patch.
