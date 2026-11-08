@@ -108,38 +108,38 @@
                         </div>
                     </div>
 
-                    <!-- Horizontal action buttons: always shown when actionsOrientation is horizontal,
-                         and as the mobile fallback for the vertical action column above. Buttons stack
-                         in a column on mobile and use isMobileFullWidth to span the full row width. -->
                     <div
                         :class="[
                             actionsOrientation === Orientation.HORIZONTAL ? 'flex' : 'flex md:hidden',
                             'flex-col md:flex-row flex-wrap items-stretch md:items-center gap-2',
                         ]"
                     >
-                        <ActionButton
+                        <div
                             v-if="sortingType === RepeatingFieldSortingType.BUTTONS"
-                            :styleType="ButtonStyleType.NEUTRAL_TRANSPARENT"
-                            :text="resolvedMoveUpButtonText"
-                            :icon="moveUpIcon"
-                            :iconPosition="IconPosition.LEFT"
-                            :size="ButtonSize.MD"
-                            :isMobileFullWidth="true"
-                            :disabled="isMoveUpDisabled(index)"
-                            @click="moveItemUp(index)"
-                        />
+                            class="flex flex-row gap-2 w-full md:w-auto"
+                        >
+                            <ActionButton
+                                class="flex-1 md:flex-none"
+                                :styleType="ButtonStyleType.NEUTRAL_TRANSPARENT"
+                                :text="resolvedMoveUpButtonText"
+                                :icon="moveUpIcon"
+                                :iconPosition="IconPosition.LEFT"
+                                :size="ButtonSize.MD"
+                                :disabled="isMoveUpDisabled(index)"
+                                @click="moveItemUp(index)"
+                            />
 
-                        <ActionButton
-                            v-if="sortingType === RepeatingFieldSortingType.BUTTONS"
-                            :styleType="ButtonStyleType.NEUTRAL_TRANSPARENT"
-                            :text="resolvedMoveDownButtonText"
-                            :icon="moveDownIcon"
-                            :iconPosition="IconPosition.LEFT"
-                            :size="ButtonSize.MD"
-                            :isMobileFullWidth="true"
-                            :disabled="isMoveDownDisabled(index)"
-                            @click="moveItemDown(index)"
-                        />
+                            <ActionButton
+                                class="flex-1 md:flex-none"
+                                :styleType="ButtonStyleType.NEUTRAL_TRANSPARENT"
+                                :text="resolvedMoveDownButtonText"
+                                :icon="moveDownIcon"
+                                :iconPosition="IconPosition.LEFT"
+                                :size="ButtonSize.MD"
+                                :disabled="isMoveDownDisabled(index)"
+                                @click="moveItemDown(index)"
+                            />
+                        </div>
 
                         <!-- Add button (show only for last item) -->
                         <ActionButton
