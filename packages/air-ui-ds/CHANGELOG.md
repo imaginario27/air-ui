@@ -5,6 +5,17 @@ All notable changes to this package are documented in this file.
 Historical releases were reconstructed from git history (GitHub repository) and npm publish dates.
 Future releases will include detailed entries generated with Changesets.
 
+## 1.33.3 - 2026-11-19
+
+Release type: patch.
+Commits found in range: 1.
+
+### Fixed
+
+1. replace missing image PNG with Tailwind `MissingImage` component ([4dc85a1](https://github.com/imaginario27/air-ui/commit/4dc85a1244c473ca57ced3828985aa7db82a8894))
+
+- Package: @imaginario27/air-ui-ds.
+
 ## 1.33.2 - 2026-11-08
 
 Release type: patch.
