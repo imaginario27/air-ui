@@ -1,12 +1,9 @@
 import { mount } from '@vue/test-utils'
+import MissingImage from '@/components/images/MissingImage.vue'
 import DropdownSelectItem from '@/components/dropdowns/DropdownSelectItem.vue'
 import Icon from '@/components/icons/Icon.vue'
 import { SelectType, SelectActiveStyle, SelectSize } from '@/models/enums/selects'
 import { useDSConfig } from '@/composables/useDSConfig'
-
-vi.mock('@/assets/images/placeholders/missing-image-placeholder.png', () => ({
-    default: '/mocked/missing-image.png',
-}))
 
 const factory = (props: Record<string, any> = {}) => {
     return mount(DropdownSelectItem, {
@@ -76,9 +73,9 @@ describe('DropdownSelectItem.vue', () => {
         await img.trigger('error')
         await wrapper.vm.$nextTick()
 
-        const fallbackImg = wrapper.find('img')
-        expect(fallbackImg.attributes('src')).toBe('/mocked/missing-image.png')
-        expect(fallbackImg.attributes('alt')).toBe('Broken')
+        expect(wrapper.find('img').exists()).toBe(false)
+        expect(wrapper.findComponent(MissingImage).exists()).toBe(true)
+        expect(wrapper.findComponent(MissingImage).attributes('aria-label')).toBe('Broken')
     })
 
     it('renders fallback image when imgUrl is not provided', () => {
@@ -86,9 +83,8 @@ describe('DropdownSelectItem.vue', () => {
             type: SelectType.IMAGE,
         })
 
-        const img = wrapper.find('img')
-        expect(img.exists()).toBe(true)
-        expect(img.attributes('src')).toBe('/mocked/missing-image.png')
+        expect(wrapper.find('img').exists()).toBe(false)
+        expect(wrapper.findComponent(MissingImage).exists()).toBe(true)
     })
 
     it('applies selected styling when isSelected is true and activeStyle is FILL', () => {

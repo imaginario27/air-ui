@@ -20,7 +20,13 @@
                     previewContainerClasses,
                 ]"
             >
+                <MissingImage
+                    v-if="hasPreviewError"
+                    :alt="label || ariaLabel || 'Preview'"
+                    class="w-full h-full rounded-md"
+                />
                 <img
+                    v-else
                     :src="previewImageUrl"
                     :alt="label || ariaLabel || 'Preview'"
                     class="w-full h-full object-cover rounded-md"
@@ -101,9 +107,6 @@
 </template>
 
 <script setup lang="ts">
-// Imports
-import fallbackPreviewThumbnail from '@/assets/images/placeholders/missing-image-placeholder.png'
-
 // Props
 const props = defineProps({
     id: {
@@ -337,6 +340,7 @@ const { $toast } = useNuxtApp()
 
 // States
 const localTotalProgress = ref(props.totalProgress)
+const hasPreviewError = ref(false)
 
 // Computed
 const hasError = computed(() => props.error !== '')
@@ -426,12 +430,18 @@ const handleDropzoneError = (message: string) => {
     $toast.error(resolvedMessage, { toastId: 'files-error' })
 }
 
-const handlePreviewError = (event: Event) => {
-    const target = event.target as HTMLImageElement
-    target.src = fallbackPreviewThumbnail
+const handlePreviewError = () => {
+    hasPreviewError.value = true
 }
 
 // Watchers
+watch(
+    () => props.previewImageUrl,
+    () => {
+        hasPreviewError.value = false
+    },
+)
+
 watch(
     () => props.modelValue,
     (newFiles) => {

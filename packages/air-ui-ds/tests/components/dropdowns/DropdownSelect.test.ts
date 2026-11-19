@@ -1,4 +1,5 @@
 import { mount } from '@vue/test-utils'
+import MissingImage from '@/components/images/MissingImage.vue'
 import DropdownSelect from '@/components/dropdowns/DropdownSelect.vue'
 import Icon from '@/components/icons/Icon.vue'
 import User from '@/components/users/User.vue'
@@ -6,10 +7,6 @@ import ActionIconButton from '@/components/buttons/ActionIconButton.vue'
 import { SelectType, SelectSize } from '@/models/enums/selects'
 import { nextTick } from 'vue'
 import { useDSConfig } from '@/composables/useDSConfig'
-
-vi.mock('@/assets/images/placeholders/missing-image-placeholder.png', () => ({
-    default: '/mocked/missing-image.png',
-}))
 
 const options = [
     { text: 'Option 1', value: '1' },
@@ -189,8 +186,8 @@ describe('DropdownSelect.vue', () => {
         await img.trigger('error')
         await nextTick()
 
-        const fallbackImg = wrapper.find('img')
-        expect(fallbackImg.attributes('src')).toBe('/mocked/missing-image.png')
+        expect(wrapper.find('img').exists()).toBe(false)
+        expect(wrapper.findComponent(MissingImage).exists()).toBe(true)
     })
 
     it('renders user profile when type is USER', async () => {
