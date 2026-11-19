@@ -40,7 +40,7 @@
                     @load="handleImageLoad"
                     @error="handleImageError"
                 />
-                <img v-else :src="missingImagePlaceholder" :alt class="w-[20px] h-[20px] rounded" />
+                <MissingImage v-else :alt class="w-[20px] h-[20px] rounded" />
             </template>
 
             <span v-if="type !== DropdownItemType.USER" class="text-sm leading-5">
@@ -101,7 +101,6 @@
 
 <script setup lang="ts">
 // Imports
-import missingImagePlaceholder from '@/assets/images/placeholders/missing-image-placeholder.png'
 import { NuxtLink } from '#components'
 
 defineOptions({

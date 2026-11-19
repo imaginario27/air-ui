@@ -6,10 +6,6 @@ import { DropdownActionType, DropdownItemSize, DropdownItemType } from '~/models
 import { PrefetchOn } from '@/models/enums/prefetch'
 import { useDSConfig } from '@/composables/useDSConfig'
 
-vi.mock('@/assets/images/placeholders/missing-image-placeholder.png', () => ({
-    default: '/mocked/missing-image.png',
-}))
-
 const factory = (props?: Record<string, unknown>) => {
     return mount(DropdownMenuContextItem, {
         props: {

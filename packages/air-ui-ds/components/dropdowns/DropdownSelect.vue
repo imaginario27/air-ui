@@ -84,9 +84,8 @@
                                 @load="handleImageLoad"
                                 @error="handleImageError"
                             />
-                            <img
+                            <MissingImage
                                 v-else
-                                :src="missingImagePlaceholder"
                                 :alt="selectedOption?.alt"
                                 class="w-[20px] h-[20px] rounded"
                             />
@@ -200,9 +199,6 @@
 </template>
 
 <script setup lang="ts">
-// Imports
-import missingImagePlaceholder from '@/assets/images/placeholders/missing-image-placeholder.png'
-
 // Props
 const props = defineProps({
     id: String as PropType<string>,

@@ -1,12 +1,61 @@
 {
-  "generatedAt": "2026-11-08T08:33:01.257Z",
+  "generatedAt": "2026-11-19T16:15:12.654Z",
   "source": "github-git-history+npm-publish-dates",
   "githubBaseUrl": "https://github.com/imaginario27/air-ui",
   "packages": [
     {
       "packageName": "@imaginario27/air-ui-ds",
-      "latestVersion": "1.33.2",
+      "latestVersion": "1.33.3",
       "entries": [
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.33.3",
+          "publishedAt": "2026-11-19",
+          "releaseType": "patch",
+          "notes": [
+            "replace missing image PNG with Tailwind `MissingImage` component"
+          ],
+          "metadata": {
+            "commitCount": 1,
+            "commits": [
+              {
+                "sha": "4dc85a1244c473ca57ced3828985aa7db82a8894",
+                "shortSha": "4dc85a1",
+                "date": "2026-11-19",
+                "subject": "fix(ds): replace missing image PNG with Tailwind `MissingImage` component",
+                "normalizedSubject": "replace missing image PNG with Tailwind `MissingImage` component",
+                "type": "fixed",
+                "body": [
+                  "add `MissingImage` component with semantic tokens so it adapts to dark mode",
+                  "use `MissingImage` in `DropdownMenuItem`, `DropdownMenuContextItem` and `Tab`",
+                  "use `MissingImage` in `DropdownSelect` and `DropdownSelectItem`",
+                  "show `MissingImage` in `FileUploadField` when the preview fails to load",
+                  "remove `missing-image-placeholder.png` and its test mocks",
+                  "add `MissingImage` tests and update fallback assertions"
+                ],
+                "affected": [
+                  "DropdownMenuContextItem",
+                  "DropdownMenuItem",
+                  "DropdownSelect",
+                  "DropdownSelectItem",
+                  "FileUploadField",
+                  "MissingImage",
+                  "Tab"
+                ],
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/4dc85a1244c473ca57ced3828985aa7db82a8894",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 0,
+              "fixed": 1,
+              "changed": 0,
+              "maintenance": 0,
+              "breaking": 0
+            }
+          }
+        },
         {
           "packageName": "@imaginario27/air-ui-ds",
           "version": "1.33.2",

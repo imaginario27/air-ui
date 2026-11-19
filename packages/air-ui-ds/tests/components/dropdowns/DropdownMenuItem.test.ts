@@ -1,14 +1,11 @@
 import { mount } from '@vue/test-utils'
+import MissingImage from '@/components/images/MissingImage.vue'
 import DropdownMenuItem from '@/components/dropdowns/DropdownMenuItem.vue'
 import { DropdownActionType, DropdownItemSize, DropdownItemType } from '~/models/enums/dropdowns'
 import { NuxtLink } from '#components'
 import Icon from '@/components/icons/Icon.vue'
 import { PrefetchOn } from '@/models/enums/prefetch'
 import { useDSConfig } from '@/composables/useDSConfig'
-
-vi.mock('@/assets/images/placeholders/missing-image-placeholder.png', () => ({
-    default: '/mocked/missing-image.png',
-}))
 
 const defaultProps = {
     actionType: DropdownActionType.ACTION,
@@ -140,8 +137,8 @@ describe('DropdownMenuItem.vue', () => {
 
             await originalImg.trigger('error')
 
-            const fallbackImg = wrapper.find('img')
-            expect(fallbackImg.attributes('src')).toBe('/mocked/missing-image.png')
+            expect(wrapper.find('img').exists()).toBe(false)
+            expect(wrapper.findComponent(MissingImage).exists()).toBe(true)
         })
     })
 

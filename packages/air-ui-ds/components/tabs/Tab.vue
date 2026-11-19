@@ -27,7 +27,7 @@
                 @load="handleImageLoad"
                 @error="handleImageError"
             />
-            <img v-else :src="missingImagePlaceholder" :alt="resolvedDecorationAlt" class="w-[20px] h-[20px] rounded" />
+            <MissingImage v-else :alt="resolvedDecorationAlt" class="w-[20px] h-[20px] rounded" />
         </template>
 
         <span :class="['text-sm', 'font-semibold', disabled && 'select-none']">
@@ -49,9 +49,6 @@
     </div>
 </template>
 <script setup lang="ts">
-// Imports
-import missingImagePlaceholder from '@/assets/images/placeholders/missing-image-placeholder.png'
-
 // Props
 const props = defineProps({
     tabStyle: {

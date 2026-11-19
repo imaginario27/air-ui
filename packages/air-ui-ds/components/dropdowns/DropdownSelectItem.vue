@@ -37,7 +37,7 @@
                         @load="handleImageLoad"
                         @error="handleImageError"
                     />
-                    <img v-else :src="missingImagePlaceholder" :alt class="w-[24px] h-[24px] rounded" />
+                    <MissingImage v-else :alt class="w-[24px] h-[24px] rounded" />
                 </template>
 
                 <span
@@ -72,9 +72,6 @@
 </template>
 
 <script setup lang="ts">
-// Imports
-import missingImagePlaceholder from '@/assets/images/placeholders/missing-image-placeholder.png'
-
 // Props
 const props = defineProps({
     text: {

@@ -1,4 +1,5 @@
 import { mount } from '@vue/test-utils'
+import MissingImage from '@/components/images/MissingImage.vue'
 import Tab from '@/components/tabs/Tab.vue'
 import Badge from '@/components/badges/Badge.vue'
 import Icon from '@/components/icons/Icon.vue'
@@ -6,11 +7,6 @@ import { TabStyle, TabDecoration, TabSize } from '@/models/enums/tabs'
 import { BadgeStyle, BadgeShape } from '@/models/enums/badges'
 import { ColorAccent } from '@/models/enums/colors'
 import { nextTick } from 'vue'
-
-// Mock placeholder image
-vi.mock('@/assets/images/placeholders/missing-image-placeholder.png', () => ({
-    default: '/mocked/missing-image.png',
-}))
 
 const factory = (props: Partial<InstanceType<typeof Tab>['$props']> = {}) => {
     return mount(Tab, {
@@ -87,8 +83,8 @@ describe('Tab.vue', () => {
         await img.trigger('error')
         await nextTick()
 
-        const fallbackImg = wrapper.find('img')
-        expect(fallbackImg.attributes('src')).toBe('/mocked/missing-image.png')
+        expect(wrapper.find('img').exists()).toBe(false)
+        expect(wrapper.findComponent(MissingImage).exists()).toBe(true)
     })
 
     it('renders badge when badgeValue is string', () => {
