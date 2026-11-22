@@ -1,12 +1,74 @@
 {
-  "generatedAt": "2026-11-19T16:15:12.654Z",
+  "generatedAt": "2026-11-22T10:42:14.997Z",
   "source": "github-git-history+npm-publish-dates",
   "githubBaseUrl": "https://github.com/imaginario27/air-ui",
   "packages": [
     {
       "packageName": "@imaginario27/air-ui-ds",
-      "latestVersion": "1.33.3",
+      "latestVersion": "1.34.0",
       "entries": [
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.34.0",
+          "publishedAt": "2026-11-22",
+          "releaseType": "minor",
+          "notes": [
+            "use `ariaLabel` as tooltip in `ActionIconButton`",
+            "avoid `ModalTitle` overlapping the corner close button"
+          ],
+          "metadata": {
+            "commitCount": 2,
+            "commits": [
+              {
+                "sha": "862091f1e852af9520177d20c20cea84f66baf87",
+                "shortSha": "862091f",
+                "date": "2026-11-22",
+                "subject": "fix(ds): avoid `ModalTitle` overlapping the corner close button",
+                "normalizedSubject": "avoid `ModalTitle` overlapping the corner close button",
+                "type": "fixed",
+                "body": [
+                  "add `pr-10` to `ModalTitle` to clear the `ModalDialog` close button",
+                  "mirror it with `[&>h2]:pl-10` in centered `ModalHeaderGroup`",
+                  "add tests for the new padding classes"
+                ],
+                "affected": [
+                  "ModalHeaderGroup",
+                  "ModalTitle"
+                ],
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/862091f1e852af9520177d20c20cea84f66baf87",
+                "prUrl": null
+              },
+              {
+                "sha": "469235a2dd9c5de01c0f6c121ef554946847943b",
+                "shortSha": "469235a",
+                "date": "2026-11-22",
+                "subject": "feat(ds): use `ariaLabel` as tooltip in `ActionIconButton`",
+                "normalizedSubject": "use `ariaLabel` as tooltip in `ActionIconButton`",
+                "type": "added",
+                "body": [
+                  "set `title` from `ariaLabel` so icon buttons show a tooltip",
+                  "skip `title` when `isDecorative` is true",
+                  "keep an explicit `title` attribute taking precedence",
+                  "add tests for the `title` behaviour"
+                ],
+                "affected": [
+                  "ActionIconButton"
+                ],
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/469235a2dd9c5de01c0f6c121ef554946847943b",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 1,
+              "fixed": 1,
+              "changed": 0,
+              "maintenance": 0,
+              "breaking": 0
+            }
+          }
+        },
         {
           "packageName": "@imaginario27/air-ui-ds",
           "version": "1.33.3",

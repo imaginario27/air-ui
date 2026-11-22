@@ -1,5 +1,5 @@
 <template>
-    <div :class="['flex flex-col gap-2', centered && 'text-center']">
+    <div :class="['flex flex-col gap-2', centered && 'text-center [&>h2]:pl-10']">
         <slot />
     </div>
 </template>

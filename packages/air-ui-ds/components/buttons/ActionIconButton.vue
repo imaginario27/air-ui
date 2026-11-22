@@ -3,6 +3,7 @@
         :is="isDecorative ? 'span' : actionType === ButtonActionType.LINK ? (disabled ? 'span' : NuxtLink) : 'button'"
         :id
         :type="!isDecorative && actionType === ButtonActionType.ACTION ? type : undefined"
+        :title="isDecorative ? undefined : ariaLabel"
         :class="[
             'flex items-center justify-center rounded-button',
             isRounded ? 'rounded-full' : 'rounded-button',

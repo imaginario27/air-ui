@@ -143,6 +143,30 @@ describe('ActionIconButton.vue', () => {
         expect(wrapper.find('button').attributes('aria-label')).toBeUndefined()
     })
 
+    it('uses ariaLabel as the title tooltip', () => {
+        const wrapper = factory({ ariaLabel: 'Close dialog' })
+        expect(wrapper.find('button').attributes('title')).toBe('Close dialog')
+    })
+
+    it('lets an explicit title override the ariaLabel tooltip', () => {
+        const wrapper = mount(ActionIconButton, {
+            props: { ariaLabel: 'Close dialog' },
+            attrs: { title: 'Custom tooltip' },
+            global: { components: { Icon } },
+        })
+        expect(wrapper.find('button').attributes('title')).toBe('Custom tooltip')
+    })
+
+    it('does not render a title when ariaLabel is not provided', () => {
+        const wrapper = factory()
+        expect(wrapper.find('button').attributes('title')).toBeUndefined()
+    })
+
+    it('does not render a title when isDecorative is true', () => {
+        const wrapper = factory({ ariaLabel: 'Close dialog', isDecorative: true })
+        expect(wrapper.element.getAttribute('title')).toBeNull()
+    })
+
     it('renders a span instead of a button when isDecorative is true', () => {
         const wrapper = factory({ isDecorative: true })
 
