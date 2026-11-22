@@ -5,6 +5,21 @@ All notable changes to this package are documented in this file.
 Historical releases were reconstructed from git history (GitHub repository) and npm publish dates.
 Future releases will include detailed entries generated with Changesets.
 
+## 1.34.0 - 2026-11-22
+
+Release type: minor.
+Commits found in range: 2.
+
+### Added
+
+1. use `ariaLabel` as tooltip in `ActionIconButton` ([469235a](https://github.com/imaginario27/air-ui/commit/469235a2dd9c5de01c0f6c121ef554946847943b))
+
+### Fixed
+
+1. avoid `ModalTitle` overlapping the corner close button ([862091f](https://github.com/imaginario27/air-ui/commit/862091f1e852af9520177d20c20cea84f66baf87))
+
+- Package: @imaginario27/air-ui-ds.
+
 ## 1.33.3 - 2026-11-19
 
 Release type: patch.
