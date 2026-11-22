@@ -26,4 +26,9 @@ describe('ModalTitle', () => {
         const h2 = wrapper.find('h2')
         expect(h2.classes()).toContain('font-bold')
     })
+
+    it('reserves right padding so the title does not overlap the corner close button', () => {
+        const wrapper = factory()
+        expect(wrapper.find('h2').classes()).toContain('pr-10')
+    })
 })

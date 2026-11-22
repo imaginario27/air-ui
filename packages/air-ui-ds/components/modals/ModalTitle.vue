@@ -1,5 +1,5 @@
 <template>
-    <h2 class="font-bold">
+    <h2 class="font-bold pr-10">
         {{ title }}
     </h2>
 </template>
