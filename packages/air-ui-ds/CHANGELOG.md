@@ -5,6 +5,17 @@ All notable changes to this package are documented in this file.
 Historical releases were reconstructed from git history (GitHub repository) and npm publish dates.
 Future releases will include detailed entries generated with Changesets.
 
+## 1.34.1 - 2026-11-23
+
+Release type: patch.
+Commits found in range: 1.
+
+### Fixed
+
+1. left-align title in horizontal `DangerModalDialog` and `InfoModalDialog` ([09ff90a](https://github.com/imaginario27/air-ui/commit/09ff90a243c7907364355398d546bb5482e313ee))
+
+- Package: @imaginario27/air-ui-ds.
+
 ## 1.34.0 - 2026-11-22
 
 Release type: minor.

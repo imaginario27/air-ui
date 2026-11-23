@@ -27,7 +27,7 @@
                 <div class="w-full flex gap-4 flex-col sm:flex-row items-center sm:items-start">
                     <ContainedIcon :color="ColorAccent.INFO" :size="IconContainerSize.LG" :icon />
 
-                    <ModalHeaderGroup centered class="sm:text-left">
+                    <ModalHeaderGroup centered class="sm:text-left sm:[&>h2]:pl-0">
                         <ModalTitle :title />
                         <ModalDescription v-if="description">
                             {{ description }}
