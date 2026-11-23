@@ -113,6 +113,14 @@ describe('DangerModalDialog.vue', () => {
         expect(document.body.innerHTML).toContain('sm:flex-row')
     })
 
+    it('left-aligns the title from sm when orientation is HORIZONTAL', async () => {
+        factory({ orientation: Orientation.HORIZONTAL })
+        await nextTick()
+
+        expect(document.body.innerHTML).toContain('sm:text-left')
+        expect(document.body.innerHTML).toContain('sm:[&amp;>h2]:pl-0')
+    })
+
     it('passes props to ModalDialog correctly', async () => {
         const wrapper = factory({
             closeOnClickOutside: true,
