@@ -249,6 +249,10 @@ slots: [
         description: "Slot for actions that stay visible on every screen size, placed to the left of the user avatar. Use it for actions you do not want inside the mobile menu, such as notifications or a search button.",
     },
     {
+        name: "user-menu-activator",
+        description: "Slot to replace the user avatar that opens the user menu. Whatever you place here acts as the trigger of the user menu. The menu still requires `userMenuItems` and `userFullname`.",
+    },
+    {
         name: "bottom-header",
         description: "Slot to customize the bottom header area.",
     },
@@ -290,6 +294,14 @@ slots: [
             <ActionIconButton
                 icon="mdi:bell-outline"
                 ariaLabel="Notifications"
+            />
+        </template>
+
+        <template #user-menu-activator>
+            <!-- Replaces the avatar; clicking it opens the user menu -->
+            <ActionIconButton
+                icon="mdi:account-circle-outline"
+                ariaLabel="User menu"
             />
         </template>
 

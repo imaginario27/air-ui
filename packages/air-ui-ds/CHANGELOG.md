@@ -5,6 +5,22 @@ All notable changes to this package are documented in this file.
 Historical releases were reconstructed from git history (GitHub repository) and npm publish dates.
 Future releases will include detailed entries generated with Changesets.
 
+## 1.35.0 - 2026-11-25
+
+Release type: minor.
+Commits found in range: 3.
+
+### Added
+
+1. add `user-menu-activator` slot to `CompactHeader` ([a41d48f](https://github.com/imaginario27/air-ui/commit/a41d48fcee2c842bfa64d677a0571716197bddb5))
+2. add `title-prefix` slot to `Collapsible` ([6451f8f](https://github.com/imaginario27/air-ui/commit/6451f8f8ea13f35dd895fb8780bb2951b5681d99))
+
+### Fixed
+
+1. size `DateTimeSegments` inputs from real glyph widths ([5c2f84c](https://github.com/imaginario27/air-ui/commit/5c2f84c9fc4772c5579c5da4d0965ae468c80d3e))
+
+- Package: @imaginario27/air-ui-ds.
+
 ## 1.34.1 - 2026-11-23
 
 Release type: patch.

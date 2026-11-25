@@ -9,6 +9,8 @@
             @click="toggle"
         >
             <div :class="['flex gap-3', titleWrapperClass]">
+                <slot name="title-prefix" />
+
                 <span :class="['font-semibold mt-1', titleClass]">
                     {{ title }}
                 </span>
