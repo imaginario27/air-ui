@@ -1,12 +1,90 @@
 {
-  "generatedAt": "2026-11-23T13:53:13.437Z",
+  "generatedAt": "2026-11-25T16:15:09.541Z",
   "source": "github-git-history+npm-publish-dates",
   "githubBaseUrl": "https://github.com/imaginario27/air-ui",
   "packages": [
     {
       "packageName": "@imaginario27/air-ui-ds",
-      "latestVersion": "1.34.1",
+      "latestVersion": "1.35.0",
       "entries": [
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.35.0",
+          "publishedAt": "2026-11-25",
+          "releaseType": "minor",
+          "notes": [
+            "add `user-menu-activator` slot to `CompactHeader`",
+            "add `title-prefix` slot to `Collapsible`",
+            "size `DateTimeSegments` inputs from real glyph widths"
+          ],
+          "metadata": {
+            "commitCount": 3,
+            "commits": [
+              {
+                "sha": "5c2f84c9fc4772c5579c5da4d0965ae468c80d3e",
+                "shortSha": "5c2f84c",
+                "date": "2026-11-25",
+                "subject": "fix(ds): size `DateTimeSegments` inputs from real glyph widths",
+                "normalizedSubject": "size `DateTimeSegments` inputs from real glyph widths",
+                "type": "fixed",
+                "body": [
+                  "replace `getSegmentWidth` with `getSegmentSizerTexts` for invisible sizer spans",
+                  "wrap each segment `input` in an `inline-grid` so the widest text sets the width"
+                ],
+                "affected": [
+                  "DateTimeSegments"
+                ],
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/5c2f84c9fc4772c5579c5da4d0965ae468c80d3e",
+                "prUrl": null
+              },
+              {
+                "sha": "a41d48fcee2c842bfa64d677a0571716197bddb5",
+                "shortSha": "a41d48f",
+                "date": "2026-11-25",
+                "subject": "feat(ds): add `user-menu-activator` slot to `CompactHeader`",
+                "normalizedSubject": "add `user-menu-activator` slot to `CompactHeader`",
+                "type": "added",
+                "body": [
+                  "add `user-menu-activator` slot to replace the `Avatar` that opens the user menu",
+                  "keep `Avatar` as the default slot content",
+                  "add test for the slot replacing the `Avatar`"
+                ],
+                "affected": [
+                  "CompactHeader"
+                ],
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/a41d48fcee2c842bfa64d677a0571716197bddb5",
+                "prUrl": null
+              },
+              {
+                "sha": "6451f8f8ea13f35dd895fb8780bb2951b5681d99",
+                "shortSha": "6451f8f",
+                "date": "2026-11-25",
+                "subject": "feat(ds): add `title-prefix` slot to `Collapsible`",
+                "normalizedSubject": "add `title-prefix` slot to `Collapsible`",
+                "type": "added",
+                "body": [
+                  "render `title-prefix` slot right before the title inside the header",
+                  "add test for `title-prefix` and `title-suffix` slot order"
+                ],
+                "affected": [
+                  "Collapsible"
+                ],
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/6451f8f8ea13f35dd895fb8780bb2951b5681d99",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 2,
+              "fixed": 1,
+              "changed": 0,
+              "maintenance": 0,
+              "breaking": 0
+            }
+          }
+        },
         {
           "packageName": "@imaginario27/air-ui-ds",
           "version": "1.34.1",
