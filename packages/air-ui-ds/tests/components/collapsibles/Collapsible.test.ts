@@ -35,6 +35,20 @@ describe('Collapsible', () => {
         expect(wrapper.text()).toContain('Collapsible Content')
     })
 
+    it('renders the title-prefix slot before the title and the title-suffix slot after it', () => {
+        const wrapper = mount(Collapsible, {
+            props: { title: 'Custom Title' },
+            slots: {
+                'title-prefix': '<i class="prefix" />',
+                'title-suffix': '<i class="suffix" />',
+            },
+        })
+
+        const html = wrapper.find('.collapsible-header').html()
+        expect(html.indexOf('prefix')).toBeLessThan(html.indexOf('Custom Title'))
+        expect(html.indexOf('Custom Title')).toBeLessThan(html.indexOf('suffix'))
+    })
+
     it('toggles isOpen on click and updates state accordingly', async () => {
         const wrapper = factory()
 
