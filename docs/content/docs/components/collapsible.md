@@ -12,21 +12,11 @@ props:
     buttonSize: "md"
 slots:
     default: ""
-    title-suffix: ""
-    header-suffix: ""
 slotComponents:
     default:
         srcDir: 'placeholders/ContentPlaceholder.vue'
         props:
             text: "Insert content here"
-    title-suffix:
-        srcDir: 'placeholders/ContentPlaceholder.vue'
-        props:
-            text: "Insert title suffix here"
-    header-suffix:
-        srcDir: 'placeholders/ContentPlaceholder.vue'
-        props:
-            text: "Insert header suffix here"
 items:
     buttonSize: 
         - value: 2xl
@@ -93,6 +83,10 @@ slots: [
     {
         name: "default",
         description: "Slot to render the collapsible content",
+    },
+    {
+        name: "title-prefix",
+        description: "Template to render content right before the title, such as an icon or an avatar.",
     },
     {
         name: "title-suffix",
@@ -170,7 +164,7 @@ Adds extra classes to the title `<span>`, appended after the base styling.
 - **Type:** `string`
 
 ### titleWrapperClass
-Adds extra classes to the wrapper `<div>` around the title and the `title-suffix` slot, appended after the base styling.
+Adds extra classes to the wrapper `<div>` around the title and the `title-prefix` and `title-suffix` slots, appended after the base styling.
 
 ```vue
 <template>
