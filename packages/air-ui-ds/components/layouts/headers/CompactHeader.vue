@@ -81,12 +81,14 @@
                     :zIndex="zIndex"
                 >
                     <template #activator>
-                        <Avatar
-                            :size="AvatarSize.MD"
-                            isInteractive
-                            :displayName="userFullname"
-                            :imgUrl="userAvatarUrl"
-                        />
+                        <slot name="user-menu-activator">
+                            <Avatar
+                                :size="AvatarSize.MD"
+                                isInteractive
+                                :displayName="userFullname"
+                                :imgUrl="userAvatarUrl"
+                            />
+                        </slot>
                     </template>
                     <template #items="{ onClose }">
                         <!-- Native click listener: closes on any item click, including link items

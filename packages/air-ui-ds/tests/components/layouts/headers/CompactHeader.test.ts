@@ -199,6 +199,21 @@ describe('CompactHeader.vue', () => {
         expect(avatar.props('displayName')).toBe('Jane Doe')
     })
 
+    it('replaces the avatar with the user-menu-activator slot', () => {
+        const wrapper = factory(
+            {
+                userFullname: 'Jane Doe',
+                userAvatarUrl: '/avatar.png',
+                userMenuItems: [{ text: 'Profile', icon: 'mdi:account', callback: vi.fn() }],
+            },
+            { 'user-menu-activator': '<button class="custom-activator">Me</button>' },
+        )
+
+        expect(wrapper.find('.custom-activator').exists()).toBe(true)
+        expect(wrapper.findComponent({ name: 'Avatar' }).exists()).toBe(false)
+        expect(wrapper.findComponent({ name: 'DropdownMenu' }).exists()).toBe(true)
+    })
+
     it('renders ActionIconButton when showMobileSidebarToggle is true', () => {
         const wrapper = factory({
             showMobileSidebarToggle: true,
