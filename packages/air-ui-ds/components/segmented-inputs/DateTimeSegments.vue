@@ -16,51 +16,63 @@
                 {{ item.text }}
             </span>
 
-            <input
-                v-else
-                :id="item.order === 0 ? id : undefined"
-                :ref="(element) => (segmentRefs[item.order] = element as HTMLInputElement | null)"
-                type="text"
-                role="spinbutton"
-                inputmode="numeric"
-                autocomplete="off"
-                autocapitalize="off"
-                spellcheck="false"
-                :aria-label="getSegmentLabel(item.kind)"
-                :aria-valuemin="item.kind !== DateSegmentKind.DAY_PERIOD ? getRange(item.kind).min : undefined"
-                :aria-valuemax="item.kind !== DateSegmentKind.DAY_PERIOD ? getRange(item.kind).max : undefined"
-                :aria-valuenow="
-                    item.kind !== DateSegmentKind.DAY_PERIOD && parts[item.kind] ? Number(parts[item.kind]) : undefined
-                "
-                :aria-valuetext="getSegmentText(item.kind) || undefined"
-                :aria-invalid="isInvalid || undefined"
-                :placeholder="getSegmentPlaceholder(item.kind)"
-                :value="getSegmentText(item.kind)"
-                :disabled
-                :readonly
-                :class="[
-                    'box-content',
-                    'px-0.5',
-                    'rounded-sm',
-                    'text-center',
-                    'tabular-nums',
-                    'bg-transparent',
-                    'outline-none',
-                    'caret-transparent',
-                    'placeholder:text-text-neutral-subtler',
-                    'focus:bg-background-primary-brand-active',
-                    'focus:text-text-neutral-on-filled',
-                    'focus:placeholder:text-text-neutral-on-filled',
-                    isInvalid && 'text-text-error',
-                    cursorClass,
-                ]"
-                :style="{ width: `${getSegmentWidth(item.kind)}ch` }"
-                @focus="handleSegmentFocus"
-                @blur="handleSegmentBlur(item.kind)"
-                @beforeinput="handleBeforeInput($event, item.order, item.kind)"
-                @keydown="handleKeydown($event, item.order, item.kind)"
-                @paste.prevent="handlePaste"
-            />
+            <span v-else class="relative inline-grid">
+                <span
+                    v-for="text in getSegmentSizerTexts(item.kind)"
+                    :key="text"
+                    aria-hidden="true"
+                    :class="['invisible', 'col-start-1 row-start-1', 'px-0.5', 'whitespace-pre', 'tabular-nums']"
+                >
+                    {{ text }}
+                </span>
+
+                <input
+                    :id="item.order === 0 ? id : undefined"
+                    :ref="(element) => (segmentRefs[item.order] = element as HTMLInputElement | null)"
+                    type="text"
+                    role="spinbutton"
+                    inputmode="numeric"
+                    autocomplete="off"
+                    autocapitalize="off"
+                    spellcheck="false"
+                    :aria-label="getSegmentLabel(item.kind)"
+                    :aria-valuemin="item.kind !== DateSegmentKind.DAY_PERIOD ? getRange(item.kind).min : undefined"
+                    :aria-valuemax="item.kind !== DateSegmentKind.DAY_PERIOD ? getRange(item.kind).max : undefined"
+                    :aria-valuenow="
+                        item.kind !== DateSegmentKind.DAY_PERIOD && parts[item.kind]
+                            ? Number(parts[item.kind])
+                            : undefined
+                    "
+                    :aria-valuetext="getSegmentText(item.kind) || undefined"
+                    :aria-invalid="isInvalid || undefined"
+                    :placeholder="getSegmentPlaceholder(item.kind)"
+                    :value="getSegmentText(item.kind)"
+                    :disabled
+                    :readonly
+                    :class="[
+                        'absolute inset-0',
+                        'size-full',
+                        'px-0.5',
+                        'rounded-sm',
+                        'text-center',
+                        'tabular-nums',
+                        'bg-transparent',
+                        'outline-none',
+                        'caret-transparent',
+                        'placeholder:text-text-neutral-subtler',
+                        'focus:bg-background-primary-brand-active',
+                        'focus:text-text-neutral-on-filled',
+                        'focus:placeholder:text-text-neutral-on-filled',
+                        isInvalid && 'text-text-error',
+                        cursorClass,
+                    ]"
+                    @focus="handleSegmentFocus"
+                    @blur="handleSegmentBlur(item.kind)"
+                    @beforeinput="handleBeforeInput($event, item.order, item.kind)"
+                    @keydown="handleKeydown($event, item.order, item.kind)"
+                    @paste.prevent="handlePaste"
+                />
+            </span>
         </template>
     </fieldset>
 </template>
@@ -188,12 +200,12 @@ const getSegmentText = (kind: DateSegmentKind): string => {
     return { am: labels.am, pm: labels.pm }[parts.value.dayPeriod as 'am' | 'pm'] ?? ''
 }
 
-const getSegmentWidth = (kind: DateSegmentKind): number => {
-    const lengths = [getSegmentPlaceholder(kind).length, getSegmentLength(kind)]
-    if (kind === DateSegmentKind.DAY_PERIOD)
-        lengths.push(dayPeriodLabels.value.am.length, dayPeriodLabels.value.pm.length)
+// Invisible texts that size the segment from real glyph widths (placeholder letters are wider than digits)
+const getSegmentSizerTexts = (kind: DateSegmentKind): string[] => {
+    const texts = [getSegmentPlaceholder(kind), '0'.repeat(getSegmentLength(kind))]
+    if (kind === DateSegmentKind.DAY_PERIOD) texts.push(dayPeriodLabels.value.am, dayPeriodLabels.value.pm)
 
-    return Math.max(...lengths)
+    return [...new Set(texts.filter(Boolean))]
 }
 
 const toNumber = (value?: string) => (value ? Number(value) : null)
