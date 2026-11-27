@@ -46,11 +46,12 @@
                 </template>
             </div>
 
-            <!-- Navigation -->
-            <div class="flex gap-3 items-center xs:w-auto">
-                <!-- Horizontal menu -->
+            <!-- Horizontal menu -->
+            <div
+                v-if="navMenuItems.length && !isMobile"
+                :class="['flex flex-1 items-center min-w-0', navMenuAlignClass]"
+            >
                 <NavMenu
-                    v-if="navMenuItems.length && !isMobile"
                     :menuItems="navMenuItems"
                     :detectActive="detectActiveMenuItem"
                     :submenuYOffset
@@ -58,10 +59,13 @@
                     :submenuTrigger
                     :prefetchOn
                     :isSticky
-                    :dropdownZIndex="zIndex"
+                    :dropdownZIndex="dropdownZIndex"
                     :class="navMenuClass"
                 />
+            </div>
 
+            <!-- Navigation -->
+            <div class="flex gap-3 items-center xs:w-auto ml-auto">
                 <!-- Header actions -->
                 <div v-if="$slots['header-actions']" :class="['gap-3 items-center', isMobile ? 'hidden' : 'flex']">
                     <slot name="header-actions" :onClose="noop" />
@@ -78,7 +82,7 @@
                     class="min-w-[200px]"
                     :positionYOffset="submenuYOffset"
                     :isSticky
-                    :zIndex="zIndex"
+                    :zIndex="dropdownZIndex"
                 >
                     <template #activator>
                         <slot name="user-menu-activator">
@@ -118,7 +122,7 @@
                         :class="navMobileMenuClass"
                         :positionYOffset="submenuYOffset"
                         :isSticky
-                        :zIndex="zIndex"
+                        :zIndex="dropdownZIndex"
                     >
                         <template #activator>
                             <ActionIconButton
@@ -139,12 +143,16 @@
                                     />
 
                                     <template v-else>
+                                        <DropdownSectionItem
+                                            :text="item.text"
+                                            class="border-b-0! text-text-neutral-subtle!"
+                                        />
                                         <DropdownMenuItem
                                             v-for="submenuItem in getSubmenuItems(item)"
                                             :key="`${item.text}-${submenuItem.text}`"
-                                            :text="`- ${submenuItem.text}`"
+                                            :text="submenuItem.text"
                                             :to="submenuItem.to"
-                                            class="pl-5"
+                                            class="pl-6!"
                                         />
                                     </template>
                                 </template>
@@ -191,6 +199,11 @@ const props = defineProps({
     navMenuItems: {
         type: Array as PropType<MenuItem[]>,
         default: () => [],
+    },
+    navMenuAlign: {
+        type: String as PropType<Align>,
+        default: Align.RIGHT,
+        validator: (value: Align) => Object.values(Align).includes(value),
     },
     submenuYOffset: {
         type: Number as PropType<number>,
@@ -270,6 +283,18 @@ const props = defineProps({
 const dsConfig = useDSConfig()
 
 // Computed
+const dropdownZIndex = computed(() => {
+    const headerZIndex = Number(props.zIndex)
+    return Number.isNaN(headerZIndex) ? props.zIndex : String(headerZIndex + 1)
+})
+const navMenuAlignClass = computed(
+    () =>
+        ({
+            [Align.LEFT]: 'justify-start',
+            [Align.CENTER]: 'justify-center',
+            [Align.RIGHT]: 'justify-end',
+        })[props.navMenuAlign] || 'justify-end',
+)
 const resolvedSidebarOpenAriaLabel = computed(() => props.sidebarOpenAriaLabel ?? dsConfig.navigation.openSidebarText())
 const resolvedSidebarCloseAriaLabel = computed(
     () => props.sidebarCloseAriaLabel ?? dsConfig.navigation.closeSidebarText(),

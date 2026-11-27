@@ -198,6 +198,16 @@ props: [
         "type": "string",
     },
     {
+        "name": "spinnerVariant",
+        "default": "null",
+        "type": "SpinnerVariant | null",
+    },
+    {
+        "name": "spinnerUseOpacity",
+        "default": "null",
+        "type": "boolean | null",
+    },
+    {
         "name": "clearSelectionAriaLabel",
         "default": "'Clear selection'",
         "type": "string",
@@ -625,6 +635,32 @@ Sets the text to display while the select box is loading. It requires the `isLoa
 
 - **Type:** `string`
 - **Default:** `'Loading options...'`
+
+### spinnerVariant
+
+Sets the spinner shown while loading, using the `SpinnerVariant` enum. When it is not set, it follows `spinner.variant` of the DS config. See [Spinner options](/docs/getting-started/configuration#spinner-options).
+
+```vue
+<template>
+    <DropdownSelect :options="options" :isLoading="true" :spinnerVariant="SpinnerVariant.DOTS_3_BOUNCE" />
+</template>
+```
+
+- **Type:** `SpinnerVariant | null`
+- **Default:** `null` (set by the DS config, see [Configuration](/docs/getting-started/configuration))
+
+### spinnerUseOpacity
+
+Sets whether the spinner keeps the opacity of the variants that draw part of their shape with it. When it is not set, it follows `spinner.useOpacity` of the DS config.
+
+```vue
+<template>
+    <DropdownSelect :options="options" :isLoading="true" :spinnerUseOpacity="false" />
+</template>
+```
+
+- **Type:** `boolean | null`
+- **Default:** `null` (set by the DS config, see [Configuration](/docs/getting-started/configuration))
 
 ### clearSelectionAriaLabel
 The `clearSelectionAriaLabel` prop sets the accessible label for the clear selection button. Override it for i18n.

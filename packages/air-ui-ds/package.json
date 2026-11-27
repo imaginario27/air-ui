@@ -1,6 +1,6 @@
 {
     "name": "@imaginario27/air-ui-ds",
-    "version": "1.35.0",
+    "version": "1.36.0",
     "author": "imaginario27",
     "type": "module",
     "homepage": "https://air-ui.netlify.app/",
@@ -23,6 +23,8 @@
         "typecheck": "vue-tsc --noEmit -p tsconfig.typecheck.json"
     },
     "dependencies": {
+        "@iconify-json/svg-spinners": "1.2.4",
+        "@iconify/vue": "5.0.3",
         "@nuxt/content": "3.16.2",
         "@nuxt/eslint": "1.17.0",
         "@nuxt/icon": "2.5.1",

@@ -19,6 +19,9 @@ props:
               to: ""
             - text: "Mission"
               to: ""
+        - text: "Contact"
+          to: ""
+    navMenuAlign: "right"
     submenuYOffset: 8
     submenuDropdownClass: "min-w-[200px]"
     submenuTrigger: "click"
@@ -67,6 +70,13 @@ items:
           text: LOGO_LEFT_SIDE
         - value: logo-right-side
           text: LOGO_RIGHT_SIDE
+    navMenuAlign:
+        - value: left
+          text: LEFT
+        - value: center
+          text: CENTER
+        - value: right
+          text: RIGHT
     submenuTrigger:
         - value: click
           text: CLICK
@@ -86,6 +96,7 @@ externalTypes:
 enums:
     pageTitleFormat: "PageTitleFormat"
     sidebarTogglePosition: "SidebarTogglePosition"
+    navMenuAlign: "Align"
     submenuTrigger: "Trigger"
     prefetchOn: "PrefetchOn"
 propsSettingsExcludedProps: ['navMenuItems', 'userMenuItems', 'class']
@@ -116,6 +127,11 @@ props: [
         "name": "navMenuItems",
         "default": "[]",
         "type": "MenuItem[]"
+    },
+    {
+        "name": "navMenuAlign",
+        "default": "Align.RIGHT",
+        "type": "Align"
     },
     {
         "name": "submenuYOffset",
@@ -458,6 +474,43 @@ interface MenuItem {
     submenuDropdownClass?: string
 }
 ```
+
+### navMenuAlign
+
+The `navMenuAlign` prop sets the desktop alignment of the horizontal nav menu within the header.
+
+```vue
+<template>
+    <CompactHeader
+        :navMenuItems="mainHeaderMenu"
+        :navMenuAlign="Align.CENTER"
+    />
+</template>
+```
+
+- **Type:** `Align`
+- **Default:** `Align.RIGHT`
+
+#### Options
+
+::options-table
+---
+options: [
+    {
+        value: "LEFT",
+        description: "Aligns the menu next to the logo.",
+    },
+    {
+        value: "CENTER",
+        description: "Centers the menu between the logo and the actions.",
+    },
+    {
+        value: "RIGHT",
+        description: "Aligns the menu next to the actions.",
+    },
+]
+---
+::
 
 ### submenuYOffset
 
@@ -830,7 +883,7 @@ The `navMobileMenuClass` prop allows you to add custom CSS classes to the mobile
 
 ### zIndex
 
-The `zIndex` prop sets the CSS `z-index` for all dropdowns rendered by the compact header: the nav menu submenu, the user menu, and the mobile menu. Use it to ensure consistent stacking and to avoid conflicts with other fixed or sticky elements on the page.
+The `zIndex` prop sets the CSS `z-index` of the header when it is sticky. The dropdowns rendered by the compact header (the nav menu submenu, the user menu, and the mobile menu) use this value plus one, so they always stack above the header. Use it to ensure consistent stacking and to avoid conflicts with other fixed or sticky elements on the page.
 
 ```vue
 <template>

@@ -180,6 +180,28 @@ describe('ActionButton.vue', () => {
         },
     )
 
+    it.each([
+        [ButtonStyleType.PRIMARY_BRAND_FILLED, 'text-border-neutral-on-filled!'],
+        [ButtonStyleType.NEUTRAL_OUTLINED, 'text-border-primary-brand-default!'],
+        [ButtonStyleType.DELETE_SOFT, 'text-border-delete-default!'],
+    ])('colors the spinner of %s with %s so icon variants match the button', (styleType, textClass) => {
+        const wrapper = factory({ isLoading: true, styleType })
+
+        expect(wrapper.findComponent(Spinner).classes()).toContain(textClass)
+    })
+
+    it('forwards spinnerVariant and spinnerUseOpacity to the Spinner', () => {
+        const wrapper = factory({
+            isLoading: true,
+            spinnerVariant: SpinnerVariant.DOTS_3_BOUNCE,
+            spinnerUseOpacity: false,
+        })
+        const spinner = wrapper.findComponent(Spinner)
+
+        expect(spinner.props('variant')).toBe(SpinnerVariant.DOTS_3_BOUNCE)
+        expect(spinner.props('useOpacity')).toBe(false)
+    })
+
     it('shows custom loading text when loadingText is provided', () => {
         const wrapper = factory({
             isLoading: true,

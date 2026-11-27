@@ -92,7 +92,7 @@
                 :title="hasLoadError(row.node) ? resolvedLoadErrorLabel : undefined"
                 @click.stop="toggleExpanded(row.node)"
             >
-                <Spinner v-if="isLoading(row.node)" />
+                <Spinner v-if="isLoading(row.node)" :variant="spinnerVariant" :useOpacity="spinnerUseOpacity" />
                 <Icon
                     v-else-if="hasLoadError(row.node)"
                     name="mdi:alert-circle-outline"
@@ -370,6 +370,15 @@ const props = defineProps({
     disabled: {
         type: Boolean as PropType<boolean>,
         default: false,
+    },
+    spinnerVariant: {
+        type: String as PropType<SpinnerVariant | null>,
+        default: null,
+        validator: (value: SpinnerVariant | null) => value === null || Object.values(SpinnerVariant).includes(value),
+    },
+    spinnerUseOpacity: {
+        type: Boolean as PropType<boolean | null>,
+        default: null,
     },
     ariaLabel: String as PropType<string>,
 })
