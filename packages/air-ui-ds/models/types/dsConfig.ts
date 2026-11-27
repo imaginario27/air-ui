@@ -211,6 +211,10 @@ export interface DesignSystemConfig {
         responsiveSize: boolean
         mobileSizeMap: Record<ButtonSize, ButtonSize>
     }
+    spinner: {
+        variant: SpinnerVariant
+        useOpacity: boolean
+    }
     glow: {
         card: GlowSettings
         modal: GlowSettings

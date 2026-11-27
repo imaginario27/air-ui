@@ -19,6 +19,18 @@ describe('Loading.vue', () => {
         expect(wrapper.text()).toContain('Loading')
     })
 
+    it('forwards spinnerVariant and spinnerUseOpacity to the Spinner', () => {
+        const wrapper = factory({
+            isLoading: true,
+            spinnerVariant: SpinnerVariant.DOTS_3_BOUNCE,
+            spinnerUseOpacity: false,
+        })
+        const spinner = wrapper.findComponent(Spinner)
+
+        expect(spinner.props('variant')).toBe(SpinnerVariant.DOTS_3_BOUNCE)
+        expect(spinner.props('useOpacity')).toBe(false)
+    })
+
     it('does not render when isLoading is false', () => {
         const wrapper = factory({ isLoading: false })
 

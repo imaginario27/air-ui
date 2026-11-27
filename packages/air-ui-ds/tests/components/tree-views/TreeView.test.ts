@@ -1,5 +1,6 @@
 import { mount, flushPromises } from '@vue/test-utils'
 import TreeView from '~/components/tree-views/TreeView.vue'
+import Spinner from '@/components/spinners/Spinner.vue'
 import { TreeViewSelectionMode, TreeViewDropPosition } from '@/models/enums/tree-view'
 import { SortOrder } from '@/models/enums/order'
 import { useDSConfig } from '@/composables/useDSConfig'
@@ -622,6 +623,20 @@ describe('TreeView', () => {
             resolve([])
             await flushPromises()
             expect(wrapper.find('output').exists()).toBe(false)
+        })
+
+        it('forwards spinnerVariant and spinnerUseOpacity to the Spinner', async () => {
+            const wrapper = factory({
+                nodes: lazyNodes,
+                loadChildren: () => new Promise<TreeViewNode[]>(() => {}),
+                spinnerVariant: SpinnerVariant.DOTS_3_BOUNCE,
+                spinnerUseOpacity: false,
+            })
+            await item(wrapper, 'remote').trigger('click')
+            const spinner = wrapper.findComponent(Spinner)
+
+            expect(spinner.props('variant')).toBe(SpinnerVariant.DOTS_3_BOUNCE)
+            expect(spinner.props('useOpacity')).toBe(false)
         })
 
         it('does not load twice once loaded', async () => {

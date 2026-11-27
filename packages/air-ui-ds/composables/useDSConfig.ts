@@ -228,6 +228,10 @@ const dsConfig = reactive<DesignSystemConfig>({
             [ButtonSize.XXL]: ButtonSize.XXL,
         },
     },
+    spinner: {
+        variant: SpinnerVariant.RING,
+        useOpacity: true,
+    },
     glow: {
         card: glowDefaults(),
         modal: glowDefaults({ type: GlowType.INNER }),

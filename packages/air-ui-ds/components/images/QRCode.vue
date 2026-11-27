@@ -12,7 +12,7 @@
             height: `${size}px`,
         }"
     >
-        <Spinner v-if="isLoading" />
+        <Spinner v-if="isLoading" :variant="spinnerVariant" :useOpacity="spinnerUseOpacity" />
 
         <QrcodeVue
             v-else
@@ -98,6 +98,15 @@ const props = defineProps({
     isLoading: {
         type: Boolean as PropType<boolean>,
         default: false,
+    },
+    spinnerVariant: {
+        type: String as PropType<SpinnerVariant | null>,
+        default: null,
+        validator: (value: SpinnerVariant | null) => value === null || Object.values(SpinnerVariant).includes(value),
+    },
+    spinnerUseOpacity: {
+        type: Boolean as PropType<boolean | null>,
+        default: null,
     },
     containerClass: String as PropType<string>,
     ariaLabel: String as PropType<string>,

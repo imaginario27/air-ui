@@ -1,6 +1,7 @@
 import { mount } from '@vue/test-utils'
 import { defineComponent, nextTick, ref } from 'vue'
 import DropdownCombobox from '@/components/dropdowns/DropdownCombobox.vue'
+import Spinner from '@/components/spinners/Spinner.vue'
 import ActionIconButton from '@/components/buttons/ActionIconButton.vue'
 import { useDSConfig } from '@/composables/useDSConfig'
 import { SelectSize } from '@/models/enums/selects'
@@ -337,6 +338,18 @@ describe('DropdownCombobox.vue', () => {
 
             expect(wrapper.emitted('search')).toEqual([['ap']])
         })
+    })
+
+    it('forwards spinnerVariant and spinnerUseOpacity to the Spinner', () => {
+        const wrapper = factory({
+            isLoading: true,
+            spinnerVariant: SpinnerVariant.DOTS_3_BOUNCE,
+            spinnerUseOpacity: false,
+        })
+        const spinner = wrapper.findComponent(Spinner)
+
+        expect(spinner.props('variant')).toBe(SpinnerVariant.DOTS_3_BOUNCE)
+        expect(spinner.props('useOpacity')).toBe(false)
     })
 
     describe('loading and disabled', () => {

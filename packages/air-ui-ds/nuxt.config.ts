@@ -31,7 +31,7 @@ export default defineNuxtConfig({
     icon: {
         componentName: 'NuxtIcon',
         serverBundle: {
-            collections: ['mdi'],
+            collections: ['mdi', 'svg-spinners'],
         },
     },
 

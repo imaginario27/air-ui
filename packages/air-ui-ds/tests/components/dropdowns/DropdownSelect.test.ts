@@ -1,6 +1,7 @@
 import { mount } from '@vue/test-utils'
 import MissingImage from '@/components/images/MissingImage.vue'
 import DropdownSelect from '@/components/dropdowns/DropdownSelect.vue'
+import Spinner from '@/components/spinners/Spinner.vue'
 import Icon from '@/components/icons/Icon.vue'
 import User from '@/components/users/User.vue'
 import ActionIconButton from '@/components/buttons/ActionIconButton.vue'
@@ -136,6 +137,18 @@ describe('DropdownSelect.vue', () => {
     it('shows loading spinner and text when isLoading is true', () => {
         const wrapper = factory({ isLoading: true })
         expect(wrapper.text()).toContain('Loading options...')
+    })
+
+    it('forwards spinnerVariant and spinnerUseOpacity to the Spinner', () => {
+        const wrapper = factory({
+            isLoading: true,
+            spinnerVariant: SpinnerVariant.DOTS_3_BOUNCE,
+            spinnerUseOpacity: false,
+        })
+        const spinner = wrapper.findComponent(Spinner)
+
+        expect(spinner.props('variant')).toBe(SpinnerVariant.DOTS_3_BOUNCE)
+        expect(spinner.props('useOpacity')).toBe(false)
     })
 
     it('renders icon when type is ICON', async () => {

@@ -77,7 +77,7 @@
                             @click="handleClear"
                         />
 
-                        <Spinner v-if="isLoading" />
+                        <Spinner v-if="isLoading" :variant="spinnerVariant" :useOpacity="spinnerUseOpacity" />
                         <span
                             v-else
                             :class="['flex items-center', disabled ? 'cursor-not-allowed' : 'cursor-pointer']"
@@ -96,7 +96,7 @@
                         v-if="isLoading"
                         class="p-4 flex items-center justify-center space-x-2 text-sm text-text-neutral-subtle"
                     >
-                        <Spinner />
+                        <Spinner :variant="spinnerVariant" :useOpacity="spinnerUseOpacity" />
                         <span>{{ resolvedLoadingText }}</span>
                     </div>
 
@@ -227,6 +227,15 @@ const props = defineProps({
     isLoading: {
         type: Boolean as PropType<boolean>,
         default: false,
+    },
+    spinnerVariant: {
+        type: String as PropType<SpinnerVariant | null>,
+        default: null,
+        validator: (value: SpinnerVariant | null) => value === null || Object.values(SpinnerVariant).includes(value),
+    },
+    spinnerUseOpacity: {
+        type: Boolean as PropType<boolean | null>,
+        default: null,
     },
     loadingText: String as PropType<string>,
     clearSelectionAriaLabel: String as PropType<string>,

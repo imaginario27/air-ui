@@ -84,11 +84,7 @@
                                 @load="handleImageLoad"
                                 @error="handleImageError"
                             />
-                            <MissingImage
-                                v-else
-                                :alt="selectedOption?.alt"
-                                class="w-[20px] h-[20px] rounded"
-                            />
+                            <MissingImage v-else :alt="selectedOption?.alt" class="w-[20px] h-[20px] rounded" />
                         </template>
                         <span v-if="type !== SelectType.USER" class="text-left">
                             {{ selectedOption?.text }}
@@ -107,7 +103,7 @@
                         />
 
                         <!-- Show loading icon while loading instead of the icon-->
-                        <Spinner v-if="isLoading" />
+                        <Spinner v-if="isLoading" :variant="spinnerVariant" :useOpacity="spinnerUseOpacity" />
                         <Icon v-else :name="isOpen ? 'mdi:unfold-less-horizontal' : 'mdi:unfold-more-horizontal'" />
                     </div>
                 </div>
@@ -119,7 +115,7 @@
                     v-if="isLoading"
                     class="p-4 flex items-center justify-center space-x-2 text-sm text-text-neutral-subtle"
                 >
-                    <Spinner />
+                    <Spinner :variant="spinnerVariant" :useOpacity="spinnerUseOpacity" />
                     <span>{{ resolvedLoadingText }}</span>
                 </div>
                 <template v-else>
@@ -279,6 +275,15 @@ const props = defineProps({
     isLoading: {
         type: Boolean as PropType<boolean>,
         default: false,
+    },
+    spinnerVariant: {
+        type: String as PropType<SpinnerVariant | null>,
+        default: null,
+        validator: (value: SpinnerVariant | null) => value === null || Object.values(SpinnerVariant).includes(value),
+    },
+    spinnerUseOpacity: {
+        type: Boolean as PropType<boolean | null>,
+        default: null,
     },
     loadingText: String as PropType<string>,
     clearSelectionAriaLabel: String as PropType<string>,

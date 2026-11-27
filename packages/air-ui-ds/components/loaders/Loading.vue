@@ -1,6 +1,6 @@
 <template>
     <div v-if="isLoading" role="status" aria-live="polite" class="flex flex-col items-center gap-4">
-        <Spinner :class="[spinnerSizeClass, spinnerClass]" />
+        <Spinner :variant="spinnerVariant" :useOpacity="spinnerUseOpacity" :class="[spinnerSizeClass, spinnerClass]" />
         <span>{{ animatedText }}</span>
     </div>
 </template>
@@ -18,6 +18,15 @@ const props = defineProps({
         validator: (value: LoadingSpinnerSize) => Object.values(LoadingSpinnerSize).includes(value),
     },
     spinnerClass: String as PropType<string>,
+    spinnerVariant: {
+        type: String as PropType<SpinnerVariant | null>,
+        default: null,
+        validator: (value: SpinnerVariant | null) => value === null || Object.values(SpinnerVariant).includes(value),
+    },
+    spinnerUseOpacity: {
+        type: Boolean as PropType<boolean | null>,
+        default: null,
+    },
 })
 
 // Composables

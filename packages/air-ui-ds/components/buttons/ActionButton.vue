@@ -29,7 +29,11 @@
     >
         <!-- Loading State -->
         <template v-if="isLoading">
-            <Spinner :class="[iconSizeClass, spinnerColorClass]" />
+            <Spinner
+                :variant="spinnerVariant"
+                :useOpacity="spinnerUseOpacity"
+                :class="[iconSizeClass, spinnerColorClass]"
+            />
 
             <span
                 :class="[
@@ -182,6 +186,15 @@ const props = defineProps({
     isLoading: {
         type: Boolean as PropType<boolean>,
         default: false,
+    },
+    spinnerVariant: {
+        type: String as PropType<SpinnerVariant | null>,
+        default: null,
+        validator: (value: SpinnerVariant | null) => value === null || Object.values(SpinnerVariant).includes(value),
+    },
+    spinnerUseOpacity: {
+        type: Boolean as PropType<boolean | null>,
+        default: null,
     },
     loadingText: String as PropType<string>,
     id: String as PropType<string>,
@@ -347,24 +360,30 @@ const iconColorClass = computed(() => {
 
 const spinnerColorClass = computed(() => {
     const variant = {
-        [ButtonStyleType.PRIMARY_BRAND_FILLED]: 'border-x-border-neutral-on-filled! border-b-border-neutral-on-filled!',
+        [ButtonStyleType.PRIMARY_BRAND_FILLED]:
+            'border-x-border-neutral-on-filled! border-b-border-neutral-on-filled! text-border-neutral-on-filled!',
         [ButtonStyleType.PRIMARY_BRAND_SOFT]:
-            'border-x-border-primary-brand-default! border-b-border-primary-brand-default!',
+            'border-x-border-primary-brand-default! border-b-border-primary-brand-default! text-border-primary-brand-default!',
         [ButtonStyleType.PRIMARY_BRAND_TRANSPARENT]:
-            'border-x-border-primary-brand-default! border-b-border-primary-brand-default!',
+            'border-x-border-primary-brand-default! border-b-border-primary-brand-default! text-border-primary-brand-default!',
         [ButtonStyleType.SECONDARY_BRAND_FILLED]:
-            'border-x-border-neutral-on-filled! border-b-border-neutral-on-filled!',
-        [ButtonStyleType.NEUTRAL_FILLED]: 'border-x-border-neutral-on-filled! border-b-border-neutral-on-filled!',
+            'border-x-border-neutral-on-filled! border-b-border-neutral-on-filled! text-border-neutral-on-filled!',
+        [ButtonStyleType.NEUTRAL_FILLED]:
+            'border-x-border-neutral-on-filled! border-b-border-neutral-on-filled! text-border-neutral-on-filled!',
         [ButtonStyleType.NEUTRAL_OUTLINED]:
-            'border-x-border-primary-brand-default! border-b-border-primary-brand-default!',
+            'border-x-border-primary-brand-default! border-b-border-primary-brand-default! text-border-primary-brand-default!',
         [ButtonStyleType.NEUTRAL_TRANSPARENT]:
-            'border-x-border-primary-brand-default! border-b-border-primary-brand-default!',
+            'border-x-border-primary-brand-default! border-b-border-primary-brand-default! text-border-primary-brand-default!',
         [ButtonStyleType.NEUTRAL_TRANSPARENT_SUBTLE]:
-            'border-x-border-primary-brand-default! border-b-border-primary-brand-default!',
-        [ButtonStyleType.DELETE_FILLED]: 'border-x-border-neutral-on-filled! border-b-border-neutral-on-filled!',
-        [ButtonStyleType.DELETE_SOFT]: 'border-x-border-delete-default! border-b-border-delete-default!',
-        [ButtonStyleType.DELETE_OUTLINED]: 'border-x-border-delete-default! border-b-border-delete-default!',
-        [ButtonStyleType.DELETE_TRANSPARENT]: 'border-x-border-delete-default! border-b-border-delete-default!',
+            'border-x-border-primary-brand-default! border-b-border-primary-brand-default! text-border-primary-brand-default!',
+        [ButtonStyleType.DELETE_FILLED]:
+            'border-x-border-neutral-on-filled! border-b-border-neutral-on-filled! text-border-neutral-on-filled!',
+        [ButtonStyleType.DELETE_SOFT]:
+            'border-x-border-delete-default! border-b-border-delete-default! text-border-delete-default!',
+        [ButtonStyleType.DELETE_OUTLINED]:
+            'border-x-border-delete-default! border-b-border-delete-default! text-border-delete-default!',
+        [ButtonStyleType.DELETE_TRANSPARENT]:
+            'border-x-border-delete-default! border-b-border-delete-default! text-border-delete-default!',
     }
     return variant[props.styleType as ButtonStyleType] || 'border-border-primary-brand-default'
 })
