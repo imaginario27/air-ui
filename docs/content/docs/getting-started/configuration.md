@@ -4,7 +4,7 @@ AirUI exposes a small set of behaviors as shared, reactive configuration instead
 
 There are two config composables, one per package:
 
-- `useDSConfig` (from `@imaginario27/air-ui-ds`): the text, the glow and the mobile sizes used by the components.
+- `useDSConfig` (from `@imaginario27/air-ui-ds`): the text, the glow, the spinner and the mobile sizes used by the components.
 - `useUtilsConfig` (from `@imaginario27/air-ui-utils`): the messages and texts used by the validators and helpers in `air-ui-utils`.
 
 <br/>
@@ -311,6 +311,10 @@ export default defineNuxtPlugin(() => {
         size: null,
     })
 
+    /* Default spinner of every component that shows one. A prop on the Spinner wins over these */
+    dsConfig.spinner.variant = SpinnerVariant.RING
+    dsConfig.spinner.useOpacity = true
+
     /* Global responsive resizing */
     dsConfig.buttons.responsiveSize = false
     dsConfig.forms.responsiveSize = false
@@ -405,6 +409,17 @@ Each family accepts these options, which match the `glowColorMode`, `glowTrigger
 | `type` | `GlowType` | `GlowType.OUTER` |
 | `opacity` | `number` | `40` |
 | `size` | `number | null` | `null` (each component calculates its own size) |
+
+#### Spinner options
+
+`spinner.variant` sets the spinner shown by every component that has a loading state: `Spinner`, `ActionButton`, `Loading`, `DropdownSelect`, `DropdownCombobox`, `QRCode` and `TreeView`. `spinner.useOpacity` decides whether the variants that draw part of their shape with opacity keep it.
+
+A `variant` or `useOpacity` prop passed to a `Spinner` always wins over the config.
+
+| Option | Type | Default |
+|---|---|---|
+| `variant` | `SpinnerVariant` | `SpinnerVariant.RING` |
+| `useOpacity` | `boolean` | `true` |
 
 #### Utils config options
 
