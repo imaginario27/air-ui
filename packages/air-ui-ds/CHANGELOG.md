@@ -5,6 +5,18 @@ All notable changes to this package are documented in this file.
 Historical releases were reconstructed from git history (GitHub repository) and npm publish dates.
 Future releases will include detailed entries generated with Changesets.
 
+## 1.36.0 - 2026-11-27
+
+Release type: minor.
+Commits found in range: 2.
+
+### Added
+
+1. add `navMenuAlign` prop and group submenus in `CompactHeader` mobile menu ([ffac605](https://github.com/imaginario27/air-ui/commit/ffac605e041090ac5692e361c094a6770c6c8172))
+2. add selectable `Spinner` variants with DS config defaults ([10dcb03](https://github.com/imaginario27/air-ui/commit/10dcb0332d78f82b89b46bb5608be101067984a8))
+
+- Package: @imaginario27/air-ui-ds.
+
 ## 1.35.0 - 2026-11-25
 
 Release type: minor.

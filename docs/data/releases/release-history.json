@@ -1,12 +1,87 @@
 {
-  "generatedAt": "2026-11-25T16:15:09.541Z",
+  "generatedAt": "2026-11-27T16:32:43.054Z",
   "source": "github-git-history+npm-publish-dates",
   "githubBaseUrl": "https://github.com/imaginario27/air-ui",
   "packages": [
     {
       "packageName": "@imaginario27/air-ui-ds",
-      "latestVersion": "1.35.0",
+      "latestVersion": "1.36.0",
       "entries": [
+        {
+          "packageName": "@imaginario27/air-ui-ds",
+          "version": "1.36.0",
+          "publishedAt": "2026-11-27",
+          "releaseType": "minor",
+          "notes": [
+            "add `navMenuAlign` prop and group submenus in `CompactHeader` mobile menu",
+            "add selectable `Spinner` variants with DS config defaults"
+          ],
+          "metadata": {
+            "commitCount": 2,
+            "commits": [
+              {
+                "sha": "ffac605e041090ac5692e361c094a6770c6c8172",
+                "shortSha": "ffac605",
+                "date": "2026-11-27",
+                "subject": "feat(ds): add `navMenuAlign` prop and group submenus in `CompactHeader` mobile menu",
+                "normalizedSubject": "add `navMenuAlign` prop and group submenus in `CompactHeader` mobile menu",
+                "type": "added",
+                "body": [
+                  "add `navMenuAlign` prop to align the desktop `NavMenu` with `Align`",
+                  "show the parent item as a section label above its submenu items in the mobile menu",
+                  "stack header dropdowns one level above `zIndex` so they render over the header",
+                  "add tests for `navMenuAlign` and the dropdown `zIndex`",
+                  "format `MissingImage.test.ts`"
+                ],
+                "affected": [
+                  "CompactHeader"
+                ],
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/ffac605e041090ac5692e361c094a6770c6c8172",
+                "prUrl": null
+              },
+              {
+                "sha": "10dcb0332d78f82b89b46bb5608be101067984a8",
+                "shortSha": "10dcb03",
+                "date": "2026-11-27",
+                "subject": "feat(ds): add selectable `Spinner` variants with DS config defaults",
+                "normalizedSubject": "add selectable `Spinner` variants with DS config defaults",
+                "type": "added",
+                "body": [
+                  "add `SpinnerVariant` enum with `RING` and the 46 `svg-spinners` icons",
+                  "add `variant` and `useOpacity` props to `Spinner`, falling back to `RING` if the icon fails",
+                  "render icon variants as inline `SVG` and strip static opacity when `useOpacity` is `false`",
+                  "add `spinner.variant` and `spinner.useOpacity` to `useDSConfig` and `DesignSystemConfig`",
+                  "add `spinnerVariant` and `spinnerUseOpacity` props to `ActionButton`, `Loading` and `QRCode`",
+                  "add `spinnerVariant` and `spinnerUseOpacity` props to `TreeView` and the dropdown components",
+                  "add `text-*` spinner color to `ActionButton` so icon variants match the button style",
+                  "add `@iconify-json/svg-spinners` and `@iconify/vue` dependencies and bundle `svg-spinners`",
+                  "add tests for variants, DS config defaults, opacity and prop forwarding"
+                ],
+                "affected": [
+                  "ActionButton",
+                  "DropdownCombobox",
+                  "DropdownSelect",
+                  "QRCode",
+                  "Loading",
+                  "Spinner",
+                  "TreeView",
+                  "useDSConfig"
+                ],
+                "prNumber": null,
+                "url": "https://github.com/imaginario27/air-ui/commit/10dcb0332d78f82b89b46bb5608be101067984a8",
+                "prUrl": null
+              }
+            ],
+            "groups": {
+              "added": 2,
+              "fixed": 0,
+              "changed": 0,
+              "maintenance": 0,
+              "breaking": 0
+            }
+          }
+        },
         {
           "packageName": "@imaginario27/air-ui-ds",
           "version": "1.35.0",
