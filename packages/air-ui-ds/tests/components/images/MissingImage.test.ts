@@ -23,6 +23,8 @@ describe('MissingImage.vue', () => {
 
     it('uses semantic tokens and forwards extra classes', () => {
         const wrapper = factory({}, { class: 'w-[20px] h-[20px] rounded' })
-        expect(wrapper.classes()).toEqual(expect.arrayContaining(['bg-background-neutral-subtle', 'rounded', 'w-[20px]']))
+        expect(wrapper.classes()).toEqual(
+            expect.arrayContaining(['bg-background-neutral-subtle', 'rounded', 'w-[20px]']),
+        )
     })
 })

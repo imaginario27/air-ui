@@ -184,6 +184,21 @@ describe('CompactHeader.vue', () => {
         expect(wrapper.findComponent({ name: 'NavMenu' }).exists()).toBe(true)
     })
 
+    it.each([
+        [undefined, 'justify-end'],
+        [Align.LEFT, 'justify-start'],
+        [Align.CENTER, 'justify-center'],
+        [Align.RIGHT, 'justify-end'],
+    ])('aligns the NavMenu with navMenuAlign=%s', (navMenuAlign, expected) => {
+        const wrapper = factory({
+            navMenuItems: [{ text: 'Home', to: '/' }],
+            ...(navMenuAlign && { navMenuAlign }),
+        })
+
+        const navWrapper = wrapper.findComponent({ name: 'NavMenu' }).element.parentElement
+        expect(navWrapper?.classList.contains(expected)).toBe(true)
+    })
+
     it('renders user menu when userFullname and userMenuItems are provided', () => {
         const wrapper = factory({
             userFullname: 'Jane Doe',
@@ -339,17 +354,17 @@ describe('CompactHeader.vue', () => {
         expect(navMenu.props('prefetchOn')).toBe(PrefetchOn.INTERACTION)
     })
 
-    it('forwards zIndex to NavMenu', () => {
+    it('forwards zIndex plus one to NavMenu', () => {
         const wrapper = factory({
             navMenuItems: [{ text: 'Home', to: '/' }],
             zIndex: '100',
         })
 
         const navMenu = wrapper.findComponent({ name: 'NavMenu' })
-        expect(navMenu.props('dropdownZIndex')).toBe('100')
+        expect(navMenu.props('dropdownZIndex')).toBe('101')
     })
 
-    it('forwards zIndex to the user DropdownMenu', () => {
+    it('forwards zIndex plus one to the user DropdownMenu', () => {
         const wrapper = factory({
             userFullname: 'Jane Doe',
             userMenuItems: [{ text: 'Profile', to: '/profile' }],
@@ -357,7 +372,7 @@ describe('CompactHeader.vue', () => {
         })
 
         const dropdown = wrapper.findComponent({ name: 'DropdownMenu' })
-        expect(dropdown.props('zIndex')).toBe('100')
+        expect(dropdown.props('zIndex')).toBe('101')
     })
 
     it('forwards prefetchOn to user DropdownMenuItem entries', () => {
